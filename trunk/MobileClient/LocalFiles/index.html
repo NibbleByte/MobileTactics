@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=320, user-scalable=no">
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>Mobile Tactics</title>
+		
+		<!-- ==========	Render ====================== -->
+			<link rel="stylesheet" href="Assets/Render/GameWorldRenderer.css" type="text/css" media="screen">
+			<link rel="stylesheet" href="Assets/Main.css" type="text/css" media="screen">
+		
+	</head>
+	
+	<body>
+		<div id="Screen">
+			<div id="GameWorldMap">
+			</div>
+		</div>		
+
+		
+		<!-- ==========	Core ====================== -->
+		<!-- 3rd Party -->
+			<script type="text/javascript" src="Javascript/Core/Engine/3rdParty/jquery-1.9.1.js"></script>
+			<script type="text/javascript" src="Javascript/Core/Engine/3rdParty/underscore.js"></script>
+		
+		<!-- Javascripts -->
+			<script type="text/javascript" src="Javascript/Core/Engine/EntitySystem.js"></script>
+			
+			<script type="text/javascript" src="Javascript/Core/Engine/Components/CTile.js"></script>
+			<script type="text/javascript" src="Javascript/Core/Engine/Components/CTilePlaceable.js"></script>
+			<script type="text/javascript" src="Javascript/Core/Engine/Components/CWorld.js"></script>
+			
+			<script type="text/javascript" src="Javascript/Core/Engine/GameWorld.js"></script>
+			<script type="text/javascript" src="Javascript/Core/Engine/Utils/Enums.js"></script>
+			<script type="text/javascript" src="Javascript/Core/Engine/Utils/Subscriber.js"></script>
+			
+			<script type="text/javascript" src="Javascript/Core/Gameplay/TerrainType.js"></script>
+			<script type="text/javascript" src="Javascript/Core/Gameplay/GameExecutor.js"></script>
+			
+			<script type="text/javascript" src="Javascript/Core/Gameplay/Components/CActionMove.js"></script>
+			<script type="text/javascript" src="Javascript/Core/Gameplay/Components/CActionAttack.js"></script>
+			
+			
+			
+		<!-- ==========	Mobile Client ====================== -->
+		<!-- 3rd Party -->
+			<script type="text/javascript" charset="utf-8" src="Javascript/3rdParty/wormhole.js"></script>
+			<script type="text/javascript" charset="utf-8" src="Javascript/3rdParty/iscroll.js"></script> <!-- TODO: Use LITE, min version -->
+		
+		<!-- Javascripts -->
+			<script type="text/javascript" src="Javascript/Render/TileGlobals.js"></script>
+			
+			<script type="text/javascript" src="Javascript/Render/Components/CTileRendering.js"></script>
+			<script type="text/javascript" src="Javascript/Render/Components/CTilePlaceableRendering.js"></script>
+			
+			<script type="text/javascript" src="Javascript/Render/WorldLayers.js"></script>
+			<script type="text/javascript" src="Javascript/Render/GameWorldRenderer.js"></script>
+			<script type="text/javascript" src="Javascript/PlayerController.js"></script>
+			
+			<script type="text/javascript" src="Javascript/Main.js"></script>
+			
+		<!-- Mockup & Unit tests -->
+			<script type="text/javascript" charset="utf-8" src="Javascript/wormhole-Mockup.js"></script>
+	</body>
+</html>
