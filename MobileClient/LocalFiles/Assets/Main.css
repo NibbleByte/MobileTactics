@@ -1,0 +1,44 @@
+html, body
+{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #FFFFFF;
+	font-family: sans-serif;
+	text-decoration: none;
+
+	/* Disable text selection. */
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+	
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+#Screen
+{
+	border: solid 1px blue;
+	overflow: hidden;
+	position: relative;
+	
+	/* Debug size */
+	width: 320px;
+	height: 420px;
+	
+	
+	margin: auto;
+}
+
+#GameWorldMap
+{
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+}
