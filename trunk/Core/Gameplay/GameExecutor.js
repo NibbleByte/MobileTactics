@@ -10,19 +10,7 @@ var GameExecutor = function (world) {
 	
 	this.createObjectAt = function (tile) {
 		
-		// DEBUG
-		var obj = new Entity();
-		EntityManager.addComponents(obj, CTilePlaceable);
-		EntityManager.addComponents(obj, CActionMove);
-		EntityManager.addComponents(obj, CActionAttack);
-		
-		var ind = Math.floor(Math.random() * 3);
-		switch (ind)
-		{
-			case 0: obj.skin('WarMiner'); break;
-			case 1: obj.skin('RhinoTank'); break;
-			case 2: obj.skin('TeslaTrooper'); break;
-		};
+		var obj = UnitsFactory.createGrunt();
 		
 		m_world.registerPlaceableAt(obj, tile);
 		
