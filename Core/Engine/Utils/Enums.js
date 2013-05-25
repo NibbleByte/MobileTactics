@@ -11,5 +11,15 @@ var Enums = {
 			enumObj[i] = counter;
 			counter++;
 		}
+	},
+	
+	isValidValue: function(enumClass, enumValue) {
+		for(var key in enumClass) {
+			if (enumClass[key] == enumValue) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 };

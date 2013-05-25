@@ -3,7 +3,18 @@
 var CTileRendering = function (go_this) {
 	var self = this;
 	
-	this.UMessage('renderAttach', function (worldLayers) {
+	// 
+	// Private
+	//
+	var clearRender = function () {
+		m_$renderedTile.detach();
+	}
+	
+	
+	//
+	// Public messages
+	//	
+	this.MMessage('renderAttach', function (worldLayers) {
 		var row = go_this.row();
 		var column = go_this.column();
 		
@@ -45,9 +56,14 @@ var CTileRendering = function (go_this) {
 				};
 	});
 	
-	this.UMessage('clearRender', function () {
-		m_$renderedTile.detach();
+	this.UMessage('getRenderedCenterXY', function () {
+		return {
+				y: parseFloat(m_$renderedTile.css('top')) + GTile.TILE_HEIGHT / 2,
+				x: parseFloat(m_$renderedTile.css('left')) + GTile.TILE_WIDTH / 2
+				};
 	});
+	
+	this.MMessage('clearRender', clearRender);
 	
 	this.UMessage('unSelect', function () {
 		$(m_$renderedTile).removeClass(CLASSES.TILE_SELECTED);
@@ -62,7 +78,7 @@ var CTileRendering = function (go_this) {
 	});
 	
 	this.MMessage('destroy', function () {
-		go_this.clearRender(); 
+		clearRender(); 
 	});
 	
 	//
