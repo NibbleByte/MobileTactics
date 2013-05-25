@@ -8,7 +8,7 @@ var WorldLayers = function (layersContainer) {
 	var self = this;
 	
 	this.attachTo = function (layerType, element) {
-		console.assert(typeof layerType == "number");
+		console.assert(Enums.isValidValue(WorldLayers.LayerTypes, layerType));
 		
 		m_layers[layerType].append(element);
 	}
