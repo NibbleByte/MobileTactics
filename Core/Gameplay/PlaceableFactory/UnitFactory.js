@@ -24,6 +24,7 @@ var UnitsFactory = {
 		EntityManager.addComponents(obj, CActionMove);
 		EntityManager.addComponents(obj, CActionAttack);
 		
+		EntityManager.addComponents(obj, CUnit);
 		EntityManager.addComponents(obj, CEffects);
 		//EntityManager.addComponents(obj, CStatistics);
 		
