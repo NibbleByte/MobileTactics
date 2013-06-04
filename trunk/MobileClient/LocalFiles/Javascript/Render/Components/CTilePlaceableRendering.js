@@ -17,7 +17,7 @@ var CTilePlaceableRendering = function (go_this) {
 	//
 	this.MMessage('renderAttach', function (worldLayers) {
 		
-		worldLayers.attachTo(WorldLayers.LayerTypes.Units, m_$renderedElement);
+		worldLayers.attachTo(go_this.getPlaceableLayer(), m_$renderedElement);
 		
 		m_isRendered = true;
 		
