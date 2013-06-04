@@ -13,6 +13,10 @@ var WorldLayers = function (layersContainer) {
 		m_layers[layerType].append(element);
 	}
 	
+	this.detach = function (element) {
+		$(element).detach();
+	}
+	
 	//
 	// Private
 	//
@@ -29,7 +33,7 @@ var WorldLayers = function (layersContainer) {
 WorldLayers.LayerTypes = {
 	Terrain: 0,
 	Buildings: 0,
-	Selections: 0,
+	Highlights: 0,
 	Units: 0,
 	Statistics: 0,
 };

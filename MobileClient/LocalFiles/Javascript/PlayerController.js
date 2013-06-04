@@ -95,9 +95,9 @@ var PlayerController = function (worldRenderer) {
 	var selectGOActions = function (actions) {
 		m_selectedGOActions = actions;
 		
-		iterateOverActionTiles(m_selectedGOActions, function (tile) {
-    			tile.select();
-    		});
+		iterateOverActionTiles(m_selectedGOActions, function (tile, action) {
+				tile.highlight(action);
+			});
 	}
 	
 	var getSelectedGOActionTile = function (selectedTile) {
@@ -116,12 +116,12 @@ var PlayerController = function (worldRenderer) {
 	
 	var clearSelectedGOActions = function () {
 		if (isGOSelected()){
-	    	iterateOverActionTiles(m_selectedGOActions, function (tile) {
-	    			tile.unSelect();
-	    		});
-	    	
-	    	m_selectedGOActions = null;
-	    }
+			iterateOverActionTiles(m_selectedGOActions, function (tile) {
+					tile.unHighlight();
+				});
+			
+			m_selectedGOActions = null;
+		}
 	}
 	
 	var iterateOverActionTiles = function (actions, handler) {

@@ -52,7 +52,8 @@ var GameWorldRenderer = function (world, holderElement) {
 				var tile = m_world.getTile(i, j);
 				
 				if (tile) {
-					var $renderedTile = $(tile.renderAttach(m_worldLayers));
+					tile.renderAttach(m_worldLayers);
+					var $renderedTile = tile.getRenderedTile();
 					var x = parseFloat($renderedTile.css('left'));
 					var y = parseFloat($renderedTile.css('top'));
 					
