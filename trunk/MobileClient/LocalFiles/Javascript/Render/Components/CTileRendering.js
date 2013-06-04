@@ -45,7 +45,9 @@ var CTileRendering = function (go_this) {
 			m_$renderedTile
 			.css('background', 'url("Assets/Render/Images/hex_bluesh.png") no-repeat')
 			.css('background-size', '100% 100%');
-		
+	});
+	
+	this.UMessage('getRenderedTile', function () {
 		return m_$renderedTile;
 	});
 	
@@ -84,6 +86,7 @@ var CTileRendering = function (go_this) {
 	//
 	// Tiles
 	//
+	// TODO: Move to static
 	var CLASSES = {
 			TILE_SELECTED: 'tile_selected',
 	}

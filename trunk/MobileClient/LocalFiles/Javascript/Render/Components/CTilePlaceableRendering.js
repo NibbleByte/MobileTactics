@@ -22,8 +22,6 @@ var CTilePlaceableRendering = function (go_this) {
 		m_isRendered = true;
 		
 		go_this.skin(m_skin);
-				
-		return m_$renderedElement;
 	});
 	
 	this.UMessage('tile', function tileMsg(tile) {
