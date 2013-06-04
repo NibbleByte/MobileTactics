@@ -23,8 +23,6 @@ var CTileHighlight = function (go_this) {
 		.css('top', coords.y + 'px')
 	});
 	
-	this.MMessage('clearRender', clearRender);
-	
 	
 	// Change highlight
 	this.UMessage('highlight', function (action) {
@@ -76,10 +74,8 @@ var CTileHighlight = function (go_this) {
 	});
 	
 	
-	
-	this.MMessage('destroy', function () {
-		clearRender();
-	});
+	this.MMessage('clearRender', clearRender);
+	this.MMessage('destroy', clearRender);
 	
 	//
 	// Classes

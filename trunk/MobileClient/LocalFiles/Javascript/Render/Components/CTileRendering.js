@@ -65,7 +65,6 @@ var CTileRendering = function (go_this) {
 				};
 	});
 	
-	this.MMessage('clearRender', clearRender);
 	
 	this.UMessage('unSelect', function () {
 		$(m_$renderedTile).removeClass(CLASSES.TILE_SELECTED);
@@ -79,9 +78,8 @@ var CTileRendering = function (go_this) {
 		return $(m_$renderedTile).hasClass(CLASSES.TILE_SELECTED);
 	});
 	
-	this.MMessage('destroy', function () {
-		clearRender(); 
-	});
+	this.MMessage('clearRender', clearRender);
+	this.MMessage('destroy', clearRender);
 	
 	//
 	// Tiles
