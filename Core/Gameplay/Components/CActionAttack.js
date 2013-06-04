@@ -23,8 +23,9 @@ var CActionAttack = function (go_this) {
 	});
 	
 	this.executeAction = function (action) {
-		// TODO: Modify statistics
+		// TODO: Modify statistics properly
 		console.log("Attack at: " + action.appliedTile.row() + ", " + action.appliedTile.column());
+		action.appliedTile.getPlacedObjects()[0].addHealth(-1);
 	}
 	
 	//

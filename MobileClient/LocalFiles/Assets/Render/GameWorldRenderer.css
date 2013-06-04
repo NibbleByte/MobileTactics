@@ -23,13 +23,3 @@
 {
 	background: url("Images/hex_selected.png") no-repeat !important;
 }
-
-.placeable
-{
-	position: absolute;
-}
-
-.placeable_image
-{
-	position: relative;
-}

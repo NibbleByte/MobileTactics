@@ -25,9 +25,10 @@ var UnitsFactory = {
 		EntityManager.addComponents(obj, CActionAttack);
 		
 		EntityManager.addComponents(obj, CUnit);
-		EntityManager.addComponents(obj, CEffects);
+		//EntityManager.addComponents(obj, CEffects);
 		//EntityManager.addComponents(obj, CStatistics);
 		
+		obj.finalyzeAdd();
 		
 		// DEBUG: Initialize
 		obj.baseStatistics(this.statisticsGrunt);

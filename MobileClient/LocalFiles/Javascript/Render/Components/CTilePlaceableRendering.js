@@ -55,10 +55,7 @@ var CTilePlaceableRendering = function (go_this) {
 	});
 	
 	this.MMessage('clearRender', clearRender);
-		
-	this.MMessage('destroy', function () {
-		clearRender(); 
-	});
+	this.MMessage('destroy', clearRender);
 	
 	//
 	// Private
