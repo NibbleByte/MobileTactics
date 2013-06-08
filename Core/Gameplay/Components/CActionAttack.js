@@ -24,8 +24,11 @@ var CActionAttack = function (go_this) {
 	
 	this.executeAction = function (action) {
 		// TODO: Modify statistics properly
-		console.log("Attack at: " + action.appliedTile.row() + ", " + action.appliedTile.column());
-		action.appliedTile.getPlacedObjects()[0].addHealth(-1);
+		action.appliedTile.getPlacedObjects()[0].addHealth(go_this.getStatistics()['Attack']);
+		
+		console.log("Attack at: " + action.appliedTile.row() + ", " + action.appliedTile.column()
+				+ ' Damage: ' + go_this.getStatistics()['Attack']
+				+ ' Health: ' + go_this.health());
 	}
 	
 	//
