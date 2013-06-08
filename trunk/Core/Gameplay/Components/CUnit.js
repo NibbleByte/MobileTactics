@@ -15,6 +15,8 @@ var CUnit = function (go_this) {
 	});
 	
 	this.UMessage('addHealth', function (health) {
+		console.assert(health != undefined);
+		
 		return go_this.health(go_this.health() + health);
 	});
 	
