@@ -24,7 +24,7 @@ var CActionAttack = function (go_this) {
 	
 	this.executeAction = function (action) {
 		// TODO: Modify statistics properly
-		action.appliedTile.getPlacedObjects()[0].addHealth(go_this.getStatistics()['Attack']);
+		action.appliedTile.getPlacedObjects()[0].addHealth(-go_this.getStatistics()['Attack']);
 		
 		console.log("Attack at: " + action.appliedTile.row() + ", " + action.appliedTile.column()
 				+ ' Damage: ' + go_this.getStatistics()['Attack']
