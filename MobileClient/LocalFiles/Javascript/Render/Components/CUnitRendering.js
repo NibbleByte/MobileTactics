@@ -44,14 +44,14 @@ var CUnitRendering = function (go_this) {
 		
 		var newHealth = self.getNextBid(go_this, healthMsg)(health);
 		
-		m_$renderedHealth.text(newHealth);
+		m_$renderedHealth.text(newHealth.toPrecision(2));
 		
 		return newHealth
 	}, 10);
 	
 	
 	this.MMessage('finalyzeAdd', function () {
-		m_$renderedHealth.text(go_this.health());		 
+		m_$renderedHealth.text(go_this.health().toPrecision(2));		 
 	});
 	
 	// 

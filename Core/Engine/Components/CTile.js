@@ -70,12 +70,25 @@ var CTile = function (go_this) {
 	
 	
 	//
+	// Algorithms
+	//
+	this.UMessage('movementCostLeft', function (costLeft) {
+		if (costLeft == undefined) {
+			return m_movementCostLeft;
+		} else {
+			m_movementCostLeft = costLeft;
+		}
+	});
+	
+	
+	//
 	// Private
 	//
 	var m_row = null;
 	var m_column = null;
 	
 	var m_placedObjects = [];
+	var m_movementCostLeft = 0;
 };
 
 EntityManager.registerComponent('CTile', CTile);

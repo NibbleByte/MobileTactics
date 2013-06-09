@@ -14,6 +14,7 @@ var UnitsFactory = {
 		Attack: 2,
 		MaxHealth: 10,
 		Defence: 3,
+		Movement: 3,
 	},
 	
 	createGrunt: function () {
@@ -25,10 +26,6 @@ var UnitsFactory = {
 		EntityManager.addComponents(obj, CActionAttack);
 		
 		EntityManager.addComponents(obj, CUnit);
-		//EntityManager.addComponents(obj, CEffects);
-		//EntityManager.addComponents(obj, CStatistics);
-		
-		obj.finalyzeAdd();
 		
 		// DEBUG: Initialize
 		obj.baseStatistics(this.statisticsGrunt);
