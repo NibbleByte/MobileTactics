@@ -100,7 +100,6 @@ var GameWorld = function () {
 	//
 	
 	var setTile = function (tile) {		
-		tile.world(self);
 		var row = tile.row();
 		var column = tile.column();
 		
@@ -147,6 +146,8 @@ var GameWorld = function () {
 		tile.placeObject(placeable);
 		
 		self.trigger(GameWorld.Events.PLACEABLE_REGISTERED, placeable);
+		
+		placeable.finalyzeAdd();
 	}
 	
 	this.unregisterPlaceable = function (placeable) {

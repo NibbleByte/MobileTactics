@@ -23,5 +23,4 @@ var CWorld = function (go_this) {
 };
 
 EntityManager.registerComponent('CWorld', CWorld);
-EntityManager.addComponentDependencies(CTile, CWorld);
 EntityManager.addComponentDependencies(CTilePlaceable, CWorld);
