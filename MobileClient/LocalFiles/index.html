@@ -7,6 +7,7 @@
 		
 		<!-- ==========	Render ====================== -->
 			<link rel="stylesheet" href="Assets/Render/GameWorldRenderer.css" type="text/css" media="screen">
+			<link rel="stylesheet" href="Assets/Render/TileRenderingSystem.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/Render/Placeables.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/Render/TileHighlight.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/Main.css" type="text/css" media="screen">
@@ -26,15 +27,23 @@
 			<script type="text/javascript" src="Javascript/Core/Engine/3rdParty/underscore.js"></script>
 		
 		<!-- Javascripts -->
-			<script type="text/javascript" src="Javascript/Core/Engine/EntitySystem.js"></script>
+			<script type="text/javascript" src="Javascript/Core/Engine/Utils/Enums.js"></script>
+			<script type="text/javascript" src="Javascript/Core/Engine/Utils/Subscriber.js"></script>
 			
+		<!-- ECS system -->
+			<script type="text/javascript" src="Javascript/Core/Engine/ECS/Entity.js"></script>
+			<script type="text/javascript" src="Javascript/Core/Engine/ECS/EntityWorld.js"></script>
+			<script type="text/javascript" src="Javascript/Core/Engine/ECS/EntityManager.js"></script>
+			<script type="text/javascript" src="Javascript/Core/Engine/ECS/EntityComponentFilter.js"></script>
+			<script type="text/javascript" src="Javascript/Core/Engine/ECS/SampleUsage.js"></script>
+			
+			
+		<!-- Engine/Gameplay -->
 			<script type="text/javascript" src="Javascript/Core/Engine/Components/CTile.js"></script>
 			<script type="text/javascript" src="Javascript/Core/Engine/Components/CTilePlaceable.js"></script>
 			<script type="text/javascript" src="Javascript/Core/Engine/Components/CWorld.js"></script>
 			
 			<script type="text/javascript" src="Javascript/Core/Engine/GameWorld.js"></script>
-			<script type="text/javascript" src="Javascript/Core/Engine/Utils/Enums.js"></script>
-			<script type="text/javascript" src="Javascript/Core/Engine/Utils/Subscriber.js"></script>
 			
 			<script type="text/javascript" src="Javascript/Core/Gameplay/TerrainType.js"></script>
 			<script type="text/javascript" src="Javascript/Core/Gameplay/GameExecutor.js"></script>
@@ -42,11 +51,12 @@
 			
 			<script type="text/javascript" src="Javascript/Core/Gameplay/PlaceableFactory/UnitFactory.js"></script>
 			
+		<!--
 			<script type="text/javascript" src="Javascript/Core/Gameplay/Components/CStatistics.js"></script>
 			<script type="text/javascript" src="Javascript/Core/Gameplay/Components/CEffects.js"></script>
 			<script type="text/javascript" src="Javascript/Core/Gameplay/Components/CActionMove.js"></script>
 			<script type="text/javascript" src="Javascript/Core/Gameplay/Components/CActionAttack.js"></script>
-			<script type="text/javascript" src="Javascript/Core/Gameplay/Components/CUnit.js"></script>
+		-->	<script type="text/javascript" src="Javascript/Core/Gameplay/Components/CUnit.js"></script>
 			
 			
 			
@@ -59,13 +69,15 @@
 			<script type="text/javascript" src="Javascript/Render/TileGlobals.js"></script>
 			
 			<script type="text/javascript" src="Javascript/Render/Components/CTileRendering.js"></script>
-			<script type="text/javascript" src="Javascript/Render/Components/CTileHighlight.js"></script>
 			<script type="text/javascript" src="Javascript/Render/Components/CTilePlaceableRendering.js"></script>
 			<script type="text/javascript" src="Javascript/Render/Components/CUnitRendering.js"></script>
 			
 			<script type="text/javascript" src="Javascript/Render/WorldLayers.js"></script>
 			<script type="text/javascript" src="Javascript/Render/GameWorldRenderer.js"></script>
+			<script type="text/javascript" src="Javascript/Render/Systems/TileRenderingSystem.js"></script>
+			<script type="text/javascript" src="Javascript/Render/Systems/TilePlaceableRenderingSystem.js"></script>
 			<script type="text/javascript" src="Javascript/PlayerController.js"></script>
+			
 			
 			<script type="text/javascript" src="Javascript/Main.js"></script>
 			

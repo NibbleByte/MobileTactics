@@ -1,77 +1,37 @@
 "use strict";
 
-var CTilePlaceableRendering = function (go_this) {
+var CTilePlaceableRendering = function () {
 	var self = this;
 	
-	// 
-	// Private
-	//
-	var clearRender = function () {
-		m_$renderedElement.detach();
-		m_isRendered = false;
-	}
+	this.skin = '';
 	
-	
-	//
-	// Public messages
-	//
-	this.MMessage('renderAttach', function (worldLayers) {
-		
-		worldLayers.attachTo(go_this.getPlaceableLayer(), m_$renderedElement);
-		
-		m_isRendered = true;
-		
-		go_this.skin(m_skin);
-	});
-	
-	this.UMessage('tile', function tileMsg(tile) {
-		// Move rendered object to new tile.
-		if (tile) {
-			var coords = tile.getRenderedCenterXY();
-			m_$renderedElement
-			.css('top', coords.y)
-			.css('left', coords.x);
-		}
-		
-		
-		return self.getNextBid(go_this, tileMsg)(tile);
-	}, 10);
-	
-	// Setter/getter
-	this.UMessage('skin', function (skin) {
-		if (skin != undefined) {
-			m_skin = skin;
-			
-			// Needed, because image has no width/height if not attached to DOM.
-			if (m_isRendered) {
-				m_$image 
-				.hide()
-				.attr("src","Assets/Render/Images/" + m_skin + ".png");
-			}
-			
-		} else {
-			return m_skin;
-		}
-	});
-	
-	this.MMessage('clearRender', clearRender);
-	this.MMessage('destroy', clearRender);
-	
-	//
-	// Private
-	//
-	var m_isRendered = false;
-	var m_$renderedElement = $('<div class="placeable" />');
-	var m_$image = $('<img class="placeable_image" />')
-		.appendTo(m_$renderedElement)
+	this.$renderedPlaceable = $('<div class="placeable" />');
+	this.$image = $('<img class="placeable_image" />')
+		.appendTo(this.$renderedPlaceable)
 		// TODO: Having handlers on each object placed on map, might be slow. Maybe use .one.
 		.load(function() {
-			m_$image.css('left', -m_$image.width() / 2);
-			m_$image.css('top', -m_$image.height() / 2);
-			m_$image.show();
-	    });
-	var m_skin = '';
+			self.$image.css('left', -self.$image.width() / 2);
+			self.$image.css('top', -self.$image.height() / 2);
+			self.$image.show();
+		});
 };
 
-EntityManager.registerComponent('CTilePlaceableRendering', CTilePlaceableRendering);
-EntityManager.addComponentDependencies(CTilePlaceable, CTilePlaceableRendering);
+ECS.EntityManager.registerComponent('CTilePlaceableRendering', CTilePlaceableRendering);
+
+
+
+//
+//Short-cuts
+//	
+CTilePlaceableRendering.prototype.renderAt = function (x, y) {
+	this.$renderedPlaceable
+	.css('top', y)
+	.css('left', x);
+};
+
+// NOTE: call this after attached to DOM, or else the image won't have width/height. 
+CTilePlaceableRendering.prototype.refreshSkin = function () {	
+	this.$image 
+	.hide()
+	.attr("src","Assets/Render/Images/" + this.skin + ".png");
+};

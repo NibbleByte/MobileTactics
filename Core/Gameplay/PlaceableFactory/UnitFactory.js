@@ -17,8 +17,17 @@ var UnitsFactory = {
 		Movement: 3,
 	},
 	
-	createGrunt: function () {
+	createGrunt: function (eworld) {
 		
+		var obj = eworld.createEntity();
+		obj.addComponent(CWorld);
+		obj.addComponent(CTilePlaceable);
+		obj.addComponent(CUnit);
+		
+		obj.addComponent(CTilePlaceableRendering);
+		obj.addComponent(CUnitRendering);
+		
+		/*
 		// Components
 		var obj = new Entity();
 		EntityManager.addComponents(obj, CTilePlaceable);
@@ -38,14 +47,14 @@ var UnitsFactory = {
 		effect.addStatisticModifier('Attack', -30);
 		effect.timeLeft = 2;
 		obj.addEffect(effect);
-		
+		*/
 		
 		var ind = Math.floor(Math.random() * 3);
 		switch (ind)
 		{
-			case 0: obj.skin('WarMiner'); break;
-			case 1: obj.skin('RhinoTank'); break;
-			case 2: obj.skin('TeslaTrooper'); break;
+			case 0: obj.CTilePlaceableRendering.skin = 'WarMiner'; break;
+			case 1: obj.CTilePlaceableRendering.skin = 'RhinoTank'; break;
+			case 2: obj.CTilePlaceableRendering.skin = 'TeslaTrooper'; break;
 		};
 		
 		lastCreated = obj;

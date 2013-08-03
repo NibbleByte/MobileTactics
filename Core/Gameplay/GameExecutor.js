@@ -7,10 +7,10 @@
 var GameExecutor = function (world) {
 	console.assert(world instanceof GameWorld, "GameWorld is required.");
 	
-	
+	// TODO: REFACTOR - because of createObjectAt we have GameWorld dependency. Move this out!
 	this.createObjectAt = function (tile) {
 		
-		var obj = UnitsFactory.createGrunt();
+		var obj = UnitsFactory.createGrunt(world.getEntityWorld());
 		
 		m_world.registerPlaceableAt(obj, tile);
 		
@@ -26,7 +26,7 @@ var GameExecutor = function (world) {
 	
 	
 	
-	
+	// TODO: REFACTOR
 	this.getAvailableActions = function(tile) {
 		var availableActions = [];
 		var objects = tile.getPlacedObjects();
@@ -60,6 +60,8 @@ var GameExecutor = function (world) {
 	// 
 	var m_world = world;
 }
+
+ECS.EntityManager.registerSystem('GameExecutor', GameExecutor);
 
 var GameAction = function (componentId, go) {
 	this.componentId = componentId;			// The responsible component.
