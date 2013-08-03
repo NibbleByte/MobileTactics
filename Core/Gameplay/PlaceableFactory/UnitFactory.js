@@ -20,7 +20,6 @@ var UnitsFactory = {
 	createGrunt: function (eworld) {
 		
 		var obj = eworld.createEntity();
-		obj.addComponent(CWorld);
 		obj.addComponent(CTilePlaceable);
 		obj.addComponent(CUnit);
 		

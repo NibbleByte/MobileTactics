@@ -150,8 +150,6 @@ var GameWorld = function () {
 	//
 	this.registerPlaceableAt = function (placeable, tile) {
 		
-		placeable.CWorld.world = self;
-		
 		m_placeables.push(placeable);
 		
 		m_eworld.trigger(GameWorld.Events.PLACEABLE_REGISTERED, placeable);
@@ -170,8 +168,6 @@ var GameWorld = function () {
 		
 		placeable.CTilePlaceable.tile.removeObject(placeable);
 		m_placeables.splice(foundIndex, 1);
-		
-		placeable.CWorld.world = null;
 		
 		return true;
 	}
