@@ -1,4 +1,6 @@
 //===============================================
+// GameWorld entity system
+//
 // Contains current state of this world.
 //===============================================
 "use strict";
@@ -12,9 +14,18 @@ var GameWorld = function () {
 	var m_columns = 0;
 	var m_rows = 0;
 	var m_tiles = [];
-		
-	// Events
-	Subscriber.makeSubscribable(this);
+	var m_eworld = null;
+	
+	//
+	// Entity system initialize
+	//
+	this.onAdded = function () {
+		m_eworld = this.getEntityWorld();
+	}
+	
+	this.onRemoved = function () {
+		m_eworld = null;
+	}
 	
 	//
 	// Handle tiles
@@ -40,11 +51,11 @@ var GameWorld = function () {
 				var tile = self.getTile(i, j);
 				
 				if (tile) {
-					var row = tile.row();
-					var column = tile.column();
+					var row = tile.CTile.row;
+					var column = tile.CTile.column;
 					tile.destroy();					
 					
-					self.trigger(GameWorld.Events.TILE_REMOVED, {row: row, column: column});
+					m_eworld.trigger(GameWorld.Events.TILE_REMOVED, {row: row, column: column});
 				}
 			}
 		}
@@ -55,7 +66,7 @@ var GameWorld = function () {
 		m_columns = 0;
 		m_tiles = [];
 		
-		self.trigger(GameWorld.Events.SIZE_CHANGED, {
+		m_eworld.trigger(GameWorld.Events.SIZE_CHANGED, {
 			rows: m_rows,
 			columns: m_columns,
 		});
@@ -70,8 +81,8 @@ var GameWorld = function () {
 	}
 	
 	this.getAdjacentTiles = function(tile) {
-		var row = tile.row();
-		var column = tile.column();
+		var row = tile.CTile.row;
+		var column = tile.CTile.column;
 		
 		var adjacentTiles = [];
 		
@@ -100,8 +111,8 @@ var GameWorld = function () {
 	//
 	
 	var setTile = function (tile) {		
-		var row = tile.row();
-		var column = tile.column();
+		var row = tile.CTile.row;
+		var column = tile.CTile.column;
 		
 		console.assert(row >= 0);
 		console.assert(column >= 0);
@@ -111,7 +122,7 @@ var GameWorld = function () {
 		
 		m_tiles[row][column] = tile;
 		
-		self.trigger(GameWorld.Events.TILE_CHANGED, tile);
+		m_eworld.trigger(GameWorld.Events.TILE_CHANGED, tile);
 		
 		// Resize grid
 		var resized = false;
@@ -125,7 +136,7 @@ var GameWorld = function () {
 		}
 		
 		if (resized) {
-			self.trigger(GameWorld.Events.SIZE_CHANGED, {
+			m_eworld.trigger(GameWorld.Events.SIZE_CHANGED, {
 				rows: m_rows,
 				columns: m_columns,
 			});
@@ -139,39 +150,48 @@ var GameWorld = function () {
 	//
 	this.registerPlaceableAt = function (placeable, tile) {
 		
-		placeable.world(self);
+		placeable.CWorld.world = self;
 		
 		m_placeables.push(placeable);
 		
-		tile.placeObject(placeable);
+		m_eworld.trigger(GameWorld.Events.PLACEABLE_REGISTERED, placeable);
 		
-		self.trigger(GameWorld.Events.PLACEABLE_REGISTERED, placeable);
-		
-		placeable.finalyzeAdd();
+		self.place(placeable, tile);
 	}
 	
 	this.unregisterPlaceable = function (placeable) {
-		
 		
 		var foundIndex = m_placeables.indexOf(placeable);
 		
 		if (foundIndex == -1)
 			return false;
 		
-		self.trigger(GameWorld.Events.PLACEABLE_UNREGISTERED, placeable);
+		m_eworld.trigger(GameWorld.Events.PLACEABLE_UNREGISTERED, placeable);
 		
-		placeable.tile().removeObject(placeable);
+		placeable.CTilePlaceable.tile.removeObject(placeable);
 		m_placeables.splice(foundIndex, 1);
 		
-		placeable.world(null);
+		placeable.CWorld.world = null;
 		
 		return true;
 	}
 	
+	this.place = function (placeable, tile) {
+		// Detach from previous tile
+		var oldTile = placeable.CTilePlaceable.tile;
+		if (oldTile) {
+			oldTile.CTile.removeObject(placeable);
+		}
+		
+		placeable.CTilePlaceable.tile = tile;
+		tile.CTile.placedObjects.push(placeable);
+		
+		m_eworld.trigger(GameWorld.Events.PLACEABLE_MOVED, placeable);
+	};
 	
 	this.getAllPlaceables = function () {
 		return m_placeables;
-	}
+	};
 	
 	this.getPlaceablesInArea = function (tileCenter, radius, excludePlaceable) {
 		var placeables = [];
@@ -179,7 +199,7 @@ var GameWorld = function () {
 		for(var i = 0; i < m_placeables.length; ++i) {
 			var placeable = m_placeables[i];
 			
-			if (self.getDistance(tileCenter, placeable.tile()) <= radius && placeable != excludePlaceable) {
+			if (self.getDistance(tileCenter, placeable.CTilePlaceable.tile) <= radius && placeable != excludePlaceable) {
 				placeables.push(placeable);
 			}
 		}
@@ -192,12 +212,14 @@ var GameWorld = function () {
 	var m_placeables = [];
 }
 
+ECS.EntityManager.registerSystem('GameWorld', GameWorld);
+
 GameWorld.prototype.getDistance = function (tile1, tile2) {
 	
 	// Distance formula at: http://www.mattpalmerlee.com/2012/04/10/creating-a-hex-grid-for-html5-games-in-javascript/
 	
-	var deltaRows = tile1.row() - tile2.row(); 
-	var deltaColumns = tile1.column() - tile2.column();
+	var deltaRows = tile1.CTile.row - tile2.CTile.row; 
+	var deltaColumns = tile1.CTile.column - tile2.CTile.column;
 	return ((Math.abs(deltaRows) + Math.abs(deltaColumns) + Math.abs(deltaRows - deltaColumns)) / 2);
 }
 
@@ -207,5 +229,6 @@ GameWorld.Events = {
 		TILE_REMOVED: 	"gameworld.tile_removed",	// event, {row, column}
 		SIZE_CHANGED: 	"gameworld.size_changed",	// event, {rows, columns}
 		PLACEABLE_REGISTERED: 		"gameworld.placeable_registered",	// event, placeable
+		PLACEABLE_MOVED: 			"gameworld.placeable_moved",		// event, placeable
 		PLACEABLE_UNREGISTERED: 	"gameworld.placeable_unregistered",	// event, placeable
 }

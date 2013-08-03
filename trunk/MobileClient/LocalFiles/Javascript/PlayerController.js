@@ -8,16 +8,33 @@
 var executor;
 var selected;
 
-var PlayerController = function (worldRenderer) {
-	console.assert(worldRenderer instanceof GameWorldRenderer, "GameWorldRenderer is required.");
-	
-	var m_worldRenderer = worldRenderer;
-	var m_worldRendererSB = worldRenderer.createSubscriber();
-	var m_world = m_worldRenderer.getWorld();
-	var m_executor = new GameExecutor(m_world);
+var PlayerController = function (executor) {
+	var m_eworld = null;
+	var m_eworldSB = null;
+
+	var m_executor = executor;
 	var m_selectedTile = null;
 	
 	var m_selectedGOActions = null;
+	
+	//
+	// Entity system initialize
+	//
+	this.onAdded = function () {
+		m_eworld = this.getEntityWorld();
+		m_eworldSB = m_eworld.createSubscriber();
+		
+		m_eworldSB.subscribe(TileRenderingSystem.Events.TILE_CLICKED, onTileClicked);
+	};
+	
+	this.onRemoved = function () {
+		m_eworldSB.unsubscribeAll();
+		m_eworldSB = null;
+		m_eworld = null;
+		
+		m_selectedTile = null;
+		m_selectedGOActions = null;
+	};
 	
 	// DEBUG: Global access
 	executor = m_executor;
@@ -31,7 +48,7 @@ var PlayerController = function (worldRenderer) {
 		
 		
 		if (m_selectedTile)
-			m_selectedTile.unSelect();
+			m_selectedTile.CTileRendering.unSelect();
 		
 		m_selectedTile = tile;
 		
@@ -40,7 +57,7 @@ var PlayerController = function (worldRenderer) {
 		var selectedAction = null;
 		
 		if (m_selectedTile) {
-			
+			/*
 			if (isGOSelected())
 				selectedAction = getSelectedGOActionTile(m_selectedTile)
 				
@@ -67,8 +84,8 @@ var PlayerController = function (worldRenderer) {
 						selectGOActions(availableGOActions[0].actions);
 					}
 				}
-			
-			m_selectedTile.select();
+			*/
+			m_selectedTile.CTileRendering.select();
 			
 		} else {
 			// Unselect any action tiles
@@ -96,7 +113,8 @@ var PlayerController = function (worldRenderer) {
 		m_selectedGOActions = actions;
 		
 		iterateOverActionTiles(m_selectedGOActions, function (tile, action) {
-				tile.highlight(action);
+				// TODO: REFACTOR
+				//tile.CTileRendering.highlight(action);
 			});
 	}
 	
@@ -117,7 +135,8 @@ var PlayerController = function (worldRenderer) {
 	var clearSelectedGOActions = function () {
 		if (isGOSelected()){
 			iterateOverActionTiles(m_selectedGOActions, function (tile) {
-					tile.unHighlight();
+					// TODO: REFACTOR
+					// tile.CTileRendering.unHighlight();
 				});
 			
 			m_selectedGOActions = null;
@@ -137,10 +156,6 @@ var PlayerController = function (worldRenderer) {
 			}
 		}
 	}
-	
-	
-	//
-	// Initialize
-	//
-	m_worldRendererSB.subscribe(GameWorldRenderer.Events.TILE_CLICKED, onTileClicked);
 }
+
+ECS.EntityManager.registerSystem('PlayerController', PlayerController);

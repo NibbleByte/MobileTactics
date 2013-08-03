@@ -10,16 +10,28 @@ var Subscriber = function (host) {
 	this.subscribes = [];
 }
 
+//
+// Host methods
+//
+
 Subscriber.makeSubscribable = function (obj) {
 	
-	obj.createSubscriber = function () {
-		return new Subscriber(obj);
-	}
+	obj.createSubscriber = Subscriber._createSubscriber;
 	
-	obj.trigger = function(event, data) {
-		$(obj).trigger(event, data);
-	}
+	obj.trigger = Subscriber._trigger;
 }
+
+Subscriber._createSubscriber = function () {
+	return new Subscriber(this);
+}
+
+Subscriber._trigger = function(event, data) {
+	$(this).trigger(event, data);
+}
+
+//
+// Subscriber methods
+//
 
 Subscriber.prototype.subscribe = function(event, handler) {
 	
