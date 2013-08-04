@@ -24,31 +24,26 @@ var UnitsFactory = {
 		obj.addComponent(CUnit);
 		obj.addComponent(CActions);
 		
+		obj.addComponent(CStatistics);
+		obj.addComponent(CEffects);
+		
 		obj.addComponent(CTilePlaceableRendering);
 		obj.addComponent(CUnitRendering);
 		
-		/*
-		// Components
-		var obj = new Entity();
-		EntityManager.addComponents(obj, CTilePlaceable);
-		EntityManager.addComponents(obj, CActionMove);
-		EntityManager.addComponents(obj, CActionAttack);
-		
-		EntityManager.addComponents(obj, CUnit);
-		
-		// DEBUG: Initialize
-		obj.baseStatistics(this.statisticsGrunt);
+		//
+		// Initialize
+		//
+		obj.CStatistics.resetStatistics(this.statisticsGrunt);
 		
 		var effect = new Effect();
 		effect.addStatisticModifier('Attack', 20);
-		obj.addEffect(effect);
+		obj.CEffects.effects.push(effect);
 		
 		effect = new Effect();
 		effect.addStatisticModifier('Attack', -30);
 		effect.timeLeft = 2;
-		obj.addEffect(effect);
-		*/
-		
+		obj.CEffects.effects.push(effect);
+				
 		obj.CActions.actions.push(ActionMove);
 		obj.CActions.actions.push(ActionAttack);
 		
