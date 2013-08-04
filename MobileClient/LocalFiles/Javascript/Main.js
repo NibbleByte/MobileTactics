@@ -5,6 +5,7 @@
 // DEBUG: Global access
 var world;
 var render;
+var effects;
 
 /**
  * Handle the backbutton event.
@@ -81,7 +82,11 @@ $(function () {
 	//
 	// Gameplay Systems
 	//
+	var m_effects = new EffectsSystem();
+	m_eworld.addSystem(m_effects);
+	
 	var m_executor = new GameExecutor(m_world);
+	
 	
 	var m_playerController = new PlayerController(m_executor);
 	m_eworld.addSystem(m_playerController);
@@ -89,6 +94,7 @@ $(function () {
 	// DEBUG: global access
 	world = m_world;
 	render = m_tileRendering;
+	effects = m_effects;
 	
 	
 	//m_tileRendering.fullWorldRefresh();
