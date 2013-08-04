@@ -57,7 +57,7 @@ var PlayerController = function (executor) {
 		var selectedAction = null;
 		
 		if (m_selectedTile) {
-			/*
+			
 			if (isGOSelected())
 				selectedAction = getSelectedGOActionTile(m_selectedTile)
 				
@@ -84,7 +84,7 @@ var PlayerController = function (executor) {
 						selectGOActions(availableGOActions[0].actions);
 					}
 				}
-			*/
+			
 			m_selectedTile.CTileRendering.select();
 			
 		} else {
@@ -113,8 +113,15 @@ var PlayerController = function (executor) {
 		m_selectedGOActions = actions;
 		
 		iterateOverActionTiles(m_selectedGOActions, function (tile, action) {
-				// TODO: REFACTOR
-				//tile.CTileRendering.highlight(action);
+				var mode = CTileRendering.HighlightType.None;
+				
+				// Map the actions to highlight types.
+				if (action.actionType == ActionMove) mode = CTileRendering.HighlightType.Move;
+				if (action.actionType == ActionAttack) mode = CTileRendering.HighlightType.Attack;
+				
+				console.assert(CTileRendering.HighlightType.None != mode, 'Unsupported highlight type.');
+				
+				tile.CTileRendering.highlight(mode);
 			});
 	}
 	
@@ -135,8 +142,7 @@ var PlayerController = function (executor) {
 	var clearSelectedGOActions = function () {
 		if (isGOSelected()){
 			iterateOverActionTiles(m_selectedGOActions, function (tile) {
-					// TODO: REFACTOR
-					// tile.CTileRendering.unHighlight();
+					tile.CTileRendering.unHighlight();
 				});
 			
 			m_selectedGOActions = null;

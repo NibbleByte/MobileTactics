@@ -22,6 +22,7 @@ var UnitsFactory = {
 		var obj = eworld.createEntity();
 		obj.addComponent(CTilePlaceable);
 		obj.addComponent(CUnit);
+		obj.addComponent(CActions);
 		
 		obj.addComponent(CTilePlaceableRendering);
 		obj.addComponent(CUnitRendering);
@@ -47,6 +48,9 @@ var UnitsFactory = {
 		effect.timeLeft = 2;
 		obj.addEffect(effect);
 		*/
+		
+		obj.CActions.actions.push(ActionMove);
+		obj.CActions.actions.push(ActionAttack);
 		
 		var ind = Math.floor(Math.random() * 3);
 		switch (ind)

@@ -7,7 +7,6 @@
 var GameExecutor = function (world) {
 	console.assert(world instanceof GameWorld, "GameWorld is required.");
 	
-	// TODO: REFACTOR - because of createObjectAt we have GameWorld dependency. Move this out!
 	this.createObjectAt = function (tile) {
 		
 		var obj = UnitsFactory.createGrunt(world.getEntityWorld());
@@ -26,17 +25,15 @@ var GameExecutor = function (world) {
 	
 	
 	
-	// TODO: REFACTOR
 	this.getAvailableActions = function(tile) {
 		var availableActions = [];
-		var objects = tile.getPlacedObjects();
+		var objects = tile.CTile.placedObjects;
 				
 		var actions;
-		for(var i in objects) {
-			var go = objects[i];
-			actions = [];
-			go.getAvailableActions(actions);
-			availableActions.push(new GameObjectActions(go, actions));
+		for(var i = 0; i < objects.length; ++i) {
+			var placeable = objects[i];
+			var actions = getPlaceableActions(placeable);
+			availableActions.push(new GameObjectActions(placeable, actions));
 		}
 		
 		return availableActions;
@@ -46,13 +43,22 @@ var GameExecutor = function (world) {
 		console.assert(action instanceof GameAction, "GameAction is required.");
 		console.assert(action.appliedTile, "Action not applied to tile.");
 		
-		var go = action.sourceGO;
-		var executingComponent = go.getComponentById(action.componentId);
-		executingComponent.executeAction(action);
-		
+		var placeable = action.placeable;
+		action.actionType.executeAction(m_world, action);
+
+		return getPlaceableActions(placeable);
+	}
+	
+	var getPlaceableActions = function (placeable) {
 		var actions = [];
-		go.getAvailableActions(actions);
-		return actions;
+		
+		for(var j = 0; j < placeable.CActions.actions.length; ++j) {
+			var action = placeable.CActions.actions[j];
+			
+			action.getAvailableActions(m_world, placeable, actions);
+		}
+		
+		return actions;		
 	}
 	
 	//
@@ -63,9 +69,9 @@ var GameExecutor = function (world) {
 
 ECS.EntityManager.registerSystem('GameExecutor', GameExecutor);
 
-var GameAction = function (componentId, go) {
-	this.componentId = componentId;			// The responsible component.
-	this.sourceGO = go;						// Placed game object that will be executing the action.
+var GameAction = function (actionType, placeable) {
+	this.actionType = actionType;			// The responsible component.
+	this.placeable = placeable; 			// Placeable that will be executing the action.
 	this.availableTiles = [];				// Available tiles on which player can execute action. 
 	this.affectedTiles = [];				// Tiles affected if player executes this action. 
 	this.appliedTile = null;				// Tile that action is applied to (example: move to this tile).
