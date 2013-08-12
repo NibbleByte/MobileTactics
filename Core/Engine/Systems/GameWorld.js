@@ -55,7 +55,7 @@ var GameWorld = function () {
 					var column = tile.CTile.column;
 					tile.destroy();					
 					
-					m_eworld.trigger(GameWorld.Events.TILE_REMOVED, {row: row, column: column});
+					m_eworld.trigger(EngineEvents.World.TILE_REMOVED, {row: row, column: column});
 				}
 			}
 		}
@@ -66,7 +66,7 @@ var GameWorld = function () {
 		m_columns = 0;
 		m_tiles = [];
 		
-		m_eworld.trigger(GameWorld.Events.SIZE_CHANGED, {
+		m_eworld.trigger(EngineEvents.World.SIZE_CHANGED, {
 			rows: m_rows,
 			columns: m_columns,
 		});
@@ -122,7 +122,7 @@ var GameWorld = function () {
 		
 		m_tiles[row][column] = tile;
 		
-		m_eworld.trigger(GameWorld.Events.TILE_CHANGED, tile);
+		m_eworld.trigger(EngineEvents.World.TILE_CHANGED, tile);
 		
 		// Resize grid
 		var resized = false;
@@ -136,7 +136,7 @@ var GameWorld = function () {
 		}
 		
 		if (resized) {
-			m_eworld.trigger(GameWorld.Events.SIZE_CHANGED, {
+			m_eworld.trigger(EngineEvents.World.SIZE_CHANGED, {
 				rows: m_rows,
 				columns: m_columns,
 			});
@@ -152,7 +152,7 @@ var GameWorld = function () {
 		
 		m_placeables.push(placeable);
 		
-		m_eworld.trigger(GameWorld.Events.PLACEABLE_REGISTERED, placeable);
+		m_eworld.trigger(EngineEvents.Placeables.PLACEABLE_REGISTERED, placeable);
 		
 		self.place(placeable, tile);
 	}
@@ -164,7 +164,7 @@ var GameWorld = function () {
 		if (foundIndex == -1)
 			return false;
 		
-		m_eworld.trigger(GameWorld.Events.PLACEABLE_UNREGISTERED, placeable);
+		m_eworld.trigger(EngineEvents.Placeables.PLACEABLE_UNREGISTERED, placeable);
 		
 		placeable.CTilePlaceable.tile.removeObject(placeable);
 		m_placeables.splice(foundIndex, 1);
@@ -182,7 +182,7 @@ var GameWorld = function () {
 		placeable.CTilePlaceable.tile = tile;
 		tile.CTile.placedObjects.push(placeable);
 		
-		m_eworld.trigger(GameWorld.Events.PLACEABLE_MOVED, placeable);
+		m_eworld.trigger(EngineEvents.Placeables.PLACEABLE_MOVED, placeable);
 	};
 	
 	this.getAllPlaceables = function () {
@@ -217,14 +217,4 @@ GameWorld.prototype.getDistance = function (tile1, tile2) {
 	var deltaRows = tile1.CTile.row - tile2.CTile.row; 
 	var deltaColumns = tile1.CTile.column - tile2.CTile.column;
 	return ((Math.abs(deltaRows) + Math.abs(deltaColumns) + Math.abs(deltaRows - deltaColumns)) / 2);
-}
-
-// Supported GameWorld events that user can subscribe to.
-GameWorld.Events = {
-		TILE_CHANGED: 	"gameworld.tile_changed",	// event, changedTile
-		TILE_REMOVED: 	"gameworld.tile_removed",	// event, {row, column}
-		SIZE_CHANGED: 	"gameworld.size_changed",	// event, {rows, columns}
-		PLACEABLE_REGISTERED: 		"gameworld.placeable_registered",	// event, placeable
-		PLACEABLE_MOVED: 			"gameworld.placeable_moved",		// event, placeable
-		PLACEABLE_UNREGISTERED: 	"gameworld.placeable_unregistered",	// event, placeable
 }

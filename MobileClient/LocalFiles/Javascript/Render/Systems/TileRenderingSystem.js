@@ -17,8 +17,8 @@ var TileRenderingSystem = function (world, renderer) {
 		m_eworld = this.getEntityWorld();
 		m_eworldSB = m_eworld.createSubscriber();
 		
-		m_eworldSB.subscribe(GameWorld.Events.SIZE_CHANGED, onWorldResize);
-		m_eworldSB.subscribe(GameWorld.Events.TILE_CHANGED, onTileChanged);
+		m_eworldSB.subscribe(EngineEvents.World.SIZE_CHANGED, onWorldResize);
+		m_eworldSB.subscribe(EngineEvents.World.TILE_CHANGED, onTileChanged);
 	}
 	
 	this.onRemoved = function () {

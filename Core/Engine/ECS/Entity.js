@@ -36,3 +36,21 @@ ECS.Entity.prototype.getEntityWorld = function () {
 ECS.Entity.prototype.destroy = function () {
 	this._entityWorld.destroyEntity(this);
 }
+
+// Checks if the entity has the specified components.
+// Overloads:
+//		bool hasComponents(comp1, comp2, comp3, ... );
+//		bool hasComponents([comp1, comp2, comp3, ...]);
+ECS.Entity.prototype.hasComponents = function (components) {
+	
+	var compCollection = arguments;
+	if (components instanceof Array)
+		compCollection = components;
+	
+	for(var i = 0; i < compCollection.length; ++i) {
+		if (!this[compCollection[i].prototype.getComponentName()])
+			return false;
+	}
+	
+	return true;
+}
