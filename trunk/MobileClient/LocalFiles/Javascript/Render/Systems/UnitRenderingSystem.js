@@ -70,8 +70,7 @@ var UnitRenderingSystem = function (renderer) {
 			return;
 		
 		m_renderer.worldLayers.detach(placeable.CUnitRendering.$renderedHolder);
-		placeable.CTilePlaceableRendering.clear();
-		
+		m_renderer.worldLayers.detach(placeable.CTilePlaceableRendering.$renderedPlaceable);		
 	}
 	
 	var onUnitChanged = function(event, unit) {

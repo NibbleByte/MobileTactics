@@ -123,7 +123,7 @@ var TileRenderingSystem = function (world, renderer) {
 		var posX = event.clientX - offset.left - GTile.LAYERS_PADDING;
 		var posY = event.clientY - offset.top - GTile.LAYERS_PADDING;
 		
-		m_eworld.trigger(TileRenderingSystem.Events.TILE_CLICKED, fetchTileAtPoint(posX, posY));
+		m_eworld.trigger(ClientEvents.Input.TILE_CLICKED, fetchTileAtPoint(posX, posY));
 	}
 	
 	var onTileChanged = function(event, tile) {
@@ -144,8 +144,3 @@ var TileRenderingSystem = function (world, renderer) {
 }
 
 ECS.EntityManager.registerSystem('TileRenderingSystem', TileRenderingSystem);
-
-//Supported GameWorld events that user can subscribe to.
-TileRenderingSystem.Events = {
-		TILE_CLICKED: "tilerenderingsystem.tile_clicked",	// Arguments: event, tile
-}
