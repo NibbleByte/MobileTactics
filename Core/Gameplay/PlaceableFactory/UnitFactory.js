@@ -12,6 +12,7 @@ var UnitsFactory = {
 	// TODO: Seal these objects too
 	statisticsGrunt: {
 		Attack: 2,
+		AttackRange: 2,
 		MaxHealth: 10,
 		Defence: 3,
 		Movement: 3,

@@ -7,8 +7,7 @@ var ActionMove = new function () {
 		
 		var availableTiles = [];
 		
-		// TODO: REFACTOR Use statistics!
-		gatherMovementTiles(world, tile, 3, availableTiles);
+		gatherMovementTiles(world, tile, placeable.CStatistics.statistics['Movement'], availableTiles);
 		
 		// Reset the tiles for another search
 		for(var i = 0; i < availableTiles.length; ++i) {

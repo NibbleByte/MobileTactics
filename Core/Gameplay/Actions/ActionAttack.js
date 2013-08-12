@@ -5,7 +5,7 @@ var ActionAttack = new function () {
 	this.getAvailableActions = function (world, placeable, outActions) {
 		var tile = placeable.CTilePlaceable.tile;
 		
-		var placeables = world.getPlaceablesInArea(tile, 2, placeable); // TODO: Get radius from statistics
+		var placeables = world.getPlaceablesInArea(tile, placeable.CStatistics.statistics['AttackRange'], placeable);
 		
 		var availableTiles = [];
 		for(var i = 0; i < placeables.length; ++i) {
@@ -19,14 +19,15 @@ var ActionAttack = new function () {
 		outActions.push(action);
 	};
 	
-	this.executeAction = function (action) {
-		// TODO: Modify statistics properly
-		/*action.appliedTile.getPlacedObjects()[0].addHealth(-go_this.getStatistics()['Attack']);
+	this.executeAction = function (world, action) {
+		// TODO: Modify statistics properly, taking the defence as well.
+		var enemy = action.appliedTile.CTile.placedObjects[0];
+		var damage = action.placeable.CStatistics.statistics['Attack'];
 		
-		console.log("Attack at: " + action.appliedTile.row() + ", " + action.appliedTile.column()
-				+ ' Damage: ' + go_this.getStatistics()['Attack']
-				+ ' Health: ' + go_this.health());*/
-		// TODO: REFACTOR
-		console.log('Attacked!');
+		enemy.CUnit.health -= damage;
+		
+		console.log("Attack at: " + action.appliedTile.CTile.row + ", " + action.appliedTile.CTile.column
+				+ ' Damage: ' + damage
+				+ ' Health: ' + enemy.CUnit.health);
 	}
 };
