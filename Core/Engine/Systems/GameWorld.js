@@ -166,7 +166,7 @@ var GameWorld = function () {
 		
 		m_eworld.trigger(EngineEvents.Placeables.PLACEABLE_UNREGISTERED, placeable);
 		
-		placeable.CTilePlaceable.tile.removeObject(placeable);
+		placeable.CTilePlaceable.tile.CTile.removeObject(placeable);
 		m_placeables.splice(foundIndex, 1);
 		
 		return true;

@@ -24,7 +24,7 @@ var PlayerController = function (executor) {
 		m_eworld = this.getEntityWorld();
 		m_eworldSB = m_eworld.createSubscriber();
 		
-		m_eworldSB.subscribe(TileRenderingSystem.Events.TILE_CLICKED, onTileClicked);
+		m_eworldSB.subscribe(ClientEvents.Input.TILE_CLICKED, onTileClicked);
 	};
 	
 	this.onRemoved = function () {
