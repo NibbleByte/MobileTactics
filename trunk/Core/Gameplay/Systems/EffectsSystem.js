@@ -20,7 +20,7 @@ var EffectsSystem = function () {
 		
 		m_entityFilter = new ECS.EntityComponentFilter(m_eworld, [CStatistics, CEffects]);
 		
-		m_eworldSB.subscribe(GameWorld.Events.PLACEABLE_REGISTERED, onPlaceableRegistered);
+		m_eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_REGISTERED, onPlaceableRegistered);
 	}
 	
 	this.onRemoved = function () {

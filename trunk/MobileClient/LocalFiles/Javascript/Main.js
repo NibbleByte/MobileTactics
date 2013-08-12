@@ -75,8 +75,8 @@ $(function () {
 	
 	var m_tileRendering = new TileRenderingSystem(m_world, worldRenderer);
 	m_eworld.addSystem(m_tileRendering);
-	var m_tilePlaceableRendering = new TilePlaceableRenderingSystem(m_world, worldRenderer);
-	m_eworld.addSystem(m_tilePlaceableRendering);
+	var m_unitRendering = new UnitRenderingSystem(worldRenderer);
+	m_eworld.addSystem(m_unitRendering);
 	
 	
 	//

@@ -26,6 +26,10 @@ var ActionAttack = new function () {
 		
 		enemy.CUnit.health -= damage;
 		
+		var eworld = world.getEntityWorld();
+		eworld.trigger(GameplayEvents.Units.UNIT_CHANGED, enemy);
+		
+		// DEBUG: print attack info
 		console.log("Attack at: " + action.appliedTile.CTile.row + ", " + action.appliedTile.CTile.column
 				+ ' Damage: ' + damage
 				+ ' Health: ' + enemy.CUnit.health);

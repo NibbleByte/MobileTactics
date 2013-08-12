@@ -1,14 +1,15 @@
 //===============================================
 // TilePlaceableRenderingSystem
-// Renders a GameWorld onto a specified div.
+// Renders a placeable in the world.
 //===============================================
 "use strict";
 
-var TilePlaceableRenderingSystem = function (world, renderer) {
+var UnitRenderingSystem = function (renderer) {
 	var self = this;
 	
-	console.assert(world instanceof GameWorld, "GameWorld is required.");
 	console.assert(renderer instanceof GameWorldRenderer, "GameWorldRenderer is required.");
+	
+	var REQUIRED_COMPONENTS = [CUnitRendering, CTilePlaceableRendering];
 		
 	//
 	// Entity system initialize
@@ -17,9 +18,11 @@ var TilePlaceableRenderingSystem = function (world, renderer) {
 		m_eworld = this.getEntityWorld();
 		m_eworldSB = m_eworld.createSubscriber();
 		
-		m_eworldSB.subscribe(GameWorld.Events.PLACEABLE_REGISTERED, onPlaceableRegistered);
-		m_eworldSB.subscribe(GameWorld.Events.PLACEABLE_MOVED, onPlaceableMoved);
-		m_eworldSB.subscribe(GameWorld.Events.PLACEABLE_UNREGISTERED, onPlaceableUnregistered);
+		m_eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_REGISTERED, onPlaceableRegistered);
+		m_eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_MOVED, onPlaceableMoved);
+		m_eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_UNREGISTERED, onPlaceableUnregistered);
+		
+		m_eworldSB.subscribe(GameplayEvents.Units.UNIT_CHANGED, onUnitChanged);
 	}
 	
 	this.onRemoved = function () {
@@ -31,22 +34,30 @@ var TilePlaceableRenderingSystem = function (world, renderer) {
 	//
 	// Fields
 	//
-	var m_world = world;
 	var m_eworld = null;
 	var m_eworldSB = null;
 	
 	var m_renderer = renderer;
 	
-	var onPlaceableRegistered = function(event, placeable) {		
+	var onPlaceableRegistered = function(event, placeable) {
+		
+		if (!placeable.hasComponents(REQUIRED_COMPONENTS))
+			return;
+		
 		// Placeable
 		m_renderer.worldLayers.attachTo(WorldLayers.LayerTypes.Units, placeable.CTilePlaceableRendering.$renderedPlaceable);
 		placeable.CTilePlaceableRendering.refreshSkin();
 		
 		// Unit
 		m_renderer.worldLayers.attachTo(WorldLayers.LayerTypes.Units, placeable.CUnitRendering.$renderedHolder);
+		placeable.CUnitRendering.setHealth(placeable.CUnit.health);
 	}
 	
 	var onPlaceableMoved = function(event, placeable) {
+		
+		if (!placeable.hasComponents(REQUIRED_COMPONENTS))
+			return;
+		
 		var coords = placeable.CTilePlaceable.tile.CTileRendering.getRenderedCenterXY();
 		
 		placeable.CTilePlaceableRendering.renderAt(coords.x, coords.y);
@@ -54,10 +65,18 @@ var TilePlaceableRenderingSystem = function (world, renderer) {
 	}
 	
 	var onPlaceableUnregistered = function(event, placeable) {
+		
+		if (!placeable.hasComponents(REQUIRED_COMPONENTS))
+			return;
+		
 		m_renderer.worldLayers.detach(placeable.CUnitRendering.$renderedHolder);
 		placeable.CTilePlaceableRendering.clear();
 		
 	}
+	
+	var onUnitChanged = function(event, unit) {
+		unit.CUnitRendering.setHealth(unit.CUnit.health);
+	}
 }
 
-ECS.EntityManager.registerSystem('TilePlaceableRenderingSystem', TilePlaceableRenderingSystem);
+ECS.EntityManager.registerSystem('UnitRenderingSystem', UnitRenderingSystem);
