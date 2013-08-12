@@ -165,6 +165,6 @@ entity.SpatialComponent.x = 10;
 entity.VelocityComponent.xspeed = 2;
 
 // Update the systems.
-testworld.trigger('systems.update.spatial');
+//testworld.trigger('systems.update.spatial');
 
 /* */
