@@ -27,14 +27,7 @@ var ActionAttack = new function () {
 		enemy.CUnit.health -= damage;
 		
 		var eworld = world.getEntityWorld();
-		if (enemy.CUnit.health > 0) {
-			eworld.trigger(GameplayEvents.Units.UNIT_CHANGED, enemy);
-			
-		} else {
-			eworld.trigger(GameplayEvents.Units.UNIT_DESTROYED, enemy);
-			world.unregisterPlaceable(enemy);
-			enemy.destroy();
-		}
+		eworld.trigger(GameplayEvents.Units.UNIT_CHANGED, enemy);
 		
 		// DEBUG: print attack info
 		console.log("Attack at: " + action.appliedTile.CTile.row + ", " + action.appliedTile.CTile.column

@@ -1,8 +1,8 @@
 "use strict";
 
 var CUnit = function () {
-	// TODO: Initialize health from elsewhere
-	this.health = 10;
+	this.name = '';
+	this.health = 0;
 };
 
 ECS.EntityManager.registerComponent('CUnit', CUnit);

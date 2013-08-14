@@ -68,6 +68,19 @@ $(function () {
 	fillTerrainPattern(m_eworld, m_world, ROWS);
 	
 	//
+	// Gameplay Systems
+	//
+	var m_effects = new EffectsSystem();
+	m_eworld.addSystem(m_effects);
+	m_eworld.addSystem(new UnitsSystem(m_world));
+	
+	var m_executor = new GameExecutor(m_world);
+	
+	
+	var m_playerController = new PlayerController(m_executor);
+	m_eworld.addSystem(m_playerController);
+	
+	//
 	// Rendering Systems
 	//
 	
@@ -78,18 +91,6 @@ $(function () {
 	var m_unitRendering = new UnitRenderingSystem(worldRenderer);
 	m_eworld.addSystem(m_unitRendering);
 	
-	
-	//
-	// Gameplay Systems
-	//
-	var m_effects = new EffectsSystem();
-	m_eworld.addSystem(m_effects);
-	
-	var m_executor = new GameExecutor(m_world);
-	
-	
-	var m_playerController = new PlayerController(m_executor);
-	m_eworld.addSystem(m_playerController);
 	
 	// DEBUG: global access
 	world = m_world;
