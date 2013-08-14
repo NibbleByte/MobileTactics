@@ -47,7 +47,7 @@ var UnitsSystem = function (m_world) {
 			unit.destroy();
 			
 			// Prevent others using the destroyed unit.
-			event.stopPropagation();
+			event.stopImmediatePropagation();
 		}
 	}
 };
