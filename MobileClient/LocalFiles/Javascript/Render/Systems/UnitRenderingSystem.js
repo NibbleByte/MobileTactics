@@ -41,8 +41,14 @@ var UnitRenderingSystem = function (renderer) {
 	
 	var onPlaceableRegistered = function(event, placeable) {
 		
-		if (!placeable.hasComponents(REQUIRED_COMPONENTS))
+		// Only interested in units.
+		if (!placeable.hasComponents(CUnit))
 			return;
+		
+		placeable.addComponent(CTilePlaceableRendering);
+		placeable.addComponent(CUnitRendering);
+		
+		placeable.CTilePlaceableRendering.skin = placeable.CUnit.name;
 		
 		// Placeable
 		m_renderer.worldLayers.attachTo(WorldLayers.LayerTypes.Units, placeable.CTilePlaceableRendering.$renderedPlaceable);

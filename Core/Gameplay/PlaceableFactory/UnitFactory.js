@@ -10,15 +10,34 @@ var lastCreated;
 var UnitsFactory = {
 	
 	// TODO: Seal these objects too
-	statisticsGrunt: {
-		Attack: 2,
-		AttackRange: 2,
-		MaxHealth: 10,
-		Defence: 3,
-		Movement: 3,
+	baseStatistics: {
+		
+		WarMiner: {
+			Attack: 2,
+			AttackRange: 2,
+			MaxHealth: 20,
+			Defence: 5,
+			Movement: 2,
+		},
+		
+		RhinoTank: {
+			Attack: 4,
+			AttackRange: 3,
+			MaxHealth: 15,
+			Defence: 4,
+			Movement: 4,
+		},
+		
+		TeslaTrooper: {
+			Attack: 2,
+			AttackRange: 1,
+			MaxHealth: 10,
+			Defence: 3,
+			Movement: 3,
+		},
 	},
 	
-	createGrunt: function (eworld) {
+	createUnit: function (eworld) {
 		
 		var obj = eworld.createEntity();
 		obj.addComponent(CTilePlaceable);
@@ -28,13 +47,22 @@ var UnitsFactory = {
 		obj.addComponent(CStatistics);
 		obj.addComponent(CEffects);
 		
-		obj.addComponent(CTilePlaceableRendering);
-		obj.addComponent(CUnitRendering);
-		
 		//
 		// Initialize
 		//
-		obj.CStatistics.resetStatistics(this.statisticsGrunt);
+		var ind = Math.floor(Math.random() * 3);
+		switch (ind)
+		{
+		case 0: obj.CStatistics.resetStatistics(this.baseStatistics.WarMiner);
+				obj.CUnit.name = 'WarMiner';
+			break;
+		case 1: obj.CStatistics.resetStatistics(this.baseStatistics.RhinoTank);
+				obj.CUnit.name = 'RhinoTank';
+			break;
+		case 2: obj.CStatistics.resetStatistics(this.baseStatistics.TeslaTrooper);
+				obj.CUnit.name = 'TeslaTrooper';
+			break;
+		};
 		
 		var effect = new Effect();
 		effect.addStatisticModifier('Attack', 20);
@@ -48,13 +76,7 @@ var UnitsFactory = {
 		obj.CActions.actions.push(ActionMove);
 		obj.CActions.actions.push(ActionAttack);
 		
-		var ind = Math.floor(Math.random() * 3);
-		switch (ind)
-		{
-			case 0: obj.CTilePlaceableRendering.skin = 'WarMiner'; break;
-			case 1: obj.CTilePlaceableRendering.skin = 'RhinoTank'; break;
-			case 2: obj.CTilePlaceableRendering.skin = 'TeslaTrooper'; break;
-		};
+		
 		
 		lastCreated = obj;
 		

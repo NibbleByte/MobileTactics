@@ -9,7 +9,7 @@ var GameExecutor = function (world) {
 	
 	this.createObjectAt = function (tile) {
 		
-		var obj = UnitsFactory.createGrunt(world.getEntityWorld());
+		var obj = UnitsFactory.createUnit(world.getEntityWorld());
 		
 		m_world.registerPlaceableAt(obj, tile);
 		
