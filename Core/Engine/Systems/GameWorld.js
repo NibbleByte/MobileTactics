@@ -41,7 +41,7 @@ var GameWorld = function () {
 	
 	this.loadTiles = function(tiles) {
 		for(var i = 0; i < tiles.length; ++i) {
-			setTile(tiles[i]);
+			self.addTile(tiles[i]);
 		}
 	}
 	
@@ -51,11 +51,9 @@ var GameWorld = function () {
 				var tile = self.getTile(i, j);
 				
 				if (tile) {
-					var row = tile.CTile.row;
-					var column = tile.CTile.column;
-					tile.destroy();					
+					m_eworld.trigger(EngineEvents.World.TILE_REMOVED, tile);
 					
-					m_eworld.trigger(EngineEvents.World.TILE_REMOVED, {row: row, column: column});
+					tile.destroy();
 				}
 			}
 		}
@@ -106,11 +104,7 @@ var GameWorld = function () {
 	}
 	
 	
-	//
-	// ---- Private ----
-	//
-	
-	var setTile = function (tile) {		
+	this.addTile = function (tile) {		
 		var row = tile.CTile.row;
 		var column = tile.CTile.column;
 		
@@ -122,7 +116,7 @@ var GameWorld = function () {
 		
 		m_tiles[row][column] = tile;
 		
-		m_eworld.trigger(EngineEvents.World.TILE_CHANGED, tile);
+		m_eworld.trigger(EngineEvents.World.TILE_ADDED, tile);
 		
 		// Resize grid
 		var resized = false;
@@ -143,6 +137,54 @@ var GameWorld = function () {
 		}
 	}
 	
+	this.removeTile = function (tile) {
+		
+		m_eworld.trigger(EngineEvents.World.TILE_REMOVED, tile);
+		
+		// Remove placeables if has any.
+		for(var i = 0; i < tile.CTile.placedObjects.length; ++i) {
+			self.unregisterPlaceable(tile.CTile.placedObjects[i]);
+		}
+		
+		var row = tile.CTile.row;
+		var column = tile.CTile.column;
+		
+		var tilesRow = m_tiles[row]; 
+		
+		delete tilesRow[column];
+		
+		// Resize array and check if hasn't become empty
+		var index = m_tiles[row].length - 1;
+		while(index >= 0) {
+			if (tilesRow[index])
+				break;
+			
+			index--;
+		}
+		
+		if (index == -1) {
+			delete m_tiles[row];
+		} else {
+			tilesRow.length = index + 1;
+		}
+		
+		
+		// Same goes for rows
+		index = m_tiles.length - 1;
+		while(index >= 0) {
+			if (m_tiles[index])
+				break;
+			
+			index--;
+		}
+		
+		m_tiles.length = index + 1;
+	}
+	
+	
+	//
+	// ---- Private ----
+	//
 	
 	
 	//

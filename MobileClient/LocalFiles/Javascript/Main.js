@@ -61,13 +61,6 @@ $(function () {
 	m_eworld.addSystem(m_world);
 	
 	//
-	// Initialize
-	//
-	var ROWS = 8;
-	// TODO: For Debug. NOTE: if done after rendering, IS SLOW!!!
-	fillTerrainPattern(m_eworld, m_world, ROWS);
-	
-	//
 	// Gameplay Systems
 	//
 	var m_effects = new EffectsSystem();
@@ -98,7 +91,11 @@ $(function () {
 	effects = m_effects;
 	
 	
-	//m_tileRendering.fullWorldRefresh();
+	//
+	// Initialize
+	//
+	var ROWS = 8;
+	fillTerrainPattern(m_eworld, m_world, ROWS);
 	
 	// MoSync bindings
 	document.addEventListener("backbutton", close, true);

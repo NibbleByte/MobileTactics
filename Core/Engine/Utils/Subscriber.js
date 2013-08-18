@@ -16,6 +16,8 @@ var Subscriber = function (host) {
 
 Subscriber.makeSubscribable = function (obj) {
 	
+	console.assert(obj);
+	
 	obj.createSubscriber = Subscriber._createSubscriber;
 	
 	obj.trigger = Subscriber._trigger;
@@ -26,6 +28,9 @@ Subscriber._createSubscriber = function () {
 }
 
 Subscriber._trigger = function(event, data) {
+	
+	console.assert(event);
+	
 	$(this).trigger(event, data);
 }
 
@@ -34,6 +39,9 @@ Subscriber._trigger = function(event, data) {
 //
 
 Subscriber.prototype.subscribe = function(event, handler) {
+	
+	console.assert(event);
+	console.assert(handler);
 	
 	$(this.host).on(event, handler);
 	
@@ -44,6 +52,9 @@ Subscriber.prototype.subscribe = function(event, handler) {
 }
 
 Subscriber.prototype.unsubscribe = function(event, handler) {
+	
+	console.assert(event);
+	console.assert(handler);
 		
 	for (var i = 0; i < this.subscribes.length; ++i) {
 		var subscriber = this.subscribes[i];

@@ -25,6 +25,7 @@ var PlayerController = function (executor) {
 		m_eworldSB = m_eworld.createSubscriber();
 		
 		m_eworldSB.subscribe(ClientEvents.Input.TILE_CLICKED, onTileClicked);
+		m_eworldSB.subscribe(EngineEvents.World.TILE_REMOVED, onTileRemoved);
 	};
 	
 	this.onRemoved = function () {
@@ -96,6 +97,10 @@ var PlayerController = function (executor) {
 	
 	var onTileClicked = function(event, tile) {
 		selectTile(tile);
+	}
+	
+	var onTileRemoved = function(event, tile) {
+		clearSelectedGOActions();
 	}
 	
 	
