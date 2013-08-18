@@ -4,10 +4,9 @@
 //===============================================
 "use strict";
 
-var TileRenderingSystem = function (world, renderer) {
+var TileRenderingSystem = function (renderer) {
 	var self = this;
 	
-	console.assert(world instanceof GameWorld, "GameWorld is required.");
 	console.assert(renderer instanceof GameWorldRenderer, "GameWorldRenderer is required.");
 	
 	//
@@ -16,6 +15,11 @@ var TileRenderingSystem = function (world, renderer) {
 	this.onAdded = function () {
 		m_eworld = this.getEntityWorld();
 		m_eworldSB = m_eworld.createSubscriber();
+		
+		m_world = m_eworld.getSystem(GameWorld);
+		console.assert(m_world instanceof GameWorld, "GameWorld is required.");
+		
+		addCurrentTiles();
 		
 		m_eworldSB.subscribe(EngineEvents.World.TILE_ADDED, onTileAdded);
 		m_eworldSB.subscribe(EngineEvents.World.TILE_REMOVED, onTileRemoved);
@@ -30,7 +34,7 @@ var TileRenderingSystem = function (world, renderer) {
 	//
 	// Fields
 	//
-	var m_world = world;
+	var m_world = null;
 	var m_eworld = null;
 	var m_eworldSB = null;
 	
@@ -188,8 +192,6 @@ var TileRenderingSystem = function (world, renderer) {
 	// Initialization
 	//
 	m_renderer.$pnLayersContainer.click(onPlotClicked);
-	
-	addCurrentTiles();
 }
 
 ECS.EntityManager.registerSystem('TileRenderingSystem', TileRenderingSystem);
