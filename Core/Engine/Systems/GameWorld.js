@@ -15,15 +15,21 @@ var GameWorld = function () {
 	var m_rows = 0;
 	var m_tiles = [];
 	var m_eworld = null;
+	var m_eworldSB = null;
 	
 	//
 	// Entity system initialize
 	//
 	this.onAdded = function () {
 		m_eworld = this.getEntityWorld();
+		m_eworldSB = m_eworld.createSubscriber();
+		
+		m_eworldSB.subscribe(ECS.EntityWorld.Events.ENTITY_REMOVED, onEntityRemoved);
 	}
 	
 	this.onRemoved = function () {
+		m_eworldSB.unsubscribeAll();
+		m_eworldSB = null;
 		m_eworld = null;
 	}
 	
@@ -143,7 +149,7 @@ var GameWorld = function () {
 		
 		// Remove placeables if has any.
 		for(var i = 0; i < tile.CTile.placedObjects.length; ++i) {
-			self.unregisterPlaceable(tile.CTile.placedObjects[i]);
+			tile.CTile.placedObjects[i].destroy();
 		}
 		
 		var row = tile.CTile.row;
@@ -181,12 +187,7 @@ var GameWorld = function () {
 		m_tiles.length = index + 1;
 	}
 	
-	
-	//
-	// ---- Private ----
-	//
-	
-	
+		
 	//
 	// Placed objects handling
 	//
@@ -199,7 +200,7 @@ var GameWorld = function () {
 		self.place(placeable, tile);
 	}
 	
-	this.unregisterPlaceable = function (placeable) {
+	var unregisterPlaceable = function (placeable) {
 		
 		var foundIndex = m_placeables.indexOf(placeable);
 		
@@ -244,6 +245,16 @@ var GameWorld = function () {
 		
 		return placeables;
 	}
+	
+
+	var onEntityRemoved = function (event, entity) {
+		
+		if (entity.hasComponents(CTilePlaceable)) {
+			unregisterPlaceable(entity);
+		}
+	}
+	
+	
 	//
 	// Private
 	//
