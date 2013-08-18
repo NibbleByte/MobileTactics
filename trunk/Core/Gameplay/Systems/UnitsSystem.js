@@ -18,7 +18,6 @@ var UnitsSystem = function () {
 		m_eworldSB = m_eworld.createSubscriber();
 		
 		m_eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_REGISTERED, onPlaceableRegistered);
-		m_eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_UNREGISTERED, onPlaceableUnregistered);
 		
 		m_eworldSB.subscribe(GameplayEvents.Units.UNIT_CHANGED, onUnitChanged);
 	}
@@ -38,21 +37,13 @@ var UnitsSystem = function () {
 		
 		placeable.CUnit.health = placeable.CStatistics.statistics['MaxHealth'];
 	}
-	
-	var onPlaceableUnregistered = function(event, placeable) {
 		
-		if (!placeable.hasComponents(CUnit))
-			return;
-		
-		placeable.destroy();
-	}
-	
 	var onUnitChanged = function(event, unit) {
 		
 		// Check if dead.
 		if (unit.CUnit.health <= 0) {
 			m_eworld.trigger(GameplayEvents.Units.UNIT_DESTROYED, unit);
-			m_eworld.getSystem(GameWorld).unregisterPlaceable(unit);
+			unit.destroy();
 			
 			// Prevent others using the destroyed unit.
 			event.stopImmediatePropagation();

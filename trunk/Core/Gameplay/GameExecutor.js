@@ -18,8 +18,6 @@ var GameExecutor = function (world) {
 	
 	
 	this.destroyObject = function (placeable) {
-		console.assert(m_world.unregisterPlaceable(placeable));
-		
 		placeable.destroy();
 	}
 	
