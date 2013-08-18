@@ -65,7 +65,7 @@ $(function () {
 	//
 	var m_effects = new EffectsSystem();
 	m_eworld.addSystem(m_effects);
-	m_eworld.addSystem(new UnitsSystem(m_world));
+	m_eworld.addSystem(new UnitsSystem());
 	
 	var m_executor = new GameExecutor(m_world);
 	
@@ -79,7 +79,7 @@ $(function () {
 	
 	var worldRenderer = new GameWorldRenderer($('#GameWorldMap')[0]);
 	
-	var m_tileRendering = new TileRenderingSystem(m_world, worldRenderer);
+	var m_tileRendering = new TileRenderingSystem(worldRenderer);
 	m_eworld.addSystem(m_tileRendering);
 	var m_unitRendering = new UnitRenderingSystem(worldRenderer);
 	m_eworld.addSystem(m_unitRendering);

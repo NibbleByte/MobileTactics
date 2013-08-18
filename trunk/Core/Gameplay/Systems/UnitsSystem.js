@@ -4,7 +4,7 @@
 //===============================================
 "use strict";
 
-var UnitsSystem = function (m_world) {
+var UnitsSystem = function () {
 	var self = this;
 	
 	//
@@ -52,7 +52,7 @@ var UnitsSystem = function (m_world) {
 		// Check if dead.
 		if (unit.CUnit.health <= 0) {
 			m_eworld.trigger(GameplayEvents.Units.UNIT_DESTROYED, unit);
-			m_world.unregisterPlaceable(unit);
+			m_eworld.getSystem(GameWorld).unregisterPlaceable(unit);
 			
 			// Prevent others using the destroyed unit.
 			event.stopImmediatePropagation();
