@@ -17,8 +17,8 @@ var TileRenderingSystem = function (world, renderer) {
 		m_eworld = this.getEntityWorld();
 		m_eworldSB = m_eworld.createSubscriber();
 		
-		m_eworldSB.subscribe(EngineEvents.World.SIZE_CHANGED, onWorldResize);
-		m_eworldSB.subscribe(EngineEvents.World.TILE_CHANGED, onTileChanged);
+		m_eworldSB.subscribe(EngineEvents.World.TILE_ADDED, onTileAdded);
+		m_eworldSB.subscribe(EngineEvents.World.TILE_REMOVED, onTileRemoved);
 	}
 	
 	this.onRemoved = function () {
@@ -34,45 +34,7 @@ var TileRenderingSystem = function (world, renderer) {
 	var m_eworld = null;
 	var m_eworldSB = null;
 	
-	var m_renderer = renderer;	
-	
-	this.fullWorldRefresh = function () {
-		var rows = m_world.getRows();
-		var columns = m_world.getColumns();
-		
-		m_renderer.extentWidth = 0;
-		m_renderer.extentHeight = 0;
-		
-		for(var i = 0; i < rows; ++i) {
-			for(var j = 0; j < columns; ++j) {
-				var tile = m_world.getTile(i, j);
-				
-				if (tile) {
-					
-					tile.CTileRendering.renderAt(tile.CTile.row, tile.CTile.column);
-					m_renderer.worldLayers.attachTo(WorldLayers.LayerTypes.Terrain, tile.CTileRendering.$renderedTile);
-					m_renderer.worldLayers.attachTo(WorldLayers.LayerTypes.Highlights, tile.CTileRendering.$renderedHighlight);
-					// TODO: Once attached, it is never detached! Cleanup.
-					// TODO: On every refresh, rendered elements are re-attached again.
-					
-					var coords = tile.CTileRendering.getRenderedXY();
-					
-					// Resize plot
-					if (coords.x + GTile.TILE_WIDTH > m_renderer.extentWidth)
-						m_renderer.extentWidth = coords.x + GTile.TILE_WIDTH; 
-					if (coords.y + GTile.TILE_HEIGHT > m_renderer.extentHeight)
-						m_renderer.extentHeight = coords.y + GTile.TILE_HEIGHT; 
-				}
-			}
-		}
-		
-		// Plot size
-		m_renderer.extentWidth += GTile.LAYERS_PADDING * 2;
-		m_renderer.extentHeight += GTile.LAYERS_PADDING * 2;
-		
-		m_renderer.refresh();
-	}
-	
+	var m_renderer = renderer;
 	
 	//
 	// ---- Private ----
@@ -126,13 +88,100 @@ var TileRenderingSystem = function (world, renderer) {
 		m_eworld.trigger(ClientEvents.Input.TILE_CLICKED, fetchTileAtPoint(posX, posY));
 	}
 	
-	var onTileChanged = function(event, tile) {
-		// TODO: Make replace older tile/add new tile. REALLY SLOW!!!!
-		self.fullWorldRefresh();
+	
+	var addCurrentTiles = function () {
+		
+		m_renderer.extentWidth = 0;
+		m_renderer.extentHeight = 0;
+		
+		iterateOverTiles(function(tile){
+					
+			tile.CTileRendering.renderAt(tile.CTile.row, tile.CTile.column);
+			m_renderer.worldLayers.attachTo(WorldLayers.LayerTypes.Terrain, tile.CTileRendering.$renderedTile);
+			m_renderer.worldLayers.attachTo(WorldLayers.LayerTypes.Highlights, tile.CTileRendering.$renderedHighlight);
+			
+			var coords = tile.CTileRendering.getRenderedXY();
+			
+			// Resize plot
+			if (coords.x + GTile.TILE_WIDTH > m_renderer.extentWidth)
+				m_renderer.extentWidth = coords.x + GTile.TILE_WIDTH; 
+			if (coords.y + GTile.TILE_HEIGHT > m_renderer.extentHeight)
+				m_renderer.extentHeight = coords.y + GTile.TILE_HEIGHT;
+		});
+		
+		// Plot size
+		m_renderer.extentWidth += GTile.LAYERS_PADDING * 2;
+		m_renderer.extentHeight += GTile.LAYERS_PADDING * 2;
+		
+		m_renderer.refresh();
 	}
 	
-	var onWorldResize = function (event, data) {
-		self.fullWorldRefresh();
+	var onTileAdded = function(event, tile) {		
+		tile.CTileRendering.renderAt(tile.CTile.row, tile.CTile.column);
+		m_renderer.worldLayers.attachTo(WorldLayers.LayerTypes.Terrain, tile.CTileRendering.$renderedTile);
+		m_renderer.worldLayers.attachTo(WorldLayers.LayerTypes.Highlights, tile.CTileRendering.$renderedHighlight);
+		
+		var coords = tile.CTileRendering.getRenderedXY();
+		
+		// Resize plot
+		var resized = false;
+		if (coords.x + GTile.TILE_WIDTH > m_renderer.extentWidth - GTile.LAYERS_PADDING * 2) {
+			m_renderer.extentWidth = coords.x + GTile.TILE_WIDTH + GTile.LAYERS_PADDING * 2;
+			resized = true;
+		}
+		if (coords.y + GTile.TILE_HEIGHT > m_renderer.extentHeight - GTile.LAYERS_PADDING * 2) {
+			m_renderer.extentHeight = coords.y + GTile.TILE_HEIGHT + GTile.LAYERS_PADDING * 2;
+			resized = true;
+		}
+		
+		if (resized)
+			m_renderer.refresh();
+	}
+	
+	var onTileRemoved = function(event, tile) {
+		m_renderer.worldLayers.detach(tile.CTileRendering.$renderedHighlight);
+		m_renderer.worldLayers.detach(tile.CTileRendering.$renderedTile);
+		
+		
+		// Resize if needed...
+		m_renderer.extentWidth = 0;
+		m_renderer.extentHeight = 0;
+		
+		iterateOverTiles(function(itTile) {
+			if (itTile == tile)
+				return false;
+			
+			var coords = itTile.CTileRendering.getRenderedXY();
+			
+			// Resize plot
+			if (coords.x + GTile.TILE_WIDTH > m_renderer.extentWidth)
+				m_renderer.extentWidth = coords.x + GTile.TILE_WIDTH; 
+			if (coords.y + GTile.TILE_HEIGHT > m_renderer.extentHeight)
+				m_renderer.extentHeight = coords.y + GTile.TILE_HEIGHT;
+		});
+		
+		m_renderer.extentWidth += GTile.LAYERS_PADDING * 2;
+		m_renderer.extentHeight += GTile.LAYERS_PADDING * 2;
+		
+		m_renderer.refresh();
+	}
+	
+	
+	
+	var iterateOverTiles = function(handler) {
+		var rows = m_world.getRows();
+		var columns = m_world.getColumns();
+				
+		for(var i = 0; i < rows; ++i) {
+			for(var j = 0; j < columns; ++j) {
+				var tile = m_world.getTile(i, j);
+				
+				if (tile) {					
+					if (handler(tile))
+						return;
+				}
+			}
+		}
 	}
 	
 	//
@@ -140,7 +189,7 @@ var TileRenderingSystem = function (world, renderer) {
 	//
 	m_renderer.$pnLayersContainer.click(onPlotClicked);
 	
-	self.fullWorldRefresh();
+	addCurrentTiles();
 }
 
 ECS.EntityManager.registerSystem('TileRenderingSystem', TileRenderingSystem);

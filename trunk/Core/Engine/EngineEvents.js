@@ -8,8 +8,9 @@
 // Supported GameWorld events that user can subscribe to.
 var EngineEvents = {
 		World: {
+			TILE_ADDED: 	"engine.world.tile_added",		// event, addedTile
 			TILE_CHANGED: 	"engine.world.tile_changed",	// event, changedTile
-			TILE_REMOVED: 	"engine.world.tile_removed",	// event, {row, column}
+			TILE_REMOVED: 	"engine.world.tile_removed",	// event, removedTile
 			SIZE_CHANGED: 	"engine.world.size_changed",	// event, {rows, columns}
 		},
 
