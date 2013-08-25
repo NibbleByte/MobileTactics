@@ -2,6 +2,8 @@
 
 var ActionAttack = new function () {
 	
+	this.actionName = 'ActionAttack';
+	
 	this.getAvailableActions = function (world, placeable, outActions) {
 		var tile = placeable.CTilePlaceable.tile;
 		

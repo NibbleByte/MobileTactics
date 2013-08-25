@@ -1,6 +1,8 @@
 "use strict";
 
-var ActionMove = new function () {	
+var ActionMove = new function () {
+	
+	this.actionName = 'ActionMove';
 
 	this.getAvailableActions = function (world, placeable, outActions) {
 		var tile = placeable.CTilePlaceable.tile;

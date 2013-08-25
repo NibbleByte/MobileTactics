@@ -35,6 +35,17 @@ ECS.EntityWorld = function () {
 		return entity;
 	};
 	
+	// Add un-managed entity.
+	this.addUnmanagedEntity = function (entity) {
+		console.assert(entity._entityWorld == null, 'Entity is still managed by another entity world!');
+		entity._entityWorld = this;
+		
+		m_entities.push(entity);
+		
+		if (enabledNotifications)
+			self.trigger(ECS.EntityWorld.Events.ENTITY_ADDED, entity);
+	};
+	
 	this.createEntityFromTemplate = function (handler) {
 		// HACK: avoids unnecessary entity notifications, while building up the template.
 		//		 one final notification will be called for "Entity added".

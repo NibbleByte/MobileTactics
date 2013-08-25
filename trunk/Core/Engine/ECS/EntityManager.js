@@ -43,6 +43,11 @@ ECS.EntityManager = new function () {
 		m_registeredSystems.push(systemClass);
 	}
 	
+	// Get component class name
+	this.getComponentClassName = function (componentClass) {
+		return componentClass.prototype._COMP_NAME;
+	}
+	
 	// Check if this object is valid component class.
 	this.isComponentClass = function(obj) {
 		return !!obj.prototype._COMP_NAME;
@@ -68,6 +73,15 @@ ECS.EntityManager = new function () {
 		return obj instanceof ECS.Entity;
 	}
 	
+	
+	// Expose what classes/systems were registered till now.
+	this.getRegisteredComponents = function () {
+		return m_registeredComponents;
+	};
+	
+	this.getRegisteredSystems = function () {
+		return m_registeredSystems;
+	};
 	
 	//
 	// Private

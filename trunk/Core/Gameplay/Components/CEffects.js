@@ -4,7 +4,7 @@ var CEffects = function () {
 	this.effects = [];
 };
 
-ECS.EntityManager.registerComponent('CEffects', CEffects);	
+ComponentsUtils.registerPersistent('CEffects', CEffects);	
 
 
 //===============================================
@@ -20,13 +20,17 @@ var Effect = function () {
 	this.userData = null;			// User data to be passed to the user handler.
 };
 
-//Short-cut for adding statistics modifier.
+// Short-cut for adding statistics modifier.
 Effect.prototype.addStatisticModifier = function (statistic, modifier) {
 	this.statisticsModifiers.push(new StatisticModifier(statistic, modifier))
 } 
 
-//Statistic modifier.
+// Statistic modifier.
 var StatisticModifier = function (statistic, modifier) {
 	this.statistic = statistic;
 	this.modifier = modifier;
 }
+
+
+Serialization.registerClass(Effect, 'Effect');
+Serialization.registerClass(StatisticModifier, 'StatisticModifier');

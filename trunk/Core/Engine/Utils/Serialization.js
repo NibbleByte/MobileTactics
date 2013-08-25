@@ -1,0 +1,251 @@
+//========================================================================================================
+// Serialization
+//
+// Simple serialization of javascript objects. Output is JSON. Has the following additional features:
+// - multiple references to one object/array are saved correctly.
+// - the prototype of registered classes is also saved.
+// - can have custom serialize/deserialize functions per class.
+// - can exclude from serialization specific classes.
+// - No support for functions yet, probably never (can't recreate closure). 
+// 
+//========================================================================================================
+"use strict";
+
+var Serialization = new function () {
+	var self = this;
+	
+	//
+	// Check types
+	//
+	this.isArray = function(object) {
+		return Object.prototype.toString.call(object) === '[object Array]';
+	};
+
+	this.isString = function(object) {
+		return Object.prototype.toString.call(object) === '[object String]';
+	};
+
+	this.isBoolean = function(object) {
+		return Object.prototype.toString.call(object) === '[object Boolean]';
+	};
+
+	this.isNumber = function(object) {
+		return Object.prototype.toString.call(object) === '[object Number]';
+	};
+
+	this.isFunction = function(object) {
+		return Object.prototype.toString.call(object) === "[object Function]";
+	};
+
+	this.isObject = function(object) {
+		return object !== null && object !== undefined &&
+			!this.isArray(object) && !this.isBoolean(object) &&
+			!this.isString(object) && !this.isNumber(object) &&
+			!this.isFunction(object);
+	};
+	
+
+	// Serialize object to JSON.
+	// Will execute any custom serialize() functions along the way (attached to the class type).
+	this.serialize = function (obj, prettyFormatting) {
+		
+		var instanceRegister = [];
+		
+		if (prettyFormatting) {
+			return JSON.stringify(serializeImpl(obj, instanceRegister), null, '\t');
+		} else {
+			return JSON.stringify(serializeImpl(obj));
+		}
+	};
+	
+	// Serialize single value. Use in custom serialization functions.
+	// Should pass on the custom function instanceRegister (responsible for detecting multiple references to single objects).
+	this.serializeCustom = serializeImpl;
+	
+	
+	// Deserialize object from JSON.
+	this.deserialize = function (data) {
+		
+		var obj = JSON.parse(data);
+		
+		var instanceRegister = [];
+		
+		return deserializeImpl(obj, instanceRegister);
+	};
+	
+	// Deserialize single value. Use in custom deserialization functions.
+	// Should pass on the custom function instanceRegister.
+	this.deserializeCustom = deserializeImpl;
+	
+	
+	
+	// Register class, in order to save the prototype.
+	this.registerClass = function (classType, className) {
+		
+		console.assert(m_registeredClasses[className] == undefined &&
+						classType.prototype.__serializationTypeName == undefined,
+						classType.prototype.__serializationExclude == undefined,
+						'This class is already registered!');
+		
+		m_registeredClasses[className] = classType;
+		classType.prototype.__serializationTypeName = className;
+	}
+	
+	// Exclude class from serializing.
+	this.excludeClass = function (classType) {
+		console.assert(classType.prototype.__serializationTypeName == undefined,
+				classType.prototype.__serializationExclude == undefined,
+				'This class is already registered!');
+		
+		classType.prototype.__serializationExclude = true;
+	}
+	
+	//
+	// Private
+	//
+	
+	// Checks if the value is registered. If so, returns reference object.
+	// Else, returns original object and registers it.
+	var registerCheckValue = function (value, instanceRegister) {
+		
+		var foundIndex = instanceRegister.indexOf(value);
+		if (foundIndex != -1)
+			return { __serializationRefId: foundIndex };
+		
+		// Register this object
+		instanceRegister.push(value);
+		
+		return value;
+	};
+	
+	// Just registers the value.
+	var registerValue = function (value, instanceRegister) {
+		instanceRegister.push(value);
+	}
+	
+	// If value is reference object, retrieve the referenced object.
+	// Else return the original value object.
+	var getReferenceValue = function (value, instanceRegister) {
+		if (value.__serializationRefId) {
+			return instanceRegister[value.__serializationRefId];
+		} else {
+			return value;
+		}
+	}
+	
+	// Serialize single value.
+	var serializeImpl = function (value, instanceRegister) {
+		
+		if (self.isNumber(value) || self.isString(value) || self.isBoolean(value) || value == null || value == undefined) {
+			return value;
+		} else if (self.isArray(value)) {
+			
+			var regValue = registerCheckValue(value, instanceRegister);
+			if (regValue != value)
+				return regValue;
+			
+			var arr = [];
+			for(var i = 0; i < value.length; ++i) {
+				arr[i] = serializeImpl(value[i], instanceRegister);
+			}
+			
+			return arr;
+			
+		} else if (self.isObject(value)) {
+			
+			// Check if this is not excluded class type.
+			if (value.__serializationExclude) {
+				return undefined;
+			}
+			
+			var regValue = registerCheckValue(value, instanceRegister);
+			if (regValue != value)
+				return regValue;
+			
+			// Need to iterate in a specific order, if we want ids to match later.
+			var keys = Object.keys(value).sort();
+			var obj = {};
+			
+			// Store the info for the class.
+			if (value.__serializationTypeName) {
+				obj.__serializationTypeName = value.__serializationTypeName;
+				
+				var customSerialize = m_registeredClasses[value.__serializationTypeName].serialize;
+				
+				// Check if class has a custom method for serialization.
+				if (customSerialize) {
+					console.assert(m_registeredClasses[value.__serializationTypeName].deserialize, 'Should provide custom deserialize() method with custom serialize().')
+					customSerialize(value, obj, instanceRegister);
+					return obj;
+				}
+			}
+			
+			for(var i = 0; i < keys.length; ++i) {
+				var fieldName = keys[i];
+				var fieldValue = serializeImpl(value[fieldName], instanceRegister);
+				
+				// Serializing excluded class type will return undefined. We don't need to store that.
+				if (fieldValue !== undefined)
+					obj[fieldName] = fieldValue;
+			}
+			
+			return obj;
+		}
+	}
+	
+	// Deserialize single value.
+	var deserializeImpl = function (value, instanceRegister) {
+		
+		if (self.isNumber(value) || self.isString(value) || self.isBoolean(value) || value == null || value == undefined) {
+			return value;
+		} else if (self.isArray(value)) {
+			
+			var arr = [];
+			registerValue(arr, instanceRegister);
+			
+			for(var i = 0; i < value.length; ++i) {
+				arr[i] = deserializeImpl(value[i], instanceRegister);
+			}
+			
+			return arr;
+			
+		} else if (self.isObject(value)) {
+			
+			var refValue = getReferenceValue(value, instanceRegister);
+			if (refValue != value)
+				return refValue;
+			
+			var obj;
+			// Setup the prototype if any.
+			if (value.__serializationTypeName) {
+				obj = Object.create(m_registeredClasses[value.__serializationTypeName].prototype);
+				delete value.__serializationTypeName;
+				
+				registerValue(obj, instanceRegister);
+				
+				// Check if class has a custom method for deserialization.
+				var customDeserialize = m_registeredClasses[obj.__serializationTypeName].deserialize;
+				if (customDeserialize) {
+					customDeserialize(value, obj, instanceRegister);
+					return obj;
+				}
+			} else {
+				obj = {};
+				registerValue(obj, instanceRegister);
+			}
+			
+			
+			// Need to iterate in a specific order, if we want ids to match.
+			var keys = Object.keys(value).sort();
+			
+			for(var i = 0; i < keys.length; ++i) {
+				var fieldName = keys[i];
+				obj[fieldName] = deserializeImpl(value[fieldName], instanceRegister);
+			}
+			
+			return obj;
+		}
+	}
+	
+	var m_registeredClasses = {};
+}

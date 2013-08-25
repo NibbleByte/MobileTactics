@@ -120,7 +120,10 @@ var TileRenderingSystem = function (renderer) {
 		m_renderer.refresh();
 	}
 	
-	var onTileAdded = function(event, tile) {		
+	var onTileAdded = function(event, tile) {
+		
+		tile.addComponent(CTileRendering);
+		
 		tile.CTileRendering.renderAt(tile.CTile.row, tile.CTile.column);
 		m_renderer.worldLayers.attachTo(WorldLayers.LayerTypes.Terrain, tile.CTileRendering.$renderedTile);
 		m_renderer.worldLayers.attachTo(WorldLayers.LayerTypes.Highlights, tile.CTileRendering.$renderedHighlight);
@@ -143,6 +146,8 @@ var TileRenderingSystem = function (renderer) {
 	}
 	
 	var onTileRemoved = function(event, tile) {
+		
+		
 		m_renderer.worldLayers.detach(tile.CTileRendering.$renderedHighlight);
 		m_renderer.worldLayers.detach(tile.CTileRendering.$renderedTile);
 		
@@ -168,6 +173,8 @@ var TileRenderingSystem = function (renderer) {
 		m_renderer.extentHeight += GTile.LAYERS_PADDING * 2;
 		
 		m_renderer.refresh();
+		
+		tile.removeComponent(CTileRendering);
 	}
 	
 	

@@ -101,6 +101,7 @@ var PlayerController = function (executor) {
 	
 	var onTileRemoved = function(event, tile) {
 		clearSelectedGOActions();
+		m_selectedTile = null;
 	}
 	
 	
