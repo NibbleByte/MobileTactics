@@ -9,7 +9,7 @@ var CTile = function () {
 	
 };
 
-ECS.EntityManager.registerComponent('CTile', CTile);
+ComponentsUtils.registerPersistent('CTile', CTile);
 
 
 

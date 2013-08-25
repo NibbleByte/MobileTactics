@@ -4,4 +4,4 @@ var CTilePlaceable = function () {
 	this.tile;
 };
 
-ECS.EntityManager.registerComponent('CTilePlaceable', CTilePlaceable);
+ComponentsUtils.registerPersistent('CTilePlaceable', CTilePlaceable);

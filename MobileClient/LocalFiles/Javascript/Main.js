@@ -27,8 +27,6 @@ var fillTerrainPattern = function (eworld, world, rows) {
 			tile.CTile.row = i;
 			tile.CTile.column = j;
 			
-			tile.addComponent(CTileRendering);
-			
 			tiles.push(tile);
 			
 			if (i < rows - 1) {
@@ -36,8 +34,6 @@ var fillTerrainPattern = function (eworld, world, rows) {
 				tile.addComponent(CTile);
 				tile.CTile.row = (rows - 1) * 2 - i;
 				tile.CTile.column = (rows - 1) * 2 - j;
-				
-				tile.addComponent(CTileRendering);
 				
 				tiles.push(tile);
 			}

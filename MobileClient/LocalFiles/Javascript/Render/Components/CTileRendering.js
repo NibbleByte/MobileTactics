@@ -7,7 +7,7 @@ var CTileRendering = function () {
 	this.highlightMode = CTileRendering.HighlightType.None;
 };
 
-ECS.EntityManager.registerComponent('CTileRendering', CTileRendering);
+ComponentsUtils.registerNonPersistent('CTileRendering', CTileRendering);
 
 CTileRendering.HighlightType = {
 		None: 0,
@@ -23,10 +23,10 @@ CTileRendering.prototype.CLASSES = {
 		
 		HIGHLIGHT_SELECTED: 'tile_highlight_selected',
 		HIGHLIGHT_MODES: [
-		                  '',
-		                  'tile_highlight_move',
-		                  'tile_highlight_attack'
-		                  ],
+						  '',
+						  'tile_highlight_move',
+						  'tile_highlight_attack'
+						  ],
 }
 
 

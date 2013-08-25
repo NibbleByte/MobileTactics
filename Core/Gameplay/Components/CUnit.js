@@ -5,4 +5,4 @@ var CUnit = function () {
 	this.health = 0;
 };
 
-ECS.EntityManager.registerComponent('CUnit', CUnit);
+ComponentsUtils.registerPersistent('CUnit', CUnit);

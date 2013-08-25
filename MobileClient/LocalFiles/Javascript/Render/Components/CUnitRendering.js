@@ -8,7 +8,7 @@ var CUnitRendering = function () {
 	.text('??');
 };
 
-ECS.EntityManager.registerComponent('CUnitRendering', CUnitRendering);
+ComponentsUtils.registerNonPersistent('CUnitRendering', CUnitRendering);
 
 
 //

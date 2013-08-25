@@ -16,7 +16,7 @@ var CTilePlaceableRendering = function () {
 		});
 };
 
-ECS.EntityManager.registerComponent('CTilePlaceableRendering', CTilePlaceableRendering);
+ComponentsUtils.registerNonPersistent('CTilePlaceableRendering', CTilePlaceableRendering);
 
 
 
