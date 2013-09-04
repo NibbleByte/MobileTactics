@@ -22,6 +22,8 @@ var UnitRenderingSystem = function (renderer) {
 		m_eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_MOVED, onPlaceableMoved);
 		m_eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_UNREGISTERED, onPlaceableUnregistered);
 		
+		m_eworldSB.subscribe(EngineEvents.Serialization.ENTITY_DESERIALIZED, onPlaceableMoved);
+		
 		m_eworldSB.subscribe(GameplayEvents.Units.UNIT_CHANGED, onUnitChanged);
 	}
 	

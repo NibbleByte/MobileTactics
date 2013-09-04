@@ -17,30 +17,27 @@ function close() {
 
 var fillTerrainPattern = function (eworld, world, rows) {
 	var tile;
-	var tiles = [];
 	
 	for(var i = 0; i < rows; ++i) {
 		for(var j = 0; j < i * 2 + 1; ++j) {
 			
-			tile = eworld.createEntity();
+			tile = new ECS.Entity();
 			tile.addComponent(CTile);
 			tile.CTile.row = i;
 			tile.CTile.column = j;
 			
-			tiles.push(tile);
+			eworld.addUnmanagedEntity(tile);
 			
 			if (i < rows - 1) {
-				tile = eworld.createEntity();
+				tile = new ECS.Entity();
 				tile.addComponent(CTile);
 				tile.CTile.row = (rows - 1) * 2 - i;
 				tile.CTile.column = (rows - 1) * 2 - j;
 				
-				tiles.push(tile);
+				eworld.addUnmanagedEntity(tile);
 			}
 		}
 	}
-	
-	world.loadTiles(tiles);
 }
 
 $(function () {
@@ -86,13 +83,50 @@ $(function () {
 	render = m_tileRendering;
 	effects = m_effects;
 	
+	var savedWorld = '';
+	var onBtnSave = function () {
+		var entities = m_eworld.getEntities();
+		savedWorld = Serialization.serialize(entities, true);
+	}
+	
+	var onBtnLoad = function () {
+		m_world.clearTiles();
+		
+		var entities = Serialization.deserialize(savedWorld);
+		for(var i = 0; i < entities.length; ++i) {
+			m_eworld.addUnmanagedEntity(entities[i]);
+		}
+		
+		for(var i = 0; i < entities.length; ++i) {
+			m_eworld.trigger(EngineEvents.Serialization.ENTITY_DESERIALIZED, entities[i]);
+		}
+	}
+	
+	var onBtnRemoveTile = function () {
+		// TODO: This uses debug feature that will be removed!
+		if (selected)
+			selected.destroy();
+	}
+	
+	var onBtnRestart = function () {
+		var ROWS = 8;
+		m_world.clearTiles();
+		fillTerrainPattern(m_eworld, m_world, ROWS);
+	}
 	
 	//
 	// Initialize
 	//
-	var ROWS = 8;
-	fillTerrainPattern(m_eworld, m_world, ROWS);
+	onBtnRestart();
+	onBtnSave();
+
+	// Toolbar listeners
+	$('#BtnSave').click(onBtnSave);
+	$('#BtnLoad').click(onBtnLoad);
+	$('#BtnRemoveTile').click(onBtnRemoveTile);
+	$('#BtnRestart').click(onBtnRestart);
 	
 	// MoSync bindings
 	document.addEventListener("backbutton", close, true);
 });
+

@@ -37,9 +37,9 @@ var UnitsFactory = {
 		},
 	},
 	
-	createUnit: function (eworld) {
+	createUnit: function () {
 		
-		var obj = eworld.createEntity();
+		var obj = new ECS.Entity();
 		obj.addComponent(CTilePlaceable);
 		obj.addComponent(CUnit);
 		obj.addComponent(CActions);
