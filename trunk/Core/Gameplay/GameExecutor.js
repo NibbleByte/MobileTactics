@@ -11,7 +11,8 @@ var GameExecutor = function (world) {
 		
 		var obj = UnitsFactory.createUnit(world.getEntityWorld());
 		
-		m_world.registerPlaceableAt(obj, tile);
+		world.getEntityWorld().addUnmanagedEntity(obj);
+		m_world.place(obj, tile);
 		
 		return obj;
 	}

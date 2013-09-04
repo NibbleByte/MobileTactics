@@ -22,18 +22,25 @@ ECS.EntityWorld = function () {
 	// Entities
 	//
 	
-	// Proper way to create an empty entity.
+	// Create managed entity bound to this world.
 	// All systems will be notified for this.
 	this.createEntity = function () {
 		var entity = new ECS.Entity(this);
 		
 		m_entities.push(entity);
 		
-		if (enabledNotifications)
-			self.trigger(ECS.EntityWorld.Events.ENTITY_ADDED, entity);
+		self.trigger(ECS.EntityWorld.Events.ENTITY_ADDED, entity);
 		
 		return entity;
 	};
+	
+	// Create entity from a "template" (handler that builds up the entity).
+	this.createEntityFromTemplate = function (handler) {
+		var entity = new ECS.Entity();
+		handler(entity);
+		
+		self.addUnmanagedEntity(entity);
+	}
 	
 	// Add un-managed entity.
 	this.addUnmanagedEntity = function (entity) {
@@ -42,34 +49,20 @@ ECS.EntityWorld = function () {
 		
 		m_entities.push(entity);
 		
-		if (enabledNotifications)
-			self.trigger(ECS.EntityWorld.Events.ENTITY_ADDED, entity);
+		self.trigger(ECS.EntityWorld.Events.ENTITY_ADDED, entity);
 	};
 	
-	this.createEntityFromTemplate = function (handler) {
-		// HACK: avoids unnecessary entity notifications, while building up the template.
-		//		 one final notification will be called for "Entity added".
-		enabledNotifications = false;
-		
-		var entity = self.createEntity();
-		handler(entity);
-		
-		enabledNotifications = true;
-		
-		self.trigger(ECS.EntityWorld.Events.ENTITY_ADDED, entity);
-	}
-	
-	// Remove entity from the world.
-	// All systems will be notified for this.
-	this.destroyEntity = function (entity) {
+	this.removeManagedEntity = function (entity) {
+		console.assert(entity._entityWorld == this, 'Entity is not managed by this world!');
 		
 		var foundIndex = m_entities.indexOf(entity);
 		
 		if (foundIndex > -1) {
 			m_entities.splice(foundIndex, 1);
 			
-			if (enabledNotifications)
-				self.trigger(ECS.EntityWorld.Events.ENTITY_REMOVED, entity);
+			entity._entityWorld = null;
+			
+			self.trigger(ECS.EntityWorld.Events.ENTITY_REMOVED, entity);
 		}
 	};
 	
@@ -77,40 +70,6 @@ ECS.EntityWorld = function () {
 	this.getEntities = function () {
 		return m_entities;
 	};
-	
-	//
-	// Components
-	//
-	
-	// Add component to a given entity.
-	// All systems will be notified for this.
-	// Note: can just use Entity.addComponent();
-	this.addComponent = function (entity, componentClass) {
-		var componentName = componentClass.prototype._COMP_NAME;
-		
-		console.assert(componentName && entity[componentName] == undefined );
-		
-		entity[componentName] = new componentClass;
-		
-		if (enabledNotifications)
-			self.trigger(ECS.EntityWorld.Events.ENTITY_REFRESH, entity);
-	};
-	
-	// Remove component from a given entity.
-	// All systems will be notified for this.
-	// Note: can just use Entity.removeComponent();
-	this.removeComponent = function (entity, componentClass) {
-		
-		var componentName = componentClass.prototype._COMP_NAME;
-		
-		console.assert(componentName && entity[componentName]);
-		
-		delete entity[componentName];
-		
-		if (enabledNotifications)
-			self.trigger(ECS.EntityWorld.Events.ENTITY_REFRESH, entity);
-	};
-	
 	
 	//
 	// Systems
@@ -174,7 +133,6 @@ ECS.EntityWorld = function () {
 	
 	var m_entities = [];
 	var m_systems = new Array(20);	// Expecting no more than 20 systems...
-	var enabledNotifications = true;
 }
 
 // Supported EntityWorld events that systems can subscribe to.

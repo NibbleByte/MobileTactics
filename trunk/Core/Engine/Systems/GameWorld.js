@@ -24,6 +24,7 @@ var GameWorld = function () {
 		m_eworld = this.getEntityWorld();
 		m_eworldSB = m_eworld.createSubscriber();
 		
+		m_eworldSB.subscribe(ECS.EntityWorld.Events.ENTITY_ADDED, onEntityAdded);
 		m_eworldSB.subscribe(ECS.EntityWorld.Events.ENTITY_REMOVED, onEntityRemoved);
 	}
 	
@@ -43,37 +44,21 @@ var GameWorld = function () {
 	this.getRows = function () {
 		return m_rows;
 	}
-	
-	
-	this.loadTiles = function(tiles) {
-		for(var i = 0; i < tiles.length; ++i) {
-			self.addTile(tiles[i]);
-		}
-	}
-	
+		
 	this.clearTiles = function() {
 		for(var i = 0; i < m_rows; ++i) {
 			for(var j = 0; j < m_columns; ++j) {
 				var tile = self.getTile(i, j);
 				
 				if (tile) {
-					m_eworld.trigger(EngineEvents.World.TILE_REMOVED, tile);
-					
 					tile.destroy();
 				}
 			}
 		}
 		
-		
-		
 		m_rows = 0;
 		m_columns = 0;
 		m_tiles = [];
-		
-		m_eworld.trigger(EngineEvents.World.SIZE_CHANGED, {
-			rows: m_rows,
-			columns: m_columns,
-		});
 	}
 	
 	this.getTile = function (row, column) {
@@ -110,7 +95,7 @@ var GameWorld = function () {
 	}
 	
 	
-	this.addTile = function (tile) {		
+	var addTile = function (tile) {		
 		var row = tile.CTile.row;
 		var column = tile.CTile.column;
 		
@@ -125,31 +110,21 @@ var GameWorld = function () {
 		m_eworld.trigger(EngineEvents.World.TILE_ADDED, tile);
 		
 		// Resize grid
-		var resized = false;
 		if (m_rows - 1 < row) {
 			m_rows = row + 1;
-			resized = true;
 		}
 		if (m_columns - 1 < column) {
 			m_columns = column + 1;
-			resized = true;
-		}
-		
-		if (resized) {
-			m_eworld.trigger(EngineEvents.World.SIZE_CHANGED, {
-				rows: m_rows,
-				columns: m_columns,
-			});
 		}
 	}
 	
-	this.removeTile = function (tile) {
+	var removeTile = function (tile) {
 		
 		m_eworld.trigger(EngineEvents.World.TILE_REMOVED, tile);
 		
-		// Remove placeables if has any.
-		for(var i = 0; i < tile.CTile.placedObjects.length; ++i) {
-			tile.CTile.placedObjects[i].destroy();
+		// Remove placeables if has any. Will be detached on destroying entity.
+		while(tile.CTile.placedObjects.length > 0) {
+			tile.CTile.placedObjects[0].destroy();			
 		}
 		
 		var row = tile.CTile.row;
@@ -190,31 +165,7 @@ var GameWorld = function () {
 		
 	//
 	// Placed objects handling
-	//
-	this.registerPlaceableAt = function (placeable, tile) {
-		
-		m_placeables.push(placeable);
-		
-		m_eworld.trigger(EngineEvents.Placeables.PLACEABLE_REGISTERED, placeable);
-		
-		self.place(placeable, tile);
-	}
-	
-	var unregisterPlaceable = function (placeable) {
-		
-		var foundIndex = m_placeables.indexOf(placeable);
-		
-		if (foundIndex == -1)
-			return false;
-		
-		m_eworld.trigger(EngineEvents.Placeables.PLACEABLE_UNREGISTERED, placeable);
-		
-		placeable.CTilePlaceable.tile.CTile.removeObject(placeable);
-		m_placeables.splice(foundIndex, 1);
-		
-		return true;
-	}
-	
+	//	
 	this.place = function (placeable, tile) {
 		// Detach from previous tile
 		var oldTile = placeable.CTilePlaceable.tile;
@@ -246,10 +197,45 @@ var GameWorld = function () {
 		return placeables;
 	}
 	
+	var registerPlaceable = function (placeable) {
+		
+		m_placeables.push(placeable);
+		
+		m_eworld.trigger(EngineEvents.Placeables.PLACEABLE_REGISTERED, placeable);
+	}
+	
+	var unregisterPlaceable = function (placeable) {
+		
+		var foundIndex = m_placeables.indexOf(placeable);
+		
+		if (foundIndex == -1)
+			return false;
+		
+		m_eworld.trigger(EngineEvents.Placeables.PLACEABLE_UNREGISTERED, placeable);
+		
+		placeable.CTilePlaceable.tile.CTile.removeObject(placeable);
+		m_placeables.splice(foundIndex, 1);
+		
+		return true;
+	}
+	
+	
+	
+	var onEntityAdded = function (event, entity) {
+		
+		if (entity.hasComponents(CTile)) {
+			addTile(entity);
+		} else if (entity.hasComponents(CTilePlaceable)) {
+			registerPlaceable(entity)
+		}
+		
+	}
 
 	var onEntityRemoved = function (event, entity) {
 		
-		if (entity.hasComponents(CTilePlaceable)) {
+		if (entity.hasComponents(CTile)) {
+			removeTile(entity);
+		} else if (entity.hasComponents(CTilePlaceable)) {
 			unregisterPlaceable(entity);
 		}
 	}
