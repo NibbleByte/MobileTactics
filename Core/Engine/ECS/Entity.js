@@ -20,6 +20,7 @@ ECS.Entity = function (world) {
 
 
 // Add single component to this entity (by type). 
+// Returns newly added component.
 // All systems will be notified for this.
 // Note: only one component per type allowed.
 ECS.Entity.prototype.addComponent = function (componentClass) {
@@ -28,10 +29,13 @@ ECS.Entity.prototype.addComponent = function (componentClass) {
 	
 	console.assert(componentName && this[componentName] == undefined );
 	
-	this[componentName] = new componentClass;
+	var component = new componentClass;
+	this[componentName] = component;
 	
 	if (this._entityWorld)
 		this._entityWorld.trigger(ECS.EntityWorld.Events.ENTITY_REFRESH, entity);
+	
+	return component;
 }
 
 // Remove single component from this entity (by type).
