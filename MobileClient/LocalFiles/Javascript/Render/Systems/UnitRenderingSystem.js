@@ -53,14 +53,14 @@ var UnitRenderingSystem = function (renderer) {
 		
 		if (placeableRendering.sprite.w) {
 			placeableRendering.sprite.position(
-					coords.x + GTile.LAYERS_PADDING - placeableRendering.sprite.w / 2,
-					coords.y + GTile.LAYERS_PADDING - placeableRendering.sprite.h / 2
+					coords.x - placeableRendering.sprite.w / 2,
+					coords.y - placeableRendering.sprite.h / 2
 					);
 			placeableRendering.sprite.update();
 		}
 		
 		// Position the health at the bottom right corner.
-		unitRendering.sprite.position(coords.x + GTile.LAYERS_PADDING, coords.y + GTile.LAYERS_PADDING);
+		unitRendering.sprite.position(coords.x, coords.y);
 		unitRendering.sprite.update();
 	}
 	

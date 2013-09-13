@@ -15,5 +15,4 @@ GTile.TILE_SIDE = ( 2 * GTile.TILE_WIDTH - Math.sqrt(4 * GTile.TILE_WIDTH * GTil
 GTile.TILE_HOFFSET = (GTile.TILE_WIDTH - GTile.TILE_SIDE) / 2 + GTile.TILE_SIDE;
 GTile.TILE_VOFFSET = GTile.TILE_HEIGHT / 2;
 
-// TODO: Remove this useless padding from the code! Use HTML + CSS (check with on-click event).
 GTile.LAYERS_PADDING = 32;
