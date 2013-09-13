@@ -92,10 +92,10 @@ var TileRenderingSystem = function (renderer) {
 		
 		var rendering = tile.CTileRendering;
 		
-		rendering.sprite.position(coords.x + GTile.LAYERS_PADDING, coords.y + GTile.LAYERS_PADDING);
+		rendering.sprite.position(coords.x, coords.y);
 		rendering.sprite.update();
 		
-		rendering.spriteHighlight.position(coords.x + GTile.LAYERS_PADDING, coords.y + GTile.LAYERS_PADDING);
+		rendering.spriteHighlight.position(coords.x, coords.y);
 		rendering.spriteHighlight.update();
 		
 		/////////////////////////////////////////////////////////

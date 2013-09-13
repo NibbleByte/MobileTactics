@@ -44,8 +44,8 @@ var GameWorldRenderer = function (holderElement) {
 		var vOffset = (column % 2) ? -GTile.TILE_VOFFSET : 0;
 		
 		var coords = {
-				x: hOffset + Math.floor(column / 2) * (GTile.TILE_WIDTH + GTile.TILE_SIDE),
-				y: vOffset + (row - Math.floor(column / 2)) * GTile.TILE_HEIGHT,
+				x: hOffset + Math.floor(column / 2) * (GTile.TILE_WIDTH + GTile.TILE_SIDE) + GTile.LAYERS_PADDING,
+				y: vOffset + (row - Math.floor(column / 2)) * GTile.TILE_HEIGHT + GTile.LAYERS_PADDING,
 		}
 		
 		return coords;
