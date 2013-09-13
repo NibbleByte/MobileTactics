@@ -84,6 +84,37 @@ var TileRenderingSystem = function (renderer) {
 		return m_world.getTile(row, column);
 	}
 	
+	var renderTile = function (tile) {
+		var row = tile.CTile.row;
+		var column = tile.CTile.column;
+		
+		var coords = m_renderer.getRenderedTilePosition(row, column);
+		
+		var rendering = tile.CTileRendering;
+		
+		rendering.sprite.position(coords.x + GTile.LAYERS_PADDING, coords.y + GTile.LAYERS_PADDING);
+		rendering.sprite.update();
+		
+		rendering.spriteHighlight.position(coords.x + GTile.LAYERS_PADDING, coords.y + GTile.LAYERS_PADDING);
+		rendering.spriteHighlight.update();
+		
+		/////////////////////////////////////////////////////////
+		// DEBUG: Debug visualization
+		
+		$(rendering.sprite.dom)
+		.html(	'<br />' +
+				'RC: ' + row + ', ' + column +
+				'<br />' +
+				'X: ' + parseInt(rendering.sprite.x) +
+				'<br />' +
+				'Y: ' + parseInt(rendering.sprite.y));
+		// DEBUG: Color every even column
+		if (row % 2)
+			$(rendering.sprite.dom)
+			.css('background', 'url("Assets/Render/Images/hex_bluesh.png") no-repeat')
+			.css('background-size', '100% 100%');
+	}
+	
 	var onPlotClicked = function (event) {
 		var offset = $(event.currentTarget).offset();
 		var posX = event.clientX - offset.left - GTile.LAYERS_PADDING;
@@ -92,25 +123,13 @@ var TileRenderingSystem = function (renderer) {
 		m_eworld.trigger(ClientEvents.Input.TILE_CLICKED, fetchTileAtPoint(posX, posY));
 	}
 	
-	
 	var addCurrentTiles = function () {
 		
 		m_renderer.extentWidth = 0;
 		m_renderer.extentHeight = 0;
 		
 		iterateOverTiles(function(tile){
-					
-			tile.CTileRendering.renderAt(tile.CTile.row, tile.CTile.column);
-			m_renderer.worldLayers.attachTo(WorldLayers.LayerTypes.Terrain, tile.CTileRendering.$renderedTile);
-			m_renderer.worldLayers.attachTo(WorldLayers.LayerTypes.Highlights, tile.CTileRendering.$renderedHighlight);
-			
-			var coords = tile.CTileRendering.getRenderedXY();
-			
-			// Resize plot
-			if (coords.x + GTile.TILE_WIDTH > m_renderer.extentWidth)
-				m_renderer.extentWidth = coords.x + GTile.TILE_WIDTH; 
-			if (coords.y + GTile.TILE_HEIGHT > m_renderer.extentHeight)
-				m_renderer.extentHeight = coords.y + GTile.TILE_HEIGHT;
+			onTileAdded(null, tile);
 		});
 		
 		// Plot size
@@ -124,20 +143,24 @@ var TileRenderingSystem = function (renderer) {
 		
 		tile.addComponent(CTileRendering);
 		
-		tile.CTileRendering.renderAt(tile.CTile.row, tile.CTile.column);
-		m_renderer.worldLayers.attachTo(WorldLayers.LayerTypes.Terrain, tile.CTileRendering.$renderedTile);
-		m_renderer.worldLayers.attachTo(WorldLayers.LayerTypes.Highlights, tile.CTileRendering.$renderedHighlight);
+		tile.CTileRendering.sprite = m_renderer.layers[WorldLayers.LayerTypes.Terrain].Sprite();
+		$(tile.CTileRendering.sprite.dom).addClass('tile');
 		
-		var coords = tile.CTileRendering.getRenderedXY();
+		tile.CTileRendering.spriteHighlight = m_renderer.layers[WorldLayers.LayerTypes.Highlights].Sprite();
+		$(tile.CTileRendering.spriteHighlight.dom).addClass('tile_highlight');
+		
+		renderTile(tile);
+				
+		var sprite = tile.CTileRendering.sprite;
 		
 		// Resize plot
 		var resized = false;
-		if (coords.x + GTile.TILE_WIDTH > m_renderer.extentWidth - GTile.LAYERS_PADDING * 2) {
-			m_renderer.extentWidth = coords.x + GTile.TILE_WIDTH + GTile.LAYERS_PADDING * 2;
+		if (sprite.x + GTile.TILE_WIDTH > m_renderer.extentWidth - GTile.LAYERS_PADDING * 2) {
+			m_renderer.extentWidth = sprite.x + GTile.TILE_WIDTH + GTile.LAYERS_PADDING * 2;
 			resized = true;
 		}
-		if (coords.y + GTile.TILE_HEIGHT > m_renderer.extentHeight - GTile.LAYERS_PADDING * 2) {
-			m_renderer.extentHeight = coords.y + GTile.TILE_HEIGHT + GTile.LAYERS_PADDING * 2;
+		if (sprite.y + GTile.TILE_HEIGHT > m_renderer.extentHeight - GTile.LAYERS_PADDING * 2) {
+			m_renderer.extentHeight = sprite.y + GTile.TILE_HEIGHT + GTile.LAYERS_PADDING * 2;
 			resized = true;
 		}
 		
@@ -148,9 +171,8 @@ var TileRenderingSystem = function (renderer) {
 	var onTileRemoved = function(event, tile) {
 		
 		
-		m_renderer.worldLayers.detach(tile.CTileRendering.$renderedHighlight);
-		m_renderer.worldLayers.detach(tile.CTileRendering.$renderedTile);
-		
+		tile.CTileRendering.spriteHighlight.remove();
+		tile.CTileRendering.sprite.remove();
 		
 		// Resize if needed...
 		m_renderer.extentWidth = 0;
@@ -160,13 +182,13 @@ var TileRenderingSystem = function (renderer) {
 			if (itTile == tile)
 				return false;
 			
-			var coords = itTile.CTileRendering.getRenderedXY();
+			var sprite = itTile.CTileRendering.sprite;
 			
 			// Resize plot
-			if (coords.x + GTile.TILE_WIDTH > m_renderer.extentWidth)
-				m_renderer.extentWidth = coords.x + GTile.TILE_WIDTH; 
-			if (coords.y + GTile.TILE_HEIGHT > m_renderer.extentHeight)
-				m_renderer.extentHeight = coords.y + GTile.TILE_HEIGHT;
+			if (sprite.x + GTile.TILE_WIDTH > m_renderer.extentWidth)
+				m_renderer.extentWidth = sprite.x + GTile.TILE_WIDTH; 
+			if (sprite.y + GTile.TILE_HEIGHT > m_renderer.extentHeight)
+				m_renderer.extentHeight = sprite.y + GTile.TILE_HEIGHT;
 		});
 		
 		m_renderer.extentWidth += GTile.LAYERS_PADDING * 2;
@@ -198,7 +220,7 @@ var TileRenderingSystem = function (renderer) {
 	//
 	// Initialization
 	//
-	m_renderer.$pnLayersContainer.click(onPlotClicked);
+	$(m_renderer.scene.dom).click(onPlotClicked);
 }
 
 ECS.EntityManager.registerSystem('TileRenderingSystem', TileRenderingSystem);

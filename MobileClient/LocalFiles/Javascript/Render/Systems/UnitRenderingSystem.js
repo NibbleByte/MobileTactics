@@ -41,24 +41,60 @@ var UnitRenderingSystem = function (renderer) {
 	
 	var m_renderer = renderer;
 	
+	var renderUnit = function (placeable) {
+		
+		var row = placeable.CTilePlaceable.tile.CTile.row;
+		var column = placeable.CTilePlaceable.tile.CTile.column;
+		
+		var coords = m_renderer.getRenderedTileCenter(row, column);
+		
+		var placeableRendering = placeable.CTilePlaceableRendering;
+		var unitRendering = placeable.CUnitRendering;
+		
+		if (placeableRendering.sprite.w) {
+			placeableRendering.sprite.position(
+					coords.x + GTile.LAYERS_PADDING - placeableRendering.sprite.w / 2,
+					coords.y + GTile.LAYERS_PADDING - placeableRendering.sprite.h / 2
+					);
+			placeableRendering.sprite.update();
+		}
+		
+		// Position the health at the bottom right corner.
+		unitRendering.sprite.position(coords.x + GTile.LAYERS_PADDING, coords.y + GTile.LAYERS_PADDING);
+		unitRendering.sprite.update();
+	}
+	
 	var onPlaceableRegistered = function(event, placeable) {
 		
 		// Only interested in units.
 		if (!placeable.hasComponents(CUnit))
 			return;
 		
-		placeable.addComponent(CTilePlaceableRendering);
-		placeable.addComponent(CUnitRendering);
+		var placeableRendering = placeable.addComponent(CTilePlaceableRendering);
+		var unitRendering = placeable.addComponent(CUnitRendering);
 		
-		placeable.CTilePlaceableRendering.skin = placeable.CUnit.name;
+		placeableRendering.skin = placeable.CUnit.name;
 		
 		// Placeable
-		m_renderer.worldLayers.attachTo(WorldLayers.LayerTypes.Units, placeable.CTilePlaceableRendering.$renderedPlaceable);
-		placeable.CTilePlaceableRendering.refreshSkin();
+		placeableRendering.sprite = m_renderer.layers[WorldLayers.LayerTypes.Units].Sprite();
+		$(placeableRendering.sprite.dom).addClass('placeable');
+		
 		
 		// Unit
-		m_renderer.worldLayers.attachTo(WorldLayers.LayerTypes.Units, placeable.CUnitRendering.$renderedHolder);
-		placeable.CUnitRendering.setHealth(placeable.CUnit.health);
+		unitRendering.sprite = m_renderer.layers[WorldLayers.LayerTypes.Statistics].Sprite();
+		unitRendering.$text.appendTo(unitRendering.sprite.dom);
+		unitRendering.$text.text(placeable.CUnit.health);
+		
+		
+		// Load asset and apply it when done.
+		var resourcePath = 'Assets/Render/Images/' + placeableRendering.skin + '.png';
+		m_renderer.scene.loadImages([resourcePath], function () {
+			placeableRendering.sprite.loadImg(resourcePath, true);
+			
+			// Check if unit is registered, else it will be moved afterwards.
+			if (placeable.CTilePlaceable.tile)
+				renderUnit(placeable);
+		});
 	}
 	
 	var onPlaceableMoved = function(event, placeable) {
@@ -66,10 +102,7 @@ var UnitRenderingSystem = function (renderer) {
 		if (!placeable.hasComponents(REQUIRED_COMPONENTS))
 			return;
 		
-		var coords = placeable.CTilePlaceable.tile.CTileRendering.getRenderedCenterXY();
-		
-		placeable.CTilePlaceableRendering.renderAt(coords.x, coords.y);
-		placeable.CUnitRendering.renderAt(coords.x, coords.y);
+		renderUnit(placeable);
 	}
 	
 	var onPlaceableUnregistered = function(event, placeable) {
@@ -77,12 +110,13 @@ var UnitRenderingSystem = function (renderer) {
 		if (!placeable.hasComponents(REQUIRED_COMPONENTS))
 			return;
 		
-		m_renderer.worldLayers.detach(placeable.CUnitRendering.$renderedHolder);
-		m_renderer.worldLayers.detach(placeable.CTilePlaceableRendering.$renderedPlaceable);		
+		placeable.CUnitRendering.$text.detach();
+		placeable.CUnitRendering.sprite.remove();
+		placeable.CTilePlaceableRendering.sprite.remove();
 	}
 	
 	var onUnitChanged = function(event, unit) {
-		unit.CUnitRendering.setHealth(unit.CUnit.health);
+		unit.CUnitRendering.$text.text(unit.CUnit.health.toPrecision(2));
 	}
 }
 

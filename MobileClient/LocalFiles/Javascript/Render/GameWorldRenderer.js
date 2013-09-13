@@ -13,28 +13,56 @@ var GameWorldRenderer = function (holderElement) {
 	this.extentWidth = 0;
 	this.extentHeight = 0;
 	
-	this.$pnWorldPlot = $('<div id="WorldPlot"></div>');
-	this.$pnLayersContainer = $('<div id="LayersContainer"></div>').appendTo(this.$pnWorldPlot);
+	this.$pnWorldPlot = $('<div id="WorldPlot"></div>').appendTo(this.pnHolder);
 	
-	this.worldLayers = new WorldLayers(this.$pnLayersContainer);
+	this.scene = sjs.Scene({
+		parent: this.$pnWorldPlot[0],
+	});
+	
+	this.layers = [];
+	
+	for(var layerIndex in WorldLayers.LayerTypes) {
+		this.layers[WorldLayers.LayerTypes[layerIndex]] = this.scene.Layer(layerIndex);
+	}
+	
 	
 	var plotContainerScroller = null;	
 	
 	this.refresh = function () {
 		
-		self.$pnLayersContainer.width(self.extentWidth);
-		self.$pnLayersContainer.height(self.extentHeight);
+		$(self.scene.dom).width(self.extentWidth);
+		$(self.scene.dom).height(self.extentHeight);
 		
 		// TODO: Unneeded check, due to timeouts on initialize
 		if (plotContainerScroller)
 			plotContainerScroller.refresh();		
 		
 	}
+	
+	this.getRenderedTilePosition = function (row, column) {
+		var hOffset = (column % 2) ? GTile.TILE_HOFFSET : 0;
+		var vOffset = (column % 2) ? -GTile.TILE_VOFFSET : 0;
 		
+		var coords = {
+				x: hOffset + Math.floor(column / 2) * (GTile.TILE_WIDTH + GTile.TILE_SIDE),
+				y: vOffset + (row - Math.floor(column / 2)) * GTile.TILE_HEIGHT,
+		}
+		
+		return coords;
+	}
+	
+	this.getRenderedTileCenter = function (row, column) {
+		var coords = self.getRenderedTilePosition(row, column);
+		
+		coords.x += GTile.TILE_WIDTH / 2;
+		coords.y += GTile.TILE_HEIGHT / 2;
+		
+		return coords;
+	}
+	
 	//
 	// Initialize
 	//
-	this.$pnWorldPlot.appendTo(this.pnHolder);
 	
 	// TODO: Fix this issue with height = 0 on startup
 	setTimeout(function () {
