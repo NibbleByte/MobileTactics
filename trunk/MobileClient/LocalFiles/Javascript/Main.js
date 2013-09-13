@@ -6,6 +6,7 @@
 var world;
 var render;
 var effects;
+var worldRenderer;
 
 /**
  * Handle the backbutton event.
@@ -70,7 +71,7 @@ $(function () {
 	// Rendering Systems
 	//
 	
-	var worldRenderer = new GameWorldRenderer($('#GameWorldMap')[0]);
+	worldRenderer = new GameWorldRenderer($('#GameWorldMap')[0]);
 	
 	var m_tileRendering = new TileRenderingSystem(worldRenderer);
 	m_eworld.addSystem(m_tileRendering);

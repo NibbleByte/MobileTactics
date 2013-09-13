@@ -1,9 +1,9 @@
 "use strict";
 
 var CTileRendering = function () {
-	this.$renderedTile = $('<div class="tile"></div>');
+	this.sprite = null;
+	this.spriteHighlight = null;
 	
-	this.$renderedHighlight = $('<div class="tile_highlight"></div>');
 	this.highlightMode = CTileRendering.HighlightType.None;
 };
 
@@ -35,66 +35,16 @@ CTileRendering.prototype.CLASSES = {
 // Short-cuts
 //
 
-CTileRendering.prototype.renderAt = function (row, column) {
-	
-	var hOffset = (column % 2) ? GTile.TILE_HOFFSET : 0;
-	var vOffset = (column % 2) ? -GTile.TILE_VOFFSET : 0;
-	
-	var x = hOffset + Math.floor(column / 2) * (GTile.TILE_WIDTH + GTile.TILE_SIDE);
-	var y = vOffset + (row - Math.floor(column / 2)) * GTile.TILE_HEIGHT;
-	
-	this.$renderedTile
-	.css('left', x + GTile.LAYERS_PADDING + 'px')
-	.css('top', y + GTile.LAYERS_PADDING + 'px');
-	
-	this.$renderedHighlight
-	.css('left', x  + GTile.LAYERS_PADDING + 'px')
-	.css('top', y + GTile.LAYERS_PADDING  + 'px');
-	
-	/////////////////////////////////////////////////////////
-	// DEBUG: Debug visualization
-	
-	this.$renderedTile
-	.html(	'<br />' +
-			'RC: ' + row + ', ' + column +
-			'<br />' +
-			'X: ' + parseInt(this.$renderedTile.css('left')) +
-			'<br />' +
-			'Y: ' + parseInt(this.$renderedTile.css('top')));
-	// DEBUG: Color every even column
-	if (row % 2)
-		this.$renderedTile
-		.css('background', 'url("Assets/Render/Images/hex_bluesh.png") no-repeat')
-		.css('background-size', '100% 100%');
-};
-
-CTileRendering.prototype.getRenderedXY = function () {
-	return {
-			y: parseFloat(this.$renderedTile.css('top')),
-			x: parseFloat(this.$renderedTile.css('left'))
-			};
-};
-
-CTileRendering.prototype.getRenderedCenterXY = function () {
-	var coords = this.getRenderedXY();
-	coords.y += GTile.TILE_HEIGHT / 2;
-	coords.x += GTile.TILE_WIDTH / 2;
-	
-	return coords;
-};
-
-
-
 CTileRendering.prototype.unSelect = function () {
-	this.$renderedTile.removeClass(this.CLASSES.TILE_SELECTED);
+	$(this.sprite.dom).removeClass(this.CLASSES.TILE_SELECTED);
 };
 
 CTileRendering.prototype.select = function () {
-	this.$renderedTile.addClass(this.CLASSES.TILE_SELECTED);
+	$(this.sprite.dom).addClass(this.CLASSES.TILE_SELECTED);
 };
 
 CTileRendering.prototype.isSelected = function () {
-	return this.$renderedTile.hasClass(this.CLASSES.TILE_SELECTED);
+	return $(this.sprite.dom).hasClass(this.CLASSES.TILE_SELECTED);
 };
 
 
@@ -110,16 +60,16 @@ CTileRendering.prototype.highlight = function (mode) {
 	
 	// Remove old highlight
 	if (this.highlightMode != CTileRendering.HighlightType.None) {
-		this.$renderedHighlight.removeClass(this.CLASSES.HIGHLIGHT_MODES[this.highlightMode]);
+		$(this.spriteHighlight.dom).removeClass(this.CLASSES.HIGHLIGHT_MODES[this.highlightMode]);
 	}
 	
 	this.highlightMode = mode;
-	this.$renderedHighlight.addClass(this.CLASSES.HIGHLIGHT_MODES[this.highlightMode]);
+	$(this.spriteHighlight.dom).addClass(this.CLASSES.HIGHLIGHT_MODES[this.highlightMode]);
 };
 
 CTileRendering.prototype.unHighlight = function () {
 	if (this.highlightMode != CTileRendering.HighlightType.None) {
-		this.$renderedHighlight.removeClass(this.CLASSES.HIGHLIGHT_MODES[this.highlightMode]);
+		$(this.spriteHighlight.dom).removeClass(this.CLASSES.HIGHLIGHT_MODES[this.highlightMode]);
 		this.highlightMode = CTileRendering.HighlightType.None;
 	}		
 };
