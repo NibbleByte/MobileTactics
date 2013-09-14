@@ -299,12 +299,14 @@ Scene.prototype.loadImages = function loadImages(images, callback) {
     }
 
     total = toLoad;
+    /* Not needed feature!
     div = overlay(0, 0, this.w, this.h);
     div.style.textAlign = 'center';
     div.style.paddingTop = (this.h / 2 - 16) + 'px';
 
     div.innerHTML = 'Loading';
     this.dom.appendChild(div);
+    */
     scene = this;
     error = false;
 
@@ -317,17 +319,17 @@ Scene.prototype.loadImages = function loadImages(images, callback) {
             toLoad -= 1;
             if (error === false) {
                 if (toLoad === 0) {
-                    scene.dom.removeChild(div);
+                    // scene.dom.removeChild(div);
                     callback();
                 } else {
-                    div.innerHTML = 'Loading ' + ((total - toLoad) / total * 100 | 0) + '%';
+                    // div.innerHTML = 'Loading ' + ((total - toLoad) / total * 100 | 0) + '%';
                 }
             }
         }, false);
 
         _addEventListener(img, 'error', function () {
             error = true;
-            div.innerHTML = 'Error loading image ' + src;
+            // div.innerHTML = 'Error loading image ' + src;
         }, false);
 
         img.src = src;
