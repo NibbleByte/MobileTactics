@@ -77,6 +77,8 @@ $(function () {
 	m_eworld.addSystem(m_tileRendering);
 	var m_unitRendering = new UnitRenderingSystem(worldRenderer);
 	m_eworld.addSystem(m_unitRendering);
+	var m_animation = new AnimationSystem(worldRenderer);
+	m_eworld.addSystem(m_animation);
 	
 	
 	// DEBUG: global access

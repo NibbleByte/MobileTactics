@@ -17,6 +17,7 @@ var GameWorldRenderer = function (holderElement) {
 	
 	this.scene = sjs.Scene({
 		parent: this.$pnWorldPlot[0],
+		autoPause: false,
 	});
 	
 	this.layers = [];
