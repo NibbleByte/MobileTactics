@@ -26,6 +26,8 @@ var UnitRenderingSystem = function (renderer) {
 		m_eworldSB.subscribe(EngineEvents.Serialization.ENTITY_DESERIALIZED, onPlaceableMoved);
 		
 		m_eworldSB.subscribe(GameplayEvents.Units.UNIT_CHANGED, onUnitChanged);
+		
+		m_eworldSB.subscribe(RenderEvents.Animations.ANIMATION_FINISHED, onAnimationFinished);
 	}
 	
 	this.onRemoved = function () {
@@ -52,7 +54,7 @@ var UnitRenderingSystem = function (renderer) {
 			var animator = new Animator(animData, placeableRendering.sprite, m_renderer.scene);
 			
 			placeable.CAnimations.animators[ANIMATION_NAME] = animator;
-			animator.playSequence('Idle0');
+			animator.pauseSequence('Idle');
 			placeableRendering.sprite.loadImg(animator.resourcePath);
 			
 		} else {
@@ -93,6 +95,16 @@ var UnitRenderingSystem = function (renderer) {
 		unitRendering.sprite.position(coords.x, coords.y);
 		unitRendering.sprite.update();
 	}
+	
+	
+	var onAnimationFinished = function(event, params) {
+		if (!params.entity.hasComponents(REQUIRED_COMPONENTS))
+			return;
+		
+		if (params.name == ANIMATION_NAME)
+			params.entity.CAnimations.animators[ANIMATION_NAME].pauseSequence('Idle');
+	}
+	
 	
 	var onPlaceableRegistered = function(event, placeable) {
 		
