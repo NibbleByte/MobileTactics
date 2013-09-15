@@ -1110,7 +1110,7 @@ Cycle.prototype.next = function (ticks, update) {
     // search if we are in a new triplet
     var newTripletIndex, i, j, sprite;
     for (i = 0; i < this.changingTicks.length - 1; i++) {
-        if (this.tick >= this.changingTicks[i] && this.tick <= this.changingTicks[i+1]) {
+        if (this.tick >= this.changingTicks[i] && this.tick < this.changingTicks[i+1]) {
             newTripletIndex = i;
             break;
         }
@@ -1133,6 +1133,7 @@ Cycle.prototype.next = function (ticks, update) {
 Cycle.prototype.reset = function resetCycle(update) {
     var j, sprite;
     this.tick = 0;
+    this.currentTripletIndex = 0;
     this.done = false;
     for (j = 0; sprite = this.sprites[j]; j++) {
         sprite.setXOffset(this.triplets[0][0]);
@@ -1147,6 +1148,7 @@ Cycle.prototype.go = function gotoCycle(n) {
     var j, sprite;
     this.tick = this.changingTicks[n];
     this.done = false;
+    this.currentTripletIndex = n;
     for (j = 0; sprite = this.sprites[j]; j++) {
         sprite.setXOffset(this.triplets[n][0]);
         sprite.setYOffset(this.triplets[n][1]);
