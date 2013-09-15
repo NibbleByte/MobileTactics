@@ -10,6 +10,7 @@ var UnitRenderingSystem = function (renderer) {
 	console.assert(renderer instanceof GameWorldRenderer, "GameWorldRenderer is required.");
 	
 	var REQUIRED_COMPONENTS = [CUnitRendering, CTilePlaceableRendering];
+	var ANIMATION_NAME = 'MainSprite';
 		
 	//
 	// Entity system initialize
@@ -40,6 +41,35 @@ var UnitRenderingSystem = function (renderer) {
 	var m_eworldSB = null;
 	
 	var m_renderer = renderer;
+	
+	
+	var renderUnitInit = function (placeable) {
+		var placeableRendering = placeable.CTilePlaceableRendering;
+		
+		// Get information depending if has animations or is still image.
+		if (placeable.CAnimations) {
+			var animData = SpriteAnimations[placeableRendering.skin];
+			var animator = new Animator(animData, placeableRendering.sprite, m_renderer.scene);
+			
+			placeable.CAnimations.animators[ANIMATION_NAME] = animator;
+			animator.playSequence('Idle0');
+			placeableRendering.sprite.loadImg(animator.resourcePath);
+			
+		} else {
+			
+			var resourcePath = 'Assets/Render/Images/' + placeableRendering.skin + '.png';
+			
+			// Load asset and apply it when done.
+			m_renderer.scene.loadImages([resourcePath], function () {
+				placeableRendering.sprite.loadImg(resourcePath, (placeable.CAnimations) ? false : true);
+				
+				// Check if unit is registered, else it will be moved afterwards.
+				if (placeable.CTilePlaceable.tile)
+					renderUnit(placeable);
+			});
+		}
+	}
+	
 	
 	var renderUnit = function (placeable) {
 		
@@ -85,16 +115,7 @@ var UnitRenderingSystem = function (renderer) {
 		unitRendering.$text.appendTo(unitRendering.sprite.dom);
 		unitRendering.$text.text(placeable.CUnit.health);
 		
-		
-		// Load asset and apply it when done.
-		var resourcePath = 'Assets/Render/Images/' + placeableRendering.skin + '.png';
-		m_renderer.scene.loadImages([resourcePath], function () {
-			placeableRendering.sprite.loadImg(resourcePath, true);
-			
-			// Check if unit is registered, else it will be moved afterwards.
-			if (placeable.CTilePlaceable.tile)
-				renderUnit(placeable);
-		});
+		renderUnitInit(placeable);
 	}
 	
 	var onPlaceableMoved = function(event, placeable) {
@@ -109,6 +130,10 @@ var UnitRenderingSystem = function (renderer) {
 		
 		if (!placeable.hasComponents(REQUIRED_COMPONENTS))
 			return;
+		
+		if (placeable.CAnimations) {
+			placeable.CAnimations.animators[ANIMATION_NAME].destroy();
+		}
 		
 		placeable.CUnitRendering.$text.detach();
 		placeable.CUnitRendering.sprite.remove();

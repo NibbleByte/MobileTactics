@@ -47,6 +47,7 @@ var UnitsFactory = {
 		obj.addComponent(CStatistics);
 		obj.addComponent(CEffects);
 		
+		
 		//
 		// Initialize
 		//
@@ -61,6 +62,7 @@ var UnitsFactory = {
 			break;
 		case 2: obj.CStatistics.resetStatistics(this.baseStatistics.TeslaTrooper);
 				obj.CUnit.name = 'TeslaTrooper';
+				obj.addComponent(CAnimations);
 			break;
 		};
 		
