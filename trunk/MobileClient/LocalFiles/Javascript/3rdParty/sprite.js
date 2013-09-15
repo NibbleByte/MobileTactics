@@ -1044,11 +1044,10 @@ Cycle = function Cycle(triplets) {
     this.cycleDuration = 0;
     // this array knows on which ticks in the animation
     // an image change is needed
-    this.changingTicks = new Array(triplets.length + 1);
-    this.changingTicks[0] = 0;
+    this.changingTicks = [0];
     for (i = 0; triplet=triplets[i]; i++) {
         this.cycleDuration = this.cycleDuration + triplet[2];
-        this.changingTicks[i] = this.cycleDuration;
+        this.changingTicks.push(this.cycleDuration);
     }
     this.currentTripletIndex = undefined;
     // suppose to be private
