@@ -9,6 +9,8 @@ var Animator = function (animData, sprite, scene) {
 	
 	this.resourcePath = animData.resourcePath;
 	this.isPaused = false;
+	this.finished = false;
+	this.sequenceName = '';
 	
 	this.playSequence = function (name) {
 		if (m_currentCycle) {
@@ -18,15 +20,17 @@ var Animator = function (animData, sprite, scene) {
 		m_currentCycle = m_cycles[name];
 		m_currentCycle.reset(true);
 		
+		if (m_currentCycle.repeat) {
+			m_currentCycle.__repeatTicksElapsed = 0;
+		}
+		
 		self.isPaused = false;
+		self.finished = false;
+		self.sequenceName = name;
 	}
 	
 	this.pauseSequence = function (name, frame) {
-		if (frame === undefined) {
-			frame = 0;
-		}
-		
-		self.playSequence(name);
+		if (frame === undefined) frame = 0;
 		
 		if (m_currentCycle) {
 			m_currentCycle.reset(false);
@@ -37,10 +41,23 @@ var Animator = function (animData, sprite, scene) {
 		m_currentCycle.update();
 		
 		self.isPaused = true;
+		self.finished = false;
+		self.sequenceName = name;
 	}
 	
 	this.next = function (ticks) {
 		m_currentCycle.next(ticks, true);
+		
+		if (m_currentCycle.repeat) {
+			m_currentCycle.__repeatTicksElapsed += ticks;
+			
+			if (m_currentCycle.__repeatDuration && m_currentCycle.__repeatTicksElapsed >= m_currentCycle.__repeatDuration) {
+				self.finished = true;
+			}
+			
+		} else {
+			self.finished = m_currentCycle.done;
+		}
 	}
 	
 	this.destroy = function () {
@@ -69,7 +86,7 @@ var Animator = function (animData, sprite, scene) {
 			var sequence = animData.sequences[i];
 			
 			var triplets = [];
-			for(var index = sequence.startIndex; index < sequence.startIndex +sequence.frames; ++index) {
+			for(var index = sequence.startIndex; index <= sequence.startIndex +sequence.frames; ++index) {
 				var speed = (sequence.speed == undefined) ? m_defaultSpeed : sequence.speed;
 				
 				triplets.push([
@@ -81,7 +98,16 @@ var Animator = function (animData, sprite, scene) {
 			
 			var cycle = scene.Cycle(triplets);
 			cycle.addSprite(sprite);
-			//cycle.repeat = true;	// TODO: This should be set by animation data.
+			
+			// Duration of animation.
+			if (sequence.repeat) {
+				cycle.repeat = true;
+				cycle.__repeatDuration = sequence.duration;
+				
+			} else {
+				cycle.repeat = false;
+			}
+			
 			m_cycles[sequence.name] = cycle;
 			
 			sprite.size(m_frameWidth, m_frameHeight);

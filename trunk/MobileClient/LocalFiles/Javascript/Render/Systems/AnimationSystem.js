@@ -49,8 +49,18 @@ var AnimationSystem = function (renderer) {
 			var anim = m_entityFilter.entities[i].CAnimations;
 			
 			for(var name in anim.animators) {
-				if(!anim.animators[name].isPaused)
-					anim.animators[name].next(ticker.lastTicksElapsed);
+				var animator = anim.animators[name];
+				
+				if(!animator.isPaused) {
+					animator.next(ticker.lastTicksElapsed);
+					
+					if (animator.finished) {
+						m_eworld.trigger(RenderEvents.Animations.ANIMATION_FINISHED, {
+								name: name,
+								entity: m_entityFilter.entities[i]
+							});
+					}
+				}
 			}
 		}
 	}
