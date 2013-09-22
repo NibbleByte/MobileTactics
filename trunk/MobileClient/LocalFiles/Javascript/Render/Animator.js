@@ -11,6 +11,7 @@ var Animator = function (animData, sprite, scene) {
 	this.isPaused = false;
 	this.finished = false;
 	this.sequenceName = '';
+	this.sequences = [];
 	
 	this.playSequence = function (name) {
 		if (m_currentCycle) {
@@ -111,6 +112,10 @@ var Animator = function (animData, sprite, scene) {
 			m_cycles[sequence.name] = cycle;
 			
 			sprite.size(m_frameWidth, m_frameHeight);
+			
+			
+			// Expose available sequence names.
+			self.sequences.push(sequence.name);
 		}
 	}
 	

@@ -10,7 +10,6 @@ var UnitRenderingSystem = function (renderer) {
 	console.assert(renderer instanceof GameWorldRenderer, "GameWorldRenderer is required.");
 	
 	var REQUIRED_COMPONENTS = [CUnitRendering, CTilePlaceableRendering];
-	var ANIMATION_NAME = 'MainSprite';
 		
 	//
 	// Entity system initialize
@@ -53,7 +52,7 @@ var UnitRenderingSystem = function (renderer) {
 			var animData = SpriteAnimations[placeableRendering.skin];
 			var animator = new Animator(animData, placeableRendering.sprite, m_renderer.scene);
 			
-			placeable.CAnimations.animators[ANIMATION_NAME] = animator;
+			placeable.CAnimations.animators[UnitRenderingSystem.MAIN_SPRITE] = animator;
 			animator.pauseSequence('Idle');
 			placeableRendering.sprite.loadImg(animator.resourcePath);
 			
@@ -101,8 +100,8 @@ var UnitRenderingSystem = function (renderer) {
 		if (!params.entity.hasComponents(REQUIRED_COMPONENTS))
 			return;
 		
-		if (params.name == ANIMATION_NAME)
-			params.entity.CAnimations.animators[ANIMATION_NAME].pauseSequence('Idle');
+		if (params.name == UnitRenderingSystem.MAIN_SPRITE)
+			params.entity.CAnimations.animators[UnitRenderingSystem.MAIN_SPRITE].pauseSequence('Idle');
 	}
 	
 	
@@ -144,7 +143,7 @@ var UnitRenderingSystem = function (renderer) {
 			return;
 		
 		if (placeable.CAnimations) {
-			placeable.CAnimations.animators[ANIMATION_NAME].destroy();
+			placeable.CAnimations.animators[UnitRenderingSystem.MAIN_SPRITE].destroy();
 		}
 		
 		placeable.CUnitRendering.$text.detach();
@@ -156,5 +155,7 @@ var UnitRenderingSystem = function (renderer) {
 		unit.CUnitRendering.$text.text(unit.CUnit.health.toPrecision(2));
 	}
 }
+
+UnitRenderingSystem.MAIN_SPRITE = 'MainSprite';
 
 ECS.EntityManager.registerSystem('UnitRenderingSystem', UnitRenderingSystem);

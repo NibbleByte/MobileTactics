@@ -57,6 +57,7 @@ var AnimationSystem = function (renderer) {
 					if (animator.finished) {
 						m_eworld.trigger(RenderEvents.Animations.ANIMATION_FINISHED, {
 								name: name,
+								animator: animator,
 								entity: m_entityFilter.entities[i]
 							});
 					}
