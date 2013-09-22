@@ -62,7 +62,6 @@ var UnitsFactory = {
 			break;
 		case 2: obj.CStatistics.resetStatistics(this.baseStatistics.TeslaTrooper);
 				obj.CUnit.name = 'TeslaTrooper';
-				obj.addComponent(CAnimations);
 			break;
 		};
 		
@@ -84,4 +83,11 @@ var UnitsFactory = {
 		
 		return obj;
 	},
+	
+	// TODO: Move this to client. Move client components attachment to client also!
+	applyClient: function (unit) {
+		if (unit.CUnit.name == 'TeslaTrooper') {
+			unit.addComponent(CAnimations);
+		}
+	}
 };
