@@ -26,6 +26,9 @@ var PlayerController = function (executor) {
 		
 		m_eworldSB.subscribe(ClientEvents.Input.TILE_CLICKED, onTileClicked);
 		m_eworldSB.subscribe(EngineEvents.World.TILE_REMOVED, onTileRemoved);
+		
+		m_eworldSB.subscribe(ClientEvents.Controller.ACTIONS_CLEARED, onActionsCleared);
+		m_eworldSB.subscribe(ClientEvents.Controller.ACTIONS_OFFERED, onActionsOffered);
 	};
 	
 	this.onRemoved = function () {
@@ -69,20 +72,17 @@ var PlayerController = function (executor) {
 					selectedAction.appliedTile = tile;
 					var actions = m_executor.executeAction(selectedAction);
 					
-					clearSelectedGOActions();
-					
-					if (actions && actions.length > 0)
-						selectGOActions(actions);
+					m_eworld.trigger(ClientEvents.Controller.ACTIONS_OFFERED, [actions]);
 					
 				} else {
-					
-					clearSelectedGOActions();
 					
 					var availableGOActions = m_executor.getAvailableActions(m_selectedTile);
 					
 					if (availableGOActions.length > 0) {
 						// DEBUG: Select the first unit actions only
-						selectGOActions(availableGOActions[0].actions);
+						m_eworld.trigger(ClientEvents.Controller.ACTIONS_OFFERED, [availableGOActions[0].actions]);
+					} else {
+						m_eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
 					}
 				}
 			
@@ -90,7 +90,7 @@ var PlayerController = function (executor) {
 			
 		} else {
 			// Unselect any action tiles
-			clearSelectedGOActions();
+			m_eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
 		}	
 	}
 	
@@ -104,6 +104,17 @@ var PlayerController = function (executor) {
 		m_selectedTile = null;
 	}
 	
+	
+	var onActionsCleared = function(event) {
+		clearSelectedGOActions();
+	}
+	
+	var onActionsOffered = function(event, actions) {
+		clearSelectedGOActions();
+		
+		if (actions.length > 0)
+			selectGOActions(actions);
+	}
 	
 	
 	
@@ -119,16 +130,8 @@ var PlayerController = function (executor) {
 		m_selectedGOActions = actions;
 		
 		iterateOverActionTiles(m_selectedGOActions, function (tile, action) {
-				var mode = CTileRendering.HighlightType.None;
-				
-				// Map the actions to highlight types.
-				if (action.actionType == ActionMove) mode = CTileRendering.HighlightType.Move;
-				if (action.actionType == ActionAttack) mode = CTileRendering.HighlightType.Attack;
-				
-				console.assert(CTileRendering.HighlightType.None != mode, 'Unsupported highlight type.');
-				
-				tile.CTileRendering.highlight(mode);
-			});
+			ActionsRender.highlightTile(tile, action.actionType);
+		});
 	}
 	
 	var getSelectedGOActionTile = function (selectedTile) {
@@ -147,9 +150,7 @@ var PlayerController = function (executor) {
 	
 	var clearSelectedGOActions = function () {
 		if (isGOSelected()){
-			iterateOverActionTiles(m_selectedGOActions, function (tile) {
-					tile.CTileRendering.unHighlight();
-				});
+			iterateOverActionTiles(m_selectedGOActions, ActionsRender.unHighlightTile);
 			
 			m_selectedGOActions = null;
 		}

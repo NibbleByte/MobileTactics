@@ -74,8 +74,8 @@ var UnitsFactory = {
 		effect.timeLeft = 2;
 		obj.CEffects.effects.push(effect);
 				
-		obj.CActions.actions.push(ActionMove);
-		obj.CActions.actions.push(ActionAttack);
+		obj.CActions.actions.push(Actions.Classes.ActionMove);
+		obj.CActions.actions.push(Actions.Classes.ActionAttack);
 		
 		
 		

@@ -1,0 +1,20 @@
+/* Style the action menu */
+
+#ActionMenu
+{
+	position: absolute;
+	right: 10px;
+	bottom: 35px;
+	
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	
+	background-color: rgba(126, 175, 162, 0.9);
+	padding: 16px;
+}
+
+.action_menu_entry
+{
+	
+}

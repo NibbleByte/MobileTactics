@@ -1,6 +1,9 @@
 "use strict";
 
-var ActionAttack = new function () {
+var Actions = Actions || {};
+Actions.Classes = Actions.Classes || {};
+
+Actions.Classes.ActionAttack = new function () {
 	
 	this.actionName = 'ActionAttack';
 	
@@ -9,13 +12,18 @@ var ActionAttack = new function () {
 		
 		var placeables = world.getPlaceablesInArea(tile, placeable.CStatistics.statistics['AttackRange'], placeable);
 		
+		// If no targets, action is unavailable.
+		if (placeables.length == 0) {
+			return;
+		}
+		
 		var availableTiles = [];
 		for(var i = 0; i < placeables.length; ++i) {
 			availableTiles.push(placeables[i].CTilePlaceable.tile);
 		}
 		
 		
-		var action = new GameAction(ActionAttack, placeable);
+		var action = new GameAction(Actions.Classes.ActionAttack, placeable);
 		action.availableTiles = availableTiles;
 		
 		outActions.push(action);
