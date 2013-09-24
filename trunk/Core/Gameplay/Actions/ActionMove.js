@@ -1,6 +1,9 @@
 "use strict";
 
-var ActionMove = new function () {
+var Actions = Actions || {};
+Actions.Classes = Actions.Classes || {};
+
+Actions.Classes.ActionMove = new function () {
 	
 	this.actionName = 'ActionMove';
 
@@ -11,12 +14,17 @@ var ActionMove = new function () {
 		
 		gatherMovementTiles(world, tile, placeable.CStatistics.statistics['Movement'], availableTiles);
 		
+		// If nowhere to move, action is unavailable.
+		if (availableTiles.length <= 1) {
+			return;
+		}
+		
 		// Reset the tiles for another search
 		for(var i = 0; i < availableTiles.length; ++i) {
 			availableTiles[i].CTile.movementCostLeft = 0;
 		}
 		
-		var action = new GameAction(ActionMove, placeable);
+		var action = new GameAction(Actions.Classes.ActionMove, placeable);
 		action.availableTiles = availableTiles;
 		outActions.push(action);
 	};

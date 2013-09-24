@@ -80,6 +80,8 @@ $(function () {
 	m_eworld.addSystem(new AnimationSystem(worldRenderer));
 	m_eworld.addSystem(new IdleAnimationsSystem(worldRenderer));
 	
+	m_eworld.addSystem(new ActionsMenuController($('#ActionMenu')[0]));
+	
 	
 	// DEBUG: global access
 	world = m_world;
