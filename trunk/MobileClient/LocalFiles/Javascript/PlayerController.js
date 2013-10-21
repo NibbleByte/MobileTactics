@@ -45,7 +45,7 @@ var PlayerController = function (executor) {
 	
 	var selectTile = function (tile) {
 		// DEBUG: if tile is the same, place object
-		if (tile && tile == m_selectedTile /*&& tile.getPlacedObjects().length == 0*/) {
+		if (tile && tile == m_selectedTile && tile.CTile.placedObjects.length == 0) {
 			m_executor.createObjectAt(tile);
 			return;
 		}

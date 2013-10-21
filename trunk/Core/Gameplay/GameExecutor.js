@@ -9,7 +9,29 @@ var GameExecutor = function (world) {
 	
 	this.createObjectAt = function (tile) {
 		
-		var obj = UnitsFactory.createUnit(world.getEntityWorld());
+		var ind = Math.floor(Math.random() * 3);
+		var unitName = 'Unknown';
+		switch (ind)
+		{
+		case 0: unitName = 'WarMiner'; break;
+		case 1: unitName = 'RhinoTank';	break;
+		case 2: unitName = 'TeslaTrooper'; break;
+		};
+		
+		
+		var obj = UnitsFactory.createUnit(unitName);
+		
+		// TODO: Remove testing effects.
+		var effect = new Effect();
+		effect.addStatisticModifier('Attack', 20);
+		obj.CEffects.effects.push(effect);
+		
+		effect = new Effect();
+		effect.addStatisticModifier('Attack', -30);
+		effect.timeLeft = 2;
+		obj.CEffects.effects.push(effect);
+		
+		
 		
 		world.getEntityWorld().addUnmanagedEntity(obj);
 		m_world.place(obj, tile);
