@@ -111,8 +111,6 @@ var UnitRenderingSystem = function (renderer) {
 		if (!placeable.hasComponents(CUnit))
 			return;
 		
-		UnitsFactory.applyClient(placeable);
-		
 		var placeableRendering = placeable.addComponent(CTilePlaceableRendering);
 		var unitRendering = placeable.addComponent(CUnitRendering);
 		
