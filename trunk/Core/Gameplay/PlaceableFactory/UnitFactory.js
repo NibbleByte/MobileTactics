@@ -12,6 +12,7 @@ var UnitsFactory = new function () {
 	
 	this.Events = {
 		UNIT_CREATED: 		"unitsfactory.unit_created",		// event, unit
+		UNIT_DESERIALIZED: 	"unitsfactory.unit_deserialized",	// event, unit
 	};
 	
 	this.createUnit = function (unitName) {
@@ -37,6 +38,14 @@ var UnitsFactory = new function () {
 		
 		return obj;
 	};
+	
+	// Checks if this is unit and applies post deserialization stuff
+	this.postDeserialize = function (entity) {
+		if (!entity.hasComponents(CUnit))
+			return;
+		
+		self.trigger(self.Events.UNIT_DESERIALIZED, entity);
+	}
 	
 	Subscriber.makeSubscribable(this);
 };

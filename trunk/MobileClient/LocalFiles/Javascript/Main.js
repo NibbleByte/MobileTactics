@@ -99,6 +99,8 @@ $(function () {
 		
 		var entities = Serialization.deserialize(savedWorld);
 		for(var i = 0; i < entities.length; ++i) {
+			
+			UnitsFactory.postDeserialize(entities[i]);
 			m_eworld.addUnmanagedEntity(entities[i]);
 		}
 		

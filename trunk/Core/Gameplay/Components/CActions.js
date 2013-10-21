@@ -24,7 +24,7 @@ CActions.deserialize = function (input, output) {
 	actions.length = input.actions.length;
 	
 	for(var i = 0; i < input.actions.length; ++i) {
-		actions[i] = Actions[input.actions[i]];
+		actions[i] = Actions.Classes[input.actions[i]];
 	}
 	
 	output.actions = actions;
