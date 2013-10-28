@@ -47,6 +47,8 @@ var UnitRenderingSystem = function (renderer) {
 	var renderUnitInit = function (placeable) {
 		var placeableRendering = placeable.CTilePlaceableRendering;
 		
+		var spritePath = UnitRenderingSystem.SPRITES_PATH.replace(/{colorId}/g, placeable.CPlayerData.playerId);
+		
 		// Get information depending if has animations or is still image.
 		if (placeable.CAnimations) {
 			var animData = SpriteAnimations[placeableRendering.skin];
@@ -54,11 +56,11 @@ var UnitRenderingSystem = function (renderer) {
 			
 			placeable.CAnimations.animators[UnitRenderingSystem.MAIN_SPRITE] = animator;
 			animator.pauseSequence('Idle');
-			placeableRendering.sprite.loadImg(animator.resourcePath);
+			placeableRendering.sprite.loadImg(spritePath + animator.resourcePath);
 			
 		} else {
 			
-			var resourcePath = 'Assets/Render/Images/' + placeableRendering.skin + '.png';
+			var resourcePath = spritePath + placeableRendering.skin + '.png';
 			
 			// Load asset and apply it when done.
 			m_renderer.scene.loadImages([resourcePath], function () {
@@ -157,5 +159,6 @@ var UnitRenderingSystem = function (renderer) {
 }
 
 UnitRenderingSystem.MAIN_SPRITE = 'MainSprite';
+UnitRenderingSystem.SPRITES_PATH = 'Assets/Render/Images/Units/{colorId}/';
 
 ECS.EntityManager.registerSystem('UnitRenderingSystem', UnitRenderingSystem);

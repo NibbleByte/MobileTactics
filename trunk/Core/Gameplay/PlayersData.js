@@ -27,6 +27,10 @@ var PlayersData = function (m_eworld) {
 		return m_players;
 	}
 	
+	this.getPlayer = function (id) {
+		return m_players[id];
+	}
+	
 	this.setPlayers = function (players) {
 		m_playingPlayersCount = 0;
 		
