@@ -15,7 +15,7 @@ var UnitsFactory = new function () {
 		UNIT_DESERIALIZED: 	"unitsfactory.unit_deserialized",	// event, unit
 	};
 	
-	this.createUnit = function (unitName) {
+	this.createUnit = function (unitName, player) {
 		
 		var definition = UnitsDefinitions[unitName];
 		console.assert(definition, unitName + ' is not a valid unit name!');
@@ -24,6 +24,7 @@ var UnitsFactory = new function () {
 		obj.addComponent(CTilePlaceable);
 		obj.addComponent(CUnit);
 		obj.addComponent(CActions);
+		obj.addComponent(CPlayerData);
 		
 		obj.addComponent(CStatistics);
 		obj.addComponent(CEffects);
@@ -31,6 +32,7 @@ var UnitsFactory = new function () {
 		obj.CUnit.name = unitName;
 		obj.CStatistics.resetStatistics(definition.baseStatistics);
 		obj.CActions.actions = definition.actions;
+		obj.CPlayerData.playerId = player.id;
 		
 		lastCreated = obj;
 		

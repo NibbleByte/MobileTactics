@@ -7,7 +7,7 @@
 var GameExecutor = function (world) {
 	console.assert(world instanceof GameWorld, "GameWorld is required.");
 	
-	this.createObjectAt = function (tile) {
+	this.createObjectAt = function (tile, player) {
 		
 		var ind = Math.floor(Math.random() * 3);
 		var unitName = 'Unknown';
@@ -19,7 +19,7 @@ var GameExecutor = function (world) {
 		};
 		
 		
-		var obj = UnitsFactory.createUnit(unitName);
+		var obj = UnitsFactory.createUnit(unitName, player);
 		
 		// TODO: Remove testing effects.
 		var effect = new Effect();

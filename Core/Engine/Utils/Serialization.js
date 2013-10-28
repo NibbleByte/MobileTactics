@@ -5,6 +5,7 @@
 // - multiple references to one object/array are saved correctly.
 // - the prototype of registered classes is also saved.
 // - can have custom serialize/deserialize functions per class.
+// - will call postDeserialize(); prototype method on deserialized object.
 // - can exclude from serialization specific classes.
 // - No support for functions yet, probably never (can't recreate closure). 
 // 
@@ -64,6 +65,8 @@ var Serialization = new function () {
 	
 	
 	// Deserialize object from JSON.
+	// Will execute any custom deserialize() functions along the way (attached to the class type).
+	// Will also call postDeserialize() after deserializing object. 
 	this.deserialize = function (data) {
 		
 		var obj = JSON.parse(data);
@@ -241,6 +244,12 @@ var Serialization = new function () {
 			for(var i = 0; i < keys.length; ++i) {
 				var fieldName = keys[i];
 				obj[fieldName] = deserializeImpl(value[fieldName], instanceRegister);
+			}
+			
+			
+			// Call post-deserialization method.
+			if (obj.postDeserialize) {
+				obj.postDeserialize();
 			}
 			
 			return obj;
