@@ -51,12 +51,17 @@ $(function () {
 	//
 	// Players
 	//
-	var playerData = new PlayersData(m_eworld);
-	m_eworld.blackgoard[PlayersData.BLACKBOARD_NAME] = playerData;
-	playerData.addPlayer('Pl1', Player.Types.Human);
-	playerData.addPlayer('Pl2', Player.Types.Human);
-	playerData.addPlayer('Pl3', Player.Types.Human);
-	playerData.addPlayer('Pl4', Player.Types.Human);
+	var m_playersData = new PlayersData(m_eworld);
+	m_eworld.blackgoard[PlayersData.BLACKBOARD_NAME] = m_playersData;
+	m_playersData.addPlayer('Pl1', Player.Types.Human);
+	m_playersData.addPlayer('Pl2', Player.Types.Human);
+	m_playersData.addPlayer('Pl3', Player.Types.Human);
+	m_playersData.addPlayer('Pl4', Player.Types.Human);
+	
+	m_eworld.blackgoard['currentPlayer'] = m_playersData.getFirstPlayingPlayer();
+	$('#BtnPlayer').text(m_eworld.blackgoard['currentPlayer'].name)
+	m_playersData.stopPlaying(m_playersData.getPlayer(2));
+	m_playersData.stopPlaying(m_playersData.getPlayer(3));
 	
 	//
 	// World systems
@@ -114,9 +119,9 @@ $(function () {
 		
 		var gameState = Serialization.deserialize(savedGame);
 		
-		var playerData = new PlayersData(m_eworld);
-		m_eworld.blackgoard[PlayersData.BLACKBOARD_NAME] = playerData;
-		playerData.setPlayers(gameState.players);
+		m_playersData = new PlayersData(m_eworld);
+		m_eworld.blackgoard[PlayersData.BLACKBOARD_NAME] = m_playersData;
+		m_playersData.setPlayers(gameState.players);
 		
 		var entities = gameState.world;
 		for(var i = 0; i < entities.length; ++i) {
@@ -142,6 +147,12 @@ $(function () {
 		fillTerrainPattern(m_eworld, m_world, ROWS);
 	}
 	
+	var onBtnPlayer = function () {
+		m_eworld.blackgoard['currentPlayer'] = m_playersData.getNextPlayingPlayer(m_eworld.blackgoard['currentPlayer']);
+		
+		$('#BtnPlayer').text(m_eworld.blackgoard['currentPlayer'].name)
+	}
+	
 	//
 	// Initialize
 	//
@@ -153,6 +164,7 @@ $(function () {
 	$('#BtnLoad').click(onBtnLoad);
 	$('#BtnRemoveTile').click(onBtnRemoveTile);
 	$('#BtnRestart').click(onBtnRestart);
+	$('#BtnPlayer').click(onBtnPlayer);
 	
 	// MoSync bindings
 	document.addEventListener("backbutton", close, true);

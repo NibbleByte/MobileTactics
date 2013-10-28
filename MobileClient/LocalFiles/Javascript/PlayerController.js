@@ -47,7 +47,7 @@ var PlayerController = function (executor) {
 		// DEBUG: if tile is the same, place object
 		if (tile && tile == m_selectedTile && tile.CTile.placedObjects.length == 0) {
 			
-			m_executor.createObjectAt(tile, m_eworld.blackgoard[PlayersData.BLACKBOARD_NAME].getFirstPlayingPlayer());
+			m_executor.createObjectAt(tile, m_eworld.blackgoard['currentPlayer']);
 			return;
 		}
 		

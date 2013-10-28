@@ -2,7 +2,7 @@ var SpriteAnimations = SpriteAnimations || {};
 
 SpriteAnimations.TeslaTrooper = {
 
-	resourcePath: 'Assets/Render/Images/TeslaTrooper.png',
+	resourcePath: 'TeslaTrooper.png',
 	
 	frameWidth: 64,
 	frameHeight: 64,
