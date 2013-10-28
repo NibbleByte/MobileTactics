@@ -49,6 +49,16 @@ $(function () {
 	var m_eworld = new ECS.EntityWorld();
 	
 	//
+	// Players
+	//
+	var playerData = new PlayersData(m_eworld);
+	m_eworld.blackgoard[PlayersData.BLACKBOARD_NAME] = playerData;
+	playerData.addPlayer('Pl1', Player.Types.Human);
+	playerData.addPlayer('Pl2', Player.Types.Human);
+	playerData.addPlayer('Pl3', Player.Types.Human);
+	playerData.addPlayer('Pl4', Player.Types.Human);
+	
+	//
 	// World systems
 	//
 	var m_world = new GameWorld();
@@ -88,16 +98,27 @@ $(function () {
 	render = m_tileRendering;
 	effects = m_effects;
 	
-	var savedWorld = '';
+	var savedGame = '';
 	var onBtnSave = function () {
 		var entities = m_eworld.getEntities();
-		savedWorld = Serialization.serialize(entities, true);
+		
+		var gameState = {
+				players: m_eworld.blackgoard[PlayersData.BLACKBOARD_NAME].getPlayers(),
+				world: m_eworld.getEntities(),
+		}
+		savedGame = Serialization.serialize(gameState, true);
 	}
 	
 	var onBtnLoad = function () {
 		m_world.clearTiles();
 		
-		var entities = Serialization.deserialize(savedWorld);
+		var gameState = Serialization.deserialize(savedGame);
+		
+		var playerData = new PlayersData(m_eworld);
+		m_eworld.blackgoard[PlayersData.BLACKBOARD_NAME] = playerData;
+		playerData.setPlayers(gameState.players);
+		
+		var entities = gameState.world;
 		for(var i = 0; i < entities.length; ++i) {
 			
 			UnitsFactory.postDeserialize(entities[i]);
