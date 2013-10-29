@@ -7,10 +7,11 @@ Actions.Classes.ActionAttack = new function () {
 	
 	this.actionName = 'ActionAttack';
 	
-	this.getAvailableActions = function (world, placeable, outActions) {
+	this.getAvailableActions = function (eworld, world, player, placeable, outActions) {
 		var tile = placeable.CTilePlaceable.tile;
 		
 		var placeables = world.getPlaceablesInArea(tile, placeable.CStatistics.statistics['AttackRange'], placeable);
+		var playersData = eworld.blackboard[PlayersData.BLACKBOARD_NAME];
 		
 		// If no targets, action is unavailable.
 		if (placeables.length == 0) {
@@ -19,24 +20,24 @@ Actions.Classes.ActionAttack = new function () {
 		
 		var availableTiles = [];
 		for(var i = 0; i < placeables.length; ++i) {
-			availableTiles.push(placeables[i].CTilePlaceable.tile);
+			if (playersData.getRelation(placeables[i].CPlayerData.playerId, player.id) == PlayersData.Relation.Enemy)
+				availableTiles.push(placeables[i].CTilePlaceable.tile);
 		}
 		
 		
-		var action = new GameAction(Actions.Classes.ActionAttack, placeable);
+		var action = new GameAction(Actions.Classes.ActionAttack, player, placeable);
 		action.availableTiles = availableTiles;
 		
 		outActions.push(action);
 	};
 	
-	this.executeAction = function (world, action) {
+	this.executeAction = function (eworld, world, action) {
 		// TODO: Modify statistics properly, taking the defence as well.
 		var enemy = action.appliedTile.CTile.placedObjects[0];
 		var damage = action.placeable.CStatistics.statistics['Attack'];
 		
 		enemy.CUnit.health -= damage;
 		
-		var eworld = world.getEntityWorld();
 		eworld.trigger(GameplayEvents.Units.UNIT_CHANGED, enemy);
 		
 		// DEBUG: print attack info

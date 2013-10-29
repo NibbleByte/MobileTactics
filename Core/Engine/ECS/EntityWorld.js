@@ -19,7 +19,7 @@ ECS.EntityWorld = function () {
 	Subscriber.makeSubscribable(this);
 	
 	// Blackboard map (global data for the world).
-	this.blackgoard = {};
+	this.blackboard = {};
 	
 	//
 	// Entities

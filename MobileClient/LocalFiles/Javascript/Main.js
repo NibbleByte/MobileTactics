@@ -52,14 +52,14 @@ $(function () {
 	// Players
 	//
 	var m_playersData = new PlayersData(m_eworld);
-	m_eworld.blackgoard[PlayersData.BLACKBOARD_NAME] = m_playersData;
+	m_eworld.blackboard[PlayersData.BLACKBOARD_NAME] = m_playersData;
 	m_playersData.addPlayer('Pl1', Player.Types.Human);
 	m_playersData.addPlayer('Pl2', Player.Types.Human);
 	m_playersData.addPlayer('Pl3', Player.Types.Human);
 	m_playersData.addPlayer('Pl4', Player.Types.Human);
 	
-	m_eworld.blackgoard['currentPlayer'] = m_playersData.getFirstPlayingPlayer();
-	$('#BtnPlayer').text(m_eworld.blackgoard['currentPlayer'].name)
+	m_eworld.blackboard[PlayerController.BB_CURRENT_PLAYER] = m_playersData.getFirstPlayingPlayer();
+	$('#BtnPlayer').text(m_eworld.blackboard[PlayerController.BB_CURRENT_PLAYER].name)
 	m_playersData.stopPlaying(m_playersData.getPlayer(2));
 	m_playersData.stopPlaying(m_playersData.getPlayer(3));
 	
@@ -76,7 +76,7 @@ $(function () {
 	m_eworld.addSystem(m_effects);
 	m_eworld.addSystem(new UnitsSystem());
 	
-	var m_executor = new GameExecutor(m_world);
+	var m_executor = new GameExecutor(m_eworld, m_world);
 	
 	
 	var m_playerController = new PlayerController(m_executor);
@@ -108,7 +108,7 @@ $(function () {
 		var entities = m_eworld.getEntities();
 		
 		var gameState = {
-				players: m_eworld.blackgoard[PlayersData.BLACKBOARD_NAME].getPlayers(),
+				players: m_eworld.blackboard[PlayersData.BLACKBOARD_NAME].getPlayers(),
 				world: m_eworld.getEntities(),
 		}
 		savedGame = Serialization.serialize(gameState, true);
@@ -119,8 +119,6 @@ $(function () {
 		
 		var gameState = Serialization.deserialize(savedGame);
 		
-		m_playersData = new PlayersData(m_eworld);
-		m_eworld.blackgoard[PlayersData.BLACKBOARD_NAME] = m_playersData;
 		m_playersData.setPlayers(gameState.players);
 		
 		var entities = gameState.world;
@@ -148,9 +146,10 @@ $(function () {
 	}
 	
 	var onBtnPlayer = function () {
-		m_eworld.blackgoard['currentPlayer'] = m_playersData.getNextPlayingPlayer(m_eworld.blackgoard['currentPlayer']);
+		m_eworld.blackboard[PlayerController.BB_CURRENT_PLAYER] = 
+			m_playersData.getNextPlayingPlayer(m_eworld.blackboard[PlayerController.BB_CURRENT_PLAYER]);
 		
-		$('#BtnPlayer').text(m_eworld.blackgoard['currentPlayer'].name)
+		$('#BtnPlayer').text(m_eworld.blackboard[PlayerController.BB_CURRENT_PLAYER].name)
 	}
 	
 	//
