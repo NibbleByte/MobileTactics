@@ -47,7 +47,7 @@ var PlayerController = function (executor) {
 		// DEBUG: if tile is the same, place object
 		if (tile && tile == m_selectedTile && tile.CTile.placedObjects.length == 0) {
 			
-			m_executor.createObjectAt(tile, m_eworld.blackgoard['currentPlayer']);
+			m_executor.createObjectAt(tile, m_eworld.blackboard[PlayerController.BB_CURRENT_PLAYER]);
 			return;
 		}
 		
@@ -67,7 +67,9 @@ var PlayerController = function (executor) {
 				selectedAction = getSelectedGOActionTile(m_selectedTile)
 				
 				// Picked action
-				if (selectedAction) {
+				if (selectedAction &&
+					m_eworld.blackboard[PlayerController.BB_CURRENT_PLAYER].id == selectedAction.player.id
+					) {
 					
 					// Apply and execute the action
 					selectedAction.appliedTile = tile;
@@ -171,5 +173,7 @@ var PlayerController = function (executor) {
 		}
 	}
 }
+
+PlayerController.BB_CURRENT_PLAYER = 'currentPlayer';
 
 ECS.EntityManager.registerSystem('PlayerController', PlayerController);
