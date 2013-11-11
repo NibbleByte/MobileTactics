@@ -46,6 +46,10 @@ var Animator = function (animData, sprite, scene) {
 		self.sequenceName = name;
 	}
 	
+	this.hasSequence = function (name) {
+		return self.sequences.indexOf(name) != -1;
+	}
+	
 	this.next = function (ticks) {
 		m_currentCycle.next(ticks, true);
 		
