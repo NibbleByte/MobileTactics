@@ -58,11 +58,11 @@ Subscriber.prototype.unsubscribe = function(event, handler) {
 		
 	for (var i = 0; i < this.subscribes.length; ++i) {
 		var subscriber = this.subscribes[i];
-	    if (subscriber.event === event && subscriber.handler === handler) { 
-	    	this.subscribes.splice(i, 1);
-	    	$(this.host).off(event, handler);
-	        break;
-	    }
+		if (subscriber.event === event && subscriber.handler === handler) { 
+			this.subscribes.splice(i, 1);
+			$(this.host).off(event, handler);
+			break;
+		}
 	}
 }
 
@@ -70,7 +70,7 @@ Subscriber.prototype.unsubscribeAll = function() {
 	
 	for (var i = 0; i < this.subscribes.length; ++i) {
 		var subscriber = this.subscribes[i];
-    	this.host.unsubscribe(event, handler);
+		this.unsubscribe(subscriber.event, subscriber.handler);
 	}
 	
 	this.subscribes.length = 0;
