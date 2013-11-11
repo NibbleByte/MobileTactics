@@ -34,7 +34,7 @@ SpriteAnimations.TeslaTrooper = {
 			startIndex: 31,
 			frames: 5,
 			repeat: true,
-			duration: 500,
+			duration: 150,
 		},
 		
 	]

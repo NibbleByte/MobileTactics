@@ -17,6 +17,8 @@ var PlayerController = function (executor) {
 	
 	var m_selectedGOActions = null;
 	
+	var m_inputActive = true;
+	
 	//
 	// Entity system initialize
 	//
@@ -73,9 +75,12 @@ var PlayerController = function (executor) {
 					
 					// Apply and execute the action
 					selectedAction.appliedTile = tile;
-					var actions = m_executor.executeAction(selectedAction);
 					
-					m_eworld.trigger(ClientEvents.Controller.ACTIONS_OFFERED, [actions]);
+					
+					m_inputActive = false;
+					m_eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
+					
+					m_eworld.trigger(ClientEvents.Controller.ACTION_PREEXECUTE, selectedAction);
 					
 				} else {
 					
@@ -99,7 +104,10 @@ var PlayerController = function (executor) {
 	
 	
 	var onTileClicked = function(event, tile) {
-		selectTile(tile);
+		
+		if (m_inputActive) {
+			selectTile(tile);
+		}
 	}
 	
 	var onTileRemoved = function(event, tile) {
@@ -113,6 +121,7 @@ var PlayerController = function (executor) {
 	}
 	
 	var onActionsOffered = function(event, actions) {
+		m_inputActive = true;
 		clearSelectedGOActions();
 		
 		if (actions.length > 0)
