@@ -75,6 +75,20 @@ ActionsRenderingSystem.ActionExecutors.AttackExecutor = function (m_executor, m_
 		playAttackAnimation(m_action.placeable);
 		playAttackAnimation(m_action.appliedTile.CTile.placedObjects[0]);
 		
+		
+		// Flip sprites to face one another.
+		var attackerSprite = m_action.placeable.CTilePlaceableRendering.sprite;
+		var defenderSprite = m_action.appliedTile.CTile.placedObjects[0].CTilePlaceableRendering.sprite;
+		if (attackerSprite.x < defenderSprite.x) {
+			attackerSprite.setXScale(-1);
+			defenderSprite.setXScale(1);
+		} else {
+			attackerSprite.setXScale(1);
+			defenderSprite.setXScale(-1);
+		}
+		attackerSprite.update();
+		defenderSprite.update();
+		
 		if (m_waitedAnimations != 0) {
 			m_eworldSB.subscribe(RenderEvents.Animations.ANIMATION_FINISHED, onAnimationFinished);
 		} else {
