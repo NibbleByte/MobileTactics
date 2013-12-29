@@ -41,15 +41,15 @@ var GameWorldRenderer = function (holderElement) {
 	}
 	
 	this.getRenderedTilePosition = function (row, column) {
-		var hOffset = (column % 2) ? GTile.TILE_HOFFSET : 0;
-		var vOffset = (column % 2) ? -GTile.TILE_VOFFSET : 0;
 		
-		var coords = {
-				x: hOffset + Math.floor(column / 2) * (GTile.TILE_WIDTH + GTile.TILE_SIDE) + GTile.LAYERS_PADDING,
-				y: vOffset + (row - Math.floor(column / 2)) * GTile.TILE_HEIGHT + GTile.LAYERS_PADDING,
-		}
+		// http://www.redblobgames.com/grids/hexagons/#hex-to-pixel
+		// basisX * column + basisY * row 
+		var pos = GTile.TILE_BASIS_X.x(column).add( GTile.TILE_BASIS_Y.x(row) );
 		
-		return coords;
+		return {
+			x: pos.e(1) + GTile.LAYERS_PADDING,
+			y: pos.e(2) + GTile.LAYERS_PADDING,
+		};
 	}
 	
 	this.getRenderedTileCenter = function (row, column) {
