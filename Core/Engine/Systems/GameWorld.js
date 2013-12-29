@@ -253,7 +253,7 @@ GameWorld.prototype.getDistance = function (tile1, tile2) {
 	
 	// Distance formula at: http://www.mattpalmerlee.com/2012/04/10/creating-a-hex-grid-for-html5-games-in-javascript/
 	
-	var deltaRows = tile1.CTile.row - tile2.CTile.row; 
+	var deltaRows = tile1.CTile.row - tile2.CTile.row;
 	var deltaColumns = tile1.CTile.column - tile2.CTile.column;
 	return ((Math.abs(deltaRows) + Math.abs(deltaColumns) + Math.abs(deltaRows - deltaColumns)) / 2);
 }

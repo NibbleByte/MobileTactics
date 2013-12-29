@@ -20,7 +20,7 @@ var fillTerrainPattern = function (eworld, world, rows) {
 	var tile;
 	
 	for(var i = 0; i < rows; ++i) {
-		for(var j = 0; j < i * 2 + 1; ++j) {
+		for(var j = Math.ceil(i / 2); j < rows + i / 2; ++j) {
 			
 			tile = new ECS.Entity();
 			tile.addComponent(CTile);
@@ -28,15 +28,6 @@ var fillTerrainPattern = function (eworld, world, rows) {
 			tile.CTile.column = j;
 			
 			eworld.addUnmanagedEntity(tile);
-			
-			if (i < rows - 1) {
-				tile = new ECS.Entity();
-				tile.addComponent(CTile);
-				tile.CTile.row = (rows - 1) * 2 - i;
-				tile.CTile.column = (rows - 1) * 2 - j;
-				
-				eworld.addUnmanagedEntity(tile);
-			}
 		}
 	}
 }
@@ -141,7 +132,7 @@ $(function () {
 	}
 	
 	var onBtnRestart = function () {
-		var ROWS = 8;
+		var ROWS = 10;
 		m_world.clearTiles();
 		fillTerrainPattern(m_eworld, m_world, ROWS);
 	}

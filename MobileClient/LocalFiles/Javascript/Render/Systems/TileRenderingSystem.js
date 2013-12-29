@@ -45,43 +45,35 @@ var TileRenderingSystem = function (renderer) {
 	//
 	
 	var fetchTileAtPoint = function (x, y) {
-		// Source: http://www.gdreflections.com/2011/02/hexagonal-grid-math.html
-		// Tested to work only with regular hexagons.
 		
-		// Find rendered column/row
-		var it = Math.floor(x / GTile.TILE_HOFFSET);
-		var yts = y - (it % 2) * GTile.TILE_VOFFSET;
-		var jt = Math.floor(yts / GTile.TILE_HEIGHT);
+		// Find Offset coordinates (based on rectangle approximation)
+		var rectRow = Math.floor(y / GTile.TILE_VOFFSET);
+		var rectColumn = Math.floor( (x - (rectRow % 2) * GTile.TILE_HOFFSET) / GTile.TILE_WIDTH );
 		
-		// Offset relative to rectangle-tile.
-		var xt = x - it * GTile.TILE_HOFFSET;
-		var yt = yts - jt * GTile.TILE_HEIGHT;
+		// Used conversion: http://www.redblobgames.com/grids/hexagons/#conversions
+		// Modified to use it with the current coordinate system.
+		var cubeY = rectColumn + (rectRow + (rectRow & 1)) / 2;
+		var cubeZ = rectRow;
 		
-		// Check if inside currently selected tile.
-		var isInside = xt > GTile.TILE_SIDE * Math.abs(0.5 - yt / GTile.TILE_HEIGHT);
 		
-		// Find exact picked rendered column/row.
-		var renderedColumn = (isInside) ? it : (it - 1);
-		var renderedRow = (isInside) ? jt : (jt - renderedColumn % 2 + ((yt > GTile.TILE_HEIGHT / 2) ? 1 : 0));
+		// x,y offset relative to rectangle tile.
+		var localX = x - rectColumn * GTile.TILE_WIDTH - (rectRow % 2) * GTile.TILE_HOFFSET;
+		var localY = y - rectRow * GTile.TILE_VOFFSET;
 		
-		if (renderedColumn < 0 || renderedRow < 0)
-			return null;
+		// Find if clicked over this hex, or the adjacent top left/right one.
 		
-		//
-		// Convert drawed column/row to GameWorld column/row.  
-		//
+		// Use a line equation imitating the /\ form of the top of the hex.
+		// Similar to: http://www.gdreflections.com/2011/02/hexagonal-grid-math.html
+		var isInside = localY > -GTile.TILE_SIDE_SLOPE * Math.abs(GTile.TILE_WIDTH / 2 - localX);		
+		if (!isInside) {
+			--cubeZ;
+			
+			if (localX < GTile.TILE_WIDTH / 2) {
+				--cubeY;
+			}
+		}
 		
-		// Find real tile x,y
-		var tileX = GTile.TILE_HOFFSET * renderedColumn;
-		var tileY = GTile.TILE_HEIGHT * renderedRow + (renderedColumn % 2) * GTile.TILE_VOFFSET;
-		
-		var vOffset = (renderedColumn % 2) ? -GTile.TILE_VOFFSET : 0;
-		
-		// Find GameWorld column, row.
-		var column = Math.round(2 * tileX / (GTile.TILE_WIDTH + GTile.TILE_SIDE));
-		var row = (tileY - vOffset) / GTile.TILE_HEIGHT + Math.floor(column / 2);
-		
-		return m_world.getTile(row, column);
+		return m_world.getTile(cubeZ, cubeY);
 	}
 	
 	var renderTile = function (tile) {
@@ -109,7 +101,7 @@ var TileRenderingSystem = function (renderer) {
 				'<br />' +
 				'Y: ' + parseInt(rendering.sprite.y));
 		// DEBUG: Color every even column
-		if (row % 2)
+		if (column % 2)
 			$(rendering.sprite.dom)
 			.css('background', 'url("Assets/Render/Images/hex_bluesh.png") no-repeat')
 			.css('background-size', '100% 100%');
