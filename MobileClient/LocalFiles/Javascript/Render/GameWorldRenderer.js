@@ -61,6 +61,42 @@ var GameWorldRenderer = function (holderElement) {
 		return coords;
 	}
 	
+	this.getTileCoordsAtPoint = function (x, y) {
+		
+		// Find Offset coordinates (based on rectangle approximation)
+		var rectRow = Math.floor(y / GTile.TILE_VOFFSET);
+		var rectColumn = Math.floor( (x - (rectRow % 2) * GTile.TILE_HOFFSET) / GTile.TILE_WIDTH );
+		
+		// Used conversion: http://www.redblobgames.com/grids/hexagons/#conversions
+		// Modified to use it with the current coordinate system.
+		var cubeY = rectColumn + (rectRow + (rectRow & 1)) / 2;
+		var cubeZ = rectRow;
+		
+		
+		// x,y offset relative to rectangle tile.
+		var localX = x - rectColumn * GTile.TILE_WIDTH - (rectRow % 2) * GTile.TILE_HOFFSET;
+		var localY = y - rectRow * GTile.TILE_VOFFSET;
+		
+		// Find if clicked over this hex, or the adjacent top left/right one.
+		
+		// Use a line equation imitating the /\ form of the top of the hex.
+		// Similar to: http://www.gdreflections.com/2011/02/hexagonal-grid-math.html
+		var isInside = localY > -GTile.TILE_SIDE_SLOPE * Math.abs(GTile.TILE_WIDTH / 2 - localX);		
+		if (!isInside) {
+			--cubeZ;
+			
+			if (localX < GTile.TILE_WIDTH / 2) {
+				--cubeY;
+			}
+		}
+		
+		
+		return {
+			row: cubeZ,
+			column: cubeY
+		}
+	}
+	
 	//
 	// Initialize
 	//
