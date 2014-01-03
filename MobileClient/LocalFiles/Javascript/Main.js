@@ -34,6 +34,9 @@ var fillTerrainPattern = function (eworld, world, rows) {
 			if (i % 7 <= 2 && j % 5 <= 1) {
 				tile.CTileTerrain.type = GameWorldTerrainType.Mountain;
 			}
+			if (i >= rows - 2 && rows > 4) {
+				tile.CTileTerrain.type = GameWorldTerrainType.Water;
+			}
 			
 			eworld.addUnmanagedEntity(tile);
 		}

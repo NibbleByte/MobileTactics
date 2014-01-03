@@ -11,9 +11,15 @@ Actions.Classes.ActionMove = new function () {
 		var tile = placeable.CTilePlaceable.tile;
 		
 		var availableTiles = [];
-		var playersData = eworld.blackboard[PlayersData.BLACKBOARD_NAME];
 		
-		gatherMovementTiles(world, tile, placeable.CStatistics.statistics['Movement'], player, playersData, availableTiles);
+		var movementData = {
+			world: world,
+			placeable: placeable,
+			player: player,
+			playersData: eworld.blackboard[PlayersData.BLACKBOARD_NAME],
+		}
+		
+		gatherMovementTiles(movementData, tile, placeable.CStatistics.statistics['Movement'], availableTiles);
 		
 		// If nowhere to move, action is unavailable.
 		if (availableTiles.length <= 1) {
@@ -39,7 +45,7 @@ Actions.Classes.ActionMove = new function () {
 	// Private
 	//
 	// TODO: Use iterative approach
-	var gatherMovementTiles = function (world, tile, movement, player, playersData, availableTiles) {
+	var gatherMovementTiles = function (movementData, tile, movement, availableTiles) {
 		
 		// Currently, only one unit per tile is allowed.
 		// This tile is still added, in case an ally unit has occupied it.
@@ -53,16 +59,20 @@ Actions.Classes.ActionMove = new function () {
 		for(var i = 0; i < adjacentTiles.length; ++i) {
 			var currentTile = adjacentTiles[i];
 			
-			// TODO: charge movement according to terrain cost.
-			var movementLeft = movement - 1;
+			var terrainCost = movementData.placeable.CStatistics.terrainCost[currentTile.CTileTerrain.type];
+			if (terrainCost == undefined)
+				continue;
+			
+			var movementLeft = movement - terrainCost;
 			
 			var placedObject = currentTile.CTile.placedObjects[0];
 			
 			if (currentTile.CTileTerrain.movementCostLeft <= movementLeft && 
-				(!placedObject || playersData.getRelation(player.id, placedObject.CPlayerData.playerId)) &&	// Can pass over allies
+				(!placedObject || 
+						movementData.playersData.getRelation(movementData.player.id, placedObject.CPlayerData.playerId)) &&	// Can pass over allies
 				movementLeft >= 0) {
 				
-				gatherMovementTiles(world, currentTile, movementLeft, player, playersData, availableTiles);
+				gatherMovementTiles(movementData, currentTile, movementLeft, availableTiles);
 			}
 		}
 		

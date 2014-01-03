@@ -3,6 +3,8 @@
 var CStatistics = function () {
 	this.baseStatistics = null;
 	this.statistics = null;
+	
+	this.terrainCost = null;
 };
 
 ComponentsUtils.registerPersistent('CStatistics', CStatistics);
