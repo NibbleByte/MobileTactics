@@ -13,13 +13,19 @@ var UnitsDefinitions = {
 			AttackRange: 2,
 			MaxHealth: 20,
 			Defence: 5,
-			Movement: 2,
+			Movement: 3,
 		},
 		
 		actions: [
 				  Actions.Classes.ActionMove,
 				  Actions.Classes.ActionAttack,
-				 ]
+				 ],
+		
+		terrainCost: new function () {
+			this[GameWorldTerrainType.Grass] = 1;
+			this[GameWorldTerrainType.Dirt] = 1;
+			this[GameWorldTerrainType.Mountain] = 3;
+		},
 	}, 
 	
 	RhinoTank: {
@@ -34,7 +40,12 @@ var UnitsDefinitions = {
 		actions: [
 				  Actions.Classes.ActionMove,
 				  Actions.Classes.ActionAttack,
-				 ]
+				 ],
+		
+		terrainCost: new function () {
+			this[GameWorldTerrainType.Grass] = 1;
+			this[GameWorldTerrainType.Dirt] = 2;
+		},
 	},
 	
 	TeslaTrooper: {
@@ -49,6 +60,12 @@ var UnitsDefinitions = {
 		actions: [
 				  Actions.Classes.ActionMove,
 				  Actions.Classes.ActionAttack,
-				 ]
+				 ],
+		
+		terrainCost: new function () {
+			this[GameWorldTerrainType.Grass] = 1;
+			this[GameWorldTerrainType.Dirt] = 1;
+			this[GameWorldTerrainType.Mountain] = 2;
+		},
 	},	
 };
