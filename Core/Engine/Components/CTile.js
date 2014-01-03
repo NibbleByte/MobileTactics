@@ -5,8 +5,6 @@ var CTile = function () {
 	this.column = -1;
 	
 	this.placedObjects = [];
-	this.movementCostLeft = 0;	// Used by search algorithms.
-	
 };
 
 ComponentsUtils.registerPersistent('CTile', CTile);

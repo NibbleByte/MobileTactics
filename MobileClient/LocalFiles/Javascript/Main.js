@@ -24,8 +24,16 @@ var fillTerrainPattern = function (eworld, world, rows) {
 			
 			tile = new ECS.Entity();
 			tile.addComponent(CTile);
+			tile.addComponent(CTileTerrain);
 			tile.CTile.row = i;
 			tile.CTile.column = j;
+			tile.CTileTerrain.type = GameWorldTerrainType.Grass;
+			if (i % 3 <= 1 && j % 4 >= 2) {
+				tile.CTileTerrain.type = GameWorldTerrainType.Dirt;
+			}
+			if (i % 7 <= 2 && j % 5 <= 1) {
+				tile.CTileTerrain.type = GameWorldTerrainType.Mountain;
+			}
 			
 			eworld.addUnmanagedEntity(tile);
 		}
@@ -144,6 +152,37 @@ $(function () {
 		$('#BtnPlayer').text(m_eworld.blackboard[PlayerController.BB_CURRENT_PLAYER].name)
 	}
 	
+	var onBtnDebug = function () {
+		var entities = m_eworld.getEntities();
+		
+		for(var i = 0; i < entities.length; ++i) {
+			var entity = entities[i];
+			
+			var tile = entity.CTile;
+			var rendering = entity.CTileRendering;
+			
+			if (!tile || !rendering)
+				continue;
+			
+			$(rendering.sprite.dom)
+			.html(	'<br />' +
+					'RC: ' + tile.row + ', ' + tile.column +
+					'<br />' +
+					'X: ' + parseInt(rendering.sprite.x) +
+					'<br />' +
+					'Y: ' + parseInt(rendering.sprite.y));
+			
+			
+			$(rendering.sprite.dom)
+			.css('background', 
+					(tile.column % 2) 
+					? 'url("Assets/Render/Images/hex.png") no-repeat' 
+					: 'url("Assets/Render/Images/hex_bluesh.png") no-repeat'
+				)
+			.css('background-size', '100% 100%');
+		}
+	}
+	
 	//
 	// Initialize
 	//
@@ -156,6 +195,7 @@ $(function () {
 	$('#BtnRemoveTile').click(onBtnRemoveTile);
 	$('#BtnRestart').click(onBtnRestart);
 	$('#BtnPlayer').click(onBtnPlayer);
+	$('#BtnDebug').click(onBtnDebug);
 	
 	// MoSync bindings
 	document.addEventListener("backbutton", close, true);

@@ -55,22 +55,6 @@ var TileRenderingSystem = function (m_renderer) {
 		
 		rendering.spriteHighlight.position(coords.x, coords.y);
 		rendering.spriteHighlight.update();
-		
-		/////////////////////////////////////////////////////////
-		// DEBUG: Debug visualization
-		
-		$(rendering.sprite.dom)
-		.html(	'<br />' +
-				'RC: ' + row + ', ' + column +
-				'<br />' +
-				'X: ' + parseInt(rendering.sprite.x) +
-				'<br />' +
-				'Y: ' + parseInt(rendering.sprite.y));
-		// DEBUG: Color every even column
-		if (column % 2)
-			$(rendering.sprite.dom)
-			.css('background', 'url("Assets/Render/Images/hex_bluesh.png") no-repeat')
-			.css('background-size', '100% 100%');
 	}
 	
 	var onPlotClicked = function (event) {
@@ -103,7 +87,11 @@ var TileRenderingSystem = function (m_renderer) {
 		
 		tile.addComponent(CTileRendering);
 		
-		tile.CTileRendering.sprite = m_renderer.layers[WorldLayers.LayerTypes.Terrain].Sprite();
+		var terrainName = Enums.getName(GameWorldTerrainType, tile.CTileTerrain.type);
+		var spritePath = TileRenderingSystem.TILES_SPRITE_PATH.replace(/{terrainType}/g, terrainName);
+		
+		tile.CTileRendering.sprite = m_renderer.layers[WorldLayers.LayerTypes.Terrain].Sprite(spritePath);
+		tile.CTileRendering.sprite.size(GTile.TILE_WIDTH, GTile.TILE_HEIGHT)
 		$(tile.CTileRendering.sprite.dom).addClass('tile');
 		
 		tile.CTileRendering.spriteHighlight = m_renderer.layers[WorldLayers.LayerTypes.Highlights].Sprite();
@@ -182,5 +170,7 @@ var TileRenderingSystem = function (m_renderer) {
 	//
 	$(m_renderer.scene.dom).click(onPlotClicked);
 }
+
+TileRenderingSystem.TILES_SPRITE_PATH = 'Assets/Render/Images/Tiles/{terrainType}.png';
 
 ECS.EntityManager.registerSystem('TileRenderingSystem', TileRenderingSystem);

@@ -21,5 +21,16 @@ var Enums = {
 		}
 		
 		return false;
+	},
+	
+	getName: function (enumClass, enumValue) {
+		
+		for(var name in enumClass) {
+			if (enumClass[name] == enumValue) {
+				return name;
+			}
+		}
+		
+		return '';
 	}
 };

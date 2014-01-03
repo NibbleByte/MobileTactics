@@ -1,16 +1,10 @@
 .tile
 {
-	position: absolute;
-	width: 64px;
-	height: 64px;
-	display: inline-block;
-	
-	background: url("Images/hex.png") no-repeat;
-	background-size: 100% 100%;
-	
+	/* DEBUG */
 	font-size: 10px;
 	font-family: serif;
-	text-align: center;	
+	text-align: center;
+	color: rgb(30, 39, 38);	
 }
 
 .tile_selected

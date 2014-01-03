@@ -22,7 +22,7 @@ Actions.Classes.ActionMove = new function () {
 		
 		// Reset the tiles for another search
 		for(var i = 0; i < availableTiles.length; ++i) {
-			availableTiles[i].CTile.movementCostLeft = 0;
+			availableTiles[i].CTileTerrain.movementCostLeft = 0;
 		}
 		
 		var action = new GameAction(Actions.Classes.ActionMove, player, placeable);
@@ -45,7 +45,7 @@ Actions.Classes.ActionMove = new function () {
 		// This tile is still added, in case an ally unit has occupied it.
 		if (tile.CTile.placedObjects.length == 0) {
 			availableTiles.push(tile);
-			tile.CTile.movementCostLeft = movement;
+			tile.CTileTerrain.movementCostLeft = movement;
 		}
 		
 		var adjacentTiles = world.getAdjacentTiles(tile);
@@ -58,7 +58,7 @@ Actions.Classes.ActionMove = new function () {
 			
 			var placedObject = currentTile.CTile.placedObjects[0];
 			
-			if (currentTile.CTile.movementCostLeft <= movementLeft && 
+			if (currentTile.CTileTerrain.movementCostLeft <= movementLeft && 
 				(!placedObject || playersData.getRelation(player.id, placedObject.CPlayerData.playerId)) &&	// Can pass over allies
 				movementLeft >= 0) {
 				
