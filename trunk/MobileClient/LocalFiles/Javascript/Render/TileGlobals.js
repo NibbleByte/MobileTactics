@@ -8,7 +8,7 @@ var GTile = {};
 GTile.TILE_WIDTH = 64;
 GTile.TILE_HEIGHT = 64;
 
-GTile.TILE_VSIDE = 36;	// Length of the vertical left/right side from the image
+GTile.TILE_VSIDE = 34;	// Length of the vertical left/right side from the image
 
 
 
