@@ -106,6 +106,13 @@ $(function () {
 	render = m_tileRendering;
 	effects = m_effects;
 	
+	// DEBUG: scrollable toolbar
+	var toolbarScroller = new iScroll($('#ToolbarContainer')[0], {
+		lockDirection: false,
+		hideScrollbar: true,
+		bounce: false,
+	});
+	
 	var savedGame = '';
 	var onBtnSave = function () {
 		var entities = m_eworld.getEntities();
