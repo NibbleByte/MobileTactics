@@ -26,11 +26,6 @@ Actions.Classes.ActionMove = new function () {
 			return;
 		}
 		
-		// Reset the tiles for another search
-		for(var i = 0; i < availableTiles.length; ++i) {
-			availableTiles[i].CTileTerrain.movementCostLeft = 0;
-		}
-		
 		var action = new GameAction(Actions.Classes.ActionMove, player, placeable);
 		action.availableTiles = availableTiles;
 		outActions.push(action);
