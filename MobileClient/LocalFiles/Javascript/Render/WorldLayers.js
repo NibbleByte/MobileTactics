@@ -12,5 +12,6 @@ WorldLayers.LayerTypes = {
 	Highlights: 0,
 	Units: 0,
 	Statistics: 0,
+	Fog: 0,
 };
 Enums.enumerate(WorldLayers.LayerTypes);

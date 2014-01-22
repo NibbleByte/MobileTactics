@@ -94,6 +94,15 @@ var GameWorld = function () {
 		return adjacentTiles;
 	}
 	
+	this.iterateAllTiles = function (functor) {
+		for(var i = 0; i < m_tiles.length; ++i) {
+			for(var j = 0; j < m_tiles[i].length; ++j) {
+				if (m_tiles[i][j])
+					functor(m_tiles[i][j]);
+			}
+		}
+	}
+	
 	
 	var addTile = function (tile) {		
 		var row = tile.CTile.row;

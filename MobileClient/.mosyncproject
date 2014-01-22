@@ -8,10 +8,12 @@
 </filter>
 </criteria>
 <properties>
+<property key="android:install.location" value="preferExternal"/>
 <property key="build.prefs:additional.include.paths/Debug" value=""/>
 <property key="build.prefs:additional.libraries" value="MAUtil.lib, NativeUI.lib, MAFS.lib, Wormhole.lib, yajl.lib, Notification.lib"/>
 <property key="build.prefs:additional.libraries/Debug" value="MAUtilD.lib, NativeUID.lib, MAFSD.lib, WormholeD.lib, yajlD.lib, NotificationD.lib"/>
 <property key="build.prefs:additional.library.paths/Debug" value=""/>
+<property key="build.prefs:app.permissions" value="File\ Storage Internet\ Access Vibration"/>
 <property key="build.prefs:extra.link.sw/Debug" value=""/>
 <property key="build.prefs:extra.res.sw/Debug" value=""/>
 <property key="build.prefs:gcc.warnings/Debug" value="0"/>

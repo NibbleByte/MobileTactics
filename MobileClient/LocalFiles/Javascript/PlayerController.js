@@ -8,11 +8,10 @@
 var executor;
 var selected;
 
-var PlayerController = function (executor) {
+var PlayerController = function (m_world, m_executor) {
 	var m_eworld = null;
 	var m_eworldSB = null;
 
-	var m_executor = executor;
 	var m_selectedTile = null;
 	
 	var m_selectedGOActions = null;
@@ -126,6 +125,46 @@ var PlayerController = function (executor) {
 		
 		if (actions.length > 0)
 			selectGOActions(actions);
+		
+		drawFog(actions);
+	}
+	
+	var drawFog = function (actions) {
+		
+		var moveAction = null;
+		var attackAction = null;
+		for (var i = 0; i < actions.length; ++i) {
+			if (actions[i].actionType == Actions.Classes.ActionMove) {
+				moveAction = actions[i];
+			}
+			
+			if (actions[i].actionType == Actions.Classes.ActionAttack) {
+				attackAction = actions[i];
+			}
+		}
+		
+		if (moveAction == null && attackAction == null)
+			return;
+		
+		var placeableTile = moveAction.placeable.CTilePlaceable.tile;
+		
+		m_world.iterateAllTiles(function (tile) {
+			
+			if ((moveAction != null && moveAction.availableTiles.indexOf(tile) != -1)
+				|| (attackAction != null && attackAction.availableTiles.indexOf(tile) != -1)
+				|| tile == placeableTile
+				) {
+				tile.CTileRendering.hideFog();
+			} else {
+				tile.CTileRendering.showFog();
+			}
+		});
+	}
+	
+	var clearFog = function () {
+		m_world.iterateAllTiles(function (tile) {
+			tile.CTileRendering.hideFog();
+		});
 	}
 	
 	
@@ -165,6 +204,8 @@ var PlayerController = function (executor) {
 			iterateOverActionTiles(m_selectedGOActions, ActionsRender.unHighlightTile);
 			
 			m_selectedGOActions = null;
+			
+			clearFog();
 		}
 	}
 	

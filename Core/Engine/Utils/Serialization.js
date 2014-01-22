@@ -103,6 +103,15 @@ var Serialization = new function () {
 		classType.prototype.__serializationExclude = true;
 	}
 	
+	// Exclude by key name from serializing.
+	// Use with caution. Should be used mainly with primitive types and well defined naming convention.
+	this.excludeKey = function (keyName) {
+		
+		if (m_excludedKeyNames.indexOf(keyName) == -1) {
+			m_excludedKeyNames.push(keyName);
+		}
+	}
+	
 	//
 	// Private
 	//
@@ -185,6 +194,11 @@ var Serialization = new function () {
 			
 			for(var i = 0; i < keys.length; ++i) {
 				var fieldName = keys[i];
+				
+				if (m_excludedKeyNames.indexOf(fieldName) != -1) {
+					continue;
+				}
+				
 				var fieldValue = serializeImpl(value[fieldName], instanceRegister);
 				
 				// Serializing excluded class type will return undefined. We don't need to store that.
@@ -257,4 +271,5 @@ var Serialization = new function () {
 	}
 	
 	var m_registeredClasses = {};
+	var m_excludedKeyNames = []; 
 }

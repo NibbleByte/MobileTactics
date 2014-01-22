@@ -13,17 +13,17 @@ Actions.Classes.ActionAttack = new function () {
 		var placeables = world.getPlaceablesInArea(tile, placeable.CStatistics.statistics['AttackRange'], placeable);
 		var playersData = eworld.blackboard[PlayersData.BLACKBOARD_NAME];
 		
-		// If no targets, action is unavailable.
-		if (placeables.length == 0) {
-			return;
-		}
-		
 		var availableTiles = [];
 		for(var i = 0; i < placeables.length; ++i) {
 			if (playersData.getRelation(placeables[i].CPlayerData.playerId, player.id) == PlayersData.Relation.Enemy)
 				availableTiles.push(placeables[i].CTilePlaceable.tile);
 		}
 		
+		
+		// If no targets, action is unavailable.
+		if (availableTiles.length == 0) {
+			return;
+		}
 		
 		var action = new GameAction(Actions.Classes.ActionAttack, player, placeable);
 		action.availableTiles = availableTiles;
