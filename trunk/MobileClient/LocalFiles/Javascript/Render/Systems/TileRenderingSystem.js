@@ -50,11 +50,7 @@ var TileRenderingSystem = function (m_renderer) {
 		
 		var rendering = tile.CTileRendering;
 		
-		rendering.sprite.position(coords.x, coords.y);
-		rendering.sprite.update();
-		
-		rendering.spriteHighlight.position(coords.x, coords.y);
-		rendering.spriteHighlight.update();
+		rendering.move(coords.x, coords.y);
 	}
 	
 	var onPlotClicked = function (event) {
@@ -83,6 +79,15 @@ var TileRenderingSystem = function (m_renderer) {
 		m_renderer.refresh();
 	}
 	
+	var createTileSprite = function (resourcePath, layerType) {
+		
+		var sprite = m_renderer.layers[layerType].Sprite(resourcePath);
+		sprite.size(GTile.TILE_WIDTH, GTile.TILE_HEIGHT);
+		$(sprite.dom).addClass('tile');
+		
+		return sprite;
+	}
+	
 	var onTileAdded = function(event, tile) {
 		
 		tile.addComponent(CTileRendering);
@@ -90,12 +95,13 @@ var TileRenderingSystem = function (m_renderer) {
 		var terrainName = Enums.getName(GameWorldTerrainType, tile.CTileTerrain.type);
 		var spritePath = TileRenderingSystem.TILES_SPRITE_PATH.replace(/{terrainType}/g, terrainName);
 		
-		tile.CTileRendering.sprite = m_renderer.layers[WorldLayers.LayerTypes.Terrain].Sprite(spritePath);
-		tile.CTileRendering.sprite.size(GTile.TILE_WIDTH, GTile.TILE_HEIGHT)
-		$(tile.CTileRendering.sprite.dom).addClass('tile');
+		// Setup sprites.
+		tile.CTileRendering.sprite = createTileSprite(spritePath, WorldLayers.LayerTypes.Terrain);
+		tile.CTileRendering.spriteHighlight = createTileSprite('', WorldLayers.LayerTypes.Highlights);
+		tile.CTileRendering.spriteFog = createTileSprite(TileRenderingSystem.FOG_SPRITE_PATH, WorldLayers.LayerTypes.Fog);
 		
-		tile.CTileRendering.spriteHighlight = m_renderer.layers[WorldLayers.LayerTypes.Highlights].Sprite();
-		$(tile.CTileRendering.spriteHighlight.dom).addClass('tile_highlight');
+		$(tile.CTileRendering.spriteFog.dom).addClass('tile_fog');
+		tile.CTileRendering.hideFog();
 		
 		renderTile(tile);
 				
@@ -118,9 +124,7 @@ var TileRenderingSystem = function (m_renderer) {
 	
 	var onTileRemoved = function(event, tile) {
 		
-		
-		tile.CTileRendering.spriteHighlight.remove();
-		tile.CTileRendering.sprite.remove();
+		tile.CTileRendering.detach();
 		
 		// Resize if needed...
 		m_renderer.extentWidth = 0;
@@ -172,5 +176,6 @@ var TileRenderingSystem = function (m_renderer) {
 }
 
 TileRenderingSystem.TILES_SPRITE_PATH = 'Assets/Render/Images/Tiles/{terrainType}.png';
+TileRenderingSystem.FOG_SPRITE_PATH = 'Assets/Render/Images/HexFog.png';
 
 ECS.EntityManager.registerSystem('TileRenderingSystem', TileRenderingSystem);

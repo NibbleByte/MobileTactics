@@ -81,7 +81,7 @@ $(function () {
 	var m_executor = new GameExecutor(m_eworld, m_world);
 	
 	
-	var m_playerController = new PlayerController(m_executor);
+	var m_playerController = new PlayerController(m_world, m_executor);
 	m_eworld.addSystem(m_playerController);
 	
 	//
@@ -191,6 +191,8 @@ $(function () {
 				)
 			.css('background-size', '100% 100%');
 		}
+		
+		$('#WorldPlot').css('background-color', 'white');
 	}
 	
 	//

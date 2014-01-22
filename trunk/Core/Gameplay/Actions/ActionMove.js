@@ -44,38 +44,75 @@ Actions.Classes.ActionMove = new function () {
 	//
 	// Private
 	//
-	// TODO: Use iterative approach
-	var gatherMovementTiles = function (movementData, tile, movement, availableTiles) {
+	var gatherMovementTiles = function (movementData, startTile, movement, availableTiles) {
+		var open = [ startTile ];
+		var visited = [];
 		
-		// Currently, only one unit per tile is allowed.
-		// This tile is still added, in case an ally unit has occupied it.
-		if (tile.CTile.placedObjects.length == 0) {
-			availableTiles.push(tile);
-			tile.CTileTerrain.movementCostLeft = movement;
-		}
+		startTile.__$movementLeft = movement;
+		startTile.__$cameFrom = null;
 		
-		var adjacentTiles = world.getAdjacentTiles(tile);
 		
-		for(var i = 0; i < adjacentTiles.length; ++i) {
-			var currentTile = adjacentTiles[i];
+		while(open.length != 0) {
+			var openTile = open.shift();
+			var openMovementLeft = openTile.__$movementLeft;
 			
-			var terrainCost = movementData.placeable.CStatistics.terrainCost[currentTile.CTileTerrain.type];
-			if (terrainCost == undefined)
-				continue;
+			var adjacentTiles = movementData.world.getAdjacentTiles(openTile);
 			
-			var movementLeft = movement - terrainCost;
-			
-			var placedObject = currentTile.CTile.placedObjects[0];
-			
-			if (currentTile.CTileTerrain.movementCostLeft <= movementLeft && 
-				(!placedObject || 
-						movementData.playersData.getRelation(movementData.player.id, placedObject.CPlayerData.playerId)) &&	// Can pass over allies
-				movementLeft >= 0) {
+			for(var i = 0; i < adjacentTiles.length; ++i) {
+				var tile = adjacentTiles[i];
 				
-				gatherMovementTiles(movementData, currentTile, movementLeft, availableTiles);
+				if (tile == openTile.__$cameFrom) {
+					continue;
+				}
+				
+				var terrainCost = movementData.placeable.CStatistics.terrainCost[tile.CTileTerrain.type];
+				if (terrainCost == undefined)
+					continue;
+				
+				var movementLeft = openMovementLeft - terrainCost;
+				var oldMovementLeft = tile.__$movementLeft || 0;
+				
+				// Check if has any placeable and its relation towards it.
+				var placedObject = tile.CTile.placedObjects[0];
+				var relation = PlayersData.Relation.Neutral;
+				if (placedObject) {
+					relation = movementData.playersData.getRelation(movementData.player.id, placedObject.CPlayerData.playerId);
+				}
+				
+				
+				if (oldMovementLeft <= movementLeft
+					&& relation != PlayersData.Relation.Enemy // Can't pass over enemies
+					&& movementLeft >= 0
+					) {
+					tile.__$movementLeft = movementLeft;
+					tile.__$cameFrom = openTile;
+					
+					if (open.indexOf(tile) == -1) {
+						open.push(tile);
+					}
+				}
+				
+			}
+			
+			
+			if (visited.indexOf(openTile) == -1) {
+				
+				// When searching for closed tiles, recent ones should be in front because they are more likely to be needed.
+				visited.unshift(openTile);
+				
+				// Can't stack units.
+				if (openTile != startTile && openTile.CTile.placedObjects.length == 0) {
+					availableTiles.push(openTile);
+				}
 			}
 		}
 		
+		
+		// Cleanup algorithm data.
+		for(var i = 0; i < visited.length; ++i) {
+			delete visited[i].__$movementLeft;
+			delete visited[i].__$cameFrom;
+		}
 	}
 	
 };

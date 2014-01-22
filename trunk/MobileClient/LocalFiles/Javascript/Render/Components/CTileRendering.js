@@ -3,6 +3,7 @@
 var CTileRendering = function () {
 	this.sprite = null;
 	this.spriteHighlight = null;
+	this.spriteFog = null;
 	
 	this.highlightMode = CTileRendering.HighlightType.None;
 };
@@ -20,15 +21,13 @@ Enums.enumerate(CTileRendering.HighlightType);
 // TODO: Maybe classes should be defined somewhere else, like in the system. highlight modes/selection too.
 CTileRendering.prototype.CLASSES = {
 		TILE_SELECTED: 'tile_selected',
-		
-		HIGHLIGHT_SELECTED: 'tile_highlight_selected',
-		HIGHLIGHT_MODES: [
-						  '',
-						  'tile_highlight_move',
-						  'tile_highlight_attack'
-						  ],
 }
 
+CTileRendering.SPRITES_PATH = 'Assets/Render/Images/TileHighlight/';
+CTileRendering.SPRITES_FILES = ['',
+							'hex_move.png',
+							'hex_attack.png'
+							];
 
 
 //
@@ -58,18 +57,38 @@ CTileRendering.prototype.highlight = function (mode) {
 		return;
 	}
 	
-	// Remove old highlight
-	if (this.highlightMode != CTileRendering.HighlightType.None) {
-		$(this.spriteHighlight.dom).removeClass(this.CLASSES.HIGHLIGHT_MODES[this.highlightMode]);
-	}
+	$(this.spriteHighlight.dom).show();
 	
 	this.highlightMode = mode;
-	$(this.spriteHighlight.dom).addClass(this.CLASSES.HIGHLIGHT_MODES[this.highlightMode]);
+	this.spriteHighlight.loadImg(CTileRendering.SPRITES_PATH + CTileRendering.SPRITES_FILES[this.highlightMode]);
 };
 
 CTileRendering.prototype.unHighlight = function () {
-	if (this.highlightMode != CTileRendering.HighlightType.None) {
-		$(this.spriteHighlight.dom).removeClass(this.CLASSES.HIGHLIGHT_MODES[this.highlightMode]);
-		this.highlightMode = CTileRendering.HighlightType.None;
-	}		
+	$(this.spriteHighlight.dom).hide();
 };
+
+CTileRendering.prototype.showFog = function () {
+	$(this.spriteFog.dom).show();
+}
+
+CTileRendering.prototype.hideFog = function () {
+	$(this.spriteFog.dom).hide();
+}
+
+
+
+CTileRendering.prototype.move = function (x, y) {
+	this.sprite.position(x, y);
+	this.sprite.update();
+	
+	this.spriteHighlight.position(x, y);
+	this.spriteHighlight.update();
+	
+	this.spriteFog.position(x, y);
+	this.spriteFog.update();
+}
+
+CTileRendering.prototype.detach = function () {
+	this.spriteHighlight.remove();
+	this.sprite.remove();
+}
