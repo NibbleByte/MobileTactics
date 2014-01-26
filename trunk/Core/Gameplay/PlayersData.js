@@ -86,9 +86,7 @@ var PlayersData = function (m_eworld) {
 	}
 	
 	
-	this.getRelation = function (player1Id, player2Id) {
-		var player1 = self.getPlayer(player1Id);
-		var player2 = self.getPlayer(player2Id);
+	this.getRelation = function (player1, player2) {
 		
 		if (player1.teamId == player2.teamId && (player1.teamId != -1 || player1.id == player2.id)) {
 			return PlayersData.Relation.Ally;

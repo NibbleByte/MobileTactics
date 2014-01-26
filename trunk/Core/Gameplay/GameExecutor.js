@@ -53,7 +53,7 @@ var GameExecutor = function (eworld, world) {
 		var actions;
 		for(var i = 0; i < objects.length; ++i) {
 			var placeable = objects[i];
-			var player = m_playersData.getPlayer(placeable.CPlayerData.playerId);
+			var player = placeable.CPlayerData.player;
 			var actions = getPlaceableActions(player, placeable);
 			availableActions.push(new GameObjectActions(placeable, actions));
 		}

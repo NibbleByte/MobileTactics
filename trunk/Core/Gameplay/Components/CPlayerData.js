@@ -1,7 +1,7 @@
 "use strict";
 
 var CPlayerData = function () {
-	this.playerId = -1;
+	this.player = null;
 };
 
 ComponentsUtils.registerPersistent('CPlayerData', CPlayerData);

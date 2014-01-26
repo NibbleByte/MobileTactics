@@ -7,6 +7,7 @@ var world;
 var render;
 var effects;
 var worldRenderer;
+var players;
 
 /**
  * Handle the backbutton event.
@@ -105,6 +106,7 @@ $(function () {
 	world = m_world;
 	render = m_tileRendering;
 	effects = m_effects;
+	players = m_playersData;
 	
 	// DEBUG: scrollable toolbar
 	var toolbarScroller = new iScroll($('#ToolbarContainer')[0], {
