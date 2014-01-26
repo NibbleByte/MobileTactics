@@ -47,7 +47,7 @@ var UnitRenderingSystem = function (renderer) {
 	var renderUnitInit = function (placeable) {
 		var placeableRendering = placeable.CTilePlaceableRendering;
 		
-		var spritePath = UnitRenderingSystem.SPRITES_PATH.replace(/{colorId}/g, placeable.CPlayerData.playerId);
+		var spritePath = UnitRenderingSystem.SPRITES_PATH.replace(/{colorId}/g, placeable.CPlayerData.player.id);
 		
 		// Get information depending if has animations or is still image.
 		if (placeable.CAnimations) {

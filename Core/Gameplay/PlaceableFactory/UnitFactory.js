@@ -33,7 +33,7 @@ var UnitsFactory = new function () {
 		obj.CStatistics.resetStatistics(definition.baseStatistics);
 		obj.CStatistics.terrainCost = definition.terrainCost;
 		obj.CActions.actions = definition.actions;
-		obj.CPlayerData.playerId = player.id;
+		obj.CPlayerData.player = player;
 		
 		lastCreated = obj;
 		

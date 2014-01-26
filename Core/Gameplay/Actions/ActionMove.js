@@ -71,7 +71,7 @@ Actions.Classes.ActionMove = new function () {
 				var placedObject = tile.CTile.placedObjects[0];
 				var relation = PlayersData.Relation.Neutral;
 				if (placedObject) {
-					relation = movementData.playersData.getRelation(movementData.player.id, placedObject.CPlayerData.playerId);
+					relation = movementData.playersData.getRelation(movementData.player, placedObject.CPlayerData.player);
 				}
 				
 				

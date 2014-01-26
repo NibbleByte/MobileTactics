@@ -15,7 +15,7 @@ Actions.Classes.ActionAttack = new function () {
 		
 		var availableTiles = [];
 		for(var i = 0; i < placeables.length; ++i) {
-			if (playersData.getRelation(placeables[i].CPlayerData.playerId, player.id) == PlayersData.Relation.Enemy)
+			if (playersData.getRelation(placeables[i].CPlayerData.player, player) == PlayersData.Relation.Enemy)
 				availableTiles.push(placeables[i].CTilePlaceable.tile);
 		}
 		
