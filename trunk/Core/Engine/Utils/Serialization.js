@@ -66,18 +66,22 @@ var Serialization = new function () {
 	
 	// Deserialize object from JSON.
 	// Will execute any custom deserialize() functions along the way (attached to the class type).
-	// Will also call postDeserialize() after deserializing object. 
-	this.deserialize = function (data) {
+	// Will also call postDeserialize() after deserializing object.
+	// Will fill out the outAllObjects array with all the deserialized objects (flat).
+	this.deserialize = function (data, outAllObjects) {
 		
 		var obj = JSON.parse(data);
 		
 		var instanceRegister = [];
 		
-		return deserializeImpl(obj, instanceRegister);
+		var allObjects = outAllObjects || [];
+		
+		return deserializeImpl(obj, instanceRegister, allObjects);
 	};
 	
 	// Deserialize single value. Use in custom deserialization functions.
 	// Should pass on the custom function instanceRegister.
+	// Should also pass down the array with all the deserialized objects.
 	this.deserializeCustom = deserializeImpl;
 	
 	
@@ -211,7 +215,7 @@ var Serialization = new function () {
 	}
 	
 	// Deserialize single value.
-	var deserializeImpl = function (value, instanceRegister) {
+	var deserializeImpl = function (value, instanceRegister, outAllObjects) {
 		
 		if (self.isNumber(value) || self.isString(value) || self.isBoolean(value) || value == null || value == undefined) {
 			return value;
@@ -221,7 +225,7 @@ var Serialization = new function () {
 			registerValue(arr, instanceRegister);
 			
 			for(var i = 0; i < value.length; ++i) {
-				arr[i] = deserializeImpl(value[i], instanceRegister);
+				arr[i] = deserializeImpl(value[i], instanceRegister, outAllObjects);
 			}
 			
 			return arr;
@@ -243,7 +247,7 @@ var Serialization = new function () {
 				// Check if class has a custom method for deserialization.
 				var customDeserialize = m_registeredClasses[obj.__serializationTypeName].deserialize;
 				if (customDeserialize) {
-					customDeserialize(value, obj, instanceRegister);
+					customDeserialize(value, obj, instanceRegister, outAllObjects);
 					return obj;
 				}
 			} else {
@@ -257,7 +261,7 @@ var Serialization = new function () {
 			
 			for(var i = 0; i < keys.length; ++i) {
 				var fieldName = keys[i];
-				obj[fieldName] = deserializeImpl(value[fieldName], instanceRegister);
+				obj[fieldName] = deserializeImpl(value[fieldName], instanceRegister, outAllObjects);
 			}
 			
 			
@@ -265,6 +269,8 @@ var Serialization = new function () {
 			if (obj.postDeserialize) {
 				obj.postDeserialize();
 			}
+			
+			outAllObjects.push(obj);
 			
 			return obj;
 		}
