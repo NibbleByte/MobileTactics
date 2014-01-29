@@ -120,7 +120,7 @@ $(function () {
 		var entities = m_eworld.getEntities();
 		
 		var gameState = {
-				players: m_eworld.blackboard[PlayersData.BLACKBOARD_NAME].getPlayers(),
+				players: m_eworld.blackboard[PlayersData.BLACKBOARD_NAME],
 				world: m_eworld.getEntities(),
 		}
 		savedGame = Serialization.serialize(gameState, true);
@@ -129,9 +129,16 @@ $(function () {
 	var onBtnLoad = function () {
 		m_world.clearTiles();
 		
-		var gameState = Serialization.deserialize(savedGame);
+		var allObjects = [];
 		
-		m_playersData.setPlayers(gameState.players);
+		var gameState = Serialization.deserialize(savedGame, allObjects);
+		
+		
+		for(var i = 0; i < allObjects.length; ++i) {
+			if (allObjects[i].onDeserialize)
+				allObjects[i].onDeserialize(m_eworld);
+		}
+		
 		
 		var entities = gameState.world;
 		for(var i = 0; i < entities.length; ++i) {
