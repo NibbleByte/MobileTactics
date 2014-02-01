@@ -138,6 +138,9 @@ $(function () {
 	var onBtnLoad = function () {
 		m_world.clearTiles();
 		
+		Utils.invalidate(m_playersData);
+		Utils.invalidate(m_gameState);
+		
 		var allObjects = [];
 		
 		var fullGameState = Serialization.deserialize(savedGame, allObjects);

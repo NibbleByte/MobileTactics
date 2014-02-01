@@ -14,37 +14,6 @@
 
 var Serialization = new function () {
 	var self = this;
-	
-	//
-	// Check types
-	//
-	this.isArray = function(object) {
-		return Object.prototype.toString.call(object) === '[object Array]';
-	};
-
-	this.isString = function(object) {
-		return Object.prototype.toString.call(object) === '[object String]';
-	};
-
-	this.isBoolean = function(object) {
-		return Object.prototype.toString.call(object) === '[object Boolean]';
-	};
-
-	this.isNumber = function(object) {
-		return Object.prototype.toString.call(object) === '[object Number]';
-	};
-
-	this.isFunction = function(object) {
-		return Object.prototype.toString.call(object) === "[object Function]";
-	};
-
-	this.isObject = function(object) {
-		return object !== null && object !== undefined &&
-			!this.isArray(object) && !this.isBoolean(object) &&
-			!this.isString(object) && !this.isNumber(object) &&
-			!this.isFunction(object);
-	};
-	
 
 	// Serialize object to JSON.
 	// Will execute any custom serialize() functions along the way (attached to the class type).
@@ -152,9 +121,9 @@ var Serialization = new function () {
 	// Serialize single value.
 	var serializeImpl = function (value, instanceRegister) {
 		
-		if (self.isNumber(value) || self.isString(value) || self.isBoolean(value) || value == null || value == undefined) {
+		if (Utils.isNumber(value) || Utils.isString(value) || Utils.isBoolean(value) || value == null || value == undefined) {
 			return value;
-		} else if (self.isArray(value)) {
+		} else if (Utils.isArray(value)) {
 			
 			var regValue = registerCheckValue(value, instanceRegister);
 			if (regValue != value)
@@ -167,7 +136,7 @@ var Serialization = new function () {
 			
 			return arr;
 			
-		} else if (self.isObject(value)) {
+		} else if (Utils.isObject(value)) {
 			
 			// Check if this is not excluded class type.
 			if (value.__serializationExclude) {
@@ -217,9 +186,9 @@ var Serialization = new function () {
 	// Deserialize single value.
 	var deserializeImpl = function (value, instanceRegister, outAllObjects) {
 		
-		if (self.isNumber(value) || self.isString(value) || self.isBoolean(value) || value == null || value == undefined) {
+		if (Utils.isNumber(value) || Utils.isString(value) || Utils.isBoolean(value) || value == null || value == undefined) {
 			return value;
-		} else if (self.isArray(value)) {
+		} else if (Utils.isArray(value)) {
 			
 			var arr = [];
 			registerValue(arr, instanceRegister);
@@ -230,7 +199,7 @@ var Serialization = new function () {
 			
 			return arr;
 			
-		} else if (self.isObject(value)) {
+		} else if (Utils.isObject(value)) {
 			
 			var refValue = getReferenceValue(value, instanceRegister);
 			if (refValue != value)
