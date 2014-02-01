@@ -16,7 +16,7 @@ Actions.Classes.ActionMove = new function () {
 			world: world,
 			placeable: placeable,
 			player: player,
-			playersData: eworld.blackboard[PlayersData.BLACKBOARD_NAME],
+			playersData: eworld.extract(PlayersData),
 		}
 		
 		gatherMovementTiles(movementData, tile, placeable.CStatistics.statistics['Movement'], availableTiles);

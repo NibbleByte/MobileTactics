@@ -8,6 +8,7 @@ var render;
 var effects;
 var worldRenderer;
 var players;
+var gameState;
 
 /**
  * Handle the backbutton event.
@@ -50,19 +51,21 @@ $(function () {
 	// Properties
 	//
 	var m_eworld = new ECS.EntityWorld();
+	var m_eworldSB = m_eworld.createSubscriber();
 	
 	//
 	// Players
 	//
 	var m_playersData = new PlayersData(m_eworld);
-	m_eworld.blackboard[PlayersData.BLACKBOARD_NAME] = m_playersData;
+	m_eworld.store(PlayersData, m_playersData);
 	m_playersData.addPlayer('Pl1', Player.Types.Human);
 	m_playersData.addPlayer('Pl2', Player.Types.Human);
 	m_playersData.addPlayer('Pl3', Player.Types.Human);
 	m_playersData.addPlayer('Pl4', Player.Types.Human);
 	
-	m_eworld.blackboard[PlayerController.BB_CURRENT_PLAYER] = m_playersData.getFirstPlayingPlayer();
-	$('#BtnPlayer').text(m_eworld.blackboard[PlayerController.BB_CURRENT_PLAYER].name)
+	var m_gameState = new GameState();
+	m_eworld.store(GameState, m_gameState);
+	
 	m_playersData.stopPlaying(m_playersData.getPlayer(2));
 	m_playersData.stopPlaying(m_playersData.getPlayer(3));
 	
@@ -78,6 +81,7 @@ $(function () {
 	var m_effects = new EffectsSystem();
 	m_eworld.addSystem(m_effects);
 	m_eworld.addSystem(new UnitsSystem());
+	m_eworld.addSystem(new GameStateSystem());
 	
 	var m_executor = new GameExecutor(m_eworld, m_world);
 	
@@ -107,6 +111,7 @@ $(function () {
 	render = m_tileRendering;
 	effects = m_effects;
 	players = m_playersData;
+	gameState = m_gameState;
 	
 	// DEBUG: scrollable toolbar
 	var toolbarScroller = new iScroll($('#ToolbarContainer')[0], {
@@ -115,15 +120,19 @@ $(function () {
 		bounce: false,
 	});
 	
+	//
+	// Handlers
+	//
 	var savedGame = '';
 	var onBtnSave = function () {
 		var entities = m_eworld.getEntities();
 		
-		var gameState = {
-				players: m_eworld.blackboard[PlayersData.BLACKBOARD_NAME],
+		var fullGameState = {
+				gameState: m_gameState,
+				playersData: m_playersData,
 				world: m_eworld.getEntities(),
 		}
-		savedGame = Serialization.serialize(gameState, true);
+		savedGame = Serialization.serialize(fullGameState, true);
 	}
 	
 	var onBtnLoad = function () {
@@ -131,7 +140,14 @@ $(function () {
 		
 		var allObjects = [];
 		
-		var gameState = Serialization.deserialize(savedGame, allObjects);
+		var fullGameState = Serialization.deserialize(savedGame, allObjects);
+		
+		m_gameState = fullGameState.gameState;
+		m_playersData = fullGameState.playersData;
+		m_eworld.store(PlayersData, m_playersData);
+		m_eworld.store(GameState, m_gameState);
+		players = m_playersData;
+		gameState = m_gameState;
 		
 		
 		for(var i = 0; i < allObjects.length; ++i) {
@@ -139,8 +155,7 @@ $(function () {
 				allObjects[i].onDeserialize(m_eworld);
 		}
 		
-		
-		var entities = gameState.world;
+		var entities = fullGameState.world;
 		for(var i = 0; i < entities.length; ++i) {
 			
 			UnitsFactory.postDeserialize(entities[i]);
@@ -150,6 +165,8 @@ $(function () {
 		for(var i = 0; i < entities.length; ++i) {
 			m_eworld.trigger(EngineEvents.Serialization.ENTITY_DESERIALIZED, entities[i]);
 		}
+		
+		m_eworld.trigger(EngineEvents.General.GAME_LOADED);
 	}
 	
 	var onBtnRemoveTile = function () {
@@ -165,10 +182,15 @@ $(function () {
 	}
 	
 	var onBtnPlayer = function () {
-		m_eworld.blackboard[PlayerController.BB_CURRENT_PLAYER] = 
-			m_playersData.getNextPlayingPlayer(m_eworld.blackboard[PlayerController.BB_CURRENT_PLAYER]);
-		
-		$('#BtnPlayer').text(m_eworld.blackboard[PlayerController.BB_CURRENT_PLAYER].name)
+		m_eworld.trigger(GameplayEvents.GameState.END_TURN);
+	}
+	
+	var onTurnChanged = function (event) {
+		if (m_gameState.currentPlayer) {
+			$('#BtnPlayer').text(m_gameState.currentPlayer.name)
+		} else {
+			$('#BtnPlayer').text('N/a');
+		}
 	}
 	
 	var onBtnDebug = function () {
@@ -204,11 +226,20 @@ $(function () {
 		$('#WorldPlot').css('background-color', 'white');
 	}
 	
+	
+	
+	m_eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, onTurnChanged);
+	m_eworldSB.subscribe(GameplayEvents.GameState.NO_PLAYING_PLAYERS, onTurnChanged);
+	
 	//
 	// Initialize
 	//
 	onBtnRestart();
 	onBtnSave();
+	
+	// All setup is done, initialize the systems.
+	m_eworld.trigger(EngineEvents.General.GAME_LOADED);
+	
 
 	// Toolbar listeners
 	$('#BtnSave').click(onBtnSave);

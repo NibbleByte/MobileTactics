@@ -11,6 +11,7 @@ var selected;
 var PlayerController = function (m_world, m_executor) {
 	var m_eworld = null;
 	var m_eworldSB = null;
+	var m_gameState = null;
 
 	var m_selectedTile = null;
 	
@@ -25,6 +26,8 @@ var PlayerController = function (m_world, m_executor) {
 		m_eworld = this.getEntityWorld();
 		m_eworldSB = m_eworld.createSubscriber();
 		
+		m_eworldSB.subscribe(EngineEvents.General.GAME_LOADED, onGameLoaded);
+		
 		m_eworldSB.subscribe(ClientEvents.Input.TILE_CLICKED, onTileClicked);
 		m_eworldSB.subscribe(EngineEvents.World.TILE_REMOVED, onTileRemoved);
 		
@@ -37,18 +40,26 @@ var PlayerController = function (m_world, m_executor) {
 		m_eworldSB = null;
 		m_eworld = null;
 		
+		m_gameState = null;
 		m_selectedTile = null;
 		m_selectedGOActions = null;
 	};
+	
+	var onGameLoaded = function (event) {
+		m_gameState = m_eworld.extract(GameState);
+	}
 	
 	// DEBUG: Global access
 	executor = m_executor;
 	
 	var selectTile = function (tile) {
 		// DEBUG: if tile is the same, place object
-		if (tile && tile == m_selectedTile && tile.CTile.placedObjects.length == 0) {
+		if (tile && tile == m_selectedTile 
+				&& tile.CTile.placedObjects.length == 0
+				&& m_gameState.currentPlayer != null
+				) {
 			
-			m_executor.createObjectAt(tile, m_eworld.blackboard[PlayerController.BB_CURRENT_PLAYER]);
+			m_executor.createObjectAt(tile, m_gameState.currentPlayer);
 			return;
 		}
 		
@@ -68,9 +79,7 @@ var PlayerController = function (m_world, m_executor) {
 				selectedAction = getSelectedGOActionTile(m_selectedTile)
 				
 				// Picked action
-				if (selectedAction &&
-					m_eworld.blackboard[PlayerController.BB_CURRENT_PLAYER].id == selectedAction.player.id
-					) {
+				if (selectedAction && m_gameState.currentPlayer == selectedAction.player) {
 					
 					// Apply and execute the action
 					selectedAction.appliedTile = tile;
@@ -223,7 +232,5 @@ var PlayerController = function (m_world, m_executor) {
 		}
 	}
 }
-
-PlayerController.BB_CURRENT_PLAYER = 'currentPlayer';
 
 ECS.EntityManager.registerSystem('PlayerController', PlayerController);

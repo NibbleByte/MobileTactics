@@ -88,7 +88,6 @@ var GameExecutor = function (eworld, world) {
 	// 
 	var m_world = world;
 	var m_eworld = eworld;
-	var m_playersData = m_eworld.blackboard[PlayersData.BLACKBOARD_NAME];
 }
 
 ECS.EntityManager.registerSystem('GameExecutor', GameExecutor);

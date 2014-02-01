@@ -11,7 +11,7 @@ Actions.Classes.ActionAttack = new function () {
 		var tile = placeable.CTilePlaceable.tile;
 		
 		var placeables = world.getPlaceablesInArea(tile, placeable.CStatistics.statistics['AttackRange'], placeable);
-		var playersData = eworld.blackboard[PlayersData.BLACKBOARD_NAME];
+		var playersData = eworld.extract(PlayersData);
 		
 		var availableTiles = [];
 		for(var i = 0; i < placeables.length; ++i) {
