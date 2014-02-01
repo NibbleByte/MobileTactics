@@ -7,6 +7,10 @@
 
 // Supported GameWorld events that user can subscribe to.
 var EngineEvents = {
+		General: {
+			GAME_LOADED:	"engine.general.game_loaded",	// event
+		},
+		
 		World: {
 			TILE_ADDED: 	"engine.world.tile_added",		// event, addedTile
 			TILE_CHANGED: 	"engine.world.tile_changed",	// event, changedTile

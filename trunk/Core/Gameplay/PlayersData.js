@@ -14,7 +14,7 @@ PlayersData.prototype.addPlayer = function (name, type, teamId) {
 	var player = new Player(this.players.length, name, type, teamId || -1);
 	this.players.push(player);
 	
-	this._eworld.trigger(PlayersData.Events.PLAYER_ADDED, player);
+	this._eworld.trigger(GameplayEvents.Players.PLAYER_ADDED, player);
 	
 	return player;
 }
@@ -22,7 +22,7 @@ PlayersData.prototype.addPlayer = function (name, type, teamId) {
 PlayersData.prototype.clearPlayers = function () {
 	this.players = [];
 	
-	this._eworld.trigger(PlayersData.Events.PLAYER_CLEARED);
+	this._eworld.trigger(GameplayEvents.Players.PLAYERS_CLEARED);
 }
 	
 PlayersData.prototype.getPlayer = function (id) {
@@ -40,10 +40,14 @@ PlayersData.prototype.getPlayingPlayersCount = function () {
 	
 PlayersData.prototype.getFirstPlayingPlayer = function () {
 	
+	if (this.players.length == 0) {
+		return null;
+	}
+	
 	if (this.players[0].isPlaying)
 		return this.players[0];
 	
-	return this.getNextPlayer(this.players[0]);
+	return this.getNextPlayingPlayer(this.players[0]);
 }
 	
 PlayersData.prototype.getNextPlayingPlayer = function (player) {
@@ -68,7 +72,7 @@ PlayersData.prototype.stopPlaying = function (player) {
 	
 	player.isPlaying = false;
 	
-	this._eworld.trigger(PlayersData.Events.PLAYER_STOPPED_PLAYING, player);
+	this._eworld.trigger(GameplayEvents.Players.PLAYER_STOPPED_PLAYING, player);
 }
 	
 	
@@ -85,8 +89,10 @@ PlayersData.prototype.onDeserialize = function (eworld) {
 	
 	this._eworld = eworld;
 	
+	this._eworld.trigger(GameplayEvents.Players.PLAYERS_CLEARED);
+	
 	for(var i = 0; i < this.players.length; ++i) {
-		this._eworld.trigger(PlayersData.Events.PLAYER_ADDED, this.players[i]);
+		this._eworld.trigger(GameplayEvents.Players.PLAYER_ADDED, this.players[i]);
 	}
 }
 
@@ -100,16 +106,6 @@ PlayersData.Relation = {
 		Ally: 0,
 	}
 Enums.enumerate(PlayersData.Relation);
-
-
-
-PlayersData.Events = {
-	PLAYER_ADDED: "players_data.player_added",		// Arguments: event, player
-	PLAYER_CLEARED: "players_data.player_cleared",	// Arguments: event, player
-	PLAYER_STOPPED_PLAYING: "players_data.player_stopped",	// Arguments: event, player
-	PLAYER_REMOVED: "players_data.player_removed",	// Arguments: event, player
-}
-
 
 // This class is read-only data.
 var Player = function (id, name, type, teamId) {
