@@ -23,7 +23,6 @@ var GameStateSystem = function () {
 		m_eworldSB.subscribe(GameplayEvents.GameState.END_TURN, onEndTurn);
 		m_eworldSB.subscribe(GameplayEvents.Players.PLAYER_REMOVED, onPlayerRemoved);
 		m_eworldSB.subscribe(GameplayEvents.Players.PLAYER_STOPPED_PLAYING, onPlayerRemoved);
-		m_eworldSB.subscribe(GameplayEvents.Players.PLAYER_ADDED, onPlayerAdded);
 	}
 	
 	this.onRemoved = function () {
@@ -66,12 +65,6 @@ var GameStateSystem = function () {
 		}
 		
 		m_eworld.trigger(GameplayEvents.GameState.TURN_CHANGED, m_gameState.currentPlayer);
-	}
-	
-	var onPlayerAdded = function (event, player) {
-		if (m_gameState.currentPlayer == null) {
-			m_eworld.trigger(GameplayEvents.GameState.END_TURN);
-		}
 	}
 	
 	var onPlayerRemoved = function (event, player) {

@@ -90,10 +90,6 @@ PlayersData.prototype.onDeserialize = function (eworld) {
 	this._eworld = eworld;
 	
 	this._eworld.trigger(GameplayEvents.Players.PLAYERS_CLEARED);
-	
-	for(var i = 0; i < this.players.length; ++i) {
-		this._eworld.trigger(GameplayEvents.Players.PLAYER_ADDED, this.players[i]);
-	}
 }
 
 Serialization.registerClass(PlayersData, 'PlayersData');
