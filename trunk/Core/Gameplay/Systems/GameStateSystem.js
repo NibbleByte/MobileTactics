@@ -12,36 +12,25 @@ var GameStateSystem = function () {
 	//
 	// Entity system initialize
 	//
-	var m_eworld = null;
-	var m_eworldSB = null;
 	
-	this.onAdded = function () {
-		m_eworld = this.getEntityWorld();
-		m_eworldSB = m_eworld.createSubscriber();
-		
-		m_eworldSB.subscribe(EngineEvents.General.GAME_LOADED, onGameLoaded);
-		m_eworldSB.subscribe(GameplayEvents.GameState.END_TURN, onEndTurn);
-		m_eworldSB.subscribe(GameplayEvents.Players.PLAYER_REMOVED, onPlayerRemoved);
-		m_eworldSB.subscribe(GameplayEvents.Players.PLAYER_STOPPED_PLAYING, onPlayerRemoved);
-	}
-	
-	this.onRemoved = function () {
-		m_eworldSB.unsubscribeAll();
-		m_eworldSB = null;
-		m_eworld = null;
+	this.initialize = function () {
+		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADED, onGameLoaded);
+		self._eworldSB.subscribe(GameplayEvents.GameState.END_TURN, onEndTurn);
+		self._eworldSB.subscribe(GameplayEvents.Players.PLAYER_REMOVED, onPlayerRemoved);
+		self._eworldSB.subscribe(GameplayEvents.Players.PLAYER_STOPPED_PLAYING, onPlayerRemoved);
 	}
 	
 	var onGameLoaded = function (event) {
-		m_playersData = m_eworld.extract(PlayersData);
-		m_gameState = m_eworld.extract(GameState);
+		m_playersData = self._eworld.extract(PlayersData);
+		m_gameState = self._eworld.extract(GameState);
 		
 		if (m_gameState.currentPlayer == null)
 			m_gameState.currentPlayer = m_playersData.getFirstPlayingPlayer();
 		
 		if (m_gameState.currentPlayer != null) {
-			m_eworld.trigger(GameplayEvents.GameState.TURN_CHANGED, m_gameState.currentPlayer);
+			self._eworld.trigger(GameplayEvents.GameState.TURN_CHANGED, m_gameState.currentPlayer);
 		} else {
-			m_eworld.trigger(GameplayEvents.GameState.NO_PLAYING_PLAYERS);
+			self._eworld.trigger(GameplayEvents.GameState.NO_PLAYING_PLAYERS);
 		}
 	}
 	
@@ -56,7 +45,7 @@ var GameStateSystem = function () {
 		
 		// If had no current player and still have none, do nothing.
 		if (m_gameState.currentPlayer == null) {
-			m_eworld.trigger(GameplayEvents.GameState.NO_PLAYING_PLAYERS);
+			self._eworld.trigger(GameplayEvents.GameState.NO_PLAYING_PLAYERS);
 			return;
 		}
 		
@@ -64,14 +53,15 @@ var GameStateSystem = function () {
 			++m_gameState.turnsPassed;
 		}
 		
-		m_eworld.trigger(GameplayEvents.GameState.TURN_CHANGED, m_gameState.currentPlayer);
+		self._eworld.trigger(GameplayEvents.GameState.TURN_CHANGED, m_gameState.currentPlayer);
 	}
 	
 	var onPlayerRemoved = function (event, player) {
 		if (player == m_gameState.currentPlayer) {
-			m_eworld.trigger(GameplayEvents.GameState.END_TURN);
+			self._eworld.trigger(GameplayEvents.GameState.END_TURN);
 		}
 	}
 };
 
 ECS.EntityManager.registerSystem('GameStateSystem', GameStateSystem);
+SystemsUtils.supplySubscriber(GameStateSystem);

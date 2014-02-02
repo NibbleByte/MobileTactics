@@ -12,35 +12,20 @@ var TileRenderingSystem = function (m_renderer) {
 	//
 	// Entity system initialize
 	//
-	this.onAdded = function () {
-		m_eworld = this.getEntityWorld();
-		m_eworldSB = m_eworld.createSubscriber();
-		
-		m_world = m_eworld.getSystem(GameWorld);
+	this.initialize = function () {
+		m_world = self._eworld.getSystem(GameWorld);
 		console.assert(m_world instanceof GameWorld, "GameWorld is required.");
 		
 		addCurrentTiles();
 		
-		m_eworldSB.subscribe(EngineEvents.World.TILE_ADDED, onTileAdded);
-		m_eworldSB.subscribe(EngineEvents.World.TILE_REMOVED, onTileRemoved);
+		self._eworldSB.subscribe(EngineEvents.World.TILE_ADDED, onTileAdded);
+		self._eworldSB.subscribe(EngineEvents.World.TILE_REMOVED, onTileRemoved);
 	}
-	
-	this.onRemoved = function () {
-		m_eworldSB.unsubscribeAll();
-		m_eworldSB = null;
-		m_eworld = null;
-	}
-	
-	//
-	// Fields
-	//
-	var m_world = null;
-	var m_eworld = null;
-	var m_eworldSB = null;
 	
 	//
 	// ---- Private ----
 	//
+	var m_world = null;
 		
 	var renderTile = function (tile) {
 		var row = tile.CTile.row;
@@ -60,7 +45,7 @@ var TileRenderingSystem = function (m_renderer) {
 		
 		var coords = m_renderer.getTileCoordsAtPoint(posX, posY);
 		
-		m_eworld.trigger(ClientEvents.Input.TILE_CLICKED, m_world.getTile(coords.row, coords.column));
+		self._eworld.trigger(ClientEvents.Input.TILE_CLICKED, m_world.getTile(coords.row, coords.column));
 	}
 	
 	var addCurrentTiles = function () {
@@ -179,3 +164,4 @@ TileRenderingSystem.TILES_SPRITE_PATH = 'Assets/Render/Images/Tiles/{terrainType
 TileRenderingSystem.FOG_SPRITE_PATH = 'Assets/Render/Images/HexFog.png';
 
 ECS.EntityManager.registerSystem('TileRenderingSystem', TileRenderingSystem);
+SystemsUtils.supplySubscriber(TileRenderingSystem);

@@ -10,25 +10,11 @@ var UnitsSystem = function () {
 	//
 	// Entity system initialize
 	//
-	var m_eworld = null;
-	var m_eworldSB = null;
-	
-	this.onAdded = function () {
-		m_eworld = this.getEntityWorld();
-		m_eworldSB = m_eworld.createSubscriber();
+	this.initialize = function () {
+		self._eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_REGISTERED, onPlaceableRegistered);
 		
-		m_eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_REGISTERED, onPlaceableRegistered);
-		
-		m_eworldSB.subscribe(GameplayEvents.Units.UNIT_CHANGED, onUnitChanged);
+		self._eworldSB.subscribe(GameplayEvents.Units.UNIT_CHANGED, onUnitChanged);
 	}
-	
-	this.onRemoved = function () {
-		m_eworldSB.unsubscribeAll();
-		m_eworldSB = null;
-		m_eworld = null;
-	}
-	
-	
 	
 	var onPlaceableRegistered = function(event, placeable) {				
 		
@@ -42,7 +28,7 @@ var UnitsSystem = function () {
 		
 		// Check if dead.
 		if (unit.CUnit.health <= 0) {
-			m_eworld.trigger(GameplayEvents.Units.UNIT_DESTROYED, unit);
+			self._eworld.trigger(GameplayEvents.Units.UNIT_DESTROYED, unit);
 			unit.destroy();
 			
 			// Prevent others using the destroyed unit.
@@ -52,3 +38,4 @@ var UnitsSystem = function () {
 };
 
 ECS.EntityManager.registerSystem('UnitsSystem', UnitsSystem);
+SystemsUtils.supplySubscriber(UnitsSystem);

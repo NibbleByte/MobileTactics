@@ -10,17 +10,8 @@ var ActionsRenderingSystem = function (m_executor) {
 	//
 	// Entity system initialize
 	//
-	this.onAdded = function () {
-		m_eworld = this.getEntityWorld();
-		m_eworldSB = m_eworld.createSubscriber();
-		
-		m_eworldSB.subscribe(ClientEvents.Controller.ACTION_PREEXECUTE, onActionPreExecute);
-	}
-	
-	this.onRemoved = function () {
-		m_eworldSB.unsubscribeAll();
-		m_eworldSB = null;
-		m_eworld = null;
+	this.initialize = function () {
+		self._eworldSB.subscribe(ClientEvents.Controller.ACTION_PREEXECUTE, onActionPreExecute);
 	}
 	
 	var onActionPreExecute = function(event, action) {
@@ -28,15 +19,13 @@ var ActionsRenderingSystem = function (m_executor) {
 		var preExecutorClass = m_actionPreExecutors[action.actionType.actionName]
 							|| ActionsRenderingSystem.ActionExecutors.DefaultExecutor;
 		
-		var preExecutor = new preExecutorClass(m_executor, m_eworld, action);
+		var preExecutor = new preExecutorClass(m_executor, self._eworld, action);
 		preExecutor.preExecute();
 	}
 	
 	//
 	// Private
 	//
-	var m_eworld = null;
-	var m_eworldSB = null;
 	var m_actionPreExecutors = {};	
 	
 	
@@ -44,6 +33,7 @@ var ActionsRenderingSystem = function (m_executor) {
 }
 
 ECS.EntityManager.registerSystem('ActionsRenderingSystem', ActionsRenderingSystem);
+SystemsUtils.supplySubscriber(ActionsRenderingSystem);
 
 
 // Different action renderers.
