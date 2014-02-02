@@ -21,6 +21,7 @@ var EffectsSystem = function () {
 		m_entityFilter = new ECS.EntityComponentFilter(m_eworld, [CStatistics, CEffects]);
 		
 		m_eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_REGISTERED, onPlaceableRegistered);
+		m_eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, onTurnChanged);
 	}
 	
 	this.onRemoved = function () {
@@ -56,16 +57,24 @@ var EffectsSystem = function () {
 		return foundEffects;
 	};
 	
-	// Advance all the placeable's effects.
-	this.advance = function (timePassed) {
+	var onTurnChanged = function (event, player) {
+		advance(1.0, player);
+	}
+	
+	// Advance players' placeable's effects.
+	var advance = function (timePassed, player) {
 		
 		// Advance all entities
 		for(var i = 0; i < m_entityFilter.entities.length; ++i) {
 			var placeable = m_entityFilter.entities[i];
-			advanceEffects(placeable, timePassed);
+			
+			if (placeable.CPlayerData.player == player) {
+				advanceEffects(placeable, timePassed);
+			}
 		}
 		
 		// Cleanup
+		// Process all, as one could have affected other effects.
 		for(var i = 0; i < m_entityFilter.entities.length; ++i) {
 			var placeable = m_entityFilter.entities[i];
 			cleanExpiredEffects(placeable);
