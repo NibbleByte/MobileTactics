@@ -14,24 +14,13 @@ var GameWorld = function () {
 	var m_columns = 0;
 	var m_rows = 0;
 	var m_tiles = [];
-	var m_eworld = null;
-	var m_eworldSB = null;
 	
 	//
 	// Entity system initialize
 	//
-	this.onAdded = function () {
-		m_eworld = this.getEntityWorld();
-		m_eworldSB = m_eworld.createSubscriber();
-		
-		m_eworldSB.subscribe(ECS.EntityWorld.Events.ENTITY_ADDED, onEntityAdded);
-		m_eworldSB.subscribe(ECS.EntityWorld.Events.ENTITY_REMOVED, onEntityRemoved);
-	}
-	
-	this.onRemoved = function () {
-		m_eworldSB.unsubscribeAll();
-		m_eworldSB = null;
-		m_eworld = null;
+	this.initialize = function () {
+		self._eworldSB.subscribe(ECS.EntityWorld.Events.ENTITY_ADDED, onEntityAdded);
+		self._eworldSB.subscribe(ECS.EntityWorld.Events.ENTITY_REMOVED, onEntityRemoved);
 	}
 	
 	//
@@ -116,7 +105,7 @@ var GameWorld = function () {
 		
 		m_tiles[row][column] = tile;
 		
-		m_eworld.trigger(EngineEvents.World.TILE_ADDED, tile);
+		self._eworld.trigger(EngineEvents.World.TILE_ADDED, tile);
 		
 		// Resize grid
 		if (m_rows - 1 < row) {
@@ -129,7 +118,7 @@ var GameWorld = function () {
 	
 	var removeTile = function (tile) {
 		
-		m_eworld.trigger(EngineEvents.World.TILE_REMOVED, tile);
+		self._eworld.trigger(EngineEvents.World.TILE_REMOVED, tile);
 		
 		// Remove placeables if has any. Will be detached on destroying entity.
 		while(tile.CTile.placedObjects.length > 0) {
@@ -185,7 +174,7 @@ var GameWorld = function () {
 		placeable.CTilePlaceable.tile = tile;
 		tile.CTile.placedObjects.push(placeable);
 		
-		m_eworld.trigger(EngineEvents.Placeables.PLACEABLE_MOVED, placeable);
+		self._eworld.trigger(EngineEvents.Placeables.PLACEABLE_MOVED, placeable);
 	};
 	
 	this.getAllPlaceables = function () {
@@ -210,7 +199,7 @@ var GameWorld = function () {
 		
 		m_placeables.push(placeable);
 		
-		m_eworld.trigger(EngineEvents.Placeables.PLACEABLE_REGISTERED, placeable);
+		self._eworld.trigger(EngineEvents.Placeables.PLACEABLE_REGISTERED, placeable);
 	}
 	
 	var unregisterPlaceable = function (placeable) {
@@ -220,7 +209,7 @@ var GameWorld = function () {
 		if (foundIndex == -1)
 			return false;
 		
-		m_eworld.trigger(EngineEvents.Placeables.PLACEABLE_UNREGISTERED, placeable);
+		self._eworld.trigger(EngineEvents.Placeables.PLACEABLE_UNREGISTERED, placeable);
 		
 		placeable.CTilePlaceable.tile.CTile.removeObject(placeable);
 		m_placeables.splice(foundIndex, 1);
@@ -235,7 +224,7 @@ var GameWorld = function () {
 		if (entity.hasComponents(CTile)) {
 			addTile(entity);
 		} else if (entity.hasComponents(CTilePlaceable)) {
-			registerPlaceable(entity)
+			registerPlaceable(entity);
 		}
 		
 	}
@@ -257,6 +246,7 @@ var GameWorld = function () {
 }
 
 ECS.EntityManager.registerSystem('GameWorld', GameWorld);
+SystemsUtils.supplySubscriber(GameWorld);
 
 GameWorld.prototype.getDistance = function (tile1, tile2) {
 	

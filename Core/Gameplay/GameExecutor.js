@@ -90,8 +90,6 @@ var GameExecutor = function (eworld, world) {
 	var m_eworld = eworld;
 }
 
-ECS.EntityManager.registerSystem('GameExecutor', GameExecutor);
-
 var GameAction = function (actionType, player, placeable) {
 	this.actionType = actionType;			// The responsible component.
 	this.player = player; 					// Player that will execute the action.

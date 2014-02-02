@@ -9,38 +9,24 @@ var UnitRenderingSystem = function (renderer) {
 	
 	console.assert(renderer instanceof GameWorldRenderer, "GameWorldRenderer is required.");
 	
-	var REQUIRED_COMPONENTS = [CUnitRendering, CTilePlaceableRendering];
-		
 	//
 	// Entity system initialize
 	//
-	this.onAdded = function () {
-		m_eworld = this.getEntityWorld();
-		m_eworldSB = m_eworld.createSubscriber();
+	this.initialize = function () {
+		self._eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_REGISTERED, onPlaceableRegistered);
+		self._eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_MOVED, onPlaceableMoved);
+		self._eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_UNREGISTERED, onPlaceableUnregistered);
 		
-		m_eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_REGISTERED, onPlaceableRegistered);
-		m_eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_MOVED, onPlaceableMoved);
-		m_eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_UNREGISTERED, onPlaceableUnregistered);
+		self._eworldSB.subscribe(EngineEvents.Serialization.ENTITY_DESERIALIZED, onPlaceableMoved);
 		
-		m_eworldSB.subscribe(EngineEvents.Serialization.ENTITY_DESERIALIZED, onPlaceableMoved);
+		self._eworldSB.subscribe(GameplayEvents.Units.UNIT_CHANGED, onUnitChanged);
 		
-		m_eworldSB.subscribe(GameplayEvents.Units.UNIT_CHANGED, onUnitChanged);
-		
-		m_eworldSB.subscribe(RenderEvents.Animations.ANIMATION_FINISHED, onAnimationFinished);
+		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_FINISHED, onAnimationFinished);
 	}
-	
-	this.onRemoved = function () {
-		m_eworldSB.unsubscribeAll();
-		m_eworldSB = null;
-		m_eworld = null;
-	}
-	
+		
 	//
-	// Fields
+	// Private
 	//
-	var m_eworld = null;
-	var m_eworldSB = null;
-	
 	var m_renderer = renderer;
 	
 	
@@ -99,7 +85,7 @@ var UnitRenderingSystem = function (renderer) {
 	
 	
 	var onAnimationFinished = function(event, params) {
-		if (!params.entity.hasComponents(REQUIRED_COMPONENTS))
+		if (!params.entity.hasComponents(UnitRenderingSystem.REQUIRED_COMPONENTS))
 			return;
 		
 		if (params.name == UnitRenderingSystem.MAIN_SPRITE)
@@ -133,7 +119,7 @@ var UnitRenderingSystem = function (renderer) {
 	
 	var onPlaceableMoved = function(event, placeable) {
 		
-		if (!placeable.hasComponents(REQUIRED_COMPONENTS))
+		if (!placeable.hasComponents(UnitRenderingSystem.REQUIRED_COMPONENTS))
 			return;
 		
 		renderUnit(placeable);
@@ -141,7 +127,7 @@ var UnitRenderingSystem = function (renderer) {
 	
 	var onPlaceableUnregistered = function(event, placeable) {
 		
-		if (!placeable.hasComponents(REQUIRED_COMPONENTS))
+		if (!placeable.hasComponents(UnitRenderingSystem.REQUIRED_COMPONENTS))
 			return;
 		
 		if (placeable.CAnimations) {
@@ -158,7 +144,9 @@ var UnitRenderingSystem = function (renderer) {
 	}
 }
 
+UnitRenderingSystem.REQUIRED_COMPONENTS = [CUnitRendering, CTilePlaceableRendering];
 UnitRenderingSystem.MAIN_SPRITE = 'MainSprite';
 UnitRenderingSystem.SPRITES_PATH = 'Assets/Render/Images/Units/{colorId}/';
 
 ECS.EntityManager.registerSystem('UnitRenderingSystem', UnitRenderingSystem);
+SystemsUtils.supplySubscriber(UnitRenderingSystem);

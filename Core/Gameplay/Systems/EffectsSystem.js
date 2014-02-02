@@ -10,28 +10,10 @@ var EffectsSystem = function () {
 	//
 	// Entity system initialize
 	//
-	var m_eworld = null;
-	var m_eworldSB = null;
-	var m_entityFilter = null;
-	
-	this.onAdded = function () {
-		m_eworld = this.getEntityWorld();
-		m_eworldSB = m_eworld.createSubscriber();
-		
-		m_entityFilter = new ECS.EntityComponentFilter(m_eworld, [CStatistics, CEffects]);
-		
-		m_eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_REGISTERED, onPlaceableRegistered);
-		m_eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, onTurnChanged);
+	this.initialize = function () {
+		self._eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_REGISTERED, onPlaceableRegistered);
+		self._eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, onTurnChanged);
 	}
-	
-	this.onRemoved = function () {
-		m_entityFilter.destroy();
-		m_entityFilter = null;
-		m_eworldSB.unsubscribeAll();
-		m_eworldSB = null;
-		m_eworld = null;
-	}
-	
 	
 	//
 	// Effects
@@ -65,8 +47,8 @@ var EffectsSystem = function () {
 	var advance = function (timePassed, player) {
 		
 		// Advance all entities
-		for(var i = 0; i < m_entityFilter.entities.length; ++i) {
-			var placeable = m_entityFilter.entities[i];
+		for(var i = 0; i < self._entityFilter.entities.length; ++i) {
+			var placeable = self._entityFilter.entities[i];
 			
 			if (placeable.CPlayerData.player == player) {
 				advanceEffects(placeable, timePassed);
@@ -75,8 +57,8 @@ var EffectsSystem = function () {
 		
 		// Cleanup
 		// Process all, as one could have affected other effects.
-		for(var i = 0; i < m_entityFilter.entities.length; ++i) {
-			var placeable = m_entityFilter.entities[i];
+		for(var i = 0; i < self._entityFilter.entities.length; ++i) {
+			var placeable = self._entityFilter.entities[i];
 			cleanExpiredEffects(placeable);
 		}
 	}
@@ -163,3 +145,4 @@ var EffectsSystem = function () {
 };
 
 ECS.EntityManager.registerSystem('EffectsSystem', EffectsSystem);
+SystemsUtils.supplyComponentFilter(EffectsSystem, [CStatistics, CEffects]);
