@@ -7,7 +7,12 @@
 	color: rgb(30, 39, 38);	
 }
 
-.tile_fog
+.tile_visibility_fog
+{
+	opacity: 0.6;
+}
+
+.tile_action_fog
 {
 	opacity: 0.6;
 }

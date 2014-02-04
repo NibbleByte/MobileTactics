@@ -102,6 +102,7 @@ $(function () {
 	m_eworld.addSystem(new AnimationSystem(worldRenderer));
 	m_eworld.addSystem(new IdleAnimationsSystem(worldRenderer));
 	m_eworld.addSystem(new ActionsRenderingSystem(m_executor));
+	m_eworld.addSystem(new ActionFogRenderingSystem(m_world));
 	
 	m_eworld.addSystem(new ActionsMenuController($('#ActionMenu')[0]));
 	

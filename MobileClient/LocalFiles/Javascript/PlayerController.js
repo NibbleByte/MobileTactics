@@ -9,44 +9,34 @@ var executor;
 var selected;
 
 var PlayerController = function (m_world, m_executor) {
-	var m_eworld = null;
-	var m_eworldSB = null;
+	var self = this;
+	
 	var m_gameState = null;
-
 	var m_selectedTile = null;
-	
 	var m_selectedGOActions = null;
-	
 	var m_inputActive = true;
 	
 	//
 	// Entity system initialize
 	//
-	this.onAdded = function () {
-		m_eworld = this.getEntityWorld();
-		m_eworldSB = m_eworld.createSubscriber();
+	this.initialize = function () {
+		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADED, onGameLoaded);
 		
-		m_eworldSB.subscribe(EngineEvents.General.GAME_LOADED, onGameLoaded);
+		self._eworldSB.subscribe(ClientEvents.Input.TILE_CLICKED, onTileClicked);
+		self._eworldSB.subscribe(EngineEvents.World.TILE_REMOVED, onTileRemoved);
 		
-		m_eworldSB.subscribe(ClientEvents.Input.TILE_CLICKED, onTileClicked);
-		m_eworldSB.subscribe(EngineEvents.World.TILE_REMOVED, onTileRemoved);
-		
-		m_eworldSB.subscribe(ClientEvents.Controller.ACTIONS_CLEARED, onActionsCleared);
-		m_eworldSB.subscribe(ClientEvents.Controller.ACTIONS_OFFERED, onActionsOffered);
+		self._eworldSB.subscribe(ClientEvents.Controller.ACTIONS_CLEARED, onActionsCleared);
+		self._eworldSB.subscribe(ClientEvents.Controller.ACTIONS_OFFERED, onActionsOffered);
 	};
 	
-	this.onRemoved = function () {
-		m_eworldSB.unsubscribeAll();
-		m_eworldSB = null;
-		m_eworld = null;
-		
+	this.uninitialize = function () {
 		m_gameState = null;
 		m_selectedTile = null;
 		m_selectedGOActions = null;
 	};
 	
 	var onGameLoaded = function (event) {
-		m_gameState = m_eworld.extract(GameState);
+		m_gameState = self._eworld.extract(GameState);
 	}
 	
 	// DEBUG: Global access
@@ -86,9 +76,9 @@ var PlayerController = function (m_world, m_executor) {
 					
 					
 					m_inputActive = false;
-					m_eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
+					self._eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
 					
-					m_eworld.trigger(ClientEvents.Controller.ACTION_PREEXECUTE, selectedAction);
+					self._eworld.trigger(ClientEvents.Controller.ACTION_PREEXECUTE, selectedAction);
 					
 				} else {
 					
@@ -96,9 +86,9 @@ var PlayerController = function (m_world, m_executor) {
 					
 					if (availableGOActions.length > 0) {
 						// DEBUG: Select the first unit actions only
-						m_eworld.trigger(ClientEvents.Controller.ACTIONS_OFFERED, [availableGOActions[0].actions]);
+						self._eworld.trigger(ClientEvents.Controller.ACTIONS_OFFERED, [availableGOActions[0].actions]);
 					} else {
-						m_eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
+						self._eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
 					}
 				}
 			
@@ -106,7 +96,7 @@ var PlayerController = function (m_world, m_executor) {
 			
 		} else {
 			// Unselect any action tiles
-			m_eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
+			self._eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
 		}	
 	}
 	
@@ -119,7 +109,7 @@ var PlayerController = function (m_world, m_executor) {
 	}
 	
 	var onTileRemoved = function(event, tile) {
-		clearSelectedGOActions();
+		self._eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
 		m_selectedTile = null;
 	}
 	
@@ -134,49 +124,7 @@ var PlayerController = function (m_world, m_executor) {
 		
 		if (actions.length > 0)
 			selectGOActions(actions);
-		
-		drawFog(actions);
 	}
-	
-	var drawFog = function (actions) {
-		
-		var moveAction = null;
-		var attackAction = null;
-		for (var i = 0; i < actions.length; ++i) {
-			if (actions[i].actionType == Actions.Classes.ActionMove) {
-				moveAction = actions[i];
-			}
-			
-			if (actions[i].actionType == Actions.Classes.ActionAttack) {
-				attackAction = actions[i];
-			}
-		}
-		
-		if (moveAction == null && attackAction == null)
-			return;
-		
-		var placeableTile = moveAction.placeable.CTilePlaceable.tile;
-		
-		m_world.iterateAllTiles(function (tile) {
-			
-			if ((moveAction != null && moveAction.availableTiles.indexOf(tile) != -1)
-				|| (attackAction != null && attackAction.availableTiles.indexOf(tile) != -1)
-				|| tile == placeableTile
-				) {
-				tile.CTileRendering.hideFog();
-			} else {
-				tile.CTileRendering.showFog();
-			}
-		});
-	}
-	
-	var clearFog = function () {
-		m_world.iterateAllTiles(function (tile) {
-			tile.CTileRendering.hideFog();
-		});
-	}
-	
-	
 	
 	
 	//
@@ -189,7 +137,7 @@ var PlayerController = function (m_world, m_executor) {
 	var selectGOActions = function (actions) {
 		m_selectedGOActions = actions;
 		
-		iterateOverActionTiles(m_selectedGOActions, function (tile, action) {
+		GameExecutor.iterateOverActionTiles(m_selectedGOActions, function (tile, action) {
 			ActionsRender.highlightTile(tile, action.actionType);
 		});
 	}
@@ -197,7 +145,7 @@ var PlayerController = function (m_world, m_executor) {
 	var getSelectedGOActionTile = function (selectedTile) {
 		var selectedAction = null;
 		
-		iterateOverActionTiles(m_selectedGOActions, function (tile, action) {
+		GameExecutor.iterateOverActionTiles(m_selectedGOActions, function (tile, action) {
 			if (tile == selectedTile) {
 				selectedAction = action;
 				
@@ -210,27 +158,12 @@ var PlayerController = function (m_world, m_executor) {
 	
 	var clearSelectedGOActions = function () {
 		if (isGOSelected()){
-			iterateOverActionTiles(m_selectedGOActions, ActionsRender.unHighlightTile);
+			GameExecutor.iterateOverActionTiles(m_selectedGOActions, ActionsRender.unHighlightTile);
 			
 			m_selectedGOActions = null;
-			
-			clearFog();
-		}
-	}
-	
-	var iterateOverActionTiles = function (actions, handler) {
-		// All the actions
-		for(var i = 0; i < actions.length; ++i) {
-			var action = actions[i];
-			
-			// All the available tiles for this action
-			for(var j = 0; j < action.availableTiles.length; ++j) {
-				var tile = action.availableTiles[j];
-				if (handler(tile, action) === false)
-					return;
-			}
 		}
 	}
 }
 
 ECS.EntityManager.registerSystem('PlayerController', PlayerController);
+SystemsUtils.supplySubscriber(PlayerController);

@@ -3,7 +3,8 @@
 var CTileRendering = function () {
 	this.sprite = null;
 	this.spriteHighlight = null;
-	this.spriteFog = null;
+	this.spriteActionFog = null;
+	this.spriteVisibilityFog = null;
 	
 	this.highlightMode = CTileRendering.HighlightType.None;
 };
@@ -67,12 +68,20 @@ CTileRendering.prototype.unHighlight = function () {
 	$(this.spriteHighlight.dom).hide();
 };
 
-CTileRendering.prototype.showFog = function () {
-	$(this.spriteFog.dom).show();
+CTileRendering.prototype.showActionFog = function () {
+	$(this.spriteActionFog.dom).show();
 }
 
-CTileRendering.prototype.hideFog = function () {
-	$(this.spriteFog.dom).hide();
+CTileRendering.prototype.hideActionFog = function () {
+	$(this.spriteActionFog.dom).hide();
+}
+
+CTileRendering.prototype.showVisibilityFog = function () {
+	$(this.spriteVisibilityFog.dom).show();
+}
+
+CTileRendering.prototype.hideVisibilityFog = function () {
+	$(this.spriteVisibilityFog.dom).hide();
 }
 
 
@@ -84,11 +93,19 @@ CTileRendering.prototype.move = function (x, y) {
 	this.spriteHighlight.position(x, y);
 	this.spriteHighlight.update();
 	
-	this.spriteFog.position(x, y);
-	this.spriteFog.update();
+	this.spriteActionFog.position(x, y);
+	this.spriteActionFog.update();
+	
+	// If fog is allowed.
+	if (this.spriteVisibilityFog) {
+		this.spriteActionFog.position(x, y);
+		this.spriteActionFog.update();
+	}
 }
 
 CTileRendering.prototype.detach = function () {
+	if (this.spriteVisibilityFog) this.spriteVisibilityFog.remove();
+	this.spriteActionFog.remove();
 	this.spriteHighlight.remove();
 	this.sprite.remove();
 }
