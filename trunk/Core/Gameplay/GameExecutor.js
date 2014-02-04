@@ -90,6 +90,20 @@ var GameExecutor = function (eworld, world) {
 	var m_eworld = eworld;
 }
 
+GameExecutor.iterateOverActionTiles = function (actions, handler) {
+	// All the actions
+	for(var i = 0; i < actions.length; ++i) {
+		var action = actions[i];
+		
+		// All the available tiles for this action
+		for(var j = 0; j < action.availableTiles.length; ++j) {
+			var tile = action.availableTiles[j];
+			if (handler(tile, action) === false)
+				return;
+		}
+	}
+}
+
 var GameAction = function (actionType, player, placeable) {
 	this.actionType = actionType;			// The responsible component.
 	this.player = player; 					// Player that will execute the action.

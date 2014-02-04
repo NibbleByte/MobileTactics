@@ -83,10 +83,10 @@ var TileRenderingSystem = function (m_renderer) {
 		// Setup sprites.
 		tile.CTileRendering.sprite = createTileSprite(spritePath, WorldLayers.LayerTypes.Terrain);
 		tile.CTileRendering.spriteHighlight = createTileSprite('', WorldLayers.LayerTypes.Highlights);
-		tile.CTileRendering.spriteFog = createTileSprite(TileRenderingSystem.FOG_SPRITE_PATH, WorldLayers.LayerTypes.Fog);
+		tile.CTileRendering.spriteActionFog = createTileSprite(TileRenderingSystem.FOG_SPRITE_PATH, WorldLayers.LayerTypes.ActionFog);
 		
-		$(tile.CTileRendering.spriteFog.dom).addClass('tile_fog');
-		tile.CTileRendering.hideFog();
+		$(tile.CTileRendering.spriteActionFog.dom).addClass('tile_action_fog');
+		tile.CTileRendering.hideActionFog();
 		
 		renderTile(tile);
 				

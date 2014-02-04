@@ -7,11 +7,6 @@
 var ActionsMenuController = function (actionMenuElement) {
 	var self = this;
 	
-	var CANCEL_ACTION_NAME = '$ActionCancel';
-	
-	var m_eworld = null;
-	var m_eworldSB = null;
-	
 	console.assert(actionMenuElement instanceof HTMLElement, "HTMLElement is required.");
 	
 	var m_$actionMenu = $(actionMenuElement);
@@ -21,12 +16,9 @@ var ActionsMenuController = function (actionMenuElement) {
 	//
 	// Entity system initialize
 	//
-	this.onAdded = function () {
-		m_eworld = this.getEntityWorld();
-		m_eworldSB = m_eworld.createSubscriber();
-		
-		m_eworldSB.subscribe(ClientEvents.Controller.ACTIONS_OFFERED, onActionsOffered);
-		m_eworldSB.subscribe(ClientEvents.Controller.ACTIONS_CLEARED, onActionsCleared);
+	this.initialize = function () {
+		self._eworldSB.subscribe(ClientEvents.Controller.ACTIONS_OFFERED, onActionsOffered);
+		self._eworldSB.subscribe(ClientEvents.Controller.ACTIONS_CLEARED, onActionsCleared);
 		
 		// Initialize
 		m_$actionMenu
@@ -41,15 +33,11 @@ var ActionsMenuController = function (actionMenuElement) {
 		}
 		
 		// Add explicit cancel button.
-		appendEntry(CANCEL_ACTION_NAME, 'Cancel')
+		appendEntry(ActionsMenuController.CANCEL_ACTION_NAME, 'Cancel')
 		.show();
 	};
 	
-	this.onRemoved = function () {
-		m_eworldSB.unsubscribeAll();
-		m_eworldSB = null;
-		m_eworld = null;
-		
+	this.uninitialize = function () {
 		m_$actionMenu.empty();
 	};
 	
@@ -80,8 +68,8 @@ var ActionsMenuController = function (actionMenuElement) {
 		var actionName = $(event.target).attr('actionName');
 		
 		// Check if cancel button.
-		if (actionName == CANCEL_ACTION_NAME) {
-			m_eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
+		if (actionName == ActionsMenuController.CANCEL_ACTION_NAME) {
+			self._eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
 			event.stopImmediatePropagation();
 			return;
 		}
@@ -90,7 +78,7 @@ var ActionsMenuController = function (actionMenuElement) {
 			for(var i = 0; i < m_currentActions.length; ++i) {
 				if (m_currentActions[i].actionType.actionName == actionName) {
 					var actions = [m_currentActions[i]];
-					m_eworld.trigger(ClientEvents.Controller.ACTIONS_OFFERED, [actions]);
+					self._eworld.trigger(ClientEvents.Controller.ACTIONS_OFFERED, [actions]);
 				}
 			}
 		}
@@ -123,4 +111,7 @@ var ActionsMenuController = function (actionMenuElement) {
 	}
 };
 
+ActionsMenuController.CANCEL_ACTION_NAME = '$ActionCancel';
+
 ECS.EntityManager.registerSystem('ActionsMenuController', ActionsMenuController);
+SystemsUtils.supplySubscriber(ActionsMenuController);
