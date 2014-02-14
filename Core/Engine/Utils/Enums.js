@@ -13,6 +13,15 @@ var Enums = {
 		}
 	},
 	
+	count: function (enumClass) {
+		var counter = 0;
+		for(var i in enumClass) {
+			counter++;
+		}
+		
+		return counter;
+	},
+	
 	isValidValue: function(enumClass, enumValue) {
 		for(var key in enumClass) {
 			if (enumClass[key] == enumValue) {

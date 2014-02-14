@@ -14,10 +14,49 @@ var GameStateSystem = function () {
 	//
 	
 	this.initialize = function () {
+		self._eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_REGISTERED, onAppendPlaceable);
+		self._eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_UNREGISTERED, onRemovePlaceable);
+		
 		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADED, onGameLoaded);
 		self._eworldSB.subscribe(GameplayEvents.GameState.END_TURN, onEndTurn);
 		self._eworldSB.subscribe(GameplayEvents.Players.PLAYER_REMOVED, onPlayerRemoved);
 		self._eworldSB.subscribe(GameplayEvents.Players.PLAYER_STOPPED_PLAYING, onPlayerRemoved);
+	}
+	
+	var onRemovePlaceable = function (event, placeable) {
+		if (placeable.CPlayerData) {
+			
+			if (placeable.CPlayerData.player == m_gameState.currentPlayer) {
+				m_gameState.currentPlaceables.remove(placeable);
+			}
+			
+			var relation = m_playersData.getRelation(placeable.CPlayerData.player, m_gameState.currentPlayer);
+			m_gameState.relationPlaceables[relation].remove(placeable);
+		}
+	}
+	
+	var onAppendPlaceable = function (event, placeable) {
+		if (placeable.CPlayerData) {
+			
+			if (placeable.CPlayerData.player == m_gameState.currentPlayer) {
+				m_gameState.currentPlaceables.push(placeable);
+			}
+			
+			var relation = m_playersData.getRelation(placeable.CPlayerData.player, m_gameState.currentPlayer);
+			m_gameState.relationPlaceables[relation].push(placeable);
+		}
+	}
+	
+	var populateGameStateUnits = function () {
+		m_gameState.clearPlaceables();
+		
+		var placeables = self._entityFilter.entities;
+		
+		for(var i = 0; i < placeables.length; ++i) {
+			var placeable = placeables[i];
+			
+			onAppendPlaceable(null, placeable);
+		}
 	}
 	
 	var onGameLoaded = function (event) {
@@ -28,6 +67,8 @@ var GameStateSystem = function () {
 			m_gameState.currentPlayer = m_playersData.getFirstPlayingPlayer();
 		
 		if (m_gameState.currentPlayer != null) {
+			populateGameStateUnits();
+			
 			self._eworld.trigger(GameplayEvents.GameState.TURN_CHANGED, m_gameState.currentPlayer);
 		} else {
 			self._eworld.trigger(GameplayEvents.GameState.NO_PLAYING_PLAYERS);
@@ -53,6 +94,9 @@ var GameStateSystem = function () {
 			++m_gameState.turnsPassed;
 		}
 		
+		
+		populateGameStateUnits();
+		
 		self._eworld.trigger(GameplayEvents.GameState.TURN_CHANGED, m_gameState.currentPlayer);
 	}
 	
@@ -64,4 +108,4 @@ var GameStateSystem = function () {
 };
 
 ECS.EntityManager.registerSystem('GameStateSystem', GameStateSystem);
-SystemsUtils.supplySubscriber(GameStateSystem);
+SystemsUtils.supplyComponentFilter(GameStateSystem, [CTilePlaceable]);
