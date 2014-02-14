@@ -177,10 +177,6 @@ var GameWorld = function () {
 		self._eworld.trigger(EngineEvents.Placeables.PLACEABLE_MOVED, placeable);
 	};
 	
-	this.getAllPlaceables = function () {
-		return m_placeables;
-	};
-	
 	this.getPlaceablesInArea = function (tileCenter, radius, excludePlaceable) {
 		var placeables = [];
 		
