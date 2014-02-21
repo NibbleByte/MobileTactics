@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Core\Engine\3rdParty\jquery-1.9.1.js" />
+    <None Include="..\..\Core\Engine\3rdParty\underscore.js" />
+    <None Include="..\..\Core\Engine\Components\CTile.js" />
+    <None Include="..\..\Core\Engine\Components\CTilePlaceable.js" />
+    <None Include="..\..\Core\Engine\ECS\Entity.js" />
+    <None Include="..\..\Core\Engine\ECS\EntityComponentFilter.js" />
+    <None Include="..\..\Core\Engine\ECS\EntityManager.js" />
+    <None Include="..\..\Core\Engine\ECS\EntityWorld.js" />
+    <None Include="..\..\Core\Engine\ECS\SampleUsage.js" />
+    <None Include="..\..\Core\Engine\EngineEvents.js" />
+    <None Include="..\..\Core\Engine\Systems\GameWorld.js" />
+    <None Include="..\..\Core\Engine\Utils\Array.js" />
+    <None Include="..\..\Core\Engine\Utils\ECSUtils.js" />
+    <None Include="..\..\Core\Engine\Utils\Enums.js" />
+    <None Include="..\..\Core\Engine\Utils\Serialization.js" />
+    <None Include="..\..\Core\Engine\Utils\Subscriber.js" />
+    <None Include="..\..\Core\Engine\Utils\Utils.js" />
+    <None Include="..\..\Core\Gameplay\Actions\ActionAttack.js" />
+    <None Include="..\..\Core\Gameplay\Actions\ActionMove.js" />
+    <None Include="..\..\Core\Gameplay\Components\CActions.js" />
+    <None Include="..\..\Core\Gameplay\Components\CEffects.js" />
+    <None Include="..\..\Core\Gameplay\Components\CPlayerData.js" />
+    <None Include="..\..\Core\Gameplay\Components\CStatistics.js" />
+    <None Include="..\..\Core\Gameplay\Components\CTileTerrain.js" />
+    <None Include="..\..\Core\Gameplay\Components\CTileVisibility.js" />
+    <None Include="..\..\Core\Gameplay\Components\CUnit.js" />
+    <None Include="..\..\Core\Gameplay\GameExecutor.js" />
+    <None Include="..\..\Core\Gameplay\GameplayEvents.js" />
+    <None Include="..\..\Core\Gameplay\GameState.js" />
+    <None Include="..\..\Core\Gameplay\PlaceableFactory\UnitFactory.js" />
+    <None Include="..\..\Core\Gameplay\PlaceableFactory\UnitsDefinitions.js" />
+    <None Include="..\..\Core\Gameplay\PlayersData.js" />
+    <None Include="..\..\Core\Gameplay\Systems\EffectsSystem.js" />
+    <None Include="..\..\Core\Gameplay\Systems\GameStateSystem.js" />
+    <None Include="..\..\Core\Gameplay\Systems\TileVisibilitySystem.js" />
+    <None Include="..\..\Core\Gameplay\Systems\UnitsSystem.js" />
+    <None Include="..\..\Core\Gameplay\TerrainType.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Assets\ActionMenu.css" />
+    <None Include="..\..\MobileClient\LocalFiles\Assets\Main.css" />
+    <None Include="..\..\MobileClient\LocalFiles\Assets\Render\GameWorldRenderer.css" />
+    <None Include="..\..\MobileClient\LocalFiles\Assets\Render\Placeables.css" />
+    <None Include="..\..\MobileClient\LocalFiles\Assets\Render\SpriteAnimations\TeslaTrooper.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Assets\Render\TileRenderingSystem.css" />
+    <None Include="..\..\MobileClient\LocalFiles\index.html" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\iscroll.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\sprite.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\sylvester.src.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\wormhole.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\ActionsMenuController.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\ClientEvents.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Main.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\PlayerController.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\ActionsRender.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Animator.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Components\CAnimations.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Components\CTilePlaceableRendering.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Components\CTileRendering.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Components\CUnitRendering.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\GameWorldRenderer.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\RenderEvents.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\ActionFogRenderingSystem.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\ActionsRenderingSystem.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\AnimationSystem.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\IdleAnimationsSystem.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\TileRenderingSystem.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\UnitRenderingSystem.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\VisibilityFogRenderingSystem.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\TileGlobals.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\WorldLayers.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\UnitFactoryClient.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\wormhole-Mockup.js" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{86B8289C-EB35-4187-9719-B33DD00D88A9}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>MobileClientVS</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
