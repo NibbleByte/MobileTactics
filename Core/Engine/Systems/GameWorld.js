@@ -91,6 +91,87 @@ var GameWorld = function () {
 			}
 		}
 	}
+
+
+	// Gather tiles based on a cost resulted in a custom user query.
+	// Note: Start tile is always discarded.
+	// - userData is passed onto the user query.
+	// - startTile is the start tile.
+	// - startCost is the starting 
+	// - gatherQuery is a custom user function with the following parameters: userData, tile.
+	//	 The query should return an object with the following properties: cost, passOver, discard
+	//	 * cost - the cost that takes to pass over this tile.
+	//	 * passOver - can it passOver this tile (although it might be discarded).
+	//	 * discard the tile for sure from the final list.
+	this.gatherTiles = function (startTile, startCost, gatherQuery, userData) {
+		var gatheredTiles = [];
+
+		var open = [startTile];
+		var visited = [];
+
+		startTile.__$costLeft = startCost;
+		startTile.__$cameFrom = null;
+		startTile.__$discard = true;	// Start is always discarded.
+
+		while(open.length != 0) {
+			var openTile = open.shift();
+			var openCostLeft = openTile.__$costLeft;
+			
+			var adjacentTiles = userData.world.getAdjacentTiles(openTile);
+			
+			for(var i = 0; i < adjacentTiles.length; ++i) {
+				var tile = adjacentTiles[i];
+				
+				if (tile == openTile.__$cameFrom) {
+					continue;
+				}
+
+				var queryResult = gatherQuery(userData, tile);
+				
+				if (queryResult.cost == undefined)
+					continue;
+				
+				var costLeft = openCostLeft - queryResult.cost;
+				var oldCostLeft = tile.__$costLeft || 0;
+				
+				if (oldCostLeft <= costLeft
+					&& queryResult.passOver
+					&& costLeft >= 0
+					) {
+					tile.__$costLeft = costLeft;
+					tile.__$cameFrom = openTile;
+					
+					if (open.indexOf(tile) == -1) {
+						open.push(tile);
+					}
+				}
+				
+				tile.__$discard = queryResult.discard;
+			}
+			
+			
+			if (visited.indexOf(openTile) == -1) {
+				
+				// When searching for closed tiles, recent ones should be in front because they are more likely to be needed.
+				visited.unshift(openTile);
+				
+				// Can't stack units.
+				if (openTile != startTile && !openTile.__$discard) {
+					gatheredTiles.push(openTile);
+				}
+			}
+		}
+		
+		
+		// Cleanup algorithm data.
+		for(var i = 0; i < visited.length; ++i) {
+			delete visited[i].__$costLeft;
+			delete visited[i].__$cameFrom;
+			delete visited[i].__$discard;
+		}
+
+		return gatheredTiles;
+	}
 	
 	
 	var addTile = function (tile) {		
