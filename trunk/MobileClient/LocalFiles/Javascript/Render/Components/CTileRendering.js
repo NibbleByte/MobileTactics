@@ -98,8 +98,8 @@ CTileRendering.prototype.move = function (x, y) {
 	
 	// If fog is allowed.
 	if (this.spriteVisibilityFog) {
-		this.spriteActionFog.position(x, y);
-		this.spriteActionFog.update();
+		this.spriteVisibilityFog.position(x, y);
+		this.spriteVisibilityFog.update();
 	}
 }
 

@@ -24,4 +24,8 @@ var GameplayEvents = {
 			TURN_CHANGED: 		"gameplay.game_state.turn_changed",		// event, player
 			NO_PLAYING_PLAYERS: "gameplay.game_state.no_playingplayers",// event, player
 		},
+
+		Fog: {
+			REFRESH_FOG:		"gameplay.fog.refresh_fog"				// event
+		},
 }

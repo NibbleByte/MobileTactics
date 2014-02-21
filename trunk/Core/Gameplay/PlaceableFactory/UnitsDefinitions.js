@@ -14,6 +14,7 @@ var UnitsDefinitions = {
 			MaxHealth: 20,
 			Defence: 5,
 			Movement: 3,
+			Visibility: 3,
 		},
 		
 		actions: [
@@ -35,6 +36,7 @@ var UnitsDefinitions = {
 			MaxHealth: 15,
 			Defence: 4,
 			Movement: 4,
+			Visibility: 4,
 		},
 		
 		actions: [
@@ -55,6 +57,7 @@ var UnitsDefinitions = {
 			MaxHealth: 10,
 			Defence: 3,
 			Movement: 3,
+			Visibility: 3,
 		},
 		
 		actions: [

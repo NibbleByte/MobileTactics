@@ -82,6 +82,7 @@ $(function () {
 	m_eworld.addSystem(m_effects);
 	m_eworld.addSystem(new UnitsSystem());
 	m_eworld.addSystem(new GameStateSystem());
+	m_eworld.addSystem(new TileVisibilitySystem(m_world));
 	
 	var m_executor = new GameExecutor(m_eworld, m_world);
 	
@@ -103,6 +104,7 @@ $(function () {
 	m_eworld.addSystem(new IdleAnimationsSystem(worldRenderer));
 	m_eworld.addSystem(new ActionsRenderingSystem(m_executor));
 	m_eworld.addSystem(new ActionFogRenderingSystem(m_world));
+	m_eworld.addSystem(new VisibilityFogRenderingSystem(m_world));
 	
 	m_eworld.addSystem(new ActionsMenuController($('#ActionMenu')[0]));
 	
