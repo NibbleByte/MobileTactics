@@ -11,7 +11,6 @@ Actions.Classes.ActionMove = new function () {
 		var tile = placeable.CTilePlaceable.tile;
 		
 		var movementData = {
-			world: world,
 			placeable: placeable,
 			player: player,
 			playersData: eworld.extract(PlayersData),
