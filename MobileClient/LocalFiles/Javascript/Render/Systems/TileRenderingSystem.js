@@ -53,7 +53,7 @@ var TileRenderingSystem = function (m_renderer) {
 		m_renderer.extentWidth = 0;
 		m_renderer.extentHeight = 0;
 		
-		iterateOverTiles(function(tile){
+		m_world.iterateAllTiles(function(tile){
 			onTileAdded(null, tile);
 		});
 		
@@ -84,8 +84,10 @@ var TileRenderingSystem = function (m_renderer) {
 		tile.CTileRendering.sprite = createTileSprite(spritePath, WorldLayers.LayerTypes.Terrain);
 		tile.CTileRendering.spriteHighlight = createTileSprite('', WorldLayers.LayerTypes.Highlights);
 		tile.CTileRendering.spriteActionFog = createTileSprite(TileRenderingSystem.FOG_SPRITE_PATH, WorldLayers.LayerTypes.ActionFog);
+		tile.CTileRendering.spriteVisibilityFog = createTileSprite(TileRenderingSystem.FOG_SPRITE_PATH, WorldLayers.LayerTypes.VisibilityFog);
 		
 		$(tile.CTileRendering.spriteActionFog.dom).addClass('tile_action_fog');
+		$(tile.CTileRendering.spriteVisibilityFog.dom).addClass('tile_visibility_fog');
 		tile.CTileRendering.hideActionFog();
 		
 		renderTile(tile);
@@ -115,7 +117,7 @@ var TileRenderingSystem = function (m_renderer) {
 		m_renderer.extentWidth = 0;
 		m_renderer.extentHeight = 0;
 		
-		iterateOverTiles(function(itTile) {
+		m_world.iterateAllTiles(function(itTile) {
 			if (itTile == tile)
 				return false;
 			
@@ -134,24 +136,6 @@ var TileRenderingSystem = function (m_renderer) {
 		m_renderer.refresh();
 		
 		tile.removeComponent(CTileRendering);
-	}
-	
-	
-	
-	var iterateOverTiles = function(handler) {
-		var rows = m_world.getRows();
-		var columns = m_world.getColumns();
-				
-		for(var i = 0; i < rows; ++i) {
-			for(var j = 0; j < columns; ++j) {
-				var tile = m_world.getTile(i, j);
-				
-				if (tile) {					
-					if (handler(tile))
-						return;
-				}
-			}
-		}
 	}
 	
 	//
