@@ -126,7 +126,7 @@ var GameWorld = function () {
 					continue;
 				}
 
-				var queryResult = gatherQuery(userData, tile);
+				var queryResult = gatherQuery(tile, userData);
 				
 				if (queryResult.cost == undefined)
 					continue;

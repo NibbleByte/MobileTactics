@@ -37,7 +37,7 @@ Actions.Classes.ActionMove = new function () {
 	//
 	// Private
 	//
-	var movementCostQuery = function (userData, tile) {
+	var movementCostQuery = function (tile, userData) {
 		var terrainCost = userData.placeable.CStatistics.terrainCost[tile.CTileTerrain.type];
 
 		// Check if has any placeable and its relation towards it.
