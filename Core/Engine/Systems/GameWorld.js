@@ -117,7 +117,7 @@ var GameWorld = function () {
 			var openTile = open.shift();
 			var openCostLeft = openTile.__$costLeft;
 			
-			var adjacentTiles = userData.world.getAdjacentTiles(openTile);
+			var adjacentTiles = self.getAdjacentTiles(openTile);
 			
 			for(var i = 0; i < adjacentTiles.length; ++i) {
 				var tile = adjacentTiles[i];
