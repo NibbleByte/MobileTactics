@@ -15,8 +15,9 @@ var GameStateSystem = function () {
 	
 	this.initialize = function () {
 		self._eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_REGISTERED, onAppendPlaceable);
-		self._eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_UNREGISTERED, onRemovePlaceable);
+		self._eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_UNREGISTERING, onRemovePlaceable);
 		
+		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADING, onGameLoading);
 		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADED, onGameLoaded);
 		self._eworldSB.subscribe(GameplayEvents.GameState.END_TURN, onEndTurn);
 		self._eworldSB.subscribe(GameplayEvents.Players.PLAYER_REMOVED, onPlayerRemoved);
@@ -59,19 +60,21 @@ var GameStateSystem = function () {
 		}
 	}
 	
-	var onGameLoaded = function (event) {
+	var onGameLoading = function (event) {
 		m_playersData = self._eworld.extract(PlayersData);
 		m_gameState = self._eworld.extract(GameState);
-		
+	}
+
+	var onGameLoaded = function (event) {
 		if (m_gameState.currentPlayer == null)
 			m_gameState.currentPlayer = m_playersData.getFirstPlayingPlayer();
 		
 		if (m_gameState.currentPlayer != null) {
 			populateGameStateUnits();
 			
-			self._eworld.trigger(GameplayEvents.GameState.TURN_CHANGED, m_gameState.currentPlayer);
+			self._eworld.triggerAsync(GameplayEvents.GameState.TURN_CHANGED, m_gameState.currentPlayer);
 		} else {
-			self._eworld.trigger(GameplayEvents.GameState.NO_PLAYING_PLAYERS);
+			self._eworld.triggerAsync(GameplayEvents.GameState.NO_PLAYING_PLAYERS);
 		}
 	}
 	
@@ -86,7 +89,7 @@ var GameStateSystem = function () {
 		
 		// If had no current player and still have none, do nothing.
 		if (m_gameState.currentPlayer == null) {
-			self._eworld.trigger(GameplayEvents.GameState.NO_PLAYING_PLAYERS);
+			self._eworld.triggerAsync(GameplayEvents.GameState.NO_PLAYING_PLAYERS);
 			return;
 		}
 		
@@ -97,7 +100,7 @@ var GameStateSystem = function () {
 		
 		populateGameStateUnits();
 		
-		self._eworld.trigger(GameplayEvents.GameState.TURN_CHANGED, m_gameState.currentPlayer);
+		self._eworld.triggerAsync(GameplayEvents.GameState.TURN_CHANGED, m_gameState.currentPlayer);
 	}
 	
 	var onPlayerRemoved = function (event, player) {

@@ -20,7 +20,7 @@ var PlayerController = function (m_world, m_executor) {
 	// Entity system initialize
 	//
 	this.initialize = function () {
-		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADED, onGameLoaded);
+		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADING, onGameLoading);
 		
 		self._eworldSB.subscribe(ClientEvents.Input.TILE_CLICKED, onTileClicked);
 		self._eworldSB.subscribe(EngineEvents.World.TILE_REMOVED, onTileRemoved);
@@ -35,7 +35,7 @@ var PlayerController = function (m_world, m_executor) {
 		m_selectedGOActions = null;
 	};
 	
-	var onGameLoaded = function (event) {
+	var onGameLoading = function (event) {
 		m_gameState = self._eworld.extract(GameState);
 	}
 	
@@ -108,7 +108,7 @@ var PlayerController = function (m_world, m_executor) {
 		}
 	}
 	
-	var onTileRemoved = function(event, tile) {
+	var onTileRemoved = function(event) {
 		self._eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
 		m_selectedTile = null;
 	}

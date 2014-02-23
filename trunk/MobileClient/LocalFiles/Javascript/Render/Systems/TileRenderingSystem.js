@@ -19,7 +19,7 @@ var TileRenderingSystem = function (m_renderer) {
 		addCurrentTiles();
 		
 		self._eworldSB.subscribe(EngineEvents.World.TILE_ADDED, onTileAdded);
-		self._eworldSB.subscribe(EngineEvents.World.TILE_REMOVED, onTileRemoved);
+		self._eworldSB.subscribe(EngineEvents.World.TILE_REMOVING, onTileRemoved);
 	}
 	
 	//

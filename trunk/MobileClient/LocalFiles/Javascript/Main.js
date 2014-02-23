@@ -155,6 +155,7 @@ $(function () {
 		players = m_playersData;
 		gameState = m_gameState;
 		
+		m_eworld.triggerAsync(EngineEvents.General.GAME_LOADING);
 		
 		for(var i = 0; i < allObjects.length; ++i) {
 			if (allObjects[i].onDeserialize)
@@ -172,7 +173,7 @@ $(function () {
 			m_eworld.trigger(EngineEvents.Serialization.ENTITY_DESERIALIZED, entities[i]);
 		}
 		
-		m_eworld.trigger(EngineEvents.General.GAME_LOADED);
+		m_eworld.triggerAsync(EngineEvents.General.GAME_LOADED);
 	}
 	
 	var onBtnRemoveTile = function () {
@@ -240,11 +241,13 @@ $(function () {
 	//
 	// Initialize
 	//
+	m_eworld.triggerAsync(EngineEvents.General.GAME_LOADING);
+
 	onBtnRestart();
 	onBtnSave();
 	
 	// All setup is done, initialize the systems.
-	m_eworld.trigger(EngineEvents.General.GAME_LOADED);
+	m_eworld.triggerAsync(EngineEvents.General.GAME_LOADED);
 	
 
 	// Toolbar listeners

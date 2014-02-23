@@ -203,12 +203,12 @@ var GameWorld = function () {
 	
 	var removeTile = function (tile) {
 		
-		self._eworld.trigger(EngineEvents.World.TILE_REMOVED, tile);
-		
 		// Remove placeables if has any. Will be detached on destroying entity.
 		while(tile.CTile.placedObjects.length > 0) {
-			tile.CTile.placedObjects[0].destroy();			
+			tile.CTile.placedObjects[0].destroy();
 		}
+
+		self._eworld.trigger(EngineEvents.World.TILE_REMOVING, tile);
 		
 		var row = tile.CTile.row;
 		var column = tile.CTile.column;
@@ -243,6 +243,8 @@ var GameWorld = function () {
 		}
 		
 		m_tiles.length = index + 1;
+
+		self._eworld.trigger(EngineEvents.World.TILE_REMOVED);
 	}
 	
 		
@@ -290,11 +292,13 @@ var GameWorld = function () {
 		if (foundIndex == -1)
 			return false;
 		
-		self._eworld.trigger(EngineEvents.Placeables.PLACEABLE_UNREGISTERED, placeable);
+		self._eworld.trigger(EngineEvents.Placeables.PLACEABLE_UNREGISTERING, placeable);
 		
 		placeable.CTilePlaceable.tile.CTile.removeObject(placeable);
 		m_placeables.splice(foundIndex, 1);
 		
+		self._eworld.trigger(EngineEvents.Placeables.PLACEABLE_UNREGISTERED);
+
 		return true;
 	}
 	
@@ -317,6 +321,8 @@ var GameWorld = function () {
 		} else if (entity.hasComponents(CTilePlaceable)) {
 			unregisterPlaceable(entity);
 		}
+
+		Utils.invalidate(entity);
 	}
 	
 	
