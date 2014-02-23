@@ -9,7 +9,8 @@
 var GameplayEvents = {
 		Units: {
 			UNIT_CHANGED: 		"gameplay.units.unit_changed",		// event, unit
-			UNIT_DESTROYED: 	"gameplay.units.unit_destroyed",	// event, unit
+			DESTROY_UNIT: 		"gameplay.units.destroy_unit",		// event, unit
+			UNIT_DESTROYING: 	"gameplay.units.unit_destroying",	// event, unit
 		},
 		
 		Players: {

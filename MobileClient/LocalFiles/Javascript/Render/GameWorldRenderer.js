@@ -36,7 +36,7 @@ var GameWorldRenderer = function (holderElement) {
 		
 		// TODO: Unneeded check, due to timeouts on initialize
 		if (plotContainerScroller)
-			plotContainerScroller.refresh();		
+			plotContainerScroller.refresh();
 		
 	}
 	

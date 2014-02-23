@@ -14,6 +14,7 @@ var UnitsSystem = function () {
 		self._eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_REGISTERED, onPlaceableRegistered);
 		
 		self._eworldSB.subscribe(GameplayEvents.Units.UNIT_CHANGED, onUnitChanged);
+		self._eworldSB.subscribe(GameplayEvents.Units.DESTROY_UNIT, onDestroyUnit);
 	}
 	
 	var onPlaceableRegistered = function(event, placeable) {				
@@ -28,12 +29,13 @@ var UnitsSystem = function () {
 		
 		// Check if dead.
 		if (unit.CUnit.health <= 0) {
-			self._eworld.trigger(GameplayEvents.Units.UNIT_DESTROYED, unit);
-			unit.destroy();
-			
-			// Prevent others using the destroyed unit.
-			event.stopImmediatePropagation();
+			self._eworld.triggerAsync(GameplayEvents.Units.DESTROY_UNIT, unit);
 		}
+	}	
+
+	var onDestroyUnit = function(event, unit) {
+		self._eworld.trigger(GameplayEvents.Units.UNIT_DESTROYING, unit);
+		unit.destroy();
 	}
 };
 

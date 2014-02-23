@@ -21,44 +21,56 @@ Subscriber.makeSubscribable = function (obj) {
 	obj.createSubscriber = Subscriber._createSubscriber;
 	
 	obj.trigger = Subscriber._trigger;
+	obj.triggerAsync = Subscriber._triggerAsync;
 	obj.__triggersQueued = [];
+	obj.__triggersCalls = [];
 }
 
 Subscriber._createSubscriber = function () {
 	return new Subscriber(this);
 }
 
-// Triggers event with given data.
-// If another trigger is already in progress (trigger chain), 
-// the new trigger will be queued and executed when done with the previous ones.
-// It is recommended to use these asynchronous triggers, to avoid more problems.
+// Triggers event with given data (synchronous).
+// If first trigger (in trigger chain), at the end will process also any async triggers,
+// accumulated along the way.
 Subscriber._trigger = function (event, data) {
 	
 	console.assert(event);
-	
-	// Store the trigger data so it can processed later.
-	this.__triggersQueued.push({ event: event, data: data })
 
-	// If this trigger is the only stored trigger, start executing directly.
-	// Else, there are currently other triggers being executed, so skip.
-	if (this.__triggersQueued.length == 1) {
-
-		while (this.__triggersQueued.length > 0) {
-			var triggerData = this.__triggersQueued[0];
-
-			$(this).trigger(triggerData.event, triggerData.data);
-			this.__triggersQueued.shift();
-		}
+	// Only first trigger called in the chain can process the async events.
+	if (this.__triggerActive) {
+		$(this).trigger(event, data);
+		return;
 	}
+	
+	this.__triggerActive = true;
+	this.__triggersQueued.push({ event: event, data: data });
+	this.__triggersCalls.push({ event: event, data: data });
+
+
+	// Process all the events (even those that arise during the current trigger execution).
+	while (this.__triggersQueued.length > 0) {
+		var triggerData = this.__triggersQueued.shift();
+		$(this).trigger(triggerData.event, triggerData.data);
+	}
+
+	this.__triggersCalls = [];
+	this.__triggerActive = false;
 }
 
-// Triggers event with given data immediately.
-// This is NOT recommended and should be avoided.
-Subscriber._triggerSync = function (event, data) {
+// Triggers event with given data (asynchronous).
+// Should be used with more global events, that can happen at anytime.
+Subscriber._triggerAsync = function (event, data) {
 
 	console.assert(event);
 
-	$(this).trigger(event, data);
+	if (this.__triggerActive) {
+		// Store the trigger data so it can processed later.
+		this.__triggersQueued.push({ event: event, data: data });
+		this.__triggersCalls.push({ event: event, data: data });	// DEBUG: This is for debugging purposes only.
+	} else {
+		this.trigger(event, data);
+	}
 }
 
 //

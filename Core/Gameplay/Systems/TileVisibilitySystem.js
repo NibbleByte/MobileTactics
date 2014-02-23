@@ -14,10 +14,9 @@ var TileVisibilitySystem = function (m_world) {
 	//
 
 	this.initialize = function () {
-		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADED, onGameLoaded);
-		self._eworldSB.subscribe(GameplayEvents.GameState.END_TURN, refreshVisibility);
+		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADING, onGameLoading);
+		self._eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, refreshVisibility);
 		self._eworldSB.subscribe(GameplayEvents.GameState.NO_PLAYING_PLAYERS, refreshVisibility);
-		self._eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_REGISTERED, refreshVisibility);
 		self._eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_MOVED, refreshVisibility);
 		self._eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_UNREGISTERED, refreshVisibility);
 		self._eworldSB.subscribe(EngineEvents.World.TILE_REMOVED, refreshVisibility);
@@ -32,7 +31,7 @@ var TileVisibilitySystem = function (m_world) {
 		tile.CTileVisibility.visible = false;
 	}
 
-	var onGameLoaded = function (event) {
+	var onGameLoading = function (event) {
 		m_gameState = self._eworld.extract(GameState);
 	}
 
