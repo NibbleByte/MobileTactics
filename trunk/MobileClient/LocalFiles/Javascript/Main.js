@@ -234,6 +234,27 @@ $(function () {
 		$('#WorldPlot').css('background-color', 'white');
 	}
 	
+
+	var onBtnBrowse = function () {
+		var address = $('#TbBrowseAddress').val();
+		if (address.indexOf('http://') == -1 && address.indexOf('https://') == -1) {
+			address = 'http://' + address;
+		}
+
+		window.location.href = address;
+	}
+
+	// HACK: This is workaround, as iScroller doesn't let the input control to be clicked.
+	var onBtnAddress = function () {
+		if (toolbarScroller) {
+			$('#TbBrowseAddress, #BtnBrowse')
+			.insertBefore('#BtnSave')
+			.show()
+			.off("click", onBtnAddress);
+			toolbarScroller.destroy();
+			toolbarScroller = null;
+		}
+	}
 	
 	
 	m_eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, onTurnChanged);
@@ -258,6 +279,8 @@ $(function () {
 	$('#BtnRestart').click(onBtnRestart);
 	$('#BtnPlayer').click(onBtnPlayer);
 	$('#BtnDebug').click(onBtnDebug);
+	$('#BtnBrowse').click(onBtnBrowse);
+	$('#BtnAddress').click(onBtnAddress);
 	
 	// MoSync bindings
 	document.addEventListener("backbutton", close, true);
