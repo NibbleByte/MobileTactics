@@ -74,6 +74,7 @@ $(function () {
 	//
 	var m_world = new GameWorld();
 	m_eworld.addSystem(m_world);
+	m_eworld.store(GameWorld, m_world);
 	
 	//
 	// Gameplay Systems

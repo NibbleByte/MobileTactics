@@ -24,6 +24,9 @@ var PlayerController = function (m_world, m_executor) {
 		
 		self._eworldSB.subscribe(ClientEvents.Input.TILE_CLICKED, onTileClicked);
 		self._eworldSB.subscribe(EngineEvents.World.TILE_REMOVED, onTileRemoved);
+
+		self._eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, clearActions);
+		self._eworldSB.subscribe(GameplayEvents.GameState.NO_PLAYING_PLAYERS, clearActions);
 		
 		self._eworldSB.subscribe(ClientEvents.Controller.ACTIONS_CLEARED, onActionsCleared);
 		self._eworldSB.subscribe(ClientEvents.Controller.ACTIONS_OFFERED, onActionsOffered);
@@ -107,10 +110,14 @@ var PlayerController = function (m_world, m_executor) {
 			selectTile(tile);
 		}
 	}
-	
-	var onTileRemoved = function(event) {
-		self._eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
+
+	var onTileRemoved = function (event) {
+		clearActions();
 		m_selectedTile = null;
+	}
+	
+	var clearActions = function() {
+		self._eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
 	}
 	
 	

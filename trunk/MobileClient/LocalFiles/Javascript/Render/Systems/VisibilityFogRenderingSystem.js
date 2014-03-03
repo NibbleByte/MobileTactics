@@ -25,7 +25,7 @@ var VisibilityFogRenderingSystem = function (m_world) {
 		}
 	}
 	
-	var refreshFog = function (event, currentPlayer) {
+	var refreshFog = function (event) {
 		m_world.iterateAllTiles(applyVisibilityFog);
 	}
 }

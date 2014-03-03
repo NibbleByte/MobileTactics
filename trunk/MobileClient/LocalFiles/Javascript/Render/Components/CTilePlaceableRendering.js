@@ -6,3 +6,17 @@ var CTilePlaceableRendering = function () {
 };
 
 ComponentsUtils.registerNonPersistent('CTilePlaceableRendering', CTilePlaceableRendering);
+
+
+
+//
+// Short-cuts
+//
+
+CTilePlaceableRendering.prototype.hide = function () {
+	$(this.sprite.dom).hide();
+};
+
+CTilePlaceableRendering.prototype.show = function () {
+	$(this.sprite.dom).show();
+};

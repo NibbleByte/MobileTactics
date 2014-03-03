@@ -20,6 +20,8 @@ var UnitRenderingSystem = function (renderer) {
 		self._eworldSB.subscribe(EngineEvents.Serialization.ENTITY_DESERIALIZED, onPlaceableMoved);
 		
 		self._eworldSB.subscribe(GameplayEvents.Units.UNIT_CHANGED, onUnitChanged);
+
+		self._eworldSB.subscribe(GameplayEvents.Fog.REFRESH_FOG, refreshFog);
 		
 		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_FINISHED, onAnimationFinished);
 	}
@@ -141,6 +143,24 @@ var UnitRenderingSystem = function (renderer) {
 	
 	var onUnitChanged = function(event, unit) {
 		unit.CUnitRendering.$text.text(unit.CUnit.health.toPrecision(2));
+	}
+
+
+	var applyVisibilityFog = function (placeable) {
+		var placeableRendering = placeable.CTilePlaceableRendering;
+		var unitRendering = placeable.CUnitRendering;
+
+		if (placeable.CTilePlaceable.tile.CTileVisibility.visible) {
+			placeableRendering.show();
+			unitRendering.show();
+		} else {
+			placeableRendering.hide();
+			unitRendering.hide();
+		}
+	}
+
+	var refreshFog = function (event) {
+		self._eworld.extract(GameWorld).iterateAllPlaceables(applyVisibilityFog);
 	}
 }
 

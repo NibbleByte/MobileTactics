@@ -277,6 +277,12 @@ var GameWorld = function () {
 		
 		return placeables;
 	}
+
+	this.iterateAllPlaceables = function (functor) {
+		for (var i = 0; i < m_placeables.length; ++i) {
+			functor(m_placeables[i]);
+		}
+	}
 	
 	var registerPlaceable = function (placeable) {
 		
@@ -334,6 +340,7 @@ var GameWorld = function () {
 
 ECS.EntityManager.registerSystem('GameWorld', GameWorld);
 SystemsUtils.supplySubscriber(GameWorld);
+GameWorld.BLACKBOARD_NAME = 'GameWorld';
 
 GameWorld.prototype.getDistance = function (tile1, tile2) {
 	
