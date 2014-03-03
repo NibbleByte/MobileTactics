@@ -49,6 +49,11 @@ var GameExecutor = function (eworld, world) {
 	this.getAvailableActions = function(tile) {
 		var availableActions = [];
 		var objects = tile.CTile.placedObjects;
+
+		// If not visible, no placeables, actions are possible.
+		if (!tile.CTileVisibility.visible) {
+			return availableActions;
+		}
 				
 		var actions;
 		for(var i = 0; i < objects.length; ++i) {

@@ -7,3 +7,17 @@ var CUnitRendering = function () {
 };
 
 ComponentsUtils.registerNonPersistent('CUnitRendering', CUnitRendering);
+
+
+
+//
+// Short-cuts
+//
+
+CUnitRendering.prototype.hide = function () {
+	$(this.sprite.dom).hide();
+};
+
+CUnitRendering.prototype.show = function () {
+	$(this.sprite.dom).show();
+};
