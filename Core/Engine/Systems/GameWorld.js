@@ -340,7 +340,6 @@ var GameWorld = function () {
 
 ECS.EntityManager.registerSystem('GameWorld', GameWorld);
 SystemsUtils.supplySubscriber(GameWorld);
-GameWorld.BLACKBOARD_NAME = 'GameWorld';
 
 GameWorld.prototype.getDistance = function (tile1, tile2) {
 	

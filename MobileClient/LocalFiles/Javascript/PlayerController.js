@@ -114,6 +114,7 @@ var PlayerController = function (m_world, m_executor) {
 	var onTileRemoved = function (event) {
 		clearActions();
 		m_selectedTile = null;
+		selected = null;
 	}
 	
 	var clearActions = function() {
