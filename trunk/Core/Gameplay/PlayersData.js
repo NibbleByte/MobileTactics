@@ -94,8 +94,6 @@ PlayersData.prototype.onDeserialize = function (eworld) {
 
 Serialization.registerClass(PlayersData, 'PlayersData');
 
-PlayersData.BLACKBOARD_NAME = 'PlayersData';
-
 PlayersData.Relation = {
 		Enemy: 0,
 		Neutral: 0,

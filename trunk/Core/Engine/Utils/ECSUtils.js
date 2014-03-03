@@ -139,13 +139,25 @@ Serialization.excludeClass(ECS.EntityWorld);
 
 // Helps for easier access to the blackboard, for per-class-type-values.
 ECS.EntityWorld.prototype.extract = function (classType) {
-	console.assert(classType, 'Class type must have BLACKBOARD_NAME property to fetch it from the blackboard.');
+	this.__blackboardTypesRegistered = this.__blackboardTypesRegistered || 0;
+
+	// If it doesn't have name, generate one.
+	if (!classType.BLACKBOARD_NAME) {
+		classType.BLACKBOARD_NAME = 'BLACKBOARD_TYPE_' + this.__blackboardTypesRegistered;
+		this.__blackboardTypesRegistered++;
+	}
 	
 	return this.blackboard[classType.BLACKBOARD_NAME];
 };
 
 ECS.EntityWorld.prototype.store = function (classType, value) {
-	console.assert(classType, 'Class type must have BLACKBOARD_NAME property to store it to the blackboard.');
+	this.__blackboardTypesRegistered = this.__blackboardTypesRegistered || 0;
+
+	// If it doesn't have name, generate one.
+	if (!classType.BLACKBOARD_NAME) {
+		classType.BLACKBOARD_NAME = 'BLACKBOARD_TYPE_' + this.__blackboardTypesRegistered;
+		this.__blackboardTypesRegistered++;
+	}
 	
 	this.blackboard[classType.BLACKBOARD_NAME] = value;
 };

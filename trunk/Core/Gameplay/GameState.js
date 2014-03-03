@@ -18,8 +18,6 @@ var GameState = function () {
 
 Serialization.registerClass(GameState, 'GameState');
 
-GameState.BLACKBOARD_NAME = 'GameState';
-
 GameState.prototype.clearPlaceables = function () {
 	this.currentPlaceables.clear();
 	
