@@ -14,50 +14,60 @@ var UnitRenderingSystem = function (renderer) {
 	//
 	this.initialize = function () {
 		self._eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_REGISTERED, onPlaceableRegistered);
-		self._eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_MOVED, onPlaceableMoved);
+		self._eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_MOVING, onPlaceableMoving);
 		self._eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_UNREGISTERING, onPlaceableUnregistered);
 		
-		self._eworldSB.subscribe(EngineEvents.Serialization.ENTITY_DESERIALIZED, onPlaceableMoved);
+		self._eworldSB.subscribe(EngineEvents.Serialization.ENTITY_DESERIALIZED, onPlaceableMoving);
 		
 		self._eworldSB.subscribe(GameplayEvents.Units.UNIT_CHANGED, onUnitChanged);
 
 		self._eworldSB.subscribe(GameplayEvents.Fog.REFRESH_FOG, refreshFog);
 		
+		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_PROGRESSED, onAnimationProgressed);
 		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_FINISHED, onAnimationFinished);
+		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_AFTER_FRAME, onAnimationAfterFrame);
 	}
 		
 	//
 	// Private
 	//
 	var m_renderer = renderer;
+	var m_requiresRefresh = false;
 	
 	
 	var renderUnitInit = function (placeable) {
 		var placeableRendering = placeable.CTilePlaceableRendering;
 		
 		var spritePath = UnitRenderingSystem.SPRITES_PATH.replace(/{colorId}/g, placeable.CPlayerData.player.id);
+		var resourcePath;
+
+		// Handler to apply loaded resources.
+		var resourcesLoadedHandler = function () {
+			placeableRendering.sprite.loadImg(resourcePath, (placeable.CAnimations) ? false : true);
+
+			// Check if unit is registered, else it will be moved afterwards.
+			if (placeable.CTilePlaceable.tile)
+				renderUnit(placeable);
+		}
+
 		
 		// Get information depending if has animations or is still image.
 		if (placeable.CAnimations) {
 			var animData = SpriteAnimations[placeableRendering.skin];
 			var animator = new Animator(animData, placeableRendering.sprite, m_renderer.scene);
+
+			resourcePath = spritePath + animator.resourcePath;
 			
 			placeable.CAnimations.animators[UnitRenderingSystem.MAIN_SPRITE] = animator;
 			animator.pauseSequence('Idle');
-			placeableRendering.sprite.loadImg(spritePath + animator.resourcePath);
+			m_renderer.scene.loadImages([resourcePath], resourcesLoadedHandler);
 			
 		} else {
 			
-			var resourcePath = spritePath + placeableRendering.skin + '.png';
+			resourcePath = spritePath + placeableRendering.skin + '.png';
 			
 			// Load asset and apply it when done.
-			m_renderer.scene.loadImages([resourcePath], function () {
-				placeableRendering.sprite.loadImg(resourcePath, (placeable.CAnimations) ? false : true);
-				
-				// Check if unit is registered, else it will be moved afterwards.
-				if (placeable.CTilePlaceable.tile)
-					renderUnit(placeable);
-			});
+			m_renderer.scene.loadImages([resourcePath], resourcesLoadedHandler);
 		}
 	}
 	
@@ -84,16 +94,49 @@ var UnitRenderingSystem = function (renderer) {
 		unitRendering.sprite.position(coords.x, coords.y);
 		unitRendering.sprite.update();
 	}
+
+	// Refresh units layer canvas
+	var refreshUnitsLayer = function () {
+		m_renderer.layers[WorldLayers.LayerTypes.Units].clear();
+		for (var i = 0; i < self._entityFilter.entities.length; ++i) {
+			var entity = self._entityFilter.entities[i];
+
+			// This unit is not yet registered.
+			if (!entity.CTilePlaceableRendering)
+				continue;
+
+			// If unit was just placed, image might not have been loaded yet.
+			if (!entity.CTilePlaceableRendering.sprite.img)
+				continue;
+
+			if (entity.CTilePlaceableRendering.spriteVisible)
+				entity.CTilePlaceableRendering.sprite.update();
+		}
+	}
 	
 	
+	var onAnimationProgressed = function(event, params) {
+		if (params.entity.hasComponents(CUnit)) {
+			m_requiresRefresh = true;
+		}
+	};
+
 	var onAnimationFinished = function(event, params) {
 		if (!params.entity.hasComponents(UnitRenderingSystem.REQUIRED_COMPONENTS))
 			return;
 		
 		if (params.name == UnitRenderingSystem.MAIN_SPRITE)
 			params.entity.CAnimations.animators[UnitRenderingSystem.MAIN_SPRITE].pauseSequence('Idle');
+
+		onAnimationProgressed(event, params);
 	}
 	
+	var onAnimationAfterFrame = function(event) {
+		if (m_requiresRefresh) {
+			refreshUnitsLayer();
+			m_requiresRefresh = false;
+		}
+	}
 	
 	var onPlaceableRegistered = function(event, placeable) {
 		
@@ -108,8 +151,6 @@ var UnitRenderingSystem = function (renderer) {
 		
 		// Placeable
 		placeableRendering.sprite = m_renderer.layers[WorldLayers.LayerTypes.Units].Sprite();
-		$(placeableRendering.sprite.dom).addClass('placeable');
-		
 		
 		// Unit
 		unitRendering.sprite = m_renderer.layers[WorldLayers.LayerTypes.Statistics].Sprite();
@@ -119,11 +160,11 @@ var UnitRenderingSystem = function (renderer) {
 		renderUnitInit(placeable);
 	}
 	
-	var onPlaceableMoved = function(event, placeable) {
+	var onPlaceableMoving = function(event, placeable) {
 		
 		if (!placeable.hasComponents(UnitRenderingSystem.REQUIRED_COMPONENTS))
 			return;
-		
+
 		renderUnit(placeable);
 	}
 	
@@ -131,6 +172,7 @@ var UnitRenderingSystem = function (renderer) {
 		
 		if (!placeable.hasComponents(UnitRenderingSystem.REQUIRED_COMPONENTS))
 			return;
+
 		
 		if (placeable.CAnimations) {
 			placeable.CAnimations.animators[UnitRenderingSystem.MAIN_SPRITE].destroy();
@@ -161,6 +203,9 @@ var UnitRenderingSystem = function (renderer) {
 
 	var refreshFog = function (event) {
 		self._eworld.extract(GameWorld).iterateAllPlaceables(applyVisibilityFog);
+
+		// NOTE: All unit sprites must be updated/moved before refreshing.
+		refreshUnitsLayer();
 	}
 }
 
@@ -169,4 +214,4 @@ UnitRenderingSystem.MAIN_SPRITE = 'MainSprite';
 UnitRenderingSystem.SPRITES_PATH = 'Assets/Render/Images/Units/{colorId}/';
 
 ECS.EntityManager.registerSystem('UnitRenderingSystem', UnitRenderingSystem);
-SystemsUtils.supplySubscriber(UnitRenderingSystem);
+SystemsUtils.supplyComponentFilter(UnitRenderingSystem, UnitRenderingSystem.REQUIRED_COMPONENTS);

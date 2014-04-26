@@ -23,7 +23,8 @@ var GameWorldRenderer = function (holderElement) {
 	this.layers = [];
 	
 	for(var layerIndex in WorldLayers.LayerTypes) {
-		this.layers[WorldLayers.LayerTypes[layerIndex]] = this.scene.Layer(layerIndex);
+		this.layers[WorldLayers.LayerTypes[layerIndex]] = 
+			this.scene.Layer(layerIndex, GameWorldRenderer.layersOptions[layerIndex]);
 	}
 	
 	
@@ -31,8 +32,23 @@ var GameWorldRenderer = function (holderElement) {
 	
 	this.refresh = function () {
 		
+		// HACK: Resize manually the scene and layers
 		$(self.scene.dom).width(self.extentWidth);
 		$(self.scene.dom).height(self.extentHeight);
+
+		for(var i = 0; i < self.layers.length; ++i) {
+			var layer = self.layers[i]
+
+			console.assert(layer.useCanvas != undefined, 'Sprite.js API changed.');
+
+			if (layer.useCanvas) {
+				$(layer.dom).attr('width', self.extentWidth);
+				$(layer.dom).attr('height', self.extentHeight);
+			} else {
+				$(layer.dom).width(self.extentWidth);
+				$(layer.dom).height(self.extentHeight);
+			}
+		}
 		
 		// TODO: Unneeded check, due to timeouts on initialize
 		if (plotContainerScroller)
@@ -109,4 +125,11 @@ var GameWorldRenderer = function (holderElement) {
 			bounce: false,
 		});
 	}, 1);
+}
+
+GameWorldRenderer.layersOptions = {
+	Units: {
+		useCanvas: true,
+		autoClear: false,
+	}
 }

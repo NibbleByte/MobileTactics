@@ -261,6 +261,8 @@ var GameWorld = function () {
 		placeable.CTilePlaceable.tile = tile;
 		tile.CTile.placedObjects.push(placeable);
 		
+		// Needed to distinguish when is moving and when moved has occurred (order of events). 
+		self._eworld.trigger(EngineEvents.Placeables.PLACEABLE_MOVING, placeable);
 		self._eworld.trigger(EngineEvents.Placeables.PLACEABLE_MOVED, placeable);
 	};
 	
