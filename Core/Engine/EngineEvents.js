@@ -21,6 +21,7 @@ var EngineEvents = {
 
 		Placeables: {
 			PLACEABLE_REGISTERED: 		"engine.world.placeable_registered",	// event, placeable
+			PLACEABLE_MOVING: 			"engine.world.placeable_moving",		// event, placeable
 			PLACEABLE_MOVED: 			"engine.world.placeable_moved",			// event, placeable
 			PLACEABLE_UNREGISTERING: 	"engine.world.placeable_unregistering",	// event, placeable		
 			PLACEABLE_UNREGISTERED: 	"engine.world.placeable_unregistered",	// event		

@@ -1,7 +1,8 @@
 "use strict";
 
 var CTilePlaceableRendering = function () {
-	this.skin = '';	
+	this.skin = '';
+	this.spriteVisible = true;
 	this.sprite = null;
 };
 
@@ -14,9 +15,9 @@ ComponentsUtils.registerNonPersistent('CTilePlaceableRendering', CTilePlaceableR
 //
 
 CTilePlaceableRendering.prototype.hide = function () {
-	$(this.sprite.dom).hide();
+	this.spriteVisible = false;
 };
 
 CTilePlaceableRendering.prototype.show = function () {
-	$(this.sprite.dom).show();
+	this.spriteVisible = true;
 };

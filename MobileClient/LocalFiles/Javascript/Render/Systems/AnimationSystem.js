@@ -28,27 +28,36 @@ var AnimationSystem = function (renderer) {
 	var m_ticker = null;
 	
 	var paint = function (ticker) {
+
+		self._eworld.trigger(RenderEvents.Animations.ANIMATION_BEFORE_FRAME);
 	
 		// Keep animations going
 		for(var i = 0; i < self._entityFilter.entities.length; ++i) {
-			var anim = self._entityFilter.entities[i].CAnimations;
+			var entity = self._entityFilter.entities[i];
+			var anim = entity.CAnimations;
 			
 			for(var name in anim.animators) {
 				var animator = anim.animators[name];
 				
 				if(!animator.isPaused) {
 					animator.next(ticker.lastTicksElapsed);
-					
+					var data = {
+						name: name,
+						animator: animator,
+						entity: entity,
+					};
+
 					if (animator.finished) {
-						self._eworld.trigger(RenderEvents.Animations.ANIMATION_FINISHED, {
-								name: name,
-								animator: animator,
-								entity: self._entityFilter.entities[i]
-							});
+						self._eworld.trigger(RenderEvents.Animations.ANIMATION_FINISHED, data);
+					} else {
+						self._eworld.trigger(RenderEvents.Animations.ANIMATION_PROGRESSED, data);
 					}
 				}
 			}
 		}
+
+
+		self._eworld.trigger(RenderEvents.Animations.ANIMATION_AFTER_FRAME);
 	}
 	
 }
