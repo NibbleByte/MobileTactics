@@ -38,12 +38,13 @@ var UnitRenderingSystem = function (renderer) {
 	var renderUnitInit = function (placeable) {
 		var placeableRendering = placeable.CTilePlaceableRendering;
 		
-		var spritePath = UnitRenderingSystem.SPRITES_PATH.replace(/{colorId}/g, placeable.CPlayerData.player.id);
+		var spritePath = UnitRenderingSystem.SPRITES_PATH;
 		var resourcePath;
 
 		// Handler to apply loaded resources.
 		var resourcesLoadedHandler = function () {
 			placeableRendering.sprite.loadImg(resourcePath, (placeable.CAnimations) ? false : true);
+			SpriteColorizeManager.colorizeSprite(placeableRendering.sprite, placeable.CPlayerData.player.colorHue);
 
 			// Check if unit is registered, else it will be moved afterwards.
 			if (placeable.CTilePlaceable.tile)
@@ -211,7 +212,7 @@ var UnitRenderingSystem = function (renderer) {
 
 UnitRenderingSystem.REQUIRED_COMPONENTS = [CUnitRendering, CTilePlaceableRendering];
 UnitRenderingSystem.MAIN_SPRITE = 'MainSprite';
-UnitRenderingSystem.SPRITES_PATH = 'Assets/Render/Images/Units/{colorId}/';
+UnitRenderingSystem.SPRITES_PATH = 'Assets/Render/Images/Units/';
 
 ECS.EntityManager.registerSystem('UnitRenderingSystem', UnitRenderingSystem);
 SystemsUtils.supplyComponentFilter(UnitRenderingSystem, UnitRenderingSystem.REQUIRED_COMPONENTS);

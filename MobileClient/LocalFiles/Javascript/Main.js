@@ -58,10 +58,10 @@ $(function () {
 	//
 	var m_playersData = new PlayersData(m_eworld);
 	m_eworld.store(PlayersData, m_playersData);
-	m_playersData.addPlayer('Pl1', Player.Types.Human);
-	m_playersData.addPlayer('Pl2', Player.Types.Human);
-	m_playersData.addPlayer('Pl3', Player.Types.Human);
-	m_playersData.addPlayer('Pl4', Player.Types.Human);
+	m_playersData.addPlayer('Pl1', Player.Types.Human, 60);
+	m_playersData.addPlayer('Pl2', Player.Types.Human, 120);
+	m_playersData.addPlayer('Pl3', Player.Types.Human, 175);
+	m_playersData.addPlayer('Pl4', Player.Types.Human, 220);
 	
 	var m_gameState = new GameState();
 	m_eworld.store(GameState, m_gameState);
