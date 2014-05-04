@@ -25,12 +25,20 @@ var IdleAnimationsSystem = function () {
 	var timer = null;
 	
 	var startRandomIdleAnimation = function () {
+
+		// Find only visible entities.
+		var entities = [];
+		for(var i = 0; i < self._entityFilter.entities.length; ++i) {
+			var entity = self._entityFilter.entities[i];
+			if (entity.CTilePlaceable.tile.CTileVisibility.visible)
+				entities.push(entity);
+		}
 		
-		if (self._entityFilter.entities.length == 0)
+		if (entities.length == 0)
 			return;
 		
-		var index = Math.floor(Math.random() * self._entityFilter.entities.length);
-		var entity = self._entityFilter.entities[index];
+		var index = Math.floor(Math.random() * entities.length);
+		var entity = entities[index];
 		
 		var animator = entity.CAnimations.animators[UnitRenderingSystem.MAIN_SPRITE];
 		if (animator.sequenceName == 'Idle') {
