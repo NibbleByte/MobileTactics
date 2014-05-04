@@ -212,6 +212,12 @@
     <None Include="..\..\Core\Gameplay\Systems\TileVisibilitySystem.js">
       <Filter>Javascript\Core\Gameplay\Systems</Filter>
     </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\ImageUtils\SpriteColorizeManager.js">
+      <Filter>Javascript\Render\ImageUtils</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\ImageUtils\Colors.js">
+      <Filter>Javascript\Render\ImageUtils</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
@@ -273,6 +279,9 @@
     </Filter>
     <Filter Include="Javascript\Core\Gameplay\Systems">
       <UniqueIdentifier>{f82d43c0-45b7-471c-aab1-27feecfd5ef0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Javascript\Render\ImageUtils">
+      <UniqueIdentifier>{b3c7bc5b-f53f-4c1c-b7f1-31a91a8a4326}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

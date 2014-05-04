@@ -70,6 +70,8 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Components\CTileRendering.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Components\CUnitRendering.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\GameWorldRenderer.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\ImageUtils\Colors.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\ImageUtils\SpriteColorizeManager.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\RenderEvents.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\ActionFogRenderingSystem.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\ActionsRenderingSystem.js" />

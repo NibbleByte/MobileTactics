@@ -9,9 +9,9 @@ var PlayersData = function (eworld) {
 	this.players = [];	// Read-only field!
 };
 	
-PlayersData.prototype.addPlayer = function (name, type, teamId) {
+PlayersData.prototype.addPlayer = function (name, type, colorHue, teamId) {
 	
-	var player = new Player(this.players.length, name, type, teamId || -1);
+	var player = new Player(this.players.length, name, type, colorHue, teamId || -1);
 	this.players.push(player);
 	
 	this._eworld.trigger(GameplayEvents.Players.PLAYER_ADDED, player);
@@ -102,9 +102,10 @@ PlayersData.Relation = {
 Enums.enumerate(PlayersData.Relation);
 
 // This class is read-only data.
-var Player = function (id, name, type, teamId) {
+var Player = function (id, name, type, colorHue, teamId) {
 	this.id = id;
 	this.name = name;
+	this.colorHue = colorHue;
 	this.teamId = teamId;
 	this.type = type;
 	this.isPlaying = true;
