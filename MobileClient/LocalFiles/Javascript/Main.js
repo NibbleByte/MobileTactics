@@ -95,13 +95,14 @@ $(function () {
 	// Rendering Systems
 	//
 	
-	worldRenderer = new GameWorldRenderer($('#GameWorldMap')[0]);
+	worldRenderer = new GameWorldRenderer($('#GameWorldMap')[0], m_eworld);
 	
 	var m_tileRendering = new TileRenderingSystem(worldRenderer);
 	m_eworld.addSystem(m_tileRendering);
 	var m_unitRendering = new UnitRenderingSystem(worldRenderer);
 	m_eworld.addSystem(m_unitRendering);
 	m_eworld.addSystem(new AnimationSystem(worldRenderer));
+	m_eworld.addSystem(new LayersUpdateSystem(worldRenderer));
 	m_eworld.addSystem(new IdleAnimationsSystem(worldRenderer));
 	m_eworld.addSystem(new ActionsRenderingSystem(m_executor));
 	m_eworld.addSystem(new ActionFogRenderingSystem(m_world));

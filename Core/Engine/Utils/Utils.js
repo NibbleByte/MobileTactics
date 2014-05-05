@@ -35,6 +35,17 @@ var Utils = {
 			!this.isString(object) && !this.isNumber(object) &&
 			!this.isFunction(object);
 	},
+
+
+	simpleCopyMembers: function (sourceObj) {
+		var destObj = {};
+
+		for(var member in sourceObj) {
+			destObj[member] = sourceObj[member];
+		}
+
+		return destObj;
+	},
 	
 	
 	//
