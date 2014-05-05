@@ -72,9 +72,11 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\GameWorldRenderer.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\ImageUtils\Colors.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\ImageUtils\SpriteColorizeManager.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\ImageUtils\SpriteTracker.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\RenderEvents.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\ActionFogRenderingSystem.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\ActionsRenderingSystem.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\AnimationRenderUpdateSystem.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\AnimationSystem.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\IdleAnimationsSystem.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\TileRenderingSystem.js" />

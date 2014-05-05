@@ -12,6 +12,7 @@ var Animator = function (animData, sprite, scene) {
 	this.finished = false;
 	this.sequenceName = '';
 	this.sequences = [];
+	this.sprite = sprite;	// Read-only
 	
 	this.playSequence = function (name) {
 		if (m_currentCycle) {

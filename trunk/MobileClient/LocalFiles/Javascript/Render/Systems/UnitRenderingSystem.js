@@ -23,9 +23,7 @@ var UnitRenderingSystem = function (renderer) {
 
 		self._eworldSB.subscribe(GameplayEvents.Fog.REFRESH_FOG, refreshFog);
 		
-		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_PROGRESSED, onAnimationProgressed);
 		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_FINISHED, onAnimationFinished);
-		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_AFTER_FRAME, onAnimationAfterFrame);
 	}
 		
 	//
@@ -96,47 +94,12 @@ var UnitRenderingSystem = function (renderer) {
 		unitRendering.sprite.update();
 	}
 
-	// Refresh units layer canvas
-	var refreshUnitsLayer = function () {
-		m_renderer.layers[WorldLayers.LayerTypes.Units].clear();
-		for (var i = 0; i < self._entityFilter.entities.length; ++i) {
-			var entity = self._entityFilter.entities[i];
-
-			// This unit is not yet registered.
-			if (!entity.CTilePlaceableRendering)
-				continue;
-
-			// If unit was just placed, image might not have been loaded yet.
-			if (!entity.CTilePlaceableRendering.sprite.img)
-				continue;
-
-			if (entity.CTilePlaceableRendering.spriteVisible)
-				entity.CTilePlaceableRendering.sprite.update();
-		}
-	}
-	
-	
-	var onAnimationProgressed = function(event, params) {
-		if (params.entity.hasComponents(CUnit)) {
-			m_requiresRefresh = true;
-		}
-	};
-
 	var onAnimationFinished = function(event, params) {
 		if (!params.entity.hasComponents(UnitRenderingSystem.REQUIRED_COMPONENTS))
 			return;
 		
 		if (params.name == UnitRenderingSystem.MAIN_SPRITE)
 			params.entity.CAnimations.animators[UnitRenderingSystem.MAIN_SPRITE].pauseSequence('Idle');
-
-		onAnimationProgressed(event, params);
-	}
-	
-	var onAnimationAfterFrame = function(event) {
-		if (m_requiresRefresh) {
-			refreshUnitsLayer();
-			m_requiresRefresh = false;
-		}
 	}
 	
 	var onPlaceableRegistered = function(event, placeable) {
@@ -206,7 +169,7 @@ var UnitRenderingSystem = function (renderer) {
 		self._eworld.extract(GameWorld).iterateAllPlaceables(applyVisibilityFog);
 
 		// NOTE: All unit sprites must be updated/moved before refreshing.
-		refreshUnitsLayer();
+		self._eworld.trigger(RenderEvents.Layers.REFRESH_ALL);
 	}
 }
 

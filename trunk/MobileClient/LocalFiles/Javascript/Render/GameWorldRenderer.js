@@ -4,7 +4,7 @@
 //===============================================
 "use strict";
 
-var GameWorldRenderer = function (holderElement) {
+var GameWorldRenderer = function (holderElement, eworld) {
 	var self = this;
 	
 	console.assert(holderElement instanceof HTMLElement, "HTMLElement is required.");
@@ -22,13 +22,21 @@ var GameWorldRenderer = function (holderElement) {
 	
 	this.layers = [];
 	
-	for(var layerIndex in WorldLayers.LayerTypes) {
-		this.layers[WorldLayers.LayerTypes[layerIndex]] = 
-			this.scene.Layer(layerIndex, GameWorldRenderer.layersOptions[layerIndex]);
+	for(var layerName in WorldLayers.LayerTypes) {
+		this.layers[WorldLayers.LayerTypes[layerName]] = 
+			this.scene.Layer(layerName, GameWorldRenderer.layersOptions[layerName]);
 	}
 	
+
+	this.spriteTracker = new SpriteTracker(this.scene);
+	this.spriteTracker.spriteCreatedCallback = function (sprite) {
+		eworld.trigger(RenderEvents.Sprites.SPRITE_CREATED, sprite);
+	}
+	this.spriteTracker.spritesRemovedCallback = function (sprites) {
+		eworld.trigger(RenderEvents.Sprites.SPRITES_REMOVED, [sprites]);
+	}
 	
-	var plotContainerScroller = null;	
+	var plotContainerScroller = null;
 	
 	this.refresh = function () {
 		

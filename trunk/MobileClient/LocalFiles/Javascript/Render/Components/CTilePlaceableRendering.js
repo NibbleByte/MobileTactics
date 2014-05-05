@@ -2,7 +2,6 @@
 
 var CTilePlaceableRendering = function () {
 	this.skin = '';
-	this.spriteVisible = true;
 	this.sprite = null;
 };
 
@@ -15,9 +14,9 @@ ComponentsUtils.registerNonPersistent('CTilePlaceableRendering', CTilePlaceableR
 //
 
 CTilePlaceableRendering.prototype.hide = function () {
-	this.spriteVisible = false;
+	this.sprite.skipDrawing = true;		// Custom field!
 };
 
 CTilePlaceableRendering.prototype.show = function () {
-	this.spriteVisible = true;
+	this.sprite.skipDrawing = false;	// Custom field!
 };
