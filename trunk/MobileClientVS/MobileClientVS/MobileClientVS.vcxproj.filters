@@ -218,11 +218,11 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\ImageUtils\Colors.js">
       <Filter>Javascript\Render\ImageUtils</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\AnimationRenderUpdateSystem.js">
-      <Filter>Javascript\Render\Systems</Filter>
-    </None>
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\ImageUtils\SpriteTracker.js">
       <Filter>Javascript\Render\ImageUtils</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\LayersUpdateSystem.js">
+      <Filter>Javascript\Render\Systems</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
