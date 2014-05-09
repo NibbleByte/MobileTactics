@@ -69,19 +69,19 @@ CTileRendering.prototype.unHighlight = function () {
 };
 
 CTileRendering.prototype.showActionFog = function () {
-	$(this.spriteActionFog.dom).show();
+	this.spriteActionFog.skipDrawing = false;
 }
 
 CTileRendering.prototype.hideActionFog = function () {
-	$(this.spriteActionFog.dom).hide();
+	this.spriteActionFog.skipDrawing = true;
 }
 
 CTileRendering.prototype.showVisibilityFog = function () {
-	$(this.spriteVisibilityFog.dom).show();
+	this.spriteVisibilityFog.skipDrawing = false;
 }
 
 CTileRendering.prototype.hideVisibilityFog = function () {
-	$(this.spriteVisibilityFog.dom).hide();
+	this.spriteVisibilityFog.skipDrawing = true;
 }
 
 

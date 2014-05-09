@@ -167,9 +167,6 @@ var UnitRenderingSystem = function (renderer) {
 
 	var refreshFog = function (event) {
 		self._eworld.extract(GameWorld).iterateAllPlaceables(applyVisibilityFog);
-
-		// NOTE: All unit sprites must be updated/moved before refreshing.
-		self._eworld.trigger(RenderEvents.Layers.REFRESH_ALL);
 	}
 }
 

@@ -83,11 +83,9 @@ var TileRenderingSystem = function (m_renderer) {
 		// Setup sprites.
 		tile.CTileRendering.sprite = createTileSprite(spritePath, WorldLayers.LayerTypes.Terrain);
 		tile.CTileRendering.spriteHighlight = createTileSprite('', WorldLayers.LayerTypes.Highlights);
-		tile.CTileRendering.spriteActionFog = createTileSprite(TileRenderingSystem.FOG_SPRITE_PATH, WorldLayers.LayerTypes.ActionFog);
-		tile.CTileRendering.spriteVisibilityFog = createTileSprite(TileRenderingSystem.FOG_SPRITE_PATH, WorldLayers.LayerTypes.VisibilityFog);
+		tile.CTileRendering.spriteActionFog = createTileSprite(TileRenderingSystem.ACTION_FOG_SPRITE_PATH, WorldLayers.LayerTypes.ActionFog);
+		tile.CTileRendering.spriteVisibilityFog = createTileSprite(TileRenderingSystem.VISIBILITY_FOG_SPRITE_PATH, WorldLayers.LayerTypes.VisibilityFog);
 		
-		$(tile.CTileRendering.spriteActionFog.dom).addClass('tile_action_fog');
-		$(tile.CTileRendering.spriteVisibilityFog.dom).addClass('tile_visibility_fog');
 		tile.CTileRendering.hideActionFog();
 		
 		renderTile(tile);
@@ -145,7 +143,8 @@ var TileRenderingSystem = function (m_renderer) {
 }
 
 TileRenderingSystem.TILES_SPRITE_PATH = 'Assets/Render/Images/Tiles/{terrainType}.png';
-TileRenderingSystem.FOG_SPRITE_PATH = 'Assets/Render/Images/HexFog.png';
+TileRenderingSystem.ACTION_FOG_SPRITE_PATH = 'Assets/Render/Images/ActionHexFog.png';
+TileRenderingSystem.VISIBILITY_FOG_SPRITE_PATH = 'Assets/Render/Images/VisibilityHexFog.png';
 
 ECS.EntityManager.registerSystem('TileRenderingSystem', TileRenderingSystem);
 SystemsUtils.supplySubscriber(TileRenderingSystem);

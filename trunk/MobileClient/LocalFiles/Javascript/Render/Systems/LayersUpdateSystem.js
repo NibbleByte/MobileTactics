@@ -34,11 +34,36 @@ var LayersUpdateSystem = function (m_renderer) {
 
 		var sprites = m_renderer.spriteTracker.layerSprites[layer.name];
 		if (sprites) {
+
+			// Used to refresh the layer again, in case some sprites weren't still loaded.
+			var spriteToLoad = null;
+			var onloadOriginal = null;
+			var refreshOnLoad = function () {
+				// HACK: give one frame delay, so any other "onload" handlers can be executed correctly (placeables)
+				//		 and all sprites with the same image are refreshed.
+				setTimeout(function () {
+					self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes[layer.name]);
+
+					onloadOriginal.apply(sprite, arguments);
+				}, 0);
+			}
+
 			for(var i = 0; i < sprites.length; ++i) {
 				var sprite = sprites[i];
 
-				if (sprite.img && !sprite.skipDrawing) {
-					sprite.update();
+				if (sprite.imgLoaded) {
+					if (!sprite.skipDrawing) {
+						sprite.update();
+					}
+				} else {
+
+					// Set handler, when image loads to refresh layer.
+					// Set it only for the first met image (any unloaded image).
+					if (!spriteToLoad) {
+						spriteToLoad = sprite;
+						onloadOriginal = sprite.onload;
+						sprite.onload = refreshOnLoad;
+					}
 				}
 			}
 		}
@@ -50,7 +75,7 @@ var LayersUpdateSystem = function (m_renderer) {
 
 	var onRefreshAll = function (event) {
 		for(var i = 0; i < m_renderer.layers.length; ++i)
-		refreshLayer(m_renderer.layers[i]);
+			refreshLayer(m_renderer.layers[i]);
 	}
 
 	var onAnimationProgressed = function (event, params) {

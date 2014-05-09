@@ -54,6 +54,7 @@ var TileVisibilitySystem = function (m_world) {
 		}
 
 		self._eworld.trigger(GameplayEvents.Fog.REFRESH_FOG);
+		self._eworld.trigger(GameplayEvents.Fog.REFRESH_FOG_AFTER);
 	}
 
 	var visibilityCostQuery = function (tile) {
