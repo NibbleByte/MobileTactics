@@ -27,6 +27,7 @@ var GameplayEvents = {
 		},
 
 		Fog: {
-			REFRESH_FOG:		"gameplay.fog.refresh_fog"				// event
+			REFRESH_FOG:		"gameplay.fog.refresh_fog",				// event
+			REFRESH_FOG_AFTER:	"gameplay.fog.refresh_fog_after",		// event
 		},
 }

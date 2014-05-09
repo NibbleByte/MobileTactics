@@ -22,7 +22,7 @@ var ActionFogRenderingSystem = function (m_world) {
 	//	
 	var onActionsOffered = function (event, actions) {
 		
-		onActionsCleared(event);
+		hideAll();
 		
 		m_offeredActions = actions;
 		
@@ -58,9 +58,16 @@ var ActionFogRenderingSystem = function (m_world) {
 				tile.CTileRendering.showActionFog();
 			}
 		});
+
+		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.ActionFog);
 	}
 	
 	var onActionsCleared = function (event) {
+		hideAll();
+		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.ActionFog);
+	}
+
+	var hideAll = function () {
 		if (m_offeredActions != null) {
 			m_offeredActions = null;
 			

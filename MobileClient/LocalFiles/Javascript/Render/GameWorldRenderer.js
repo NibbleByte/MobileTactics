@@ -139,5 +139,15 @@ GameWorldRenderer.layersOptions = {
 	Units: {
 		useCanvas: true,
 		autoClear: false,
-	}
+	},
+
+	VisibilityFog: {
+		useCanvas: true,
+		autoClear: false,
+	},
+
+	ActionFog: {
+		useCanvas: true,
+		autoClear: false,
+	},
 }
