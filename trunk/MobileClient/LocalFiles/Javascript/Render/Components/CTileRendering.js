@@ -24,7 +24,7 @@ CTileRendering.prototype.CLASSES = {
 		TILE_SELECTED: 'tile_selected',
 }
 
-CTileRendering.SPRITES_PATH = 'Assets/Render/Images/TileHighlight/';
+CTileRendering.SPRITES_PATH = 'Assets/Render/Images/TileHighlight/{fileName}';
 CTileRendering.SPRITES_FILES = ['',
 							'hex_move.png',
 							'hex_attack.png'
@@ -58,14 +58,15 @@ CTileRendering.prototype.highlight = function (mode) {
 		return;
 	}
 	
-	$(this.spriteHighlight.dom).show();
+	this.spriteHighlight.skipDrawing = false;
 	
 	this.highlightMode = mode;
-	this.spriteHighlight.loadImg(CTileRendering.SPRITES_PATH + CTileRendering.SPRITES_FILES[this.highlightMode]);
+	this.spriteHighlight.loadImg(CTileRendering.SPRITES_PATH.replace(/{fileName}/g, CTileRendering.SPRITES_FILES[this.highlightMode]));
+	this.spriteHighlight.update();
 };
 
 CTileRendering.prototype.unHighlight = function () {
-	$(this.spriteHighlight.dom).hide();
+	this.spriteHighlight.skipDrawing = true;
 };
 
 CTileRendering.prototype.showActionFog = function () {
