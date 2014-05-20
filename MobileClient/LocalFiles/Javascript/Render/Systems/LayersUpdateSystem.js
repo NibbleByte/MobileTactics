@@ -53,6 +53,7 @@ var LayersUpdateSystem = function (m_renderer) {
 
 				if (sprite.imgLoaded) {
 					if (!sprite.skipDrawing) {
+						// TODO: introduce "depth" property of the sprite, in order to control the drawing order. Highlight layer for example.
 						sprite.update();
 					}
 				} else {

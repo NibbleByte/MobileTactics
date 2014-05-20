@@ -20,6 +20,21 @@ var TileRenderingSystem = function (m_renderer) {
 		
 		self._eworldSB.subscribe(EngineEvents.World.TILE_ADDED, onTileAdded);
 		self._eworldSB.subscribe(EngineEvents.World.TILE_REMOVING, onTileRemoved);
+
+		initializeHighlightSprites();
+	}
+
+	var initializeHighlightSprites = function () {
+
+		// Pre-initialize highlight sprites, or they won't show on first load.
+		// TODO: Move to a pre-caching system if available someday. Also maybe merge them in sprite sheet?
+		var highlightSprites = [];
+		for(var i = 0; i < CTileRendering.SPRITES_FILES.length; ++i) {
+			if (CTileRendering.SPRITES_FILES[i])	// First one is empty.
+				highlightSprites.push(CTileRendering.SPRITES_PATH.replace(/{fileName}/g, CTileRendering.SPRITES_FILES[i]));
+		}
+
+		m_renderer.scene.loadImages(highlightSprites);
 	}
 	
 	//

@@ -136,6 +136,11 @@ var GameWorldRenderer = function (holderElement, eworld) {
 }
 
 GameWorldRenderer.layersOptions = {
+	Highlights: {
+		useCanvas: true,
+		autoClear: false,
+	},
+
 	Units: {
 		useCanvas: true,
 		autoClear: false,
