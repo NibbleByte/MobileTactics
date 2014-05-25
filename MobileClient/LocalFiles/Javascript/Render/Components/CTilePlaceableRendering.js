@@ -20,3 +20,7 @@ CTilePlaceableRendering.prototype.hide = function () {
 CTilePlaceableRendering.prototype.show = function () {
 	this.sprite.skipDrawing = false;	// Custom field!
 };
+
+CTilePlaceableRendering.prototype.detach = function () {
+	this.sprite.remove();
+};

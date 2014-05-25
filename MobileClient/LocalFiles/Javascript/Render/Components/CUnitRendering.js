@@ -21,3 +21,8 @@ CUnitRendering.prototype.hide = function () {
 CUnitRendering.prototype.show = function () {
 	$(this.sprite.dom).show();
 };
+
+CUnitRendering.prototype.detach = function () {
+	this.$text.detach();
+	this.sprite.remove();
+};
