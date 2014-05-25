@@ -7,9 +7,7 @@
 var UnitsFactoryClient = new function () {
 	
 	var applyClient = function (event, unit) {
-		if (unit.CUnit.name == 'TeslaTrooper') {
-			unit.addComponent(CAnimations);
-		}
+		// Fill custom client logic.
 	}
 	
 	var m_factorySB = UnitsFactory.createSubscriber();

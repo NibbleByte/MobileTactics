@@ -34,7 +34,7 @@ var TileRenderingSystem = function (m_renderer) {
 				highlightSprites.push(CTileRendering.SPRITES_PATH.replace(/{fileName}/g, CTileRendering.SPRITES_FILES[i]));
 		}
 
-		m_renderer.scene.loadImages(highlightSprites);
+		m_renderer.loadImages(highlightSprites);
 	}
 	
 	//

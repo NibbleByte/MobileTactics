@@ -63,7 +63,35 @@ var GameWorldRenderer = function (holderElement, eworld) {
 			plotContainerScroller.refresh();
 		
 	}
+
 	
+
+	// Builds animator if possible.
+	this.buildAnimator = function (animationName, sprite) {
+		if (SpriteAnimations[animationName] == undefined)
+			return null;
+
+		var animData = SpriteAnimations[animationName];
+		return new Animator(animData, sprite, self.scene);
+	}
+
+	// Enhancement of Sprite.js functionality - loadImages. It adds parameters to the "OnImagesLoaded" callback.
+	// resourcePaths - can be single string or array of strings.
+	this.loadImages = function (resourcePaths, onLoadedCallback, userParam1, userParam2, userParam3, userParam4) {
+		var images = resourcePaths;
+
+		if (!Utils.isArray(resourcePaths))
+			var images = [resourcePaths];
+
+		self.scene.loadImages(images, function () {
+			if (onLoadedCallback)
+				onLoadedCallback(resourcePaths, userParam1, userParam2, userParam3, userParam4);
+		});
+	}
+
+
+
+
 	this.getRenderedTilePosition = function (row, column) {
 		
 		// http://www.redblobgames.com/grids/hexagons/#hex-to-pixel
@@ -120,6 +148,8 @@ var GameWorldRenderer = function (holderElement, eworld) {
 			column: cubeY
 		}
 	}
+
+
 	
 	//
 	// Initialize
