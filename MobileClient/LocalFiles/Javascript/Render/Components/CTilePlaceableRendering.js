@@ -21,6 +21,11 @@ CTilePlaceableRendering.prototype.show = function () {
 	this.sprite.skipDrawing = false;	// Custom field!
 };
 
+CTilePlaceableRendering.prototype.move = function (x, y) {
+	this.sprite.position(x, y);
+	this.sprite.update();
+}
+
 CTilePlaceableRendering.prototype.detach = function () {
 	this.sprite.remove();
 };

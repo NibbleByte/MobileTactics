@@ -82,16 +82,14 @@ var UnitRenderingSystem = function (renderer) {
 		var unitRendering = placeable.CUnitRendering;
 		
 		if (placeableRendering.sprite.w) {
-			placeableRendering.sprite.position(
+			placeableRendering.move(
 					coords.x - placeableRendering.sprite.w / 2,
 					coords.y - placeableRendering.sprite.h / 2
 					);
-			placeableRendering.sprite.update();
 		}
 		
 		// Position the health at the bottom right corner.
-		unitRendering.sprite.position(coords.x, coords.y);
-		unitRendering.sprite.update();
+		unitRendering.move(coords.x, coords.y);
 	}
 
 	var onAnimationFinished = function(event, params) {

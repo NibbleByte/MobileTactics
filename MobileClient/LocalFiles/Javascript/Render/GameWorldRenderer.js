@@ -24,7 +24,7 @@ var GameWorldRenderer = function (holderElement, eworld) {
 	
 	for(var layerName in WorldLayers.LayerTypes) {
 		this.layers[WorldLayers.LayerTypes[layerName]] = 
-			this.scene.Layer(layerName, GameWorldRenderer.layersOptions[layerName]);
+			this.scene.Layer(layerName, WorldLayers.layersOptions[layerName]);
 	}
 	
 
@@ -133,26 +133,4 @@ var GameWorldRenderer = function (holderElement, eworld) {
 			bounce: false,
 		});
 	}, 1);
-}
-
-GameWorldRenderer.layersOptions = {
-	Highlights: {
-		useCanvas: true,
-		autoClear: false,
-	},
-
-	Units: {
-		useCanvas: true,
-		autoClear: false,
-	},
-
-	VisibilityFog: {
-		useCanvas: true,
-		autoClear: false,
-	},
-
-	ActionFog: {
-		useCanvas: true,
-		autoClear: false,
-	},
 }
