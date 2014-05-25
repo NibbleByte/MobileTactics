@@ -81,7 +81,7 @@ var TileRenderingSystem = function (m_renderer) {
 	
 	var createTileSprite = function (resourcePath, layerType) {
 		
-		var sprite = m_renderer.layers[layerType].Sprite(resourcePath);
+		var sprite = m_renderer.createSprite(layerType, resourcePath);
 		sprite.size(GTile.TILE_WIDTH, GTile.TILE_HEIGHT);
 		$(sprite.dom).addClass('tile');
 		

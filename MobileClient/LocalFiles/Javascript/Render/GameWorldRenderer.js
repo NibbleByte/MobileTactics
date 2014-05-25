@@ -66,6 +66,10 @@ var GameWorldRenderer = function (holderElement, eworld) {
 
 	
 
+	this.createSprite = function (layer, resourcePath, spriteOptions ) {
+		return self.layers[layer].Sprite(resourcePath, spriteOptions);
+	}
+
 	// Builds animator if possible.
 	this.buildAnimator = function (animationName, sprite) {
 		if (SpriteAnimations[animationName] == undefined)
