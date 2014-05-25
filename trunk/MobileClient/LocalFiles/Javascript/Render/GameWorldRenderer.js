@@ -66,8 +66,35 @@ var GameWorldRenderer = function (holderElement, eworld) {
 
 	
 
-	this.createSprite = function (layer, resourcePath, spriteOptions ) {
-		return self.layers[layer].Sprite(resourcePath, spriteOptions);
+	// Enhancement of Sprite.js functionality - Sprite.loadImg. It adds parameters to the UN-DOCUMENTED "onload" callback.
+	this.createSprite = function (layer, resourcePath, onLoadedCallback, userParam1, userParam2, userParam3, userParam4) {
+		var sprite = self.layers[layer].Sprite();
+		
+		if (resourcePath) {
+			return self.loadSprite(sprite, resourcePath, onLoadedCallback, userParam1, userParam2, userParam3, userParam4);
+		} else {
+			return sprite;
+		}
+	}
+
+	// Enhancement of Sprite.js functionality - Sprite.loadImg. It adds parameters to the UN-DOCUMENTED "onload" callback.
+	this.loadSprite = function (sprite, resourcePath, onLoadedCallback, userParam1, userParam2, userParam3, userParam4) {
+
+		if (onLoadedCallback) {
+
+			var spriteCallback = function () {
+				onLoadedCallback(sprite, userParam1, userParam2, userParam3, userParam4);
+				sprite.onload = onloadOriginal;
+				sprite.onload.apply(sprite, arguments);
+			}
+
+			var onloadOriginal = sprite.onload;
+			sprite.onload = spriteCallback;
+		}
+
+		sprite.loadImg(resourcePath);
+
+		return sprite;
 	}
 
 	// Builds animator if possible.
