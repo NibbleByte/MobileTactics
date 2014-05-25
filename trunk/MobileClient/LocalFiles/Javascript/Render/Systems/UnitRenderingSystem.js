@@ -142,9 +142,8 @@ var UnitRenderingSystem = function (renderer) {
 			placeable.CAnimations.animators[UnitRenderingSystem.MAIN_SPRITE].destroy();
 		}
 		
-		placeable.CUnitRendering.$text.detach();
-		placeable.CUnitRendering.sprite.remove();
-		placeable.CTilePlaceableRendering.sprite.remove();
+		placeable.CUnitRendering.detach();
+		placeable.CTilePlaceableRendering.detach();
 	}
 	
 	var onUnitChanged = function(event, unit) {
