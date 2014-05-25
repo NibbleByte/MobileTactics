@@ -67,4 +67,4 @@ var TileVisibilitySystem = function (m_world) {
 };
 
 ECS.EntityManager.registerSystem('TileVisibilitySystem', TileVisibilitySystem);
-SystemsUtils.supplyComponentFilter(TileVisibilitySystem, [CTilePlaceable]);
+SystemsUtils.supplySubscriber(TileVisibilitySystem);

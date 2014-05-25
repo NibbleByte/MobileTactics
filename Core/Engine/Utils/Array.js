@@ -6,7 +6,8 @@
 
 Array.prototype.remove = function(value) {
 	var index = this.indexOf(value);
-	this.splice(index, 1);
+	if (index > -1)
+		this.splice(index, 1);
 };
 
 Array.prototype.removeAt = function(index) {

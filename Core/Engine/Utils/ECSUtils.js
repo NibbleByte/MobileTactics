@@ -115,11 +115,10 @@ var SystemsUtils = {
 		systemClass.prototype.onRemoved = this._onRemovedSubscriber;
 	},
 	
-	supplyComponentFilter: function (systemClass, filterComponents) {
+	supplyComponentFilter: function (systemClass, filterComponentsOrPredicate) {
 		console.assert(ECS.EntityManager.isSystemClass(systemClass));
-		console.assert(Utils.isArray(filterComponents));
 		
-		systemClass.prototype._filterComponents = filterComponents;
+		systemClass.prototype._filterComponents = filterComponentsOrPredicate;
 		systemClass.prototype.onAdded = this._onAddedComponentFilter;
 		systemClass.prototype.onRemoved = this._onRemovedComponentFilter;
 	},
@@ -160,4 +159,6 @@ ECS.EntityWorld.prototype.store = function (classType, value) {
 	}
 	
 	this.blackboard[classType.BLACKBOARD_NAME] = value;
+
+	return value;
 };

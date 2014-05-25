@@ -19,7 +19,7 @@ var TileRenderingSystem = function (m_renderer) {
 		addCurrentTiles();
 		
 		self._eworldSB.subscribe(EngineEvents.World.TILE_ADDED, onTileAdded);
-		self._eworldSB.subscribe(EngineEvents.World.TILE_REMOVING, onTileRemoved);
+		self._eworldSB.subscribe(EngineEvents.World.TILE_REMOVING, onTileRemoving);
 
 		initializeHighlightSprites();
 	}
@@ -122,7 +122,7 @@ var TileRenderingSystem = function (m_renderer) {
 			m_renderer.refresh();
 	}
 	
-	var onTileRemoved = function(event, tile) {
+	var onTileRemoving = function(event, tile) {
 		
 		tile.CTileRendering.detach();
 		

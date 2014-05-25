@@ -11,6 +11,8 @@ var Enums = {
 			enumObj[i] = counter;
 			counter++;
 		}
+
+		return enumObj;
 	},
 	
 	count: function (enumClass) {
