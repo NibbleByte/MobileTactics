@@ -8,22 +8,31 @@ var ECS = ECS || {};
 
 // Keeps filtered collection based on the desired component types.
 // componentFilterClasses should be an array of component classes.
-ECS.EntityComponentFilter = function (world, componentFilterClasses) {
+ECS.EntityComponentFilter = function (world, componentFilterClassesOrPredicate) {
 	var self = this;
+
+	console.assert(Utils.isArray(componentFilterClassesOrPredicate) || Utils.isFunction(componentFilterClassesOrPredicate));
 	
 	// Filtered entities.
 	this.entities = [];
+
+	// Notifications (will be called on adding/removing entity from the filtered collection)
+	this.onEntityAddedHandler = null;
+	this.onEntityRemovedHandler = null;
 	
 	// Should call this when not needed anymore.
 	this.destroy = function () {
 		m_worldSB.unsubscribeAll();
 	}
 	
-	// Check if this entity has the needed components.
+	// Check if this entity has the needed components (or predicate says true).
 	var isInterested = function (entity) {
+		if (Utils.isFunction(componentFilterClassesOrPredicate))
+			return componentFilterClassesOrPredicate(entity);
+
 		var hasComponents = true;
-		for(var j = 0; j < componentFilterClasses.length; ++j) {
-			if (!entity[componentFilterClasses[j].prototype._COMP_NAME]) {
+		for(var j = 0; j < componentFilterClassesOrPredicate.length; ++j) {
+			if (!entity[componentFilterClassesOrPredicate[j].prototype._COMP_NAME]) {
 				hasComponents = false;
 				break;
 			}
@@ -38,8 +47,12 @@ ECS.EntityComponentFilter = function (world, componentFilterClasses) {
 	// Entities
 	//
 	var onEntityAdded = function (event, entity) {
-		if (isInterested(entity))
+		if (isInterested(entity)) {
 			self.entities.push(entity);
+
+			if (self.onEntityAddedHandler)
+				self.onEntityAddedHandler(entity);
+		}
 	}
 	
 	
@@ -50,8 +63,15 @@ ECS.EntityComponentFilter = function (world, componentFilterClasses) {
 		
 		if (interested && foundIndex == -1) {
 			self.entities.push(entity);
+
+			if (self.onEntityAddedHandler)
+				self.onEntityAddedHandler(entity);
+
 		} else if (!interested && foundIndex != -1) {
 			self.entities.splice(foundIndex, 1);
+
+			if (self.onEntityRemovedHandler)
+				self.onEntityRemovedHandler(entity);
 		}
 	}
 	
@@ -60,6 +80,9 @@ ECS.EntityComponentFilter = function (world, componentFilterClasses) {
 		var foundIndex = self.entities.indexOf(entity);
 		if (foundIndex > -1) {
 			self.entities.splice(foundIndex, 1);
+
+			if (self.onEntityRemovedHandler)
+				self.onEntityRemovedHandler(entity);
 		}
 	}
 	

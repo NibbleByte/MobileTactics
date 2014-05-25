@@ -69,6 +69,9 @@ $(function () {
 	m_playersData.stopPlaying(m_playersData.getPlayer(2));
 	m_playersData.stopPlaying(m_playersData.getPlayer(3));
 	
+
+	m_eworld.addSystem(m_eworld.store(UtilsSystem, new UtilsSystem()));
+
 	//
 	// World systems
 	//

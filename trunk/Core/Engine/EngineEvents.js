@@ -29,5 +29,9 @@ var EngineEvents = {
 		
 		Serialization: {
 			ENTITY_DESERIALIZED:	"engine.serialization.deserialized",	// event, entity
-		}
+		},
+
+		Utils: {
+			INVALIDATE:		"engine.utils.invalidate"	// event, object
+		},
 }

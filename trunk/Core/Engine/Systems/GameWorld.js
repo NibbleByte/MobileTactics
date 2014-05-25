@@ -329,8 +329,6 @@ var GameWorld = function () {
 		} else if (entity.hasComponents(CTilePlaceable)) {
 			unregisterPlaceable(entity);
 		}
-
-		Utils.invalidate(entity);
 	}
 	
 	
