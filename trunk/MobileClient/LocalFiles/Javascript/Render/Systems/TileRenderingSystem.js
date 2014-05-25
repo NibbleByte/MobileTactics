@@ -48,9 +48,7 @@ var TileRenderingSystem = function (m_renderer) {
 		
 		var coords = m_renderer.getRenderedTilePosition(row, column);
 		
-		var rendering = tile.CTileRendering;
-		
-		rendering.move(coords.x, coords.y);
+		tile.CTileRendering.move(coords.x, coords.y);
 	}
 	
 	var onPlotClicked = function (event) {
@@ -81,8 +79,8 @@ var TileRenderingSystem = function (m_renderer) {
 	
 	var createTileSprite = function (resourcePath, layerType) {
 		
-		var sprite = m_renderer.createSprite(layerType, resourcePath);
-		sprite.size(GTile.TILE_WIDTH, GTile.TILE_HEIGHT);
+		var sprite = m_renderer.createSprite(layerType, resourcePath)
+		.size(GTile.TILE_WIDTH, GTile.TILE_HEIGHT);
 		$(sprite.dom).addClass('tile');
 		
 		return sprite;
