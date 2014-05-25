@@ -110,10 +110,10 @@ var UnitRenderingSystem = function (renderer) {
 		placeableRendering.skin = placeable.CUnit.name;
 		
 		// Placeable
-		placeableRendering.sprite = m_renderer.layers[WorldLayers.LayerTypes.Units].Sprite();
+		placeableRendering.sprite = m_renderer.createSprite(WorldLayers.LayerTypes.Units);
 		
 		// Unit
-		unitRendering.sprite = m_renderer.layers[WorldLayers.LayerTypes.Statistics].Sprite();
+		unitRendering.sprite = m_renderer.createSprite(WorldLayers.LayerTypes.Statistics);
 		unitRendering.$text.appendTo(unitRendering.sprite.dom);
 		unitRendering.$text.text(placeable.CUnit.health);
 		
