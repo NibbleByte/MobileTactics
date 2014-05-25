@@ -22,6 +22,11 @@ CUnitRendering.prototype.show = function () {
 	$(this.sprite.dom).show();
 };
 
+CUnitRendering.prototype.move = function (x, y) {
+	this.sprite.position(x, y);
+	this.sprite.update();
+}
+
 CUnitRendering.prototype.detach = function () {
 	this.$text.detach();
 	this.sprite.remove();
