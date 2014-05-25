@@ -53,15 +53,14 @@ var UnitRenderingSystem = function (renderer) {
 			resourcePath = spritePath + placeableRendering.skin + '.png';
 		}
 
-		m_renderer.loadImages(resourcePath, onResourcesLoaded, placeable, placeableRendering);
+		m_renderer.loadSprite(placeableRendering.sprite, resourcePath, onResourcesLoaded, placeable);
 	}
 	
 
 	// Apply loaded resources.
-	var onResourcesLoaded = function (resourcePath, placeable, placeableRendering) {
+	var onResourcesLoaded = function (sprite, placeable) {
 
-		placeableRendering.sprite.loadImg(resourcePath, (placeable.CAnimations) ? false : true);
-		SpriteColorizeManager.colorizeSprite(placeableRendering.sprite, placeable.CPlayerData.player.colorHue);
+		SpriteColorizeManager.colorizeSprite(sprite, placeable.CPlayerData.player.colorHue);
 
 		// Check if unit is registered, else it will be moved afterwards.
 		if (placeable.CTilePlaceable.tile)
@@ -84,6 +83,11 @@ var UnitRenderingSystem = function (renderer) {
 					coords.x - placeableRendering.sprite.w / 2,
 					coords.y - placeableRendering.sprite.h / 2
 					);
+		} else {
+			// NOTE: Animated units automatically have sizes, while static ones need to be loaded!
+			//		 This means they still cannot have a valid position.
+			//		 This is why we hide them way off-screen, or they will pop at 0,0 once loaded.
+			placeableRendering.move(-9999, -9999);
 		}
 		
 		// Position the health at the bottom right corner.
