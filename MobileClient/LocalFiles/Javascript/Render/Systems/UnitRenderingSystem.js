@@ -38,38 +38,36 @@ var UnitRenderingSystem = function (renderer) {
 		
 		var spritePath = UnitRenderingSystem.SPRITES_PATH;
 		var resourcePath;
-
-		// Handler to apply loaded resources.
-		var resourcesLoadedHandler = function () {
-			placeableRendering.sprite.loadImg(resourcePath, (placeable.CAnimations) ? false : true);
-			SpriteColorizeManager.colorizeSprite(placeableRendering.sprite, placeable.CPlayerData.player.colorHue);
-
-			// Check if unit is registered, else it will be moved afterwards.
-			if (placeable.CTilePlaceable.tile)
-				renderUnit(placeable);
-		}
-
+		var animator = m_renderer.buildAnimator(placeableRendering.skin, placeableRendering.sprite);
 		
 		// Get information depending if has animations or is still image.
-		if (placeable.CAnimations) {
-			var animData = SpriteAnimations[placeableRendering.skin];
-			var animator = new Animator(animData, placeableRendering.sprite, m_renderer.scene);
+		if (animator) {
+			var animations = placeable.addComponentSafe(CAnimations);
 
 			resourcePath = spritePath + animator.resourcePath;
 			
-			placeable.CAnimations.animators[UnitRenderingSystem.MAIN_SPRITE] = animator;
+			animations.animators[UnitRenderingSystem.MAIN_SPRITE] = animator;
 			animator.pauseSequence('Idle');
-			m_renderer.scene.loadImages([resourcePath], resourcesLoadedHandler);
 			
 		} else {
-			
 			resourcePath = spritePath + placeableRendering.skin + '.png';
-			
-			// Load asset and apply it when done.
-			m_renderer.scene.loadImages([resourcePath], resourcesLoadedHandler);
 		}
+
+		m_renderer.loadImages(resourcePath, onResourcesLoaded, placeable, placeableRendering);
 	}
 	
+
+	// Apply loaded resources.
+	var onResourcesLoaded = function (resourcePath, placeable, placeableRendering) {
+
+		placeableRendering.sprite.loadImg(resourcePath, (placeable.CAnimations) ? false : true);
+		SpriteColorizeManager.colorizeSprite(placeableRendering.sprite, placeable.CPlayerData.player.colorHue);
+
+		// Check if unit is registered, else it will be moved afterwards.
+		if (placeable.CTilePlaceable.tile)
+			renderUnit(placeable);
+	}
+
 	
 	var renderUnit = function (placeable) {
 		
