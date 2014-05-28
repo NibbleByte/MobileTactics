@@ -24,6 +24,14 @@ var LayersUpdateSystem = function (m_renderer) {
 	//
 	var m_layersDirty = {};
 
+	var refreshOnLoad = function (sprite) {
+		// HACK: give one frame delay, so any other "onload" handlers can be executed correctly (placeables)
+		//		 and all sprites with the same image are refreshed.
+		setTimeout(function () {
+			self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes[sprite.layer.name]);
+		}, 0);
+	}
+
 	var refreshLayer = function (layer) {
 
 		// Needed only when using canvas
@@ -37,16 +45,6 @@ var LayersUpdateSystem = function (m_renderer) {
 
 			// Used to refresh the layer again, in case some sprites weren't still loaded.
 			var spriteToLoad = null;
-			var onloadOriginal = null;
-			var refreshOnLoad = function () {
-				// HACK: give one frame delay, so any other "onload" handlers can be executed correctly (placeables)
-				//		 and all sprites with the same image are refreshed.
-				setTimeout(function () {
-					self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes[layer.name]);
-
-					onloadOriginal.apply(sprite, arguments);
-				}, 0);
-			}
 
 			for(var i = 0; i < sprites.length; ++i) {
 				var sprite = sprites[i];
@@ -61,9 +59,7 @@ var LayersUpdateSystem = function (m_renderer) {
 					// Set handler, when image loads to refresh layer.
 					// Set it only for the first met image (any unloaded image).
 					if (!spriteToLoad) {
-						spriteToLoad = sprite;
-						onloadOriginal = sprite.onload;
-						sprite.onload = refreshOnLoad;
+						sprite.addOnLoadHandler(refreshOnLoad);
 					}
 				}
 			}

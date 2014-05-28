@@ -33,23 +33,73 @@ ECS.Entity.prototype.addComponent = function (componentClass) {
 	this[componentName] = component;
 	
 	if (this._entityWorld)
-		this._entityWorld.trigger(ECS.EntityWorld.Events.ENTITY_REFRESH, entity);
+		this._entityWorld.trigger(ECS.EntityWorld.Events.ENTITY_REFRESH, this);
+	
+	return component;
+}
+
+// First checks if the component is already available and returns it. If not adds it.
+// Else creates it and returns the new component.
+// All systems will be notified for this.
+ECS.Entity.prototype.addComponentSafe = function (componentClass) {
+
+	var componentName = componentClass.prototype._COMP_NAME;
+
+	var component = this[componentName];
+
+	if (component == undefined)
+		component = this.addComponent(componentClass);
 	
 	return component;
 }
 
 // Remove single component from this entity (by type).
+// Will call special destroy() method of the component if available.
 // All systems will be notified for this.
 ECS.Entity.prototype.removeComponent = function (componentClass) {
 	
 	var componentName = componentClass.prototype._COMP_NAME;
+	var component = this[componentName];
 	
-	console.assert(componentName && this[componentName]);
-	
+	console.assert(component);
+
+	// Cache this to graveyard
+	if (this._entityWorld) {
+		var graveyard = this._entityWorld.graveyard;
+		var dummy = {};
+		dummy[componentName] = component;
+		graveyard.removedComponents.push(dummy);
+		graveyard.removedComponentsFrom.push(this);
+	}
+
+	// Remove component before event in order to detect properly that components are missing.
 	delete this[componentName];
 	
-	if (this._entityWorld)
-		this._entityWorld.trigger(ECS.EntityWorld.Events.ENTITY_REFRESH, entity);
+	if (this._entityWorld) {
+		this._entityWorld.trigger(ECS.EntityWorld.Events.ENTITY_REFRESH, this);
+
+		// Pop the entity/components from the graveyard, not needed anymore.
+		console.assert(graveyard.removedComponents.pop() == dummy)
+		console.assert(graveyard.removedComponentsFrom.pop() == this);
+	}
+	
+	// Call destructor after destroyed.
+	// NOTE: This might be a problem with merged components... unless merging their destructros as well.
+	if (component.destroy) {
+		component.destroy();
+	}
+}
+
+// First checks if the component is available, then remove it if so.
+// Will call special destroy() method of the component if available.
+// All systems will be notified for this.
+ECS.Entity.prototype.removeComponentSafe = function (componentClass) {
+	
+	var componentName = componentClass.prototype._COMP_NAME;
+
+	if (this[componentName]) {
+		this.removeComponent(componentClass);
+	}
 }
 
 // Get the world this entity is managed by.
@@ -58,10 +108,46 @@ ECS.Entity.prototype.getEntityWorld = function () {
 }
 
 // Removes the entity from the world.
+// Will call special destroy() method of the components if available.
 // All systems will be notified for this.
 ECS.Entity.prototype.destroy = function () {
+
 	if (this._entityWorld) {
+		var graveyard = this._entityWorld.graveyard;
+		var dummy = {};
+
+		// Cache all components to graveyard
+		for(var field in this) {
+			if (!this[field])
+				continue;
+
+			if (ECS.EntityManager.isComponent(this[field])) {
+				dummy[field] = this[field];
+			}
+		}
+
+		graveyard.removedComponents.push(dummy);
+		graveyard.removedComponentsFrom.push(this);
+		graveyard.destroyedEntity.push(this);
+
 		this._entityWorld.removeManagedEntity(this);
+
+		// Pop the entity/components from the graveyard, not needed anymore.
+		console.assert(graveyard.removedComponents.pop() == dummy)
+		console.assert(graveyard.removedComponentsFrom.pop() == this);
+		console.assert(graveyard.destroyedEntity.pop() == this);
+	}
+
+	// Call destructor after destroyed (so in ENTITY_REMOVED event can have last access to components).
+	// NOTE: This might be a problem with merged components... unless merging their destructros as well.
+	for(var field in this) {
+		if (!this[field])
+			continue;
+
+		if (this[field].destroy)
+			this[field].destroy();
+
+		delete this[field];
 	}
 }
 

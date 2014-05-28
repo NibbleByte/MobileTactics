@@ -19,6 +19,10 @@ ECS.EntityComponentFilter = function (world, componentFilterClassesOrPredicate) 
 	// Notifications (will be called on adding/removing entity from the filtered collection)
 	this.onEntityAddedHandler = null;
 	this.onEntityRemovedHandler = null;
+
+	this.addRefreshEvent = function (eventName) {
+		m_worldSB.subscribe(eventName, 	onEntityRefresh);
+	}
 	
 	// Should call this when not needed anymore.
 	this.destroy = function () {
@@ -47,7 +51,9 @@ ECS.EntityComponentFilter = function (world, componentFilterClassesOrPredicate) 
 	// Entities
 	//
 	var onEntityAdded = function (event, entity) {
-		if (isInterested(entity)) {
+		// NOTE: Recursively it is possible first to be called refresh, before add event.
+		// This is why we need to check if not already in the collection.
+		if (isInterested(entity) && self.entities.indexOf(entity) == -1) {
 			self.entities.push(entity);
 
 			if (self.onEntityAddedHandler)

@@ -14,6 +14,10 @@ Array.prototype.removeAt = function(index) {
 	this.splice(index, 1);
 };
 
+Array.prototype.contains = function (val) {
+	return this.indexOf(val) != -1;
+}
+
 Array.prototype.clear = function() {
 	var len = this.length;
 	for(var i = 0; i < len; i++) {

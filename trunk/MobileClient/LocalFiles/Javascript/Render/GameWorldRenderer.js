@@ -82,14 +82,9 @@ var GameWorldRenderer = function (holderElement, eworld) {
 
 		if (onLoadedCallback) {
 
-			var spriteCallback = function () {
+			sprite.addOnLoadHandler(function () {
 				onLoadedCallback(sprite, userParam1, userParam2, userParam3, userParam4);
-				sprite.onload = onloadOriginal;
-				sprite.onload.apply(sprite, arguments);
-			}
-
-			var onloadOriginal = sprite.onload;
-			sprite.onload = spriteCallback;
+			});
 		}
 
 		sprite.loadImg(resourcePath);
@@ -194,4 +189,24 @@ var GameWorldRenderer = function (holderElement, eworld) {
 			bounce: false,
 		});
 	}, 1);
+}
+
+
+//
+// Allow API for easy using multiple onload handlers.
+//
+sjs.Sprite.prototype.addOnLoadHandler = function (handler) {
+	this.__onloadHandlers = this.__onloadHandlers || [];
+
+	this.__onloadHandlers.push(handler);
+}
+
+sjs.Sprite.prototype.onload = function () {
+	if (this.__onloadHandlers) {
+		for(var i = 0; i < this.__onloadHandlers.length; ++i) {
+			this.__onloadHandlers[i](this);
+		}
+	}
+
+	delete this.__onloadHandlers;
 }

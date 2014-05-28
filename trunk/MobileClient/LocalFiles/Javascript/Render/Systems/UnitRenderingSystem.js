@@ -46,7 +46,7 @@ var UnitRenderingSystem = function (renderer) {
 
 			resourcePath = spritePath + animator.resourcePath;
 			
-			animations.animators[UnitRenderingSystem.MAIN_SPRITE] = animator;
+			animations.add(UnitRenderingSystem.MAIN_SPRITE, animator);
 			animator.pauseSequence('Idle');
 			
 		} else {
@@ -137,9 +137,8 @@ var UnitRenderingSystem = function (renderer) {
 		if (!placeable.hasComponents(UnitRenderingSystem.REQUIRED_COMPONENTS))
 			return;
 
-		
 		if (placeable.CAnimations) {
-			placeable.CAnimations.animators[UnitRenderingSystem.MAIN_SPRITE].destroy();
+			placeable.CAnimations.remove(UnitRenderingSystem.MAIN_SPRITE);
 		}
 		
 		placeable.CUnitRendering.detach();
