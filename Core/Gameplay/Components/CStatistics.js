@@ -1,13 +1,13 @@
 "use strict";
 
-var CStatistics = function () {
+var CStatistics = function CStatistics() {
 	this.baseStatistics = null;
 	this.statistics = null;
 	
 	this.terrainCost = null;
 };
 
-ComponentsUtils.registerPersistent('CStatistics', CStatistics);
+ComponentsUtils.registerPersistent(CStatistics);
 
 //
 //Short-cuts

@@ -1,6 +1,6 @@
 "use strict";
 
-var CTileRendering = function () {
+var CTileRendering = function CTileRendering() {
 	this.sprite = null;
 	this.spriteHighlight = null;
 	this.spriteActionFog = null;
@@ -9,7 +9,7 @@ var CTileRendering = function () {
 	this.highlightMode = CTileRendering.HighlightType.None;
 };
 
-ComponentsUtils.registerNonPersistent('CTileRendering', CTileRendering);
+ComponentsUtils.registerNonPersistent(CTileRendering);
 
 CTileRendering.HighlightType = {
 		None: 0,

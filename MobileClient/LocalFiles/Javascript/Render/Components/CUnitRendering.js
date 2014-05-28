@@ -1,12 +1,12 @@
 "use strict";
 
-var CUnitRendering = function () {
+var CUnitRendering = function CUnitRendering() {
 	
 	this.sprite = null;
 	this.$text = $('<span class="unit_health" />');
 };
 
-ComponentsUtils.registerNonPersistent('CUnitRendering', CUnitRendering);
+ComponentsUtils.registerNonPersistent(CUnitRendering);
 
 
 

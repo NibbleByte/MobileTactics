@@ -6,13 +6,13 @@
 "use strict";
 
 var ComponentsUtils = {
-	registerPersistent: function (name, classType) {
-		ECS.EntityManager.registerComponent(name, classType);
-		Serialization.registerClass(classType, name);
+	registerPersistent: function (classType) {
+		ECS.EntityManager.registerComponent(classType.name, classType);
+		Serialization.registerClass(classType, classType.name);
 	},
 	
-	registerNonPersistent: function (name, classType) {
-		ECS.EntityManager.registerComponent(name, classType);
+	registerNonPersistent: function (classType) {
+		ECS.EntityManager.registerComponent(classType.name, classType);
 		Serialization.excludeClass(classType);
 	}
 };

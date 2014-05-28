@@ -1,10 +1,10 @@
 "use strict";
 
-var CAnimations = function CAnimations () {	
+var CAnimations = function CAnimations() {	
 	this.animators = {};	
 };
 
-ComponentsUtils.registerNonPersistent('CAnimations', CAnimations);
+ComponentsUtils.registerNonPersistent(CAnimations);
 
 CAnimations.prototype.destroy = function () {
 	for (var name in this.animators) {
