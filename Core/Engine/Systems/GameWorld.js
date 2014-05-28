@@ -190,7 +190,7 @@ var GameWorld = function () {
 		
 		m_tiles[row][column] = tile;
 		
-		self._eworld.trigger(EngineEvents.World.TILE_ADDED, tile);
+		self._eworld.triggerAsync(EngineEvents.World.TILE_ADDED, tile);
 		
 		// Resize grid
 		if (m_rows - 1 < row) {

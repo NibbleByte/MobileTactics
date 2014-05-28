@@ -20,6 +20,15 @@ ECS.EntityWorld = function () {
 	
 	// Blackboard map (global data for the world).
 	this.blackboard = {};
+
+	// Entities/components graveyard, where currently removed entities/components can be found.
+	// Supports recursive removing (the reason it uses arrays).
+	this.graveyard = {
+		removedComponents: [],	// Useful for un-initializing removed components on ENTITY_REFRESH event, as it doesn't provide component difference.
+		removedComponentsFrom: [],	// To whom does those components belong to.
+		removedEntity: [],		// Currently removed (unmanaged)/destroyed entity.
+		destroyedEntity: [],	// Currently destroyed entity.
+	}
 	
 	//
 	// Entities
@@ -64,8 +73,12 @@ ECS.EntityWorld = function () {
 			m_entities.splice(foundIndex, 1);
 			
 			entity._entityWorld = null;
+
+			self.graveyard.removedEntity.push(entity);
 			
 			self.trigger(ECS.EntityWorld.Events.ENTITY_REMOVED, entity);
+
+			console.assert(self.graveyard.removedEntity.pop() == entity);
 		}
 	};
 	

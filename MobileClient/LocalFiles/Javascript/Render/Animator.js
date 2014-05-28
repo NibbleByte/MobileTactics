@@ -81,11 +81,26 @@ var Animator = function (animData, sprite, scene) {
 	
 	var m_frameWidth = animData.frameWidth;
 	var m_frameHeight = animData.frameHeight;
-	var m_framesPerRow = animData.framesPerRow;
+	var m_framesPerRow = animData.framesPerRow || 0;	// If no count, infinite.
 	var m_defaultSpeed = animData.speed;
 	var m_cycles = {};
 	var m_currentCycle = null;
 	
+	var validate = function () {
+		for(var name in m_cycles) {
+			var cycle = m_cycles[name];
+
+			// NOTE: last triplet is invalid, don't take it into account.
+			for(var i = 0; i < cycle.triplets.length - 1; ++i) {
+				var triplet = cycle.triplets[i];
+				if (self.sprite.imgNaturalWidth < triplet[0] + m_frameWidth || self.sprite.imgNaturalHeight < triplet[1] + m_frameHeight)
+					console.warn('The animator of ' + self.resourcePath + ' has a sequence ' + self.sequenceName + ' that is bigger than the sprite!');
+			}
+
+			if (self.sprite.imgNaturalWidth % m_frameWidth != 0 || self.sprite.imgNaturalHeight % m_frameHeight != 0)
+				console.warn('The animator of ' + self.resourcePath + ' detected that the sprite size is not multiple of the frame width/height.');
+		}
+	}
 	
 	var initialize = function () {
 		for(var i = 0; i < animData.sequences.length; ++i) {
@@ -95,11 +110,15 @@ var Animator = function (animData, sprite, scene) {
 			for(var index = sequence.startIndex; index <= sequence.startIndex +sequence.frames; ++index) {
 				var speed = (sequence.speed == undefined) ? m_defaultSpeed : sequence.speed;
 				
-				triplets.push([
-								(index % m_framesPerRow) * m_frameWidth,
-								parseInt(index / m_framesPerRow) * m_frameHeight,
-								speed
-							]);
+				if (m_framesPerRow > 0) {
+					triplets.push([
+									(index % m_framesPerRow) * m_frameWidth,
+									parseInt(index / m_framesPerRow) * m_frameHeight,
+									speed
+								]);
+				} else {
+					triplets.push([ index * m_frameWidth, 0, speed ]);
+				}
 			}
 			
 			var cycle = scene.Cycle(triplets);
@@ -121,6 +140,13 @@ var Animator = function (animData, sprite, scene) {
 			
 			// Expose available sequence names.
 			self.sequences.push(sequence.name);
+		}
+
+		// Sanity-checks
+		if (self.sprite.imgNaturalWidth) {
+			validate(m_currentCycle);
+		} else {
+			self.sprite.addOnLoadHandler(validate);
 		}
 	}
 	
