@@ -1,7 +1,7 @@
 "use strict";
 
-var CTileVisibility = function () {
+var CTileVisibility = function CTileVisibility() {
 	this.visible = false;
 };
 
-ComponentsUtils.registerNonPersistent('CTileVisibility', CTileVisibility);
+ComponentsUtils.registerNonPersistent(CTileVisibility);

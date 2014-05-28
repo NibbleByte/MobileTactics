@@ -1,7 +1,7 @@
 "use strict";
 
-var CPlayerData = function () {
+var CPlayerData = function CPlayerData() {
 	this.player = null;
 };
 
-ComponentsUtils.registerPersistent('CPlayerData', CPlayerData);
+ComponentsUtils.registerPersistent(CPlayerData);

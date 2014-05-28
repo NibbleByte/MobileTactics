@@ -1,11 +1,11 @@
 "use strict";
 
-var CTilePlaceableRendering = function () {
+var CTilePlaceableRendering = function CTilePlaceableRendering() {
 	this.skin = '';
 	this.sprite = null;
 };
 
-ComponentsUtils.registerNonPersistent('CTilePlaceableRendering', CTilePlaceableRendering);
+ComponentsUtils.registerNonPersistent(CTilePlaceableRendering);
 
 
 

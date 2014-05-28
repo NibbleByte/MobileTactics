@@ -1,9 +1,9 @@
 "use strict";
 
-var CTileTerrain = function () {
+var CTileTerrain = function CTileTerrain() {
 	
 	this.type = GameWorldTerrainType.None;
 };
 
-ComponentsUtils.registerPersistent('CTileTerrain', CTileTerrain);
+ComponentsUtils.registerPersistent(CTileTerrain);
 

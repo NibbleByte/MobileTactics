@@ -1,10 +1,10 @@
 "use strict";
 
-var CEffects = function () {
+var CEffects = function CEffects() {
 	this.effects = [];
 };
 
-ComponentsUtils.registerPersistent('CEffects', CEffects);	
+ComponentsUtils.registerPersistent(CEffects);	
 
 
 //===============================================

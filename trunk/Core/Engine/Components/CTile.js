@@ -1,13 +1,13 @@
 "use strict";
 
-var CTile = function () {
+var CTile = function CTile() {
 	this.row = -1;
 	this.column = -1;
 	
 	this.placedObjects = [];
 };
 
-ComponentsUtils.registerPersistent('CTile', CTile);
+ComponentsUtils.registerPersistent(CTile);
 
 
 

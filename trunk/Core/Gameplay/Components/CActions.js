@@ -1,10 +1,10 @@
 "use strict";
 
-var CActions = function () {
+var CActions = function CActions() {
 	this.actions = [];
 };
 
-ComponentsUtils.registerPersistent('CActions', CActions);
+ComponentsUtils.registerPersistent(CActions);
 
 CActions.serialize = function (input, output) {
 	

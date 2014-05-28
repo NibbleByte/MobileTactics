@@ -1,7 +1,7 @@
 "use strict";
 
-var CTilePlaceable = function () {
+var CTilePlaceable = function CTilePlaceable() {
 	this.tile;
 };
 
-ComponentsUtils.registerPersistent('CTilePlaceable', CTilePlaceable);
+ComponentsUtils.registerPersistent(CTilePlaceable);
