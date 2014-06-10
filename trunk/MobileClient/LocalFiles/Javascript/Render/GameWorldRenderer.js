@@ -199,6 +199,11 @@ sjs.Sprite.prototype.addOnLoadHandler = function (handler) {
 	this.__onloadHandlers = this.__onloadHandlers || [];
 
 	this.__onloadHandlers.push(handler);
+
+	// Sanity-check
+	if (this.__onloadHandlers.length > 5) {
+		console.warn("There are waaay too many OnLoad handlers - " + this.__onloadHandlers.length + ". Is this sprite gonna load at all? " + this.src);
+	}
 }
 
 sjs.Sprite.prototype.onload = function () {

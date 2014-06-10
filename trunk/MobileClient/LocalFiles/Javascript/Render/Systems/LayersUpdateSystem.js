@@ -43,8 +43,8 @@ var LayersUpdateSystem = function (m_renderer) {
 		var sprites = m_renderer.spriteTracker.layerSprites[layer.name];
 		if (sprites) {
 
-			// Used to refresh the layer again, in case some sprites weren't still loaded.
-			var spriteToLoad = null;
+			// Used to refresh the layer again, in case some sprites weren't still loaded (not all of them).
+			var spritesLoading = false;
 
 			for(var i = 0; i < sprites.length; ++i) {
 				var sprite = sprites[i];
@@ -55,11 +55,17 @@ var LayersUpdateSystem = function (m_renderer) {
 						sprite.update();
 					}
 				} else {
+					
+					if (!sprite.src) {
+						console.warn("Refreshed sprite doesn't seem to be loading. All sprites should be loading a valid resource.");
+						continue;
+					}
 
 					// Set handler, when image loads to refresh layer.
 					// Set it only for the first met image (any unloaded image).
-					if (!spriteToLoad) {
+					if (!spritesLoading) {
 						sprite.addOnLoadHandler(refreshOnLoad);
+						spritesLoading = true;
 					}
 				}
 			}
