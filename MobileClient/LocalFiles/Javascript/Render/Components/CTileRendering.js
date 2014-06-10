@@ -24,6 +24,9 @@ CTileRendering.prototype.CLASSES = {
 		TILE_SELECTED: 'tile_selected',
 }
 
+CTileRendering.getSpritePath = function (highlightMode) {
+	return CTileRendering.SPRITES_PATH.replace(/{fileName}/g, CTileRendering.SPRITES_FILES[highlightMode]);
+}
 CTileRendering.SPRITES_PATH = 'Assets/Render/Images/TileHighlight/{fileName}';
 CTileRendering.SPRITES_FILES = ['',
 							'hex_move.png',
@@ -61,7 +64,7 @@ CTileRendering.prototype.highlight = function (mode) {
 	this.spriteHighlight.skipDrawing = false;
 	
 	this.highlightMode = mode;
-	this.spriteHighlight.loadImg(CTileRendering.SPRITES_PATH.replace(/{fileName}/g, CTileRendering.SPRITES_FILES[this.highlightMode]));
+	this.spriteHighlight.loadImg(CTileRendering.getSpritePath(this.highlightMode));
 	this.spriteHighlight.update();
 };
 

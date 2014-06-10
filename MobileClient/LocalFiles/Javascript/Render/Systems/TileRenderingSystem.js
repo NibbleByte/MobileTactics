@@ -29,9 +29,9 @@ var TileRenderingSystem = function (m_renderer) {
 		// Pre-initialize highlight sprites, or they won't show on first load.
 		// TODO: Move to a pre-caching system if available someday. Also maybe merge them in sprite sheet?
 		var highlightSprites = [];
-		for(var i = 0; i < CTileRendering.SPRITES_FILES.length; ++i) {
-			if (CTileRendering.SPRITES_FILES[i])	// First one is empty.
-				highlightSprites.push(CTileRendering.SPRITES_PATH.replace(/{fileName}/g, CTileRendering.SPRITES_FILES[i]));
+		for(var name in CTileRendering.HighlightType) {
+			if (CTileRendering.HighlightType[name] != CTileRendering.HighlightType.None)
+				highlightSprites.push(CTileRendering.getSpritePath(CTileRendering.HighlightType[name]));
 		}
 
 		m_renderer.loadImages(highlightSprites);
@@ -95,10 +95,11 @@ var TileRenderingSystem = function (m_renderer) {
 		
 		// Setup sprites.
 		tile.CTileRendering.sprite = createTileSprite(spritePath, WorldLayers.LayerTypes.Terrain);
-		tile.CTileRendering.spriteHighlight = createTileSprite('', WorldLayers.LayerTypes.Highlights);
+		tile.CTileRendering.spriteHighlight = createTileSprite(CTileRendering.getSpritePath(CTileRendering.HighlightType.Move), WorldLayers.LayerTypes.Highlights);
 		tile.CTileRendering.spriteActionFog = createTileSprite(TileRenderingSystem.ACTION_FOG_SPRITE_PATH, WorldLayers.LayerTypes.ActionFog);
 		tile.CTileRendering.spriteVisibilityFog = createTileSprite(TileRenderingSystem.VISIBILITY_FOG_SPRITE_PATH, WorldLayers.LayerTypes.VisibilityFog);
 		
+		tile.CTileRendering.unHighlight();
 		tile.CTileRendering.hideActionFog();
 		
 		renderTile(tile);
