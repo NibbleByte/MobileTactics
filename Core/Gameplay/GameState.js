@@ -14,6 +14,8 @@ var GameState = function () {
 	this.relationPlaceables[PlayersData.Relation.Enemy] = [];
 	this.relationPlaceables[PlayersData.Relation.Neutral] = [];
 	this.relationPlaceables[PlayersData.Relation.Ally] = [];
+
+	this.bases = [];
 }
 
 Serialization.registerClass(GameState, 'GameState');

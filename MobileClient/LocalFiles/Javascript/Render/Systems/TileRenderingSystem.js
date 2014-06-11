@@ -123,8 +123,6 @@ var TileRenderingSystem = function (m_renderer) {
 	
 	var onTileRemoving = function(event, tile) {
 		
-		tile.CTileRendering.detach();
-		
 		// Resize if needed...
 		m_renderer.extentWidth = 0;
 		m_renderer.extentHeight = 0;

@@ -22,6 +22,7 @@
     <None Include="..\..\Core\Engine\ECS\SampleUsage.js" />
     <None Include="..\..\Core\Engine\EngineEvents.js" />
     <None Include="..\..\Core\Engine\Systems\GameWorld.js" />
+    <None Include="..\..\Core\Engine\Systems\UtilsSystem.js" />
     <None Include="..\..\Core\Engine\Utils\Array.js" />
     <None Include="..\..\Core\Engine\Utils\ECSUtils.js" />
     <None Include="..\..\Core\Engine\Utils\Enums.js" />
@@ -34,6 +35,7 @@
     <None Include="..\..\Core\Gameplay\Components\CEffects.js" />
     <None Include="..\..\Core\Gameplay\Components\CPlayerData.js" />
     <None Include="..\..\Core\Gameplay\Components\CStatistics.js" />
+    <None Include="..\..\Core\Gameplay\Components\CTileOwner.js" />
     <None Include="..\..\Core\Gameplay\Components\CTileTerrain.js" />
     <None Include="..\..\Core\Gameplay\Components\CTileVisibility.js" />
     <None Include="..\..\Core\Gameplay\Components\CUnit.js" />
@@ -45,6 +47,7 @@
     <None Include="..\..\Core\Gameplay\PlayersData.js" />
     <None Include="..\..\Core\Gameplay\Systems\EffectsSystem.js" />
     <None Include="..\..\Core\Gameplay\Systems\GameStateSystem.js" />
+    <None Include="..\..\Core\Gameplay\Systems\TileBaseSystem.js" />
     <None Include="..\..\Core\Gameplay\Systems\TileVisibilitySystem.js" />
     <None Include="..\..\Core\Gameplay\Systems\UnitsSystem.js" />
     <None Include="..\..\Core\Gameplay\TerrainType.js" />
@@ -52,6 +55,7 @@
     <None Include="..\..\MobileClient\LocalFiles\Assets\Main.css" />
     <None Include="..\..\MobileClient\LocalFiles\Assets\Render\GameWorldRenderer.css" />
     <None Include="..\..\MobileClient\LocalFiles\Assets\Render\Placeables.css" />
+    <None Include="..\..\MobileClient\LocalFiles\Assets\Render\SpriteAnimations\Base.js" />
     <None Include="..\..\MobileClient\LocalFiles\Assets\Render\SpriteAnimations\TeslaTrooper.js" />
     <None Include="..\..\MobileClient\LocalFiles\Assets\Render\TileRenderingSystem.css" />
     <None Include="..\..\MobileClient\LocalFiles\index.html" />
@@ -66,6 +70,7 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\ActionsRender.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Animator.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Components\CAnimations.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Components\CTileOverlayRendering.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Components\CTilePlaceableRendering.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Components\CTileRendering.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Components\CUnitRendering.js" />
@@ -79,6 +84,7 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\LayersUpdateSystem.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\AnimationSystem.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\IdleAnimationsSystem.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\TileOverlayRenderingSystem.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\TileRenderingSystem.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\UnitRenderingSystem.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\VisibilityFogRenderingSystem.js" />

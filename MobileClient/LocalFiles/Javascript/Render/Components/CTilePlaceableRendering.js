@@ -8,6 +8,9 @@ var CTilePlaceableRendering = function CTilePlaceableRendering() {
 ComponentsUtils.registerNonPersistent(CTilePlaceableRendering);
 
 
+CTilePlaceableRendering.prototype.destroy = function () {
+	this.sprite.remove();
+}
 
 //
 // Short-cuts
@@ -25,7 +28,3 @@ CTilePlaceableRendering.prototype.move = function (x, y) {
 	this.sprite.position(x, y);
 	this.sprite.update();
 }
-
-CTilePlaceableRendering.prototype.detach = function () {
-	this.sprite.remove();
-};

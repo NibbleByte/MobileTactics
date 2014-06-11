@@ -140,9 +140,9 @@ var UnitRenderingSystem = function (renderer) {
 		if (placeable.CAnimations) {
 			placeable.CAnimations.remove(UnitRenderingSystem.MAIN_SPRITE);
 		}
-		
-		placeable.CUnitRendering.detach();
-		placeable.CTilePlaceableRendering.detach();
+
+		placeable.removeComponent(CUnitRendering);
+		placeable.removeComponent(CTilePlaceableRendering);
 	}
 	
 	var onUnitChanged = function(event, unit) {

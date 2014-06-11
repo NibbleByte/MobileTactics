@@ -9,6 +9,11 @@ var CUnitRendering = function CUnitRendering() {
 ComponentsUtils.registerNonPersistent(CUnitRendering);
 
 
+CUnitRendering.prototype.destroy = function () {
+	this.$text.detach();
+	this.sprite.remove();
+}
+
 
 //
 // Short-cuts
@@ -27,7 +32,3 @@ CUnitRendering.prototype.move = function (x, y) {
 	this.sprite.update();
 }
 
-CUnitRendering.prototype.detach = function () {
-	this.$text.detach();
-	this.sprite.remove();
-};

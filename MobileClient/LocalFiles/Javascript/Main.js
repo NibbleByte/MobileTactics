@@ -40,6 +40,14 @@ var fillTerrainPattern = function (eworld, world, rows) {
 				tile.CTileTerrain.type = GameWorldTerrainType.Water;
 			}
 			
+			
+			if (i == Math.floor(rows / 4) || i == Math.floor(rows / 3) || i == Math.floor(rows / 2)) {
+				if (j == i || j == rows - i) {
+					tile.CTileTerrain.type = GameWorldTerrainType.Base;
+					tile.addComponent(CTileOwner);
+				}
+			}
+			
 			eworld.addUnmanagedEntity(tile);
 		}
 	}
@@ -87,6 +95,7 @@ $(function () {
 	m_eworld.addSystem(new UnitsSystem());
 	m_eworld.addSystem(new GameStateSystem());
 	m_eworld.addSystem(new TileVisibilitySystem(m_world));
+	m_eworld.addSystem(new TileBaseSystem());
 	
 	var m_executor = new GameExecutor(m_eworld, m_world);
 	
@@ -104,6 +113,7 @@ $(function () {
 	m_eworld.addSystem(m_tileRendering);
 	var m_unitRendering = new UnitRenderingSystem(worldRenderer);
 	m_eworld.addSystem(m_unitRendering);
+	m_eworld.addSystem(new TileOverlayRenderingSystem(worldRenderer));
 	m_eworld.addSystem(new AnimationSystem(worldRenderer));
 	m_eworld.addSystem(new LayersUpdateSystem(worldRenderer));
 	m_eworld.addSystem(new IdleAnimationsSystem(worldRenderer));

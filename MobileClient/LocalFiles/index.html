@@ -54,7 +54,7 @@
 			<script type="text/javascript" src="Javascript/Core/Engine/ECS/EntityWorld.js"></script>
 			<script type="text/javascript" src="Javascript/Core/Engine/ECS/EntityManager.js"></script>
 			<script type="text/javascript" src="Javascript/Core/Engine/ECS/EntityComponentFilter.js"></script>
-			<script type="text/javascript" src="Javascript/Core/Engine/ECS/SampleUsage.js"></script>
+			<!--script type="text/javascript" src="Javascript/Core/Engine/ECS/SampleUsage.js"></script-->
 			
 		<!-- Serialization -->
 			<script type="text/javascript" src="Javascript/Core/Engine/Utils/Serialization.js"></script>
@@ -81,6 +81,7 @@
 			<script type="text/javascript" src="Javascript/Core/Gameplay/GameExecutor.js"></script>
 			
 		<!-- Gameplay - Components -->
+			<script type="text/javascript" src="Javascript/Core/Gameplay/Components/CTileOwner.js"></script>
 			<script type="text/javascript" src="Javascript/Core/Gameplay/Components/CTileVisibility.js"></script>
 			<script type="text/javascript" src="Javascript/Core/Gameplay/Components/CTileTerrain.js"></script>
 			<script type="text/javascript" src="Javascript/Core/Gameplay/Components/CPlayerData.js"></script>
@@ -91,6 +92,7 @@
 			
 		<!-- Gameplay - Systems -->
 			<script type="text/javascript" src="Javascript/Core/Gameplay/Systems/TileVisibilitySystem.js"></script>
+			<script type="text/javascript" src="Javascript/Core/Gameplay/Systems/TileBaseSystem.js"></script>
 			<script type="text/javascript" src="Javascript/Core/Gameplay/Systems/GameStateSystem.js"></script>
 			<script type="text/javascript" src="Javascript/Core/Gameplay/Systems/UnitsSystem.js"></script>
 			<script type="text/javascript" src="Javascript/Core/Gameplay/Systems/EffectsSystem.js"></script>
@@ -124,11 +126,13 @@
 			<script type="text/javascript" src="Javascript/Render/ImageUtils/SpriteTracker.js"></script>
 			
 		<!-- Animations -->
+			<script type="text/javascript" src="Assets/Render/SpriteAnimations/Base.js"></script>
 			<script type="text/javascript" src="Assets/Render/SpriteAnimations/TeslaTrooper.js"></script>
 		
 		<!-- Components -->	
 			<script type="text/javascript" src="Javascript/Render/Components/CAnimations.js"></script>
 			<script type="text/javascript" src="Javascript/Render/Components/CTileRendering.js"></script>
+			<script type="text/javascript" src="Javascript/Render/Components/CTileOverlayRendering.js"></script>
 			<script type="text/javascript" src="Javascript/Render/Components/CTilePlaceableRendering.js"></script>
 			<script type="text/javascript" src="Javascript/Render/Components/CUnitRendering.js"></script>
 			
@@ -143,6 +147,7 @@
 			<script type="text/javascript" src="Javascript/Render/Systems/ActionFogRenderingSystem.js"></script>
 			<script type="text/javascript" src="Javascript/Render/Systems/VisibilityFogRenderingSystem.js"></script>
 			<script type="text/javascript" src="Javascript/Render/Systems/TileRenderingSystem.js"></script>
+			<script type="text/javascript" src="Javascript/Render/Systems/TileOverlayRenderingSystem.js"></script>
 			<script type="text/javascript" src="Javascript/Render/Systems/UnitRenderingSystem.js"></script>
 			<script type="text/javascript" src="Javascript/Render/Systems/IdleAnimationsSystem.js"></script>
 			<script type="text/javascript" src="Javascript/Render/Systems/ActionsRenderingSystem.js"></script>
