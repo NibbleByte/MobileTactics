@@ -26,6 +26,9 @@ var UnitsDefinitions = {
 			this[GameWorldTerrainType.Grass] = 1;
 			this[GameWorldTerrainType.Dirt] = 1;
 			this[GameWorldTerrainType.Mountain] = 3;
+
+			this[GameWorldTerrainType.Base] = 1;
+			this[GameWorldTerrainType.Medical] = 1;
 		},
 	}, 
 	
@@ -47,6 +50,9 @@ var UnitsDefinitions = {
 		terrainCost: new function () {
 			this[GameWorldTerrainType.Grass] = 1;
 			this[GameWorldTerrainType.Dirt] = 2;
+
+			this[GameWorldTerrainType.Base] = 1;
+			this[GameWorldTerrainType.Medical] = 1;
 		},
 	},
 	
@@ -69,6 +75,10 @@ var UnitsDefinitions = {
 			this[GameWorldTerrainType.Grass] = 1;
 			this[GameWorldTerrainType.Dirt] = 1;
 			this[GameWorldTerrainType.Mountain] = 2;
+
+			this[GameWorldTerrainType.Base] = 1;
+			this[GameWorldTerrainType.Medical] = 1;
+			this[GameWorldTerrainType.WatchTower] = 1;
 		},
 	},	
 };

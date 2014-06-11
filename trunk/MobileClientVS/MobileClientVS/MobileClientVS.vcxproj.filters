@@ -224,6 +224,24 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\LayersUpdateSystem.js">
       <Filter>Javascript\Render\Systems</Filter>
     </None>
+    <None Include="..\..\Core\Gameplay\Components\CTileOwner.js">
+      <Filter>Javascript\Core\Gameplay\Components</Filter>
+    </None>
+    <None Include="..\..\Core\Gameplay\Systems\TileBaseSystem.js">
+      <Filter>Javascript\Core\Gameplay\Systems</Filter>
+    </None>
+    <None Include="..\..\Core\Engine\Systems\UtilsSystem.js">
+      <Filter>Javascript\Core\Engine\Systems</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Components\CTileOverlayRendering.js">
+      <Filter>Javascript\Render\Components</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\TileOverlayRenderingSystem.js">
+      <Filter>Javascript\Render\Systems</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Assets\Render\SpriteAnimations\Base.js">
+      <Filter>Assets\Render\SpriteAnimations</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

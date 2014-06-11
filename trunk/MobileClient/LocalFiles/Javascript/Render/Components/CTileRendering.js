@@ -34,6 +34,14 @@ CTileRendering.SPRITES_FILES = ['',
 							];
 
 
+
+CTileRendering.prototype.destroy = function () {
+	if (this.spriteVisibilityFog) this.spriteVisibilityFog.remove();
+	this.spriteActionFog.remove();
+	this.spriteHighlight.remove();
+	this.sprite.remove();
+}
+
 //
 // Short-cuts
 //
@@ -105,11 +113,4 @@ CTileRendering.prototype.move = function (x, y) {
 		this.spriteVisibilityFog.position(x, y);
 		this.spriteVisibilityFog.update();
 	}
-}
-
-CTileRendering.prototype.detach = function () {
-	if (this.spriteVisibilityFog) this.spriteVisibilityFog.remove();
-	this.spriteActionFog.remove();
-	this.spriteHighlight.remove();
-	this.sprite.remove();
 }
