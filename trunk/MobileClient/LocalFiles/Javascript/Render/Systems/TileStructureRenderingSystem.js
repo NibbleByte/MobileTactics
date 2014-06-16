@@ -1,10 +1,10 @@
 //===============================================
-// AnimationSystem
-// Animates all the sprites.
+// TileStructureRenderingSystem
+// Renders structures (a special kind of tile overlay).
 //===============================================
 "use strict";
 
-var TileOverlayRenderingSystem = function (m_renderer) {
+var TileStructureRenderingSystem = function (m_renderer) {
 	var self = this;
 	
 	console.assert(m_renderer instanceof GameWorldRenderer, "GameWorldRenderer is required.");
@@ -14,8 +14,8 @@ var TileOverlayRenderingSystem = function (m_renderer) {
 	//
 	this.initialize = function () {
 
-		self._entityFilter.onEntityAddedHandler = registerTileOverlay;
-		self._entityFilter.onEntityRemovedHandler = unregisterTileOverlay;
+		self._entityFilter.onEntityAddedHandler = registerTileStructure;
+		self._entityFilter.onEntityRemovedHandler = unregisterTileStructure;
 		self._entityFilter.addRefreshEvent(EngineEvents.World.TILE_ADDED);
 		self._entityFilter.addRefreshEvent(EngineEvents.World.TILE_REMOVING);
 		
@@ -23,7 +23,7 @@ var TileOverlayRenderingSystem = function (m_renderer) {
 
 		var tiles = self._entityFilter.entities.slice(0);
 		for(var i = 0; i < tiles.length; ++i) {
-			registerTileOverlay(tiles[i]);
+			registerTileStructure(tiles[i]);
 		}
 	}
 
@@ -32,11 +32,11 @@ var TileOverlayRenderingSystem = function (m_renderer) {
 		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.TerrainOverlay);
 	}
 
-	var registerTileOverlay = function (tile) {
+	var registerTileStructure = function (tile) {
 		var overlay = tile.addComponent(CTileOverlayRendering);
 
 		var terrainName = Enums.getName(GameWorldTerrainType, tile.CTileTerrain.type);
-		var spritePath = TileOverlayRenderingSystem.TILES_OVERLAY_SPRITE_PATH.replace(/{terrainType}/g, terrainName);
+		var spritePath = TileStructureRenderingSystem.TILES_OVERLAY_SPRITE_PATH.replace(/{terrainType}/g, terrainName);
 
 		overlay.sprite = m_renderer.createSprite(WorldLayers.LayerTypes.TerrainOverlay, spritePath, onResourcesLoaded)
 		.size(GTile.TILE_WIDTH, GTile.TILE_HEIGHT)
@@ -48,32 +48,32 @@ var TileOverlayRenderingSystem = function (m_renderer) {
 		if (animator) {
 			var animations = tile.addComponentSafe(CAnimations);
 
-			animations.add(TileOverlayRenderingSystem.OVERLAY_SPRITE_ANIMATOR, animator);
+			animations.add(TileStructureRenderingSystem.OVERLAY_SPRITE_ANIMATOR, animator);
 			animator.playSequence('Idle0');
 		}
 	}
 	
-	var unregisterTileOverlay = function (tile) {
+	var unregisterTileStructure = function (tile) {
 		
 		if (tile.CAnimations) {
-			tile.CAnimations.remove(TileOverlayRenderingSystem.OVERLAY_SPRITE_ANIMATOR);
+			tile.CAnimations.remove(TileStructureRenderingSystem.OVERLAY_SPRITE_ANIMATOR);
 		}
 
 		tile.removeComponent(CTileOverlayRendering);
 	}
 
 	var onAnimationFinished = function (event, params) {
-		if (!TileOverlayRenderingSystem.isOverlayTile(params.entity))
+		if (!TileStructureRenderingSystem.isStructureTile(params.entity))
 			return;
 
-		if (params.name == TileOverlayRenderingSystem.OVERLAY_SPRITE_ANIMATOR)
-			params.entity.CAnimations.animators[TileOverlayRenderingSystem.OVERLAY_SPRITE_ANIMATOR].pauseSequence('Idle');
+		if (params.name == TileStructureRenderingSystem.OVERLAY_SPRITE_ANIMATOR)
+			params.entity.CAnimations.animators[TileStructureRenderingSystem.OVERLAY_SPRITE_ANIMATOR].pauseSequence('Idle');
 	}
 }
 
-TileOverlayRenderingSystem.TILES_OVERLAY_SPRITE_PATH = 'Assets/Render/Images/TileOverlays/{terrainType}.png';
-TileOverlayRenderingSystem.OVERLAY_SPRITE_ANIMATOR = 'OverlayAnimator';
-TileOverlayRenderingSystem.isOverlayTile = function (entity) {
+TileStructureRenderingSystem.TILES_OVERLAY_SPRITE_PATH = 'Assets/Render/Images/TileOverlays/{terrainType}.png';
+TileStructureRenderingSystem.OVERLAY_SPRITE_ANIMATOR = 'OverlayAnimator';
+TileStructureRenderingSystem.isStructureTile = function (entity) {
 	return entity.CTileRendering && entity.CTileRendering.sprite && entity.CTileTerrain && (
 		entity.CTileTerrain.type == GameWorldTerrainType.Base ||
 		entity.CTileTerrain.type == GameWorldTerrainType.Medical ||
@@ -82,5 +82,5 @@ TileOverlayRenderingSystem.isOverlayTile = function (entity) {
 	;
 }
 
-ECS.EntityManager.registerSystem('TileOverlayRenderingSystem', TileOverlayRenderingSystem);
-SystemsUtils.supplyComponentFilter(TileOverlayRenderingSystem, TileOverlayRenderingSystem.isOverlayTile);
+ECS.EntityManager.registerSystem('TileStructureRenderingSystem', TileStructureRenderingSystem);
+SystemsUtils.supplyComponentFilter(TileStructureRenderingSystem, TileStructureRenderingSystem.isStructureTile);

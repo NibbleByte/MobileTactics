@@ -236,11 +236,11 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Components\CTileOverlayRendering.js">
       <Filter>Javascript\Render\Components</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\TileOverlayRenderingSystem.js">
-      <Filter>Javascript\Render\Systems</Filter>
-    </None>
     <None Include="..\..\MobileClient\LocalFiles\Assets\Render\SpriteAnimations\Base.js">
       <Filter>Assets\Render\SpriteAnimations</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\TileStructureRenderingSystem.js">
+      <Filter>Javascript\Render\Systems</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
