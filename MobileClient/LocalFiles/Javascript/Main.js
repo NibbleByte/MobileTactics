@@ -21,6 +21,8 @@ function close() {
 var fillTerrainPattern = function (eworld, world, rows) {
 	var tile;
 	
+	var basesCount = 0;
+
 	for(var i = 0; i < rows; ++i) {
 		for(var j = Math.ceil(i / 2); j < rows + i / 2; ++j) {
 			
@@ -40,11 +42,17 @@ var fillTerrainPattern = function (eworld, world, rows) {
 				tile.CTileTerrain.type = GameWorldTerrainType.Water;
 			}
 			
-			
+			var playersData = eworld.extract(PlayersData);
 			if (i == Math.floor(rows / 4) || i == Math.floor(rows / 3) || i == Math.floor(rows / 2)) {
 				if (j == i || j == rows - i) {
 					tile.CTileTerrain.type = GameWorldTerrainType.Base;
 					tile.addComponent(CTileOwner);
+
+					if (basesCount % 3 == 0) {
+						tile.CTileOwner.owner = playersData.players[basesCount % 2];
+					}
+
+					basesCount++;
 				}
 			}
 			
