@@ -27,9 +27,24 @@ var TileStructureRenderingSystem = function (m_renderer) {
 		}
 	}
 
-	var onResourcesLoaded = function (sprite) {
-		SpriteColorizeManager.colorizeSprite(sprite, 180);	// TODO: Color according team. Color gray if noone is using it.
-		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.TerrainOverlay);
+	var refreshStructureTile = function (tile) {
+		var sprite = tile.CTileOverlayRendering.sprite;
+
+		if (tile.CTileOwner) {
+			// If structure can be owned, apply team colors/sprites
+			var owner = tile.CTileOwner.owner;
+			if (owner == null) {
+				SpriteColorizeManager.saturateSprite(sprite, 0);
+			} else {
+				SpriteColorizeManager.colorizeSprite(sprite, owner.colorHue);
+			}
+
+			self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.TerrainOverlay);
+		}
+	}
+
+	var onResourcesLoaded = function (sprite, tile) {
+		refreshStructureTile(tile);
 	}
 
 	var registerTileStructure = function (tile) {
@@ -38,7 +53,7 @@ var TileStructureRenderingSystem = function (m_renderer) {
 		var terrainName = Enums.getName(GameWorldTerrainType, tile.CTileTerrain.type);
 		var spritePath = TileStructureRenderingSystem.TILES_OVERLAY_SPRITE_PATH.replace(/{terrainType}/g, terrainName);
 
-		overlay.sprite = m_renderer.createSprite(WorldLayers.LayerTypes.TerrainOverlay, spritePath, onResourcesLoaded)
+		overlay.sprite = m_renderer.createSprite(WorldLayers.LayerTypes.TerrainOverlay, spritePath, onResourcesLoaded, tile)
 		.size(GTile.TILE_WIDTH, GTile.TILE_HEIGHT)
 		.move(tile.CTileRendering.sprite.x, tile.CTileRendering.sprite.y)
 		.update();

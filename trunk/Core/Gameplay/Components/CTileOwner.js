@@ -1,7 +1,7 @@
 "use strict";
 
 var CTileOwner = function CTileOwner() {
-	this.owner = null;				// PlayerData
+	this.owner = null;				// Player
 
 	this.beingCapturedBy = null;	// Unit
 	this.captureTurns = 0;			// Remaining capture turns.
