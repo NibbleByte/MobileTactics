@@ -84,8 +84,8 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\LayersUpdateSystem.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\AnimationSystem.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\IdleAnimationsSystem.js" />
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\TileOverlayRenderingSystem.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\TileRenderingSystem.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\TileStructureRenderingSystem.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\UnitRenderingSystem.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\VisibilityFogRenderingSystem.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\TileGlobals.js" />
