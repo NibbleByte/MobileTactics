@@ -33,7 +33,7 @@ SpriteAnimations.TeslaTrooper = {
 			name: 'Attack',
 			startIndex: 31,
 			frames: 5,
-			repeat: true,
+			wrapMode: Animator.WrapMode.Loop,
 			duration: 150,
 		},
 		

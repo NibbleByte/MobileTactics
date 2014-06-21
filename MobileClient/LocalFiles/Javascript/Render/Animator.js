@@ -40,7 +40,6 @@ var Animator = function (animData, sprite, scene) {
 		
 		m_currentCycle = m_cycles[name];
 		m_currentCycle.go(frame);
-		m_currentCycle.update();
 		
 		self.isPaused = true;
 		self.finished = false;
@@ -62,7 +61,24 @@ var Animator = function (animData, sprite, scene) {
 			}
 			
 		} else {
-			self.finished = m_currentCycle.done;
+			self.finished = m_currentCycle.done && m_currentCycle.__wrapMode != Animator.WrapMode.ClampForever;
+
+			if (m_currentCycle.done) {
+				if (m_currentCycle.__wrapMode == Animator.WrapMode.Once) {
+					self.isPaused = true;
+					m_currentCycle.go(0);
+				}
+
+				// Note: Last triplet is not valid.
+				if (m_currentCycle.__wrapMode == Animator.WrapMode.OnceEnd) {
+					self.isPaused = true;
+					m_currentCycle.go(m_currentCycle.triplets.length - 2);
+				}
+
+				if (m_currentCycle.__wrapMode == Animator.WrapMode.ClampForever) {
+					m_currentCycle.go(m_currentCycle.triplets.length - 2);
+				}
+			}
 		}
 	}
 	
@@ -75,6 +91,10 @@ var Animator = function (animData, sprite, scene) {
 		m_currentCycle = null;
 	}
 	
+	this.getCurrentCycle = function () {
+		return m_currentCycle;
+	}
+
 	//
 	// Private
 	//
@@ -106,9 +126,10 @@ var Animator = function (animData, sprite, scene) {
 		for(var i = 0; i < animData.sequences.length; ++i) {
 			var sequence = animData.sequences[i];
 			
+			var speed = (sequence.speed == undefined) ? m_defaultSpeed : sequence.speed;
+
 			var triplets = [];
 			for(var index = sequence.startIndex; index <= sequence.startIndex +sequence.frames; ++index) {
-				var speed = (sequence.speed == undefined) ? m_defaultSpeed : sequence.speed;
 				
 				if (m_framesPerRow > 0) {
 					triplets.push([
@@ -120,19 +141,9 @@ var Animator = function (animData, sprite, scene) {
 					triplets.push([ index * m_frameWidth, 0, speed ]);
 				}
 			}
-			
-			var cycle = scene.Cycle(triplets);
+
+			var cycle = generateCycle(sequence, triplets);
 			cycle.addSprite(sprite);
-			
-			// Duration of animation.
-			if (sequence.repeat) {
-				cycle.repeat = true;
-				cycle.__repeatDuration = sequence.duration;
-				
-			} else {
-				cycle.repeat = false;
-			}
-			
 			m_cycles[sequence.name] = cycle;
 			
 			sprite.size(m_frameWidth, m_frameHeight);
@@ -144,11 +155,63 @@ var Animator = function (animData, sprite, scene) {
 
 		// Sanity-checks
 		if (self.sprite.imgNaturalWidth) {
-			validate(m_currentCycle);
+			validate();
 		} else {
 			self.sprite.addOnLoadHandler(validate);
 		}
 	}
+
+	var generateCycle = function (sequence, triplets) {
+
+		// Duration of animation.
+		sequence.wrapMode = sequence.wrapMode || Animator.WrapMode.Once;
+
+		// Add reverse triplets if needed
+		if (sequence.wrapMode == Animator.WrapMode.OnceReverse || sequence.wrapMode == Animator.WrapMode.PingPong) {
+			// Note: Last triplet is not valid.
+			triplets.splice(triplets.length - 1, 1);
+
+			for(var t = triplets.length - 1; t >= 0; --t) {
+				triplets.push(triplets[t].slice(0));
+			}
+			triplets.push(triplets[0]);
+		}
+
+
+		var cycle = scene.Cycle(triplets);
+
+		switch (sequence.wrapMode) {
+			case Animator.WrapMode.Once:
+			case Animator.WrapMode.OnceEnd:
+			case Animator.WrapMode.OnceReverse:
+			case Animator.WrapMode.ClampForever:
+				cycle.repeat = false;
+			break;
+
+			case Animator.WrapMode.Loop:
+			case Animator.WrapMode.PingPong:
+				cycle.repeat = true;
+				cycle.__repeatDuration = sequence.duration;
+			break;
+
+			default:
+				console.error("Wrap mode " + sequence.wrapMode + " is not supported yet!");
+		}
+
+		cycle.__wrapMode = sequence.wrapMode;
+		return cycle;
+	}
 	
 	initialize();
 }
+
+
+Animator.WrapMode = {
+	Once: 0,			// Run once and position at first frame when finished.
+	OnceReverse: 0,		// Run once forward + backward and position at first frame when finished.
+	OnceEnd: 0,			// Run once and position at last frame when finished.
+	Loop: 0,			// Loop forever, until stopped.
+	PingPong: 0,		// Play forward + backward animation forever.
+	ClampForever: 0,	// Run once and keep playing last frame forever.
+}
+Enums.enumerate(Animator.WrapMode);
