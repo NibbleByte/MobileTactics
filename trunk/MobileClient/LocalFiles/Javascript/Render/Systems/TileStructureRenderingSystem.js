@@ -100,6 +100,7 @@ TileStructureRenderingSystem.OVERLAY_SPRITE_ANIMATOR = 'OverlayAnimator';
 TileStructureRenderingSystem.isStructureTile = function (entity) {
 	return entity.CTileRendering && entity.CTileRendering.sprite && entity.CTileTerrain && (
 		entity.CTileTerrain.type == GameWorldTerrainType.Base ||
+		entity.CTileTerrain.type == GameWorldTerrainType.Harbour ||
 		entity.CTileTerrain.type == GameWorldTerrainType.Medical ||
 		entity.CTileTerrain.type == GameWorldTerrainType.WatchTower
 	)

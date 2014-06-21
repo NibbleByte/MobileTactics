@@ -12,6 +12,7 @@ var GameWorldTerrainType = {
 
 		/* Special tiles */
 		Base: 0,
+		Harbour: 0,
 		Medical: 0,
 		WatchTower: 0,
 

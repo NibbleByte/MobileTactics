@@ -78,6 +78,7 @@ var UnitsDefinitions = {
 			this[GameWorldTerrainType.Mountain] = 2;
 
 			this[GameWorldTerrainType.Base] = 1;
+			this[GameWorldTerrainType.Harbour] = 1;
 			this[GameWorldTerrainType.Medical] = 1;
 			this[GameWorldTerrainType.WatchTower] = 1;
 		},
