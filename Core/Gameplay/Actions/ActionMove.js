@@ -10,6 +10,11 @@ Actions.Classes.ActionMove = new function () {
 	this.getAvailableActions = function (eworld, world, player, placeable, outActions) {
 		var tile = placeable.CTilePlaceable.tile;
 		
+		// TODO: This should be done automatically, once unit have movement turns. Remove dependency.
+		if (tile.CTileOwner && tile.CTileOwner.beingCapturedBy == placeable) {
+			return;
+		}
+
 		var movementData = {
 			placeable: placeable,
 			player: player,

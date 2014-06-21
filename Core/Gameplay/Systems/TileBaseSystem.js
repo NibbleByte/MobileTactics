@@ -1,6 +1,6 @@
 //===============================================
-// GameStateSystem
-// Takes care of the game state.
+// TileBaseSystem
+// Takes care of the bases.
 //===============================================
 "use strict";
 
@@ -26,6 +26,8 @@ var TileBaseSystem = function () {
 
 	var m_bases;
 	var m_gameState;
+
+	
 
 	var onGameLoading = function (event) {
 		m_gameState = self._eworld.extract(GameState);

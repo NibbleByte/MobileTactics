@@ -102,8 +102,9 @@ $(function () {
 	m_eworld.addSystem(m_effects);
 	m_eworld.addSystem(new UnitsSystem());
 	m_eworld.addSystem(new GameStateSystem());
-	m_eworld.addSystem(new TileVisibilitySystem(m_world));
+	m_eworld.addSystem(new TileCapturingSystem());
 	m_eworld.addSystem(new TileBaseSystem());
+	m_eworld.addSystem(new TileVisibilitySystem(m_world));
 	
 	var m_executor = new GameExecutor(m_eworld, m_world);
 	

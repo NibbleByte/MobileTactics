@@ -9,6 +9,11 @@ Actions.Classes.ActionAttack = new function () {
 	
 	this.getAvailableActions = function (eworld, world, player, placeable, outActions) {
 		var tile = placeable.CTilePlaceable.tile;
+
+		// TODO: This should be done automatically, once unit have movement turns. Remove dependency.
+		if (tile.CTileOwner && tile.CTileOwner.beingCapturedBy == placeable) {
+			return;
+		}
 		
 		var placeables = world.getPlaceablesInArea(tile, placeable.CStatistics.statistics['AttackRange'], placeable);
 		var playersData = eworld.extract(PlayersData);

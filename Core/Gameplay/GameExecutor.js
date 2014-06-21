@@ -72,7 +72,6 @@ var GameExecutor = function (eworld, world) {
 	
 	this.executeAction = function(action) {
 		console.assert(action instanceof GameAction, "GameAction is required.");
-		console.assert(action.appliedTile, "Action not applied to tile.");
 		
 		var placeable = action.placeable;
 		action.actionType.executeAction(m_eworld, m_world, action);

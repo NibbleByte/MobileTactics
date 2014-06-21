@@ -8,6 +8,8 @@
 // Supported GameWorld events that user can subscribe to.
 var EngineEvents = {
 		General: {
+			// Use GAME_LOADING to cache the NEW game state (including on re-loading world).
+			// GAME_LOADED is after all loading is done.
 			GAME_LOADING:	"engine.general.game_loading",	// event
 			GAME_LOADED:	"engine.general.game_loaded",	// event
 		},

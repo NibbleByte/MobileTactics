@@ -69,6 +69,7 @@ var UnitsDefinitions = {
 		actions: [
 				  Actions.Classes.ActionMove,
 				  Actions.Classes.ActionAttack,
+				  Actions.Classes.ActionCapture,
 				 ],
 		
 		terrainCost: new function () {

@@ -1,7 +1,7 @@
 "use strict";
 
 var CTilePlaceable = function CTilePlaceable() {
-	this.tile;
+	this.tile = null;
 };
 
 ComponentsUtils.registerPersistent(CTilePlaceable);

@@ -30,6 +30,7 @@
     <None Include="..\..\Core\Engine\Utils\Subscriber.js" />
     <None Include="..\..\Core\Engine\Utils\Utils.js" />
     <None Include="..\..\Core\Gameplay\Actions\ActionAttack.js" />
+    <None Include="..\..\Core\Gameplay\Actions\ActionCapture.js" />
     <None Include="..\..\Core\Gameplay\Actions\ActionMove.js" />
     <None Include="..\..\Core\Gameplay\Components\CActions.js" />
     <None Include="..\..\Core\Gameplay\Components\CEffects.js" />
@@ -48,6 +49,7 @@
     <None Include="..\..\Core\Gameplay\Systems\EffectsSystem.js" />
     <None Include="..\..\Core\Gameplay\Systems\GameStateSystem.js" />
     <None Include="..\..\Core\Gameplay\Systems\TileBaseSystem.js" />
+    <None Include="..\..\Core\Gameplay\Systems\TileCapturingSystem.js" />
     <None Include="..\..\Core\Gameplay\Systems\TileVisibilitySystem.js" />
     <None Include="..\..\Core\Gameplay\Systems\UnitsSystem.js" />
     <None Include="..\..\Core\Gameplay\TerrainType.js" />
