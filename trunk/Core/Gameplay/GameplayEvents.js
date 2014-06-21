@@ -12,6 +12,12 @@ var GameplayEvents = {
 			DESTROY_UNIT: 		"gameplay.units.destroy_unit",		// event, unit
 			UNIT_DESTROYING: 	"gameplay.units.unit_destroying",	// event, unit
 		},
+
+		Structures: {
+			CAPTURE_STARTED: 		"gameplay.structures.capture_started",		// event, tile
+			CAPTURE_INTERUPTED: 	"gameplay.structures.capture_interupted",	// event, tile
+			CAPTURE_FINISHED:		"gameplay.structures.capture_finished",		// event, tile
+		},
 		
 		Players: {
 			PLAYER_ADDED: 			"gameplay.players.player_added",	// event, player

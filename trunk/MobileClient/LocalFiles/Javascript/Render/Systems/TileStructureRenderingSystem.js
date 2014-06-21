@@ -20,6 +20,7 @@ var TileStructureRenderingSystem = function (m_renderer) {
 		self._entityFilter.addRefreshEvent(EngineEvents.World.TILE_REMOVING);
 		
 		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_FINISHED, onAnimationFinished);
+		self._eworldSB.subscribe(GameplayEvents.Structures.CAPTURE_FINISHED, onRefreshStructureTile);
 
 		var tiles = self._entityFilter.entities.slice(0);
 		for(var i = 0; i < tiles.length; ++i) {
@@ -44,6 +45,14 @@ var TileStructureRenderingSystem = function (m_renderer) {
 	}
 
 	var onResourcesLoaded = function (sprite, tile) {
+		// If image is already loaded, assigning of the sprite might not have happened yet,
+		// but it is needed for the refresh to work.
+		tile.CTileOverlayRendering.sprite = sprite;
+
+		refreshStructureTile(tile);
+	}
+
+	var onRefreshStructureTile = function (event, tile) {
 		refreshStructureTile(tile);
 	}
 

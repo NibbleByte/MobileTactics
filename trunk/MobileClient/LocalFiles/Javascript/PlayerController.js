@@ -127,6 +127,22 @@ var PlayerController = function (m_world, m_executor) {
 	}
 	
 	var onActionsOffered = function(event, actions) {
+		// Check if this can be instant action.
+		// If previous actions were more and this is instant action, assume player wants to execute it.
+		if (m_selectedGOActions && m_selectedGOActions.length > 1 && actions.length == 1) {
+			var instantAction = actions[0];
+			if (instantAction.actionType != Actions.Classes.ActionMove && instantAction.actionType != Actions.Classes.ActionAttack) {
+				if (instantAction.availableTiles.length == 0) {
+					self._eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
+
+					self._eworld.trigger(ClientEvents.Controller.ACTION_PREEXECUTE, actions[0]);
+					
+					return;
+				}
+			}
+		}
+
+
 		m_inputActive = true;
 		clearSelectedGOActions();
 		

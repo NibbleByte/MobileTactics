@@ -8,7 +8,9 @@
 var SpriteColorizeManager = new function () {
 	var self = this;
 
+	var m_originalsDB = {};
 	var m_colorizedDB = {};
+	var m_saturatedDB = {};
 
 	var convertImageToCanvas = function (image) {
 		console.assert(image);
@@ -19,6 +21,24 @@ var SpriteColorizeManager = new function () {
 		canvas.getContext("2d").drawImage(image, 0, 0);
 
 		return canvas;
+	}
+
+	var getOriginalCanvas = function (sprite) {
+
+		var hash = sprite.src;
+
+		var img = m_originalsDB[hash];
+
+		if (img == undefined) {
+			
+			console.assert(sprite.img instanceof HTMLImageElement);
+
+			img = sprite.img;
+
+			m_originalsDB[hash] = img;
+		}
+
+		return convertImageToCanvas(img);
 	}
 
 	var colorizeCanvas = function (canvas, primaryHue, secondaryHue) {
@@ -95,7 +115,7 @@ var SpriteColorizeManager = new function () {
 		var canvas = m_colorizedDB[hash];
 
 		if (canvas == undefined) {
-			canvas = convertImageToCanvas(sprite.img);
+			canvas = getOriginalCanvas(sprite);
 
 			colorizeCanvas(canvas, primaryHue, secondaryHue);
 
@@ -113,14 +133,15 @@ var SpriteColorizeManager = new function () {
 		// Get hash code.
 		var hash = sprite.img.src + ':' + primarySaturation + ':' + secondarySaturation + '<saturate>';
 
-		var canvas = m_colorizedDB[hash];
+		var canvas = m_saturatedDB[hash];
 
 		if (canvas == undefined) {
-			canvas = convertImageToCanvas(sprite.img);
+
+			canvas = getOriginalCanvas(sprite);
 
 			saturateCanvas(canvas, primarySaturation, secondarySaturation);
 
-			m_colorizedDB[hash] = canvas;
+			m_saturatedDB[hash] = canvas;
 		}
 
 		// Replace image with canvas. Don't update.

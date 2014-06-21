@@ -242,6 +242,12 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\TileStructureRenderingSystem.js">
       <Filter>Javascript\Render\Systems</Filter>
     </None>
+    <None Include="..\..\Core\Gameplay\Actions\ActionCapture.js">
+      <Filter>Javascript\Core\Gameplay\Actions</Filter>
+    </None>
+    <None Include="..\..\Core\Gameplay\Systems\TileCapturingSystem.js">
+      <Filter>Javascript\Core\Gameplay\Systems</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

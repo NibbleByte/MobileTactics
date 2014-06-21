@@ -21,6 +21,7 @@ var ActionsRender = new function () {
 	// Action definitions
 	registerAction(Actions.Classes.ActionMove, 'Move', CTileRendering.HighlightType.Move);
 	registerAction(Actions.Classes.ActionAttack, 'Attack', CTileRendering.HighlightType.Attack);
+	registerAction(Actions.Classes.ActionCapture, 'Capture', CTileRendering.HighlightType.Move);
 	
 	
 	

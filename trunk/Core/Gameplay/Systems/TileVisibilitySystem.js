@@ -20,6 +20,7 @@ var TileVisibilitySystem = function (m_world) {
 		self._eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_MOVED, refreshVisibility);
 		self._eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_UNREGISTERED, refreshVisibility);
 		self._eworldSB.subscribe(EngineEvents.World.TILE_REMOVED, refreshVisibility);
+		self._eworldSB.subscribe(GameplayEvents.Structures.CAPTURE_FINISHED, refreshVisibility);
 
 		self._eworldSB.subscribe(EngineEvents.World.TILE_ADDED, onTileAdded);
 		m_world.iterateAllTiles(function(tile){
@@ -27,8 +28,14 @@ var TileVisibilitySystem = function (m_world) {
 		});
 	}
 
-	var hideTiles = function (tile) {
+	var hideTile = function (tile) {
 		tile.CTileVisibility.visible = false;
+	}
+
+	var showTiles = function (tiles) {
+		for(var j = 0; j < tiles.length; ++j) {
+			tiles[j].CTileVisibility.visible = true;
+		}
 	}
 
 	var onGameLoading = function (event) {
@@ -40,17 +47,26 @@ var TileVisibilitySystem = function (m_world) {
 	}
 
 	var refreshVisibility = function () {
-		m_world.iterateAllTiles(hideTiles);
+		m_world.iterateAllTiles(hideTile);
 
+		// Placeables
 		for (var i = 0; i < m_gameState.relationPlaceables[PlayersData.Relation.Ally].length; ++i) {
 			var placeable = m_gameState.relationPlaceables[PlayersData.Relation.Ally][i];
 
 			var visibleTiles = m_world.gatherTiles(placeable.CTilePlaceable.tile, placeable.CStatistics.statistics['Visibility'], visibilityCostQuery);
-			
-			placeable.CTilePlaceable.tile.CTileVisibility.visible = true;
-			for(var j = 0; j < visibleTiles.length; ++j) {
-				visibleTiles[j].CTileVisibility.visible = true;
-			}
+			visibleTiles.push(placeable.CTilePlaceable.tile);
+
+			showTiles(visibleTiles);
+		}
+
+		// Structures
+		for (var i = 0; i < m_gameState.relationStructures[PlayersData.Relation.Ally].length; ++i) {
+			var tile = m_gameState.relationStructures[PlayersData.Relation.Ally][i];
+
+			var visibleTiles = m_world.gatherTiles(tile, 1, visibilityCostQuery);
+			visibleTiles.push(tile);
+
+			showTiles(visibleTiles);
 		}
 
 		self._eworld.trigger(GameplayEvents.Fog.REFRESH_FOG);

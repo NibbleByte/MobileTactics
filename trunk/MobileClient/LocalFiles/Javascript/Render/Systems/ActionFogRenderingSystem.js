@@ -39,8 +39,13 @@ var ActionFogRenderingSystem = function (m_world) {
 			}
 		}
 		
-		if (moveAction == null && attackAction == null)
+		
+		// No special action available, refresh with no fog.
+		if (moveAction == null && attackAction == null) {
+			self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.Highlights);
+			self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.ActionFog);
 			return;
+		}
 		
 		var placeableTile = 
 			(moveAction != null) 
