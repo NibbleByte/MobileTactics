@@ -45,6 +45,18 @@ var Animator = function (animData, sprite, scene) {
 		self.finished = false;
 		self.sequenceName = name;
 	}
+
+	this.play = function () {
+		if (!self.finished) {
+			self.isPaused = false;
+		} else {
+			self.playSequence(self.sequenceName);
+		}
+	}
+
+	this.pause = function () {
+		self.isPaused = true;
+	}
 	
 	this.hasSequence = function (name) {
 		return self.sequences.indexOf(name) != -1;

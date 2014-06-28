@@ -53,6 +53,8 @@
     <None Include="..\..\Core\Gameplay\Systems\TileVisibilitySystem.js" />
     <None Include="..\..\Core\Gameplay\Systems\UnitsSystem.js" />
     <None Include="..\..\Core\Gameplay\TerrainType.js" />
+    <None Include="..\..\Internal Tools\Libs\jscolor\jscolor.js" />
+    <None Include="..\..\Internal Tools\SpriteTestground\SpriteTestground.html" />
     <None Include="..\..\MobileClient\LocalFiles\Assets\ActionMenu.css" />
     <None Include="..\..\MobileClient\LocalFiles\Assets\Main.css" />
     <None Include="..\..\MobileClient\LocalFiles\Assets\Render\GameWorldRenderer.css" />
@@ -62,6 +64,7 @@
     <None Include="..\..\MobileClient\LocalFiles\Assets\Render\TileRenderingSystem.css" />
     <None Include="..\..\MobileClient\LocalFiles\index.html" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\iscroll.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\persist.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\sprite.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\sylvester.src.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\wormhole.js" />
