@@ -98,4 +98,17 @@ var Colors = {
 		outRGB.g *= 255;
 		outRGB.b *= 255;
 	},
+
+
+	rgb2hex: function (rgb) {
+		var rHex = parseInt(rgb.r).toString(16);
+		var gHex = parseInt(rgb.g).toString(16);
+		var bHex = parseInt(rgb.b).toString(16);
+
+		if (rHex.length == 1) rHex = '0' + rHex;
+		if (gHex.length == 1) gHex = '0' + gHex;
+		if (bHex.length == 1) bHex = '0' + bHex;
+
+		return '#' + rHex + gHex + bHex;
+	}
 };
