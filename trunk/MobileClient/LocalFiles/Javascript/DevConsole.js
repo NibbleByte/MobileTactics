@@ -29,8 +29,11 @@ var initConsole = function () {
 			devConsole.show();
 	};
 
-	var extractUrlInfo = function (stack) {
-		var url = stack.match(/:\/\/[^)\n]+/g)[1];
+	var extractUrlInfo = function (error, skipCalls) {
+		if (skipCalls === undefined)
+			skipCalls = 1;
+		
+		var url = error.stack.match(/:\/\/[^)\n]+/g)[skipCalls];
 		var splits = url.split(':');
 		var lineNumber = splits[splits.length - 2];
 		url = splits.slice(0, splits.length - 2).join('');
@@ -51,7 +54,7 @@ var initConsole = function () {
 				message += arguments[i] + ' ';
 			}
 
-			var urlInfo = extractUrlInfo(new Error().stack);
+			var urlInfo = extractUrlInfo(new Error());
 			devConsole.log(message, Severities.log, urlInfo.url, urlInfo.lineNumber);
 
 			return originalConsole.log.apply(originalConsole, arguments);
@@ -63,7 +66,7 @@ var initConsole = function () {
 				message += arguments[i] + ' ';
 			}
 
-			var urlInfo = extractUrlInfo(new Error().stack);
+			var urlInfo = extractUrlInfo(new Error());
 			devConsole.log(message, Severities.warning, urlInfo.url, urlInfo.lineNumber);
 
 			return originalConsole.warn.apply(originalConsole, arguments);
@@ -75,7 +78,7 @@ var initConsole = function () {
 				message += arguments[i] + ' ';
 			}
 
-			var urlInfo = extractUrlInfo(new Error().stack);
+			var urlInfo = extractUrlInfo(new Error());
 			devConsole.log(message, Severities.error, urlInfo.url, urlInfo.lineNumber);
 
 			return originalConsole.error.apply(originalConsole, arguments);
@@ -89,7 +92,7 @@ var initConsole = function () {
 					message += arguments[i] + ' ';
 				}
 
-				var urlInfo = extractUrlInfo(new Error().stack);
+				var urlInfo = extractUrlInfo(new Error());
 				devConsole.log('Assertion failed: ' + message, Severities.error, urlInfo.url, urlInfo.lineNumber);
 			}
 
@@ -124,11 +127,13 @@ var initConsole = function () {
 						try {
 							return handler.apply(this, arguments);
 						} catch (err) {
-							var stack = 'Event: ' + event + ' ';
-							var lineNumber = this.id || null;
+							var urlInfo = extractUrlInfo(err, 0);
 
-							// Note: err.stack doesn't work on Android (HTC Explorer) for some reason, so it is dropped.
-							window.onerror('Uncaught Error: ' + err.message, stack, lineNumber);
+							// Log only if original exception, not re-throw from here.
+							if (urlInfo.url.indexOf('DevConsole') == -1) {
+								window.onerror('Uncaught Error: ' + err.message, urlInfo.url, urlInfo.lineNumber);
+							}
+
 							throw new Error(err.message);
 						}
 					};
