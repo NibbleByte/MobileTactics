@@ -64,32 +64,23 @@ var fillTerrainPattern = function (eworld, world, rows) {
 $(function () {
 	
 	//
-	// Init dev console
+	// Init utils
 	//
 	var m_console = initConsole();
+	var m_loadingScreen = $('#LoadingScreen');
 
 	//
-	// Properties
+	// World
 	//
 	var m_eworld = new ECS.EntityWorld();
 	var m_eworldSB = m_eworld.createSubscriber();
 	
+
 	//
-	// Players
+	// Players & Game state
 	//
-	var m_playersData = new PlayersData(m_eworld);
-	m_eworld.store(PlayersData, m_playersData);
-	m_playersData.addPlayer('Pl1', Player.Types.Human, 60);
-	m_playersData.addPlayer('Pl2', Player.Types.Human, 120);
-	m_playersData.addPlayer('Pl3', Player.Types.Human, 175);
-	m_playersData.addPlayer('Pl4', Player.Types.Human, 220);
-	
-	var m_gameState = new GameState();
-	m_eworld.store(GameState, m_gameState);
-	
-	m_playersData.stopPlaying(m_playersData.getPlayer(2));
-	m_playersData.stopPlaying(m_playersData.getPlayer(3));
-	
+	var m_gameState = null;
+	var m_playersData = null;
 
 	m_eworld.addSystem(m_eworld.store(UtilsSystem, new UtilsSystem()));
 
@@ -168,41 +159,50 @@ $(function () {
 	}
 	
 	var onBtnLoad = function () {
-		m_world.clearTiles();
-		
-		Utils.invalidate(m_playersData);
-		Utils.invalidate(m_gameState);
-		
-		var allObjects = [];
-		
-		var fullGameState = Serialization.deserialize(savedGame, allObjects);
-		
-		m_gameState = fullGameState.gameState;
-		m_playersData = fullGameState.playersData;
-		m_eworld.store(PlayersData, m_playersData);
-		m_eworld.store(GameState, m_gameState);
-		players = m_playersData;
-		gameState = m_gameState;
-		
-		m_eworld.triggerAsync(EngineEvents.General.GAME_LOADING);
-		
-		for(var i = 0; i < allObjects.length; ++i) {
-			if (allObjects[i].onDeserialize)
-				allObjects[i].onDeserialize(m_eworld);
-		}
-		
-		var entities = fullGameState.world;
-		for(var i = 0; i < entities.length; ++i) {
+		if (!savedGame)
+			return;
+
+		m_loadingScreen.show();
+
+		setTimeout(function () {
 			
-			UnitsFactory.postDeserialize(entities[i]);
-			m_eworld.addUnmanagedEntity(entities[i]);
-		}
+			m_world.clearTiles();
 		
-		for(var i = 0; i < entities.length; ++i) {
-			m_eworld.trigger(EngineEvents.Serialization.ENTITY_DESERIALIZED, entities[i]);
-		}
+			Utils.invalidate(m_playersData);
+			Utils.invalidate(m_gameState);
 		
-		m_eworld.triggerAsync(EngineEvents.General.GAME_LOADED);
+			var allObjects = [];
+		
+			var fullGameState = Serialization.deserialize(savedGame, allObjects);
+		
+			m_gameState = fullGameState.gameState;
+			m_playersData = fullGameState.playersData;
+			m_eworld.store(PlayersData, m_playersData);
+			m_eworld.store(GameState, m_gameState);
+			players = m_playersData;
+			gameState = m_gameState;
+		
+			m_eworld.triggerAsync(EngineEvents.General.GAME_LOADING);
+		
+			for(var i = 0; i < allObjects.length; ++i) {
+				if (allObjects[i].onDeserialize)
+					allObjects[i].onDeserialize(m_eworld);
+			}
+		
+			var entities = fullGameState.world;
+			for(var i = 0; i < entities.length; ++i) {
+			
+				UnitsFactory.postDeserialize(entities[i]);
+				m_eworld.addUnmanagedEntity(entities[i]);
+			}
+		
+			for(var i = 0; i < entities.length; ++i) {
+				m_eworld.trigger(EngineEvents.Serialization.ENTITY_DESERIALIZED, entities[i]);
+			}
+		
+			m_eworld.triggerAsync(EngineEvents.General.GAME_LOADED);
+
+		}, 200);
 	}
 	
 	var onBtnRemoveTile = function () {
@@ -212,9 +212,44 @@ $(function () {
 	}
 	
 	var onBtnRestart = function () {
-		var ROWS = 10;
-		m_world.clearTiles();
-		fillTerrainPattern(m_eworld, m_world, ROWS);
+		m_loadingScreen.show();
+
+		setTimeout(function () {
+
+			// Uninitialize anything old
+			m_world.clearTiles();
+
+			if (m_playersData)	Utils.invalidate(m_playersData);
+			if (m_gameState)	Utils.invalidate(m_gameState);
+
+
+			// Initialize new data
+			m_playersData = new PlayersData(m_eworld);
+			m_eworld.store(PlayersData, m_playersData);
+			m_playersData.addPlayer('Pl1', Player.Types.Human, 60);
+			m_playersData.addPlayer('Pl2', Player.Types.Human, 120);
+			m_playersData.addPlayer('Pl3', Player.Types.Human, 175);
+			m_playersData.addPlayer('Pl4', Player.Types.Human, 220);
+	
+			m_gameState = new GameState();
+			m_eworld.store(GameState, m_gameState);
+	
+			gameState = m_gameState;
+			players = m_playersData;
+		
+
+			m_eworld.triggerAsync(EngineEvents.General.GAME_LOADING);
+
+			var ROWS = 10;
+			fillTerrainPattern(m_eworld, m_world, ROWS);
+
+			m_eworld.triggerAsync(EngineEvents.General.GAME_LOADED);
+
+
+			m_playersData.stopPlaying(m_playersData.getPlayer(2));
+			m_playersData.stopPlaying(m_playersData.getPlayer(3));
+
+		}, 200);
 	}
 	
 	var onBtnPlayer = function () {
@@ -284,20 +319,19 @@ $(function () {
 		}
 	}
 	
+	var onGameLoaded = function (event) {
+		m_loadingScreen.hide();
+	}
 	
 	m_eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, onTurnChanged);
 	m_eworldSB.subscribe(GameplayEvents.GameState.NO_PLAYING_PLAYERS, onTurnChanged);
+
+	m_eworldSB.subscribe(EngineEvents.General.GAME_LOADED, onGameLoaded);
 	
 	//
 	// Initialize
 	//
-	m_eworld.triggerAsync(EngineEvents.General.GAME_LOADING);
-
 	onBtnRestart();
-	onBtnSave();
-	
-	// All setup is done, initialize the systems.
-	m_eworld.triggerAsync(EngineEvents.General.GAME_LOADED);
 	
 
 	// Toolbar listeners
