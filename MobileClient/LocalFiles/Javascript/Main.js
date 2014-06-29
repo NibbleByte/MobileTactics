@@ -64,6 +64,11 @@ var fillTerrainPattern = function (eworld, world, rows) {
 $(function () {
 	
 	//
+	// Init dev console
+	//
+	var m_console = initConsole();
+
+	//
 	// Properties
 	//
 	var m_eworld = new ECS.EntityWorld();

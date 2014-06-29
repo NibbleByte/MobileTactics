@@ -46,7 +46,7 @@ html, body
 {
 	position: absolute;
 	top: 0px;
-	bottom: 35px;
+	bottom: 45px;
 	left: 0px;
 	right: 0px;
 	
@@ -59,6 +59,8 @@ html, body
 	left: 0px;
 	right: 0px;
 	bottom: 0px;
+	
+	height: 40px;
 }
 
 #Toolbar
