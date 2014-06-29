@@ -833,6 +833,11 @@ Sprite.prototype.canvasUpdate = function canvasUpdate(layer) {
     else
         ctx = this.layer.ctx;
 
+	// Image not loaded yet, can't update nothing.
+	if (!this.imgLoaded || !this.img) {
+		return this;
+	}
+
     var fast_track = (
         this.angle == 0
         && this.opacity == 1

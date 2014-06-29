@@ -136,7 +136,7 @@ var initConsole = function () {
 									window.onerror('Uncaught Error: ' + err.message, urlInfo.url, urlInfo.lineNumber);
 								}
 							} else {
-								devConsole.log(err.constructor.name + ': ' + err.message, Severities.error, '(no stack)');
+								devConsole.log(err.constructor.name + ': ' + err.message, Severities.error, 'Event: ' + event);
 							}
 
 							throw new Error(err.message);
