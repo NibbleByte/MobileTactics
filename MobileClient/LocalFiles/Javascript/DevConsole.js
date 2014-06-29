@@ -127,11 +127,16 @@ var initConsole = function () {
 						try {
 							return handler.apply(this, arguments);
 						} catch (err) {
-							var urlInfo = extractUrlInfo(err, 0);
 
-							// Log only if original exception, not re-throw from here.
-							if (urlInfo.url.indexOf('DevConsole') == -1) {
-								window.onerror('Uncaught Error: ' + err.message, urlInfo.url, urlInfo.lineNumber);
+							if (err.stack) {
+								var urlInfo = extractUrlInfo(err, 0);
+							
+								// Log only if original exception, not re-throw from here.
+								if (urlInfo.url.indexOf('DevConsole') == -1) {
+									window.onerror('Uncaught Error: ' + err.message, urlInfo.url, urlInfo.lineNumber);
+								}
+							} else {
+								devConsole.log(err.constructor.name + ': ' + err.message, Severities.error, '(no stack)');
 							}
 
 							throw new Error(err.message);
