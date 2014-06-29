@@ -10,12 +10,18 @@
 			<link rel="stylesheet" href="Assets/Render/TileRenderingSystem.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/Render/Placeables.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/ActionMenu.css" type="text/css" media="screen">
+			<link rel="stylesheet" href="Assets/DevConsole.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/Main.css" type="text/css" media="screen">
 		
 	</head>
 	
 	<body>
 		<div id="Screen">
+			<div id="Console">
+				<button id="BtnConsoleClose" onclick="$('#Console').hide();">X</button>
+				<button id="BtnConsoleClear" onclick="$('#Console').children().not(':button').remove();">Clear</button>
+			</div>
+
 			<div id="GameWorldMap">
 			</div>
 			<div id="ToolbarContainer">
@@ -30,6 +36,8 @@
 					<button id="BtnBrowse" style="display: none;">Browse</button>
 					<input id="TbBrowseAddress" type="text" value="http://nibblebyte.no-ip.org/t" style="display: none;" />
 					<button id="BtnAddress">Address</button>
+
+					<button id="BtnConsole" onclick="$('#Console').toggle();">Console</button>
 				</div>
 			</div>
 			
@@ -127,17 +135,17 @@
 			<script type="text/javascript" src="Javascript/Render/ImageUtils/SpriteColorizeManager.js"></script>
 			<script type="text/javascript" src="Javascript/Render/ImageUtils/SpriteTracker.js"></script>
 		
-		<!-- Components -->	
+		<!-- Components -->
 			<script type="text/javascript" src="Javascript/Render/Components/CAnimations.js"></script>
 			<script type="text/javascript" src="Javascript/Render/Components/CTileRendering.js"></script>
 			<script type="text/javascript" src="Javascript/Render/Components/CTileOverlayRendering.js"></script>
 			<script type="text/javascript" src="Javascript/Render/Components/CTilePlaceableRendering.js"></script>
 			<script type="text/javascript" src="Javascript/Render/Components/CUnitRendering.js"></script>
 			
-		<!-- Systems -->	
+		<!-- Systems -->
 			<script type="text/javascript" src="Javascript/Render/WorldLayers.js"></script>
-			<script type="text/javascript" src="Javascript/Render/Animator.js"></script>
 			<script type="text/javascript" src="Javascript/Render/GameWorldRenderer.js"></script>
+			<script type="text/javascript" src="Javascript/Render/Animator.js"></script>
 			<script type="text/javascript" src="Javascript/Render/ActionsRender.js"></script>
 			
 			<script type="text/javascript" src="Javascript/Render/Systems/AnimationSystem.js"></script>
@@ -154,6 +162,7 @@
 			<script type="text/javascript" src="Javascript/PlayerController.js"></script>
 			
 			
+			<script type="text/javascript" src="Javascript/DevConsole.js"></script>
 			<script type="text/javascript" src="Javascript/Main.js"></script>
 
 

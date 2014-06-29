@@ -257,6 +257,12 @@
     <None Include="..\..\Internal Tools\Libs\jscolor\jscolor.js">
       <Filter>InternalTools\Libs\jscolor</Filter>
     </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\DevConsole.js">
+      <Filter>Javascript</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Assets\DevConsole.css">
+      <Filter>Assets</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
