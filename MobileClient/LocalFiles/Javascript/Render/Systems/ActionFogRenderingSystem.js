@@ -15,27 +15,28 @@ var ActionFogRenderingSystem = function (m_world) {
 	this.initialize = function () {
 		self._eworldSB.subscribe(ClientEvents.Controller.ACTIONS_OFFERED, onActionsOffered);
 		self._eworldSB.subscribe(ClientEvents.Controller.ACTIONS_CLEARED, onActionsCleared);
+		self._eworldSB.subscribe(ClientEvents.Controller.ACTION_CANCEL, onActionsCleared);
 	}
 	
 	//
 	// Private
 	//	
-	var onActionsOffered = function (event, actions) {
+	var onActionsOffered = function (event, goActions) {
 		
 		hideAll();
 		
-		m_offeredActions = actions;
+		m_offeredActions = goActions.actions;
 		
 		
 		var moveAction = null;
 		var attackAction = null;
-		for (var i = 0; i < actions.length; ++i) {
-			if (actions[i].actionType == Actions.Classes.ActionMove) {
-				moveAction = actions[i];
+		for (var i = 0; i < m_offeredActions.length; ++i) {
+			if (m_offeredActions[i].actionType == Actions.Classes.ActionMove) {
+				moveAction = m_offeredActions[i];
 			}
 			
-			if (actions[i].actionType == Actions.Classes.ActionAttack) {
-				attackAction = actions[i];
+			if (m_offeredActions[i].actionType == Actions.Classes.ActionAttack) {
+				attackAction = m_offeredActions[i];
 			}
 		}
 		
@@ -75,15 +76,23 @@ var ActionFogRenderingSystem = function (m_world) {
 	}
 
 	var hideAll = function () {
-		if (m_offeredActions != null) {
-			m_offeredActions = null;
-			
-			m_world.iterateAllTiles(function (tile) {
-				// When clearing, while removing tile, component might be missing.
-				if (tile.CTileRendering) {
-					tile.CTileRendering.hideActionFog();
-				}
-			});
+		m_offeredActions = null;
+
+		var gameState = self._eworld.extract(GameState);
+
+		m_world.iterateAllTiles(function (tile) {
+			// When clearing, while removing tile, component might be missing.
+			if (tile.CTileRendering) {
+				tile.CTileRendering.hideActionFog();
+			}
+		});
+
+		// If placeable finished turn, do show fog.
+		for(var i = 0; i < gameState.currentPlaceables.length; ++i) {
+			var placeable = gameState.currentPlaceables[i];
+			if (placeable.CUnit.finishedTurn) {
+				placeable.CTilePlaceable.tile.CTileRendering.showActionFog();
+			}
 		}
 	}
 }

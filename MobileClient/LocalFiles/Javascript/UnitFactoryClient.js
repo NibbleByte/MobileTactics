@@ -3,7 +3,7 @@
 // Adding client functionality to client.
 //===============================================
 "use strict";
-
+// TODO: This file isn't used anymore. Remove it remains the same.
 var UnitsFactoryClient = new function () {
 	
 	var applyClient = function (event, unit) {

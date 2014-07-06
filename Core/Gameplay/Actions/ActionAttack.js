@@ -6,21 +6,23 @@ Actions.Classes = Actions.Classes || {};
 Actions.Classes.ActionAttack = new function () {
 	
 	this.actionName = 'ActionAttack';
+	this.quickAction = false;
 	
 	this.getAvailableActions = function (eworld, world, player, placeable, outActions) {
-		var tile = placeable.CTilePlaceable.tile;
 
-		// TODO: This should be done automatically, once unit have movement turns. Remove dependency.
-		if (tile.CTileOwner && tile.CTileOwner.beingCapturedBy == placeable) {
+		if (placeable.CUnit.hasAttacked)
 			return;
-		}
+
+		var tile = placeable.CTilePlaceable.tile;
 		
 		var placeables = world.getPlaceablesInArea(tile, placeable.CStatistics.statistics['AttackRange'], placeable);
 		var playersData = eworld.extract(PlayersData);
 		
 		var availableTiles = [];
 		for(var i = 0; i < placeables.length; ++i) {
-			if (playersData.getRelation(placeables[i].CPlayerData.player, player) == PlayersData.Relation.Enemy)
+			if (playersData.getRelation(placeables[i].CPlayerData.player, player) == PlayersData.Relation.Enemy	&&
+				placeables[i].CTilePlaceable.tile.CTileVisibility.visible
+			)
 				availableTiles.push(placeables[i].CTilePlaceable.tile);
 		}
 		
@@ -43,11 +45,23 @@ Actions.Classes.ActionAttack = new function () {
 		
 		enemy.CUnit.health -= damage;
 		
+		// Not previewing any more. Shit just got real!
+		action.placeable.CUnit.previewOriginalTile = null;
+		action.placeable.CUnit.hasAttacked = true;
+
+		if (!action.placeable.CStatistics.statistics['MovementAttack']) {
+			action.placeable.CUnit.finishedTurn = true;
+		}
+
 		eworld.trigger(GameplayEvents.Units.UNIT_CHANGED, enemy);
 		
 		// DEBUG: print attack info
 		console.log("Attack at: " + action.appliedTile.CTile.row + ", " + action.appliedTile.CTile.column
 				+ ' Damage: ' + damage
 				+ ' Health: ' + enemy.CUnit.health);
+	}
+
+	this.onFinishedTurn = function (eworld, world, placeable) {
+		placeable.CUnit.hasAttacked = false;
 	}
 };

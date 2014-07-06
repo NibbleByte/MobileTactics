@@ -29,7 +29,6 @@ var TileCapturingSystem = function () {
 	var m_gameState = null;
 	var m_playersData = null;
 	var m_capturingTiles = [];
-	var hasJustLoaded = false;
 
 	var onGameLoading = function (event) {
 		m_gameState = self._eworld.extract(GameState);
@@ -38,7 +37,6 @@ var TileCapturingSystem = function () {
 
 	var onGameLoaded = function (event) {
 		m_capturingTiles = [];
-		hasJustLoaded = true;
 
 		var entities = self._entityFilter.entities;
 
@@ -53,8 +51,10 @@ var TileCapturingSystem = function () {
 		m_capturingTiles.push(tile);
 	}
 
-	var onTurnChanged = function (event, player) {
+	var onTurnChanged = function (event, gameState, hasJustLoaded) {
 		m_gameState.clearStructures();
+
+		var player = m_gameState.currentPlayer;
 
 		var entities = self._entityFilter.entities;
 		for (var i = 0; i < entities.length; ++i) {
@@ -71,12 +71,9 @@ var TileCapturingSystem = function () {
 			m_gameState.relationStructures[relation].push(tile);
 		}
 
-		// If level just loaded, onTurnChanged would get called,
-		// just to set who's turn it is, not that a turn has actually passed.
-		if (hasJustLoaded) {
-			hasJustLoaded = false;
+		// Turn has not actually passed, so capture state should remain the same.
+		if (hasJustLoaded)
 			return;
-		}
 
 		for(var i = 0; i < m_capturingTiles.length; ++i) {
 			var tile = m_capturingTiles[i]

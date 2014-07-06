@@ -54,12 +54,17 @@ var GameExecutor = function (eworld, world) {
 		if (!tile.CTileVisibility.visible) {
 			return availableActions;
 		}
-				
+		
+		var gameState = eworld.extract(GameState);
+
 		var actions;
 		for(var i = 0; i < objects.length; ++i) {
 			var placeable = objects[i];
 
 			if (CTileOwner.isCapturing(placeable))
+				continue;
+
+			if (placeable.CUnit.finishedTurn && placeable.CPlayerData.player == gameState.currentPlayer)
 				continue;
 
 			var player = placeable.CPlayerData.player;
@@ -76,7 +81,31 @@ var GameExecutor = function (eworld, world) {
 		var placeable = action.placeable;
 		action.actionType.executeAction(m_eworld, m_world, action);
 
-		return getPlaceableActions(action.player, placeable);
+		// Finished turn means finished turn!
+		if (placeable.CUnit.finishedTurn) {
+
+			// Do any additional cleaning on finishing turn.
+			for(var i = 0; i < placeable.CActions.actions.length; ++i) {
+				if (placeable.CActions.actions[i].onFinishedTurn) {
+					placeable.CActions.actions[i].onFinishedTurn(m_eworld, m_world, placeable);
+				}
+			}
+
+			return new GameObjectActions(placeable, []);
+		}
+
+		return new GameObjectActions(placeable, getPlaceableActions(action.player, placeable));
+	}
+
+	this.undoAction = function (action) {
+
+		if (action.actionType.undoAction) {
+			action.actionType.undoAction(m_eworld, m_world, action);
+
+			return new GameObjectActions(action.placeable, getPlaceableActions(action.placeable.CPlayerData.player, action.placeable));
+		} else {
+			return null;
+		}
 	}
 	
 	var getPlaceableActions = function (player, placeable) {
@@ -102,6 +131,9 @@ GameExecutor.iterateOverActionTiles = function (actions, handler) {
 	// All the actions
 	for(var i = 0; i < actions.length; ++i) {
 		var action = actions[i];
+
+		if (action.availableTiles == null)
+			continue;
 		
 		// All the available tiles for this action
 		for(var j = 0; j < action.availableTiles.length; ++j) {
@@ -116,9 +148,10 @@ var GameAction = function (actionType, player, placeable) {
 	this.actionType = actionType;			// The responsible component.
 	this.player = player; 					// Player that will execute the action.
 	this.placeable = placeable; 			// Placeable that will be executing the action.
-	this.availableTiles = [];				// Available tiles on which player can execute action. 
+	this.availableTiles = null;				// Available tiles on which player can execute action. Null is for instant action.
 	this.affectedTiles = [];				// Tiles affected if player executes this action. 
 	this.appliedTile = null;				// Tile that action is applied to (example: move to this tile).
+	this.undoData = null;					// Custom data that can be used for undo (if possible at all).
 }
 
 var GameObjectActions = function (go, actions) {

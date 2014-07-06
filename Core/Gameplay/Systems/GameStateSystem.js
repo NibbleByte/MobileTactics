@@ -72,7 +72,7 @@ var GameStateSystem = function () {
 		if (m_gameState.currentPlayer != null) {
 			populateGameStateUnits();
 			
-			self._eworld.triggerAsync(GameplayEvents.GameState.TURN_CHANGED, m_gameState.currentPlayer);
+			self._eworld.triggerAsync(GameplayEvents.GameState.TURN_CHANGED, [ m_gameState, true ]);
 		} else {
 			self._eworld.triggerAsync(GameplayEvents.GameState.NO_PLAYING_PLAYERS);
 		}
@@ -100,7 +100,7 @@ var GameStateSystem = function () {
 		
 		populateGameStateUnits();
 		
-		self._eworld.triggerAsync(GameplayEvents.GameState.TURN_CHANGED, m_gameState.currentPlayer);
+		self._eworld.triggerAsync(GameplayEvents.GameState.TURN_CHANGED, [ m_gameState, false ]);
 	}
 	
 	var onPlayerRemoved = function (event, player) {

@@ -19,6 +19,7 @@ var UnitsDefinitions = {
 		
 		actions: [
 				  Actions.Classes.ActionMove,
+				  Actions.Classes.ActionStay,
 				  Actions.Classes.ActionAttack,
 				 ],
 		
@@ -39,11 +40,13 @@ var UnitsDefinitions = {
 			MaxHealth: 15,
 			Defence: 4,
 			Movement: 4,
+			MovementAttack: 2,
 			Visibility: 4,
 		},
 		
 		actions: [
 				  Actions.Classes.ActionMove,
+				  Actions.Classes.ActionStay,
 				  Actions.Classes.ActionAttack,
 				 ],
 		
@@ -67,9 +70,10 @@ var UnitsDefinitions = {
 		},
 		
 		actions: [
-				  Actions.Classes.ActionMove,
-				  Actions.Classes.ActionAttack,
 				  Actions.Classes.ActionCapture,
+				  Actions.Classes.ActionMove,
+				  Actions.Classes.ActionStay,
+				  Actions.Classes.ActionAttack,
 				 ],
 		
 		terrainCost: new function () {

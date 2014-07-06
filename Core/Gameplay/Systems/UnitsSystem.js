@@ -12,6 +12,8 @@ var UnitsSystem = function () {
 	//
 	this.initialize = function () {
 		self._eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_REGISTERED, onPlaceableRegistered);
+
+		self._eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, onTurnChanged);
 		
 		self._eworldSB.subscribe(GameplayEvents.Units.UNIT_CHANGED, onUnitChanged);
 		self._eworldSB.subscribe(GameplayEvents.Units.DESTROY_UNIT, onDestroyUnit);
@@ -23,6 +25,19 @@ var UnitsSystem = function () {
 			return;
 		
 		placeable.CUnit.health = placeable.CStatistics.statistics['MaxHealth'];
+	}
+
+	var onTurnChanged = function (event, gameState, hasJustLoaded) {
+
+		if (hasJustLoaded)
+			return;
+		
+		for(var i = 0; i < gameState.currentPlaceables.length; ++i) {
+			var placeable = gameState.currentPlaceables[i];
+
+			placeable.CUnit.turnPoints = placeable.CStatistics.statistics['TurnPoints'] || 1;
+			placeable.CUnit.finishedTurn = false;
+		}
 	}
 		
 	var onUnitChanged = function(event, unit) {
