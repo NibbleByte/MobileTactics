@@ -44,9 +44,11 @@ ActionsRenderingSystem.ActionExecutors.DefaultExecutor = function (m_executor, m
 	var self = this;
 	
 	this.preExecute = function () {
-		var actions = m_executor.executeAction(m_action);
+		var goActions = m_executor.executeAction(m_action);
+
+		m_eworld.trigger(ClientEvents.Controller.ACTION_EXECUTED, m_action);
 		
-		m_eworld.trigger(ClientEvents.Controller.ACTIONS_OFFERED, [actions]);
+		m_eworld.triggerAsync(ClientEvents.Controller.ACTIONS_OFFERED, [goActions]);
 	};
 }
 

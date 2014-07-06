@@ -6,14 +6,10 @@ Actions.Classes = Actions.Classes || {};
 Actions.Classes.ActionCapture = new function () {
 	
 	this.actionName = 'ActionCapture';
+	this.quickAction = true;
 	
 	this.getAvailableActions = function (eworld, world, player, placeable, outActions) {
 		var tile = placeable.CTilePlaceable.tile;
-
-		// TODO: This should be done automatically, once unit have movement turns. Remove dependency.
-		if (tile.CTileOwner && tile.CTileOwner.beingCapturedBy == placeable) {
-			return;
-		}
 
 		var playersData = eworld.extract(PlayersData);
 		
@@ -23,6 +19,7 @@ Actions.Classes.ActionCapture = new function () {
 			if (owner == null || playersData.getRelation(owner, player) != PlayersData.Relation.Ally) {
 
 				var action = new GameAction(Actions.Classes.ActionCapture, player, placeable);
+				action.availableTiles = [ placeable.CTilePlaceable.tile ];
 				outActions.push(action);
 			}
 		}
@@ -34,6 +31,8 @@ Actions.Classes.ActionCapture = new function () {
 		appliedTile.CTileOwner.beingCapturedBy = action.placeable;
 		appliedTile.CTileOwner.captureTurns = 1;
 		
+		action.placeable.CUnit.finishedTurn = true;
+
 		eworld.trigger(GameplayEvents.Structures.CAPTURE_STARTED, appliedTile);
 	}
 };

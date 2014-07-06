@@ -6,14 +6,14 @@ Actions.Classes = Actions.Classes || {};
 Actions.Classes.ActionMove = new function () {
 	
 	this.actionName = 'ActionMove';
+	this.quickAction = false;
 
 	this.getAvailableActions = function (eworld, world, player, placeable, outActions) {
-		var tile = placeable.CTilePlaceable.tile;
-		
-		// TODO: This should be done automatically, once unit have movement turns. Remove dependency.
-		if (tile.CTileOwner && tile.CTileOwner.beingCapturedBy == placeable) {
+
+		if (placeable.CUnit.previewOriginalTile)
 			return;
-		}
+
+		var tile = placeable.CTilePlaceable.tile;
 
 		var movementData = {
 			placeable: placeable,
@@ -21,8 +21,11 @@ Actions.Classes.ActionMove = new function () {
 			playersData: eworld.extract(PlayersData),
 		}
 		
+		var movement = (!placeable.CUnit.hasAttacked) ? placeable.CStatistics.statistics['Movement'] : placeable.CStatistics.statistics['MovementAttack'];
+		var availableTiles = world.gatherTiles(tile, movement, movementCostQuery, movementData);
 
-		var availableTiles = world.gatherTiles(tile, placeable.CStatistics.statistics['Movement'], movementCostQuery, movementData);
+		if (placeable.CUnit.hasAttacked)
+			availableTiles.push(tile);
 		
 		// If nowhere to move, action is unavailable.
 		if (availableTiles.length <= 1) {
@@ -35,10 +38,28 @@ Actions.Classes.ActionMove = new function () {
 	};
 	
 	this.executeAction = function (eworld, world, action) {
-		// TODO: Modify statistics
+		var startTile = action.placeable.CTilePlaceable.tile;
+
+		action.undoData = {
+			previousTile: startTile,
+		};
+
+		action.placeable.CUnit.previewOriginalTile = startTile;
 		world.place(action.placeable, action.appliedTile);
 	}
 	
+	this.undoAction = function (eworld, world, action) {
+		action.placeable.CUnit.previewOriginalTile = null;
+		world.place(action.placeable, action.undoData.previousTile);
+	}
+
+	this.onFinishedTurn = function (eworld, world, placeable) {
+		if (placeable.CUnit.previewOriginalTile) {
+			placeable.CUnit.previewOriginalTile = null;
+			world.place(placeable, placeable.CTilePlaceable.tile);
+		}
+	}
+
 	//
 	// Private
 	//

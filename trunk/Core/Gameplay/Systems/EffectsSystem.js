@@ -39,8 +39,11 @@ var EffectsSystem = function () {
 		return foundEffects;
 	};
 	
-	var onTurnChanged = function (event, player) {
-		advance(1.0, player);
+	var onTurnChanged = function (event, gameState, hasJustLoaded) {
+		if (hasJustLoaded)
+			return;
+
+		advance(1.0, gameState.currentPlayer);
 	}
 	
 	// Advance players' placeable's effects.

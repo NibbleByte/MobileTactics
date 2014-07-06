@@ -29,12 +29,13 @@ var UnitsFactory = new function () {
 		obj.addComponent(CStatistics);
 		obj.addComponent(CEffects);
 		
-		obj.CUnit.name = unitName;
 		obj.CStatistics.resetStatistics(definition.baseStatistics);
 		obj.CStatistics.terrainCost = definition.terrainCost;
 		obj.CActions.actions = definition.actions;
 		obj.CPlayerData.player = player;
-		
+		obj.CUnit.name = unitName;
+		obj.CUnit.turnPoints = obj.CStatistics.statistics['TurnPoints'] || 1;
+
 		lastCreated = obj;
 		
 		self.trigger(self.Events.UNIT_CREATED, obj);

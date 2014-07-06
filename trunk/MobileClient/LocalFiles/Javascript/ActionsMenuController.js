@@ -11,7 +11,7 @@ var ActionsMenuController = function (actionMenuElement) {
 	
 	var m_$actionMenu = $(actionMenuElement);
 	var m_menuEntries = {};
-	var m_currentActions = null;
+	var m_currentGOActions = null;
 	
 	//
 	// Entity system initialize
@@ -69,35 +69,54 @@ var ActionsMenuController = function (actionMenuElement) {
 		
 		// Check if cancel button.
 		if (actionName == ActionsMenuController.CANCEL_ACTION_NAME) {
-			self._eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
+			self._eworld.trigger(ClientEvents.Controller.ACTION_CANCEL);
 			event.stopImmediatePropagation();
 			return;
 		}
 		
 		if (actionName) {
-			for(var i = 0; i < m_currentActions.length; ++i) {
-				if (m_currentActions[i].actionType.actionName == actionName) {
-					var actions = [m_currentActions[i]];
-					self._eworld.trigger(ClientEvents.Controller.ACTIONS_OFFERED, [actions]);
+			for(var i = 0; i < m_currentGOActions.actions.length; ++i) {
+				if (m_currentGOActions.actions[i].actionType.actionName == actionName) {
+					var action = m_currentGOActions.actions[i];
+
+					// If no tiles were available consider this action as quick (menu-accessible only).
+					if (action.availableTiles && !action.actionType.quickAction) {
+						var goActions = new GameObjectActions(m_currentGOActions.go, [action]);
+						self._eworld.trigger(ClientEvents.Controller.ACTIONS_OFFERED, [goActions]);
+					
+					} else {
+						self._eworld.trigger(ClientEvents.Controller.ACTION_PREEXECUTE, action);
+					}
+
 				}
 			}
 		}
 	}
+
+	var shouldHideMenu = function (actions) {
+		// Don't show if there are 0 or only Move/Attack available choices.
+
+		return actions.length == 0 || (
+			actions.length == 1 && (
+				actions[0].actionType == Actions.Classes.ActionMove ||
+				actions[0].actionType == Actions.Classes.ActionAttack
+			)
+		)
+	}
 	
-	var onActionsOffered = function (event, actions) {
-		m_currentActions = actions;
+	var onActionsOffered = function (event, goActions) {
+		m_currentGOActions = goActions;
 		
-		// Don't show if only 1 available choice.
-		if (actions.length <= 1) {
+		if (shouldHideMenu(m_currentGOActions.actions)) {
 			onActionsCleared();
 			return;
 		}
 		
 		hideEntries();
 		
-		for(var i = 0; i < actions.length; ++i) {
+		for(var i = 0; i < m_currentGOActions.actions.length; ++i) {
 			
-			var $entry = m_menuEntries[actions[i].actionType.actionName];
+			var $entry = m_menuEntries[m_currentGOActions.actions[i].actionType.actionName];
 			$entry.show();
 		}
 		

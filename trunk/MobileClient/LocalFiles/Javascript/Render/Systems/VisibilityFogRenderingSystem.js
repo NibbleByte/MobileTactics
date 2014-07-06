@@ -18,7 +18,6 @@ var VisibilityFogRenderingSystem = function (m_world) {
 	//
 	// Private
 	//
-	// TODO: Use canvas for this?
 	var applyVisibilityFog = function (tile) {
 		if (tile.CTileVisibility.visible) {
 			tile.CTileRendering.hideVisibilityFog();

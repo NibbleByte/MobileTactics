@@ -318,6 +318,14 @@ $(function () {
 			toolbarScroller = null;
 		}
 	}
+
+	var onHudLockRefresh = function (event) {
+		if (m_playerController.isHudLocked()) {
+			$('#ToolbarContainer').hide();
+		} else {
+			$('#ToolbarContainer').show();
+		}
+	}
 	
 	var onGameLoaded = function (event) {
 		m_loadingScreen.hide();
@@ -328,6 +336,14 @@ $(function () {
 
 	m_eworldSB.subscribe(EngineEvents.General.GAME_LOADED, onGameLoaded);
 	
+	// Hud locking... just hit them all...
+	m_eworldSB.subscribe(ClientEvents.Controller.ACTIONS_CLEARED, onHudLockRefresh);
+	m_eworldSB.subscribe(ClientEvents.Controller.ACTION_CANCEL, onHudLockRefresh);
+	m_eworldSB.subscribe(ClientEvents.Controller.ACTION_PREEXECUTE, onHudLockRefresh);
+	m_eworldSB.subscribe(ClientEvents.Controller.ACTION_EXECUTED, onHudLockRefresh);
+	m_eworldSB.subscribe(ClientEvents.Controller.ACTIONS_OFFERED, onHudLockRefresh);
+
+
 	//
 	// Initialize
 	//

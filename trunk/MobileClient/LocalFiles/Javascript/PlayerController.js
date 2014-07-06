@@ -14,6 +14,7 @@ var PlayerController = function (m_world, m_executor) {
 	var m_gameState = null;
 	var m_selectedTile = null;
 	var m_selectedGOActions = null;
+	var m_lastExecutedAction = null;
 	var m_inputActive = true;
 	
 	//
@@ -29,6 +30,8 @@ var PlayerController = function (m_world, m_executor) {
 		self._eworldSB.subscribe(GameplayEvents.GameState.NO_PLAYING_PLAYERS, clearActions);
 		
 		self._eworldSB.subscribe(ClientEvents.Controller.ACTIONS_CLEARED, onActionsCleared);
+		self._eworldSB.subscribe(ClientEvents.Controller.ACTION_CANCEL, onActionsCancelled);
+		self._eworldSB.subscribe(ClientEvents.Controller.ACTION_EXECUTED, onActionExecuted);
 		self._eworldSB.subscribe(ClientEvents.Controller.ACTIONS_OFFERED, onActionsOffered);
 	};
 	
@@ -36,7 +39,17 @@ var PlayerController = function (m_world, m_executor) {
 		m_gameState = null;
 		m_selectedTile = null;
 		m_selectedGOActions = null;
+		m_lastExecutedAction = null;
 	};
+
+	this.isHudLocked = function () {
+		return !m_inputActive || (
+			m_selectedGOActions && (
+				m_selectedGOActions.go.CUnit.previewOriginalTile || 
+				m_selectedGOActions.go.CUnit.hasAttacked
+			)
+		) ;
+	}
 	
 	var onGameLoading = function (event) {
 		m_gameState = self._eworld.extract(GameState);
@@ -44,6 +57,19 @@ var PlayerController = function (m_world, m_executor) {
 	
 	// DEBUG: Global access
 	executor = m_executor;
+
+	var selectTileHighlight = function (tile) {
+		if (m_selectedTile)
+			m_selectedTile.CTileRendering.unSelect();
+
+		m_selectedTile = tile;
+
+		// DEBUG: global access
+		selected = m_selectedTile;
+
+		if (m_selectedTile)
+			m_selectedTile.CTileRendering.select();
+	};
 	
 	var selectTile = function (tile) {
 		// DEBUG: if tile is the same, place object
@@ -56,14 +82,8 @@ var PlayerController = function (m_world, m_executor) {
 			return;
 		}
 		
-		
-		if (m_selectedTile)
-			m_selectedTile.CTileRendering.unSelect();
-		
-		m_selectedTile = tile;
-		
-		// DEBUG: global access
-		selected = m_selectedTile;
+		selectTileHighlight(tile);
+
 		var selectedAction = null;
 		
 		if (m_selectedTile) {
@@ -71,34 +91,43 @@ var PlayerController = function (m_world, m_executor) {
 			if (isGOSelected())
 				selectedAction = getSelectedGOActionTile(m_selectedTile)
 				
-				// Picked action
-				if (selectedAction && m_gameState.currentPlayer == selectedAction.player) {
+			// Picked action
+			if (selectedAction && m_gameState.currentPlayer == selectedAction.player) {
 					
-					// Apply and execute the action
-					selectedAction.appliedTile = tile;
+				// Apply and execute the action
+				selectedAction.appliedTile = tile;
 					
 					
-					m_inputActive = false;
-					self._eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
+				m_inputActive = false;
+				self._eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
 					
-					self._eworld.trigger(ClientEvents.Controller.ACTION_PREEXECUTE, selectedAction);
+				self._eworld.trigger(ClientEvents.Controller.ACTION_PREEXECUTE, selectedAction);
 					
-				} else {
-					
-					var availableGOActions = m_executor.getAvailableActions(m_selectedTile);
-					
-					if (availableGOActions.length > 0) {
-						// DEBUG: Select the first unit actions only
-						self._eworld.trigger(ClientEvents.Controller.ACTIONS_OFFERED, [availableGOActions[0].actions]);
-					} else {
-						self._eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
-					}
+			} else {
+
+				// If in preview, can't select other tile. Must choose valid action or cancel!
+				if (m_selectedGOActions &&
+					(m_selectedGOActions.go.CUnit.previewOriginalTile || m_selectedGOActions.go.CUnit.hasAttacked)
+					) {
+					// Since selection has changed, re-select back the unit.
+					selectTileHighlight(m_selectedGOActions.go.CTilePlaceable.tile);
+					return;
 				}
-			
-			m_selectedTile.CTileRendering.select();
-			
+				
+				m_lastExecutedAction = null;
+				var availableGOActions = m_executor.getAvailableActions(m_selectedTile);
+					
+				if (availableGOActions.length > 0) {
+					// DEBUG: Select the first unit actions only
+					self._eworld.trigger(ClientEvents.Controller.ACTIONS_OFFERED, [availableGOActions[0]]);
+				} else {
+					self._eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
+				}
+			}
+
 		} else {
 			// Unselect any action tiles
+			m_lastExecutedAction = null;
 			self._eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
 		}	
 	}
@@ -125,29 +154,36 @@ var PlayerController = function (m_world, m_executor) {
 	var onActionsCleared = function(event) {
 		clearSelectedGOActions();
 	}
-	
-	var onActionsOffered = function(event, actions) {
-		// Check if this can be instant action.
-		// If previous actions were more and this is instant action, assume player wants to execute it.
-		if (m_selectedGOActions && m_selectedGOActions.length > 1 && actions.length == 1) {
-			var instantAction = actions[0];
-			if (instantAction.actionType != Actions.Classes.ActionMove && instantAction.actionType != Actions.Classes.ActionAttack) {
-				if (instantAction.availableTiles.length == 0) {
-					self._eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
 
-					self._eworld.trigger(ClientEvents.Controller.ACTION_PREEXECUTE, actions[0]);
-					
-					return;
-				}
-			}
+	var onActionsCancelled = function(event) {
+		
+		// No action executed yet -> cancel.
+		if (m_lastExecutedAction == null) {
+			self._eworld.triggerAsync(ClientEvents.Controller.ACTIONS_CLEARED);
+			return;
 		}
 
+		var goActions = m_executor.undoAction(m_lastExecutedAction);
+		m_lastExecutedAction = null;
 
+		if (goActions) {
+			selectTileHighlight(goActions.go.CTilePlaceable.tile);
+			self._eworld.triggerAsync(ClientEvents.Controller.ACTIONS_OFFERED, [goActions]);
+		} else {
+			self._eworld.triggerAsync(ClientEvents.Controller.ACTIONS_CLEARED);
+		}
+	}
+	
+	var onActionExecuted = function(event, action) {
+		m_lastExecutedAction = action;
+	}
+
+	var onActionsOffered = function(event, goActions) {
 		m_inputActive = true;
 		clearSelectedGOActions();
 		
-		if (actions.length > 0)
-			selectGOActions(actions);
+		if (goActions.actions.length > 0)
+			selectGOActions(goActions);
 	}
 	
 	
@@ -158,10 +194,10 @@ var PlayerController = function (m_world, m_executor) {
 		return !!m_selectedGOActions;
 	}
 	
-	var selectGOActions = function (actions) {
-		m_selectedGOActions = actions;
+	var selectGOActions = function (goActions) {
+		m_selectedGOActions = goActions;
 		
-		GameExecutor.iterateOverActionTiles(m_selectedGOActions, function (tile, action) {
+		GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, function (tile, action) {
 			ActionsRender.highlightTile(tile, action.actionType);
 		});
 	}
@@ -169,7 +205,7 @@ var PlayerController = function (m_world, m_executor) {
 	var getSelectedGOActionTile = function (selectedTile) {
 		var selectedAction = null;
 		
-		GameExecutor.iterateOverActionTiles(m_selectedGOActions, function (tile, action) {
+		GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, function (tile, action) {
 			if (tile == selectedTile) {
 				selectedAction = action;
 				
@@ -182,7 +218,7 @@ var PlayerController = function (m_world, m_executor) {
 	
 	var clearSelectedGOActions = function () {
 		if (isGOSelected()){
-			GameExecutor.iterateOverActionTiles(m_selectedGOActions, ActionsRender.unHighlightTile);
+			GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.unHighlightTile);
 			
 			m_selectedGOActions = null;
 		}
