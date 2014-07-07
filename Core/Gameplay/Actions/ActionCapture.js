@@ -31,6 +31,8 @@ Actions.Classes.ActionCapture = new function () {
 		appliedTile.CTileOwner.beingCapturedBy = action.placeable;
 		appliedTile.CTileOwner.captureTurns = 1;
 		
+		// This action consumes the whole turn.
+		action.placeable.CUnit.turnPoints = 1;
 		action.placeable.CUnit.finishedTurn = true;
 
 		eworld.trigger(GameplayEvents.Structures.CAPTURE_STARTED, appliedTile);
