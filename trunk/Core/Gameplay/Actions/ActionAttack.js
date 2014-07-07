@@ -53,12 +53,12 @@ Actions.Classes.ActionAttack = new function () {
 			action.placeable.CUnit.finishedTurn = true;
 		}
 
-		eworld.trigger(GameplayEvents.Units.UNIT_CHANGED, enemy);
-		
 		// DEBUG: print attack info
 		console.log("Attack at: " + action.appliedTile.CTile.row + ", " + action.appliedTile.CTile.column
 				+ ' Damage: ' + damage
 				+ ' Health: ' + enemy.CUnit.health);
+		
+		eworld.trigger(GameplayEvents.Units.UNIT_CHANGED, enemy);
 	}
 
 	this.onFinishedTurn = function (eworld, world, placeable) {
