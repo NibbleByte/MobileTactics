@@ -91,6 +91,12 @@ var GameExecutor = function (eworld, world) {
 				}
 			}
 
+			// If still has turn points, hasn't finished turn yet.
+			placeable.CUnit.turnPoints--;
+			if (placeable.CUnit.turnPoints > 0) {
+				placeable.CUnit.finishedTurn = false;
+			}
+
 			return new GameObjectActions(placeable, []);
 		}
 

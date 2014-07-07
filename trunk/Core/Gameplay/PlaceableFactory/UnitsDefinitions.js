@@ -15,6 +15,8 @@ var UnitsDefinitions = {
 			Defence: 5,
 			Movement: 3,
 			Visibility: 3,
+
+			TurnPoints: 2,
 		},
 		
 		actions: [
