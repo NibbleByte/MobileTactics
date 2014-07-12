@@ -79,6 +79,9 @@ var GameStateSystem = function () {
 	}
 	
 	var onEndTurn = function (event) {
+
+		self._eworld.trigger(GameplayEvents.GameState.TURN_CHANGING, m_gameState);
+
 		var previousPlayer = m_gameState.currentPlayer;
 		
 		if (m_gameState.currentPlayer != null) {
