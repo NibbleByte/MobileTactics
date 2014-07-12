@@ -12,6 +12,7 @@ var UnitsDefinitions = {
 			Attack: 2,
 			AttackRange: 2,
 			MaxHealth: 20,
+			HealRate: 2,
 			Defence: 5,
 			Movement: 3,
 			Visibility: 3,
@@ -23,6 +24,7 @@ var UnitsDefinitions = {
 				  Actions.Classes.ActionMove,
 				  Actions.Classes.ActionStay,
 				  Actions.Classes.ActionAttack,
+				  Actions.Classes.ActionHeal,
 				 ],
 		
 		terrainCost: new function () {
@@ -50,6 +52,7 @@ var UnitsDefinitions = {
 				  Actions.Classes.ActionMove,
 				  Actions.Classes.ActionStay,
 				  Actions.Classes.ActionAttack,
+				  Actions.Classes.ActionHeal,
 				 ],
 		
 		terrainCost: new function () {
@@ -76,6 +79,7 @@ var UnitsDefinitions = {
 				  Actions.Classes.ActionMove,
 				  Actions.Classes.ActionStay,
 				  Actions.Classes.ActionAttack,
+				  Actions.Classes.ActionHeal,
 				 ],
 		
 		terrainCost: new function () {

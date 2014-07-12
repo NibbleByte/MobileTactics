@@ -23,6 +23,7 @@ var ActionsRender = new function () {
 	registerAction(Actions.Classes.ActionCapture, 'Capture', CTileRendering.HighlightType.Move);
 	registerAction(Actions.Classes.ActionStay, 'Stay', CTileRendering.HighlightType.Move);
 	registerAction(Actions.Classes.ActionAttack, 'Attack', CTileRendering.HighlightType.Attack);
+	registerAction(Actions.Classes.ActionHeal, 'Heal', CTileRendering.HighlightType.Move);
 	
 	
 	

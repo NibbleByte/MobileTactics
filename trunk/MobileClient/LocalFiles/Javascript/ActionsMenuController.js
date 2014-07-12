@@ -93,9 +93,14 @@ var ActionsMenuController = function (actionMenuElement) {
 		}
 	}
 
-	var shouldHideMenu = function (actions) {
-		// Don't show if there are 0 or only Move/Attack available choices.
+	var shouldHideMenu = function (goActions) {
 
+		// Show only if current player is me.
+		if (goActions.go.CPlayerData.player != self._eworld.extract(GameState).currentPlayer)
+			return true;
+
+		// Don't show if there are 0 or only Move/Attack available choices.
+		var actions = goActions.actions;
 		return actions.length == 0 || (
 			actions.length == 1 && (
 				actions[0].actionType == Actions.Classes.ActionMove ||
@@ -107,7 +112,7 @@ var ActionsMenuController = function (actionMenuElement) {
 	var onActionsOffered = function (event, goActions) {
 		m_currentGOActions = goActions;
 		
-		if (shouldHideMenu(m_currentGOActions.actions)) {
+		if (shouldHideMenu(m_currentGOActions)) {
 			onActionsCleared();
 			return;
 		}

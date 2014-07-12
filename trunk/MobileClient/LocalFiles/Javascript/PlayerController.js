@@ -106,9 +106,10 @@ var PlayerController = function (m_world, m_executor) {
 			} else {
 
 				// If in preview, can't select other tile. Must choose valid action or cancel!
-				if (m_selectedGOActions &&
-					(m_selectedGOActions.go.CUnit.actionsData.previewOriginalTile ||
-					 m_selectedGOActions.go.CUnit.actionsData.hasExecutedAction(Actions.Classes.ActionAttack))
+				if (m_selectedGOActions && (
+							m_selectedGOActions.go.CUnit.actionsData.previewOriginalTile ||
+							m_selectedGOActions.go.CUnit.actionsData.hasExecutedAction(Actions.Classes.ActionAttack)
+						)
 					) {
 					// Since selection has changed, re-select back the unit.
 					selectTileHighlight(m_selectedGOActions.go.CTilePlaceable.tile);
