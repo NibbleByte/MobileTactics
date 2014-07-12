@@ -80,6 +80,7 @@ var GameExecutor = function (eworld, world) {
 		
 		var placeable = action.placeable;
 		action.actionType.executeAction(m_eworld, m_world, action);
+		placeable.CUnit.actionsData.executedActions.push(action.actionType);
 
 		// Finished turn means finished turn!
 		if (placeable.CUnit.finishedTurn) {
@@ -107,6 +108,7 @@ var GameExecutor = function (eworld, world) {
 
 		if (action.actionType.undoAction) {
 			action.actionType.undoAction(m_eworld, m_world, action);
+			action.placeable.CUnit.actionsData.executedActions.removeLast(action.actionType);	// The order is not guaranteed.
 
 			return new GameObjectActions(action.placeable, getPlaceableActions(action.placeable.CPlayerData.player, action.placeable));
 		} else {

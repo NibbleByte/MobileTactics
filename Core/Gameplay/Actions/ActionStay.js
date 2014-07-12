@@ -10,7 +10,7 @@ Actions.Classes.ActionStay = new function () {
 
 	this.getAvailableActions = function (eworld, world, player, placeable, outActions) {
 		// Can stay only if previewing movement.
-		if (placeable.CUnit.previewOriginalTile) {
+		if (placeable.CUnit.actionsData.previewOriginalTile) {
 			var action = new GameAction(Actions.Classes.ActionStay, player, placeable);
 			action.availableTiles = [ placeable.CTilePlaceable.tile ];
 			outActions.push(action);

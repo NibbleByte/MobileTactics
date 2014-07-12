@@ -10,6 +10,12 @@ Array.prototype.remove = function(value) {
 		this.splice(index, 1);
 };
 
+Array.prototype.removeLast = function(value) {
+	var index = this.lastIndexOf(value);
+	if (index > -1)
+		this.splice(index, 1);
+};
+
 Array.prototype.removeAt = function(index) {
 	this.splice(index, 1);
 };

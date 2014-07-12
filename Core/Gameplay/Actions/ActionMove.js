@@ -10,7 +10,7 @@ Actions.Classes.ActionMove = new function () {
 
 	this.getAvailableActions = function (eworld, world, player, placeable, outActions) {
 
-		if (placeable.CUnit.previewOriginalTile)
+		if (placeable.CUnit.actionsData.previewOriginalTile)
 			return;
 
 		var tile = placeable.CTilePlaceable.tile;
@@ -21,10 +21,12 @@ Actions.Classes.ActionMove = new function () {
 			playersData: eworld.extract(PlayersData),
 		}
 		
-		var movement = (!placeable.CUnit.hasAttacked) ? placeable.CStatistics.statistics['Movement'] : placeable.CStatistics.statistics['MovementAttack'];
+		var movement = (!placeable.CUnit.actionsData.hasExecutedAction(Actions.Classes.ActionAttack)) 
+						? placeable.CStatistics.statistics['Movement'] 
+						: placeable.CStatistics.statistics['MovementAttack'];
 		var availableTiles = world.gatherTiles(tile, movement, movementCostQuery, movementData);
 
-		if (placeable.CUnit.hasAttacked)
+		if (placeable.CUnit.actionsData.hasExecutedAction(Actions.Classes.ActionAttack))
 			availableTiles.push(tile);
 		
 		// If nowhere to move, action is unavailable.
@@ -44,18 +46,18 @@ Actions.Classes.ActionMove = new function () {
 			previousTile: startTile,
 		};
 
-		action.placeable.CUnit.previewOriginalTile = startTile;
+		action.placeable.CUnit.actionsData.previewOriginalTile = startTile;
 		world.place(action.placeable, action.appliedTile);
 	}
 	
 	this.undoAction = function (eworld, world, action) {
-		action.placeable.CUnit.previewOriginalTile = null;
+		action.placeable.CUnit.actionsData.previewOriginalTile = null;
 		world.place(action.placeable, action.undoData.previousTile);
 	}
 
 	this.onFinishedTurn = function (eworld, world, placeable) {
-		if (placeable.CUnit.previewOriginalTile) {
-			placeable.CUnit.previewOriginalTile = null;
+		if (placeable.CUnit.actionsData.previewOriginalTile) {
+			placeable.CUnit.actionsData.previewOriginalTile = null;
 			world.place(placeable, placeable.CTilePlaceable.tile);
 		}
 	}
