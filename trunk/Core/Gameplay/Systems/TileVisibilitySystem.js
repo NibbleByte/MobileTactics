@@ -54,7 +54,7 @@ var TileVisibilitySystem = function (m_world) {
 			var placeable = m_gameState.relationPlaceables[PlayersData.Relation.Ally][i];
 			
 			// If previewing some movement, use the preview tile instead of the current tile (avoid peek cheating).
-			var tile = placeable.CUnit.previewOriginalTile || placeable.CTilePlaceable.tile;
+			var tile = placeable.CUnit.actionsData.previewOriginalTile || placeable.CTilePlaceable.tile;
 
 			var visibleTiles = m_world.gatherTiles(tile, placeable.CStatistics.statistics['Visibility'], visibilityCostQuery);
 			visibleTiles.push(tile);

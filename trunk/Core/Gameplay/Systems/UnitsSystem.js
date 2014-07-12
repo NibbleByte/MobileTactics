@@ -37,6 +37,7 @@ var UnitsSystem = function () {
 
 			placeable.CUnit.turnPoints = placeable.CStatistics.statistics['TurnPoints'] || 1;
 			placeable.CUnit.finishedTurn = false;
+			placeable.CUnit.actionsData.executedActions = [];
 		}
 	}
 		

@@ -45,8 +45,8 @@ var PlayerController = function (m_world, m_executor) {
 	this.isHudLocked = function () {
 		return !m_inputActive || (
 			m_selectedGOActions && (
-				m_selectedGOActions.go.CUnit.previewOriginalTile || 
-				m_selectedGOActions.go.CUnit.hasAttacked
+				m_selectedGOActions.go.CUnit.actionsData.previewOriginalTile || 
+				m_selectedGOActions.go.CUnit.actionsData.hasExecutedAction(Actions.Classes.ActionAttack)
 			)
 		) ;
 	}
@@ -107,7 +107,8 @@ var PlayerController = function (m_world, m_executor) {
 
 				// If in preview, can't select other tile. Must choose valid action or cancel!
 				if (m_selectedGOActions &&
-					(m_selectedGOActions.go.CUnit.previewOriginalTile || m_selectedGOActions.go.CUnit.hasAttacked)
+					(m_selectedGOActions.go.CUnit.actionsData.previewOriginalTile ||
+					 m_selectedGOActions.go.CUnit.actionsData.hasExecutedAction(Actions.Classes.ActionAttack))
 					) {
 					// Since selection has changed, re-select back the unit.
 					selectTileHighlight(m_selectedGOActions.go.CTilePlaceable.tile);

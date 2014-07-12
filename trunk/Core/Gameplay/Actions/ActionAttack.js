@@ -10,7 +10,7 @@ Actions.Classes.ActionAttack = new function () {
 	
 	this.getAvailableActions = function (eworld, world, player, placeable, outActions) {
 
-		if (placeable.CUnit.hasAttacked)
+		if (placeable.CUnit.actionsData.hasExecutedAction(this))
 			return;
 
 		var tile = placeable.CTilePlaceable.tile;
@@ -46,8 +46,7 @@ Actions.Classes.ActionAttack = new function () {
 		enemy.CUnit.health -= damage;
 		
 		// Not previewing any more. Shit just got real!
-		action.placeable.CUnit.previewOriginalTile = null;
-		action.placeable.CUnit.hasAttacked = true;
+		action.placeable.CUnit.actionsData.previewOriginalTile = null;
 
 		if (!action.placeable.CStatistics.statistics['MovementAttack']) {
 			action.placeable.CUnit.finishedTurn = true;
@@ -61,7 +60,4 @@ Actions.Classes.ActionAttack = new function () {
 		eworld.trigger(GameplayEvents.Units.UNIT_CHANGED, enemy);
 	}
 
-	this.onFinishedTurn = function (eworld, world, placeable) {
-		placeable.CUnit.hasAttacked = false;
-	}
 };
