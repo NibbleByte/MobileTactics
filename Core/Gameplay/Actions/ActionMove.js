@@ -21,6 +21,7 @@ Actions.Classes.ActionMove = new function () {
 			playersData: eworld.extract(PlayersData),
 		}
 		
+		// Choose normal or after-attack movement.
 		var movement = (!placeable.CUnit.actionsData.hasExecutedAction(Actions.Classes.ActionAttack)) 
 						? placeable.CStatistics.statistics['Movement'] 
 						: placeable.CStatistics.statistics['MovementAttack'];

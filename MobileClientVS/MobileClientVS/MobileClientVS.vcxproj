@@ -31,6 +31,7 @@
     <None Include="..\..\Core\Engine\Utils\Utils.js" />
     <None Include="..\..\Core\Gameplay\Actions\ActionAttack.js" />
     <None Include="..\..\Core\Gameplay\Actions\ActionCapture.js" />
+    <None Include="..\..\Core\Gameplay\Actions\ActionHeal.js" />
     <None Include="..\..\Core\Gameplay\Actions\ActionMove.js" />
     <None Include="..\..\Core\Gameplay\Actions\ActionStay.js" />
     <None Include="..\..\Core\Gameplay\Components\CActions.js" />

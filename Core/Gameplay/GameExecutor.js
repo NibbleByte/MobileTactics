@@ -91,6 +91,7 @@ var GameExecutor = function (eworld, world) {
 					placeable.CActions.actions[i].onFinishedTurn(m_eworld, m_world, placeable);
 				}
 			}
+			placeable.CUnit.actionsData.executedActions = [];
 
 			// If still has turn points, hasn't finished turn yet.
 			placeable.CUnit.turnPoints--;
