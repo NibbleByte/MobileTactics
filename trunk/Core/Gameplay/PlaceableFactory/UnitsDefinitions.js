@@ -27,13 +27,13 @@ var UnitsDefinitions = {
 				  Actions.Classes.ActionHeal,
 				 ],
 		
-		terrainCost: new function () {
-			this[GameWorldTerrainType.Grass] = 1;
-			this[GameWorldTerrainType.Dirt] = 1;
-			this[GameWorldTerrainType.Mountain] = 3;
+		terrainStats: new function () {
+			this[GameWorldTerrainType.Grass] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Dirt] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Mountain] =	{ Cost: 3, Attack: 0, Defence: 0};
 
-			this[GameWorldTerrainType.Base] = 1;
-			this[GameWorldTerrainType.Medical] = 1;
+			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: 0};
 		},
 	}, 
 	
@@ -55,12 +55,12 @@ var UnitsDefinitions = {
 				  Actions.Classes.ActionHeal,
 				 ],
 		
-		terrainCost: new function () {
-			this[GameWorldTerrainType.Grass] = 1;
-			this[GameWorldTerrainType.Dirt] = 2;
+		terrainStats: new function () {
+			this[GameWorldTerrainType.Grass] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Dirt] =		{ Cost: 2, Attack: 0, Defence: 0};
 
-			this[GameWorldTerrainType.Base] = 1;
-			this[GameWorldTerrainType.Medical] = 1;
+			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: 0};
 		},
 	},
 	
@@ -82,15 +82,15 @@ var UnitsDefinitions = {
 				  Actions.Classes.ActionHeal,
 				 ],
 		
-		terrainCost: new function () {
-			this[GameWorldTerrainType.Grass] = 1;
-			this[GameWorldTerrainType.Dirt] = 1;
-			this[GameWorldTerrainType.Mountain] = 2;
+		terrainStats: new function () {
+			this[GameWorldTerrainType.Grass] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Dirt] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Mountain] =	{ Cost: 2, Attack: 1, Defence: 0};
 
-			this[GameWorldTerrainType.Base] = 1;
-			this[GameWorldTerrainType.Harbour] = 1;
-			this[GameWorldTerrainType.Medical] = 1;
-			this[GameWorldTerrainType.WatchTower] = 1;
+			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Harbour] =	{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.WatchTower] = { Cost: 1, Attack: 0, Defence: 0};
 		},
 	},	
 };
