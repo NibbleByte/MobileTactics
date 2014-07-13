@@ -67,7 +67,8 @@ Actions.Classes.ActionMove = new function () {
 	// Private
 	//
 	var movementCostQuery = function (tile, userData) {
-		var terrainCost = userData.placeable.CStatistics.terrainCost[tile.CTileTerrain.type];
+		var terrainStats = userData.placeable.CStatistics.terrainStats[tile.CTileTerrain.type];
+		var terrainCost = (terrainStats) ? terrainStats.Cost : undefined;
 
 		// Check if has any placeable and its relation towards it.
 		var placedObject = tile.CTile.placedObjects[0];

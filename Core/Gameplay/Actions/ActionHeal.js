@@ -23,10 +23,13 @@ Actions.Classes.ActionHeal = new function () {
 	};
 	
 	this.executeAction = function (eworld, world, action) {
-		action.placeable.CUnit.health += action.placeable.CStatistics.statistics['HealRate'] || 1;
+		var placeable = action.placeable;
 
-		action.placeable.CUnit.finishedTurn = true;
+		placeable.CUnit.health += placeable.CStatistics.statistics['HealRate'] || 1;
+		placeable.CUnit.health = Math.min(placeable.CStatistics.statistics['MaxHealth'], placeable.CUnit.health);
 
-		eworld.trigger(GameplayEvents.Units.UNIT_CHANGED, action.placeable);
+		placeable.CUnit.finishedTurn = true;
+
+		eworld.trigger(GameplayEvents.Units.UNIT_CHANGED, placeable);
 	};
 };

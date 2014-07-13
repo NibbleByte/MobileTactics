@@ -30,7 +30,7 @@ var UnitsFactory = new function () {
 		obj.addComponent(CEffects);
 		
 		obj.CStatistics.resetStatistics(definition.baseStatistics);
-		obj.CStatistics.terrainCost = definition.terrainCost;
+		obj.CStatistics.terrainStats = definition.terrainStats;
 		obj.CActions.actions = definition.actions;
 		obj.CPlayerData.player = player;
 		obj.CUnit.name = unitName;

@@ -4,7 +4,7 @@ var CStatistics = function CStatistics() {
 	this.baseStatistics = null;
 	this.statistics = null;
 	
-	this.terrainCost = null;
+	this.terrainStats = null;
 };
 
 ComponentsUtils.registerPersistent(CStatistics);
