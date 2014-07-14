@@ -14,15 +14,13 @@ var LayersUpdateSystem = function (m_renderer) {
 		self._eworldSB.subscribe(RenderEvents.Layers.REFRESH_LAYER, onRefreshLayer);
 		self._eworldSB.subscribe(RenderEvents.Layers.REFRESH_ALL, onRefreshAll);
 
-		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_PROGRESSED, onAnimationProgressed);
-		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_FINISHED, onAnimationProgressed);
 		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_AFTER_FRAME, onAnimationAfterFrame);
 	}
 	
 	//
 	// Private
 	//
-	var m_layersDirty = {};
+	var m_layersDirty = {};	// To avoid garbage, re-use the same object.
 
 	var refreshOnLoad = function (sprite) {
 		// HACK: give one frame delay, so any other "onload" handlers can be executed correctly (placeables)
@@ -81,13 +79,12 @@ var LayersUpdateSystem = function (m_renderer) {
 			refreshLayer(m_renderer.layers[i]);
 	}
 
-	var onAnimationProgressed = function (event, params) {
-		var sprite = params.animator.sprite;
-
-		m_layersDirty[sprite.layer.name] = true;
-	}
-
-	var onAnimationAfterFrame = function (event) {
+	var onAnimationAfterFrame = function (event, processedAnimationsData) {
+		
+		for(var i = 0; i < processedAnimationsData.length; ++i) {
+			m_layersDirty[processedAnimationsData[i].animator.sprite.layer.name] = true;
+		}
+		
 		for(var layerName in m_layersDirty) {
 			if (m_layersDirty[layerName]) {
 				

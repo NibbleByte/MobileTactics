@@ -26,6 +26,9 @@ var AnimationSystem = function (renderer) {
 	//
 	var m_renderer = renderer;
 	var m_ticker = null;
+
+	var m_processedAnimationsData = [];	// To avoid garbage, re-use the same array.
+	var m_processedAnimationsDataArg = [ m_processedAnimationsData ];
 	
 	var paint = function (ticker) {
 
@@ -47,17 +50,20 @@ var AnimationSystem = function (renderer) {
 						entity: entity,
 					};
 
+					m_processedAnimationsData.push(data);
+
 					if (animator.finished) {
 						self._eworld.trigger(RenderEvents.Animations.ANIMATION_FINISHED, data);
-					} else {
-						self._eworld.trigger(RenderEvents.Animations.ANIMATION_PROGRESSED, data);
 					}
 				}
 			}
 		}
 
 
-		self._eworld.trigger(RenderEvents.Animations.ANIMATION_AFTER_FRAME);
+		self._eworld.trigger(RenderEvents.Animations.ANIMATION_AFTER_FRAME, m_processedAnimationsDataArg);
+
+		// Clean processed animators
+		m_processedAnimationsData.clear();
 	}
 	
 }
