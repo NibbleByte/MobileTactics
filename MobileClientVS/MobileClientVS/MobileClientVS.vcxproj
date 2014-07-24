@@ -47,6 +47,7 @@
     <None Include="..\..\Core\Gameplay\GameState.js" />
     <None Include="..\..\Core\Gameplay\PlaceableFactory\UnitFactory.js" />
     <None Include="..\..\Core\Gameplay\PlaceableFactory\UnitsDefinitions.js" />
+    <None Include="..\..\Core\Gameplay\Store.js" />
     <None Include="..\..\Core\Gameplay\PlayersData.js" />
     <None Include="..\..\Core\Gameplay\Systems\EffectsSystem.js" />
     <None Include="..\..\Core\Gameplay\Systems\GameStateSystem.js" />
@@ -65,6 +66,7 @@
     <None Include="..\..\MobileClient\LocalFiles\Assets\Render\SpriteAnimations\Base.js" />
     <None Include="..\..\MobileClient\LocalFiles\Assets\Render\SpriteAnimations\TeslaTrooper.js" />
     <None Include="..\..\MobileClient\LocalFiles\Assets\Render\TileRenderingSystem.css" />
+    <None Include="..\..\MobileClient\LocalFiles\Assets\Store.css" />
     <None Include="..\..\MobileClient\LocalFiles\index.html" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\iscroll.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\persist.js" />
@@ -88,6 +90,7 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\ImageUtils\SpriteColorizeManager.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\ImageUtils\SpriteTracker.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\RenderEvents.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\StoreRender.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\ActionFogRenderingSystem.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\ActionsRenderingSystem.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\LayersUpdateSystem.js" />

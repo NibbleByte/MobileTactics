@@ -125,6 +125,10 @@ var PlayerController = function (m_world, m_executor) {
 					self._eworld.trigger(ClientEvents.Controller.ACTIONS_OFFERED, [availableGOActions[0]]);
 				} else {
 					self._eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
+				
+					if (Store.canPlayerShop(self._eworld, m_selectedTile)) {
+						StoreRender.apply(self._eworld, m_selectedTile);
+					}
 				}
 			}
 

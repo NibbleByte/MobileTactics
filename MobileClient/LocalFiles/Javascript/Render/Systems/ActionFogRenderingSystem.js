@@ -16,6 +16,8 @@ var ActionFogRenderingSystem = function (m_world) {
 		self._eworldSB.subscribe(ClientEvents.Controller.ACTIONS_OFFERED, onActionsOffered);
 		self._eworldSB.subscribe(ClientEvents.Controller.ACTIONS_CLEARED, onActionsCleared);
 		self._eworldSB.subscribe(ClientEvents.Controller.ACTION_CANCEL, onActionsCleared);
+
+		self._eworldSB.subscribe(GameplayEvents.Store.PLACEABLE_BOUGHT, onActionsCleared);
 	}
 	
 	//

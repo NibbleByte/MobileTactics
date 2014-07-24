@@ -269,6 +269,15 @@
     <None Include="..\..\Core\Gameplay\Actions\ActionHeal.js">
       <Filter>Javascript\Core\Gameplay\Actions</Filter>
     </None>
+    <None Include="..\..\Core\Gameplay\Store.js">
+      <Filter>Javascript\Core\Gameplay</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\StoreRender.js">
+      <Filter>Javascript\Render</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Assets\Store.css">
+      <Filter>Assets</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

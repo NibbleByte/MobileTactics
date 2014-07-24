@@ -11,6 +11,7 @@
 			<link rel="stylesheet" href="Assets/Render/Placeables.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/ActionMenu.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/DevConsole.css" type="text/css" media="screen">
+			<link rel="stylesheet" href="Assets/Store.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/Main.css" type="text/css" media="screen">
 		
 	</head>
@@ -25,6 +26,24 @@
 			<div id="LoadingScreen">
 				<div id="LoadingScreenContent">Loading...</div>
 			</div>
+
+
+			<div id="Store" style="display: none;">
+				<div id="StoreContainer">
+					<div id="StoreTitle">Unit Store</div>
+
+					<div id="StoreListContainer">
+						<select id="SelStoreList">
+						</select>
+					</div>
+
+					<div id="StoreButtonsContainer">
+						<button id="BtnStoreBuy">Buy</button>
+						<button id="BtnStoreClose">Close</button>
+					</div>
+				</div>
+			</div>
+
 
 			<div id="GameWorldMap">
 			</div>
@@ -91,6 +110,7 @@
 			<script type="text/javascript" src="Javascript/Core/Gameplay/PlayersData.js"></script>
 			<script type="text/javascript" src="Javascript/Core/Gameplay/GameState.js"></script>
 			<script type="text/javascript" src="Javascript/Core/Gameplay/GameExecutor.js"></script>
+			<script type="text/javascript" src="Javascript/Core/Gameplay/Store.js"></script>
 			
 		<!-- Gameplay - Components -->
 			<script type="text/javascript" src="Javascript/Core/Gameplay/Components/CTileOwner.js"></script>
@@ -134,6 +154,7 @@
 			<script type="text/javascript" src="Javascript/ClientEvents.js"></script>
 			
 			<script type="text/javascript" src="Javascript/Render/TileGlobals.js"></script>
+			<script type="text/javascript" src="Javascript/Render/StoreRender.js"></script>
 			<script type="text/javascript" src="Javascript/UnitFactoryClient.js"></script>
 
 		<!-- Utils -->
