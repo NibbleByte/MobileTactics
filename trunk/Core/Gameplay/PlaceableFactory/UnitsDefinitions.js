@@ -8,6 +8,7 @@ var UnitsDefinitions = {
 	
 	// TODO: Seal these objects too
 	WarMiner: {
+		name: '@!@',
 		price: 200,
 
 		baseStatistics: {
@@ -40,6 +41,7 @@ var UnitsDefinitions = {
 	}, 
 	
 	RhinoTank: {
+		name: '@!@',
 		price: 500,
 
 		baseStatistics: {
@@ -69,6 +71,7 @@ var UnitsDefinitions = {
 	},
 	
 	TeslaTrooper: {
+		name: '@!@',
 		price: 250,
 
 		baseStatistics: {
@@ -100,3 +103,10 @@ var UnitsDefinitions = {
 		},
 	},	
 };
+
+(function () {
+	for(var key in UnitsDefinitions) {
+		UnitsDefinitions[key].name = key;
+	}
+
+}) ();

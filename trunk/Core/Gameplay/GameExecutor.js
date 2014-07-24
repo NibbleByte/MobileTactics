@@ -9,17 +9,7 @@ var GameExecutor = function (eworld, world) {
 	
 	this.createObjectAt = function (tile, player) {
 		
-		var ind = Math.floor(Math.random() * 3);
-		var unitName = 'Unknown';
-		switch (ind)
-		{
-		case 0: unitName = 'WarMiner'; break;
-		case 1: unitName = 'RhinoTank';	break;
-		case 2: unitName = 'TeslaTrooper'; break;
-		};
-		
-		
-		var obj = UnitsFactory.createUnit(unitName, player);
+		var obj = UnitsFactory.createUnit(Utils.randomPropertyValue(UnitsDefinitions), player);
 		
 		// TODO: Remove testing effects.
 		var effect = new Effect();

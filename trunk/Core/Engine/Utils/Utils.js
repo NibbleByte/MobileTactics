@@ -46,6 +46,13 @@ var Utils = {
 
 		return destObj;
 	},
+
+
+	// Returns the value of random property of the given object
+	randomPropertyValue: function (obj) {
+		var keys = Object.keys(obj)
+		return obj[keys[ keys.length * Math.random() << 0]];
+	},
 	
 	// Returns !expression, so you can easely if(...) { return; }
 	assert: function (expression, message) {
