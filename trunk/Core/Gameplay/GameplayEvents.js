@@ -33,6 +33,10 @@ var GameplayEvents = {
 			NO_PLAYING_PLAYERS: "gameplay.game_state.no_playingplayers",// event, player
 		},
 
+		Store: {
+			PLACEABLE_BOUGHT:	"gameplay.store.placeable_bought",		// event, placeable
+		},
+
 		Fog: {
 			REFRESH_FOG:		"gameplay.fog.refresh_fog",				// event
 			REFRESH_FOG_AFTER:	"gameplay.fog.refresh_fog_after",		// event

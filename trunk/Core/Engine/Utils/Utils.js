@@ -47,6 +47,12 @@ var Utils = {
 		return destObj;
 	},
 	
+	// Returns !expression, so you can easely if(...) { return; }
+	assert: function (expression, message) {
+		console.assert(expression, message);
+
+		return !expression;
+	},
 	
 	//
 	// Invalidate objects

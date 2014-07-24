@@ -8,6 +8,8 @@ var UnitsDefinitions = {
 	
 	// TODO: Seal these objects too
 	WarMiner: {
+		price: 200,
+
 		baseStatistics: {
 			Attack: 2,
 			AttackRange: 2,
@@ -38,6 +40,8 @@ var UnitsDefinitions = {
 	}, 
 	
 	RhinoTank: {
+		price: 500,
+
 		baseStatistics: {
 			Attack: 4,
 			AttackRange: 3,
@@ -65,6 +69,8 @@ var UnitsDefinitions = {
 	},
 	
 	TeslaTrooper: {
+		price: 250,
+
 		baseStatistics: {
 			Attack: 2,
 			AttackRange: 1,

@@ -3,6 +3,7 @@
 "use strict";
 
 // DEBUG: Global access
+var eworld;
 var world;
 var render;
 var effects;
@@ -130,6 +131,7 @@ $(function () {
 	
 	
 	// DEBUG: global access
+	eworld = m_eworld;
 	world = m_world;
 	render = m_tileRendering;
 	effects = m_effects;
