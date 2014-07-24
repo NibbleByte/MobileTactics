@@ -15,10 +15,7 @@ var UnitsFactory = new function () {
 		UNIT_DESERIALIZED: 	"unitsfactory.unit_deserialized",	// event, unit
 	};
 	
-	this.createUnit = function (unitName, player) {
-		
-		var definition = UnitsDefinitions[unitName];
-		console.assert(definition, unitName + ' is not a valid unit name!');
+	this.createUnit = function (definition, player) {
 		
 		var obj = new ECS.Entity();
 		obj.addComponent(CTilePlaceable);
@@ -33,7 +30,7 @@ var UnitsFactory = new function () {
 		obj.CStatistics.terrainStats = definition.terrainStats;
 		obj.CActions.actions = definition.actions;
 		obj.CPlayerData.player = player;
-		obj.CUnit.name = unitName;
+		obj.CUnit.name = definition.name;
 		obj.CUnit.turnPoints = obj.CStatistics.statistics['TurnPoints'] || 1;
 
 		lastCreated = obj;

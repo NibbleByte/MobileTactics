@@ -42,7 +42,7 @@ var Store = new function () {
 		// TODO: use the player's race and return a proper list of units.
 		// TODO: use the gameState to check if there are excluded units for this map/game.
 		for(var name in UnitsDefinitions) {
-			var storeItem = new StoreItem(name, UnitsDefinitions[name], UnitsDefinitions[name].price, player, eworld);
+			var storeItem = new StoreItem(UnitsDefinitions[name], UnitsDefinitions[name].price, player, eworld);
 			storeItem.tile = tile;
 
 			list.push(storeItem);
@@ -79,7 +79,7 @@ var Store = new function () {
 
 		// TODO: Take players money.
 
-		var unit = UnitsFactory.createUnit(storeItem.name, storeItem.player);
+		var unit = UnitsFactory.createUnit(storeItem.definition, storeItem.player);
 		unit.CUnit.turnPoints = 0;
 		unit.CUnit.finishedTurn = true;
 
@@ -91,8 +91,8 @@ var Store = new function () {
 	};
 };
 
-var StoreItem = function (name, definition, price, player, eworld) {
-	this.name = name;
+var StoreItem = function (definition, price, player, eworld) {
+	this.name = definition.name;
 	this.definition = definition;
 	this.price = price;
 	this.player = player;
