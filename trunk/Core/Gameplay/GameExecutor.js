@@ -9,7 +9,7 @@ var GameExecutor = function (eworld, world) {
 	
 	this.createObjectAt = function (tile, player) {
 		
-		var obj = UnitsFactory.createUnit(Utils.randomPropertyValue(UnitsDefinitions), player);
+		var obj = UnitsFactory.createUnit(Utils.randomPropertyValue(UnitsDefinitions[player.race]), player);
 		
 		// TODO: Remove testing effects.
 		var effect = new Effect();

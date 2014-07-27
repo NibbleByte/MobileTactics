@@ -34,15 +34,16 @@ var Store = new function () {
 
 		var gameState = eworld.extract(GameState);
 		var player = tile.CTileOwner.owner;
+		var raceDefinitions = UnitsDefinitions[player.race];
 
 		// Base not owned, cannot buy.
 		if (!player)
 			return list;
-
-		// TODO: use the player's race and return a proper list of units.
+		
+		
 		// TODO: use the gameState to check if there are excluded units for this map/game.
-		for(var name in UnitsDefinitions) {
-			var storeItem = new StoreItem(UnitsDefinitions[name], UnitsDefinitions[name].price, player, eworld);
+		for(var name in raceDefinitions) {
+			var storeItem = new StoreItem(raceDefinitions[name], raceDefinitions[name].price, player, eworld);
 			storeItem.tile = tile;
 
 			list.push(storeItem);

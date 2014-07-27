@@ -36,7 +36,9 @@ var UnitRenderingSystem = function (renderer) {
 	var renderUnitInit = function (placeable) {
 		var placeableRendering = placeable.CTilePlaceableRendering;
 		
-		var spritePath = UnitRenderingSystem.SPRITES_PATH;
+		var spritePath = UnitRenderingSystem.SPRITES_PATH.replace(/{race}/g, 
+			Enums.getName(Player.Races, placeable.CPlayerData.player.race));
+
 		var resourcePath;
 		var animator = m_renderer.buildAnimator(placeableRendering.skin, placeableRendering.sprite);
 		
@@ -44,13 +46,13 @@ var UnitRenderingSystem = function (renderer) {
 		if (animator) {
 			var animations = placeable.addComponentSafe(CAnimations);
 
-			resourcePath = spritePath + animator.resourcePath;
+			resourcePath = spritePath.replace(/{fileName}/g, animator.resourcePath);
 			
 			animations.add(UnitRenderingSystem.MAIN_SPRITE, animator);
 			animator.pauseSequence('Idle');
 			
 		} else {
-			resourcePath = spritePath + placeableRendering.skin + '.png';
+			resourcePath = spritePath.replace(/{fileName}/g, placeableRendering.skin + '.png');
 		}
 
 		m_renderer.loadSprite(placeableRendering.sprite, resourcePath, onResourcesLoaded, placeable);
@@ -170,7 +172,7 @@ var UnitRenderingSystem = function (renderer) {
 
 UnitRenderingSystem.REQUIRED_COMPONENTS = [CUnitRendering, CTilePlaceableRendering];
 UnitRenderingSystem.MAIN_SPRITE = 'MainSprite';
-UnitRenderingSystem.SPRITES_PATH = 'Assets/Render/Images/Units/';
+UnitRenderingSystem.SPRITES_PATH = 'Assets/Render/Images/Units/{race}/{fileName}';
 
 ECS.EntityManager.registerSystem('UnitRenderingSystem', UnitRenderingSystem);
 SystemsUtils.supplyComponentFilter(UnitRenderingSystem, UnitRenderingSystem.REQUIRED_COMPONENTS);
