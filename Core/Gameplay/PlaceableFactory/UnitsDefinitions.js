@@ -4,8 +4,10 @@
 //===============================================
 "use strict";
 
-var UnitsDefinitions = {
-	
+var UnitsDefinitions = [];
+
+UnitsDefinitions[Player.Races.Humans] = {
+
 	// TODO: Seal these objects too
 	WarMiner: {
 		name: '@!@',
@@ -104,9 +106,19 @@ var UnitsDefinitions = {
 	},	
 };
 
+
+UnitsDefinitions[Player.Races.Roaches] = {
+};
+
+UnitsDefinitions[Player.Races.JunkBots] = {
+};
+
 (function () {
-	for(var key in UnitsDefinitions) {
-		UnitsDefinitions[key].name = key;
+	
+	for(var i = 0; i < UnitsDefinitions.length; ++i) {
+		for(var key in UnitsDefinitions[i]) {
+			UnitsDefinitions[i][key].name = key;
+		}
 	}
 
 }) ();
