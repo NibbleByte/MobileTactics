@@ -84,6 +84,7 @@ $(function () {
 	var m_playersData = null;
 
 	m_eworld.addSystem(m_eworld.store(UtilsSystem, new UtilsSystem()));
+	m_eworld.addSystem(m_eworld.store(SynchronizationSystem, new SynchronizationSystem()));
 
 	//
 	// World systems

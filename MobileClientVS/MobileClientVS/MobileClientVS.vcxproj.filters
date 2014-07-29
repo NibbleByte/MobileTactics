@@ -278,6 +278,9 @@
     <None Include="..\..\MobileClient\LocalFiles\Assets\Store.css">
       <Filter>Assets</Filter>
     </None>
+    <None Include="..\..\Core\Engine\Systems\SynchronizationSystem.js">
+      <Filter>Javascript\Core\Engine\Systems</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

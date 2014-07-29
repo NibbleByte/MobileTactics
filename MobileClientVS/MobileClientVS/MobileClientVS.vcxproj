@@ -22,6 +22,7 @@
     <None Include="..\..\Core\Engine\ECS\SampleUsage.js" />
     <None Include="..\..\Core\Engine\EngineEvents.js" />
     <None Include="..\..\Core\Engine\Systems\GameWorld.js" />
+    <None Include="..\..\Core\Engine\Systems\SynchronizationSystem.js" />
     <None Include="..\..\Core\Engine\Systems\UtilsSystem.js" />
     <None Include="..\..\Core\Engine\Utils\Array.js" />
     <None Include="..\..\Core\Engine\Utils\ECSUtils.js" />
