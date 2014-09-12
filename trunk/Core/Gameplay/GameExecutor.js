@@ -14,12 +14,12 @@ var GameExecutor = function (eworld, world) {
 		// TODO: Remove testing effects.
 		var effect = new Effect();
 		effect.addStatisticModifier('Attack', 20);
-		obj.CEffects.effects.push(effect);
+		//obj.CEffects.effects.push(effect);
 		
 		effect = new Effect();
 		effect.addStatisticModifier('Attack', -30);
 		effect.timeLeft = 2;
-		obj.CEffects.effects.push(effect);
+		//obj.CEffects.effects.push(effect);
 		
 		
 		
@@ -68,8 +68,14 @@ var GameExecutor = function (eworld, world) {
 	this.executeAction = function(action) {
 		console.assert(action instanceof GameAction, "GameAction is required.");
 		
-		var placeable = action.placeable;
 		action.actionType.executeAction(m_eworld, m_world, action);
+
+		// Placeable might got destroyed during the action.
+		if (action.placeable.destroyed) {
+			return null;
+		}
+
+		var placeable = action.placeable;
 		placeable.CUnit.actionsData.executedActions.push(action.actionType);
 
 		// Finished turn means finished turn!

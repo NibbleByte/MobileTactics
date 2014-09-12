@@ -24,7 +24,11 @@ var UtilsSystem = function () {
 
 	// A way to invalidate object using world event. Useful when used with async trigger.
 	var onInvalidate = function (event, obj) {
+		var destroyed = obj.destroyed;
 		Utils.invalidate(obj);
+
+		// Keep the destroyed flag for last moment usage.
+		obj.destroyed = destroyed;
 	}
 }
 

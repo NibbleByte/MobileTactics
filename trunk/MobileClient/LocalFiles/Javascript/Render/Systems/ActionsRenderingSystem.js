@@ -48,7 +48,12 @@ ActionsRenderingSystem.ActionExecutors.DefaultExecutor = function (m_executor, m
 
 		m_eworld.trigger(ClientEvents.Controller.ACTION_EXECUTED, m_action);
 		
-		m_eworld.triggerAsync(ClientEvents.Controller.ACTIONS_OFFERED, [goActions]);
+		// If no more goActions available, clear anyway.
+		if (goActions) {
+			m_eworld.triggerAsync(ClientEvents.Controller.ACTIONS_OFFERED, [goActions]);
+		} else {
+			m_eworld.triggerAsync(ClientEvents.Controller.ACTIONS_CLEARED, [goActions]);
+		}
 	};
 }
 

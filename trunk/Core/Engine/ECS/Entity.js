@@ -2,9 +2,10 @@
 // Entity
 //
 // Single entity in the world.
-// Every entity can has different components.
+// Every entity can have different components.
 // Every component should contain only data members.
 // On adding/removing components, the world and the systems get notified.
+// NOTE: After destroying entity, the flag "destroyed" is set. Don't use this entity afterwards.
 //========================================================================================================
 "use strict";
 var ECS = ECS || {};
@@ -24,6 +25,8 @@ ECS.Entity = function (world) {
 // All systems will be notified for this.
 // Note: only one component per type allowed.
 ECS.Entity.prototype.addComponent = function (componentClass) {
+
+	console.assert(!this.destroyed, 'Trying to use a destroyed entity.');
 	
 	var componentName = componentClass.prototype._COMP_NAME;
 	
@@ -58,6 +61,8 @@ ECS.Entity.prototype.addComponentSafe = function (componentClass) {
 // All systems will be notified for this.
 ECS.Entity.prototype.removeComponent = function (componentClass) {
 	
+	console.assert(!this.destroyed, 'Trying to use a destroyed entity.');
+
 	var componentName = componentClass.prototype._COMP_NAME;
 	var component = this[componentName];
 	
@@ -110,6 +115,7 @@ ECS.Entity.prototype.getEntityWorld = function () {
 // Removes the entity from the world.
 // Will call special destroy() method of the components if available.
 // All systems will be notified for this.
+// Sets the flag "destroyed".
 ECS.Entity.prototype.destroy = function () {
 
 	if (this._entityWorld) {
@@ -149,6 +155,8 @@ ECS.Entity.prototype.destroy = function () {
 
 		delete this[field];
 	}
+
+	this.destroyed = true;
 }
 
 // Checks if the entity has the specified components.
@@ -157,6 +165,8 @@ ECS.Entity.prototype.destroy = function () {
 //		bool hasComponents([comp1, comp2, comp3, ...]);
 ECS.Entity.prototype.hasComponents = function (components) {
 	
+	console.assert(!this.destroyed, 'Trying to use a destroyed entity.');
+
 	var compCollection = arguments;
 	if (components instanceof Array)
 		compCollection = components;

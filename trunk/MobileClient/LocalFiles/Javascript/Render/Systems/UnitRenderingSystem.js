@@ -121,9 +121,10 @@ var UnitRenderingSystem = function (renderer) {
 		// Unit
 		unitRendering.sprite = m_renderer.createSprite(WorldLayers.LayerTypes.Statistics);
 		unitRendering.$text.appendTo(unitRendering.sprite.dom);
-		unitRendering.$text.text(placeable.CUnit.health);
 		
 		renderUnitInit(placeable);
+
+		onUnitChanged(event, placeable);
 	}
 	
 	var onPlaceableMoving = function(event, placeable) {
@@ -148,7 +149,11 @@ var UnitRenderingSystem = function (renderer) {
 	}
 	
 	var onUnitChanged = function(event, unit) {
-		unit.CUnitRendering.$text.text(unit.CUnit.health.toPrecision(2));
+		if (unit.CUnit.health != unit.CStatistics.statistics['MaxHealth']) {
+			unit.CUnitRendering.$text.text(unit.CUnit.health);
+		} else {
+			unit.CUnitRendering.$text.text('');
+		}
 	}
 
 

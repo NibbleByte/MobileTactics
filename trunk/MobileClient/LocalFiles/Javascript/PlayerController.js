@@ -186,7 +186,6 @@ var PlayerController = function (m_world, m_executor) {
 	}
 
 	var onActionsOffered = function(event, goActions) {
-		m_inputActive = true;
 		clearSelectedGOActions();
 		
 		if (goActions.actions.length > 0)
@@ -246,6 +245,8 @@ var PlayerController = function (m_world, m_executor) {
 	}
 	
 	var clearSelectedGOActions = function () {
+		m_inputActive = true;
+
 		if (isGOSelected()){
 			GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.unHighlightTile);
 			

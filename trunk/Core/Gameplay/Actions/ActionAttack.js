@@ -39,15 +39,7 @@ Actions.Classes.ActionAttack = new function () {
 	};
 	
 	this.executeAction = function (eworld, world, action) {
-		var tile = action.placeable.CTilePlaceable.tile;
-		var terrainAttack = action.placeable.CStatistics.terrainStats[tile.CTileTerrain.type].Attack || 0;
 
-		// TODO: Modify statistics properly, taking the defence as well.
-		var enemy = action.appliedTile.CTile.placedObjects[0];
-		var damage = action.placeable.CStatistics.statistics['Attack'] + terrainAttack;
-		
-		enemy.CUnit.health -= damage;
-		
 		// Not previewing any more. Shit just got real!
 		action.placeable.CUnit.actionsData.previewOriginalTile = null;
 
@@ -55,12 +47,7 @@ Actions.Classes.ActionAttack = new function () {
 			action.placeable.CUnit.finishedTurn = true;
 		}
 
-		// DEBUG: print attack info
-		console.log("Attack at: " + action.appliedTile.CTile.row + ", " + action.appliedTile.CTile.column
-				+ ' Damage: ' + damage
-				+ ' Health: ' + enemy.CUnit.health);
-		
-		eworld.trigger(GameplayEvents.Units.UNIT_CHANGED, enemy);
+		eworld.extract(BattleSystem).doAttack(action.placeable, action.appliedTile.CTile.placedObjects[0]);
 	}
 
 };

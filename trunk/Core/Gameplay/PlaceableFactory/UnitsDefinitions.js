@@ -16,9 +16,8 @@ UnitsDefinitions[Player.Races.Humans] = {
 		baseStatistics: {
 			Attack: 2,
 			AttackRange: 2,
-			MaxHealth: 20,
 			HealRate: 2,
-			Defence: 5,
+			Defence: 4,
 			Movement: 3,
 			Visibility: 3,
 
@@ -49,8 +48,7 @@ UnitsDefinitions[Player.Races.Humans] = {
 		baseStatistics: {
 			Attack: 4,
 			AttackRange: 3,
-			MaxHealth: 15,
-			Defence: 4,
+			Defence: 3,
 			Movement: 4,
 			MovementAttack: 2,
 			Visibility: 4,
@@ -77,10 +75,9 @@ UnitsDefinitions[Player.Races.Humans] = {
 		price: 250,
 
 		baseStatistics: {
-			Attack: 2,
+			Attack: 3,
 			AttackRange: 1,
-			MaxHealth: 10,
-			Defence: 3,
+			Defence: 2,
 			Movement: 3,
 			Visibility: 3,
 		},
@@ -115,9 +112,13 @@ UnitsDefinitions[Player.Races.JunkBots] = {
 
 (function () {
 	
+	// Add default values to the statistics
 	for(var i = 0; i < UnitsDefinitions.length; ++i) {
 		for(var key in UnitsDefinitions[i]) {
-			UnitsDefinitions[i][key].name = key;
+			var definition = UnitsDefinitions[i][key];
+			definition.name = key;
+			definition.baseStatistics['MaxHealth'] = definition.baseStatistics['MaxHealth'] || 10;
+			definition.baseStatistics['FirePower'] = definition.baseStatistics['FirePower'] || 4;
 		}
 	}
 
