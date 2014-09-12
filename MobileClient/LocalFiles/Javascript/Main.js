@@ -98,6 +98,7 @@ $(function () {
 	//
 	var m_effects = new EffectsSystem();
 	m_eworld.addSystem(m_effects);
+	m_eworld.addSystem(m_eworld.store(BattleSystem, new BattleSystem()));
 	m_eworld.addSystem(new UnitsSystem());
 	m_eworld.addSystem(new GameStateSystem());
 	m_eworld.addSystem(new TileCapturingSystem());

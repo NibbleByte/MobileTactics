@@ -50,6 +50,7 @@
     <None Include="..\..\Core\Gameplay\PlaceableFactory\UnitsDefinitions.js" />
     <None Include="..\..\Core\Gameplay\Store.js" />
     <None Include="..\..\Core\Gameplay\PlayersData.js" />
+    <None Include="..\..\Core\Gameplay\Systems\BattleSystem.js" />
     <None Include="..\..\Core\Gameplay\Systems\EffectsSystem.js" />
     <None Include="..\..\Core\Gameplay\Systems\GameStateSystem.js" />
     <None Include="..\..\Core\Gameplay\Systems\TileBaseSystem.js" />

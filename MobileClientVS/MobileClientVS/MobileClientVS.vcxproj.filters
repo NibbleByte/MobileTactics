@@ -281,6 +281,9 @@
     <None Include="..\..\Core\Engine\Systems\SynchronizationSystem.js">
       <Filter>Javascript\Core\Engine\Systems</Filter>
     </None>
+    <None Include="..\..\Core\Gameplay\Systems\BattleSystem.js">
+      <Filter>Javascript\Core\Gameplay\Systems</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

@@ -50,11 +50,13 @@ var AnimationSystem = function (renderer) {
 						entity: entity,
 					};
 
-					m_processedAnimationsData.push(data);
-
 					if (animator.finished) {
 						self._eworld.trigger(RenderEvents.Animations.ANIMATION_FINISHED, data);
 					}
+
+					// Might get destroyed at the end of the animation.
+					if (!entity.destroyed)
+						m_processedAnimationsData.push(data);
 				}
 			}
 		}
