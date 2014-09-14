@@ -62,6 +62,14 @@ var AnimationSystem = function (renderer) {
 		}
 
 
+		// Some other entities might also got destroyed at the ANIMATION_FINISHED event.
+		// Don't propagate them as well.
+		for(var i = 0; i < m_processedAnimationsData.length; ++i) {
+			if (m_processedAnimationsData[i].entity.destroyed)
+				m_processedAnimationsData.splice(i, 1);
+		}
+
+
 		self._eworld.trigger(RenderEvents.Animations.ANIMATION_AFTER_FRAME, m_processedAnimationsDataArg);
 
 		// Clean processed animators
