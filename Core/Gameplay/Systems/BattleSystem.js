@@ -11,7 +11,7 @@ var BattleSystem = function () {
 		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADING, onGameLoading);
 	}
 
-	this.predictResults = function (attacker, defender) {
+	this.predictOutcome = function (attacker, defender) {
 
 		// Attacker parameters
 		var aTile = attacker.CTilePlaceable.tile;
@@ -40,12 +40,18 @@ var BattleSystem = function () {
 
 		// If defender dies, attacker is considered lucky.
 		if (defender.CUnit.health - dInflictedDamage <= 0 && attacker.CUnit.health - aInflictedDamage <= 0) {
-			aInflictedDamage = Math.max(attacker.CUnit.health - 1, 1);
+			aInflictedDamage = attacker.CUnit.health - 1;
 		}
 
 		return {
 			attacker: attacker,
 			defender: defender,
+
+			attackerTile: attacker.CTilePlaceable.tile,
+			defenderTile: defender.CTilePlaceable.tile,
+
+			attackerHealth: attacker.CUnit.health,
+			defenderHealth: defender.CUnit.health,
 
 			attackerStrength: aStrength,
 			defenderStrength: dStrength,
@@ -54,20 +60,23 @@ var BattleSystem = function () {
 
 			damageToAttacker: aInflictedDamage,
 			damageToDefender: dInflictedDamage,
+
+			attackerHealthOutcome: Math.max(0, attacker.CUnit.health - aInflictedDamage),
+			defenderHealthOutcome: Math.max(0, defender.CUnit.health - dInflictedDamage),
 		};
 	}
 
 	this.doAttack = function (attacker, defender) {
 
-		var battleResults = self.predictResults(attacker, defender);
+		var battleOutcome = self.predictOutcome(attacker, defender);
 
-		attacker.CUnit.health -= battleResults.damageToAttacker;
-		defender.CUnit.health -= battleResults.damageToDefender;
+		attacker.CUnit.health = battleOutcome.attackerHealthOutcome;
+		defender.CUnit.health = battleOutcome.defenderHealthOutcome;
 
 		self._eworld.trigger(GameplayEvents.Units.UNIT_CHANGED, attacker);
 		self._eworld.trigger(GameplayEvents.Units.UNIT_CHANGED, defender);
 
-		return battleResults;
+		return battleOutcome;
 	}
 
 	//

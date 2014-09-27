@@ -14,6 +14,53 @@ var UnitsFactory = new function () {
 		UNIT_CREATED: 		"unitsfactory.unit_created",		// event, unit
 		UNIT_DESERIALIZED: 	"unitsfactory.unit_deserialized",	// event, unit
 	};
+
+	// Resolves string path to unit definition.
+	this.resolveDefinitionPath = function (definitionPath) {
+		var splits = definitionPath.split(':');
+		console.assert(splits.length == 2);
+
+		return UnitsDefinitions[Player.Races[splits[0].trim()]][splits[1].trim()];
+	}
+
+	// Resolves string path to race.
+	this.resolveDefinitionPathRace = function (definitionPath) {
+		var splits = definitionPath.split(':');
+		console.assert(splits.length == 2);
+
+		return Player.Races[splits[0].trim()];
+	}
+
+	// Pass on race and definition or just definition, to generate definition path
+	// Can also pass the name of the unit.
+	this.generateDefinitionPath = function (race, definition) {
+		
+		// Name of the definition
+		if (!definition && Utils.isString(race)) {
+			var name = race;
+			for(var i = 0; i < UnitsDefinitions.length; ++i) {
+				if (UnitsDefinitions[i][name]) {
+					break;
+				}
+			}
+			race = i;
+			definition = UnitsDefinitions[race][name];
+		}
+
+		if (!definition) {
+			definition = race;
+			for(var i = 0; i < UnitsDefinitions.length; ++i) {
+				if (UnitsDefinitions[i][definition.name] == definition) {
+					break;
+				}
+			}
+			race = i;
+		}
+		
+		console.assert(Enums.isValidValue(Player.Races, race));
+
+		return Enums.getName(Player.Races, race) + ':' + definition.name;
+	}
 	
 	this.createUnit = function (definition, player) {
 		

@@ -110,6 +110,8 @@ ECS.EntityWorld = function () {
 		var handler = system['onAdded'];
 		if (handler)
 			handler.apply(system);
+
+		return system;
 	};
 	
 	// Remove system from the world (by type).
