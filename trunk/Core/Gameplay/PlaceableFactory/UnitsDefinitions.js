@@ -33,8 +33,8 @@ UnitsDefinitions[Player.Races.Humans] = {
 		
 		terrainStats: new function () {
 			this[GameWorldTerrainType.Grass] =		{ Cost: 1, Attack: 0, Defence: 0};
-			this[GameWorldTerrainType.Dirt] =		{ Cost: 1, Attack: 0, Defence: 0};
-			this[GameWorldTerrainType.Mountain] =	{ Cost: 3, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Dirt] =		{ Cost: 1, Attack: 1, Defence: 0};
+			this[GameWorldTerrainType.Mountain] =	{ Cost: 3, Attack: 0, Defence: 1};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: 0};
@@ -91,8 +91,8 @@ UnitsDefinitions[Player.Races.Humans] = {
 				 ],
 		
 		terrainStats: new function () {
-			this[GameWorldTerrainType.Grass] =		{ Cost: 1, Attack: 0, Defence: 0};
-			this[GameWorldTerrainType.Dirt] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Grass] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.Dirt] =		{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Mountain] =	{ Cost: 2, Attack: 1, Defence: 0};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: 0};

@@ -58,7 +58,10 @@
     <None Include="..\..\Core\Gameplay\Systems\TileVisibilitySystem.js" />
     <None Include="..\..\Core\Gameplay\Systems\UnitsSystem.js" />
     <None Include="..\..\Core\Gameplay\TerrainType.js" />
+    <None Include="..\..\Internal Tools\BattleTestground\BattleTestground-Main.js" />
+    <None Include="..\..\Internal Tools\BattleTestground\BattleTestground.html" />
     <None Include="..\..\Internal Tools\Libs\jscolor\jscolor.js" />
+    <None Include="..\..\Internal Tools\SpriteTestground\SpriteTestground-Main.js" />
     <None Include="..\..\Internal Tools\SpriteTestground\SpriteTestground.html" />
     <None Include="..\..\MobileClient\LocalFiles\Assets\ActionMenu.css" />
     <None Include="..\..\MobileClient\LocalFiles\Assets\DevConsole.css" />

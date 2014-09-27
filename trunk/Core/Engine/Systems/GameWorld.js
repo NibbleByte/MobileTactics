@@ -349,3 +349,18 @@ GameWorld.prototype.getDistance = function (tile1, tile2) {
 	var deltaColumns = tile1.CTile.column - tile2.CTile.column;
 	return ((Math.abs(deltaRows) + Math.abs(deltaColumns) + Math.abs(deltaRows - deltaColumns)) / 2);
 }
+
+// Short-cut for creating unmanaged tile
+GameWorld.createTileUnmanaged = function (terrainType, row, column) {
+	
+	Utils.assert(Enums.isValidValue(GameWorldTerrainType, terrainType));
+
+	var tile = new ECS.Entity();
+	tile.addComponent(CTile);
+	tile.addComponent(CTileTerrain);
+	tile.CTile.row = row;
+	tile.CTile.column = column;
+	tile.CTileTerrain.type = terrainType;
+
+	return tile;
+}

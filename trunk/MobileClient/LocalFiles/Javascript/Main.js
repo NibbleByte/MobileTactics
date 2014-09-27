@@ -27,11 +27,7 @@ var fillTerrainPattern = function (eworld, world, rows) {
 	for(var i = 0; i < rows; ++i) {
 		for(var j = Math.ceil(i / 2); j < rows + i / 2; ++j) {
 			
-			tile = new ECS.Entity();
-			tile.addComponent(CTile);
-			tile.addComponent(CTileTerrain);
-			tile.CTile.row = i;
-			tile.CTile.column = j;
+			tile = GameWorld.createTileUnmanaged(GameWorldTerrainType.Grass, i, j);
 			tile.CTileTerrain.type = GameWorldTerrainType.Grass;
 			if (i % 3 <= 1 && j % 4 >= 2) {
 				tile.CTileTerrain.type = GameWorldTerrainType.Dirt;

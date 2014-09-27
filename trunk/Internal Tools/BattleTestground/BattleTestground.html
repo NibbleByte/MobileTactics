@@ -1,0 +1,482 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>Battle Testground</title>
+		
+		<style type="text/css">
+			body
+			{
+				background-color: rgb(35, 121, 56);
+				color: white;
+			}
+			
+			#Main
+			{
+				text-align: center;
+				margin: auto;
+			}
+			
+			
+			/* * * * * * * * * * * *
+			 * Battle configuration
+			 */
+			
+			#BattleConfiguration
+			{
+				width: 410px;
+				margin: auto;
+			}
+			
+			.participant_list
+			{
+				width: 150px;
+			}
+			
+			.range_value
+			{
+				width: 120px;
+			}
+			
+			.range_value_label
+			{
+				display: inline-block;
+				width: 20px;
+				
+				position: relative;
+				top: -6px;
+			}
+			
+			.quick_action_button
+			{
+				width: 100px;
+				display: inline-block;
+			}
+			
+			
+			.low_health
+			{
+				color: orange;
+			}
+			
+			.no_health
+			{
+				color: red;
+			}
+			
+			/* * * * * * * * * * * *
+			 * Statistics
+			 */
+			.stats_table 
+			{
+				width: 400px;
+				margin: auto;
+				border-collapse: collapse;
+			}
+			
+			.stats_table tr:hover td, .stats_table tr:hover th
+			{
+				background: rgb(115, 148, 73) !important;
+			}
+
+			.stats_table, .stats_table td {
+				border: 1px solid white;
+				background: rgb(52, 92, 54);
+			}
+			
+			.stats_table th {
+				border: 1px solid white;
+				background: rgb(35, 61, 37);
+			}
+			
+			
+			#UnitTerrainStatistics
+			{
+				margin-top: 8px;
+			}
+			
+			#UnitStatistics th:nth-child(1), #UnitStatistics th:nth-child(3)
+			{
+				width: 125px;
+			}
+			#UnitStatistics th:nth-child(2), #UnitStatistics td:nth-child(2)
+			{
+				background: rgb(73, 99, 96);
+			}
+			
+			#UnitTerrainStatistics th:nth-child(4), #UnitTerrainStatistics td:nth-child(4)
+			{
+				background: rgb(73, 99, 96);
+			}
+			
+			.stat_better
+			{
+				background: rgb(72, 131, 86) !important;
+			}
+			
+			
+			
+			.stat_terrain_value
+			{
+				color: BurlyWood;
+			}
+			
+			.stat_mod_value
+			{
+				color: DarkTurquoise;
+			}
+			
+			
+			/* * * * * * * * * * * *
+			 * Battle Outcome results
+			 */
+			#BattleOutcomeTable
+			{
+				width: 800px;
+			}
+			
+			#BattleOutcomeTable th:nth-child(1), #BattleOutcomeTable th:nth-child(2)
+			{
+				width: 200px;
+			}
+			
+			#BattleOutcomeTable th:nth-child(6), #BattleOutcomeTable td:nth-child(6),
+			#BattleOutcomeTable th:nth-child(7), #BattleOutcomeTable td:nth-child(7)
+			{
+				background: rgb(73, 99, 96);
+			}
+			
+			.separator
+			{
+				width:500px;
+				text-align:center;
+			}
+
+			.separator hr
+			{
+				margin-left:auto;
+				margin-right:auto;
+				width:40%;
+			}
+			
+			td.separator 
+			{
+				background: rgb(34, 54, 35);
+			}
+			
+			td.separator hr
+			{
+				border-style: dashed;
+				border-color: rgb(170, 170, 82);
+			}
+
+			.left {
+				float:left;
+			}
+
+			.right {
+				float:right;
+			}
+			 
+			/* * * * * * * * * * * *
+			 * Generic
+			 */
+			a 
+			{
+				color: rgb(231, 175, 72);
+				text-decoration: underline;
+				cursor: pointer;
+			}
+			
+			textarea, pre { -moz-tab-size:4; -o-tab-size:4; tab-size:4; }
+		</style>
+	</head>
+	
+	<body>
+		<div id="Main">
+			<div id="BattleConfiguration">
+
+				<table style="width:100%">
+
+					<thead>
+						<!-- Titles -->
+						<tr>
+							<th>Attacker</th>
+							<th></th>
+							<th>Defender</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<!-- Participants -->
+						<tr>
+							<td>
+								<select id="AttackerList" class="participant_list">
+								</select>
+							</td>
+
+							<td>
+								<a id="BtnSwapParticipants" class="quick_action_button">VS</a>
+							</td>
+
+							<td>
+								<select id="DefenderList" class="participant_list">
+								</select>
+							</td>
+						</tr>
+
+
+						<!-- Terrain -->
+						<tr>
+							<td>
+								<select id="AttackerTerrainList" class="participant_list">
+								</select>
+							</td>
+
+							<td>
+								Terrain
+							</td>
+
+							<td>
+								<select id="DefenderTerrainList" class="participant_list">
+								</select>
+							</td>
+						</tr>
+
+
+						<!-- Attack Modifier -->
+						<tr>
+							<td>
+								<span id="AttackerModAttackLabel" class="range_value_label">0</span>
+								<input id="AttackerModAttack" class="range_value" type="range" min="-10" max="10" step="1" value="0" />
+							</td>
+
+							<td>
+								<a id="BtnAttackModReset" class="quick_action_button">Attack Mod</a>
+							</td>
+
+							<td>
+								<input id="DefenderModAttack" class="range_value" type="range" min="-10" max="10" step="1" value="0" />
+								<span id="DefenderModAttackLabel" class="range_value_label">0</span>
+							</td>
+						</tr>
+
+
+						<!-- Defence Modifier -->
+						<tr>
+							<td>
+								<span id="AttackerModDefenceLabel" class="range_value_label">0</span>
+								<input id="AttackerModDefence" class="range_value" type="range" min="-10" max="10" step="1" value="0" />
+							</td>
+
+							<td>
+								<a id="BtnDefenceModReset" class="quick_action_button">Defence Mod</a>
+							</td>
+
+							<td>
+								<input id="DefenderModDefence" class="range_value" type="range" min="-10" max="10" step="1" value="0" />
+								<span id="DefenderModDefenceLabel" class="range_value_label">0</span>
+							</td>
+						</tr>
+
+						<!-- Health -->
+						<tr>
+							<td>
+								<span id="AttackerHealthLabel" class="range_value_label">10</span>
+								<input id="AttackerHealth" class="range_value" type="range" min="0" max="20" step="1" value="10" />
+							</td>
+
+							<td>
+								<a id="BtnHealthReset" class="quick_action_button">Health</a>
+							</td>
+
+							<td>
+								<input id="DefenderHealth" class="range_value" type="range" min="0" max="20" step="1" value="10" />
+								<span id="DefenderHealthLabel" class="range_value_label">10</span>
+							</td>
+						</tr>
+
+						<!-- Health Predicted -->
+						<tr style="background: rgb(68, 82, 65);">
+							<td>
+								<span id="AttackerHealthPredictedLabel" class="range_value_label">10</span>
+								<input id="AttackerHealthPredicted" class="range_value" type="range" min="0" max="20" step="1" value="10" />
+							</td>
+
+							<td>HP Predicted</td>
+
+							<td>
+								<input id="DefenderHealthPredicted" class="range_value" type="range" min="0" max="20" step="1" value="10" />
+								<span id="DefenderHealthPredictedLabel" class="range_value_label">10</span>
+							</td>
+						</tr>
+
+					</tbody>
+
+				</table>
+
+				<input id="BtnPredict" type="button" value="Predict" />
+				<input id="BtnFight" type="button" value="Fight" />
+				<input id="BtnFightBack" type="button" value="Fight Back" />
+				<input id="BtnPredictAll" type="button" value="Predict All" />
+
+				<br />
+
+				<input id="BtnSeparator" type="button" value="Separator" />
+				<input id="BtnClear" type="button" value="Clear" />
+			</div>
+
+			<hr />
+
+			<div id="BattleStatistics">
+				<table id="UnitStatistics" class="stats_table">
+
+					<thead>
+						<!-- Titles -->
+						<tr>
+							<th>Attacker</th>
+							<th>
+								<a onclick="$('#UnitStatistics tbody').toggle();">Statistic</a> 
+								<input id="CbShowDetails" title="Show details" type="checkbox" style="position: absolute;" /></th>
+							<th>Defender</th>
+						</tr>
+					</thead>
+
+
+					<tbody>
+					</tbody>
+				</table>
+				
+				<table id="UnitTerrainStatistics" class="stats_table">
+
+					<thead>
+						<!-- Titles -->
+						<tr>
+							<th colspan="3">Attacker</th>
+							<th><a onclick="$('#UnitTerrainStatistics tbody').toggle();">Show/Hide</a></th>
+							<th colspan="3">Defender</th>
+						</tr>
+						
+						<tr>
+							<th>Defence</th>
+							<th>Attack</th>
+							<th>Cost</th>
+							
+							<th>Terrain</th>
+
+							<th>Cost</th>
+							<th>Attack</th>
+							<th>Defence</th>
+						</tr>
+					</thead>
+
+
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+
+			<hr />
+
+			<div id="BattleOutcome">
+
+				<table id="BattleOutcomeTable" class="stats_table">
+
+					<thead>
+						<!-- Titles -->
+						<tr>
+							<th>Attacker</th>
+							<th>Defender</th>
+							<th>Att</th>
+							<th>Def</th>
+							<th>HP</th>
+							<th>HP Res</th>
+							<th>Strengths</th>
+
+							<th>Res</th>
+							<th>Del</th>
+						</tr>
+					</thead>
+
+
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+
+		<!-- ==========	Core ====================== -->
+		<!-- 3rd Party -->
+			<script type="text/javascript" src="../_Core/Engine/3rdParty/jquery-1.9.1.js"></script>
+		<!-- Javascripts -->
+			<script type="text/javascript" src="../_Core/Engine/Utils/Array.js"></script>
+			<script type="text/javascript" src="../_Core/Engine/Utils/Enums.js"></script>
+			<script type="text/javascript" src="../_Core/Engine/Utils/Utils.js"></script>
+			<script type="text/javascript" src="../_Core/Engine/Utils/Subscriber.js"></script>
+
+		<!-- ECS framework -->
+			<script type="text/javascript" src="../_Core/Engine/ECS/Entity.js"></script>
+			<script type="text/javascript" src="../_Core/Engine/ECS/EntityWorld.js"></script>
+			<script type="text/javascript" src="../_Core/Engine/ECS/EntityManager.js"></script>
+			<script type="text/javascript" src="../_Core/Engine/ECS/EntityComponentFilter.js"></script>
+
+		<!-- Serialization -->
+			<script type="text/javascript" src="../_Core/Engine/Utils/Serialization.js"></script>
+
+		<!-- Engine -->
+			<script type="text/javascript" src="../_Core/Engine/Utils/ECSUtils.js"></script>
+			<script type="text/javascript" src="../_Core/Engine/EngineEvents.js"></script>
+			
+			<script type="text/javascript" src="../_Core/Engine/Components/CTile.js"></script>
+			<script type="text/javascript" src="../_Core/Engine/Components/CTilePlaceable.js"></script>
+			
+			<script type="text/javascript" src="../_Core/Engine/Systems/UtilsSystem.js"></script>
+			<script type="text/javascript" src="../_Core/Engine/Systems/GameWorld.js"></script>
+
+		<!-- Gameplay -->
+			<script type="text/javascript" src="../_Core/Gameplay/GameplayEvents.js"></script>
+			<script type="text/javascript" src="../_Core/Gameplay/TerrainType.js"></script>
+			
+			<script type="text/javascript" src="../_Core/Gameplay/PlayersData.js"></script>
+			<script type="text/javascript" src="../_Core/Gameplay/GameState.js"></script>
+			<script type="text/javascript" src="../_Core/Gameplay/GameExecutor.js"></script>
+
+		<!-- Gameplay - Components -->
+			<!--script type="text/javascript" src="../_Core/Gameplay/Components/CTileOwner.js"></script>
+			<script type="text/javascript" src="../_Core/Gameplay/Components/CTileVisibility.js"></script-->
+			<script type="text/javascript" src="../_Core/Gameplay/Components/CTileTerrain.js"></script>
+			<script type="text/javascript" src="../_Core/Gameplay/Components/CPlayerData.js"></script>
+			<script type="text/javascript" src="../_Core/Gameplay/Components/CStatistics.js"></script>
+			<script type="text/javascript" src="../_Core/Gameplay/Components/CEffects.js"></script>
+			<script type="text/javascript" src="../_Core/Gameplay/Components/CActions.js"></script>
+			<script type="text/javascript" src="../_Core/Gameplay/Components/CUnit.js"></script>
+			
+		<!-- Gameplay - Systems -->
+			<!--script type="text/javascript" src="../_Core/Gameplay/Systems/TileVisibilitySystem.js"></script>
+			<script type="text/javascript" src="../_Core/Gameplay/Systems/TileBaseSystem.js"></script>
+			<script type="text/javascript" src="../_Core/Gameplay/Systems/TileCapturingSystem.js"></script-->
+			<script type="text/javascript" src="../_Core/Gameplay/Systems/BattleSystem.js"></script>
+			<script type="text/javascript" src="../_Core/Gameplay/Systems/GameStateSystem.js"></script>
+			<script type="text/javascript" src="../_Core/Gameplay/Systems/UnitsSystem.js"></script>
+			<script type="text/javascript" src="../_Core/Gameplay/Systems/EffectsSystem.js"></script>
+
+		<!-- Gameplay - Actions -->
+			<script type="text/javascript" src="../_Core/Gameplay/Actions/ActionMove.js"></script>
+			<script type="text/javascript" src="../_Core/Gameplay/Actions/ActionStay.js"></script>
+			<script type="text/javascript" src="../_Core/Gameplay/Actions/ActionAttack.js"></script>
+			<script type="text/javascript" src="../_Core/Gameplay/Actions/ActionCapture.js"></script>
+			<script type="text/javascript" src="../_Core/Gameplay/Actions/ActionHeal.js"></script>
+
+			<script type="text/javascript" src="../_Core/Gameplay/PlaceableFactory/UnitsDefinitions.js"></script>
+			<script type="text/javascript" src="../_Core/Gameplay/PlaceableFactory/UnitFactory.js"></script>
+			
+		<!-- ==========	Mobile Client ====================== -->
+		<!-- 3rd Party -->
+			<script type="text/javascript" src="../_Client/Javascript/3rdParty/persist.js"></script>
+		
+
+		<!-- Main -->
+			<script type="text/javascript" src="BattleTestground-Main.js"></script>
+	</body>
+</html>
