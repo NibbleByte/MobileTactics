@@ -14,10 +14,10 @@ UnitsDefinitions[Player.Races.Humans] = {
 		price: 200,
 
 		baseStatistics: {
-			Attack: 2,
+			Attack: 6,
 			AttackRange: 2,
 			HealRate: 2,
-			Defence: 4,
+			Defence: 12,
 			Movement: 3,
 			Visibility: 3,
 
@@ -46,9 +46,9 @@ UnitsDefinitions[Player.Races.Humans] = {
 		price: 500,
 
 		baseStatistics: {
-			Attack: 4,
+			Attack: 10,
 			AttackRange: 3,
-			Defence: 3,
+			Defence: 10,
 			Movement: 4,
 			MovementAttack: 2,
 			Visibility: 4,
@@ -75,9 +75,9 @@ UnitsDefinitions[Player.Races.Humans] = {
 		price: 250,
 
 		baseStatistics: {
-			Attack: 3,
+			Attack: 6,
 			AttackRange: 1,
-			Defence: 2,
+			Defence: 6,
 			Movement: 3,
 			Visibility: 3,
 		},
@@ -92,8 +92,8 @@ UnitsDefinitions[Player.Races.Humans] = {
 		
 		terrainStats: new function () {
 			this[GameWorldTerrainType.Grass] =		{ Cost: 1, Attack: 0, Defence: -1};
-			this[GameWorldTerrainType.Dirt] =		{ Cost: 1, Attack: 0, Defence: -1};
-			this[GameWorldTerrainType.Mountain] =	{ Cost: 2, Attack: 1, Defence: 0};
+			this[GameWorldTerrainType.Dirt] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Mountain] =	{ Cost: 2, Attack: 1, Defence: 1};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.Harbour] =	{ Cost: 1, Attack: 0, Defence: 0};
