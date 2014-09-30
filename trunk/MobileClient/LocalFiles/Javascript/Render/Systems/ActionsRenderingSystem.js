@@ -68,9 +68,16 @@ ActionsRenderingSystem.ActionExecutors.AttackExecutor = function (m_executor, m_
 	
 	this.preExecute = function () {
 		
-		// Start animations and wait for them to finish.
-		playAttackAnimation(m_action.placeable);
-		playAttackAnimation(m_action.appliedTile.CTile.placedObjects[0]);
+		var attacker = m_action.placeable;
+		var defender = m_action.appliedTile.CTile.placedObjects[0];
+
+		var distance = m_eworld.extract(GameWorld).getDistance(attacker.CTilePlaceable.tile, defender.CTilePlaceable.tile);
+		
+		// Start animations and wait for them to finish. Only if units are in range.
+		if (attacker.CStatistics.statistics['AttackRange'] >= distance)
+			playAttackAnimation(attacker);
+		if (defender.CStatistics.statistics['AttackRange'] >= distance)
+			playAttackAnimation(defender);
 		
 		
 		// Flip sprites to face one another.

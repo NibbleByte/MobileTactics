@@ -839,7 +839,7 @@ $(function () {
 	//
 	// Gameplay Systems
 	//
-	var m_battle = m_eworld.store(BattleSystem, new BattleSystem());
+	var m_battle = m_eworld.store(BattleSystem, new BattleSystem(m_world));
 	m_eworld.addSystem(m_battle);
 	var m_effects = new EffectsSystem();
 	m_eworld.addSystem(m_effects);
@@ -848,6 +848,11 @@ $(function () {
 
 	var m_executor = new GameExecutor(m_eworld, m_world);
 
+
+	// HACK: replace with dummy, to ignore distance in battle.
+	m_world.getDistance = function () {
+		return 1;
+	}
 
 	//
 	// Initialize elements
