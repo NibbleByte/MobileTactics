@@ -125,6 +125,11 @@ $(function () {
 
 		var outcome = m_battle.predictOutcome(attacker, defender);
 
+
+		//
+		// Health predicted
+		//
+
 		$attackerHealthPredicted.val(outcome.attackerHealthOutcome);
 		$lbAttackerHealthPredicted.text(outcome.attackerHealthOutcome);
 		$lbAttackerHealthPredicted.removeClass('no_health');
@@ -148,6 +153,19 @@ $(function () {
 		} else if (outcome.defenderHealthOutcome <= 4) {
 			$lbDefenderHealthPredicted.addClass('low_health');
 		}
+
+
+
+		//
+		// Strengths predicted
+		//
+		$attackerStrengthPredicted.val(outcome.attackerStrength);
+		$lbAttackerStrengthPredicted.text(outcome.attackerStrength.toPrecision(2));
+
+		$defenderStrengthPredicted.val(outcome.defenderStrength);
+		$lbDefenderStrengthPredicted.text(outcome.defenderStrength.toPrecision(2));
+
+		$lbStrengthPredictedRatio.text(outcome.strengthRatio.toPrecision(2));
 	}
 
 	var renderUnitStatistics = function () {
@@ -814,6 +832,12 @@ $(function () {
 	var $defenderHealthPredicted = $('#DefenderHealthPredicted');
 	var $lbAttackerHealthPredicted = $('#AttackerHealthPredictedLabel');
 	var $lbDefenderHealthPredicted = $('#DefenderHealthPredictedLabel');
+
+	var $attackerStrengthPredicted = $('#AttackerStrengthPredicted');
+	var $defenderStrengthPredicted = $('#DefenderStrengthPredicted');
+	var $lbAttackerStrengthPredicted = $('#AttackerStrengthPredictedLabel');
+	var $lbDefenderStrengthPredicted = $('#DefenderStrengthPredictedLabel');
+	var $lbStrengthPredictedRatio = $('#StrengthPredictedRatio');
 
 	var $unitStatisticsTableBody = $('#UnitStatistics > tbody');
 	var $unitTerrainStatisticsTableBody = $('#UnitTerrainStatistics > tbody');
