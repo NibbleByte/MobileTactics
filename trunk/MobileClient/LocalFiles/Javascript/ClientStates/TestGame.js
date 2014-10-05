@@ -22,7 +22,6 @@ ClientStates.setupTestGame = function (m_loadingScreen) {
 			for(var j = Math.ceil(i / 2); j < rows + i / 2; ++j) {
 			
 				tile = GameWorld.createTileUnmanaged(GameWorldTerrainType.Grass, i, j);
-				tile.CTileTerrain.type = GameWorldTerrainType.Grass;
 				if (i % 3 <= 1 && j % 4 >= 2) {
 					tile.CTileTerrain.type = GameWorldTerrainType.Dirt;
 				}
