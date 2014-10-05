@@ -47,6 +47,10 @@ ECS.EntityManager = new function () {
 	this.getComponentClassName = function (componentClass) {
 		return componentClass.prototype._COMP_NAME;
 	}
+
+	this.getSystemClassByInstance = function (systemInstance) {
+		return m_registeredSystems[systemInstance._SYS_ID];
+	}
 	
 	// Check if this object is valid component class.
 	this.isComponentClass = function(obj) {

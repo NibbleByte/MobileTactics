@@ -107,8 +107,8 @@ Subscriber.prototype.unsubscribe = function(event, handler) {
 
 Subscriber.prototype.unsubscribeAll = function() {
 	
-	for (var i = 0; i < this.subscribes.length; ++i) {
-		var subscriber = this.subscribes[i];
+	while(this.subscribes.length > 0) {
+		var subscriber = this.subscribes[0];
 		this.unsubscribe(subscriber.event, subscriber.handler);
 	}
 	
