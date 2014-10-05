@@ -144,6 +144,18 @@ ECS.EntityWorld = function () {
 		return m_systems[systemClass.prototype._SYS_ID];
 	};
 	
+	// Will destroy this world by un-initializing all the systems and destroying the objects.
+	this.destroy = function () {
+
+		// First remove systems, that way no pointless events will be called on destroying entities.
+		for(var i = 0; i < m_systems.length; ++i) {
+			self.removeSystem(ECS.EntityManager.getSystemClassByInstance(m_systems[i]));
+		}
+
+		while(m_entities.length > 0) {
+			m_entities[0].destroy();
+		}
+	}
 	
 	//
 	// Private

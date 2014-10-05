@@ -49,6 +49,14 @@ var SpriteTracker = function (m_scene) {
 		Utils.invalidate(sprite);
 	}
 
+	// Restore original functions.
+	this.destroy = function () {
+		sjs.Scene.prototype.Sprite = sceneOriginal.Sprite;
+		sjs.Scene.prototype.reset = sceneOriginal.reset;
+		sjs.Scene.prototype.Layer = sceneOriginal.Layer;
+
+		sjs.Sprite.prototype.remove = spriteOriginal.remove;
+	}
 
 	//
 	// Override API to force sprite tracking.

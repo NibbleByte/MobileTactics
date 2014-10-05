@@ -175,7 +175,18 @@ var GameWorldRenderer = function (holderElement, eworld) {
 		}
 	}
 
+	this.destroy = function () {
+		plotContainerScroller.destroy();
+		plotContainerScroller = null;
 
+		self.scene.reset();
+		self.layers = [];
+		self.spriteTracker.destroy();
+		self.spriteTracker = null;
+		self.scene = null;
+
+		self.$pnWorldPlot.remove();
+	}
 	
 	//
 	// Initialize

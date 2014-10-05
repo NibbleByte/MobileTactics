@@ -293,6 +293,15 @@
     <None Include="..\..\Internal Tools\SpriteTestground\SpriteTestground-Main.js">
       <Filter>InternalTools\SpriteTestground</Filter>
     </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\ClientStates\TestGame.js">
+      <Filter>Javascript\ClientStates</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\ClientStates\WorldEditor.js">
+      <Filter>Javascript\ClientStates</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\ClientStates\ClientStates.js">
+      <Filter>Javascript\ClientStates</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
@@ -372,6 +381,9 @@
     </Filter>
     <Filter Include="InternalTools\BattleTestground">
       <UniqueIdentifier>{cb72d8d1-2d1e-4f07-923c-f3ac6026dfdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Javascript\ClientStates">
+      <UniqueIdentifier>{ebca7fa5-191d-481b-ae6a-7b4ae1fbeb57}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
