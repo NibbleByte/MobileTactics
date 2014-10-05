@@ -33,7 +33,7 @@ var initConsole = function () {
 		if (skipCalls === undefined)
 			skipCalls = 1;
 		
-		var url = error.stack.match(/:\/\/[^)\n]+/g)[skipCalls];
+		var url = error.stack.match(/:\/\/[^)\n]+/g)[skipCalls] || ':Unknown:#:#';
 		var splits = url.split(':');
 		var lineNumber = splits[splits.length - 2];
 		url = splits.slice(0, splits.length - 2).join('');
