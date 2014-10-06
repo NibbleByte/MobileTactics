@@ -149,7 +149,8 @@ ECS.EntityWorld = function () {
 
 		// First remove systems, that way no pointless events will be called on destroying entities.
 		for(var i = 0; i < m_systems.length; ++i) {
-			self.removeSystem(ECS.EntityManager.getSystemClassByInstance(m_systems[i]));
+			if (m_systems[i])
+				self.removeSystem(ECS.EntityManager.getSystemClassByInstance(m_systems[i]));
 		}
 
 		while(m_entities.length > 0) {
