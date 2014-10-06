@@ -4,12 +4,12 @@
 //===============================================
 "use strict";
 
-ClientStates.factories[ClientStates.types.TestGame] = new function () {
+ClientStateManager.registerState(ClientStateManager.types.TestGame, new function () {
 	var self = this;
 
-	var m_$GameWorldMap = $('#GameWorldMap');
-	var m_$ActionMenu = $('#ActionMenu');
-	var m_$ToolbarContainer = $('#ToolbarContainer');
+	var m_$GameWorldMap = $('#GameWorldMap').hide();
+	var m_$ActionMenu = $('#ActionMenu').hide();
+	var m_$ToolbarContainer = $('#ToolbarContainer').hide();
 
 	var m_$BtnSave = $('#BtnSave');
 	var m_$BtnLoad = $('#BtnLoad');
@@ -73,6 +73,10 @@ ClientStates.factories[ClientStates.types.TestGame] = new function () {
 
 	this.cleanUp = function () {
 
+		m_$GameWorldMap.hide();
+		m_$ActionMenu.hide();
+		m_$ToolbarContainer.hide();
+
 		m_$BtnSave.off('click');
 		m_$BtnLoad.off('click');
 		m_$BtnRemoveTile.off('click');
@@ -97,11 +101,12 @@ ClientStates.factories[ClientStates.types.TestGame] = new function () {
 	this.setup = function (m_loadingScreen) {
 
 		m_clientState = {
-			type: ClientStates.types.TestGame,
 			playersData: null,
 			gameState: null,
 		};
 
+		m_$GameWorldMap.show();
+		m_$ToolbarContainer.show();
 
 		//
 		// World
@@ -381,4 +386,4 @@ ClientStates.factories[ClientStates.types.TestGame] = new function () {
 
 		return m_clientState;
 	}
-};
+});

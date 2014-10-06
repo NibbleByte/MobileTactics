@@ -299,7 +299,7 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\ClientStates\WorldEditor.js">
       <Filter>Javascript\ClientStates</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\ClientStates\ClientStates.js">
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\ClientStates\ClientStateManager.js">
       <Filter>Javascript\ClientStates</Filter>
     </None>
   </ItemGroup>

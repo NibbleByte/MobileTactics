@@ -20,6 +20,7 @@ var TileRenderingSystem = function (m_renderer) {
 		
 		self._eworldSB.subscribe(EngineEvents.World.TILE_ADDED, onTileAdded);
 		self._eworldSB.subscribe(EngineEvents.World.TILE_REMOVING, onTileRemoving);
+		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADED, onGameLoaded);
 
 		initializeHighlightSprites();
 	}
@@ -148,6 +149,11 @@ var TileRenderingSystem = function (m_renderer) {
 		tile.removeComponent(CTileRendering);
 	}
 	
+	var onGameLoaded = function (event) {
+		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.Highlights);
+		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.ActionFog);
+	}
+
 	//
 	// Initialization
 	//
