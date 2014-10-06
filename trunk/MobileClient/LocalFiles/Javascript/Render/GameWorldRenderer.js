@@ -181,7 +181,6 @@ var GameWorldRenderer = function (holderElement, eworld) {
 
 		self.scene.reset();
 		self.layers = [];
-		self.spriteTracker.destroy();
 		self.spriteTracker = null;
 		self.scene = null;
 
