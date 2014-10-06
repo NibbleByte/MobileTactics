@@ -3,7 +3,7 @@
 "use strict";
 
 // DEBUG: Global access
-var clientState;
+var currentState;
 
 /**
  * Handle the backbutton event.
@@ -40,9 +40,9 @@ $(function () {
 	var params = getUrlVars();
 
 	if (params['WorldEditor']) {
-		clientState = ClientStateManager.changeState(ClientStateManager.types.WorldEditor);
+		currentState = ClientStateManager.changeState(ClientStateManager.types.WorldEditor);
 	} else {
-		clientState = ClientStateManager.changeState(ClientStateManager.types.TestGame);
+		currentState = ClientStateManager.changeState(ClientStateManager.types.TestGame);
 	}
 
 	

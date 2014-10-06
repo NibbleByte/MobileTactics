@@ -136,26 +136,26 @@ var SystemsUtils = {
 Serialization.registerClass(ECS.Entity, 'ECS.Entity');
 Serialization.excludeClass(ECS.EntityWorld);
 
+ECS.EntityWorld.__blackboardTypesRegistered = 0;
+
 // Helps for easier access to the blackboard, for per-class-type-values.
 ECS.EntityWorld.prototype.extract = function (classType) {
-	this.__blackboardTypesRegistered = this.__blackboardTypesRegistered || 0;
-
+	
 	// If it doesn't have name, generate one.
 	if (!classType.BLACKBOARD_NAME) {
-		classType.BLACKBOARD_NAME = 'BLACKBOARD_TYPE_' + this.__blackboardTypesRegistered;
-		this.__blackboardTypesRegistered++;
+		classType.BLACKBOARD_NAME = 'BLACKBOARD_TYPE_' + ECS.EntityWorld.__blackboardTypesRegistered;
+		ECS.EntityWorld.__blackboardTypesRegistered++;
 	}
 	
 	return this.blackboard[classType.BLACKBOARD_NAME];
 };
 
 ECS.EntityWorld.prototype.store = function (classType, value) {
-	this.__blackboardTypesRegistered = this.__blackboardTypesRegistered || 0;
 
 	// If it doesn't have name, generate one.
 	if (!classType.BLACKBOARD_NAME) {
-		classType.BLACKBOARD_NAME = 'BLACKBOARD_TYPE_' + this.__blackboardTypesRegistered;
-		this.__blackboardTypesRegistered++;
+		classType.BLACKBOARD_NAME = 'BLACKBOARD_TYPE_' + ECS.EntityWorld.__blackboardTypesRegistered;
+		ECS.EntityWorld.__blackboardTypesRegistered++;
 	}
 	
 	this.blackboard[classType.BLACKBOARD_NAME] = value;
