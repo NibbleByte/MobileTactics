@@ -156,7 +156,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 
 		var worldRenderer = new GameWorldRenderer(m_$GameWorldMap[0], m_eworld);
 	
-		m_eworld.addSystem(new TileRenderingSystem(worldRenderer));
+		m_eworld.addSystem(new TileRenderingSystem(worldRenderer, true, true, true));
 		m_eworld.addSystem(new UnitRenderingSystem(worldRenderer));
 		m_eworld.addSystem(new TileStructureRenderingSystem(worldRenderer));
 		m_eworld.addSystem(new AnimationSystem(worldRenderer));

@@ -77,7 +77,7 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 
 		var worldRenderer = new GameWorldRenderer(m_$GameWorldMap[0], eworld);
 	
-		eworld.addSystem(new TileRenderingSystem(worldRenderer));
+		eworld.addSystem(new TileRenderingSystem(worldRenderer, false, false, false));
 		eworld.addSystem(new UnitRenderingSystem(worldRenderer));
 		eworld.addSystem(new TileStructureRenderingSystem(worldRenderer));
 		eworld.addSystem(new AnimationSystem(worldRenderer));
