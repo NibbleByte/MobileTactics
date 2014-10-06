@@ -4,7 +4,7 @@
 //===============================================
 "use strict";
 
-var TileRenderingSystem = function (m_renderer) {
+var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog, renderVisibilityFog) {
 	var self = this;
 	
 	console.assert(m_renderer instanceof GameWorldRenderer, "GameWorldRenderer is required.");
@@ -22,7 +22,8 @@ var TileRenderingSystem = function (m_renderer) {
 		self._eworldSB.subscribe(EngineEvents.World.TILE_REMOVING, onTileRemoving);
 		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADED, onGameLoaded);
 
-		initializeHighlightSprites();
+		if (renderHighlight)
+			initializeHighlightSprites();
 	}
 
 	var initializeHighlightSprites = function () {
@@ -96,12 +97,17 @@ var TileRenderingSystem = function (m_renderer) {
 		
 		// Setup sprites.
 		tile.CTileRendering.sprite = createTileSprite(spritePath, WorldLayers.LayerTypes.Terrain);
-		tile.CTileRendering.spriteHighlight = createTileSprite(CTileRendering.getSpritePath(CTileRendering.HighlightType.Move), WorldLayers.LayerTypes.Highlights);
-		tile.CTileRendering.spriteActionFog = createTileSprite(TileRenderingSystem.ACTION_FOG_SPRITE_PATH, WorldLayers.LayerTypes.ActionFog);
-		tile.CTileRendering.spriteVisibilityFog = createTileSprite(TileRenderingSystem.VISIBILITY_FOG_SPRITE_PATH, WorldLayers.LayerTypes.VisibilityFog);
+		if (renderHighlight)
+			tile.CTileRendering.spriteHighlight = createTileSprite(CTileRendering.getSpritePath(CTileRendering.HighlightType.Move), WorldLayers.LayerTypes.Highlights);
+		if (renderActionFog)
+			tile.CTileRendering.spriteActionFog = createTileSprite(TileRenderingSystem.ACTION_FOG_SPRITE_PATH, WorldLayers.LayerTypes.ActionFog);
+		if (renderVisibilityFog)
+			tile.CTileRendering.spriteVisibilityFog = createTileSprite(TileRenderingSystem.VISIBILITY_FOG_SPRITE_PATH, WorldLayers.LayerTypes.VisibilityFog);
 		
-		tile.CTileRendering.unHighlight();
-		tile.CTileRendering.hideActionFog();
+		if (renderHighlight)
+			tile.CTileRendering.unHighlight();
+		if (renderActionFog)
+			tile.CTileRendering.hideActionFog();
 		
 		renderTile(tile);
 				
@@ -152,6 +158,7 @@ var TileRenderingSystem = function (m_renderer) {
 	var onGameLoaded = function (event) {
 		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.Highlights);
 		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.ActionFog);
+		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.VisibilityFog);
 	}
 
 	//

@@ -37,8 +37,8 @@ CTileRendering.SPRITES_FILES = ['',
 
 CTileRendering.prototype.destroy = function () {
 	if (this.spriteVisibilityFog) this.spriteVisibilityFog.remove();
-	this.spriteActionFog.remove();
-	this.spriteHighlight.remove();
+	if (this.spriteActionFog) this.spriteActionFog.remove();
+	if (this.spriteHighlight) this.spriteHighlight.remove();
 	this.sprite.remove();
 }
 
@@ -102,11 +102,15 @@ CTileRendering.prototype.move = function (x, y) {
 	this.sprite.position(x, y);
 	this.sprite.update();
 	
-	this.spriteHighlight.position(x, y);
-	this.spriteHighlight.update();
+	if (this.spriteHighlight) {
+		this.spriteHighlight.position(x, y);
+		this.spriteHighlight.update();
+	}
 	
-	this.spriteActionFog.position(x, y);
-	this.spriteActionFog.update();
+	if (this.spriteActionFog) {
+		this.spriteActionFog.position(x, y);
+		this.spriteActionFog.update();
+	}
 	
 	// If fog is allowed.
 	if (this.spriteVisibilityFog) {
