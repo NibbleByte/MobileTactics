@@ -1,6 +1,7 @@
 //===============================================
 // SpriteTracker
 // Hooks to Sprite.js API and keeps track of all the created sprites.
+// NOTE: Must not have any sprites before attaching, or they won't be tracked.
 //===============================================
 "use strict";
 
@@ -13,16 +14,14 @@ var SpriteTracker = function (m_scene) {
 	this.spriteCreatedCallback = null;
 	this.spritesRemovedCallback = null;
 
-	var sceneOriginal = Utils.simpleCopyMembers(sjs.Scene.prototype);
 	var layerOriginal = Utils.simpleCopyMembers(m_scene.layers['default']); // Steal members, no Class access :(
-	var spriteOriginal = Utils.simpleCopyMembers(sjs.Sprite.prototype);
-
 
 
 	// Use these to add/remove sprites to the scene in order to keep track of the sprites.
 	this.createSprite = function (layer, src, options) {
 		// Create using the original method.
 		var sprite = layerOriginal.Sprite.call(layer, src, options);
+		sprite.remove = spriteRemove;
 
 		if (self.layerSprites[layer.name] == undefined) {
 			self.layerSprites[layer.name] = [];
@@ -44,18 +43,9 @@ var SpriteTracker = function (m_scene) {
 		if (self.spritesRemovedCallback)
 			self.spritesRemovedCallback( [sprite] );
 
-		spriteOriginal.remove.call(sprite);
+		sjs.Sprite.prototype.remove.call(sprite);
 
 		Utils.invalidate(sprite);
-	}
-
-	// Restore original functions.
-	this.destroy = function () {
-		sjs.Scene.prototype.Sprite = sceneOriginal.Sprite;
-		sjs.Scene.prototype.reset = sceneOriginal.reset;
-		sjs.Scene.prototype.Layer = sceneOriginal.Layer;
-
-		sjs.Sprite.prototype.remove = spriteOriginal.remove;
 	}
 
 	//
@@ -63,11 +53,11 @@ var SpriteTracker = function (m_scene) {
 	//
 
 	// Scene
-	sjs.Scene.prototype.Sprite = function (src, layer) {
+	m_scene.Sprite = function (src, layer) {
 		return self.createSprite(layer, src);
 	}
 
-	sjs.Scene.prototype.reset = function () {
+	m_scene.reset = function () {
 		var sprites = [];
 		for(var layerName in self.layerSprites) {
 			sprites = sprites.concat(self.layerSprites[layerName]);
@@ -77,7 +67,7 @@ var SpriteTracker = function (m_scene) {
 			self.spritesRemovedCallback(sprites);
 		}
 		
-		sceneOriginal.reset.apply(this);
+		sjs.Scene.prototype.reset.apply(this);
 
 		self.layerSprites = {};
 
@@ -87,8 +77,8 @@ var SpriteTracker = function (m_scene) {
 	}
 
 	// If creating new layers after we have started...
-	sjs.Scene.prototype.Layer = function () {
-		var layer = sceneOriginal.Layer.apply(this, arguments);
+	m_scene.Layer = function () {
+		var layer = sjs.Scene.prototype.Layer.apply(this, arguments);
 
 		layer.Sprite = layerCustomSprite;
 		layer.remove = layerCustomRemove;
@@ -125,7 +115,7 @@ var SpriteTracker = function (m_scene) {
 
 
 	// Sprite
-	sjs.Sprite.prototype.remove = function () {
+	var spriteRemove = function () {
 		self.removeSprite(this);
 	}
 }
