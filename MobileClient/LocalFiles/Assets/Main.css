@@ -42,7 +42,7 @@ html, body
 	}
 }
 
-#GameWorldMap
+#GameWorldMap, #GameWorldMapEditor
 {
 	position: absolute;
 	top: 0px;

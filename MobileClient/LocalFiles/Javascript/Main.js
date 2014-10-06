@@ -37,13 +37,12 @@ $(function () {
 	// Init utils
 	//
 	var m_console = initConsole();
-	var m_loadingScreen = $('#LoadingScreen');
 	var params = getUrlVars();
 
 	if (params['WorldEditor']) {
-		//clientState = ClientStates.factories[ClientStates.types.WorldEditor].setup(m_loadingScreen);
+		clientState = ClientStateManager.changeState(ClientStateManager.types.WorldEditor);
 	} else {
-		clientState = ClientStates.factories[ClientStates.types.TestGame].setup(m_loadingScreen);
+		clientState = ClientStateManager.changeState(ClientStateManager.types.TestGame);
 	}
 
 	
