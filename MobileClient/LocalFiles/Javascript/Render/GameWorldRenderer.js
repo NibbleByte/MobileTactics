@@ -191,14 +191,19 @@ var GameWorldRenderer = function (holderElement, eworld) {
 	// Initialize
 	//
 	
-	// TODO: Fix this issue with height = 0 on startup
 	setTimeout(function () {
-		plotContainerScroller = new iScroll(self.$pnWorldPlot[0], {
-			lockDirection: false,
-			hideScrollbar: true,
+		plotContainerScroller = new IScroll(self.$pnWorldPlot[0], {
+			freeScroll: true,
+			keyBindings: true,
+			mouseWheel: true,
+			tap: true,
+			scrollX: true,
+			scrollY: true,
+			scrollbars: true,
+			fadeScrollbars: true,
 			bounce: false,
 		});
-	}, 1);
+	}, 100);
 }
 
 
