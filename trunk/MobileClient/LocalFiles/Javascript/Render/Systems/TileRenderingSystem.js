@@ -24,6 +24,13 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 
 		if (renderHighlight)
 			initializeHighlightSprites();
+
+		$(m_renderer.scene.dom).click(onPlotClicked);
+		m_renderer.$pnWorldPlot.on('tap', onTap);
+	}
+
+	this.uninitialize = function () {
+		m_renderer.$pnWorldPlot.off('tap', onTap);
 	}
 
 	var initializeHighlightSprites = function () {
@@ -54,6 +61,10 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 	}
 	
 	var onPlotClicked = function (event) {
+		if (!tapped)
+			return;
+		tapped = false;
+
 		var offset = $(event.currentTarget).offset();
 		var posX = event.clientX - offset.left - GTile.LAYERS_PADDING;
 		var posY = event.clientY - offset.top - GTile.LAYERS_PADDING;
@@ -61,6 +72,12 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 		var coords = m_renderer.getTileCoordsAtPoint(posX, posY);
 		
 		self._eworld.trigger(ClientEvents.Input.TILE_CLICKED, m_world.getTile(coords.row, coords.column));
+	}
+
+	// HACK: Fixes problems with click-events while scrolling. Tapped event is fired BEFORE the click event.
+	var tapped = false;
+	var onTap = function (event) {
+		tapped = true;
 	}
 	
 	var addCurrentTiles = function () {
@@ -160,11 +177,6 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.ActionFog);
 		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.VisibilityFog);
 	}
-
-	//
-	// Initialization
-	//
-	$(m_renderer.scene.dom).click(onPlotClicked);
 }
 
 TileRenderingSystem.TILES_SPRITE_PATH = 'Assets/Render/Images/Tiles/{terrainType}.png';

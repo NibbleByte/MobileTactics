@@ -22,12 +22,20 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 
 	var m_$TbBrowseAddress = $('#TbBrowseAddress');
 
+
 	// DEBUG: scrollable toolbar
-	var m_toolbarScroller = new iScroll(m_$ToolbarContainer[0], {
-		lockDirection: false,
-		hideScrollbar: true,
-		bounce: false,
-	});
+	var m_toolbarScroller;
+	setTimeout(function () {
+		m_toolbarScroller = new IScroll(m_$ToolbarContainer[0], {
+			keyBindings: false,
+			mouseWheel: false,
+			scrollX: true,
+			scrollY: false,
+			scrollbars: true,
+			fadeScrollbars: true,
+			bounce: false,
+		});
+	}, 100);
 
 
 	var m_clientState = null;
