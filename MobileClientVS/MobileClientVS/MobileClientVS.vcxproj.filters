@@ -302,6 +302,9 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\ClientStates\ClientStateManager.js">
       <Filter>Javascript\ClientStates</Filter>
     </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\BrowserBackwardCompatibility.js">
+      <Filter>Javascript</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
