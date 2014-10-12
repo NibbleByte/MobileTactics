@@ -203,7 +203,7 @@ var GameWorldRenderer = function (holderElement, eworld) {
 			fadeScrollbars: true,
 			bounce: false,
 		});
-	}, 100);
+	}, 250);
 }
 
 

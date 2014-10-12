@@ -79,6 +79,7 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\sylvester.src.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\wormhole.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\ActionsMenuController.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\BrowserBackwardCompatibility.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\ClientEvents.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\ClientStates\ClientStateManager.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\ClientStates\TestGame.js" />

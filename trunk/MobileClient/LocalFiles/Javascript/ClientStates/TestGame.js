@@ -35,7 +35,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 			fadeScrollbars: true,
 			bounce: false,
 		});
-	}, 100);
+	}, 250);
 
 
 	var m_clientState = null;
