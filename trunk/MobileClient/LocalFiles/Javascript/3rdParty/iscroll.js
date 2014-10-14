@@ -435,6 +435,14 @@ IScroll.prototype = {
 			e.preventDefault();
 		}
 
+		
+		// FIX: https://github.com/cubiq/iscroll/pull/684
+		//	  + https://github.com/cubiq/iscroll/issues/771
+		if( utils.isBadAndroid && this.options.useTransition ){
+			this.scroller.style[utils.style.transitionDuration] = ''; // Eliminates jerkiness when scrolling on Android
+		}
+
+
 		var point		= e.touches ? e.touches[0] : e,
 			deltaX		= point.pageX - this.pointX,
 			deltaY		= point.pageY - this.pointY,
