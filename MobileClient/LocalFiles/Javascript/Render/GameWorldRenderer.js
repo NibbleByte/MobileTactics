@@ -58,13 +58,29 @@ var GameWorldRenderer = function (holderElement, eworld) {
 			}
 		}
 		
-		// TODO: Unneeded check, due to timeouts on initialize
-		if (plotContainerScroller)
-			plotContainerScroller.refresh();
-		
+		scrollerRefresh();
 	}
 
-	
+	// Refreshes scroller. If sizes haven't fully initialized yet, it will refresh again after some time.
+	// Some phones can't pick it up from the first time.
+	var scrollerRefreshTimeout = null;	// Avoid firing multiple timeouts.
+	var scrollerRefresh = function () {
+
+		if (scrollerRefreshTimeout == null) {
+			plotContainerScroller.refresh();
+
+			// Check if scrolling is needed but not detected.
+			if ((self.$pnWorldPlot.width() < self.extentWidth && !plotContainerScroller.hasHorizontalScroll) ||
+				(self.$pnWorldPlot.height() < self.extentHeight && !plotContainerScroller.hasVerticalScroll)
+				) {
+
+				scrollerRefreshTimeout = setTimeout(function () {
+					scrollerRefreshTimeout = null;
+					scrollerRefresh();
+				}, 200);
+			}
+		}
+	}
 
 	// Enhancement of Sprite.js functionality - Sprite.loadImg. It adds parameters to the UN-DOCUMENTED "onload" callback.
 	this.createSprite = function (layer, resourcePath, onLoadedCallback, userParam1, userParam2, userParam3, userParam4) {
@@ -176,6 +192,7 @@ var GameWorldRenderer = function (holderElement, eworld) {
 	}
 
 	this.destroy = function () {
+		clearTimeout(scrollerRefreshTimeout);
 		plotContainerScroller.destroy();
 		plotContainerScroller = null;
 
@@ -190,20 +207,17 @@ var GameWorldRenderer = function (holderElement, eworld) {
 	//
 	// Initialize
 	//
-	
-	setTimeout(function () {
-		plotContainerScroller = new IScroll(self.$pnWorldPlot[0], {
-			freeScroll: true,
-			keyBindings: true,
-			mouseWheel: true,
-			tap: true,
-			scrollX: true,
-			scrollY: true,
-			scrollbars: true,
-			fadeScrollbars: true,
-			bounce: false,
-		});
-	}, 250);
+	plotContainerScroller = new IScroll(self.$pnWorldPlot[0], {
+		freeScroll: true,
+		keyBindings: true,
+		mouseWheel: true,
+		tap: true,
+		scrollX: true,
+		scrollY: true,
+		scrollbars: true,
+		fadeScrollbars: true,
+		bounce: false,
+	});
 }
 
 
