@@ -305,6 +305,18 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\BrowserBackwardCompatibility.js">
       <Filter>Javascript</Filter>
     </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Editor\Brushes.js">
+      <Filter>Javascript\Editor</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Editor\EditorEvents.js">
+      <Filter>Javascript\Editor</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Utils\DOMSubscriber.js">
+      <Filter>Javascript\Render\Utils</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Editor\EditorController.js">
+      <Filter>Javascript\Editor</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
@@ -387,6 +399,12 @@
     </Filter>
     <Filter Include="Javascript\ClientStates">
       <UniqueIdentifier>{ebca7fa5-191d-481b-ae6a-7b4ae1fbeb57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Javascript\Editor">
+      <UniqueIdentifier>{1cc245de-5462-48ec-84d2-b27f301b3ede}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Javascript\Render\Utils">
+      <UniqueIdentifier>{b99232cb-f06e-4ddd-a4ad-47a558125215}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

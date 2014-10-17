@@ -61,7 +61,7 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 	}
 	
 	var onPlotClicked = function (event) {
-		if (!tapped)
+		if (!tapped && m_renderer.plotContainerScroller.enabled)
 			return;
 		tapped = false;
 

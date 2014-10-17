@@ -22,6 +22,8 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 
 	var m_$TbBrowseAddress = $('#TbBrowseAddress');
 
+	var subscriber = new DOMSubscriber();
+
 
 	// DEBUG: scrollable toolbar
 	var m_toolbarScroller;
@@ -85,14 +87,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		m_$ActionMenu.hide();
 		m_$ToolbarContainer.hide();
 
-		m_$BtnSave.off('click');
-		m_$BtnLoad.off('click');
-		m_$BtnRemoveTile.off('click');
-		m_$BtnRestart.off('click');
-		m_$BtnPlayer.off('click');
-		m_$BtnDebug.off('click');
-		m_$BtnBrowse.off('click');
-		m_$BtnAddress.off('click');
+		subscriber.unsubscribeAll();
 
 		if (m_clientState) {
 			m_clientState.gameState = null;
@@ -383,14 +378,14 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 	
 	
 		// Toolbar listeners
-		m_$BtnSave.click(onBtnSave);
-		m_$BtnLoad.click(onBtnLoad);
-		m_$BtnRemoveTile.click(onBtnRemoveTile);
-		m_$BtnRestart.click(onBtnRestart);
-		m_$BtnPlayer.click(onBtnPlayer);
-		m_$BtnDebug.click(onBtnDebug);
-		m_$BtnBrowse.click(onBtnBrowse);
-		m_$BtnAddress.click(onBtnAddress);
+		subscriber.subscribe(m_$BtnSave, 'click', onBtnSave);
+		subscriber.subscribe(m_$BtnLoad, 'click', onBtnLoad);
+		subscriber.subscribe(m_$BtnRemoveTile, 'click', onBtnRemoveTile);
+		subscriber.subscribe(m_$BtnRestart, 'click', onBtnRestart);
+		subscriber.subscribe(m_$BtnPlayer, 'click', onBtnPlayer);
+		subscriber.subscribe(m_$BtnDebug, 'click', onBtnDebug);
+		subscriber.subscribe(m_$BtnBrowse, 'click', onBtnBrowse);
+		subscriber.subscribe(m_$BtnAddress, 'click', onBtnAddress);
 
 		return m_clientState;
 	}

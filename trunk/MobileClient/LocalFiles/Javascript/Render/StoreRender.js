@@ -11,6 +11,8 @@ var StoreRender = new function () {
 	var m_$list = $('#SelStoreList');
 	var m_items = null;
 
+	var subscriber = new DOMSubscriber();
+
 	this.apply = function (eworld, tile) {
 		m_items = Store.getPriceListFromTile(eworld, tile);
 
@@ -54,6 +56,6 @@ var StoreRender = new function () {
 
 	// Initialize
 	this.hide();
-	$('#BtnStoreClose').click(this.hide);
-	$('#BtnStoreBuy').click(buyItem);
+	subscriber.subscribe($('#BtnStoreClose'), 'click', this.hide);
+	subscriber.subscribe($('#BtnStoreBuy'), 'click', buyItem);
 };

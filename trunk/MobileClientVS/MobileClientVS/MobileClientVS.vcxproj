@@ -85,6 +85,9 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\ClientStates\TestGame.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\ClientStates\WorldEditor.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\DevConsole.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Editor\Brushes.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Editor\EditorController.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Editor\EditorEvents.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Main.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\PlayerController.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\ActionsRender.js" />
@@ -110,6 +113,7 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\UnitRenderingSystem.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\VisibilityFogRenderingSystem.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\TileGlobals.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Utils\DOMSubscriber.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\WorldLayers.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\UnitFactoryClient.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\wormhole-Mockup.js" />

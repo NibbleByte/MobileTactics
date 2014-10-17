@@ -68,6 +68,18 @@
 			</div>
 
 			<div id="ToolbarContainerEditor">
+				<div id="ToolbarEditor">
+					<button id="BtnPanEditor">Pan</button>
+					<button id="BtnTerrainEditor">Terrain</button>
+					<button id="BtnPlaceablesEditor">Units</button>
+
+					<select id="SelTerrainEditor">
+					</select>
+					<select id="SelPlaceablesEditor" style="display:none;">
+					</select>
+					<select id="SelPlayerEditor" style="display:none;">
+					</select>
+				</div>
 			</div>
 			
 			<div id="ActionMenu" style="display: none;">
@@ -161,6 +173,7 @@
 			<script type="text/javascript" src="Javascript/Render/RenderEvents.js"></script>
 			<script type="text/javascript" src="Javascript/ClientEvents.js"></script>
 			
+			<script type="text/javascript" src="Javascript/Render/Utils/DOMSubscriber.js"></script>
 			<script type="text/javascript" src="Javascript/Render/TileGlobals.js"></script>
 			<script type="text/javascript" src="Javascript/Render/StoreRender.js"></script>
 			<script type="text/javascript" src="Javascript/UnitFactoryClient.js"></script>
@@ -198,7 +211,6 @@
 
 			<script type="text/javascript" src="Javascript/ClientStates/ClientStateManager.js"></script>
 			<script type="text/javascript" src="Javascript/ClientStates/TestGame.js"></script>
-			<script type="text/javascript" src="Javascript/ClientStates/WorldEditor.js"></script>
 			
 			
 			<script type="text/javascript" src="Javascript/DevConsole.js"></script>
@@ -208,6 +220,14 @@
 		<!-- Animations -->
 			<script type="text/javascript" src="Assets/Render/SpriteAnimations/Base.js"></script>
 			<script type="text/javascript" src="Assets/Render/SpriteAnimations/TeslaTrooper.js"></script>
+
+		<!-- ==========	Mobile Client - Editor ====================== -->
+			<script type="text/javascript" src="Javascript/Editor/EditorEvents.js"></script>
+			<script type="text/javascript" src="Javascript/Editor/Brushes.js"></script>
+			<script type="text/javascript" src="Javascript/Editor/EditorController.js"></script>
+
+			<script type="text/javascript" src="Javascript/ClientStates/WorldEditor.js"></script>
+			
 			
 		<!-- Mockup & Unit tests -->
 			<script type="text/javascript" charset="utf-8" src="Javascript/wormhole-Mockup.js"></script>
