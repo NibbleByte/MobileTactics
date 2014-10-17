@@ -36,8 +36,6 @@ var GameWorldRenderer = function (holderElement, eworld) {
 		eworld.trigger(RenderEvents.Sprites.SPRITES_REMOVED, [sprites]);
 	}
 	
-	var plotContainerScroller = null;
-	
 	this.refresh = function () {
 		
 		// HACK: Resize manually the scene and layers
@@ -67,11 +65,11 @@ var GameWorldRenderer = function (holderElement, eworld) {
 	var scrollerRefresh = function () {
 
 		if (scrollerRefreshTimeout == null) {
-			plotContainerScroller.refresh();
+			self.plotContainerScroller.refresh();
 
 			// Check if scrolling is needed but not detected.
-			if ((self.$pnWorldPlot.width() < self.extentWidth && !plotContainerScroller.hasHorizontalScroll) ||
-				(self.$pnWorldPlot.height() < self.extentHeight && !plotContainerScroller.hasVerticalScroll)
+			if ((self.$pnWorldPlot.width() < self.extentWidth && !self.plotContainerScroller.hasHorizontalScroll) ||
+				(self.$pnWorldPlot.height() < self.extentHeight && !self.plotContainerScroller.hasVerticalScroll)
 				) {
 
 				scrollerRefreshTimeout = setTimeout(function () {
@@ -193,8 +191,8 @@ var GameWorldRenderer = function (holderElement, eworld) {
 
 	this.destroy = function () {
 		clearTimeout(scrollerRefreshTimeout);
-		plotContainerScroller.destroy();
-		plotContainerScroller = null;
+		self.plotContainerScroller.destroy();
+		self.plotContainerScroller = null;
 
 		self.scene.reset();
 		self.layers = [];
@@ -207,7 +205,7 @@ var GameWorldRenderer = function (holderElement, eworld) {
 	//
 	// Initialize
 	//
-	plotContainerScroller = new IScroll(self.$pnWorldPlot[0], {
+	self.plotContainerScroller = new IScroll(self.$pnWorldPlot[0], {
 		freeScroll: true,
 		keyBindings: true,
 		mouseWheel: true,

@@ -11,6 +11,20 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 
 	var m_clientState = null;
 
+	// DEBUG: scrollable toolbar
+	var m_toolbarScroller;
+	setTimeout(function () {
+		m_toolbarScroller = new IScroll(m_$ToolbarContainer[0], {
+			keyBindings: false,
+			mouseWheel: false,
+			scrollX: true,
+			scrollY: false,
+			scrollbars: true,
+			fadeScrollbars: true,
+			bounce: false,
+		});
+	}, 250);
+
 	this.cleanUp = function () {
 		m_$GameWorldMap.hide();
 		m_$ToolbarContainer.hide();
@@ -69,7 +83,6 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 		eworld.addSystem(world);
 		eworld.store(GameWorld, world);
 		m_clientState.world = world;
-	
 
 		//
 		// Rendering Systems
@@ -85,11 +98,15 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 
 		m_clientState.worldRenderer = worldRenderer;
 
+		m_clientState.editorController = eworld.addSystem(new EditorController(world, worldRenderer));
+
 
 		//
 		// Initialize stuff
 		//
 		var m_eworld = m_clientState.eworld;
+		var m_world = m_clientState.world;
+		var m_renderer = m_clientState.worldRenderer;
 
 
 		var onBtnRestart = function () {
