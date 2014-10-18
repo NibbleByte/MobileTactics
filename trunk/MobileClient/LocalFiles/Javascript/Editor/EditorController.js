@@ -20,7 +20,8 @@ var EditorController = function (m_world, m_renderer) {
 	//
 	this.initialize = function () {
 
-		self._eworldSB.subscribe(ClientEvents.Input.TILE_CLICKED, onTileClicked);
+		self._eworld.getSystem(TileRenderingSystem).enableDetailedInputEvents();
+		self._eworldSB.subscribe(ClientEvents.Input.TILE_TOUCHED, onTileTouched);
 
 		rebuildTerrainBrushList();
 		onBtnPan();
@@ -91,10 +92,10 @@ var EditorController = function (m_world, m_renderer) {
 		self._eworld.trigger(EditorEvents.Brushes.ACTIVE_BRUSH_MODIFIED, m_currentBrush);
 	}
 
-	var onTileClicked = function (event, tile) {
+	var onTileTouched = function (event, hitData) {
 
 		if (m_currentBrush)
-			m_currentBrush.place(tile.CTile.row, tile.CTile.column);
+			m_currentBrush.place(hitData.row, hitData.column);
 	}
 }
 

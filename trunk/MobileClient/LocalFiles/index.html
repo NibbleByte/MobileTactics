@@ -69,6 +69,7 @@
 
 			<div id="ToolbarContainerEditor">
 				<div id="ToolbarEditor">
+					<button id="BtnConsoleEditor" onclick="$('#Console').toggle();">~</button>
 					<button id="BtnPanEditor">Pan</button>
 					<button id="BtnTerrainEditor">Terrain</button>
 					<button id="BtnPlaceablesEditor">Units</button>
@@ -170,10 +171,12 @@
 			<script type="text/javascript" charset="utf-8" src="Javascript/3rdParty/sprite.js"></script>
 		
 		<!-- Javascripts -->
+			<script type="text/javascript" src="Javascript/Utils/DOMSubscriber.js"></script>
+			<script type="text/javascript" src="Javascript/Utils/ClientUtils.js"></script>
+
 			<script type="text/javascript" src="Javascript/Render/RenderEvents.js"></script>
 			<script type="text/javascript" src="Javascript/ClientEvents.js"></script>
 			
-			<script type="text/javascript" src="Javascript/Render/Utils/DOMSubscriber.js"></script>
 			<script type="text/javascript" src="Javascript/Render/TileGlobals.js"></script>
 			<script type="text/javascript" src="Javascript/Render/StoreRender.js"></script>
 			<script type="text/javascript" src="Javascript/UnitFactoryClient.js"></script>

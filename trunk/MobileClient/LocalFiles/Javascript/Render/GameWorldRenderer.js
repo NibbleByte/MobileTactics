@@ -153,7 +153,8 @@ var GameWorldRenderer = function (holderElement, eworld) {
 		return coords;
 	}
 	
-	this.getTileCoordsAtPoint = function (x, y) {
+	// Will use result obj if provided, instead of creating new one to return data.
+	this.getTileCoordsAtPoint = function (x, y, result) {
 		
 		// Find Offset coordinates (based on rectangle approximation)
 		var rectRow = Math.floor(y / GTile.TILE_VOFFSET);
@@ -182,7 +183,13 @@ var GameWorldRenderer = function (holderElement, eworld) {
 			}
 		}
 		
-		
+		// Fill user object instead.
+		if (result) {
+			result.row = cubeZ;
+			result.column = cubeY;
+			return result;
+		}
+
 		return {
 			row: cubeZ,
 			column: cubeY
