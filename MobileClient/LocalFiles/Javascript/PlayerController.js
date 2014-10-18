@@ -140,10 +140,10 @@ var PlayerController = function (m_world, m_executor) {
 	}
 	
 	
-	var onTileClicked = function(event, tile) {
+	var onTileClicked = function(event, hitData) {
 		
 		if (m_inputActive) {
-			selectTile(tile);
+			selectTile(hitData.tile);
 		}
 	}
 

@@ -31,6 +31,31 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 
 	this.uninitialize = function () {
 		m_renderer.$pnWorldPlot.off('tap', onTap);
+
+		if (detailedInputEvents) {
+			$(m_renderer.scene.dom).off('touchstart', onPlotTouchMove);
+			$(m_renderer.scene.dom).off('touchmove', onPlotTouchMove);
+			$(m_renderer.scene.dom).off('mousedown', onPlotMouseMove);
+			$(m_renderer.scene.dom).off('mousemove', onPlotMouseMove);
+		}
+	}
+
+	// Explicitly turn on these events, as they might cause low performance.
+	var detailedInputEvents = false;
+	this.enableDetailedInputEvents = function () {
+
+		if (!detailedInputEvents) {
+			// TODO: Hook move events on start and unhook them on end.
+			if (ClientUtils.isTouchDevice) {
+				$(m_renderer.scene.dom).on('touchstart', onPlotTouchMove);
+				$(m_renderer.scene.dom).on('touchmove', onPlotTouchMove);
+			} else {
+				$(m_renderer.scene.dom).mousedown(onPlotMouseMove);
+				$(m_renderer.scene.dom).mousemove(onPlotMouseMove);
+			}
+
+			detailedInputEvents = true;
+		}
 	}
 
 	var initializeHighlightSprites = function () {
@@ -60,18 +85,55 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 		tile.CTileRendering.move(coords.x, coords.y);
 	}
 	
+
+
+	// Avoid creating object every time.
+	var clickedEventDataCache = { tile: null, row: 0, column: 0 };
+
+	// It is just the same code for all events...
+	var extractClickedTileFromEvent = function (event) {
+
+		// Use pageX && pageY because they are normalized by jQuery. FFox doesn't provide offsetX && offsetY.
+		var offset = $(event.currentTarget).offset();
+		var posX = event.pageX - offset.left - GTile.LAYERS_PADDING;
+		var posY = event.pageY - offset.top - GTile.LAYERS_PADDING;
+
+		m_renderer.getTileCoordsAtPoint(posX, posY, clickedEventDataCache);
+		clickedEventDataCache.tile = m_world.getTile(clickedEventDataCache.row, clickedEventDataCache.column);
+		return clickedEventDataCache;
+	}
 	var onPlotClicked = function (event) {
 		if (!tapped && m_renderer.plotContainerScroller.enabled)
 			return;
 		tapped = false;
 
-		var offset = $(event.currentTarget).offset();
-		var posX = event.clientX - offset.left - GTile.LAYERS_PADDING;
-		var posY = event.clientY - offset.top - GTile.LAYERS_PADDING;
+		var hitData = extractClickedTileFromEvent(event);
 		
-		var coords = m_renderer.getTileCoordsAtPoint(posX, posY);
+		self._eworld.trigger(ClientEvents.Input.TILE_CLICKED, hitData);
+	}
+
+	var onPlotMouseMove = function (event) {
+		if (event.which == 1) {	// Left mouse button
+
+			var hitData = extractClickedTileFromEvent(event);
+
+			self._eworld.trigger(ClientEvents.Input.TILE_TOUCHED, hitData);
+		}
+	}
+	var onPlotTouchMove = function (event) {
 		
-		self._eworld.trigger(ClientEvents.Input.TILE_CLICKED, m_world.getTile(coords.row, coords.column));
+		// HACK: http://uihacker.blogspot.com/2011/01/android-touchmove-event-bug.html
+		if (ClientUtils.isAndroid) {
+			event.preventDefault();
+		}
+		
+		// Touches must be used! JQuery doesn't clone the touches to its event.
+		// http://www.devinrolsen.com/basic-jquery-touchmove-event-setup/
+		var touch = event.originalEvent.touches[0] || event.originalEvent.changedTouches[0];
+		touch.currentTarget = touch.currentTarget || event.currentTarget; 
+		var hitData = extractClickedTileFromEvent(touch);
+
+		self._eworld.trigger(ClientEvents.Input.TILE_TOUCHED, hitData);
 	}
 
 	// HACK: Fixes problems with click-events while scrolling. Tapped event is fired BEFORE the click event.

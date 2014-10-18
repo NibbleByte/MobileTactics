@@ -109,7 +109,7 @@ var initConsole = function () {
 	}
 
 	// Note: only tested on Android (HTC Explorer). Maybe there is no need for other platforms/newer devices.
-	if (mosync.isAndroid || mosync.isIOS || mosync.isWindowsPhone) {
+	if (ClientUtils.isAndroid || ClientUtils.isIOS || ClientUtils.isWindowsPhone) {
 		
 		// window.onerror doesn't work on older devices (like Android HTC Explorer).
 		// So instead of using window.onerror, try to listen for any exceptions ourselves.
