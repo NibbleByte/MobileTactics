@@ -4,7 +4,7 @@
 //===============================================
 "use strict";
 
-var TerrainBrush = function (eworld, world, terrainType) {
+var TerrainBrush = function (m_eworld, m_world, terrainType) {
 	var self = this;
 	
 	this.terrainType = terrainType;
@@ -24,7 +24,7 @@ var TerrainBrush = function (eworld, world, terrainType) {
 
 			tile.CTileTerrain.type = self.terrainType;
 
-			eworld.trigger(EngineEvents.World.TILE_CHANGED, tile);
+			m_eworld.trigger(EngineEvents.World.TILE_CHANGED, tile);
 		}
 	}
 
