@@ -130,6 +130,7 @@ var EditorController = function (m_world, m_renderer) {
 		if (m_currentBrush) {
 			m_currentBrush.place(hitData.row, hitData.column, hitData.tile);
 
+			
 			//
 			// Auto-resize if placing on the edge
 			//
@@ -144,6 +145,29 @@ var EditorController = function (m_world, m_renderer) {
 					(resizeVertical) ? rows + 2 : rows, 
 					(resizeHorizontal) ? columns + 2 : columns
 				);
+			}
+
+			// Auto-scroll when touching near the edges. A bit hacky, so shoot me.
+			if (window.event) {
+				var plotPos = m_renderer.$pnWorldPlot.offset();
+
+				var pointerEvent = window.event;
+				if (ClientUtils.isTouchDevice) {
+					pointerEvent = pointerEvent.touches[0] || pointerEvent.changedTouches[0];
+				}
+
+				if (pointerEvent.clientX < plotPos.left + + 30) {
+					m_renderer.plotContainerScroller.scrollBy(10, 0);
+				}
+				if (pointerEvent.clientY < plotPos.top + + 30) {
+					m_renderer.plotContainerScroller.scrollBy(0, 10);
+				}
+				if (pointerEvent.clientX > plotPos.left + m_renderer.$pnWorldPlot.width() - 30) {
+					m_renderer.plotContainerScroller.scrollBy(-10, 0);
+				}
+				if (pointerEvent.clientY > plotPos.top + m_renderer.$pnWorldPlot.height() - 30) {
+					m_renderer.plotContainerScroller.scrollBy(0, -10);
+				}
 			}
 		}
 	}

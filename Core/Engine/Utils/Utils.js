@@ -47,10 +47,33 @@ var Utils = {
 		return destObj;
 	},
 
+	stringifyShallow: function (obj) {
+		if (this.isObject(obj)) {
+			var ret = '{\n';
+
+			var keys = Object.keys(obj);
+			for(var i = 0; i < keys.length; ++i) {
+				var val = obj[keys[i]];
+				ret += keys[i] + ': ';
+				if (this.isObject(val)) ret += '[Object] <' + val.constructor.name + '>';
+				if (this.isArray(val)) ret += '[Array] <' + val.length + '>';
+				if (!this.isObject(val) && !this.isArray(val)) ret += val;
+
+				ret += ', \n';
+			}
+
+			ret += '}'
+			return ret;
+
+		} else {
+			return obj.toString();
+		}
+	},
+
 
 	// Returns the value of random property of the given object
 	randomPropertyValue: function (obj) {
-		var keys = Object.keys(obj)
+		var keys = Object.keys(obj);
 		return obj[keys[ keys.length * Math.random() << 0]];
 	},
 	
