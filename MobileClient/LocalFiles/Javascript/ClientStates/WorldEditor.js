@@ -121,7 +121,7 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 				m_eworld.triggerAsync(EngineEvents.General.GAME_LOADING);
 
 				var ROWS = 5, COLUMNS = 7;
-				EditorController.fillEmptyTerrain(m_eworld, m_clientState.world, ROWS, COLUMNS);
+				m_clientState.editorController.setWorldSize(true, ROWS, COLUMNS);
 
 				m_eworld.triggerAsync(EngineEvents.General.GAME_LOADED);
 
