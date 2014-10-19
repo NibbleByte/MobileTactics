@@ -95,7 +95,7 @@ var EditorController = function (m_world, m_renderer) {
 	var onTileTouched = function (event, hitData) {
 
 		if (m_currentBrush)
-			m_currentBrush.place(hitData.row, hitData.column);
+			m_currentBrush.place(hitData.row, hitData.column, hitData.tile);
 	}
 }
 

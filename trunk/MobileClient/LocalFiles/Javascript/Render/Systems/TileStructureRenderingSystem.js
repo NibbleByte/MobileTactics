@@ -17,6 +17,7 @@ var TileStructureRenderingSystem = function (m_renderer) {
 		self._entityFilter.onEntityAddedHandler = registerTileStructure;
 		self._entityFilter.onEntityRemovedHandler = unregisterTileStructure;
 		self._entityFilter.addRefreshEvent(EngineEvents.World.TILE_ADDED);
+		self._entityFilter.addRefreshEvent(EngineEvents.World.TILE_CHANGED);
 		self._entityFilter.addRefreshEvent(EngineEvents.World.TILE_REMOVING);
 		
 		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_FINISHED, onAnimationFinished);
@@ -84,6 +85,8 @@ var TileStructureRenderingSystem = function (m_renderer) {
 		}
 
 		tile.removeComponent(CTileOverlayRendering);
+
+		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.TerrainOverlay);
 	}
 
 	var onAnimationFinished = function (event, params) {
