@@ -19,6 +19,7 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 		addCurrentTiles();
 		
 		self._eworldSB.subscribe(EngineEvents.World.TILE_ADDED, onTileAdded);
+		self._eworldSB.subscribe(EngineEvents.World.TILE_CHANGED, onTileChanged);
 		self._eworldSB.subscribe(EngineEvents.World.TILE_REMOVING, onTileRemoving);
 		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADED, onGameLoaded);
 
@@ -205,6 +206,14 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 		
 		if (resized)
 			m_renderer.refresh();
+	}
+
+	var onTileChanged = function (event, tile) {
+
+		var terrainName = Enums.getName(GameWorldTerrainType, tile.CTileTerrain.type);
+		var spritePath = TileRenderingSystem.TILES_SPRITE_PATH.replace(/{terrainType}/g, terrainName);
+
+		tile.CTileRendering.sprite.loadImg(spritePath);
 	}
 	
 	var onTileRemoving = function(event, tile) {

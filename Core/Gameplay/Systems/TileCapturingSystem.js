@@ -148,6 +148,11 @@ var TileCapturingSystem = function () {
 	}
 };
 
+TileCapturingSystem.isOwnerableTile = function (terrainType) {
+	return terrainType == GameWorldTerrainType.Base
+		|| terrainType == GameWorldTerrainType.Harbour
+		|| terrainType == GameWorldTerrainType.WatchTower;
+}
 
 ECS.EntityManager.registerSystem('TileCapturingSystem', TileCapturingSystem);
 SystemsUtils.supplyComponentFilter(TileCapturingSystem, [CTileOwner]);

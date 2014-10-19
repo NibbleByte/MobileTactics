@@ -113,9 +113,10 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\UnitRenderingSystem.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\VisibilityFogRenderingSystem.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\TileGlobals.js" />
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Utils\DOMSubscriber.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\WorldLayers.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\UnitFactoryClient.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Utils\ClientUtils.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Utils\DOMSubscriber.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\wormhole-Mockup.js" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

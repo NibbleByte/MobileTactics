@@ -311,11 +311,14 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Editor\EditorEvents.js">
       <Filter>Javascript\Editor</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Utils\DOMSubscriber.js">
-      <Filter>Javascript\Render\Utils</Filter>
-    </None>
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Editor\EditorController.js">
       <Filter>Javascript\Editor</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Utils\DOMSubscriber.js">
+      <Filter>Javascript\Utils</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Utils\ClientUtils.js">
+      <Filter>Javascript\Utils</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -403,8 +406,8 @@
     <Filter Include="Javascript\Editor">
       <UniqueIdentifier>{1cc245de-5462-48ec-84d2-b27f301b3ede}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Javascript\Render\Utils">
-      <UniqueIdentifier>{b99232cb-f06e-4ddd-a4ad-47a558125215}</UniqueIdentifier>
+    <Filter Include="Javascript\Utils">
+      <UniqueIdentifier>{16f1d7af-7499-4e15-bde5-b2f0c5404e4b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
