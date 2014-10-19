@@ -99,5 +99,19 @@ var EditorController = function (m_world, m_renderer) {
 	}
 }
 
+// Utils function.
+EditorController.fillEmptyTerrain = function (eworld, world, rows, columns) {
+	var tile;
+
+	for (var i = 0; i < rows; ++i) {
+		for (var j = Math.ceil(i / 2); j < columns + i / 2; ++j) {
+
+			tile = GameWorld.createTileUnmanaged(GameWorldTerrainType.None, i, j);
+
+			eworld.addUnmanagedEntity(tile);
+		}
+	}
+}
+
 ECS.EntityManager.registerSystem('EditorController', EditorController);
 SystemsUtils.supplySubscriber(EditorController);
