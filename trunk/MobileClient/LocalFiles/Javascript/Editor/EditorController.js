@@ -38,6 +38,39 @@ var EditorController = function (m_world, m_renderer) {
 		m_subscriber.unsubscribeAll();
 	};
 
+	// Set the world size.
+	// If world is smaller than previous size, it removes those tiles.
+	this.setWorldSize = function (erase, rows, columns) {
+		if (erase)
+			m_world.clearTiles();
+
+		var oldRows = m_renderer.getRenderedRows();
+		var oldColumns = m_renderer.getRenderedColumns();
+		var maxRows = Math.max(oldRows, rows);
+		var maxColumns = Math.max(oldColumns, columns);
+
+		for (var i = 0; i < maxRows; ++i) {
+			for (var j = Math.ceil(i / 2); j < maxColumns + i / 2; ++j) {
+
+				if (i < rows && j < columns + i / 2) {
+
+					// If tile already exists skip it.
+					if (!erase && m_world.getTile(i, j))
+						continue;
+
+					var tile = GameWorld.createTileUnmanaged(GameWorldTerrainType.None, i, j);
+
+					self._eworld.addUnmanagedEntity(tile);
+				} else {
+
+					var tile = m_world.getTile(i, j);
+					if (tile)
+						tile.destroy();
+				}
+			}
+		}
+	}
+
 	var rebuildTerrainBrushList = function () {
 		m_$TerrainBrushList.empty();
 
@@ -96,20 +129,6 @@ var EditorController = function (m_world, m_renderer) {
 
 		if (m_currentBrush)
 			m_currentBrush.place(hitData.row, hitData.column, hitData.tile);
-	}
-}
-
-// Utils function.
-EditorController.fillEmptyTerrain = function (eworld, world, rows, columns) {
-	var tile;
-
-	for (var i = 0; i < rows; ++i) {
-		for (var j = Math.ceil(i / 2); j < columns + i / 2; ++j) {
-
-			tile = GameWorld.createTileUnmanaged(GameWorldTerrainType.None, i, j);
-
-			eworld.addUnmanagedEntity(tile);
-		}
 	}
 }
 

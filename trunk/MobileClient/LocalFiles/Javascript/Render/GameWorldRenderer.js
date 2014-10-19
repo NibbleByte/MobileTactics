@@ -196,6 +196,19 @@ var GameWorldRenderer = function (holderElement, eworld) {
 		}
 	}
 
+	this.getRenderedRows = function () {
+		return Math.round((self.extentHeight - GTile.LAYERS_PADDING * 2 - (GTile.TILE_HEIGHT - GTile.TILE_VOFFSET)) / GTile.TILE_VOFFSET);
+	}
+
+	this.getRenderedColumns = function () {
+
+		if (self.getRenderedRows() == 1) {
+			return Math.round((self.extentWidth - GTile.LAYERS_PADDING * 2) / GTile.TILE_WIDTH);
+		} else {
+			return Math.round((self.extentWidth - GTile.LAYERS_PADDING * 2 - GTile.TILE_HOFFSET) / GTile.TILE_WIDTH);
+		}
+	}
+
 	this.destroy = function () {
 		clearTimeout(scrollerRefreshTimeout);
 		self.plotContainerScroller.destroy();
