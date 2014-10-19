@@ -51,20 +51,6 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 		m_$GameWorldMap.show();
 		m_$ToolbarContainer.show();
 
-		// Utils function.
-		var fillEmptyTerrain = function (eworld, world, rows) {
-			var tile;
-
-			for(var i = 0; i < rows; ++i) {
-				for(var j = Math.ceil(i / 2); j < rows + i / 2; ++j) {
-			
-					tile = GameWorld.createTileUnmanaged(GameWorldTerrainType.None, i, j);
-			
-					eworld.addUnmanagedEntity(tile);
-				}
-			}
-		}
-
 		//
 		// World
 		//
@@ -134,8 +120,8 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 			
 				m_eworld.triggerAsync(EngineEvents.General.GAME_LOADING);
 
-				var ROWS = 10;
-				fillEmptyTerrain(m_eworld, m_clientState.world, ROWS);
+				var ROWS = 5, COLUMNS = 7;
+				EditorController.fillEmptyTerrain(m_eworld, m_clientState.world, ROWS, COLUMNS);
 
 				m_eworld.triggerAsync(EngineEvents.General.GAME_LOADED);
 

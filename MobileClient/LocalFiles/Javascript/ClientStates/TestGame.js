@@ -43,13 +43,13 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 	var m_clientState = null;
 
 	// Utils function.
-	var fillTerrainPattern = function (eworld, rows) {
+	var fillTerrainPattern = function (eworld, rows, columns) {
 		var tile;
 	
 		var basesCount = 0;
 
 		for(var i = 0; i < rows; ++i) {
-			for(var j = Math.ceil(i / 2); j < rows + i / 2; ++j) {
+			for(var j = Math.ceil(i / 2); j < columns + i / 2; ++j) {
 			
 				tile = GameWorld.createTileUnmanaged(GameWorldTerrainType.Grass, i, j);
 				if (i % 3 <= 1 && j % 4 >= 2) {
@@ -266,8 +266,8 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 			
 				m_eworld.triggerAsync(EngineEvents.General.GAME_LOADING);
 
-				var ROWS = 10;
-				fillTerrainPattern(m_eworld, ROWS);
+				var ROWS = 10, COLUMNS = 10;
+				fillTerrainPattern(m_eworld, ROWS, COLUMNS);
 
 				m_eworld.triggerAsync(EngineEvents.General.GAME_LOADED);
 

@@ -31,7 +31,7 @@ Actions.Classes.ActionMove = new function () {
 			availableTiles.push(tile);
 		
 		// If nowhere to move, action is unavailable.
-		if (availableTiles.length <= 1) {
+		if (availableTiles.length == 0) {
 			return;
 		}
 		
