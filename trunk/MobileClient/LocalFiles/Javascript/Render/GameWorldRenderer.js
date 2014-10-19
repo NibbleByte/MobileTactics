@@ -4,7 +4,7 @@
 //===============================================
 "use strict";
 
-var GameWorldRenderer = function (holderElement, eworld) {
+var GameWorldRenderer = function (holderElement, eworld, scrollerOptions) {
 	var self = this;
 	
 	console.assert(holderElement instanceof HTMLElement, "HTMLElement is required.");
@@ -225,7 +225,7 @@ var GameWorldRenderer = function (holderElement, eworld) {
 	//
 	// Initialize
 	//
-	self.plotContainerScroller = new IScroll(self.$pnWorldPlot[0], {
+	self.plotContainerScroller = new IScroll(self.$pnWorldPlot[0], $.extend({
 		freeScroll: true,
 		keyBindings: true,
 		mouseWheel: true,
@@ -235,7 +235,7 @@ var GameWorldRenderer = function (holderElement, eworld) {
 		scrollbars: true,
 		fadeScrollbars: true,
 		bounce: false,
-	});
+	}, scrollerOptions));
 }
 
 

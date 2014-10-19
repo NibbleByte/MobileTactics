@@ -74,7 +74,10 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 		// Rendering Systems
 		//
 
-		var worldRenderer = new GameWorldRenderer(m_$GameWorldMap[0], eworld);
+		var worldRenderer = new GameWorldRenderer(m_$GameWorldMap[0], eworld, {
+			fadeScrollbars: false,
+			interactiveScrollbars: true,
+		});
 	
 		eworld.addSystem(new TileRenderingSystem(worldRenderer, false, false, false));
 		eworld.addSystem(new UnitRenderingSystem(worldRenderer));
