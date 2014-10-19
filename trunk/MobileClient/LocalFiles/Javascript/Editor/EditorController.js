@@ -62,7 +62,7 @@ var EditorController = function (m_world, m_renderer) {
 
 					self._eworld.addUnmanagedEntity(tile);
 				} else {
-
+					// Remove anything outside the requested size.
 					var tile = m_world.getTile(i, j);
 					if (tile)
 						tile.destroy();
@@ -127,8 +127,25 @@ var EditorController = function (m_world, m_renderer) {
 
 	var onTileTouched = function (event, hitData) {
 
-		if (m_currentBrush)
+		if (m_currentBrush) {
 			m_currentBrush.place(hitData.row, hitData.column, hitData.tile);
+
+			//
+			// Auto-resize if placing on the edge
+			//
+			var rows = m_renderer.getRenderedRows();
+			var columns = m_renderer.getRenderedColumns();
+
+			var resizeHorizontal = hitData.column == columns + Math.ceil(hitData.row / 2) - 1;
+			var resizeVertical = hitData.row == rows - 1;
+
+			if (resizeHorizontal || resizeVertical) {
+				self.setWorldSize(false, 
+					(resizeVertical) ? rows + 2 : rows, 
+					(resizeHorizontal) ? columns + 2 : columns
+				);
+			}
+		}
 	}
 }
 
