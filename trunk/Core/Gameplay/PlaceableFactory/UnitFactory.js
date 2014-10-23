@@ -59,7 +59,7 @@ var UnitsFactory = new function () {
 		
 		console.assert(Enums.isValidValue(Player.Races, race));
 
-		return Enums.getName(Player.Races, race) + ':' + definition.name;
+		return Enums.getName(Player.Races, race) + ':' + (Utils.isString(definition) ? definition : definition.name);
 	}
 	
 	this.createUnit = function (definition, player) {

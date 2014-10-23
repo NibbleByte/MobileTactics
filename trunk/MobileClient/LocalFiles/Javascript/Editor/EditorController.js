@@ -24,6 +24,7 @@ var EditorController = function (m_world, m_renderer) {
 		self._eworldSB.subscribe(ClientEvents.Input.TILE_TOUCHED, onTileTouched);
 
 		rebuildTerrainBrushList();
+		rebuildUnitsList();
 		onBtnPan();
 
 		// Toolbar listeners
@@ -32,6 +33,8 @@ var EditorController = function (m_world, m_renderer) {
 		m_subscriber.subscribe($('#BtnPlaceablesEditor'), 'click', onBtnPlaceables);
 
 		m_subscriber.subscribe(m_$TerrainBrushList, 'change', onTerrainBrushListChange);
+
+		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADING, rebuildPlayersList);
 	};
 	
 	this.uninitialize = function () {
@@ -75,7 +78,42 @@ var EditorController = function (m_world, m_renderer) {
 		m_$TerrainBrushList.empty();
 
 		for (var name in GameWorldTerrainType) {
-			$('<option />').attr("value", GameWorldTerrainType[name]).text(name).appendTo(m_$TerrainBrushList);
+			$('<option />')
+			.attr('value', GameWorldTerrainType[name])
+			.text(name)
+			.prop('selected', GameWorldTerrainType[name] == GameWorldTerrainType.Grass )
+			.appendTo(m_$TerrainBrushList);
+		}
+	}
+
+	var rebuildUnitsList = function () {
+		m_$PlaceablesBrushList.empty();
+
+		for (var i = 0; i < UnitsDefinitions.length; ++i) {
+
+			$('<option />')
+			.attr('disabled', 'disabled')
+			.text('> ' + Enums.getName(Player.Races, i) + ' <')
+			.appendTo(m_$PlaceablesBrushList);
+
+			for (var key in UnitsDefinitions[i]) {
+				$('<option />')
+				.attr('value', UnitsFactory.generateDefinitionPath(i, key))
+				.text(key)
+				.appendTo(m_$PlaceablesBrushList);
+			}
+		}
+	}
+
+	var rebuildPlayersList = function () {
+		m_$PlayerBrushList.empty();
+		var playersData = self._eworld.extract(PlayersData);
+		
+		for(var i = 0; i < playersData.players.length; ++i) {
+			$('<option />')
+			.attr('value', i)
+			.text('Player ' + (i + 1))
+			.appendTo(m_$PlayerBrushList);
 		}
 	}
 
@@ -88,6 +126,8 @@ var EditorController = function (m_world, m_renderer) {
 
 		self._eworld.trigger(EditorEvents.Brushes.ACTIVE_BRUSH_CHANGED, m_currentBrush);
 	}
+
+
 
 	var onBtnPan = function (event) {
 		m_$TerrainBrushList.hide();
