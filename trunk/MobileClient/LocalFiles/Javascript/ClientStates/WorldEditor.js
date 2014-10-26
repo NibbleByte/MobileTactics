@@ -68,6 +68,7 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 		var world = new GameWorld();
 		eworld.addSystem(world);
 		eworld.store(GameWorld, world);
+		eworld.addSystem(new UnitsSystem());
 		m_clientState.world = world;
 
 		//
@@ -84,6 +85,7 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 		eworld.addSystem(new TileStructureRenderingSystem(worldRenderer));
 		eworld.addSystem(new AnimationSystem(worldRenderer));
 		eworld.addSystem(new LayersUpdateSystem(worldRenderer));
+		eworld.addSystem(new IdleAnimationsSystem(worldRenderer));	// Just for fun
 
 		m_clientState.worldRenderer = worldRenderer;
 

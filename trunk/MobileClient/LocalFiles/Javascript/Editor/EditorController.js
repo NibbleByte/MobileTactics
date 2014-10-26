@@ -14,6 +14,7 @@ var EditorController = function (m_world, m_renderer) {
 	var m_currentBrush = null;
 	
 	var m_subscriber = new DOMSubscriber();
+	var m_playersData = null;
 
 	//
 	// Entity system initialize
@@ -33,6 +34,8 @@ var EditorController = function (m_world, m_renderer) {
 		m_subscriber.subscribe($('#BtnPlaceablesEditor'), 'click', onBtnPlaceables);
 
 		m_subscriber.subscribe(m_$TerrainBrushList, 'change', onTerrainBrushListChange);
+		m_subscriber.subscribe(m_$PlaceablesBrushList, 'change', onPlaceablesBrushListChange);
+		m_subscriber.subscribe(m_$PlayerBrushList, 'change', onPlaceablesBrushListChange);
 
 		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADING, rebuildPlayersList);
 	};
@@ -107,9 +110,9 @@ var EditorController = function (m_world, m_renderer) {
 
 	var rebuildPlayersList = function () {
 		m_$PlayerBrushList.empty();
-		var playersData = self._eworld.extract(PlayersData);
+		m_playersData = self._eworld.extract(PlayersData);
 		
-		for(var i = 0; i < playersData.players.length; ++i) {
+		for(var i = 0; i < m_playersData.players.length; ++i) {
 			$('<option />')
 			.attr('value', i)
 			.text('Player ' + (i + 1))
@@ -153,6 +156,11 @@ var EditorController = function (m_world, m_renderer) {
 		m_$PlayerBrushList.show();
 		m_$PlaceablesBrushList.show();
 
+		changeBrush(new UnitsBrush(self._eworld, m_world, 
+			UnitsFactory.resolveDefinitionPath(m_$PlaceablesBrushList.val()),
+			m_playersData.players[parseInt(m_$PlayerBrushList.val())]
+		));
+
 		m_renderer.plotContainerScroller.disable();
 	}
 
@@ -161,6 +169,16 @@ var EditorController = function (m_world, m_renderer) {
 			return;
 
 		m_currentBrush.terrainType = parseInt(m_$TerrainBrushList.val());
+
+		self._eworld.trigger(EditorEvents.Brushes.ACTIVE_BRUSH_MODIFIED, m_currentBrush);
+	}
+
+	var onPlaceablesBrushListChange = function () {
+		if (Utils.assert(m_currentBrush instanceof UnitsBrush))
+			return;
+
+		m_currentBrush.unitDefinition = UnitsFactory.resolveDefinitionPath(m_$PlaceablesBrushList.val());
+		m_currentBrush.player = m_playersData.players[parseInt(m_$PlayerBrushList.val())];
 
 		self._eworld.trigger(EditorEvents.Brushes.ACTIVE_BRUSH_MODIFIED, m_currentBrush);
 	}
@@ -209,6 +227,8 @@ var EditorController = function (m_world, m_renderer) {
 					m_renderer.plotContainerScroller.scrollBy(0, -10);
 				}
 			}
+
+			self._eworld.triggerAsync(RenderEvents.Layers.REFRESH_ALL);
 		}
 	}
 }

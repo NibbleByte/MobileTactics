@@ -106,4 +106,8 @@ var Utils = {
 		
 		obj.__INVALID__ = 'INVALID';
 	},
+
+	isInvalidated: function (obj) {
+		return !!obj.__INVALID__;
+	}
 };

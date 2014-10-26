@@ -797,8 +797,8 @@ Sprite.prototype.update = function updateDomProperties () {
 
     if (this._dirty.color)
         style.backgroundColor = this.color;
-	
-	if (this._dirty.zindex)
+    
+    if (this._dirty.zindex)
         style.zIndex = this.zindex;
 
     if(this._dirty.transform) {
@@ -833,10 +833,10 @@ Sprite.prototype.canvasUpdate = function canvasUpdate(layer) {
     else
         ctx = this.layer.ctx;
 
-	// Image not loaded yet, can't update nothing.
-	if (!this.imgLoaded || !this.img) {
-		return this;
-	}
+    // Image not loaded yet, can't update nothing.
+    if (!this.imgLoaded || !this.img) {
+        return this;
+    }
 
     var fast_track = (
         this.angle == 0
@@ -932,6 +932,12 @@ Sprite.prototype.loadImg = function (src, resetSize) {
 
     // actions to perform when the image is loaded
     function imageReady(e) {
+        // If sprite gets destroyed right after being created, without having the time to
+        // load the image, event will call long after the sprite was invalidated (Editor).
+        if (Utils.isInvalidated(there)) {
+            return;
+        }
+
         img = there.img;
         sjs.spriteCache[src].loaded = true;
         there.imgLoaded = true;
@@ -1173,8 +1179,8 @@ Ticker_ = function Ticker_(scene, paint, options) {
 
     if (this.constructor !== Ticker_){
         return new Ticker_(tickDuration, paint);
-  	}
-	
+    }
+    
     this.tickDuration = optionValue(options, 'tickDuration', 16);
     this.expectedFps = 1000 / this.tickDuration;
     this.useAnimationFrame = optionValue(options, 'useAnimationFrame', false);
@@ -1239,7 +1245,7 @@ Ticker_.prototype.run = function(timestamp) {
         setTimeout(this.bindedRun, this.tickDuration);
         return;
     }*/
-	
+    
     //if(!this.skipPaint) {
     for (var name in this.scene.layers) {
         var layer = this.scene.layers[name];
@@ -1252,9 +1258,9 @@ Ticker_.prototype.run = function(timestamp) {
     this.paint(this);
     // reset the keyboard change
     if (this.scene.input) {
-		  this.scene.input.next();
-	  }
-	
+          this.scene.input.next();
+      }
+    
     this.timeToPaint = (new Date().getTime()) - this.now;
     // spread the load value on 2 frames so the value is more stable
     this.load = ((this.timeToPaint / this.tickDuration * 100) + this.load) / 2 | 0;
@@ -1598,9 +1604,9 @@ Layer = function Layer(scene, name, options) {
         // we send back the same.
         return this.scene.layers[name];
     }
-	
-	this.lastZIndex = 0;
-	
+    
+    this.lastZIndex = 0;
+    
     domElement = doc.getElementById(name);
     if (!domElement)
         needToCreate = true;
