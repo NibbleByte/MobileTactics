@@ -12,6 +12,10 @@ var TerrainBrush = function (m_eworld, m_world, terrainType) {
 	this.place = function (row, column, tile) {
 		
 		if (tile) {
+			
+			if (tile.CTile.placedObjects.length > 0 && !tile.CTile.placedObjects[0].CStatistics.terrainStats[self.terrainType]) {
+				tile.CTile.placedObjects[0].destroy();
+			}
 
 			// Prepare needed ownerable components
 			var wasOwnerable = TileCapturingSystem.isOwnerableTile(tile.CTileTerrain.type);
