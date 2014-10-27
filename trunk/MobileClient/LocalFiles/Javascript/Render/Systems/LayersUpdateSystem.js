@@ -23,10 +23,14 @@ var LayersUpdateSystem = function (m_renderer) {
 	var m_layersDirty = {};	// To avoid garbage, re-use the same object.
 
 	var refreshOnLoad = function (sprite) {
+
+		// Store the layer name, in case the sprite itself gets destroyed really fast after refreshing. (Editor, mouse placement)
+		var layerName = sprite.layer.name;
+
 		// HACK: give one frame delay, so any other "onload" handlers can be executed correctly (placeables)
 		//		 and all sprites with the same image are refreshed.
 		setTimeout(function () {
-			self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes[sprite.layer.name]);
+			self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes[layerName]);
 		}, 0);
 	}
 
