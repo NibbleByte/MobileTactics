@@ -36,8 +36,10 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 		if (detailedInputEvents) {
 			$(m_renderer.scene.dom).off('touchstart', onPlotTouchMove);
 			$(m_renderer.scene.dom).off('touchmove', onPlotTouchMove);
+			$(m_renderer.scene.dom).off('touchend', onPlotTouchMove);
 			$(m_renderer.scene.dom).off('mousedown', onPlotMouseMove);
 			$(m_renderer.scene.dom).off('mousemove', onPlotMouseMove);
+			$(m_renderer.scene.dom).off('mouseup', onPlotMouseMove);
 		}
 	}
 
@@ -50,9 +52,11 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 			if (ClientUtils.isTouchDevice) {
 				$(m_renderer.scene.dom).on('touchstart', onPlotTouchMove);
 				$(m_renderer.scene.dom).on('touchmove', onPlotTouchMove);
+				$(m_renderer.scene.dom).on('touchend', onPlotTouchMove);
 			} else {
 				$(m_renderer.scene.dom).mousedown(onPlotMouseMove);
 				$(m_renderer.scene.dom).mousemove(onPlotMouseMove);
+				$(m_renderer.scene.dom).mouseup(onPlotMouseMove);
 			}
 
 			detailedInputEvents = true;
@@ -118,7 +122,11 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 
 			var hitData = extractClickedTileFromEvent(event);
 
-			self._eworld.trigger(ClientEvents.Input.TILE_TOUCHED, hitData);
+			// Note: hitData is the same object every time (optimization).
+			if (event.type == 'mousedown')	self._eworld.trigger(ClientEvents.Input.TILE_TOUCH_DOWN, hitData);
+			if (event.type == 'mousedown')	self._eworld.trigger(ClientEvents.Input.TILE_TOUCH, hitData);
+			if (event.type == 'mousemove')	self._eworld.trigger(ClientEvents.Input.TILE_TOUCH, hitData);
+			if (event.type == 'mouseup')	self._eworld.trigger(ClientEvents.Input.TILE_TOUCH_UP, hitData);
 		}
 	}
 	var onPlotTouchMove = function (event) {
@@ -134,7 +142,12 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 		touch.currentTarget = touch.currentTarget || event.currentTarget; 
 		var hitData = extractClickedTileFromEvent(touch);
 
-		self._eworld.trigger(ClientEvents.Input.TILE_TOUCHED, hitData);
+
+		// Note: hitData is the same object every time (optimization).
+		if (event.type == 'touchstart')	self._eworld.trigger(ClientEvents.Input.TILE_TOUCH_DOWN, hitData);
+		if (event.type == 'touchstart')	self._eworld.trigger(ClientEvents.Input.TILE_TOUCH, hitData);
+		if (event.type == 'touchmove')	self._eworld.trigger(ClientEvents.Input.TILE_TOUCH, hitData);
+		if (event.type == 'touchend')	self._eworld.trigger(ClientEvents.Input.TILE_TOUCH_UP, hitData);
 	}
 
 	// HACK: Fixes problems with click-events while scrolling. Tapped event is fired BEFORE the click event.

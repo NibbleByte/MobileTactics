@@ -8,8 +8,10 @@
 // Supported client events that user can subscribe to.
 var ClientEvents = {
 		Input: {
-			TILE_CLICKED: "client.input.tile_clicked",	// Arguments: event, { tile, row, column } (Reused)
-			TILE_TOUCHED: "client.input.tile_touched",	// Arguments: event, { tile, row, column } (Reused)
+			TILE_CLICKED:		"client.input.tile_clicked",	// Arguments: event, { tile, row, column } (Reused)
+			TILE_TOUCH_DOWN:	"client.input.tile_touch_down",	// Arguments: event, { tile, row, column } (Reused)
+			TILE_TOUCH:			"client.input.tile_touch",		// Arguments: event, { tile, row, column } (Reused)
+			TILE_TOUCH_UP:		"client.input.tile_touch_up",	// Arguments: event, { tile, row, column } (Reused)
 		},
 		
 		Controller: {
