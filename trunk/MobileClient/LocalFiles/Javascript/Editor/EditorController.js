@@ -22,7 +22,8 @@ var EditorController = function (m_world, m_renderer) {
 	this.initialize = function () {
 
 		self._eworld.getSystem(TileRenderingSystem).enableDetailedInputEvents();
-		self._eworldSB.subscribe(ClientEvents.Input.TILE_TOUCHED, onTileTouched);
+		self._eworldSB.subscribe(ClientEvents.Input.TILE_TOUCH, onTileTouched);
+		self._eworldSB.subscribe(ClientEvents.Input.TILE_TOUCH_UP, onTileTouchedEnd);
 
 		rebuildTerrainBrushList();
 		rebuildUnitsList();
@@ -106,6 +107,9 @@ var EditorController = function (m_world, m_renderer) {
 				.appendTo(m_$PlaceablesBrushList);
 			}
 		}
+
+		// HACK: Mobile browsers fail and select the disabled element... go figure...
+		m_$PlaceablesBrushList.children(':enabled').first().prop('selected', true );
 	}
 
 	var rebuildPlayersList = function () {
@@ -183,9 +187,14 @@ var EditorController = function (m_world, m_renderer) {
 		self._eworld.trigger(EditorEvents.Brushes.ACTIVE_BRUSH_MODIFIED, m_currentBrush);
 	}
 
+	var lastTouchRow = null;
+	var lastTouchColumn = null;
 	var onTileTouched = function (event, hitData) {
+		
+		if (m_currentBrush && (lastTouchRow != hitData.row || lastTouchColumn != hitData.column)) {
+			lastTouchRow = hitData.row;
+			lastTouchColumn = hitData.column;
 
-		if (m_currentBrush) {
 			m_currentBrush.place(hitData.row, hitData.column, hitData.tile);
 
 			
@@ -230,6 +239,11 @@ var EditorController = function (m_world, m_renderer) {
 
 			self._eworld.triggerAsync(RenderEvents.Layers.REFRESH_ALL);
 		}
+	}
+
+	var onTileTouchedEnd = function (event, hitData) {
+		lastTouchRow = null;
+		lastTouchColumn = null;
 	}
 }
 
