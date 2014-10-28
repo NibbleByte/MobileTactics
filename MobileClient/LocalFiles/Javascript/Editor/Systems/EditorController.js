@@ -131,6 +131,7 @@ var EditorController = function (m_world, m_renderer) {
 
 		m_currentBrush = brush;
 
+		self._eworld.blackboard[EditorBlackBoard.Brushes.CURRENT_BRUSH] = m_currentBrush;
 		self._eworld.trigger(EditorEvents.Brushes.ACTIVE_BRUSH_CHANGED, m_currentBrush);
 	}
 

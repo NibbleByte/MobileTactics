@@ -1,0 +1,45 @@
+.dialog_blocker
+{
+	background-color: rgba(53, 62, 83, 0.8);
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	z-index: 100;
+	
+	display: none;
+}
+
+.dialog
+{
+	color: white;
+}
+
+.dialog_title
+{
+	font-weight: bold;
+	margin: 8px 0px;
+}
+
+.dialog_body
+{
+	margin: auto;
+}
+
+.dialog_buttons
+{
+	margin-top: 16px;
+}
+
+.dialog_container_floating
+{
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 20px;
+	bottom: 0px;
+	
+	margin: auto;
+	text-align: center;
+}

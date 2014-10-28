@@ -72,17 +72,6 @@ html, body
 	white-space: nowrap;
 }
 
-#LoadingScreen
-{
-	background-color: rgba(53, 62, 83, 0.8);
-	position: absolute;
-	top: 0px;
-	bottom: 0px;
-	left: 0px;
-	right: 0px;
-	z-index: 100;
-}
-
 #LoadingScreenContent
 {
 	position: absolute;
@@ -150,3 +139,16 @@ button:active {
 }
 
 
+.range_value
+{
+	width: 120px;
+}
+
+.range_value_label
+{
+	display: inline-block;
+	width: 20px;
+				
+	position: relative;
+	top: -6px;
+}

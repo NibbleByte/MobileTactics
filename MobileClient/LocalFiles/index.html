@@ -11,14 +11,16 @@
 			<link rel="stylesheet" href="Assets/Render/Placeables.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/ActionMenu.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/DevConsole.css" type="text/css" media="screen">
-			<link rel="stylesheet" href="Assets/Store.css" type="text/css" media="screen">
+			<link rel="stylesheet" href="Assets/Dialogs.css" type="text/css" media="screen">
+			<link rel="stylesheet" href="Assets/Game.css" type="text/css" media="screen">
+			<link rel="stylesheet" href="Assets/Editor.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/Main.css" type="text/css" media="screen">
 		
 	</head>
 	
 	<body>
 		<div id="Screen">
-			<div id="LoadingScreen">
+			<div id="LoadingScreen" class="dialog_blocker" style="display: block">
 				<div id="LoadingScreenContent">Loading...</div>
 			</div>
 
@@ -28,18 +30,44 @@
 			</div>
 
 
-			<div id="Store" style="display: none;">
-				<div id="StoreContainer">
-					<div id="StoreTitle">Unit Store</div>
-
-					<div id="StoreListContainer">
-						<select id="SelStoreList">
-						</select>
-					</div>
-
-					<div id="StoreButtonsContainer">
+			<div id="Store" class="dialog_blocker">
+				<div id="StoreContainer" class="dialog dialog_container_floating">
+					<div class="dialog_title">Unit Store</div>
+					
+					<select id="SelStoreList">
+					</select>
+					
+					<div class="dialog_buttons">
 						<button id="BtnStoreBuy">Buy</button>
 						<button id="BtnStoreClose">Close</button>
+					</div>
+				</div>
+			</div>
+
+
+			<div id="UnitPropsEditor" class="dialog_blocker">
+				<div id="UnitPropsEditorContainer" class="dialog dialog_container_floating">
+					<div class="dialog_title">Unit Properties</div>
+
+					<table class="dialog_body">
+						<tbody>
+							<tr>
+								<td>Name:</td>
+								<td id="UnitPropsNameEditor">Name:</td>
+							</tr>
+							<tr>
+								<td>Health:</td>
+								<td>
+									<input id="UnitPropsHealthEditor" class="range_value" type="range" min="1" max="10" step="1" value="10" />
+									<span id="UnitPropsHealthLabelEditor" class="range_value_label">0</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<div class="dialog_buttons">
+						<button id="BtnUnitPropsApply">Apply</button>
+						<button id="BtnUnitPropsCancel">Cancel</button>
 					</div>
 				</div>
 			</div>
@@ -227,7 +255,8 @@
 		<!-- ==========	Mobile Client - Editor ====================== -->
 			<script type="text/javascript" src="Javascript/Editor/EditorEvents.js"></script>
 			<script type="text/javascript" src="Javascript/Editor/Brushes.js"></script>
-			<script type="text/javascript" src="Javascript/Editor/EditorController.js"></script>
+			<script type="text/javascript" src="Javascript/Editor/Systems/EditorController.js"></script>
+			<script type="text/javascript" src="Javascript/Editor/Systems/EditorUnitPropertiesController.js"></script>
 
 			<script type="text/javascript" src="Javascript/ClientStates/WorldEditor.js"></script>
 			

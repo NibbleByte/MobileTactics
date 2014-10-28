@@ -111,3 +111,9 @@ var Utils = {
 		return !!obj.__INVALID__;
 	}
 };
+
+var MathUtils = {
+	clamp: function(num, min, max) {
+		return num < min ? min : (num > max ? max : num);
+	},
+}
