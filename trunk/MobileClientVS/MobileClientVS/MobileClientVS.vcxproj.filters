@@ -275,9 +275,6 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\StoreRender.js">
       <Filter>Javascript\Render</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Assets\Store.css">
-      <Filter>Assets</Filter>
-    </None>
     <None Include="..\..\Core\Engine\Systems\SynchronizationSystem.js">
       <Filter>Javascript\Core\Engine\Systems</Filter>
     </None>
@@ -311,14 +308,26 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Editor\EditorEvents.js">
       <Filter>Javascript\Editor</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Editor\EditorController.js">
-      <Filter>Javascript\Editor</Filter>
-    </None>
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Utils\DOMSubscriber.js">
       <Filter>Javascript\Utils</Filter>
     </None>
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Utils\ClientUtils.js">
       <Filter>Javascript\Utils</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Assets\Dialogs.css">
+      <Filter>Assets</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Assets\Game.css">
+      <Filter>Assets</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Assets\Editor.css">
+      <Filter>Assets</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Editor\Systems\EditorController.js">
+      <Filter>Javascript\Editor\Systems</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Editor\Systems\EditorUnitPropertiesController.js">
+      <Filter>Javascript\Editor\Systems</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -408,6 +417,9 @@
     </Filter>
     <Filter Include="Javascript\Utils">
       <UniqueIdentifier>{16f1d7af-7499-4e15-bde5-b2f0c5404e4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Javascript\Editor\Systems">
+      <UniqueIdentifier>{0cd8018d-c387-4562-af53-fd5afb424da9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

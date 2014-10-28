@@ -90,6 +90,7 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 		m_clientState.worldRenderer = worldRenderer;
 
 		m_clientState.editorController = eworld.addSystem(new EditorController(world, worldRenderer));
+		eworld.addSystem(new EditorUnitPropertiesController(world));
 
 
 		//

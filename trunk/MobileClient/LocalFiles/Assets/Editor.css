@@ -1,0 +1,14 @@
+#UnitPropsEditorContainer
+{
+	width: 320px;
+	height: 200px;
+}
+
+#UnitPropsEditorContainer > table td:nth-child(1)
+{
+	width: 100px;
+}
+#UnitPropsEditorContainer > table td:nth-child(2)
+{
+	width: 150px;
+}
