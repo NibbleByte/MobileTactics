@@ -329,6 +329,9 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Editor\Systems\EditorUnitPropertiesController.js">
       <Filter>Javascript\Editor\Systems</Filter>
     </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Editor\Systems\EditorGamePropertiesController.js">
+      <Filter>Javascript\Editor\Systems</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

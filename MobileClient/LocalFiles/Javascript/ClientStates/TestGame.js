@@ -178,7 +178,6 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		//
 		// Handlers
 		//
-		var savedGame = '';
 		var onBtnSave = function () {
 			var entities = m_eworld.getEntities();
 		
@@ -187,7 +186,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 					playersData: m_clientState.playersData,
 					world: m_eworld.getEntities(),
 			};
-			savedGame = Serialization.serialize(fullGameState, true);
+			m_clientState.savedGame = Serialization.serialize(fullGameState, true);
 		}
 	
 		var onBtnLoad = function () {
