@@ -246,5 +246,9 @@ var Serialization = new function () {
 	}
 	
 	var m_registeredClasses = {};
-	var m_excludedKeyNames = []; 
+	var m_excludedKeyNames = [];
+
+	// Re-assign the defined function. First assign is undefined, but for the APIs sake, keep it at the top of the file.
+	this.serializeCustom = serializeImpl;
+	this.deserializeCustom = deserializeImpl;
 }

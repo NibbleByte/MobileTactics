@@ -41,3 +41,15 @@ GameState.prototype.clearStructures = function () {
 		this.relationStructures[i].clear();
 	}
 }
+
+GameState.serialize = function (input, output, instanceRegister) {
+
+	output.currentPlayer = Serialization.serializeCustom(input.currentPlayer, instanceRegister);
+	output.turnsPassed = Serialization.serializeCustom(input.turnsPassed, instanceRegister);
+};
+
+GameState.deserialize = function (input, output, instanceRegister) {
+
+	output.currentPlayer = Serialization.deserializeCustom(input.currentPlayer, instanceRegister);
+	output.turnsPassed = Serialization.deserializeCustom(input.turnsPassed, instanceRegister);
+};

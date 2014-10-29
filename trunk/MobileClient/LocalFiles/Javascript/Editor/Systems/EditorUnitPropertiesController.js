@@ -4,7 +4,7 @@
 //===============================================
 "use strict";
 
-var EditorUnitPropertiesController = function (m_world) {
+var EditorUnitPropertiesController = function () {
 	var self = this;
 	
 	var m_$UnitProps = $('#UnitPropsEditor');

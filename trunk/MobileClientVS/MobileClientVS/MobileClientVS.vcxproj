@@ -90,6 +90,7 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Editor\Brushes.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Editor\EditorEvents.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Editor\Systems\EditorController.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Editor\Systems\EditorGamePropertiesController.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Editor\Systems\EditorUnitPropertiesController.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Main.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\PlayerController.js" />
