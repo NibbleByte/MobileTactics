@@ -4,12 +4,14 @@
 //===============================================
 "use strict";
 
-var EditorGamePropertiesController = function () {
+var EditorGamePropertiesController = function (m_editorController, m_renderer) {
 	var self = this;
 	
 	var m_$GameProps = $('#GamePropsEditor');
 	var m_$GamePropsName = $('#GamePropsNameEditor');
 	var m_$GamePropsDescription = $('#GamePropsDescriptionEditor');
+	var m_$GamePropsWidth = $('#GamePropsWidthEditor');
+	var m_$GamePropsHeight= $('#GamePropsHeightEditor');
 
 	var m_subscriber = new DOMSubscriber();
 
@@ -30,10 +32,15 @@ var EditorGamePropertiesController = function () {
 
 	var onGameProps = function (event) {
 		m_$GameProps.show();
+
+		m_$GamePropsWidth.val(m_renderer.getRenderedColumns());
+		m_$GamePropsHeight.val(m_renderer.getRenderedRows());
 	}
 
 	var onBtnApply = function (event) {
 		m_$GameProps.hide();
+
+		m_editorController.setWorldSize(false, parseInt(m_$GamePropsHeight.val()), parseInt(m_$GamePropsWidth.val()));
 	}
 	
 	var onBtnCancel = function (event) {

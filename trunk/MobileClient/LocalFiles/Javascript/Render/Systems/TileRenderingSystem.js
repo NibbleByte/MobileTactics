@@ -248,8 +248,8 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 				m_renderer.extentHeight = sprite.y + GTile.TILE_HEIGHT;
 		});
 		
-		m_renderer.extentWidth += GTile.LAYERS_PADDING * 2;
-		m_renderer.extentHeight += GTile.LAYERS_PADDING * 2;
+		m_renderer.extentWidth += GTile.LAYERS_PADDING;
+		m_renderer.extentHeight += GTile.LAYERS_PADDING;
 		
 		m_renderer.refresh();
 		
