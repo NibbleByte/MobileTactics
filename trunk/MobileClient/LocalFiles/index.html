@@ -102,27 +102,36 @@
 			<div id="GameWorldMapEditor">
 			</div>
 
-			<div id="ToolbarContainer">
-				<div id="Toolbar">
-					<button id="BtnConsole" onclick="$('#Console').toggle();">~</button>
+			<div id="ToolbarMore" class="toolbar_more" >
+				<button id="BtnConsole" onclick="$('#Console').toggle();">~</button>
+				<button id="BtnRestart">Res</button>
+				<button id="BtnDebug">Debug</button>
+
+				<button id="BtnAddress">Address</button>
+				<button id="BtnBrowse" style="display: none;">Browse</button>
+				<input id="TbBrowseAddress" type="text" value="http://nibblebyte.no-ip.org/t" style="display: none;" />
+
+			</div>
+
+			<div id="ToolbarContainer" class="toolbar_bottom_container">
+				<div id="Toolbar" class="toolbar_bottom">
+					<button onclick="$('#ToolbarMore').toggle();">#</button>
 					<button id="BtnSave">Save</button>
 					<button id="BtnLoad">Load</button>
 					<button id="BtnPlayer">Player</button>
 					<button id="BtnRemoveTile">Rem</button>
-					<button id="BtnRestart">Res</button>
-					<button id="BtnDebug">Debug</button>
-
-					<button id="BtnBrowse" style="display: none;">Browse</button>
-					<input id="TbBrowseAddress" type="text" value="http://nibblebyte.no-ip.org/t" style="display: none;" />
-					<button id="BtnAddress">Address</button>
 
 				</div>
 			</div>
 
-			<div id="ToolbarContainerEditor">
-				<div id="ToolbarEditor">
-					<button id="BtnConsoleEditor" onclick="$('#Console').toggle();">~</button>
-					<button id="BtnGamePropsEditor">Map</button>
+			<div id="ToolbarMoreEditor" class="toolbar_more" >
+				<button id="BtnConsoleEditor" onclick="$('#Console').toggle();">~</button>
+				<button id="BtnGamePropsEditor">Map</button>
+			</div>
+
+			<div id="ToolbarContainerEditor" class="toolbar_bottom_container">
+				<div id="ToolbarEditor" class="toolbar_bottom">
+					<button onclick="$('#ToolbarMoreEditor').toggle();">#</button>
 					<button id="BtnPanEditor">Pan</button>
 					<button id="BtnTerrainEditor">Terrain</button>
 					<button id="BtnPlaceablesEditor">Units</button>

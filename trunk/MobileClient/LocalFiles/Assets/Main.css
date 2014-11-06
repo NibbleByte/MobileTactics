@@ -53,7 +53,7 @@ html, body
 	border: solid 1px green;
 }
 
-#ToolbarContainer, #ToolbarContainerEditor
+.toolbar_bottom_container
 {
 	position: absolute;
 	left: 0px;
@@ -63,7 +63,7 @@ html, body
 	height: 40px;
 }
 
-#Toolbar, #ToolbarEditor
+.toolbar_bottom
 {
 	/* DEBUG: width is set in order for iScroll to work. 
 	 *		  Else width of the parent is used. 
@@ -71,6 +71,31 @@ html, body
 	width: 750px;
 	white-space: nowrap;
 }
+
+.toolbar_more
+{
+	display: none;
+	
+	position: absolute;
+	left: 0px;
+	bottom: 45px;
+	
+	height: 200px;
+	width: 200px;
+	
+	background-color: rgba(53, 62, 83, 0.8);
+	border: 2px rgba(104, 113, 148, 0.82) solid;
+	border-radius: 6px;
+}
+
+.toolbar_more button, .toolbar_more input
+{
+	display: block;
+	margin: 6px auto;
+	min-width: 150px;
+}
+
+
 
 #LoadingScreenContent
 {

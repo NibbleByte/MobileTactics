@@ -335,14 +335,12 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 
 		// HACK: This is workaround, as iScroller doesn't let the input control to be clicked.
 		var onBtnAddress = function () {
-			if (m_toolbarScroller) {
-				m_$TbBrowseAddress.add(m_$BtnBrowse)
-				.insertBefore(m_$BtnSave)
-				.show()
-				.off("click", onBtnAddress);
-				m_toolbarScroller.destroy();
-				m_toolbarScroller = null;
-			}
+			m_$TbBrowseAddress
+			.add(m_$BtnBrowse)
+			.show()
+			.off("click", onBtnAddress);
+
+			m_$BtnAddress.remove();
 		}
 
 		var onHudLockRefresh = function (event) {
