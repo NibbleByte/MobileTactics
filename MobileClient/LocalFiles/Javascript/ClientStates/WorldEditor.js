@@ -91,7 +91,7 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 
 		m_clientState.editorController = eworld.addSystem(new EditorController(world, worldRenderer));
 		eworld.addSystem(new EditorUnitPropertiesController());
-		eworld.addSystem(new EditorGamePropertiesController());
+		eworld.addSystem(new EditorGamePropertiesController(m_clientState.editorController, worldRenderer));
 
 
 		//
