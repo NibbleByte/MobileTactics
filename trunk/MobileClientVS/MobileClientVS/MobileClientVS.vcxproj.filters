@@ -332,6 +332,12 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Editor\Systems\EditorGamePropertiesController.js">
       <Filter>Javascript\Editor\Systems</Filter>
     </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\Blob.js">
+      <Filter>Javascript\3rdParty</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\FileSaver.min.js">
+      <Filter>Javascript\3rdParty</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

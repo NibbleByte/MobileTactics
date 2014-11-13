@@ -137,6 +137,10 @@
 			<div id="ToolbarMoreEditor" class="toolbar_more" >
 				<button id="BtnConsoleEditor" onclick="$('#Console').toggle();">~</button>
 				<button id="BtnGamePropsEditor">Map</button>
+				<span class="input_file_wrapper">
+					<input id="BtnLoadEditor" type="file">Load</input>
+				</span>
+				<button id="BtnSaveEditor">Save</button>
 			</div>
 
 			<div id="ToolbarContainerEditor" class="toolbar_bottom_container">
@@ -237,10 +241,23 @@
 			<script type="text/javascript" charset="utf-8" src="Javascript/BrowserBackwardCompatibility.js"></script>
 
 		<!-- 3rd Party -->
+
+			<script type="text/javascript" charset="utf-8">
+				// Backup File classes, as wormhole is overriding them.
+				window.BrowserAPI = {
+					File: window.File,
+					FileReader: window.FileReader,
+					FileList: window.FileList,
+					FileError: window.FileError,
+				}
+			</script>
 			<script type="text/javascript" charset="utf-8" src="Javascript/3rdParty/wormhole.js"></script>
 			<script type="text/javascript" charset="utf-8" src="Javascript/3rdParty/iscroll.js"></script> <!-- TODO: Use LITE, min version -->
 			<script type="text/javascript" charset="utf-8" src="Javascript/3rdParty/sylvester.src.js"></script>
 			<script type="text/javascript" charset="utf-8" src="Javascript/3rdParty/sprite.js"></script>
+
+			<script type="text/javascript" charset="utf-8" src="Javascript/3rdParty/Blob.js"></script>
+			<script type="text/javascript" charset="utf-8" src="Javascript/3rdParty/FileSaver.min.js"></script>
 		
 		<!-- Javascripts -->
 			<script type="text/javascript" src="Javascript/Utils/DOMSubscriber.js"></script>

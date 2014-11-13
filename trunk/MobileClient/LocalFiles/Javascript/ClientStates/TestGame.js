@@ -184,7 +184,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 			var fullGameState = {
 					gameState: m_clientState.gameState,
 					playersData: m_clientState.playersData,
-					world: m_eworld.getEntities(),
+					world: entities,
 			};
 			m_clientState.savedGame = Serialization.serialize(fullGameState, true);
 		}

@@ -75,6 +75,8 @@
     <None Include="..\..\MobileClient\LocalFiles\Assets\Render\SpriteAnimations\TeslaTrooper.js" />
     <None Include="..\..\MobileClient\LocalFiles\Assets\Render\TileRenderingSystem.css" />
     <None Include="..\..\MobileClient\LocalFiles\index.html" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\Blob.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\FileSaver.min.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\iscroll.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\persist.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\sprite.js" />

@@ -6,10 +6,15 @@
 
 ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new function () {
 	
+	var DEFAULT_ROWS = 5, DEFAULT_COLUMNS = 7;
+
 	var m_$GameWorldMap = $('#GameWorldMapEditor').hide();
 	var m_$ToolbarContainer = $('#ToolbarContainerEditor').hide();
 
+	var m_subscriber = new DOMSubscriber();
 	var m_clientState = null;
+
+	var m_lastFilename = '';
 
 	// DEBUG: scrollable toolbar
 	var m_toolbarScroller;
@@ -28,6 +33,8 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 	this.cleanUp = function () {
 		m_$GameWorldMap.hide();
 		m_$ToolbarContainer.hide();
+
+		m_subscriber.unsubscribeAll();
 
 		if (m_clientState) {
 			m_clientState.gameState = null;
@@ -101,7 +108,6 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 		var m_world = m_clientState.world;
 		var m_renderer = m_clientState.worldRenderer;
 
-
 		var onBtnRestart = function () {
 			m_loadingScreen.show();
 
@@ -127,16 +133,114 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 			
 				m_eworld.triggerAsync(EngineEvents.General.GAME_LOADING);
 
-				var ROWS = 5, COLUMNS = 7;
-				m_clientState.editorController.setWorldSize(true, ROWS, COLUMNS);
+				m_clientState.editorController.setWorldSize(true, DEFAULT_ROWS, DEFAULT_COLUMNS);
 
 				m_eworld.triggerAsync(EngineEvents.General.GAME_LOADED);
 
+				m_lastFilename = 'Untitled.json';
 
-				m_clientState.playersData.stopPlaying(m_clientState.playersData.getPlayer(2));
-				m_clientState.playersData.stopPlaying(m_clientState.playersData.getPlayer(3));
+				m_eworld.triggerAsync(RenderEvents.Layers.REFRESH_ALL);
 
 			}, 200);
+		}
+
+		var onBtnSave = function(event) {
+
+			var entities = m_eworld.getEntities().clone();
+
+			// Remove empty tiles
+			for(var i = 0; i < entities.length; ++i) {
+				if (entities[i].CTileTerrain && entities[i].CTileTerrain.type == GameWorldTerrainType.None) {
+					entities.removeAt(i);
+					--i;
+				}
+			}
+		
+			var fullGameState = {
+					gameState: m_clientState.gameState,
+					playersData: m_clientState.playersData,
+					world: entities,
+			};
+			m_clientState.savedGame = Serialization.serialize(fullGameState, true);
+			
+			var blob = new Blob([m_clientState.savedGame], {type: "text/plain;charset=utf-8"});
+			saveAs(blob, m_lastFilename);
+		}
+
+		var onBtnLoad = function(event) {
+
+			// Check for the various File API support.
+			if (window.File && window.FileReader && window.FileList && window.Blob) {
+
+				if (event.target.files.length == 0)
+					return;
+
+				var file = event.target.files[0];
+
+				if (file.type != 'text/plain')
+					return;
+
+				var reader = new BrowserAPI.FileReader();
+				reader.onload = function (event) {
+					var data = event.target.result;
+
+					m_loadingScreen.show();
+
+					setTimeout(function () {
+			
+						m_clientState.world.clearTiles();
+		
+						Utils.invalidate(m_clientState.playersData);
+						Utils.invalidate(m_clientState.gameState);
+		
+						var allObjects = [];
+		
+						var fullGameState = Serialization.deserialize(data, allObjects);
+		
+						m_clientState.gameState = fullGameState.gameState;
+						m_clientState.playersData = fullGameState.playersData;
+						m_eworld.store(PlayersData, m_clientState.playersData);
+						m_eworld.store(GameState, m_clientState.gameState);
+		
+						m_eworld.triggerAsync(EngineEvents.General.GAME_LOADING);
+		
+						for(var i = 0; i < allObjects.length; ++i) {
+							if (allObjects[i].onDeserialize)
+								allObjects[i].onDeserialize(m_eworld);
+						}
+		
+						var entities = fullGameState.world;
+						for(var i = 0; i < entities.length; ++i) {
+			
+							UnitsFactory.postDeserialize(entities[i]);
+							m_eworld.addUnmanagedEntity(entities[i]);
+						}
+		
+						for(var i = 0; i < entities.length; ++i) {
+							m_eworld.trigger(EngineEvents.Serialization.ENTITY_DESERIALIZED, entities[i]);
+						}
+
+						m_eworld.triggerAsync(EngineEvents.General.GAME_LOADED);
+
+						// Fill out the rest with empty tiles.
+						var rows = Math.max(m_renderer.getRenderedRows() + 2, DEFAULT_ROWS);
+						var columns = Math.max(m_renderer.getRenderedColumns() + 2, DEFAULT_COLUMNS);
+						
+						m_clientState.editorController.setWorldSize(false, rows, columns);
+
+						m_lastFilename = file.name;
+						$('#BtnLoadEditor').val('');
+
+						m_eworld.triggerAsync(RenderEvents.Layers.REFRESH_ALL);
+
+					}, 200);
+				}
+
+				reader.readAsText(file);
+
+			} else {
+				alert('The File APIs are not fully supported in this browser.');
+			}
 		}
 
 		var onGameLoaded = function (event) {
@@ -149,6 +253,9 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 		// Initialize
 		//
 		onBtnRestart();
+
+		m_subscriber.subscribe($('#BtnSaveEditor'), 'click', onBtnSave);
+		m_subscriber.subscribe($('#BtnLoadEditor'), 'change', onBtnLoad);
 
 		return m_clientState;
 	}

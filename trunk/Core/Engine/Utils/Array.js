@@ -44,6 +44,10 @@ Array.prototype.find = Array.prototype.find || function (predicate) {
 	return undefined;
 }
 
+Array.prototype.clone = function () {
+	return this.slice(0);
+};
+
 // IE8 and earlier fix
 if (!Array.prototype.indexOf) { 
 	Array.prototype.indexOf = function(obj, start) {
