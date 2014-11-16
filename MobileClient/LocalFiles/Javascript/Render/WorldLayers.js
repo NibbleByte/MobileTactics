@@ -8,9 +8,9 @@ var WorldLayers = {};
 
 WorldLayers.LayerTypes = {
 	Terrain: 0,
+	Selection: 0,
 	TerrainOverlay: 0,
 	VisibilityFog: 0,
-	Selection: 0,
 	Highlights: 0,
 	Units: 0,
 	Statistics: 0,
@@ -19,17 +19,24 @@ WorldLayers.LayerTypes = {
 Enums.enumerate(WorldLayers.LayerTypes);
 
 WorldLayers.layersOptions = {
+	
+
+	Terrain: {
+		useCanvas: true,
+		autoClear: false,
+	},
+
+	Selection: {
+		useCanvas: true,
+		autoClear: false,
+	},
+
 	TerrainOverlay: {
 		useCanvas: true,
 		autoClear: false,
 	},
 	
 	VisibilityFog: {
-		useCanvas: true,
-		autoClear: false,
-	},
-
-	Selection: {
 		useCanvas: true,
 		autoClear: false,
 	},
