@@ -19,10 +19,6 @@ CTileRendering.HighlightType = {
 Enums.enumerate(CTileRendering.HighlightType);
 
 
-// TODO: Maybe classes should be defined somewhere else, like in the system. highlight modes/selection too.
-CTileRendering.prototype.CLASSES = {
-		TILE_SELECTED: 'tile_selected',
-}
 
 CTileRendering.getSpritePath = function (highlightMode) {
 	return CTileRendering.SPRITES_PATH.replace(/{fileName}/g, CTileRendering.SPRITES_FILES[highlightMode]);
@@ -45,20 +41,6 @@ CTileRendering.prototype.destroy = function () {
 //
 // Short-cuts
 //
-
-CTileRendering.prototype.unSelect = function () {
-	$(this.sprite.dom).removeClass(this.CLASSES.TILE_SELECTED);
-};
-
-CTileRendering.prototype.select = function () {
-	$(this.sprite.dom).addClass(this.CLASSES.TILE_SELECTED);
-};
-
-CTileRendering.prototype.isSelected = function () {
-	return $(this.sprite.dom).hasClass(this.CLASSES.TILE_SELECTED);
-};
-
-
 
 CTileRendering.prototype.highlight = function (mode) {
 	console.assert(Enums.isValidValue(CTileRendering.HighlightType, mode));

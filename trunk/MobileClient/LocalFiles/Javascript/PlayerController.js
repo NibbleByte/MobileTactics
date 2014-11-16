@@ -60,16 +60,12 @@ var PlayerController = function (m_world, m_executor) {
 	executor = m_executor;
 
 	var selectTileHighlight = function (tile) {
-		if (m_selectedTile)
-			m_selectedTile.CTileRendering.unSelect();
 
 		m_selectedTile = tile;
+		self._eworld.trigger(ClientEvents.Controller.TILE_SELECTED, m_selectedTile);
 
 		// DEBUG: global access
 		selected = m_selectedTile;
-
-		if (m_selectedTile)
-			m_selectedTile.CTileRendering.select();
 	};
 	
 	var selectTile = function (tile) {
