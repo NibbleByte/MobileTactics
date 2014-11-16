@@ -111,6 +111,7 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\StoreRender.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\ActionFogRenderingSystem.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\ActionsRenderingSystem.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\ControllerRenderingSystem.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\LayersUpdateSystem.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\AnimationSystem.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\IdleAnimationsSystem.js" />

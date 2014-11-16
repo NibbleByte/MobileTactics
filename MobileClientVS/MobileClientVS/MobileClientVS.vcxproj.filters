@@ -338,6 +338,9 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\FileSaver.min.js">
       <Filter>Javascript\3rdParty</Filter>
     </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\ControllerRenderingSystem.js">
+      <Filter>Javascript\Render\Systems</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

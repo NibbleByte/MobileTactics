@@ -9,10 +9,11 @@ var WorldLayers = {};
 WorldLayers.LayerTypes = {
 	Terrain: 0,
 	TerrainOverlay: 0,
+	VisibilityFog: 0,
+	Selection: 0,
 	Highlights: 0,
 	Units: 0,
 	Statistics: 0,
-	VisibilityFog: 0,
 	ActionFog: 0,
 };
 Enums.enumerate(WorldLayers.LayerTypes);
@@ -23,17 +24,22 @@ WorldLayers.layersOptions = {
 		autoClear: false,
 	},
 	
+	VisibilityFog: {
+		useCanvas: true,
+		autoClear: false,
+	},
+
+	Selection: {
+		useCanvas: true,
+		autoClear: false,
+	},
+
 	Highlights: {
 		useCanvas: true,
 		autoClear: false,
 	},
 
 	Units: {
-		useCanvas: true,
-		autoClear: false,
-	},
-
-	VisibilityFog: {
 		useCanvas: true,
 		autoClear: false,
 	},

@@ -162,6 +162,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		m_eworld.addSystem(new TileRenderingSystem(worldRenderer, true, true, true));
 		m_eworld.addSystem(new UnitRenderingSystem(worldRenderer));
 		m_eworld.addSystem(new TileStructureRenderingSystem(worldRenderer));
+		m_eworld.addSystem(new ControllerRenderingSystem(worldRenderer));
 		m_eworld.addSystem(new AnimationSystem(worldRenderer));
 		m_eworld.addSystem(new LayersUpdateSystem(worldRenderer));
 		m_eworld.addSystem(new IdleAnimationsSystem(worldRenderer));
