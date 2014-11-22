@@ -37,7 +37,9 @@ var GameStateSystem = function () {
 	}
 	
 	var onAppendPlaceable = function (event, placeable) {
-		if (placeable.CPlayerData) {
+		
+		// currentPlayer can be null, if game is still loading for the first time.
+		if (placeable.CPlayerData && m_gameState.currentPlayer) {
 			
 			if (placeable.CPlayerData.player == m_gameState.currentPlayer) {
 				m_gameState.currentPlaceables.push(placeable);
