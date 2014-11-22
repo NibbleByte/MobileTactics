@@ -85,6 +85,10 @@ var UnitRenderingSystem = function (renderer) {
 					coords.x - placeableRendering.sprite.w / 2,
 					coords.y - placeableRendering.sprite.h / 2
 					);
+
+			placeableRendering.sprite.depth = coords.y;
+			self._eworld.trigger(RenderEvents.Layers.SORT_DEPTH, placeableRendering.sprite);
+
 		} else {
 			// NOTE: Animated units automatically have sizes, while static ones need to be loaded!
 			//		 This means they still cannot have a valid position.
