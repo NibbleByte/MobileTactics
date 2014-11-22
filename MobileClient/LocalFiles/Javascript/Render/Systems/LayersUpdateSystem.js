@@ -4,7 +4,7 @@
 //===============================================
 "use strict";
 
-var LayersUpdateSystem = function (m_renderer) {
+var LayersUpdateSystem = function (m_renderer, layersDefinition) {
 	var self = this;
 	
 	//
@@ -13,6 +13,8 @@ var LayersUpdateSystem = function (m_renderer) {
 	this.initialize = function () {
 		self._eworldSB.subscribe(RenderEvents.Layers.REFRESH_LAYER, onRefreshLayer);
 		self._eworldSB.subscribe(RenderEvents.Layers.REFRESH_ALL, onRefreshAll);
+		self._eworldSB.subscribe(RenderEvents.Layers.SORT_DEPTH, onSortByDepth);
+		self._eworldSB.subscribe(RenderEvents.Layers.SORT_DEPTH_REFRESH, onSortByDepthRefresh);
 
 		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_AFTER_FRAME, onAnimationAfterFrame);
 	}
@@ -30,7 +32,7 @@ var LayersUpdateSystem = function (m_renderer) {
 		// HACK: give one frame delay, so any other "onload" handlers can be executed correctly (placeables)
 		//		 and all sprites with the same image are refreshed.
 		setTimeout(function () {
-			self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes[layerName]);
+			self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, layersDefinition[layerName]);
 		}, 0);
 	}
 
@@ -53,7 +55,6 @@ var LayersUpdateSystem = function (m_renderer) {
 
 				if (sprite.imgLoaded) {
 					if (!sprite.skipDrawing) {
-						// TODO: introduce "depth" property of the sprite, in order to control the drawing order. Highlight layer for example.
 						sprite.update();
 					}
 				} else {
@@ -83,6 +84,38 @@ var LayersUpdateSystem = function (m_renderer) {
 			refreshLayer(m_renderer.layers[i]);
 	}
 
+
+	var depthSorter = function (left, right) {
+		var leftDepth = left.depth || 0;
+		var rightDepth = right.depth || 0;
+
+		return leftDepth - rightDepth;
+	}
+
+	// depth is a custom field introduced to the sprite instances. Higher depth number is on top of others.
+	var onSortByDepth = function (event, layerOrSprite) {
+		if (Utils.assert(layerOrSprite instanceof sjs.Sprite || Enums.isValidValue(layersDefinition, layerOrSprite)))
+			return;
+
+		var layer = (layerOrSprite instanceof sjs.Sprite) ? layersDefinition[layerOrSprite.layer.name] : layerOrSprite;
+
+		var sprites = m_renderer.spriteTracker.layerSprites[Enums.getName(layersDefinition, layer)];
+		if (sprites) {
+			sprites.sort(depthSorter);
+		}
+	}
+
+	var onSortByDepthRefresh = function (event, layerOrSprite) {
+		if (Utils.assert(layerOrSprite instanceof sjs.Sprite || Enums.isValidValue(layersDefinition, layerOrSprite)))
+			return;
+
+		var layer = (layerOrSprite instanceof sjs.Sprite) ? layersDefinition[layerOrSprite.layer.name] : layerOrSprite;
+
+		onSortByDepth(event, layer);
+		onRefreshLayer(event, layer);
+	}
+
+
 	var onAnimationAfterFrame = function (event, processedAnimationsData) {
 		
 		for(var i = 0; i < processedAnimationsData.length; ++i) {
@@ -92,7 +125,7 @@ var LayersUpdateSystem = function (m_renderer) {
 		for(var layerName in m_layersDirty) {
 			if (m_layersDirty[layerName]) {
 				
-				self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes[layerName]);
+				self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, layersDefinition[layerName]);
 
 				m_layersDirty[layerName] = false;
 			}

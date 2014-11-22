@@ -91,7 +91,7 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 		eworld.addSystem(new UnitRenderingSystem(worldRenderer));
 		eworld.addSystem(new TileStructureRenderingSystem(worldRenderer));
 		eworld.addSystem(new AnimationSystem(worldRenderer));
-		eworld.addSystem(new LayersUpdateSystem(worldRenderer));
+		eworld.addSystem(new LayersUpdateSystem(worldRenderer, WorldLayers.LayerTypes));
 		eworld.addSystem(new IdleAnimationsSystem(worldRenderer));	// Just for fun
 
 		m_clientState.worldRenderer = worldRenderer;

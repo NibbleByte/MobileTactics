@@ -15,6 +15,8 @@ var RenderEvents = {
 		Layers: {
 			REFRESH_LAYER: "render.layers.refresh_layer",						// Arguments: event, layer (enum)
 			REFRESH_ALL: "render.layers.refresh_all",							// Arguments: event
+			SORT_DEPTH: "render.layers.sort_depth",								// Arguments: event, layer (enum)/sprite
+			SORT_DEPTH_REFRESH: "render.layers.sort_depth_refresh",				// Arguments: event, layer (enum)/sprite
 		},
 
 		Animations: {
