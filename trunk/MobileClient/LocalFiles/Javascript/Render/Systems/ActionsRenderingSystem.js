@@ -92,6 +92,8 @@ ActionsRenderingSystem.ActionExecutors.AttackExecutor = function (m_executor, m_
 		}
 		attackerSprite.update();
 		defenderSprite.update();
+
+		m_eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.Units);
 		
 		if (m_waitedAnimations != 0) {
 			m_eworldSB.subscribe(RenderEvents.Animations.ANIMATION_FINISHED, onAnimationFinished);

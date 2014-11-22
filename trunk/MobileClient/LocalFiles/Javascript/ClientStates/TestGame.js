@@ -43,7 +43,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 	var m_clientState = null;
 
 	// Utils function.
-	var fillTerrainPattern = function (eworld, rows, columns) {
+	var fillTerrainPattern = function (eworld, world, playersData, rows, columns) {
 		var tile;
 	
 		var basesCount = 0;
@@ -78,6 +78,69 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 			
 				eworld.addUnmanagedEntity(tile);
 			}
+		}
+
+		//
+		// Add some testing units.
+		//
+
+		// Player 0
+		tile = world.getTile(3, 4);
+		if (tile) {
+			var unit = UnitsFactory.createUnit(UnitsDefinitions[0].WarMiner, playersData.players[0]);
+			eworld.addUnmanagedEntity(unit);
+			world.place(unit, tile);
+		}
+		
+		tile = world.getTile(1, 3);
+		if (tile) {
+			var unit = UnitsFactory.createUnit(UnitsDefinitions[0].RhinoTank, playersData.players[0]);
+			eworld.addUnmanagedEntity(unit);
+			world.place(unit, tile);
+		}
+
+		tile = world.getTile(5, 6);
+		if (tile) {
+			var unit = UnitsFactory.createUnit(UnitsDefinitions[0].TeslaTrooper, playersData.players[0]);
+			eworld.addUnmanagedEntity(unit);
+			world.place(unit, tile);
+		}
+
+		tile = world.getTile(6, 3);
+		if (tile) {
+			var unit = UnitsFactory.createUnit(UnitsDefinitions[0].RhinoTank, playersData.players[0]);
+			eworld.addUnmanagedEntity(unit);
+			world.place(unit, tile);
+		}
+
+
+		// Player 1
+		tile = world.getTile(2, 6);
+		if (tile) {
+			var unit = UnitsFactory.createUnit(UnitsDefinitions[0].WarMiner, playersData.players[1]);
+			eworld.addUnmanagedEntity(unit);
+			world.place(unit, tile);
+		}
+		
+		tile = world.getTile(4, 8);
+		if (tile) {
+			var unit = UnitsFactory.createUnit(UnitsDefinitions[0].RhinoTank, playersData.players[1]);
+			eworld.addUnmanagedEntity(unit);
+			world.place(unit, tile);
+		}
+
+		tile = world.getTile(5, 8);
+		if (tile) {
+			var unit = UnitsFactory.createUnit(UnitsDefinitions[0].TeslaTrooper, playersData.players[1]);
+			eworld.addUnmanagedEntity(unit);
+			world.place(unit, tile);
+		}
+
+		tile = world.getTile(3, 9);
+		if (tile) {
+			var unit = UnitsFactory.createUnit(UnitsDefinitions[0].RhinoTank, playersData.players[1]);
+			eworld.addUnmanagedEntity(unit);
+			world.place(unit, tile);
 		}
 	}
 
@@ -267,7 +330,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 				m_eworld.triggerAsync(EngineEvents.General.GAME_LOADING);
 
 				var ROWS = 10, COLUMNS = 10;
-				fillTerrainPattern(m_eworld, ROWS, COLUMNS);
+				fillTerrainPattern(m_eworld, m_clientState.world, m_clientState.playersData, ROWS, COLUMNS);
 
 				m_eworld.triggerAsync(EngineEvents.General.GAME_LOADED);
 
