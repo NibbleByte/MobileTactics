@@ -7,6 +7,7 @@ html, body
 	background-color: #FFFFFF;
 	font-family: sans-serif;
 	text-decoration: none;
+	overflow: hidden;
 
 	/* Disable text selection. */
 	-webkit-touch-callout: none;

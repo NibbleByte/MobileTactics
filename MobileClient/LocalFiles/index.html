@@ -44,6 +44,25 @@
 				</div>
 			</div>
 
+			<div id="BattleScreenContainer">
+				<div id="BattleScreen">
+
+					<div id="BattleFields">
+
+						<div id="BattleFieldLeft" class="battle_field"></div>
+						<div id="BattleFieldSeparator"></div>
+						<div id="BattleFieldRight" class="battle_field"></div>
+					</div>
+				</div>
+			</div>
+
+
+			<div id="GameWorldMap">
+			</div>
+			<div id="GameWorldMapEditor">
+			</div>
+
+
 
 			<div id="UnitPropsEditor" class="dialog_blocker">
 				<div id="UnitPropsEditorContainer" class="dialog dialog_container_floating">
@@ -107,15 +126,11 @@
 			</div>
 
 
-			<div id="GameWorldMap">
-			</div>
-			<div id="GameWorldMapEditor">
-			</div>
-
 			<div id="ToolbarMore" class="toolbar_more" >
 				<button id="BtnConsole" onclick="$('#Console').toggle();">~</button>
 				<button id="BtnRestart">Res</button>
 				<button id="BtnDebug">Debug</button>
+				<button id="BtnBattle" onclick="$('#BattleScreenContainer').toggle();" >Battle</button>
 
 				<button id="BtnAddress">Address</button>
 				<button id="BtnBrowse" style="display: none;">Browse</button>
@@ -313,6 +328,10 @@
 		<!-- Animations -->
 			<script type="text/javascript" src="Assets/Render/SpriteAnimations/Base.js"></script>
 			<script type="text/javascript" src="Assets/Render/SpriteAnimations/TeslaTrooper.js"></script>
+
+		<!-- Battle Screen -->
+			<script type="text/javascript" src="Javascript/BattleRendering/BattleRenderingManager.js"></script>
+			
 
 		<!-- ==========	Mobile Client - Editor ====================== -->
 			<script type="text/javascript" src="Javascript/Editor/EditorEvents.js"></script>
