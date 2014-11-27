@@ -7,7 +7,7 @@
 var UnitRenderingSystem = function (renderer) {
 	var self = this;
 	
-	console.assert(renderer instanceof GameWorldRenderer, "GameWorldRenderer is required.");
+	console.assert(renderer instanceof SceneRenderer, "SceneRenderer is required.");
 	
 	//
 	// Entity system initialize

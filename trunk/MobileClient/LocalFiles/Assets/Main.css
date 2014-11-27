@@ -34,14 +34,14 @@ html, body
 	margin: auto;
 }
 
-/* Development desktop size */
+/* Development desktop size *
 @media only screen and (min-width : 1224px) {
 	#Screen
 	{
 		width: 620px;
 		height: 420px;
 	}
-}
+}*/
 
 #GameWorldMap, #GameWorldMapEditor
 {

@@ -7,7 +7,7 @@
 var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog, renderVisibilityFog) {
 	var self = this;
 	
-	console.assert(m_renderer instanceof GameWorldRenderer, "GameWorldRenderer is required.");
+	console.assert(m_renderer instanceof SceneRenderer, "SceneRenderer is required.");
 	
 	//
 	// Entity system initialize
@@ -27,11 +27,11 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 			initializeHighlightSprites();
 
 		$(m_renderer.scene.dom).click(onPlotClicked);
-		m_renderer.$pnWorldPlot.on('tap', onTap);
+		m_renderer.$pnScenePlot.on('tap', onTap);
 	}
 
 	this.uninitialize = function () {
-		m_renderer.$pnWorldPlot.off('tap', onTap);
+		m_renderer.$pnScenePlot.off('tap', onTap);
 
 		if (detailedInputEvents) {
 			$(m_renderer.scene.dom).off('touchstart', onPlotTouchMove);
