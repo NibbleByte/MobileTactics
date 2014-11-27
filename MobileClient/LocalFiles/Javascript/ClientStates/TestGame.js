@@ -220,7 +220,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		// Rendering Systems
 		//
 
-		var worldRenderer = new GameWorldRenderer(m_$GameWorldMap[0], m_eworld);
+		var worldRenderer = GameWorldRenderer.Build(m_$GameWorldMap[0], m_eworld, WorldLayers.LayerTypes, WorldLayers.layersOptions);
 	
 		m_eworld.addSystem(new TileRenderingSystem(worldRenderer, true, true, true));
 		m_eworld.addSystem(new UnitRenderingSystem(worldRenderer));
@@ -383,8 +383,8 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 				.css('background-size', '100% 100%');
 			}
 		
-			// Added by the GameWorldRenderer
-			$('#WorldPlot').css('background-color', 'white');
+			// Added by the SceneRenderer
+			$('.scene_plot').css('background-color', 'white');
 		}
 	
 

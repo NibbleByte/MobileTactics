@@ -217,7 +217,7 @@ var EditorController = function (m_world, m_renderer) {
 
 			// Auto-scroll when touching near the edges. A bit hacky, so shoot me.
 			if (window.event) {
-				var plotPos = m_renderer.$pnWorldPlot.offset();
+				var plotPos = m_renderer.$pnScenePlot.offset();
 
 				var pointerEvent = window.event;
 				if (ClientUtils.isTouchDevice) {
@@ -230,10 +230,10 @@ var EditorController = function (m_world, m_renderer) {
 				if (pointerEvent.clientY < plotPos.top + + 30) {
 					m_renderer.plotContainerScroller.scrollBy(0, 10);
 				}
-				if (pointerEvent.clientX > plotPos.left + m_renderer.$pnWorldPlot.width() - 30) {
+				if (pointerEvent.clientX > plotPos.left + m_renderer.$pnScenePlot.width() - 30) {
 					m_renderer.plotContainerScroller.scrollBy(-10, 0);
 				}
-				if (pointerEvent.clientY > plotPos.top + m_renderer.$pnWorldPlot.height() - 30) {
+				if (pointerEvent.clientY > plotPos.top + m_renderer.$pnScenePlot.height() - 30) {
 					m_renderer.plotContainerScroller.scrollBy(0, -10);
 				}
 			}

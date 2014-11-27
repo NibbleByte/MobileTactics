@@ -8,9 +8,6 @@
     <None Include="..\..\MobileClient\LocalFiles\Assets\Main.css">
       <Filter>Assets</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Assets\Render\GameWorldRenderer.css">
-      <Filter>Assets\Render</Filter>
-    </None>
     <None Include="..\..\MobileClient\LocalFiles\Assets\Render\Placeables.css">
       <Filter>Assets\Render</Filter>
     </None>
@@ -343,6 +340,12 @@
     </None>
     <None Include="..\..\MobileClient\LocalFiles\Javascript\BattleRendering\BattleRenderingManager.js">
       <Filter>Javascript\BattleRendering</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\SceneRenderer.js">
+      <Filter>Javascript\Render</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Assets\Render\SceneRenderer.css">
+      <Filter>Assets\Render</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -7,7 +7,7 @@
 var ControllerRenderingSystem = function (m_renderer) {
 	var self = this;
 	
-	console.assert(m_renderer instanceof GameWorldRenderer, "GameWorldRenderer is required.");
+	console.assert(m_renderer instanceof SceneRenderer, "SceneRenderer is required.");
 	
 	var m_selectedSprite = null;
 

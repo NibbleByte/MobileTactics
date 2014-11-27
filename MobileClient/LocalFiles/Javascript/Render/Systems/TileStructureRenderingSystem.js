@@ -7,7 +7,7 @@
 var TileStructureRenderingSystem = function (m_renderer) {
 	var self = this;
 	
-	console.assert(m_renderer instanceof GameWorldRenderer, "GameWorldRenderer is required.");
+	console.assert(m_renderer instanceof SceneRenderer, "SceneRenderer is required.");
 	
 	//
 	// Entity system initialize
