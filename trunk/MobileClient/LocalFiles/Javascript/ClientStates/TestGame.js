@@ -220,7 +220,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		// Rendering Systems
 		//
 
-		var worldRenderer = GameWorldRenderer.Build(m_$GameWorldMap[0], m_eworld, WorldLayers.LayerTypes, WorldLayers.layersOptions);
+		var worldRenderer = GameWorldRenderer.Build(m_$GameWorldMap[0], m_eworld);
 	
 		m_eworld.addSystem(new TileRenderingSystem(worldRenderer, true, true, true));
 		m_eworld.addSystem(new UnitRenderingSystem(worldRenderer));

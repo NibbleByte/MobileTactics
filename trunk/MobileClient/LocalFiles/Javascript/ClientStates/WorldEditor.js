@@ -82,7 +82,7 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 		// Rendering Systems
 		//
 
-		var worldRenderer = GameWorldRenderer.Build(m_$GameWorldMap[0], eworld, WorldLayers.LayerTypes, WorldLayers.layersOptions, {
+		var worldRenderer = GameWorldRenderer.Build(m_$GameWorldMap[0], eworld, {
 			fadeScrollbars: false,
 			interactiveScrollbars: true,
 		});
