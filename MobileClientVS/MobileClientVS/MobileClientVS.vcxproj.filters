@@ -347,6 +347,9 @@
     <None Include="..\..\MobileClient\LocalFiles\Assets\Render\SceneRenderer.css">
       <Filter>Assets\Render</Filter>
     </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\BattleRendering\BattleFieldRenderer.js">
+      <Filter>Javascript\BattleRendering</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

@@ -7,8 +7,8 @@
 
 var GameWorldRenderer = new function () {
 
-	this.Build = function (holderElement, eworld, layersDefinition, layersOptions, scrollerOptions) {
-		var renderer = new SceneRenderer(holderElement, eworld, layersDefinition, layersOptions);
+	this.Build = function (holderElement, eworld, scrollerOptions) {
+		var renderer = new SceneRenderer(holderElement, eworld, WorldLayers.LayerTypes, WorldLayers.layersOptions);
 
 		// Overwrite methods
 		var overwritten = {

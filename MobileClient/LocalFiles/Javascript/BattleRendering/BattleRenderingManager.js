@@ -17,7 +17,6 @@ var BattleRenderingManager = new function () {
 	
 	var subscriber = new DOMSubscriber();
 
-
 	var resizeTimeout;
 	var onScreenResize = function (event) {
 		
@@ -48,8 +47,31 @@ var BattleRenderingManager = new function () {
 			m_$BattleScreen.width(width);
 			m_$BattleScreen.height(height);
 
+			
+			self.eworldLeft.extract(BattleFieldRenderer).refreshScaleTo(Math.ceil(width / 2), height);
+			self.eworldRight.extract(BattleFieldRenderer).refreshScaleTo(Math.floor(width / 2), height);
 		}, 100);
 	}
+
+	var initializeBattleField = function ($field) {
+		var eworld = new ECS.EntityWorld();
+		var eworldSB = eworld.createSubscriber();
+
+		eworld.addSystem(eworld.store(UtilsSystem, new UtilsSystem()));
+
+		var renderer = eworld.store(BattleFieldRenderer, BattleFieldRenderer.Build($field[0], eworld));
+		renderer.extentWidth = STANDARD_WIDTH / 2;
+		renderer.extentHeight = STANDARD_HEIGHT;
+		renderer.refresh();
+
+		eworld.addSystem(new AnimationSystem(renderer));
+		eworld.addSystem(new LayersUpdateSystem(renderer, BattleFieldRenderer.LayerTypes));
+
+		return eworld;
+	}
+
+	this.eworldLeft = initializeBattleField($('#BattleFieldLeft'));
+	this.eworldRight = initializeBattleField($('#BattleFieldRight'));
 
 	subscriber.subscribe(window, 'load', onScreenResize);
 	subscriber.subscribe(window, 'resize', onScreenResize);
