@@ -64,6 +64,7 @@
     <None Include="..\..\Internal Tools\SpriteTestground\SpriteTestground-Main.js" />
     <None Include="..\..\Internal Tools\SpriteTestground\SpriteTestground.html" />
     <None Include="..\..\MobileClient\LocalFiles\Assets\ActionMenu.css" />
+    <None Include="..\..\MobileClient\LocalFiles\Assets\BattleScreen.css" />
     <None Include="..\..\MobileClient\LocalFiles\Assets\DevConsole.css" />
     <None Include="..\..\MobileClient\LocalFiles\Assets\Dialogs.css" />
     <None Include="..\..\MobileClient\LocalFiles\Assets\Editor.css" />
@@ -84,7 +85,10 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\wormhole.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\ActionsMenuController.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\BattleRendering\BattleFieldRenderer.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\BattleRendering\BattleRenderingEvents.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\BattleRendering\BattleRenderingManager.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\BattleRendering\Systems\BattleFieldBackgroundSystem.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\BattleRendering\Systems\BattleFieldRenderingSystem.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\BrowserBackwardCompatibility.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\ClientEvents.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\ClientStates\ClientStateManager.js" />

@@ -350,6 +350,18 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\BattleRendering\BattleFieldRenderer.js">
       <Filter>Javascript\BattleRendering</Filter>
     </None>
+    <None Include="..\..\MobileClient\LocalFiles\Assets\BattleScreen.css">
+      <Filter>Assets</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\BattleRendering\BattleRenderingEvents.js">
+      <Filter>Javascript\BattleRendering</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\BattleRendering\Systems\BattleFieldRenderingSystem.js">
+      <Filter>Javascript\BattleRendering\Systems</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\BattleRendering\Systems\BattleFieldBackgroundSystem.js">
+      <Filter>Javascript\BattleRendering\Systems</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
@@ -444,6 +456,9 @@
     </Filter>
     <Filter Include="Javascript\BattleRendering">
       <UniqueIdentifier>{b8d23214-fe79-48c2-9476-772165c0714f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Javascript\BattleRendering\Systems">
+      <UniqueIdentifier>{65ed4155-2433-464a-b368-5ce12ebff3e4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

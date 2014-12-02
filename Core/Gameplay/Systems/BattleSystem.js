@@ -79,15 +79,20 @@ var BattleSystem = function (m_world) {
 		};
 	}
 
+	this.applyOutcome = function (battleOutcome) {
+		
+		battleOutcome.attacker.CUnit.health = battleOutcome.attackerHealthOutcome;
+		battleOutcome.defender.CUnit.health = battleOutcome.defenderHealthOutcome;
+
+		self._eworld.trigger(GameplayEvents.Units.UNIT_CHANGED, battleOutcome.attacker);
+		self._eworld.trigger(GameplayEvents.Units.UNIT_CHANGED, battleOutcome.defender);
+	}
+
 	this.doAttack = function (attacker, defender) {
 
 		var battleOutcome = self.predictOutcome(attacker, defender);
 
-		attacker.CUnit.health = battleOutcome.attackerHealthOutcome;
-		defender.CUnit.health = battleOutcome.defenderHealthOutcome;
-
-		self._eworld.trigger(GameplayEvents.Units.UNIT_CHANGED, attacker);
-		self._eworld.trigger(GameplayEvents.Units.UNIT_CHANGED, defender);
+		self.applyOutcome(battleOutcome);
 
 		return battleOutcome;
 	}
