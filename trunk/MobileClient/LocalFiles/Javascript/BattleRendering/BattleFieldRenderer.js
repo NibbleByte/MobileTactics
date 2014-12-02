@@ -7,10 +7,12 @@
 
 var BattleFieldRenderer = new function () {
 
-	this.Build = function (holderElement, eworld) {
+	this.Build = function (holderElement, eworld, direction) {
 		var renderer = new SceneRenderer(holderElement, eworld, BattleFieldRenderer.LayerTypes, BattleFieldRenderer.layersOptions);
 
 		$.extend(renderer, extension);
+
+		renderer.direction = direction;
 
 		return renderer;
 	}
@@ -30,6 +32,11 @@ var BattleFieldRenderer = new function () {
 			$(this.scene.dom).height(height);
 		},
 	};
+}
+
+BattleFieldRenderer.DirectionType = {
+	Left: -1,
+	Right: 1,
 }
 
 BattleFieldRenderer.LayerTypes = {
