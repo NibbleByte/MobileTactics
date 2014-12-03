@@ -131,7 +131,7 @@
 				<button id="BtnConsole" onclick="$('#Console').toggle();">~</button>
 				<button id="BtnRestart">Res</button>
 				<button id="BtnDebug">Debug</button>
-				<button id="BtnBattle" onclick="$('#BattleScreenContainer').toggle();" >Battle</button>
+				<button id="BtnBattle" onclick="BattleRenderingManager.visualizeBattle(currentState.eworld, lastCreated, selected.CTile.placedObjects[0]);" >Battle</button>
 
 				<button id="BtnAddress">Address</button>
 				<button id="BtnBrowse" style="display: none;">Browse</button>
@@ -337,8 +337,13 @@
 			<script type="text/javascript" src="Javascript/BattleRendering/BattleRenderingEvents.js"></script>
 			<script type="text/javascript" src="Javascript/BattleRendering/BattleFieldRenderer.js"></script>
 
+			<script type="text/javascript" src="Javascript/BattleRendering/Components/CBattleUnit.js"></script>
+			<script type="text/javascript" src="Javascript/BattleRendering/Components/CBattleUnitRendering.js"></script>
+			<script type="text/javascript" src="Javascript/BattleRendering/Components/CSpatial.js"></script>
+
+			<script type="text/javascript" src="Javascript/BattleRendering/Systems/BattleFieldControllerSystem.js"></script>
 			<script type="text/javascript" src="Javascript/BattleRendering/Systems/BattleFieldBackgroundSystem.js"></script>
-			<script type="text/javascript" src="Javascript/BattleRendering/Systems/BattleFieldRenderingSystem.js"></script>
+			<script type="text/javascript" src="Javascript/BattleRendering/Systems/BattleFieldUnitsRenderingSystem.js"></script>
 
 			<script type="text/javascript" src="Javascript/BattleRendering/BattleRenderingManager.js"></script>
 			

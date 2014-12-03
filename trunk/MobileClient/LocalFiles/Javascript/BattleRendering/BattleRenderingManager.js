@@ -89,8 +89,9 @@ var BattleRenderingManager = new function () {
 
 		eworld.addSystem(new AnimationSystem(renderer));
 		eworld.addSystem(new LayersUpdateSystem(renderer, BattleFieldRenderer.LayerTypes));
-		eworld.addSystem(new BattleFieldRenderingSystem(renderer));
+		eworld.addSystem(new BattleFieldControllerSystem(renderer));
 		eworld.addSystem(new BattleFieldBackgroundSystem(renderer));
+		eworld.addSystem(new BattleFieldUnitsRenderingSystem(renderer));
 
 		return eworld;
 	}

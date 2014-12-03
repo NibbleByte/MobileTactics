@@ -11,5 +11,6 @@ var BattleRenderingEvents = {
 			INITIALIZE: "br.battle.initialize",					// Arguments: event, outcome, currentUnit
 			ATTACK: "br.battle.attack",							// Arguments: event
 			DEFEND: "br.battle.defend",							// Arguments: event
+			UNINITIALIZE: "br.battle.uninitialize",				// Arguments: event
 		},
 };
