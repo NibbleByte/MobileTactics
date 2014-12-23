@@ -43,20 +43,27 @@ var IdleAnimationsSystem = function () {
 		
 		var animator = entity.CAnimations.animators[UnitRenderingSystem.MAIN_SPRITE];
 		if (animator.sequenceName == 'Idle') {
-			var idleIndexes = [];
-			for(var i = 0; i < animator.sequences.length; ++i) {
-				if (IdleAnimationsSystem.IDLE_ANIMATION_PATTERN.test(animator.sequences[i])) {
-					idleIndexes.push(i);
-				}
-			}
-			
-			
-			if (idleIndexes.length > 0) {
-				var index = Math.floor(Math.random() * idleIndexes.length);
-				animator.playSequence(animator.sequences[idleIndexes[index]]);
-			}
+			IdleAnimationsSystem.playRandomIdleAnimation(animator);
 		}
 	}
+}
+
+
+IdleAnimationsSystem.playRandomIdleAnimation = function (animator) {
+
+	var idleIndexes = [];
+	for(var i = 0; i < animator.sequences.length; ++i) {
+		if (IdleAnimationsSystem.IDLE_ANIMATION_PATTERN.test(animator.sequences[i])) {
+			idleIndexes.push(i);
+		}
+	}
+			
+			
+	if (idleIndexes.length > 0) {
+		var index = MathUtils.randomInt(idleIndexes.length);
+		animator.playSequence(animator.sequences[idleIndexes[index]]);
+	}
+
 }
 
 IdleAnimationsSystem.RANDOM_IDLE_ANIMATION_INTERVAL = 4000;

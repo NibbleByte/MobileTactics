@@ -53,6 +53,7 @@ var UnitRenderingSystem = function (renderer) {
 			
 		} else {
 			resourcePath = spritePath.replace(/{fileName}/g, placeableRendering.skin + '.png');
+			placeableRendering.sprite.setOpacity(0.999);	// HACK: to skip FastTrack feature for static images!
 		}
 
 		m_renderer.loadSprite(placeableRendering.sprite, resourcePath, onResourcesLoaded, placeable);
@@ -63,6 +64,12 @@ var UnitRenderingSystem = function (renderer) {
 	var onResourcesLoaded = function (sprite, placeable) {
 
 		SpriteColorizeManager.colorizeSprite(sprite, placeable.CPlayerData.player.colorHue);
+
+		// Fallback for static images
+		if (!placeable.CAnimations) {
+			sprite.anchorX = sprite.w / 2;
+			sprite.anchorY = sprite.h / 2;
+		}
 
 		// Check if unit is registered, else it will be moved afterwards.
 		if (placeable.CTilePlaceable.tile)
@@ -81,10 +88,7 @@ var UnitRenderingSystem = function (renderer) {
 		var unitRendering = placeable.CUnitRendering;
 		
 		if (placeableRendering.sprite.w) {
-			placeableRendering.move(
-					coords.x - placeableRendering.sprite.w / 2,
-					coords.y - placeableRendering.sprite.h / 2
-					);
+			placeableRendering.move(coords.x, coords.y);
 
 			placeableRendering.sprite.depth = coords.y;
 			self._eworld.trigger(RenderEvents.Layers.SORT_DEPTH, placeableRendering.sprite);

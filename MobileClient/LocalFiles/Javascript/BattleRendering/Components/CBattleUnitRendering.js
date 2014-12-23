@@ -3,6 +3,9 @@
 var CBattleUnitRendering = function CBattleUnitRendering() {
 	this.skin = '';
 	this.sprite = null;
+
+	// Additional sprites
+	this.spriteExplosion = null;
 };
 
 ComponentsUtils.registerNonPersistent(CBattleUnitRendering);
@@ -10,6 +13,10 @@ ComponentsUtils.registerNonPersistent(CBattleUnitRendering);
 
 CBattleUnitRendering.prototype.destroy = function () {
 	this.sprite.remove();
+
+	if (this.spriteExplosion) {
+		this.spriteExplosion.remove();
+	}
 }
 
 //

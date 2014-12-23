@@ -374,6 +374,15 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\BattleRendering\Components\CBattleUnitRendering.js">
       <Filter>Javascript\BattleRendering\Components</Filter>
     </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\BattleRendering\Systems\BattleFieldUnitsAnimationsController.js">
+      <Filter>Javascript\BattleRendering\Systems</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Assets\Render\SpriteAnimations\Particles\GroundExplosion.js">
+      <Filter>Assets\Render\SpriteAnimations\Particles</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\BattleRendering\Systems\BattleFieldUnitsParticleSystem.js">
+      <Filter>Javascript\BattleRendering\Systems</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
@@ -474,6 +483,9 @@
     </Filter>
     <Filter Include="Javascript\BattleRendering\Components">
       <UniqueIdentifier>{b41170c7-0586-48d7-b39a-c70b26704736}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Render\SpriteAnimations\Particles">
+      <UniqueIdentifier>{9e8eb130-314a-401b-8fb5-f341e9f6146a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
