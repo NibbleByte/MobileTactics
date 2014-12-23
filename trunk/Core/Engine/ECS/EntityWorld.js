@@ -158,12 +158,49 @@ ECS.EntityWorld = function () {
 		}
 	}
 	
+
+	//
+	// Simple way to call delayed method as an async event.
+	//
+	this.executeAsync = function (handler) {
+
+		console.assert(Object.prototype.toString.call(handler) === "[object Function]");
+
+		pendingAsyncHandlers.push(handler);
+
+		// Trigger execution if first in line.
+		if (pendingAsyncHandlers.length == 1) {
+			self.triggerAsync(ECS.EntityWorld.Events._Internal.EXECUTE_ASYNC);
+		}
+	}
+
 	//
 	// Private
 	//
 	
 	var m_entities = [];
 	var m_systems = new Array(20);	// Expecting no more than 20 systems...
+
+
+
+
+	//
+	// Execute Async
+	//
+	var pendingAsyncHandlers = [];
+	var onAsyncExecute = function (event) {
+		
+		var currentAsyncHandlers = pendingAsyncHandlers;
+		pendingAsyncHandlers = [];
+
+		for(var i = 0; i < currentAsyncHandlers.length; ++i) {
+			currentAsyncHandlers[i]();
+		}
+	}
+	
+	var eworldSB = this.createSubscriber();
+	eworldSB.subscribe(ECS.EntityWorld.Events._Internal.EXECUTE_ASYNC, onAsyncExecute);
+
 }
 
 // Supported EntityWorld events that systems can subscribe to.
@@ -173,4 +210,9 @@ ECS.EntityWorld.Events = {
 		ENTITY_ADDED:	"entityworld.entity_added",		// event, entity
 		ENTITY_REFRESH:	"entityworld.entity_refresh",	// event, entity
 		ENTITY_REMOVED:	"entityworld.entity_removed",	// event, entity
-}
+
+
+		_Internal: {
+			EXECUTE_ASYNC:	"entityworld._internal.execute_async",	// event
+		}
+};

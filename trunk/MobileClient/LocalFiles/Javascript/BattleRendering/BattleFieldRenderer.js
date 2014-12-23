@@ -42,6 +42,7 @@ BattleFieldRenderer.DirectionType = {
 BattleFieldRenderer.LayerTypes = {
 	Background: 0,
 	Units: 0,
+	Particles: 0,
 };
 Enums.enumerate(BattleFieldRenderer.LayerTypes);
 
@@ -53,6 +54,11 @@ BattleFieldRenderer.layersOptions = {
 	},
 
 	Units: {
+		useCanvas: true,
+		autoClear: false,
+	},
+
+	Particles: {
 		useCanvas: true,
 		autoClear: false,
 	},

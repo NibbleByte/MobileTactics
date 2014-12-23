@@ -19,6 +19,10 @@ var BattleRenderingManager = new function () {
 	
 	var subscriber = new DOMSubscriber();
 
+
+	//
+	// Visualize battle
+	//
 	this.visualizeBattle = function (eworld, attacker, defender) {
 		m_$BattleScreenContainer.show();
 
@@ -36,10 +40,69 @@ var BattleRenderingManager = new function () {
 
 		var outcome = battleSystem.predictOutcome(attacker, defender);
 
-		self.eworldLeft.trigger(BattleRenderingEvents.Battle.INITIALIZE, [outcome, leftUnit]);
-		self.eworldRight.trigger(BattleRenderingEvents.Battle.INITIALIZE, [outcome, rightUnit]);
+		// Set blackboard params
+		self.eworldLeft.blackboard[BattleRenderingBlackBoard.Battle.THIS_UNIT] = leftUnit;
+		self.eworldLeft.blackboard[BattleRenderingBlackBoard.Battle.ENEMY_UNIT] = rightUnit;
+		self.eworldLeft.blackboard[BattleRenderingBlackBoard.Battle.OUTCOME] = outcome;
+		self.eworldLeft.blackboard[BattleRenderingBlackBoard.Battle.IS_ATTACKER] = leftUnit == attacker;
+
+		self.eworldRight.blackboard[BattleRenderingBlackBoard.Battle.THIS_UNIT] = rightUnit;
+		self.eworldRight.blackboard[BattleRenderingBlackBoard.Battle.ENEMY_UNIT] = leftUnit;
+		self.eworldRight.blackboard[BattleRenderingBlackBoard.Battle.OUTCOME] = outcome;
+		self.eworldRight.blackboard[BattleRenderingBlackBoard.Battle.IS_ATTACKER] = rightUnit == attacker;
+
+		initializeBattle();
 	};
 
+	var triggerPhase = function (phaseEvent, isAttacker) {
+		if (self.eworldLeft.blackboard[BattleRenderingBlackBoard.Battle.IS_ATTACKER] == isAttacker) {
+			self.eworldLeft.trigger(phaseEvent);
+		} else {
+			self.eworldRight.trigger(phaseEvent);
+		}
+	}
+
+	var m_timeouts = [];
+	var triggerPhaseDelayed = function (phaseEvent, isAttacker, timeout) {
+		m_timeouts.push(setTimeout(function () {
+			triggerPhase(phaseEvent, isAttacker);
+		}, timeout));
+	}
+
+
+	var initializeBattle = function () {
+		self.eworldLeft.trigger(BattleRenderingEvents.Battle.INITIALIZE);
+		self.eworldRight.trigger(BattleRenderingEvents.Battle.INITIALIZE);
+
+		triggerPhaseDelayed(BattleRenderingEvents.Battle.ATTACK, true, 1000 * 2);
+		triggerPhaseDelayed(BattleRenderingEvents.Battle.ATTACK, false, 1000 * 2.5);
+		triggerPhaseDelayed(BattleRenderingEvents.Battle.DEFEND, false, 1000 * 3);
+		triggerPhaseDelayed(BattleRenderingEvents.Battle.DEFEND, true, 1000 * 3.5);
+
+		m_timeouts.push(setTimeout(uninitializeBattle, 1000 * 6.5));
+	}
+
+	var uninitializeBattle = function () {
+		self.eworldLeft.trigger(BattleRenderingEvents.Battle.UNINITIALIZE);
+		self.eworldRight.trigger(BattleRenderingEvents.Battle.UNINITIALIZE);
+
+		m_timeouts = [];
+
+		self.eworldLeft.blackboard[BattleRenderingBlackBoard.Battle.THIS_UNIT] = null;
+		self.eworldLeft.blackboard[BattleRenderingBlackBoard.Battle.ENEMY_UNIT] = null;
+		self.eworldLeft.blackboard[BattleRenderingBlackBoard.Battle.OUTCOME] = null;
+
+		self.eworldRight.blackboard[BattleRenderingBlackBoard.Battle.THIS_UNIT] = null;
+		self.eworldRight.blackboard[BattleRenderingBlackBoard.Battle.ENEMY_UNIT] = null;
+		self.eworldRight.blackboard[BattleRenderingBlackBoard.Battle.OUTCOME] = null;
+
+		m_$BattleScreenContainer.hide();
+	}
+
+
+	//
+	// Resizing
+	//
 	var resizeTimeout;
 	var onScreenResize = function (event) {
 		
@@ -76,6 +139,10 @@ var BattleRenderingManager = new function () {
 		}, 100);
 	}
 
+
+	//
+	// Initializing
+	//
 	var initializeBattleField = function ($field, direction) {
 		var eworld = new ECS.EntityWorld();
 		var eworldSB = eworld.createSubscriber();
@@ -92,6 +159,8 @@ var BattleRenderingManager = new function () {
 		eworld.addSystem(new BattleFieldControllerSystem(renderer));
 		eworld.addSystem(new BattleFieldBackgroundSystem(renderer));
 		eworld.addSystem(new BattleFieldUnitsRenderingSystem(renderer));
+		eworld.addSystem(new BattleFieldUnitsAnimationsController());
+		eworld.addSystem(new BattleFieldUnitsParticleSystem(renderer));
 
 		return eworld;
 	}

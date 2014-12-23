@@ -8,12 +8,16 @@ Array.prototype.remove = Array.prototype.remove || function(value) {
 	var index = this.indexOf(value);
 	if (index > -1)
 		this.splice(index, 1);
+
+	return index > -1;
 };
 
 Array.prototype.removeLast = Array.prototype.removeLast || function(value) {
 	var index = this.lastIndexOf(value);
 	if (index > -1)
 		this.splice(index, 1);
+
+	return index > -1;
 };
 
 Array.prototype.removeAt = Array.prototype.removeAt || function(index) {

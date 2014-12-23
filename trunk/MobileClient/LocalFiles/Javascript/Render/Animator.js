@@ -113,6 +113,8 @@ var Animator = function (animData, sprite, scene) {
 	
 	var m_frameWidth = animData.frameWidth;
 	var m_frameHeight = animData.frameHeight;
+	var m_anchorX = animData.anchorX || 0;
+	var m_anchorY = animData.anchorY || 0;
 	var m_framesPerRow = animData.framesPerRow || 0;	// If no count, infinite.
 	var m_defaultSpeed = animData.speed;
 	var m_cycles = {};
@@ -159,6 +161,10 @@ var Animator = function (animData, sprite, scene) {
 			m_cycles[sequence.name] = cycle;
 			
 			sprite.size(m_frameWidth, m_frameHeight);
+			sprite.anchorX = m_anchorX;
+			sprite.anchorY = m_anchorY;
+			sprite.position(sprite.x, sprite.y);	// NOTE: This will CHANGE x & y with the anchor values.
+			sprite.update();
 			
 			
 			// Expose available sequence names.
@@ -215,6 +221,24 @@ var Animator = function (animData, sprite, scene) {
 	}
 	
 	initialize();
+}
+
+Animator.spriteOriginal = {
+	setX: sjs.Sprite.prototype.setX,
+	setY: sjs.Sprite.prototype.setY,
+}
+
+// NOTE: This actually changes the X & Y of the sprite! It doesn't just offset the rendering.
+sjs.Sprite.prototype.setX = function setX(value) {
+	var anchorX = this.anchorX || 0;
+
+	Animator.spriteOriginal.setX.call(this, value - anchorX * this.xscale);
+}
+
+sjs.Sprite.prototype.setY = function setY(value) {
+	var anchorY = this.anchorY || 0;
+
+	Animator.spriteOriginal.setY.call(this, value - anchorY * this.yscale);
 }
 
 

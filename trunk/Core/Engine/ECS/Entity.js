@@ -23,8 +23,9 @@ ECS.Entity = function (world) {
 // Add single component to this entity (by type). 
 // Returns newly added component.
 // All systems will be notified for this.
+// Supply initializer handler, to do some component initialization BEFORE the world is notified of this.
 // Note: only one component per type allowed.
-ECS.Entity.prototype.addComponent = function (componentClass) {
+ECS.Entity.prototype.addComponent = function (componentClass, initializer) {
 
 	console.assert(!this.destroyed, 'Trying to use a destroyed entity.');
 	
@@ -34,6 +35,10 @@ ECS.Entity.prototype.addComponent = function (componentClass) {
 	
 	var component = new componentClass;
 	this[componentName] = component;
+
+	if (initializer) {
+		initializer(component, this);
+	}
 	
 	if (this._entityWorld)
 		this._entityWorld.trigger(ECS.EntityWorld.Events.ENTITY_REFRESH, this);
@@ -44,14 +49,15 @@ ECS.Entity.prototype.addComponent = function (componentClass) {
 // First checks if the component is already available and returns it. If not adds it.
 // Else creates it and returns the new component.
 // All systems will be notified for this.
-ECS.Entity.prototype.addComponentSafe = function (componentClass) {
+// Supply initializer handler, to do some component initialization BEFORE the world is notified of this.
+ECS.Entity.prototype.addComponentSafe = function (componentClass, initializer) {
 
 	var componentName = componentClass.prototype._COMP_NAME;
 
 	var component = this[componentName];
 
 	if (component == undefined)
-		component = this.addComponent(componentClass);
+		component = this.addComponent(componentClass, initializer);
 	
 	return component;
 }

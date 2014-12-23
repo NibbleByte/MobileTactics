@@ -76,6 +76,7 @@ var Utils = {
 		var keys = Object.keys(obj);
 		return obj[keys[ keys.length * Math.random() << 0]];
 	},
+
 	
 	// Returns !expression, so you can easely if(...) { return; }
 	assert: function (expression, message) {
@@ -115,5 +116,27 @@ var Utils = {
 var MathUtils = {
 	clamp: function(num, min, max) {
 		return num < min ? min : (num > max ? max : num);
+	},
+
+
+	// Returns random int in [0, number).
+	randomInt: function (number) {
+		return Math.floor(Math.random() * number);
+	},
+
+	// Returns random int in [min, max)
+	randomIntRange: function (min, max) {
+		return Math.floor(Math.random() * (max - min) + min);
+	},
+
+
+	// Returns random int in [0, number).
+	randomNumber: function (number) {
+		return Math.random() * number;
+	},
+
+	// Returns random int in [min, max)
+	randomNumberRange: function (min, max) {
+		return Math.random() * (max - min) + min;
 	},
 }

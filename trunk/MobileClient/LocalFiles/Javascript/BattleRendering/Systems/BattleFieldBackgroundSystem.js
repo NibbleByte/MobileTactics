@@ -18,7 +18,9 @@ var BattleFieldBackgroundSystem = function (m_renderer) {
 		self._eworldSB.subscribe(BattleRenderingEvents.Battle.INITIALIZE, onInitializeBattle);
 	}
 
-	var onInitializeBattle = function (event, outcome, unit) {
+	var onInitializeBattle = function (event) {
+
+		var unit = self._eworld.blackboard[BattleRenderingBlackBoard.Battle.THIS_UNIT];
 
 		if (m_sprite) {
 			m_sprite.remove();
