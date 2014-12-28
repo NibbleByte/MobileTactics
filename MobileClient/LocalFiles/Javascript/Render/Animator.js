@@ -230,15 +230,23 @@ Animator.spriteOriginal = {
 
 // NOTE: This actually changes the X & Y of the sprite! It doesn't just offset the rendering.
 sjs.Sprite.prototype.setX = function setX(value) {
-	var anchorX = this.anchorX || 0;
+	var anchorX = (this.anchorX || 0) * Math.abs(this.xscale);
 
-	Animator.spriteOriginal.setX.call(this, value - anchorX * this.xscale);
+	// If scale is smaller, image is flipped, so anchor should be relative to the width.
+	if (this.xscale < 0)
+		anchorX = this.w - anchorX;
+
+	Animator.spriteOriginal.setX.call(this, value - anchorX);
 }
 
 sjs.Sprite.prototype.setY = function setY(value) {
-	var anchorY = this.anchorY || 0;
+	var anchorY = (this.anchorY || 0) * Math.abs(this.xscale);
 
-	Animator.spriteOriginal.setY.call(this, value - anchorY * this.yscale);
+	// If scale is smaller, image is flipped, so anchor should be relative to the height.
+	if (this.yscale < 0)
+		anchorY = this.h - anchorY;
+
+	Animator.spriteOriginal.setY.call(this, value - anchorY);
 }
 
 
