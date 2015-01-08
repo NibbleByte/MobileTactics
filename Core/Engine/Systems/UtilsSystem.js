@@ -12,12 +12,12 @@ var UtilsSystem = function () {
 	// Entity system initialize
 	//
 	this.initialize = function () {
-		self._eworldSB.subscribe(ECS.EntityWorld.Events.ENTITY_REMOVED, onEntityRemoved);
+		self._eworldSB.subscribe(ECS.EntityWorld.Events.ENTITY_DESTROYED, onEntityDestroyed);
 
 		self._eworldSB.subscribe(EngineEvents.Utils.INVALIDATE, onInvalidate);
 	}
 
-	var onEntityRemoved = function (event, entity) {
+	var onEntityDestroyed = function (event, entity) {
 		// Async invalidate, so the others can deal with the object too.
 		self._eworld.triggerAsync(EngineEvents.Utils.INVALIDATE, entity);
 	}
