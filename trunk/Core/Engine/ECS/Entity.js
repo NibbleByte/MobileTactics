@@ -118,6 +118,11 @@ ECS.Entity.prototype.getEntityWorld = function () {
 	return this._entityWorld;
 }
 
+// Check if entity is attached at all.
+ECS.Entity.prototype.isAttached = function () {
+	return this._entityWorld != null;
+}
+
 // Removes the entity from the world.
 // Will call special destroy() method of the components if available.
 // All systems will be notified for this.
@@ -142,7 +147,9 @@ ECS.Entity.prototype.destroy = function () {
 		graveyard.removedComponentsFrom.push(this);
 		graveyard.destroyedEntity.push(this);
 
-		this._entityWorld.removeManagedEntity(this);
+		var entityWorld = this._entityWorld;
+		entityWorld.removeManagedEntity(this);
+		entityWorld.trigger(ECS.EntityWorld.Events.ENTITY_DESTROYED, this);
 
 		// Pop the entity/components from the graveyard, not needed anymore.
 		console.assert(graveyard.removedComponents.pop() == dummy)
