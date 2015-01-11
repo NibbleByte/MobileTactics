@@ -870,8 +870,6 @@ $(function () {
 	//m_eworld.addSystem(new UnitsSystem()); // Fighting can destroy unit, breaking rendering.
 	m_eworld.addSystem(new GameStateSystem());
 
-	var m_executor = new GameExecutor(m_eworld, m_world);
-
 
 	// HACK: replace with dummy, to ignore distance in battle.
 	m_world.getDistance = function () {

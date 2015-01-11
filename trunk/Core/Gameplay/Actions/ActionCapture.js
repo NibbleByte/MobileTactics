@@ -27,14 +27,29 @@ Actions.Classes.ActionCapture = new function () {
 	
 	this.executeAction = function (eworld, world, action) {
 		
+		var placeable = action.placeable;
 		var appliedTile = action.placeable.CTilePlaceable.tile;
-		appliedTile.CTileOwner.beingCapturedBy = action.placeable;
+
+		action.undoData.previousTurnPoints = placeable.CUnit.turnPoints;
+
+		appliedTile.CTileOwner.beingCapturedBy = placeable;
 		appliedTile.CTileOwner.captureTurns = 1;
 		
 		// This action consumes the whole turn.
-		action.placeable.CUnit.turnPoints = 1;
-		action.placeable.CUnit.finishedTurn = true;
+		placeable.CUnit.turnPoints = 0;
 
 		eworld.trigger(GameplayEvents.Structures.CAPTURE_STARTED, appliedTile);
+	}
+
+	this.undoAction = function (eworld, world, action) {
+		var placeable = action.placeable;
+		var appliedTile = action.placeable.CTilePlaceable.tile;
+
+		appliedTile.CTileOwner.beingCapturedBy = null;
+		appliedTile.CTileOwner.captureTurns = 0;
+
+		placeable.CUnit.turnPoints = action.undoData.previousTurnPoints;
+
+		eworld.trigger(GameplayEvents.Structures.CAPTURE_STOPPED, appliedTile);
 	}
 };

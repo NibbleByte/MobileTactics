@@ -30,12 +30,6 @@ var GameExecutor = function (eworld, world) {
 	}
 	
 	
-	this.destroyObject = function (placeable) {
-		placeable.destroy();
-	}
-	
-	
-	
 	this.getAvailableActions = function(tile) {
 		var availableActions = [];
 		var objects = tile.CTile.placedObjects;
@@ -68,51 +62,87 @@ var GameExecutor = function (eworld, world) {
 	this.executeAction = function(action) {
 		console.assert(action instanceof GameAction, "GameAction is required.");
 		
-		action.actionType.executeAction(m_eworld, m_world, action);
+		var placeable = action.placeable;
+		var prevTurnPoints = action.placeable.CUnit.turnPoints;
 
-		// Placeable might got destroyed during the action.
-		if (action.placeable.destroyed) {
-			return null;
+		m_eworld.blackboard[GameplayBlackBoard.Actions.CURRENT_ACTION] = action;
+
+		action.actionType.executeAction(m_eworld, m_world, action);
+		m_executedActions.push(action);
+		placeable.CUnit.actionsData.addExecutedAction(prevTurnPoints, action.actionType);
+
+		m_eworld.blackboard[GameplayBlackBoard.Actions.CURRENT_ACTION] = null;
+
+		// If turn points passed, consider this as a second turn.
+		if (prevTurnPoints != placeable.CUnit.turnPoints) {
+
+			// If no more turn points left, finish turn.
+			if (placeable.CUnit.turnPoints == 0) {
+				placeable.CUnit.finishedTurn = true;
+			}
 		}
 
-		var placeable = action.placeable;
-		placeable.CUnit.actionsData.executedActions.push(action.actionType);
 
-		// Finished turn means finished turn!
-		if (placeable.CUnit.finishedTurn) {
+		// Refresh visibility.
+		if (action.actionType.shouldRefreshVisibility) {
+			world.place(placeable, placeable.CTilePlaceable.tile);
+		}
 
-			// Do any additional cleaning on finishing turn.
-			for(var i = 0; i < placeable.CActions.actions.length; ++i) {
-				if (placeable.CActions.actions[i].onFinishedTurn) {
-					placeable.CActions.actions[i].onFinishedTurn(m_eworld, m_world, placeable);
-				}
-			}
-			placeable.CUnit.actionsData.executedActions = [];
-
-			// If still has turn points, hasn't finished turn yet.
-			placeable.CUnit.turnPoints--;
-			if (placeable.CUnit.turnPoints > 0) {
-				placeable.CUnit.finishedTurn = false;
-			}
-
-			return new GameObjectActions(placeable, []);
+		// Placeable might got destroyed during the action.
+		if (placeable.destroyed || !placeable.isAttached() || prevTurnPoints != placeable.CUnit.turnPoints) {
+			return null;
 		}
 
 		return new GameObjectActions(placeable, getPlaceableActions(action.player, placeable));
 	}
 
-	this.undoAction = function (action) {
-
-		if (action.actionType.undoAction) {
-			action.actionType.undoAction(m_eworld, m_world, action);
-			action.placeable.CUnit.actionsData.executedActions.removeLast(action.actionType);	// The order is not guaranteed.
-
-			return new GameObjectActions(action.placeable, getPlaceableActions(action.placeable.CPlayerData.player, action.placeable));
+	this.getLastExecutedAction = function () {
+		if (m_executedActions.length > 0) {
+			return m_executedActions[m_executedActions.length - 1];
 		} else {
 			return null;
 		}
 	}
+
+	this.undoLastAction = function () {
+		
+		var action = m_executedActions.pop();
+
+		if (Utils.assert(action))
+			return null;
+
+
+		var placeable = action.placeable;
+		var prevTurnPoints = action.placeable.CUnit.turnPoints;
+
+		m_eworld.blackboard[GameplayBlackBoard.Actions.CURRENT_ACTION] = action;
+
+		action.actionType.undoAction(m_eworld, m_world, action);
+		placeable.CUnit.actionsData.removeLastExecutedAction(action.placeable.CUnit.turnPoints, action.actionType);	// The order is not guaranteed.
+
+		m_eworld.blackboard[GameplayBlackBoard.Actions.CURRENT_ACTION] = null;
+
+		// Turn might just have been restored.
+		if (prevTurnPoints != placeable.CUnit.turnPoints) {
+			if (placeable.CUnit.turnPoints > 0) {
+				placeable.CUnit.finishedTurn = false;
+			}
+		}
+
+
+		// Refresh visibility.
+		if (action.actionType.shouldRefreshVisibility) {
+			world.place(placeable, placeable.CTilePlaceable.tile);
+		}
+
+		return new GameObjectActions(action.placeable, getPlaceableActions(action.placeable.CPlayerData.player, action.placeable));
+	}
 	
+	// On turn changing, clear any stacked actions, as turn changing is not tracked by the GameManager (effects, other player actions etc.)
+	this.clearExecutedActions = function () {
+		m_executedActions = [];
+	}
+
 	var getPlaceableActions = function (player, placeable) {
 		var actions = [];
 		
@@ -130,6 +160,7 @@ var GameExecutor = function (eworld, world) {
 	// 
 	var m_world = world;
 	var m_eworld = eworld;
+	var m_executedActions = [];
 }
 
 GameExecutor.iterateOverActionTiles = function (actions, handler) {
@@ -156,7 +187,7 @@ var GameAction = function (actionType, player, placeable) {
 	this.availableTiles = null;				// Available tiles on which player can execute action. Null is for instant action.
 	this.affectedTiles = [];				// Tiles affected if player executes this action. 
 	this.appliedTile = null;				// Tile that action is applied to (example: move to this tile).
-	this.undoData = null;					// Custom data that can be used for undo (if possible at all).
+	this.undoData = {};						// Custom data that can be used for undo (if possible at all).
 }
 
 var GameObjectActions = function (go, actions) {

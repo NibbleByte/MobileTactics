@@ -53,8 +53,12 @@ var TileVisibilitySystem = function (m_world) {
 		for (var i = 0; i < m_gameState.relationPlaceables[PlayersData.Relation.Ally].length; ++i) {
 			var placeable = m_gameState.relationPlaceables[PlayersData.Relation.Ally][i];
 			
+			var tile = placeable.CTilePlaceable.tile;
+
 			// If previewing some movement, use the preview tile instead of the current tile (avoid peek cheating).
-			var tile = placeable.CUnit.actionsData.previewOriginalTile || placeable.CTilePlaceable.tile;
+			if (placeable.CUnit.actionsData.getTurnData(placeable.CUnit.turnPoints).executedActions.last() == Actions.Classes.ActionMove) {
+				tile = placeable.CUnit.actionsData.getTurnData(placeable.CUnit.turnPoints).previewOriginalTile.last() || tile;
+			}
 
 			var visibleTiles = m_world.gatherTiles(tile, placeable.CStatistics.statistics['Visibility'], visibilityCostQuery);
 			visibleTiles.push(tile);

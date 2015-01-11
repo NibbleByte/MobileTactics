@@ -48,6 +48,10 @@ Array.prototype.find = Array.prototype.find || function (predicate) {
 	return undefined;
 }
 
+Array.prototype.last = function () {
+	return this[this.length - 1];
+}
+
 Array.prototype.clone = function () {
 	return this.slice(0);
 };

@@ -17,16 +17,49 @@ CUnit.prototype.postDeserialize = function () {
 // Actions can add additional custom data to this instance, to help them execute correctly.
 var ActionsData = function () {
 
+	// Holds data per turnPoint
+	this.turnsData = [];
+}
+Serialization.excludeClass(ActionsData);
+
+
+ActionsData.TurnData = function () {
+
 	this.executedActions = [];
 
 	// If currently previewing movement etc, this stores the original tile
 	// so the line of sight doesn't actually change until preview is accepted.
-	this.previewOriginalTile = null;
+	this.previewOriginalTile = [];
 }
-Serialization.excludeClass(ActionsData);
 
-ActionsData.prototype.hasExecutedAction = function (actionType) {
-	return this.executedActions.indexOf(actionType) != -1;
+
+
+ActionsData.prototype.addExecutedAction = function (turnPointsIndex, actionType) {
+	this.getTurnData(turnPointsIndex).executedActions.push(actionType);
+};
+
+ActionsData.prototype.hasExecutedAction = function (turnPointsIndex, actionType) {
+	return this.getTurnData(turnPointsIndex).executedActions.indexOf(actionType) != -1;
+};
+
+ActionsData.prototype.removeLastExecutedAction = function (turnPointsIndex, actionType) {
+	this.getTurnData(turnPointsIndex).executedActions.removeLast(actionType);
+};
+
+ActionsData.prototype.getTurnData = function (turnPointsIndex) {
+	
+	// Ensure that collection exist
+	// NOTE: Since turnPoints are 3,2,1... the 0th element might never be used.
+	//		 But object still can be querried when 0th turn point.
+	while (this.turnsData.length <= turnPointsIndex) {
+		this.turnsData.push(new ActionsData.TurnData());
+	}
+
+	return this.turnsData[turnPointsIndex];
+};
+
+ActionsData.prototype.clearExecutedActions = function () {
+	this.turnsData = [];
 };
 
 ComponentsUtils.registerPersistent(CUnit);

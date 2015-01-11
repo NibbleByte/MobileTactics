@@ -7,10 +7,11 @@ Actions.Classes.ActionAttack = new function () {
 	
 	this.actionName = 'ActionAttack';
 	this.quickAction = false;
+	this.shouldRefreshVisibility = true;
 	
 	this.getAvailableActions = function (eworld, world, player, placeable, outActions) {
 
-		if (placeable.CUnit.actionsData.hasExecutedAction(this))
+		if (placeable.CUnit.actionsData.hasExecutedAction(placeable.CUnit.turnPoints, this))
 			return;
 
 		var tile = placeable.CTilePlaceable.tile;
@@ -40,14 +41,23 @@ Actions.Classes.ActionAttack = new function () {
 	
 	this.executeAction = function (eworld, world, action) {
 
-		// Not previewing any more. Shit just got real!
-		action.placeable.CUnit.actionsData.previewOriginalTile = null;
+		var placeable = action.placeable;
 
-		if (!action.placeable.CStatistics.statistics['MovementAttack']) {
-			action.placeable.CUnit.finishedTurn = true;
+		if (!placeable.CStatistics.statistics['MovementAttack']) {
+			placeable.CUnit.turnPoints--;
 		}
 
-		eworld.extract(BattleSystem).doAttack(action.placeable, action.appliedTile.CTile.placedObjects[0]);
+		var outcome = eworld.extract(BattleSystem).doAttack(action.placeable, action.appliedTile.CTile.placedObjects[0]);
+		action.undoData.outcome = outcome;
 	}
 
+	this.undoAction = function (eworld, world, action) {
+		var placeable = action.placeable;
+
+		if (!placeable.CStatistics.statistics['MovementAttack']) {
+			placeable.CUnit.turnPoints++;
+		}
+
+		eworld.extract(BattleSystem).revertOutcome(action.undoData.outcome);
+	}
 };

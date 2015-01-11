@@ -7,10 +7,11 @@ Actions.Classes.ActionStay = new function () {
 	
 	this.actionName = 'ActionStay';
 	this.quickAction = true;
+	this.shouldRefreshVisibility = true;
 
 	this.getAvailableActions = function (eworld, world, player, placeable, outActions) {
-		// Can stay only if previewing movement.
-		if (placeable.CUnit.actionsData.previewOriginalTile) {
+		// Can stay only if just moved.
+		if (placeable.CUnit.actionsData.getTurnData(placeable.CUnit.turnPoints).executedActions.last() == Actions.Classes.ActionMove) {
 			var action = new GameAction(Actions.Classes.ActionStay, player, placeable);
 			action.availableTiles = [ placeable.CTilePlaceable.tile ];
 			outActions.push(action);
@@ -18,6 +19,15 @@ Actions.Classes.ActionStay = new function () {
 	};
 	
 	this.executeAction = function (eworld, world, action) {
-		action.placeable.CUnit.finishedTurn = true;
+
+		var placeable = action.placeable;
+
+		placeable.CUnit.turnPoints--;
+	}
+
+	this.undoAction = function (eworld, world, action) {
+		var placeable = action.placeable;
+
+		placeable.CUnit.turnPoints++;
 	}
 };

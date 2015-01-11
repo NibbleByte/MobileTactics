@@ -83,6 +83,7 @@ html, body
 	
 	height: 200px;
 	width: 200px;
+	overflow: hidden;
 	
 	background-color: rgba(53, 62, 83, 0.8);
 	border: 2px rgba(104, 113, 148, 0.82) solid;

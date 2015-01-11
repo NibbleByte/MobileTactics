@@ -55,7 +55,7 @@ var AnimationSystem = function (renderer) {
 					}
 
 					// Might get destroyed at the end of the animation.
-					if (!entity.destroyed)
+					if (!entity.destroyed && entity.isAttached())
 						m_processedAnimationsData.push(data);
 				}
 			}
@@ -65,7 +65,7 @@ var AnimationSystem = function (renderer) {
 		// Some other entities might also got destroyed at the ANIMATION_FINISHED event.
 		// Don't propagate them as well.
 		for(var i = 0; i < m_processedAnimationsData.length; ++i) {
-			if (m_processedAnimationsData[i].entity.destroyed)
+			if (m_processedAnimationsData[i].entity.destroyed || !m_processedAnimationsData[i].entity.isAttached())
 				m_processedAnimationsData.splice(i, 1);
 		}
 

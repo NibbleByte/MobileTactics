@@ -15,8 +15,11 @@ var TileCapturingSystem = function () {
 		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADING, onGameLoading);
 		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADED, onGameLoaded);
 		self._eworldSB.subscribe(GameplayEvents.Structures.CAPTURE_STARTED, onCaptureStarted);
+		self._eworldSB.subscribe(GameplayEvents.Structures.CAPTURE_STOPPED, onCaptureStopped);
+		self._eworldSB.subscribe(GameplayEvents.Structures.CAPTURE_INTERUPTED, onCaptureStopped);
 		self._eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, onTurnChanged);
 		self._eworldSB.subscribe(GameplayEvents.Units.UNIT_DESTROYING, onUnitDestroying);
+		self._eworldSB.subscribe(GameplayEvents.Units.UNIT_DESTROYING_UNDO, onUnitDestroyingUndo);
 
 		self._eworldSB.subscribe(EngineEvents.World.TILE_ADDED, onTileAdded);
 		self._eworldSB.subscribe(EngineEvents.World.TILE_REMOVING, onTileRemoving);
@@ -49,6 +52,10 @@ var TileCapturingSystem = function () {
 
 	var onCaptureStarted = function (event, tile) {
 		m_capturingTiles.push(tile);
+	}
+
+	var onCaptureStopped = function (event, tile) {
+		m_capturingTiles.remove(tile);
 	}
 
 	var onTurnChanged = function (event, gameState, hasJustLoaded) {
@@ -112,11 +119,43 @@ var TileCapturingSystem = function () {
 	var onUnitDestroying = function (event, unit) {
 		var tile = unit.CTilePlaceable.tile;
 		if (tile.CTileOwner && tile.CTileOwner.beingCapturedBy == unit) {
+
+			// Prepare undo data
+			var action = self._eworld.blackboard[GameplayBlackBoard.Actions.CURRENT_ACTION];
+			if (action) {
+				action.undoData.capturingData = action.undoData.capturingData || [];
+				action.undoData.capturingData.push({
+					entity: unit,
+					captureTurns: tile.CTileOwner.captureTurns,
+				});
+			}
+
+
+			// Remove capturing
 			tile.CTileOwner.beingCapturedBy = null;
 			tile.CTileOwner.captureTurns = 0;
-			m_capturingTiles.remove(tile);
 
 			self._eworld.trigger(GameplayEvents.Structures.CAPTURE_INTERUPTED, tile);
+		}
+	}
+
+	var onUnitDestroyingUndo = function (event, unit) {
+		var tile = unit.CTilePlaceable.tile;
+
+		// Prepare undo data
+		var action = self._eworld.blackboard[GameplayBlackBoard.Actions.CURRENT_ACTION];
+		if (action && action.undoData.capturingData) {
+			for(var i = 0; i < action.undoData.capturingData.length; ++i) {
+				var capturingData = action.undoData.capturingData[i];
+				if (capturingData.entity == unit) {
+					tile.CTileOwner.beingCapturedBy = unit;
+					tile.CTileOwner.captureTurns = capturingData.captureTurns;
+
+					self._eworld.trigger(GameplayEvents.Structures.CAPTURE_STARTED, tile);
+
+					break;
+				}
+			}
 		}
 	}
 
