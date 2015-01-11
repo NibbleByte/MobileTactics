@@ -265,20 +265,6 @@ var GameWorld = function () {
 		self._eworld.trigger(EngineEvents.Placeables.PLACEABLE_MOVING, placeable);
 		self._eworld.trigger(EngineEvents.Placeables.PLACEABLE_MOVED, placeable);
 	};
-
-	
-	// Place object, without notifications.
-	// Use with caution!
-	this.placeUnmanaged = function (placeable, tile) {
-		// Detach from previous tile
-		var oldTile = placeable.CTilePlaceable.tile;
-		if (oldTile) {
-			oldTile.CTile.removeObject(placeable);
-		}
-
-		placeable.CTilePlaceable.tile = tile;
-		tile.CTile.placedObjects.push(placeable);
-	};
 	
 	this.getPlaceablesInArea = function (tileCenter, radius, excludePlaceable) {
 		var placeables = [];

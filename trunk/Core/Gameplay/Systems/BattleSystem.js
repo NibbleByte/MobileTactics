@@ -92,9 +92,6 @@ var BattleSystem = function (m_world) {
 		battleOutcome.attacker.CUnit.health = battleOutcome.attackerHealth;
 		battleOutcome.defender.CUnit.health = battleOutcome.defenderHealth;
 
-		if (battleOutcome.attacker.getEntityWorld() == null) m_world.placeUnmanaged(battleOutcome.attacker, battleOutcome.attackerTile);
-		if (battleOutcome.defender.getEntityWorld() == null) m_world.placeUnmanaged(battleOutcome.defender, battleOutcome.defenderTile);
-
 		self._eworld.trigger(GameplayEvents.Units.UNIT_CHANGED, battleOutcome.attacker);
 		self._eworld.trigger(GameplayEvents.Units.UNIT_CHANGED, battleOutcome.defender);
 
