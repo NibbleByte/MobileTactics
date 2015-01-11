@@ -386,6 +386,9 @@
     <None Include="..\..\Core\Gameplay\Actions\ActionCreate.js">
       <Filter>Javascript\Core\Gameplay\Actions</Filter>
     </None>
+    <None Include="..\..\Core\Gameplay\Actions\ActionBuy.js">
+      <Filter>Javascript\Core\Gameplay\Actions</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
