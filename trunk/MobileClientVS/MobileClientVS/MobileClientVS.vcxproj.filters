@@ -383,6 +383,9 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\BattleRendering\Systems\BattleFieldUnitsParticleSystem.js">
       <Filter>Javascript\BattleRendering\Systems</Filter>
     </None>
+    <None Include="..\..\Core\Gameplay\Actions\ActionCreate.js">
+      <Filter>Javascript\Core\Gameplay\Actions</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
