@@ -67,6 +67,7 @@ var Store = new function () {
 		var eworld = storeItem.eworld;
 		var world = eworld.extract(GameWorld);
 		var gameState = eworld.extract(GameState);
+		var gameExecutor = eworld.extract(GameExecutor);
 
 		if (Utils.assert(gameState.currentPlayer == storeItem.player, 'Cannot buy item for another player.'))
 			return null;
@@ -78,17 +79,20 @@ var Store = new function () {
 			return null;
 		}
 
-		// TODO: Take players money.
+		var placeable = UnitsFactory.createUnit(storeItem.definition, storeItem.player);
+		
+		var action = new GameAction(Actions.Classes.ActionBuy, storeItem.player, placeable);
+		action.appliedTile = storeItem.tile;
+		action.undoData = storeItem;
 
-		var unit = UnitsFactory.createUnit(storeItem.definition, storeItem.player);
-		unit.CUnit.turnPoints = 0;
-		unit.CUnit.finishedTurn = true;
+		gameExecutor.executeAction(action);
 
-		eworld.addUnmanagedEntity(unit);
-		world.place(unit, storeItem.tile);
-		eworld.trigger(GameplayEvents.Store.PLACEABLE_BOUGHT, unit);
+		// Placeable starts with a clean slate
+		placeable.CUnit.actionsData.clearExecutedActions();
+		
+		eworld.trigger(GameplayEvents.Store.PLACEABLE_BOUGHT, placeable);
 
-		return unit;
+		return placeable;
 	};
 };
 

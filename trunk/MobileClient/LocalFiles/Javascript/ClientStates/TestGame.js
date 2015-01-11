@@ -206,7 +206,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		m_eworld.addSystem(new TileBaseSystem());
 		m_eworld.addSystem(new TileVisibilitySystem(world));
 	
-		var executor = new GameExecutor(m_eworld, world);
+		var executor = m_eworld.store(GameExecutor, new GameExecutor(m_eworld, world));
 	
 	
 		var playerController = new PlayerController(world, executor);
