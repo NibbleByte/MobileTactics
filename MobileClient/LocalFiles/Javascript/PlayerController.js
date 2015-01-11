@@ -157,15 +157,17 @@ var PlayerController = function (m_world, m_executor) {
 
 	var onActionsCancelled = function(event) {
 		
+		var lastAction = m_executor.getLastExecutedAction();
+
 		// No action executed yet -> cancel.
-		if (m_executor.getLastExecutedAction() == null) {
+		if (lastAction == null) {
 			self._eworld.triggerAsync(ClientEvents.Controller.ACTIONS_CLEARED);
 			return;
 		}
 
 		// Only ActionMove is allowed to undo.
 		// DEBUG: remove 'event != null', used to undo for debugging.
-		if (event != null && m_executor.getLastExecutedAction().actionType != Actions.Classes.ActionMove) {
+		if (event != null && lastAction.actionType != Actions.Classes.ActionMove) {
 			self._eworld.triggerAsync(ClientEvents.Controller.ACTIONS_CLEARED);
 			return;
 		}

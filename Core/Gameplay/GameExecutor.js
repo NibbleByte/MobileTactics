@@ -9,24 +9,28 @@ var GameExecutor = function (eworld, world) {
 	
 	this.createObjectAt = function (tile, player) {
 		
-		var obj = UnitsFactory.createUnit(Utils.randomPropertyValue(UnitsDefinitions[player.race]), player);
+		var placeable = UnitsFactory.createUnit(Utils.randomPropertyValue(UnitsDefinitions[player.race]), player);
 		
 		// TODO: Remove testing effects.
 		var effect = new Effect();
 		effect.addStatisticModifier('Attack', 20);
-		//obj.CEffects.effects.push(effect);
+		//placeable.CEffects.effects.push(effect);
 		
 		effect = new Effect();
 		effect.addStatisticModifier('Attack', -30);
 		effect.timeLeft = 2;
-		//obj.CEffects.effects.push(effect);
+		//placeable.CEffects.effects.push(effect);
+
+
+		var action = new GameAction(Actions.Classes.ActionCreate, player, placeable);
+		action.appliedTile = tile;
 		
+		this.executeAction(action);
+
+		// Placeable starts with a clean slate
+		placeable.CUnit.actionsData.clearExecutedActions();
 		
-		
-		m_eworld.addUnmanagedEntity(obj);
-		m_world.place(obj, tile);
-		
-		return obj;
+		return placeable;
 	}
 	
 	
@@ -118,7 +122,8 @@ var GameExecutor = function (eworld, world) {
 		m_eworld.blackboard[GameplayBlackBoard.Actions.CURRENT_ACTION] = action;
 
 		action.actionType.undoAction(m_eworld, m_world, action);
-		placeable.CUnit.actionsData.removeLastExecutedAction(action.placeable.CUnit.turnPoints, action.actionType);	// The order is not guaranteed.
+		placeable.CUnit.actionsData.removeLastExecutedAction(action.placeable.CUnit.turnPoints, action.actionType);
+		// NOTE: some actions might not be in placeable.CUnit.actionsData on undo, for example ActionCreate.
 
 		m_eworld.blackboard[GameplayBlackBoard.Actions.CURRENT_ACTION] = null;
 
@@ -131,11 +136,15 @@ var GameExecutor = function (eworld, world) {
 
 
 		// Refresh visibility.
-		if (action.actionType.shouldRefreshVisibility) {
+		if (action.actionType.shouldRefreshVisibility && placeable.isAttached()) {
 			world.place(placeable, placeable.CTilePlaceable.tile);
 		}
 
-		return new GameObjectActions(action.placeable, getPlaceableActions(action.placeable.CPlayerData.player, action.placeable));
+		if (placeable.isAttached()) {
+			return new GameObjectActions(action.placeable, getPlaceableActions(action.placeable.CPlayerData.player, action.placeable));
+		} else {
+			return null;
+		}
 	}
 	
 	// On turn changing, clear any stacked actions, as turn changing is not tracked by the GameManager (effects, other player actions etc.)
