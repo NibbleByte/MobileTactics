@@ -15,6 +15,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 	var m_$BtnLoad = $('#BtnLoad');
 	var m_$BtnRemoveTile = $('#BtnRemoveTile');
 	var m_$BtnRestart = $('#BtnRestart');
+	var m_$BtnUndo= $('#BtnUndo');
 	var m_$BtnPlayer = $('#BtnPlayer');
 	var m_$BtnDebug = $('#BtnDebug');
 	var m_$BtnBrowse = $('#BtnBrowse');
@@ -340,6 +341,11 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 
 			}, 200);
 		}
+
+		
+		var onBtnUndo = function () {
+			playerController.undoLastAction();
+		}
 	
 		var onBtnPlayer = function () {
 			m_eworld.trigger(GameplayEvents.GameState.END_TURN);
@@ -443,6 +449,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		subscriber.subscribe(m_$BtnLoad, 'click', onBtnLoad);
 		subscriber.subscribe(m_$BtnRemoveTile, 'click', onBtnRemoveTile);
 		subscriber.subscribe(m_$BtnRestart, 'click', onBtnRestart);
+		subscriber.subscribe(m_$BtnUndo, 'click', onBtnUndo);
 		subscriber.subscribe(m_$BtnPlayer, 'click', onBtnPlayer);
 		subscriber.subscribe(m_$BtnDebug, 'click', onBtnDebug);
 		subscriber.subscribe(m_$BtnBrowse, 'click', onBtnBrowse);

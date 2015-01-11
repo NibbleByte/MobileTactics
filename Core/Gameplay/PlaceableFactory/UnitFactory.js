@@ -79,6 +79,7 @@ var UnitsFactory = new function () {
 		obj.CPlayerData.player = player;
 		obj.CUnit.name = definition.name;
 		obj.CUnit.turnPoints = obj.CStatistics.statistics['TurnPoints'] || 1;
+		obj.CUnit.health = obj.CStatistics.statistics['MaxHealth'];
 
 		lastCreated = obj;
 		

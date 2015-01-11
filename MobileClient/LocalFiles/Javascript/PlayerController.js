@@ -14,7 +14,6 @@ var PlayerController = function (m_world, m_executor) {
 	var m_gameState = null;
 	var m_selectedTile = null;
 	var m_selectedGOActions = null;
-	var m_lastExecutedAction = null;
 	var m_inputActive = true;
 	
 	//
@@ -32,7 +31,6 @@ var PlayerController = function (m_world, m_executor) {
 		
 		self._eworldSB.subscribe(ClientEvents.Controller.ACTIONS_CLEARED, onActionsCleared);
 		self._eworldSB.subscribe(ClientEvents.Controller.ACTION_CANCEL, onActionsCancelled);
-		self._eworldSB.subscribe(ClientEvents.Controller.ACTION_EXECUTED, onActionExecuted);
 		self._eworldSB.subscribe(ClientEvents.Controller.ACTIONS_OFFERED, onActionsOffered);
 	};
 	
@@ -40,16 +38,17 @@ var PlayerController = function (m_world, m_executor) {
 		m_gameState = null;
 		m_selectedTile = null;
 		m_selectedGOActions = null;
-		m_lastExecutedAction = null;
 	};
 
 	this.isHudLocked = function () {
 		return !m_inputActive || (
-			m_selectedGOActions && (
-				m_selectedGOActions.go.CUnit.actionsData.previewOriginalTile || 
-				m_selectedGOActions.go.CUnit.actionsData.hasExecutedAction(Actions.Classes.ActionAttack)
-			)
+			m_selectedGOActions && 
+			m_selectedGOActions.go.CUnit.actionsData.getTurnData(m_selectedGOActions.go.CUnit.turnPoints).executedActions.length > 0
 		) ;
+	}
+
+	this.undoLastAction = function () {
+		onActionsCancelled(null);
 	}
 	
 	var onGameLoading = function (event) {
@@ -103,17 +102,14 @@ var PlayerController = function (m_world, m_executor) {
 			} else {
 
 				// If in preview, can't select other tile. Must choose valid action or cancel!
-				if (m_selectedGOActions && (
-							m_selectedGOActions.go.CUnit.actionsData.previewOriginalTile ||
-							m_selectedGOActions.go.CUnit.actionsData.hasExecutedAction(Actions.Classes.ActionAttack)
-						)
+				if (m_selectedGOActions &&
+					m_selectedGOActions.go.CUnit.actionsData.getTurnData(m_selectedGOActions.go.CUnit.turnPoints).executedActions.length > 0
 					) {
 					// Since selection has changed, re-select back the unit.
 					selectTileHighlight(m_selectedGOActions.go.CTilePlaceable.tile);
 					return;
 				}
 				
-				m_lastExecutedAction = null;
 				var availableGOActions = m_executor.getAvailableActions(m_selectedTile);
 					
 				if (availableGOActions.length > 0) {
@@ -130,7 +126,6 @@ var PlayerController = function (m_world, m_executor) {
 
 		} else {
 			// Unselect any action tiles
-			m_lastExecutedAction = null;
 			self._eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
 		}	
 	}
@@ -151,6 +146,8 @@ var PlayerController = function (m_world, m_executor) {
 	
 	var clearActions = function() {
 		self._eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
+
+		m_executor.clearExecutedActions();
 	}
 	
 	
@@ -161,13 +158,20 @@ var PlayerController = function (m_world, m_executor) {
 	var onActionsCancelled = function(event) {
 		
 		// No action executed yet -> cancel.
-		if (m_lastExecutedAction == null) {
+		if (m_executor.getLastExecutedAction() == null) {
 			self._eworld.triggerAsync(ClientEvents.Controller.ACTIONS_CLEARED);
 			return;
 		}
 
-		var goActions = m_executor.undoAction(m_lastExecutedAction);
-		m_lastExecutedAction = null;
+		// Only ActionMove is allowed to undo.
+		// DEBUG: remove 'event != null', used to undo for debugging.
+		if (event != null && m_executor.getLastExecutedAction().actionType != Actions.Classes.ActionMove) {
+			self._eworld.triggerAsync(ClientEvents.Controller.ACTIONS_CLEARED);
+			return;
+		}
+
+
+		var goActions = m_executor.undoLastAction();
 
 		if (goActions) {
 			selectTileHighlight(goActions.go.CTilePlaceable.tile);
@@ -175,10 +179,6 @@ var PlayerController = function (m_world, m_executor) {
 		} else {
 			self._eworld.triggerAsync(ClientEvents.Controller.ACTIONS_CLEARED);
 		}
-	}
-	
-	var onActionExecuted = function(event, action) {
-		m_lastExecutedAction = action;
 	}
 
 	var onActionsOffered = function(event, goActions) {

@@ -8,13 +8,15 @@
 // Supported GameWorld events that user can subscribe to.
 var GameplayEvents = {
 		Units: {
-			UNIT_CHANGED: 		"gameplay.units.unit_changed",		// event, unit
-			DESTROY_UNIT: 		"gameplay.units.destroy_unit",		// event, unit
-			UNIT_DESTROYING: 	"gameplay.units.unit_destroying",	// event, unit
+			UNIT_CHANGED: 			"gameplay.units.unit_changed",			// event, unit
+			DESTROY_UNIT: 			"gameplay.units.destroy_unit",			// event, unit
+			UNIT_DESTROYING: 		"gameplay.units.unit_destroying",		// event, unit
+			UNIT_DESTROYING_UNDO: 	"gameplay.units.unit_destroying_undo",	// event, unit
 		},
 
 		Structures: {
 			CAPTURE_STARTED: 		"gameplay.structures.capture_started",		// event, tile
+			CAPTURE_STOPPED: 		"gameplay.structures.capture_stopped",		// event, tile
 			CAPTURE_INTERUPTED: 	"gameplay.structures.capture_interupted",	// event, tile
 			CAPTURE_FINISHED:		"gameplay.structures.capture_finished",		// event, tile
 		},
@@ -42,3 +44,10 @@ var GameplayEvents = {
 			REFRESH_FOG_AFTER:	"gameplay.fog.refresh_fog_after",		// event
 		},
 }
+
+var GameplayBlackBoard = {
+
+	Actions: {
+		CURRENT_ACTION:		"gameplay.actions.current_action",
+	},
+};

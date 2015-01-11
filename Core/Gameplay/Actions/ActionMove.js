@@ -7,10 +7,11 @@ Actions.Classes.ActionMove = new function () {
 	
 	this.actionName = 'ActionMove';
 	this.quickAction = false;
+	this.shouldRefreshVisibility = true;	// Because while moving placeable, visibility will be applied without preview.
 
 	this.getAvailableActions = function (eworld, world, player, placeable, outActions) {
 
-		if (placeable.CUnit.actionsData.previewOriginalTile)
+		if (placeable.CUnit.actionsData.getTurnData(placeable.CUnit.turnPoints).executedActions.last() == Actions.Classes.ActionMove)
 			return;
 
 		var tile = placeable.CTilePlaceable.tile;
@@ -22,12 +23,12 @@ Actions.Classes.ActionMove = new function () {
 		}
 		
 		// Choose normal or after-attack movement.
-		var movement = (!placeable.CUnit.actionsData.hasExecutedAction(Actions.Classes.ActionAttack)) 
+		var movement = (!placeable.CUnit.actionsData.hasExecutedAction(placeable.CUnit.turnPoints, Actions.Classes.ActionAttack)) 
 						? placeable.CStatistics.statistics['Movement'] 
 						: placeable.CStatistics.statistics['MovementAttack'];
 		var availableTiles = world.gatherTiles(tile, movement, movementCostQuery, movementData);
 
-		if (placeable.CUnit.actionsData.hasExecutedAction(Actions.Classes.ActionAttack))
+		if (placeable.CUnit.actionsData.hasExecutedAction(placeable.CUnit.turnPoints, Actions.Classes.ActionAttack))
 			availableTiles.push(tile);
 		
 		// If nowhere to move, action is unavailable.
@@ -41,26 +42,20 @@ Actions.Classes.ActionMove = new function () {
 	};
 	
 	this.executeAction = function (eworld, world, action) {
-		var startTile = action.placeable.CTilePlaceable.tile;
+		var placeable = action.placeable;
+		var startTile = placeable.CTilePlaceable.tile;
 
-		action.undoData = {
-			previousTile: startTile,
-		};
+		action.undoData.previousTile = startTile;
 
-		action.placeable.CUnit.actionsData.previewOriginalTile = startTile;
-		world.place(action.placeable, action.appliedTile);
+		placeable.CUnit.actionsData.getTurnData(placeable.CUnit.turnPoints).previewOriginalTile.push(startTile);
+		world.place(placeable, action.appliedTile);
 	}
 	
 	this.undoAction = function (eworld, world, action) {
-		action.placeable.CUnit.actionsData.previewOriginalTile = null;
-		world.place(action.placeable, action.undoData.previousTile);
-	}
+		var placeable = action.placeable;
 
-	this.onFinishedTurn = function (eworld, world, placeable) {
-		if (placeable.CUnit.actionsData.previewOriginalTile) {
-			placeable.CUnit.actionsData.previewOriginalTile = null;
-			world.place(placeable, placeable.CTilePlaceable.tile);
-		}
+		placeable.CUnit.actionsData.getTurnData(placeable.CUnit.turnPoints).previewOriginalTile.pop();
+		world.place(placeable, action.undoData.previousTile);
 	}
 
 	//
