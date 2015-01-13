@@ -25,8 +25,7 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 
 		if (renderHighlight)
 			initializeHighlightSprites();
-
-		$(m_renderer.scene.dom).click(onPlotClicked);
+		
 		m_renderer.$pnScenePlot.on('tap', onTap);
 	}
 
@@ -96,10 +95,10 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 	var clickedEventDataCache = { tile: null, row: 0, column: 0 };
 
 	// It is just the same code for all events...
-	var extractClickedTileFromEvent = function (event) {
+	var extractClickedTileFromEvent = function (event, opt_target) {
 
 		// Use pageX && pageY because they are normalized by jQuery. FFox doesn't provide offsetX && offsetY.
-		var offset = $(event.currentTarget).offset();
+		var offset = (opt_target) ? $(opt_target).offset() : $(event.currentTarget).offset();
 		var posX = event.pageX - offset.left - GTile.LAYERS_PADDING;
 		var posY = event.pageY - offset.top - GTile.LAYERS_PADDING;
 
@@ -107,12 +106,17 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 		clickedEventDataCache.tile = m_world.getTile(clickedEventDataCache.row, clickedEventDataCache.column);
 		return clickedEventDataCache;
 	}
-	var onPlotClicked = function (event) {
-		if (!tapped && m_renderer.plotContainerScroller.enabled)
-			return;
-		tapped = false;
 
-		var hitData = extractClickedTileFromEvent(event);
+	var onTap = function (event) {
+
+		// NOTE: iScroll did not pass the original event originalInputEvent. 
+		//		 It was modified to do so, so one can get the touch/click position.
+		var eventOrig = event.originalEvent.originalInputEvent;
+		if (eventOrig.type != 'mouseup') {	// So it is a touch event probably...
+			eventOrig = eventOrig.touches[0] || eventOrig.changedTouches[0];
+		}
+		
+		var hitData = extractClickedTileFromEvent(eventOrig, m_renderer.scene.dom);
 		
 		self._eworld.trigger(ClientEvents.Input.TILE_CLICKED, hitData);
 	}
@@ -148,12 +152,6 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 		if (event.type == 'touchstart')	self._eworld.trigger(ClientEvents.Input.TILE_TOUCH, hitData);
 		if (event.type == 'touchmove')	self._eworld.trigger(ClientEvents.Input.TILE_TOUCH, hitData);
 		if (event.type == 'touchend')	self._eworld.trigger(ClientEvents.Input.TILE_TOUCH_UP, hitData);
-	}
-
-	// HACK: Fixes problems with click-events while scrolling. Tapped event is fired BEFORE the click event.
-	var tapped = false;
-	var onTap = function (event) {
-		tapped = true;
 	}
 	
 	var addCurrentTiles = function () {

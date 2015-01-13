@@ -223,6 +223,7 @@ var utils = (function () {
 		ev.initEvent(eventName, true, true);
 		ev.pageX = e.pageX;
 		ev.pageY = e.pageY;
+		ev.originalInputEvent = e;	// MODIFIED: pass on the original event, in order to obtain tap position... fuck that!
 		e.target.dispatchEvent(ev);
 	};
 

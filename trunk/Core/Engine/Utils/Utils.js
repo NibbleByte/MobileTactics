@@ -47,7 +47,7 @@ var Utils = {
 		return destObj;
 	},
 
-	stringifyShallow: function (obj) {
+	stringifyShallow: function (obj, htmlFormat) {
 		if (this.isObject(obj)) {
 			var ret = '{\n';
 
@@ -60,6 +60,8 @@ var Utils = {
 				if (!this.isObject(val) && !this.isArray(val)) ret += val;
 
 				ret += ', \n';
+				if (htmlFormat)
+					ret += '<br />';
 			}
 
 			ret += '}'
