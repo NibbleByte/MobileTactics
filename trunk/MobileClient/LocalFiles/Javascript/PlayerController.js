@@ -94,9 +94,9 @@ var PlayerController = function (m_world, m_executor) {
 				selectedAction.appliedTile = tile;
 					
 					
-				m_inputActive = false;
 				self._eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
 					
+				m_inputActive = false;
 				self._eworld.trigger(ClientEvents.Controller.ACTION_PREEXECUTE, selectedAction);
 					
 			} else {
