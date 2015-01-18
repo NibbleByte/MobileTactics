@@ -72,10 +72,18 @@ Actions.Classes.ActionMove = new function () {
 			relation = userData.playersData.getRelation(userData.player, placedObject.CPlayerData.player);
 		}
 
+		var visible = tile.CTileVisibility.visible;
+
+		// Can't pass over enemies... unless it can't see them (for enemy preview ONLY).
+		var passOver = relation != PlayersData.Relation.Enemy || !visible;
+
+		// Same...
+		var discard = tile.CTile.placedObjects.length != 0 && visible;
+
 		return {
 			cost: terrainCost,
-			passOver: relation != PlayersData.Relation.Enemy, // Can't pass over enemies
-			discard: tile.CTile.placedObjects.length != 0,
+			passOver: passOver,
+			discard: discard,
 		};
 	}
 

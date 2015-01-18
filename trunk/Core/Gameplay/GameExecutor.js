@@ -86,14 +86,18 @@ var GameExecutor = function (eworld, world) {
 			}
 		}
 
+		// Placeable might got destroyed during the action.
+		if (placeable.destroyed || !placeable.isAttached()) {
+			return null;
+		}
 
 		// Refresh visibility.
 		if (action.actionType.shouldRefreshVisibility) {
 			world.place(placeable, placeable.CTilePlaceable.tile);
 		}
 
-		// Placeable might got destroyed during the action.
-		if (placeable.destroyed || !placeable.isAttached() || prevTurnPoints != placeable.CUnit.turnPoints) {
+		// Turn passed, no actions.
+		if (prevTurnPoints != placeable.CUnit.turnPoints) {
 			return null;
 		}
 
