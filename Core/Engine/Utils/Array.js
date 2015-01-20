@@ -48,6 +48,20 @@ Array.prototype.find = Array.prototype.find || function (predicate) {
 	return undefined;
 }
 
+// Returns array of elements that satisfy given predicate
+Array.prototype.findAll = Array.prototype.findAll || function (predicate) {
+	if (typeof predicate !== 'function') {
+		return [];
+	}
+
+	var ret = [];
+	for (var i = 0; i < this.length; i++) {
+		if (i in this && predicate(this[i])) ret.push(this[i]);
+	}
+
+	return ret;
+}
+
 Array.prototype.last = function () {
 	return this[this.length - 1];
 }

@@ -110,14 +110,18 @@ var initConsole = function () {
 
 	// Note: only tested on Android (HTC Explorer). Maybe there is no need for other platforms/newer devices.
 	if (ClientUtils.isAndroid || ClientUtils.isIOS || ClientUtils.isWindowsPhone) {
+
+		var wrappedHandlers = [];
 		
 		// window.onerror doesn't work on older devices (like Android HTC Explorer).
 		// So instead of using window.onerror, try to listen for any exceptions ourselves.
 		// All possible exception can only happen in jQuery event.
 		var originalJQueryOn = jQuery.prototype.on;
+		var originalJQueryOff = jQuery.prototype.off;
+
 		jQuery.prototype.on = function () {
 			var event = arguments[0];
-
+			
 			for(var i = 0; i < arguments.length; ++i) {
 				
 				// Wrap the event handler and listen for exceptions.
@@ -143,11 +147,40 @@ var initConsole = function () {
 						}
 					};
 
+					wrappedHandlers.push({
+						handler: handler,
+						wrapper: arguments[i],
+					});
+
 					break;
 				}
 			}
 
 			return originalJQueryOn.apply(this, arguments);
+		}
+
+		jQuery.prototype.off = function () {
+			var event = arguments[0];
+			
+			// Find the function and find the wrapper. Unbind the wrapper.
+			for(var i = 0; i < arguments.length; ++i) {
+				if (Utils.isFunction(arguments[i])) {
+					var handler = arguments[i];
+
+					var pair = wrappedHandlers.find(function (p) {
+						return p.handler == handler;
+					});
+
+					if (pair) {
+						arguments[i] = pair.wrapper;
+						wrappedHandlers.remove(pair);
+					}
+
+					break;
+				}
+			}
+
+			return originalJQueryOff.apply(this, arguments);
 		}
 	}
 

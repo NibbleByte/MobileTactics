@@ -38,7 +38,7 @@ var IdleAnimationsSystem = function () {
 		if (entities.length == 0)
 			return;
 		
-		var index = Math.floor(Math.random() * entities.length);
+		var index = MathUtils.randomInt(entities.length);
 		var entity = entities[index];
 		
 		var animator = entity.CAnimations.animators[UnitRenderingSystem.MAIN_SPRITE];
