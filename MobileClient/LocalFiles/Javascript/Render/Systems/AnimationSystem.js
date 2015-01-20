@@ -4,10 +4,10 @@
 //===============================================
 "use strict";
 
-var AnimationSystem = function (renderer) {
+var AnimationSystem = function (m_renderer) {
 	var self = this;
 	
-	console.assert(renderer instanceof SceneRenderer, "SceneRenderer is required.");
+	console.assert(m_renderer instanceof SceneRenderer, "SceneRenderer is required.");
 	
 	//
 	// Entity system initialize
@@ -24,13 +24,17 @@ var AnimationSystem = function (renderer) {
 	//
 	// Private
 	//
-	var m_renderer = renderer;
 	var m_ticker = null;
 
 	var m_processedAnimationsData = [];	// To avoid garbage, re-use the same array.
 	var m_processedAnimationsDataArg = [ m_processedAnimationsData ];
 	
 	var paint = function (ticker) {
+
+		// Don't animate stuff while panning. Seems too heavy on performance.
+		if (m_renderer.plotContainerScroller && m_renderer.plotContainerScroller.initiated && m_renderer.plotContainerScroller.moved) {
+			return;
+		}
 
 		self._eworld.trigger(RenderEvents.Animations.ANIMATION_BEFORE_FRAME);
 	
