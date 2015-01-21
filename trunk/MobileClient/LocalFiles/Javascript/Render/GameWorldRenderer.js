@@ -70,6 +70,7 @@ var GameWorldRenderer = new function () {
 			scrollY: true,
 			scrollbars: (mosync.isMockUp) ? true : false,
 			fadeScrollbars: (mosync.isMockUp) ? true : false,
+			disableMouse: (mosync.isMockUp) ? false : true,
 			bounce: false,
 		}, scrollerOptions));
 
