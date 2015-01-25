@@ -10,6 +10,7 @@ var ActionsMenuController = function (actionMenuElement) {
 	console.assert(actionMenuElement instanceof HTMLElement, "HTMLElement is required.");
 	
 	var m_$actionMenu = $(actionMenuElement);
+	var m_isMenuShown = false;	// Optimization, to avoid modifying the dom in vain.
 	var m_menuEntries = {};
 	var m_currentGOActions = null;
 	
@@ -24,6 +25,7 @@ var ActionsMenuController = function (actionMenuElement) {
 		m_$actionMenu
 		.click(onMenuClicked)
 		.hide();
+		m_isMenuShown = false;
 		
 		var prettyNames = ActionsRender.getActionPrettyNames();
 		for(var actionName in prettyNames) {
@@ -56,6 +58,7 @@ var ActionsMenuController = function (actionMenuElement) {
 		}
 		
 		m_$actionMenu.show();
+		m_isMenuShown = true;
 	}
 	
 	var hideEntries = function () {		
@@ -126,12 +129,16 @@ var ActionsMenuController = function (actionMenuElement) {
 		}
 		
 		m_$actionMenu.show();
+		m_isMenuShown = true;
 	}
 	
 	var onActionsCleared = function () {
-		m_$actionMenu.hide();
+		if (m_isMenuShown) {
+			m_$actionMenu.hide();
+			m_isMenuShown = false;
 		
-		hideEntries();
+			hideEntries();
+		}
 	}
 };
 

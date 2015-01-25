@@ -1,3 +1,9 @@
+html {
+	/* Disables touch delays on some browsers */
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+}
+
 html, body
 {
 	margin: 0;
