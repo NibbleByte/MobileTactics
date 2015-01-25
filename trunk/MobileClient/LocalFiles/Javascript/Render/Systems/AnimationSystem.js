@@ -21,6 +21,10 @@ var AnimationSystem = function (m_renderer) {
 		m_ticker.pause();
 	}
 
+	this.isPaused = function () {
+		return m_ticker.paused;
+	}
+
 	this.pauseAnimations = function () {
 		m_ticker.pause();
 	}
