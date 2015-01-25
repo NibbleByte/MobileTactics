@@ -26,6 +26,10 @@ var IdleAnimationsSystem = function () {
 	
 	var startRandomIdleAnimation = function () {
 
+		// Don't play animations while animation is paused, or they will freeze.
+		if (self._eworld.getSystem(AnimationSystem).isPaused())
+			return;
+
 		// Find only visible entities.
 		var entities = [];
 		for(var i = 0; i < self._entityFilter.entities.length; ++i) {
