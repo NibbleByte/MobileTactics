@@ -26,6 +26,11 @@ var BattleRenderingManager = new function () {
 	this.visualizeBattle = function (eworld, attacker, defender) {
 		m_$BattleScreenContainer.show();
 
+		// Start animating when actually showing.
+		self.eworldLeft.getSystem(AnimationSystem).resumeAnimations();
+		self.eworldRight.getSystem(AnimationSystem).resumeAnimations();
+
+
 		var battleSystem = eworld.extract(BattleSystem);
 		var gameState = eworld.extract(GameState);
 		
@@ -96,6 +101,11 @@ var BattleRenderingManager = new function () {
 		self.eworldRight.blackboard[BattleRenderingBlackBoard.Battle.ENEMY_UNIT] = null;
 		self.eworldRight.blackboard[BattleRenderingBlackBoard.Battle.OUTCOME] = null;
 
+
+		// Don't animate if hiding.
+		self.eworldLeft.getSystem(AnimationSystem).pauseAnimations();
+		self.eworldRight.getSystem(AnimationSystem).pauseAnimations();
+
 		m_$BattleScreenContainer.hide();
 	}
 
@@ -161,6 +171,9 @@ var BattleRenderingManager = new function () {
 		eworld.addSystem(new BattleFieldUnitsRenderingSystem(renderer));
 		eworld.addSystem(new BattleFieldUnitsAnimationsController());
 		eworld.addSystem(new BattleFieldUnitsParticleSystem(renderer));
+
+		// Don't try to animate nothing.
+		eworld.getSystem(AnimationSystem).pauseAnimations();
 
 		return eworld;
 	}

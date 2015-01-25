@@ -13,12 +13,20 @@ var AnimationSystem = function (m_renderer) {
 	// Entity system initialize
 	//
 	this.initialize = function () {
-		m_ticker = m_renderer.scene.Ticker(paint, { tickDuration: 10 });
+		m_ticker = m_renderer.scene.Ticker(paint, { tickDuration: 16, useAnimationFrame: true });
 		m_ticker.run();
 	}
 	
 	this.uninitialize = function () {
 		m_ticker.pause();
+	}
+
+	this.pauseAnimations = function () {
+		m_ticker.pause();
+	}
+
+	this.resumeAnimations = function () {
+		m_ticker.resume();
 	}
 	
 	//
@@ -30,11 +38,6 @@ var AnimationSystem = function (m_renderer) {
 	var m_processedAnimationsDataArg = [ m_processedAnimationsData ];
 	
 	var paint = function (ticker) {
-
-		// Don't animate stuff while panning. Seems too heavy on performance.
-		if (m_renderer.plotContainerScroller && m_renderer.plotContainerScroller.initiated && m_renderer.plotContainerScroller.moved) {
-			return;
-		}
 
 		self._eworld.trigger(RenderEvents.Animations.ANIMATION_BEFORE_FRAME);
 	

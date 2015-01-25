@@ -19,7 +19,7 @@ var ComponentsUtils = {
 
 var SystemsUtils = {
 	
-	_onAddedBasic: function() {
+	_onAddedBasics: function() {
 		this._eworld = this.getEntityWorld();
 		
 		if (this.initialize) {
@@ -27,7 +27,7 @@ var SystemsUtils = {
 		}
 	},
 	
-	_onRemovedBasic: function() {
+	_onRemovedBasics: function() {
 		if (this.uninitialize) {
 			this.uninitialize();
 		}

@@ -389,6 +389,9 @@
     <None Include="..\..\Core\Gameplay\Actions\ActionBuy.js">
       <Filter>Javascript\Core\Gameplay\Actions</Filter>
     </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\AnimationSystemScrollOptimizer.js">
+      <Filter>Javascript\Render\Systems</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
