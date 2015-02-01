@@ -1,10 +1,11 @@
 //===============================================
 // AnimationSystem
 // Animates all the sprites.
+// Manual parameter means user will call manually the paint function and no ticker will be activated.
 //===============================================
 "use strict";
 
-var AnimationSystem = function (m_renderer) {
+var AnimationSystem = function (m_renderer, m_manual) {
 	var self = this;
 	
 	console.assert(m_renderer instanceof SceneRenderer, "SceneRenderer is required.");
@@ -13,24 +14,36 @@ var AnimationSystem = function (m_renderer) {
 	// Entity system initialize
 	//
 	this.initialize = function () {
-		m_ticker = m_renderer.scene.Ticker(paint, { tickDuration: 16, useAnimationFrame: true });
-		m_ticker.run();
+		if (!m_manual) {
+			m_ticker = m_renderer.scene.Ticker(self.paint, { tickDuration: 16, useAnimationFrame: true });
+			m_ticker.run();
+		}
 	}
 	
 	this.uninitialize = function () {
-		m_ticker.pause();
+		if (!m_manual) {
+			m_ticker.pause();
+		}
 	}
 
 	this.isPaused = function () {
-		return m_ticker.paused;
+		if (!m_manual) {
+			return m_ticker.paused;
+		} else {
+			return false;
+		}
 	}
 
 	this.pauseAnimations = function () {
-		m_ticker.pause();
+		if (!m_manual) {
+			m_ticker.pause();
+		}
 	}
 
 	this.resumeAnimations = function () {
-		m_ticker.resume();
+		if (!m_manual) {
+			m_ticker.resume();
+		}
 	}
 	
 	//
@@ -41,7 +54,7 @@ var AnimationSystem = function (m_renderer) {
 	var m_processedAnimationsData = [];	// To avoid garbage, re-use the same array.
 	var m_processedAnimationsDataArg = [ m_processedAnimationsData ];
 	
-	var paint = function (ticker) {
+	this.paint = function (ticker) {
 
 		self._eworld.trigger(RenderEvents.Animations.ANIMATION_BEFORE_FRAME);
 	

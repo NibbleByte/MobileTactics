@@ -24,6 +24,8 @@ var BattleRenderingManager = new function () {
 	var m_fieldHeight = 0;
 
 	var m_currentBattle = null;
+
+	var m_ticker = null;
 	
 	var subscriber = new DOMSubscriber();
 
@@ -40,9 +42,11 @@ var BattleRenderingManager = new function () {
 			defender: defender
 		};
 
+		// World doesn't need to play animations in background.
+		eworld.getSystem(AnimationSystem).pauseAnimations();
+
 		// Start animating when actually showing.
-		self.eworldLeft.getSystem(AnimationSystem).resumeAnimations();
-		self.eworldRight.getSystem(AnimationSystem).resumeAnimations();
+		m_ticker.resume();
 
 
 		var battleSystem = eworld.extract(BattleSystem);
@@ -169,8 +173,9 @@ var BattleRenderingManager = new function () {
 		self.eworldRight.blackboard[BattleRenderingBlackBoard.Battle.ACTIVE] = false;
 
 		// Don't animate if hiding.
-		self.eworldLeft.getSystem(AnimationSystem).pauseAnimations();
-		self.eworldRight.getSystem(AnimationSystem).pauseAnimations();
+		m_ticker.pause();
+
+		m_currentBattle.eworld.getSystem(AnimationSystem).resumeAnimations();
 
 		m_currentBattle = null;
 
@@ -287,7 +292,7 @@ var BattleRenderingManager = new function () {
 		renderer.extentHeight = FIELD_HEIGHT_LANDSCAPE;
 		renderer.refresh();
 
-		eworld.addSystem(new AnimationSystem(renderer));
+		eworld.addSystem(new AnimationSystem(renderer, true));
 		eworld.addSystem(new LayersUpdateSystem(renderer, BattleFieldRenderer.LayerTypes));
 		eworld.addSystem(new BattleFieldControllerSystem(renderer));
 		eworld.addSystem(new BattleFieldBackgroundSystem(renderer));
@@ -295,14 +300,26 @@ var BattleRenderingManager = new function () {
 		eworld.addSystem(new BattleFieldUnitsAnimationsController());
 		eworld.addSystem(new BattleFieldUnitsParticleSystem(renderer));
 
-		// Don't try to animate nothing.
-		eworld.getSystem(AnimationSystem).pauseAnimations();
-
 		return eworld;
+	}
+
+	// Combine both eworlds animations in one ticker (less events, better performance).
+	var paint = function (ticker) {
+		self.eworldLeft.getSystem(AnimationSystem).paint(ticker);
+		self.eworldRight.getSystem(AnimationSystem).paint(ticker);
+	}
+
+	var initializeTicker = function () {
+		m_ticker = self.eworldLeft.extract(BattleFieldRenderer).scene.Ticker(paint, { tickDuration: 16, useAnimationFrame: true });
+		m_ticker.run();
+
+		// Don't try to animate anything on start.
+		m_ticker.pause();
 	}
 
 	this.eworldLeft = initializeBattleField($('#BattleFieldLeft'), BattleFieldRenderer.DirectionType.Right);
 	this.eworldRight = initializeBattleField($('#BattleFieldRight'), BattleFieldRenderer.DirectionType.Left);
+	initializeTicker();
 
 	subscriber.subscribe(window, 'load', onScreenResize);
 	subscriber.subscribe(window, 'resize', onScreenResize);
