@@ -58,6 +58,12 @@ var SceneRenderer = function (holderElement, eworld, layersDefinition, layersOpt
 		}
 	}
 
+	this.resize = function (width, height) {
+		self.extentWidth = width;
+		self.extentHeight = height;
+		self.refresh();
+	}
+
 	// Enhancement of Sprite.js functionality - Sprite.loadImg. It adds parameters to the UN-DOCUMENTED "onload" callback.
 	this.createSprite = function (layer, resourcePath, onLoadedCallback, userParam1, userParam2, userParam3, userParam4) {
 		var sprite = self.layers[layer].Sprite();

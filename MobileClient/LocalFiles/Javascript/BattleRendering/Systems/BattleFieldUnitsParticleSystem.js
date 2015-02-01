@@ -29,12 +29,13 @@ var BattleFieldUnitsParticleSystem = function (m_renderer) {
 		rendering.spriteExplosion = m_renderer.createSprite(BattleFieldRenderer.LayerTypes.Particles, animData.resourcePath);
 		rendering.spriteExplosion.position(spatial.x, spatial.y);
 		rendering.spriteExplosion.depth = spatial.y;
-		rendering.spriteExplosion.update();
 
 
 		var animator = new Animator(animData, rendering.spriteExplosion, m_renderer.scene);
 		animations.add(BattleFieldUnitsParticleSystem.EXPLOSION_SPRITE, animator);
 		animator.playSequence('Boom');
+
+		rendering.spriteExplosion.update();
 
 		self._eworld.trigger(RenderEvents.Layers.SORT_DEPTH, rendering.spriteExplosion);
 	}

@@ -40,8 +40,13 @@ var BattleFieldUnitsAnimationsController = function () {
 		var entities = self._entityFilter.entities;
 
 		for(var i = 0; i < entities.length; ++i) {
+			var entity = entities[i];
 
-			var animator = entities[i].CAnimations.animators[BattleFieldUnitsRenderingSystem.MAIN_SPRITE];
+			// Skip dead units.
+			if (entity.CBattleUnit.killed)
+				continue;
+
+			var animator = entity.CAnimations.animators[BattleFieldUnitsRenderingSystem.MAIN_SPRITE];
 
 			if (animator.hasSequence(animationName)) {
 				animator.playSequence(animationName);

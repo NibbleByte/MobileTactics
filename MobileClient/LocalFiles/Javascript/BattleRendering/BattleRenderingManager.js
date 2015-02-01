@@ -6,16 +6,24 @@
 
 var BattleRenderingManager = new function () {
 	var self = this;
-
-	// Each field is 560x720.
-	var STANDARD_WIDTH = 1120;
-	var STANDARD_HEIGHT = 720;
-	var STANDARD_RATIO = STANDARD_WIDTH / STANDARD_HEIGHT;
-	var SCREEN_PADDING = 50;
+	
+	var FIELD_WIDTH_PORTRAIT = 460;
+	var FIELD_WIDTH_LANDSCAPE = 560;
+	var FIELD_WIDTH_LANDSCAPE_FULL = 1120;	// Each field is 560.
+	var FIELD_HEIGHT_PORTRAIT = 720;
+	var FIELD_HEIGHT_LANDSCAPE = 480;
+	var LANDSCAPE_WIDTH_MIN = FIELD_WIDTH_LANDSCAPE_FULL * 0.75;	// Width threshold to switch between portrait & landscape
 
 	var m_$Screen = $('#Screen');
 	var m_$BattleScreenContainer = $('#BattleScreenContainer');
 	var m_$BattleScreen = $('#BattleScreen');
+
+	var m_$BattleFieldsContainer = $('#BattleFields');
+	var m_landscape = false;
+	var m_fieldWidth = 0;
+	var m_fieldHeight = 0;
+
+	var m_currentBattle = null;
 	
 	var subscriber = new DOMSubscriber();
 
@@ -25,6 +33,12 @@ var BattleRenderingManager = new function () {
 	//
 	this.visualizeBattle = function (eworld, attacker, defender) {
 		m_$BattleScreenContainer.show();
+
+		m_currentBattle = {
+			eworld: eworld,
+			attacker: attacker,
+			defender: defender
+		};
 
 		// Start animating when actually showing.
 		self.eworldLeft.getSystem(AnimationSystem).resumeAnimations();
@@ -56,7 +70,15 @@ var BattleRenderingManager = new function () {
 		self.eworldRight.blackboard[BattleRenderingBlackBoard.Battle.OUTCOME] = outcome;
 		self.eworldRight.blackboard[BattleRenderingBlackBoard.Battle.IS_ATTACKER] = rightUnit == attacker;
 
-		initializeBattle();
+
+		self.eworldLeft.blackboard[BattleRenderingBlackBoard.Battle.ACTIVE] = true;
+		self.eworldRight.blackboard[BattleRenderingBlackBoard.Battle.ACTIVE] = true;
+
+		if (m_landscape) {
+			initializeBattleLandscape();
+		} else {
+			initializeBattlePortrait();
+		}
 	};
 
 	var triggerPhase = function (phaseEvent, isAttacker) {
@@ -73,9 +95,15 @@ var BattleRenderingManager = new function () {
 			triggerPhase(phaseEvent, isAttacker);
 		}, timeout));
 	}
+	
+	var triggerScrollByDelayed = function (x, y, timeout) {
+		m_timeouts.push(setTimeout(function () {
+			m_FieldScroller.scrollBy(x, y, 1000, IScroll.utils.ease.circular);
+		}, timeout));
+	}
 
 
-	var initializeBattle = function () {
+	var initializeBattleLandscape = function () {
 		self.eworldLeft.trigger(BattleRenderingEvents.Battle.INITIALIZE);
 		self.eworldRight.trigger(BattleRenderingEvents.Battle.INITIALIZE);
 
@@ -84,12 +112,47 @@ var BattleRenderingManager = new function () {
 		triggerPhaseDelayed(BattleRenderingEvents.Battle.DEFEND, false, 1000 * 3);
 		triggerPhaseDelayed(BattleRenderingEvents.Battle.DEFEND, true, 1000 * 3.5);
 
+		triggerPhaseDelayed(BattleRenderingEvents.Battle.HIT, false, 1000 * 3.2);
+		triggerPhaseDelayed(BattleRenderingEvents.Battle.HIT, true, 1000 * 3.7);
+
 		m_timeouts.push(setTimeout(uninitializeBattle, 1000 * 6.5));
+	}
+
+	var initializeBattlePortrait = function () {
+		self.eworldLeft.trigger(BattleRenderingEvents.Battle.INITIALIZE);
+		self.eworldRight.trigger(BattleRenderingEvents.Battle.INITIALIZE);
+
+		scrollerRefresh();
+
+		m_FieldScroller.scrollTo(0, 0, 0);
+
+		triggerPhaseDelayed(BattleRenderingEvents.Battle.ATTACK, true, 1000 * 2);
+
+		// Go to defender
+		triggerScrollByDelayed(-m_fieldWidth, 0, 1000 * 3);
+
+		triggerPhaseDelayed(BattleRenderingEvents.Battle.DEFEND, false, 1000 * 5);
+		triggerPhaseDelayed(BattleRenderingEvents.Battle.HIT, false, 1000 * 5.2);
+
+		triggerPhaseDelayed(BattleRenderingEvents.Battle.ATTACK, false, 1000 * 6);
+
+
+		// Go to attacker
+		triggerScrollByDelayed(m_fieldWidth, 0, 1000 * 7);
+		
+		triggerPhaseDelayed(BattleRenderingEvents.Battle.DEFEND, true, 1000 * 9);
+		triggerPhaseDelayed(BattleRenderingEvents.Battle.HIT, true, 1000 * 9.2);
+
+		m_timeouts.push(setTimeout(uninitializeBattle, 1000 * 12));
 	}
 
 	var uninitializeBattle = function () {
 		self.eworldLeft.trigger(BattleRenderingEvents.Battle.UNINITIALIZE);
 		self.eworldRight.trigger(BattleRenderingEvents.Battle.UNINITIALIZE);
+
+		for(var i = 0; i < m_timeouts.length; ++i) {
+			clearTimeout(m_timeouts[i]);
+		}
 
 		m_timeouts = [];
 
@@ -102,11 +165,30 @@ var BattleRenderingManager = new function () {
 		self.eworldRight.blackboard[BattleRenderingBlackBoard.Battle.OUTCOME] = null;
 
 
+		self.eworldLeft.blackboard[BattleRenderingBlackBoard.Battle.ACTIVE] = false;
+		self.eworldRight.blackboard[BattleRenderingBlackBoard.Battle.ACTIVE] = false;
+
 		// Don't animate if hiding.
 		self.eworldLeft.getSystem(AnimationSystem).pauseAnimations();
 		self.eworldRight.getSystem(AnimationSystem).pauseAnimations();
 
+		m_currentBattle = null;
+
 		m_$BattleScreenContainer.hide();
+	}
+
+	var restartCurrentBattle = function () {
+		if (Utils.assert(m_currentBattle))
+			return;
+
+		// After unitialize, will be set to null.
+		var currentBattle = m_currentBattle;
+
+		uninitializeBattle();
+
+		m_FieldScroller.scrollTo(0, 0, 0);
+
+		self.visualizeBattle(currentBattle.eworld, currentBattle.attacker, currentBattle.defender);
 	}
 
 
@@ -123,29 +205,70 @@ var BattleRenderingManager = new function () {
 			var screenWidth = m_$Screen.width() - 50;
 			var screenHeight = m_$Screen.height() - 50;
 
-			var width = STANDARD_WIDTH;
-			var height = STANDARD_HEIGHT;
+			if (screenWidth >= LANDSCAPE_WIDTH_MIN || screenWidth >= screenHeight) {
+				var width = FIELD_WIDTH_LANDSCAPE_FULL;
+				var height = FIELD_HEIGHT_LANDSCAPE;
+				m_landscape = true;
+			} else {
+				var width = FIELD_WIDTH_PORTRAIT;
+				var height = FIELD_HEIGHT_PORTRAIT;
+				m_landscape = false;
+			}
+			var ratio = width / height;
+
 			
 			// Letterbox
 			if (screenWidth < width || screenHeight < height) {
 				var widthDiff = screenWidth - width;
 				width += widthDiff;
-				height += widthDiff / STANDARD_RATIO;
+				height += widthDiff / ratio;
 			
 			
 				var heightDiff = screenHeight - height;
 				if (heightDiff < 0) {
 					height += heightDiff;
-					width += heightDiff * STANDARD_RATIO;
+					width += heightDiff * ratio;
 				}
 			}
 			
 			m_$BattleScreen.width(width);
 			m_$BattleScreen.height(height);
+			
+			// The fields container, to create the scrolling effect.
+			if (m_landscape) {
+				m_$BattleFieldsContainer.width('100%');
+			} else {
+				m_$BattleFieldsContainer.width(width * 2);
+			}
+
+
+			// Canvas size
+			var canvasWidth = (m_landscape) ? FIELD_WIDTH_LANDSCAPE : FIELD_WIDTH_PORTRAIT;
+			var canvasHeight = (m_landscape) ? FIELD_HEIGHT_LANDSCAPE : FIELD_HEIGHT_PORTRAIT;
+			self.eworldLeft.extract(BattleFieldRenderer).resize(canvasWidth, canvasHeight);
+			self.eworldRight.extract(BattleFieldRenderer).resize(canvasWidth, canvasHeight);
 
 			
-			self.eworldLeft.extract(BattleFieldRenderer).refreshScaleTo(Math.ceil(width / 2), height);
-			self.eworldRight.extract(BattleFieldRenderer).refreshScaleTo(Math.floor(width / 2), height);
+			// Scale down to fit screen
+			m_fieldWidth = (m_landscape) ? Math.ceil(width / 2) : width;
+			m_fieldHeight = height;
+			self.eworldLeft.extract(BattleFieldRenderer).refreshScaleTo(m_fieldWidth, height);
+			self.eworldRight.extract(BattleFieldRenderer).refreshScaleTo(m_fieldWidth, height);
+
+
+			// Canvases have been invalidated due to resize, so they need to be redrawn.
+			self.eworldLeft.trigger(BattleRenderingEvents.Render.FIELD_RESIZED);
+			self.eworldRight.trigger(BattleRenderingEvents.Render.FIELD_RESIZED);
+
+			if (m_currentBattle != null) {
+				restartCurrentBattle();
+			}
+
+			// For the lack of a better place, manager refreshes layers.
+			// Should be after restart to force refresh all layers, like the particles layer.
+			self.eworldLeft.trigger(RenderEvents.Layers.REFRESH_ALL);
+			self.eworldRight.trigger(RenderEvents.Layers.REFRESH_ALL);
+
 		}, 100);
 	}
 
@@ -160,8 +283,8 @@ var BattleRenderingManager = new function () {
 		eworld.addSystem(eworld.store(UtilsSystem, new UtilsSystem()));
 
 		var renderer = eworld.store(BattleFieldRenderer, BattleFieldRenderer.Build($field[0], eworld, direction));
-		renderer.extentWidth = STANDARD_WIDTH / 2;
-		renderer.extentHeight = STANDARD_HEIGHT;
+		renderer.extentWidth = FIELD_WIDTH_LANDSCAPE;
+		renderer.extentHeight = FIELD_HEIGHT_LANDSCAPE;
 		renderer.refresh();
 
 		eworld.addSystem(new AnimationSystem(renderer));
@@ -184,4 +307,35 @@ var BattleRenderingManager = new function () {
 	subscriber.subscribe(window, 'load', onScreenResize);
 	subscriber.subscribe(window, 'resize', onScreenResize);
 	subscriber.subscribe(window, 'orientationchange', onScreenResize);
+
+
+	// Scrolling portrait mode
+	var m_FieldScroller = new IScroll(m_$BattleScreen[0], {
+			freeScroll: true,
+			keyBindings: false,
+			mouseWheel: false,
+			scrollX: true,
+			scrollY: true,
+			scrollbars: false,
+			fadeScrollbars: false,
+			disableMouse: true,
+			disablePointer: true,
+			disableTouch: true,
+			bounce: false,
+		});
+
+
+	// Refreshes scroller.
+	// Some phones can't pick it up from the first time.
+	var scrollerRefreshTimeout = null;	// Avoid firing multiple timeouts.
+	var scrollerRefresh = function () {
+
+		if (scrollerRefreshTimeout == null) {
+			scrollerRefreshTimeout = setTimeout(function () {
+				scrollerRefreshTimeout = null;
+				m_FieldScroller.refresh();
+
+			}, 200);
+		}
+	}
 };

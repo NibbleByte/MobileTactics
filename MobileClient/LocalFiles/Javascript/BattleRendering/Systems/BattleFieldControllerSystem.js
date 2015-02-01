@@ -16,7 +16,7 @@ var BattleFieldControllerSystem = function (m_renderer) {
 	//
 	this.initialize = function () {
 		self._eworldSB.subscribe(BattleRenderingEvents.Battle.INITIALIZE, onInitializeBattle);
-		self._eworldSB.subscribe(BattleRenderingEvents.Battle.DEFEND, onDefend);
+		self._eworldSB.subscribe(BattleRenderingEvents.Battle.HIT, onHit);
 		self._eworldSB.subscribe(BattleRenderingEvents.Battle.UNINITIALIZE, onUninitializeBattle);
 	}
 
@@ -40,7 +40,7 @@ var BattleFieldControllerSystem = function (m_renderer) {
 			battleUnit.CSpatial.x = formationRow * 100;
 			var yOffset = 75 * Math.ceil(formationRowUnits / 2);
 			yOffset *= (formationRowUnits % 2) ? 1 : -1;
-			battleUnit.CSpatial.y = m_renderer.extentHeight * 0.75 + yOffset;
+			battleUnit.CSpatial.y = m_renderer.extentHeight - 200 + yOffset;
 
 
 			++formationRowUnits;
@@ -55,7 +55,7 @@ var BattleFieldControllerSystem = function (m_renderer) {
 		}
 	}
 
-	var onDefend = function (event) {
+	var onHit = function (event) {
 		var alive = m_battleUnits.clone();
 		var dieCount = MathUtils.randomIntRange(Math.min(1, alive.length), Math.floor(alive.length / 2));
 
@@ -67,6 +67,7 @@ var BattleFieldControllerSystem = function (m_renderer) {
 			alive.removeAt(index);
 
 			self._eworld.triggerAsync(BattleRenderingEvents.Units.UNIT_KILLED, battleUnit);
+			battleUnit.CBattleUnit.killed = true;
 		}
 	}
 
