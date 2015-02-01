@@ -42,6 +42,10 @@ public:
 		// Extract files in LocalFiles folder to the device.
 		extractFileSystem();
 
+		maScreenSetOrientation(SCREEN_ORIENTATION_DYNAMIC);
+		maScreenSetSupportedOrientations(MA_SCREEN_ORIENTATION_LANDSCAPE_LEFT |
+		  MA_SCREEN_ORIENTATION_LANDSCAPE_RIGHT | MA_SCREEN_ORIENTATION_PORTRAIT);
+
 		// Enable message sending from JavaScript to C++.
 		enableWebViewMessages();
 
