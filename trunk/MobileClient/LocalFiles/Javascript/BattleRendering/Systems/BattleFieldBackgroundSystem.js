@@ -35,7 +35,7 @@ var BattleFieldBackgroundSystem = function (m_renderer) {
 	}
 
 	var onSpriteLoaded = function (sprite) {
-		sprite.move(0, 0);
+		sprite.move(0, m_renderer.extentHeight - sprite.h);
 		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, BattleFieldRenderer.LayerTypes.Background);
 
 		// Optimization, to unload resources (probably)

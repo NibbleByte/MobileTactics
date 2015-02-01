@@ -24,12 +24,15 @@
 	width: 800px;
 	height: 500px;
 	margin: auto;
+	
+	overflow: hidden;
 }
 
 #BattleFields
 {
 	width: 100%;
 	height: 100%;
+	position: relative;
 	
 	border: 1px solid red;
 }
@@ -38,16 +41,8 @@
 {
 	width: 50%;
 	height: 100%;
-}
-
-#BattleFieldLeft
-{
-	float: left;
-}
-
-#BattleFieldRight
-{
-	float: right;
+	
+	display: inline-block;
 }
 
 #BattleFieldSeparator
