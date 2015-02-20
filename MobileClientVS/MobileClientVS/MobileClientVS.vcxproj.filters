@@ -401,6 +401,9 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\DisplayManager.js">
       <Filter>Javascript\Render</Filter>
     </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Utils\ClientDevUtils.js">
+      <Filter>Javascript\Utils</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
