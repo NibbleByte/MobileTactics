@@ -59,3 +59,17 @@
 	
 	z-index: 100;
 }
+
+#BattleRenderingStats
+{
+	color: white;
+	position: absolute;
+	top: 2px;
+	right: 8px;
+	text-align: right;
+	z-index: 2;
+	
+	background: rgba(22, 26, 26, 0.88);
+	border-radius: 8px;
+	padding: 8px;
+}

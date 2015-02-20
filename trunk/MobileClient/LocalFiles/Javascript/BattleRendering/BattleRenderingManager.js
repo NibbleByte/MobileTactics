@@ -17,6 +17,7 @@ var BattleRenderingManager = new function () {
 	var m_$Screen = $('#Screen');
 	var m_$BattleScreenContainer = $('#BattleScreenContainer');
 	var m_$BattleScreen = $('#BattleScreen');
+	var m_stats;
 
 	var m_$BattleFieldsContainer = $('#BattleFields');
 	var m_landscape = false;
@@ -305,12 +306,16 @@ var BattleRenderingManager = new function () {
 
 	// Combine both eworlds animations in one ticker (less events, better performance).
 	var paint = function (ticker) {
+		m_stats.refreshStats();
+
 		self.eworldLeft.getSystem(AnimationSystem).paint(ticker);
 		self.eworldRight.getSystem(AnimationSystem).paint(ticker);
 	}
 
 	var initializeTicker = function () {
 		m_ticker = self.eworldLeft.extract(BattleFieldRenderer).scene.Ticker(paint, { tickDuration: 16, useAnimationFrame: true });
+		m_stats = new TickerStats(m_ticker, $('#BattleRenderingStats'), 1000);
+
 		m_ticker.run();
 
 		// Don't try to animate anything on start.

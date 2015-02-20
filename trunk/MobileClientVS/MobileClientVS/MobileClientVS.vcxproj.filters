@@ -392,6 +392,12 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\AnimationSystemScrollOptimizer.js">
       <Filter>Javascript\Render\Systems</Filter>
     </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Utils\TickerStats.js">
+      <Filter>Javascript\Utils</Filter>
+    </None>
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Utils\FrameStats.js">
+      <Filter>Javascript\Utils</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
