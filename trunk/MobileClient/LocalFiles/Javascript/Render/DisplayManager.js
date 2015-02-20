@@ -8,6 +8,8 @@
 
 var DisplayManager = new function () {
 
+	var params = getUrlVars();
+
 	this.devicePixelRatio = window.devicePixelRatio || 1;
 
 	// Web-view is zoomed-in by default depending on the device PPI (represented by the devicePixelRatio)
@@ -15,6 +17,12 @@ var DisplayManager = new function () {
 	// This means all images will be stretched for higher PPI, which is ugly for a game.
 	// Good explanation: http://www.paintcodeapp.com/news/ultimate-guide-to-iphone-resolutions
 	this.zoom =  1 / this.devicePixelRatio;
+
+
+	if (params['Zoom'] || params['zoom']) {
+		this.zoom = params['Zoom'] || params['zoom'] || this.zoom;
+		this.devicePixelRatio = 1 / this.zoom;
+	}
 
 	var template = '<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=$scale, maximum-scale=$scale, minimum-scale=$scale">';
 
