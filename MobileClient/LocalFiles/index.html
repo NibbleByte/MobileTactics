@@ -20,6 +20,8 @@
 	</head>
 	
 	<body>
+		<div id="FrameStats"></div>
+
 		<div id="Screen">
 			<div id="LoadingScreen" class="dialog_blocker" style="display: block">
 				<div id="LoadingScreenContent">Loading...</div>
@@ -46,6 +48,8 @@
 			</div>
 
 			<div id="BattleScreenContainer">
+				<div id="BattleRenderingStats">0 FPS</div>
+
 				<div id="BattleScreen">
 
 					<div id="BattleFields">
@@ -283,6 +287,8 @@
 		<!-- Javascripts -->
 			<script type="text/javascript" src="Javascript/Utils/DOMSubscriber.js"></script>
 			<script type="text/javascript" src="Javascript/Utils/ClientUtils.js"></script>
+			<script type="text/javascript" charset="utf-8" src="Javascript/Utils/FrameStats.js"></script>
+			<script type="text/javascript" charset="utf-8" src="Javascript/Utils/TickerStats.js"></script>
 
 			<script type="text/javascript" src="Javascript/Render/RenderEvents.js"></script>
 			<script type="text/javascript" src="Javascript/ClientEvents.js"></script>

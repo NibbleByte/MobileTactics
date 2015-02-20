@@ -141,6 +141,8 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\UnitFactoryClient.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Utils\ClientUtils.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Utils\DOMSubscriber.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Utils\FrameStats.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Utils\TickerStats.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\wormhole-Mockup.js" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

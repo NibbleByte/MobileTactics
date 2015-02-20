@@ -175,6 +175,8 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		m_$GameWorldMap.show();
 		m_$ToolbarContainer.show();
 
+		var m_FrameStats = new FrameStats($('#FrameStats'), 1000);
+
 		//
 		// World
 		//
