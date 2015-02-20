@@ -118,6 +118,7 @@
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Components\CTilePlaceableRendering.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Components\CTileRendering.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Components\CUnitRendering.js" />
+    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\DisplayManager.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\GameWorldRenderer.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\ImageUtils\Colors.js" />
     <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\ImageUtils\SpriteColorizeManager.js" />
