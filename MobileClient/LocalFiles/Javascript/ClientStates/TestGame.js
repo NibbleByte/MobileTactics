@@ -175,7 +175,17 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		m_$GameWorldMap.show();
 		m_$ToolbarContainer.show();
 
+		// Some statistics
 		var m_FrameStats = new FrameStats($('#FrameStats'), 1000);
+		var onScreenResize = function (event) {
+			var screenStats = '';
+			//screenStats += 'Screen Width: ' + screen.width + '<br />';
+			screenStats += 'Resution: ' +  window.innerWidth + 'x' + window.innerHeight + '<br />';
+			screenStats += 'DPR: ' + DisplayManager.devicePixelRatio + ' (' + DisplayManager.zoom.toPrecision(2) + ')' + '<br />';
+			$('#ScreenStats').html(screenStats);
+		}
+
+
 
 		//
 		// World
@@ -457,6 +467,10 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		subscriber.subscribe(m_$BtnDebug, 'click', onBtnDebug);
 		subscriber.subscribe(m_$BtnBrowse, 'click', onBtnBrowse);
 		subscriber.subscribe(m_$BtnAddress, 'click', onBtnAddress);
+
+		subscriber.subscribe(window, 'load', onScreenResize);
+		subscriber.subscribe(window, 'resize', onScreenResize);
+		subscriber.subscribe(window, 'orientationchange', onScreenResize);
 
 		return m_clientState;
 	}
