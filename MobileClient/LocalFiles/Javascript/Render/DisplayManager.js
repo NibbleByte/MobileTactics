@@ -21,6 +21,7 @@ var DisplayManager = new function () {
 
 	if (params['Zoom'] || params['zoom']) {
 		this.zoom = params['Zoom'] || params['zoom'] || this.zoom;
+		this.zoom = parseFloat(this.zoom);
 		this.devicePixelRatio = 1 / this.zoom;
 	}
 
