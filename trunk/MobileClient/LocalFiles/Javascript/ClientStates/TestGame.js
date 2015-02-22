@@ -181,7 +181,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 			var screenStats = '';
 			//screenStats += 'Screen Width: ' + screen.width + '<br />';
 			screenStats += 'Resution: ' +  window.innerWidth + 'x' + window.innerHeight + '<br />';
-			screenStats += 'DPR: ' + DisplayManager.devicePixelRatio + ' (' + DisplayManager.zoom.toPrecision(2) + ')' + '<br />';
+			screenStats += 'DPR: ' + DisplayManager.devicePixelRatio + ' (x' + DisplayManager.zoom.toPrecision(2) + ')' + '<br />';
 			$('#ScreenStats').html(screenStats);
 		}
 
