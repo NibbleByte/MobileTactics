@@ -25,9 +25,13 @@ var DisplayManager = new function () {
 		this.devicePixelRatio = 1 / this.zoom;
 	}
 
-	var template = '<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=$scale, maximum-scale=$scale, minimum-scale=$scale">';
+	var template = '<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=$scale, maximum-scale=$scale, minimum-scale=$scale, target-densitydpi=device-dpi">';
 
-	document.write(template.replace(new RegExp('\\$scale', 'g'), this.zoom));
+	document.write(template.replace(new RegExp('\\$scale', 'g'), this.zoom.toPrecision(2)));
+
+	setTimeout(function () {
+		//$('#DebugStats').text(template.replace(new RegExp('\\$scale', 'g'), DisplayManager.zoom.toPrecision(2)));
+	}, 1000);
 }
 
 DisplayManager.ScreenDensityType = {

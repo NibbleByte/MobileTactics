@@ -68,11 +68,12 @@ var GameWorldRenderer = new function () {
 			tap: true,
 			scrollX: true,
 			scrollY: true,
-			scrollbars: (mosync.isMockUp) ? true : false,
-			fadeScrollbars: (mosync.isMockUp) ? true : false,
-			disableMouse: (mosync.isMockUp) ? false : true,
+			scrollbars: (ClientUtils.isMockUp) ? true : false,
+			fadeScrollbars: (ClientUtils.isMockUp) ? true : false,
+			disableMouse: (ClientUtils.isMockUp) ? false : true,
 			disablePointer: true,
 			bounce: false,
+			HWCompositing: false,
 		}, scrollerOptions));
 
 

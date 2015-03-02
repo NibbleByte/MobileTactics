@@ -471,6 +471,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		subscriber.subscribe(window, 'load', onScreenResize);
 		subscriber.subscribe(window, 'resize', onScreenResize);
 		subscriber.subscribe(window, 'orientationchange', onScreenResize);
+		onScreenResize();
 
 		return m_clientState;
 	}

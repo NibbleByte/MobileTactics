@@ -4,8 +4,12 @@
 		<!--meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"-->
 		<script type="text/javascript" src="Javascript/Utils/ClientDevUtils.js"></script>
 		<script type="text/javascript" src="Javascript/Render/DisplayManager.js"></script>
+		<!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
 
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<meta name="msapplication-tap-highlight" content="no" />
+		<meta name="format-detection" content="telephone=no" />
+
 		<title>Mobile Tactics</title>
 		
 		<!-- ==========	Render ====================== -->
@@ -26,6 +30,7 @@
 		<div id="RuntimeStats" onclick="$('#RuntimeStats').hide();">
 			<div id="FrameStats"></div>
 			<div id="ScreenStats"></div>
+			<div id="DebugStats"></div>
 		</div>
 
 		<div id="Screen">
@@ -282,7 +287,7 @@
 					FileError: window.FileError,
 				}
 			</script>
-			<script type="text/javascript" charset="utf-8" src="Javascript/3rdParty/wormhole.js"></script>
+			<script type="text/javascript" src="cordova.js"></script>
 			<script type="text/javascript" charset="utf-8" src="Javascript/3rdParty/iscroll.js"></script> <!-- TODO: Use LITE, min version -->
 			<script type="text/javascript" charset="utf-8" src="Javascript/3rdParty/sylvester.src.js"></script>
 			<script type="text/javascript" charset="utf-8" src="Javascript/3rdParty/sprite.js"></script>
@@ -381,6 +386,6 @@
 			
 			
 		<!-- Mockup & Unit tests -->
-			<script type="text/javascript" charset="utf-8" src="Javascript/wormhole-Mockup.js"></script>
+			<script type="text/javascript" charset="utf-8" src="Javascript/cordova-Mockup.js"></script>
 	</body>
 </html>
