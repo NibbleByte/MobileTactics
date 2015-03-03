@@ -46,8 +46,11 @@ var FrameStats = function (m_$text, m_refreshDelay) {
 			};
 		}
 
-		requestAnimationFrame(refreshStats);
-		//setTimeout(refreshStats, 16);
+		if (window.requestAnimationFrame) {
+			window.requestAnimationFrame(refreshStats);
+		} else {
+			setTimeout(refreshStats, 16);
+		}
 	}
 
 	refreshStats();

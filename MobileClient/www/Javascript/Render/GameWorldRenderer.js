@@ -73,7 +73,7 @@ var GameWorldRenderer = new function () {
 			disableMouse: (ClientUtils.isMockUp) ? false : true,
 			disablePointer: true,
 			bounce: false,
-			HWCompositing: false,
+			HWCompositing: true,
 		}, scrollerOptions));
 
 
