@@ -4,11 +4,11 @@
 //===============================================
 "use strict";
 
-var SceneRenderer = function (holderElement, eworld, layersDefinition, layersOptions) {
+var SceneRenderer = function (holderElement, eworld, layersDefinitions, layersOptions) {
 	var self = this;
 	
 	console.assert(holderElement instanceof HTMLElement, "HTMLElement is required.");
-	if (!layersOptions) layersOptions = {};
+	if (!layersDefinitions.layersOptions) layersDefinitions.layersOptions = {};
 		
 	this.pnHolder = holderElement;
 	this.extentWidth = 0;
@@ -23,9 +23,9 @@ var SceneRenderer = function (holderElement, eworld, layersDefinition, layersOpt
 	
 	this.layers = [];
 	
-	for(var layerName in layersDefinition) {
-		this.layers[layersDefinition[layerName]] = 
-			this.scene.Layer(layerName, layersOptions[layerName]);
+	for(var layerName in layersDefinitions.LayerTypes) {
+		this.layers[layersDefinitions.LayerTypes[layerName]] = 
+			this.scene.Layer(layerName, layersDefinitions.layersOptions[layerName]);
 	}
 	
 

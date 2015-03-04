@@ -8,7 +8,7 @@
 var BattleFieldRenderer = new function () {
 
 	this.Build = function (holderElement, eworld, direction) {
-		var renderer = new SceneRenderer(holderElement, eworld, BattleFieldRenderer.LayerTypes, BattleFieldRenderer.layersOptions);
+		var renderer = new SceneRenderer(holderElement, eworld, BattleFieldRenderer);
 
 		$.extend(renderer, extension);
 
