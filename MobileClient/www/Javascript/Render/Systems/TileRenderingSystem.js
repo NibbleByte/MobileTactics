@@ -255,6 +255,9 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 	}
 	
 	var onGameLoaded = function (event) {
+		// First sort all sprites, so it doesn't matter which is in which layer actually.
+		self._eworld.trigger(RenderEvents.Layers.SORT_DEPTH_ALL);
+
 		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.Highlights);
 		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.ActionFog);
 		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.VisibilityFog);

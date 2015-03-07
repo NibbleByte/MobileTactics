@@ -24,8 +24,10 @@ var SceneRenderer = function (holderElement, eworld, layersDefinitions, layersOp
 	this.layers = [];
 	
 	for(var layerName in layersDefinitions.LayerTypes) {
-		this.layers[layersDefinitions.LayerTypes[layerName]] = 
-			this.scene.Layer(layerName, layersDefinitions.layersOptions[layerName]);
+		var layerType = layersDefinitions.LayerTypes[layerName];
+		if (!this.layers[layerType]) {
+			this.layers[layerType] = this.scene.Layer(layerName, layersDefinitions.layersOptions[layerName]);
+		}
 	}
 	
 
@@ -37,6 +39,10 @@ var SceneRenderer = function (holderElement, eworld, layersDefinitions, layersOp
 		eworld.trigger(RenderEvents.Sprites.SPRITES_REMOVED, [sprites]);
 	}
 	
+	// Hide the default layer as we're not using it.
+	// Do it after sprite tracker as it will using it.
+	$(this.scene.layers['default'].dom).hide();
+
 	this.refresh = function () {
 		
 		// HACK: Resize manually the scene and layers
@@ -44,7 +50,7 @@ var SceneRenderer = function (holderElement, eworld, layersDefinitions, layersOp
 		$(self.scene.dom).height(self.extentHeight);
 
 		for(var i = 0; i < self.layers.length; ++i) {
-			var layer = self.layers[i]
+			var layer = self.layers[i];
 
 			console.assert(layer.useCanvas != undefined, 'Sprite.js API changed.');
 
@@ -67,6 +73,10 @@ var SceneRenderer = function (holderElement, eworld, layersDefinitions, layersOp
 	// Enhancement of Sprite.js functionality - Sprite.loadImg. It adds parameters to the UN-DOCUMENTED "onload" callback.
 	this.createSprite = function (layer, resourcePath, onLoadedCallback, userParam1, userParam2, userParam3, userParam4) {
 		var sprite = self.layers[layer].Sprite();
+
+		if (layersDefinitions.SpritesDefaultDepth) {
+			sprite.depth = layersDefinitions.SpritesDefaultDepth[Enums.getName(layersDefinitions.LayerTypes, layer)];
+		}
 		
 		if (resourcePath) {
 			return self.loadSprite(sprite, resourcePath, onLoadedCallback, userParam1, userParam2, userParam3, userParam4);
