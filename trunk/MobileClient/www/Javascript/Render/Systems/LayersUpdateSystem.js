@@ -4,7 +4,7 @@
 //===============================================
 "use strict";
 
-var LayersUpdateSystem = function (m_renderer, layersDefinition) {
+var LayersUpdateSystem = function (m_renderer, layerTypes) {
 	var self = this;
 	
 	//
@@ -14,6 +14,7 @@ var LayersUpdateSystem = function (m_renderer, layersDefinition) {
 		self._eworldSB.subscribe(RenderEvents.Layers.REFRESH_LAYER, onRefreshLayer);
 		self._eworldSB.subscribe(RenderEvents.Layers.REFRESH_ALL, onRefreshAll);
 		self._eworldSB.subscribe(RenderEvents.Layers.SORT_DEPTH, onSortByDepth);
+		self._eworldSB.subscribe(RenderEvents.Layers.SORT_DEPTH_ALL, onSortByDepthAll);
 		self._eworldSB.subscribe(RenderEvents.Layers.SORT_DEPTH_REFRESH, onSortByDepthRefresh);
 
 		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_AFTER_FRAME, onAnimationAfterFrame);
@@ -32,7 +33,7 @@ var LayersUpdateSystem = function (m_renderer, layersDefinition) {
 		// HACK: give one frame delay, so any other "onload" handlers can be executed correctly (placeables)
 		//		 and all sprites with the same image are refreshed.
 		setTimeout(function () {
-			self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, layersDefinition[layerName]);
+			self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, layerTypes[layerName]);
 		}, 0);
 	}
 
@@ -94,22 +95,28 @@ var LayersUpdateSystem = function (m_renderer, layersDefinition) {
 
 	// depth is a custom field introduced to the sprite instances. Higher depth number is on top of others.
 	var onSortByDepth = function (event, layerOrSprite) {
-		if (Utils.assert(layerOrSprite instanceof sjs.Sprite || Enums.isValidValue(layersDefinition, layerOrSprite)))
+		if (Utils.assert(layerOrSprite instanceof sjs.Sprite || Enums.isValidValue(layerTypes, layerOrSprite)))
 			return;
 
-		var layer = (layerOrSprite instanceof sjs.Sprite) ? layersDefinition[layerOrSprite.layer.name] : layerOrSprite;
+		var layer = (layerOrSprite instanceof sjs.Sprite) ? layerTypes[layerOrSprite.layer.name] : layerOrSprite;
 
-		var sprites = m_renderer.spriteTracker.layerSprites[Enums.getName(layersDefinition, layer)];
+		var sprites = m_renderer.spriteTracker.layerSprites[Enums.getName(layerTypes, layer)];
 		if (sprites) {
 			sprites.sort(depthSorter);
 		}
 	}
 
+	var onSortByDepthAll = function (event) {
+		for(var layerName in layerTypes) {
+			onSortByDepth(event, layerTypes[layerName]);
+		}
+	}
+
 	var onSortByDepthRefresh = function (event, layerOrSprite) {
-		if (Utils.assert(layerOrSprite instanceof sjs.Sprite || Enums.isValidValue(layersDefinition, layerOrSprite)))
+		if (Utils.assert(layerOrSprite instanceof sjs.Sprite || Enums.isValidValue(layerTypes, layerOrSprite)))
 			return;
 
-		var layer = (layerOrSprite instanceof sjs.Sprite) ? layersDefinition[layerOrSprite.layer.name] : layerOrSprite;
+		var layer = (layerOrSprite instanceof sjs.Sprite) ? layerTypes[layerOrSprite.layer.name] : layerOrSprite;
 
 		onSortByDepth(event, layer);
 		onRefreshLayer(event, layer);
@@ -125,7 +132,7 @@ var LayersUpdateSystem = function (m_renderer, layersDefinition) {
 		for(var layerName in m_layersDirty) {
 			if (m_layersDirty[layerName]) {
 				
-				self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, layersDefinition[layerName]);
+				self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, layerTypes[layerName]);
 
 				m_layersDirty[layerName] = false;
 			}
