@@ -36,7 +36,7 @@ var SceneRenderer = function (holderElement, eworld, layersDefinitions, layersOp
 		eworld.trigger(RenderEvents.Sprites.SPRITE_CREATED, sprite);
 	}
 	this.spriteTracker.spritesRemovedCallback = function (sprites) {
-		eworld.trigger(RenderEvents.Sprites.SPRITES_REMOVED, [sprites]);
+		eworld.trigger(RenderEvents.Sprites.SPRITES_REMOVED, sprites);
 	}
 	
 	// Hide the default layer as we're not using it.

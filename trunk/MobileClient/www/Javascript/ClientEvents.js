@@ -19,7 +19,7 @@ var ClientEvents = {
 			ACTION_CANCEL: "client.controller.actions_cancel",			// Arguments: event
 			ACTION_PREEXECUTE: "client.controller.action_preexecute", 	// Arguments: event, action
 			ACTION_EXECUTED: "client.controller.action_executed", 		// Arguments: event, action
-			ACTIONS_OFFERED: "client.controller.actions_offered",		// Arguments: event, goActions
+			ACTIONS_OFFERED: "client.controller.actions_offered",		// Arguments: event, [goActions]
 
 			TILE_SELECTED: "client.controller.tile_selected",			// Arguments: event, tile
 		}

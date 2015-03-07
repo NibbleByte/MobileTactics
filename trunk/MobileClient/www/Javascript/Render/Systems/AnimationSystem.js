@@ -52,7 +52,6 @@ var AnimationSystem = function (m_renderer, m_manual) {
 	var m_ticker = null;
 
 	var m_processedAnimationsData = [];	// To avoid garbage, re-use the same array.
-	var m_processedAnimationsDataArg = [ m_processedAnimationsData ];
 	
 	this.paint = function (ticker) {
 
@@ -94,7 +93,7 @@ var AnimationSystem = function (m_renderer, m_manual) {
 		}
 
 
-		self._eworld.trigger(RenderEvents.Animations.ANIMATION_AFTER_FRAME, m_processedAnimationsDataArg);
+		self._eworld.trigger(RenderEvents.Animations.ANIMATION_AFTER_FRAME, m_processedAnimationsData);
 
 		// Clean processed animators
 		m_processedAnimationsData.clear();

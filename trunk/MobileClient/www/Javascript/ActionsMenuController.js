@@ -85,7 +85,7 @@ var ActionsMenuController = function (actionMenuElement) {
 					// If no tiles were available consider this action as quick (menu-accessible only).
 					if (action.availableTiles && !action.actionType.quickAction) {
 						var goActions = new GameObjectActions(m_currentGOActions.go, [action]);
-						self._eworld.trigger(ClientEvents.Controller.ACTIONS_OFFERED, [goActions]);
+						self._eworld.trigger(ClientEvents.Controller.ACTIONS_OFFERED, goActions);
 					
 					} else {
 						self._eworld.trigger(ClientEvents.Controller.ACTION_PREEXECUTE, action);
