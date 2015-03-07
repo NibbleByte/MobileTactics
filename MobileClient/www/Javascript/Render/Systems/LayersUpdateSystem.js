@@ -6,6 +6,8 @@
 
 var LayersUpdateSystem = function (m_renderer, layerTypes) {
 	var self = this;
+
+	var REFRESH_PENDING_LAYERS = 'LayersUpdateSystem.refresh_pending_layers';
 	
 	//
 	// Entity system initialize
@@ -17,13 +19,22 @@ var LayersUpdateSystem = function (m_renderer, layerTypes) {
 		self._eworldSB.subscribe(RenderEvents.Layers.SORT_DEPTH_ALL, onSortByDepthAll);
 		self._eworldSB.subscribe(RenderEvents.Layers.SORT_DEPTH_REFRESH, onSortByDepthRefresh);
 
+		self._eworldSB.subscribe(REFRESH_PENDING_LAYERS, refreshPendingLayers);
+
 		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_AFTER_FRAME, onAnimationAfterFrame);
+
+		for(var layerName in layerTypes) {
+			m_pendingRefreshLayers[layerTypes[layerName]] = false;
+		}
 	}
 	
 	//
 	// Private
 	//
 	var m_layersDirty = {};	// To avoid garbage, re-use the same object.
+	var m_pendingRefreshLayers = [];
+	var m_hasPendingRefreshes = false;
+	
 
 	var refreshOnLoad = function (sprite) {
 
@@ -76,13 +87,28 @@ var LayersUpdateSystem = function (m_renderer, layerTypes) {
 		}
 	}
 
+	var refreshPendingLayers = function () {
+		for(var i = 0; i < m_pendingRefreshLayers.length; ++i) {
+			if (m_pendingRefreshLayers[i]) {
+				refreshLayer(m_renderer.layers[i]);
+			}
+		}
+
+		m_hasPendingRefreshes = false;
+	}
+
 	var onRefreshLayer = function (event, layer) {
-		refreshLayer(m_renderer.layers[layer]);
+		m_pendingRefreshLayers[layer] = true;
+
+		if (!m_hasPendingRefreshes) {
+			m_hasPendingRefreshes = true;
+			self._eworld.triggerAsync(REFRESH_PENDING_LAYERS, refreshPendingLayers);
+		}
 	}
 
 	var onRefreshAll = function (event) {
-		for(var i = 0; i < m_renderer.layers.length; ++i)
-			refreshLayer(m_renderer.layers[i]);
+		for(var i = 0; i < m_pendingRefreshLayers.length; ++i)
+			onRefreshLayer(event, i);
 	}
 
 
