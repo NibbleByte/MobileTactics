@@ -70,6 +70,12 @@ Subscriber._triggerAsync = function (event, data) {
 
 	console.assert(event);
 
+	if (arguments.length > 2) {
+		data = Array.prototype.slice.call(arguments, 1);
+	} else if (Utils.isArray(data)) {
+		data = [data];
+	}
+
 	if (this.__triggerActive) {
 		// Store the trigger data so it can processed later.
 		this.__triggersQueued.push({ event: event, data: data });
