@@ -91,6 +91,7 @@ var LayersUpdateSystem = function (m_renderer, layerTypes) {
 		for(var i = 0; i < m_pendingRefreshLayers.length; ++i) {
 			if (m_pendingRefreshLayers[i]) {
 				refreshLayer(m_renderer.layers[i]);
+				m_pendingRefreshLayers[i] = false;
 			}
 		}
 
