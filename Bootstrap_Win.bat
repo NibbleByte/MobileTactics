@@ -4,8 +4,8 @@
 set InternalTools=%CD%/Internal Tools
 
 set Core=%CD%/Core
-set Client=%CD%/MobileClient/LocalFiles
-set ClientJS=%CD%/MobileClient/LocalFiles/Javascript
+set Client=%CD%/MobileClient/www
+set ClientJS=%CD%/MobileClient/www/Javascript
 
 
 ::

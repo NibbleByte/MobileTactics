@@ -1,89 +1,86 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <None Include="..\..\MobileClient\LocalFiles\index.html" />
-    <None Include="..\..\MobileClient\LocalFiles\Assets\ActionMenu.css">
+    <None Include="..\..\MobileClient\www\index.html" />
+    <None Include="..\..\MobileClient\www\Assets\ActionMenu.css">
       <Filter>Assets</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Assets\Main.css">
+    <None Include="..\..\MobileClient\www\Assets\Main.css">
       <Filter>Assets</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Assets\Render\Placeables.css">
+    <None Include="..\..\MobileClient\www\Assets\Render\Placeables.css">
       <Filter>Assets\Render</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Assets\Render\TileRenderingSystem.css">
+    <None Include="..\..\MobileClient\www\Assets\Render\TileRenderingSystem.css">
       <Filter>Assets\Render</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Assets\Render\SpriteAnimations\TeslaTrooper.js">
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\TeslaTrooper.js">
       <Filter>Assets\Render\SpriteAnimations</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\ActionsMenuController.js">
+    <None Include="..\..\MobileClient\www\Javascript\ActionsMenuController.js">
       <Filter>Javascript</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\ClientEvents.js">
+    <None Include="..\..\MobileClient\www\Javascript\ClientEvents.js">
       <Filter>Javascript</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Main.js">
+    <None Include="..\..\MobileClient\www\Javascript\Main.js">
       <Filter>Javascript</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\PlayerController.js">
+    <None Include="..\..\MobileClient\www\Javascript\PlayerController.js">
       <Filter>Javascript</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\UnitFactoryClient.js">
+    <None Include="..\..\MobileClient\www\Javascript\UnitFactoryClient.js">
       <Filter>Javascript</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\wormhole-Mockup.js">
-      <Filter>Javascript</Filter>
-    </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\ActionsRender.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\ActionsRender.js">
       <Filter>Javascript\Render</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Animator.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\Animator.js">
       <Filter>Javascript\Render</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\GameWorldRenderer.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\GameWorldRenderer.js">
       <Filter>Javascript\Render</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\RenderEvents.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\RenderEvents.js">
       <Filter>Javascript\Render</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\TileGlobals.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\TileGlobals.js">
       <Filter>Javascript\Render</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\WorldLayers.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\WorldLayers.js">
       <Filter>Javascript\Render</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\ActionFogRenderingSystem.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\Systems\ActionFogRenderingSystem.js">
       <Filter>Javascript\Render\Systems</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\ActionsRenderingSystem.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\Systems\ActionsRenderingSystem.js">
       <Filter>Javascript\Render\Systems</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\AnimationSystem.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\Systems\AnimationSystem.js">
       <Filter>Javascript\Render\Systems</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\IdleAnimationsSystem.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\Systems\IdleAnimationsSystem.js">
       <Filter>Javascript\Render\Systems</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\TileRenderingSystem.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\Systems\TileRenderingSystem.js">
       <Filter>Javascript\Render\Systems</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\UnitRenderingSystem.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\Systems\UnitRenderingSystem.js">
       <Filter>Javascript\Render\Systems</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\VisibilityFogRenderingSystem.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\Systems\VisibilityFogRenderingSystem.js">
       <Filter>Javascript\Render\Systems</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Components\CAnimations.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\Components\CAnimations.js">
       <Filter>Javascript\Render\Components</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Components\CTilePlaceableRendering.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\Components\CTilePlaceableRendering.js">
       <Filter>Javascript\Render\Components</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Components\CTileRendering.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\Components\CTileRendering.js">
       <Filter>Javascript\Render\Components</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Components\CUnitRendering.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\Components\CUnitRendering.js">
       <Filter>Javascript\Render\Components</Filter>
     </None>
     <None Include="..\..\Core\Engine\EngineEvents.js">
@@ -191,16 +188,13 @@
     <None Include="..\..\Core\Gameplay\Systems\UnitsSystem.js">
       <Filter>Javascript\Core\Gameplay\Systems</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\iscroll.js">
+    <None Include="..\..\MobileClient\www\Javascript\3rdParty\iscroll.js">
       <Filter>Javascript\3rdParty</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\sprite.js">
+    <None Include="..\..\MobileClient\www\Javascript\3rdParty\sprite.js">
       <Filter>Javascript\3rdParty</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\sylvester.src.js">
-      <Filter>Javascript\3rdParty</Filter>
-    </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\wormhole.js">
+    <None Include="..\..\MobileClient\www\Javascript\3rdParty\sylvester.src.js">
       <Filter>Javascript\3rdParty</Filter>
     </None>
     <None Include="..\..\Core\Gameplay\Components\CTileVisibility.js">
@@ -209,16 +203,16 @@
     <None Include="..\..\Core\Gameplay\Systems\TileVisibilitySystem.js">
       <Filter>Javascript\Core\Gameplay\Systems</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\ImageUtils\SpriteColorizeManager.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\ImageUtils\SpriteColorizeManager.js">
       <Filter>Javascript\Render\ImageUtils</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\ImageUtils\Colors.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\ImageUtils\Colors.js">
       <Filter>Javascript\Render\ImageUtils</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\ImageUtils\SpriteTracker.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\ImageUtils\SpriteTracker.js">
       <Filter>Javascript\Render\ImageUtils</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\LayersUpdateSystem.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\Systems\LayersUpdateSystem.js">
       <Filter>Javascript\Render\Systems</Filter>
     </None>
     <None Include="..\..\Core\Gameplay\Components\CTileOwner.js">
@@ -230,13 +224,13 @@
     <None Include="..\..\Core\Engine\Systems\UtilsSystem.js">
       <Filter>Javascript\Core\Engine\Systems</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Components\CTileOverlayRendering.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\Components\CTileOverlayRendering.js">
       <Filter>Javascript\Render\Components</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Assets\Render\SpriteAnimations\Base.js">
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Base.js">
       <Filter>Assets\Render\SpriteAnimations</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\TileStructureRenderingSystem.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\Systems\TileStructureRenderingSystem.js">
       <Filter>Javascript\Render\Systems</Filter>
     </None>
     <None Include="..\..\Core\Gameplay\Actions\ActionCapture.js">
@@ -245,7 +239,7 @@
     <None Include="..\..\Core\Gameplay\Systems\TileCapturingSystem.js">
       <Filter>Javascript\Core\Gameplay\Systems</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\persist.js">
+    <None Include="..\..\MobileClient\www\Javascript\3rdParty\persist.js">
       <Filter>Javascript\3rdParty</Filter>
     </None>
     <None Include="..\..\Internal Tools\SpriteTestground\SpriteTestground.html">
@@ -254,10 +248,10 @@
     <None Include="..\..\Internal Tools\Libs\jscolor\jscolor.js">
       <Filter>InternalTools\Libs\jscolor</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\DevConsole.js">
+    <None Include="..\..\MobileClient\www\Javascript\DevConsole.js">
       <Filter>Javascript</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Assets\DevConsole.css">
+    <None Include="..\..\MobileClient\www\Assets\DevConsole.css">
       <Filter>Assets</Filter>
     </None>
     <None Include="..\..\Core\Gameplay\Actions\ActionStay.js">
@@ -269,7 +263,7 @@
     <None Include="..\..\Core\Gameplay\Store.js">
       <Filter>Javascript\Core\Gameplay</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\StoreRender.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\StoreRender.js">
       <Filter>Javascript\Render</Filter>
     </None>
     <None Include="..\..\Core\Engine\Systems\SynchronizationSystem.js">
@@ -287,100 +281,100 @@
     <None Include="..\..\Internal Tools\SpriteTestground\SpriteTestground-Main.js">
       <Filter>InternalTools\SpriteTestground</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\ClientStates\TestGame.js">
+    <None Include="..\..\MobileClient\www\Javascript\ClientStates\TestGame.js">
       <Filter>Javascript\ClientStates</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\ClientStates\WorldEditor.js">
+    <None Include="..\..\MobileClient\www\Javascript\ClientStates\WorldEditor.js">
       <Filter>Javascript\ClientStates</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\ClientStates\ClientStateManager.js">
+    <None Include="..\..\MobileClient\www\Javascript\ClientStates\ClientStateManager.js">
       <Filter>Javascript\ClientStates</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\BrowserBackwardCompatibility.js">
+    <None Include="..\..\MobileClient\www\Javascript\BrowserBackwardCompatibility.js">
       <Filter>Javascript</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Editor\Brushes.js">
+    <None Include="..\..\MobileClient\www\Javascript\Editor\Brushes.js">
       <Filter>Javascript\Editor</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Editor\EditorEvents.js">
+    <None Include="..\..\MobileClient\www\Javascript\Editor\EditorEvents.js">
       <Filter>Javascript\Editor</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Utils\DOMSubscriber.js">
+    <None Include="..\..\MobileClient\www\Javascript\Utils\DOMSubscriber.js">
       <Filter>Javascript\Utils</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Utils\ClientUtils.js">
+    <None Include="..\..\MobileClient\www\Javascript\Utils\ClientUtils.js">
       <Filter>Javascript\Utils</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Assets\Dialogs.css">
+    <None Include="..\..\MobileClient\www\Assets\Dialogs.css">
       <Filter>Assets</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Assets\Game.css">
+    <None Include="..\..\MobileClient\www\Assets\Game.css">
       <Filter>Assets</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Assets\Editor.css">
+    <None Include="..\..\MobileClient\www\Assets\Editor.css">
       <Filter>Assets</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Editor\Systems\EditorController.js">
+    <None Include="..\..\MobileClient\www\Javascript\Editor\Systems\EditorController.js">
       <Filter>Javascript\Editor\Systems</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Editor\Systems\EditorUnitPropertiesController.js">
+    <None Include="..\..\MobileClient\www\Javascript\Editor\Systems\EditorUnitPropertiesController.js">
       <Filter>Javascript\Editor\Systems</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Editor\Systems\EditorGamePropertiesController.js">
+    <None Include="..\..\MobileClient\www\Javascript\Editor\Systems\EditorGamePropertiesController.js">
       <Filter>Javascript\Editor\Systems</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\Blob.js">
+    <None Include="..\..\MobileClient\www\Javascript\3rdParty\Blob.js">
       <Filter>Javascript\3rdParty</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\3rdParty\FileSaver.min.js">
+    <None Include="..\..\MobileClient\www\Javascript\3rdParty\FileSaver.min.js">
       <Filter>Javascript\3rdParty</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\ControllerRenderingSystem.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\Systems\ControllerRenderingSystem.js">
       <Filter>Javascript\Render\Systems</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\BattleRendering\BattleRenderingManager.js">
+    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\BattleRenderingManager.js">
       <Filter>Javascript\BattleRendering</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\SceneRenderer.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\SceneRenderer.js">
       <Filter>Javascript\Render</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Assets\Render\SceneRenderer.css">
+    <None Include="..\..\MobileClient\www\Assets\Render\SceneRenderer.css">
       <Filter>Assets\Render</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\BattleRendering\BattleFieldRenderer.js">
+    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\BattleFieldRenderer.js">
       <Filter>Javascript\BattleRendering</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Assets\BattleScreen.css">
+    <None Include="..\..\MobileClient\www\Assets\BattleScreen.css">
       <Filter>Assets</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\BattleRendering\BattleRenderingEvents.js">
+    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\BattleRenderingEvents.js">
       <Filter>Javascript\BattleRendering</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\BattleRendering\Systems\BattleFieldBackgroundSystem.js">
+    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\Systems\BattleFieldBackgroundSystem.js">
       <Filter>Javascript\BattleRendering\Systems</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\BattleRendering\Components\CBattleUnit.js">
+    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\Components\CBattleUnit.js">
       <Filter>Javascript\BattleRendering\Components</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\BattleRendering\Systems\BattleFieldControllerSystem.js">
+    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\Systems\BattleFieldControllerSystem.js">
       <Filter>Javascript\BattleRendering\Systems</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\BattleRendering\Components\CSpatial.js">
+    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\Components\CSpatial.js">
       <Filter>Javascript\BattleRendering\Components</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\BattleRendering\Systems\BattleFieldUnitsRenderingSystem.js">
+    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\Systems\BattleFieldUnitsRenderingSystem.js">
       <Filter>Javascript\BattleRendering\Systems</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\BattleRendering\Components\CBattleUnitRendering.js">
+    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\Components\CBattleUnitRendering.js">
       <Filter>Javascript\BattleRendering\Components</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\BattleRendering\Systems\BattleFieldUnitsAnimationsController.js">
+    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\Systems\BattleFieldUnitsAnimationsController.js">
       <Filter>Javascript\BattleRendering\Systems</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Assets\Render\SpriteAnimations\Particles\GroundExplosion.js">
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Particles\GroundExplosion.js">
       <Filter>Assets\Render\SpriteAnimations\Particles</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\BattleRendering\Systems\BattleFieldUnitsParticleSystem.js">
+    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\Systems\BattleFieldUnitsParticleSystem.js">
       <Filter>Javascript\BattleRendering\Systems</Filter>
     </None>
     <None Include="..\..\Core\Gameplay\Actions\ActionCreate.js">
@@ -389,20 +383,23 @@
     <None Include="..\..\Core\Gameplay\Actions\ActionBuy.js">
       <Filter>Javascript\Core\Gameplay\Actions</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\Systems\AnimationSystemScrollOptimizer.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\Systems\AnimationSystemScrollOptimizer.js">
       <Filter>Javascript\Render\Systems</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Utils\TickerStats.js">
+    <None Include="..\..\MobileClient\www\Javascript\Utils\TickerStats.js">
       <Filter>Javascript\Utils</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Utils\FrameStats.js">
+    <None Include="..\..\MobileClient\www\Javascript\Utils\FrameStats.js">
       <Filter>Javascript\Utils</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Render\DisplayManager.js">
+    <None Include="..\..\MobileClient\www\Javascript\Render\DisplayManager.js">
       <Filter>Javascript\Render</Filter>
     </None>
-    <None Include="..\..\MobileClient\LocalFiles\Javascript\Utils\ClientDevUtils.js">
+    <None Include="..\..\MobileClient\www\Javascript\Utils\ClientDevUtils.js">
       <Filter>Javascript\Utils</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Javascript\cordova-Mockup.js">
+      <Filter>Javascript</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
