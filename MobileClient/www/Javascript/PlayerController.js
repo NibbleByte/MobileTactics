@@ -114,7 +114,7 @@ var PlayerController = function (m_world, m_executor) {
 					
 				if (availableGOActions.length > 0) {
 					// DEBUG: Select the first unit actions only
-					self._eworld.trigger(ClientEvents.Controller.ACTIONS_OFFERED, [availableGOActions[0]]);
+					self._eworld.trigger(ClientEvents.Controller.ACTIONS_OFFERED, availableGOActions[0]);
 				} else {
 					self._eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
 				
@@ -177,7 +177,7 @@ var PlayerController = function (m_world, m_executor) {
 
 		if (goActions) {
 			selectTileHighlight(goActions.go.CTilePlaceable.tile);
-			self._eworld.triggerAsync(ClientEvents.Controller.ACTIONS_OFFERED, [goActions]);
+			self._eworld.triggerAsync(ClientEvents.Controller.ACTIONS_OFFERED, goActions);
 		} else {
 			self._eworld.triggerAsync(ClientEvents.Controller.ACTIONS_CLEARED);
 		}

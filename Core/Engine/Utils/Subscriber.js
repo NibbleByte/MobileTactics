@@ -37,6 +37,12 @@ Subscriber._trigger = function (event, data) {
 	
 	console.assert(event);
 
+	if (arguments.length > 2) {
+		data = Array.prototype.slice.call(arguments, 1);
+	} else if (Utils.isArray(data)){
+		data = [data];
+	}
+
 	// Only first trigger called in the chain can process the async events.
 	if (this.__triggerActive) {
 		$(this).trigger(event, data);

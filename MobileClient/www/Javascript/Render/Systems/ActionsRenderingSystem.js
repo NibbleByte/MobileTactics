@@ -50,9 +50,9 @@ ActionsRenderingSystem.ActionExecutors.DefaultExecutor = function (m_executor, m
 		
 		// If no more goActions available, clear anyway.
 		if (goActions) {
-			m_eworld.triggerAsync(ClientEvents.Controller.ACTIONS_OFFERED, [goActions]);
+			m_eworld.triggerAsync(ClientEvents.Controller.ACTIONS_OFFERED, goActions);
 		} else {
-			m_eworld.triggerAsync(ClientEvents.Controller.ACTIONS_CLEARED, [goActions]);
+			m_eworld.triggerAsync(ClientEvents.Controller.ACTIONS_CLEARED, goActions);
 		}
 	};
 }
