@@ -8,7 +8,6 @@ var ActionFogRenderingSystem = function (m_world) {
 	var self = this;
 	
 	var m_offeredActions = null;
-	var m_fogRendered = false;	// Optimization, to avoid rendering vain.
 	
 	//
 	// Entity system initialize
@@ -29,7 +28,6 @@ var ActionFogRenderingSystem = function (m_world) {
 		hideAll();
 		
 		m_offeredActions = goActions.actions;
-		m_fogRendered = true;
 		
 		
 		var moveAction = null;
@@ -74,13 +72,10 @@ var ActionFogRenderingSystem = function (m_world) {
 	}
 	
 	var onActionsCleared = function (event) {
-		
-		if (m_fogRendered) {
-			m_fogRendered = false;
-			hideAll();
-			self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.Highlights);
-			self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.ActionFog);
-		}
+
+		hideAll();
+		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.Highlights);
+		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.ActionFog);
 	}
 
 	var hideAll = function () {
