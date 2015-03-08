@@ -125,8 +125,20 @@ var PlayerController = function (m_world, m_executor) {
 			}
 
 		} else {
-			// Unselect any action tiles
-			self._eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
+
+			// If in preview, can't select other tile. Must choose valid action or cancel!
+			if (m_selectedGOActions &&
+					m_selectedGOActions.go.CUnit.actionsData.getTurnData(m_selectedGOActions.go.CUnit.turnPoints).executedActions.length > 0
+					) {
+				// Since selection has changed, re-select back the unit.
+				selectTileHighlight(m_selectedGOActions.go.CTilePlaceable.tile);
+				return;
+
+			} else {
+
+				// Unselect any action tiles
+				self._eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
+			}
 		}	
 	}
 	
