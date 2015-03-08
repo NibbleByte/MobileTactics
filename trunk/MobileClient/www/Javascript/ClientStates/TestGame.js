@@ -268,7 +268,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		}
 	
 		var onBtnLoad = function () {
-			if (!savedGame)
+			if (!m_clientState.savedGame)
 				return;
 
 			m_loadingScreen.show();
@@ -282,7 +282,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		
 				var allObjects = [];
 		
-				var fullGameState = Serialization.deserialize(savedGame, allObjects);
+				var fullGameState = Serialization.deserialize(m_clientState.savedGame, allObjects);
 		
 				m_clientState.gameState = fullGameState.gameState;
 				m_clientState.playersData = fullGameState.playersData;

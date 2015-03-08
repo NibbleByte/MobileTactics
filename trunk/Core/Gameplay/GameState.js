@@ -6,6 +6,10 @@
 
 // Read-only data.
 var GameState = function () {
+	this.init();
+}
+
+GameState.prototype.init = function () {
 	this.currentPlayer = null;
 	this.turnsPassed = 0;
 	
@@ -48,8 +52,10 @@ GameState.serialize = function (input, output, instanceRegister) {
 	output.turnsPassed = Serialization.serializeCustom(input.turnsPassed, instanceRegister);
 };
 
-GameState.deserialize = function (input, output, instanceRegister) {
+GameState.deserialize = function (input, output, instanceRegister, outAllObjects) {
 
-	output.currentPlayer = Serialization.deserializeCustom(input.currentPlayer, instanceRegister);
-	output.turnsPassed = Serialization.deserializeCustom(input.turnsPassed, instanceRegister);
+	output.init();
+
+	output.currentPlayer = Serialization.deserializeCustom(input.currentPlayer, instanceRegister, outAllObjects);
+	output.turnsPassed = Serialization.deserializeCustom(input.turnsPassed, instanceRegister, outAllObjects);
 };
