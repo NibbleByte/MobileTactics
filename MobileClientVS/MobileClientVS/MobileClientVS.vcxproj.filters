@@ -404,6 +404,9 @@
     <None Include="..\..\MobileClient\AssetsRepo\1.0\AssetsScale.js">
       <Filter>Assets-Scaled</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Javascript\AssetsStaticScaler.js">
+      <Filter>Javascript</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
