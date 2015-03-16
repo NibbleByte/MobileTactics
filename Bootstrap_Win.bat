@@ -4,6 +4,7 @@
 set InternalTools=%CD%/Internal Tools
 
 set Core=%CD%/Core
+set AssetsRepo=%CD%/MobileClient/AssetsRepo
 set Client=%CD%/MobileClient/www
 set ClientJS=%CD%/MobileClient/www/Javascript
 
@@ -22,6 +23,12 @@ mklink /D "%InternalTools%/_Core" "%Core%"
 
 rmdir "%InternalTools%/_Client" /S /Q
 mklink /D "%InternalTools%/_Client" "%Client%"
+
+::
+:: Link the asset distribution folder.
+::
+rmdir "%AssetsRepo%/_PublicAssets_" /S /Q
+mklink /D "%AssetsRepo%/_PublicAssets_" "%Client%/Assets"
 
 
 ::
