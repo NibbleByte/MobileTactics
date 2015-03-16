@@ -87,6 +87,7 @@
     <None Include="..\..\MobileClient\www\Javascript\3rdParty\sprite.js" />
     <None Include="..\..\MobileClient\www\Javascript\3rdParty\sylvester.src.js" />
     <None Include="..\..\MobileClient\www\Javascript\ActionsMenuController.js" />
+    <None Include="..\..\MobileClient\www\Javascript\AssetsStaticScaler.js" />
     <None Include="..\..\MobileClient\www\Javascript\BattleRendering\BattleFieldRenderer.js" />
     <None Include="..\..\MobileClient\www\Javascript\BattleRendering\BattleRenderingEvents.js" />
     <None Include="..\..\MobileClient\www\Javascript\BattleRendering\BattleRenderingManager.js" />
