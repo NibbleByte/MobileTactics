@@ -23,7 +23,7 @@ Enums.enumerate(CTileRendering.HighlightType);
 CTileRendering.getSpritePath = function (highlightMode) {
 	return CTileRendering.SPRITES_PATH.replace(/{fileName}/g, CTileRendering.SPRITES_FILES[highlightMode]);
 }
-CTileRendering.SPRITES_PATH = 'Assets/Render/Images/TileHighlight/{fileName}';
+CTileRendering.SPRITES_PATH = 'Assets-Scaled/Render/Images/TileHighlight/{fileName}';
 CTileRendering.SPRITES_FILES = ['',
 							'hex_move.png',
 							'hex_attack.png'

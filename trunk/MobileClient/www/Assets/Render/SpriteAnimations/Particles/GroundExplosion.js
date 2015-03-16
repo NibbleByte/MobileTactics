@@ -3,7 +3,7 @@ SpriteAnimations.Particles = SpriteAnimations.Particles || {};
 
 SpriteAnimations.Particles.GroundExplosion = {
 
-	resourcePath: 'Assets/Render/Images/Particles/GroundExplosion.png',
+	resourcePath: 'Assets-Scaled/Render/Images/Particles/GroundExplosion.png',
 	
 	frameWidth: 50,
 	frameHeight: 128,

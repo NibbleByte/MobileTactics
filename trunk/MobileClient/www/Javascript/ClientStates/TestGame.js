@@ -396,8 +396,8 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 				$(rendering.sprite.dom)
 				.css('background', 
 						(tile.column % 2) 
-						? 'url("Assets/Render/Images/hex.png") no-repeat' 
-						: 'url("Assets/Render/Images/hex_bluesh.png") no-repeat'
+						? 'url("Assets-Scaled/Render/Images/hex.png") no-repeat' 
+						: 'url("Assets-Scaled/Render/Images/hex_bluesh.png") no-repeat'
 					)
 				.css('background-size', '100% 100%');
 			}

@@ -48,7 +48,7 @@ var BattleFieldBackgroundSystem = function (m_renderer) {
 	}
 }
 
-BattleFieldBackgroundSystem.BACKGROUND_SPRITES_PATH = 'Assets/Render/Images/BattleRendering/Terrains/{terrainType}.png';
+BattleFieldBackgroundSystem.BACKGROUND_SPRITES_PATH = 'Assets-Scaled/Render/Images/BattleRendering/Terrains/{terrainType}.png';
 
 ECS.EntityManager.registerSystem('BattleFieldBackgroundSystem', BattleFieldBackgroundSystem);
 SystemsUtils.supplySubscriber(BattleFieldBackgroundSystem);

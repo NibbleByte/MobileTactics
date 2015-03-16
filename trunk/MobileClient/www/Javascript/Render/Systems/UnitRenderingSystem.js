@@ -185,7 +185,7 @@ var UnitRenderingSystem = function (renderer) {
 
 UnitRenderingSystem.REQUIRED_COMPONENTS = [CUnitRendering, CTilePlaceableRendering];
 UnitRenderingSystem.MAIN_SPRITE = 'MainSprite';
-UnitRenderingSystem.SPRITES_PATH = 'Assets/Render/Images/Units/{race}/{fileName}';
+UnitRenderingSystem.SPRITES_PATH = 'Assets-Scaled/Render/Images/Units/{race}/{fileName}';
 
 ECS.EntityManager.registerSystem('UnitRenderingSystem', UnitRenderingSystem);
 SystemsUtils.supplyComponentFilter(UnitRenderingSystem, UnitRenderingSystem.REQUIRED_COMPONENTS);

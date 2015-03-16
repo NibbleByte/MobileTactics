@@ -33,7 +33,8 @@ namespace AssetProcessor
 				Directory.Exists(dir + @"\2.0") &&
 				Directory.Exists(dir + @"\3.0") &&
 				//Directory.Exists(dir + @"\Static") &&
-				Directory.Exists(dir + @"\_PublicAssets_");
+				//Directory.Exists(dir + @"\_PublicAssets_");
+				Directory.Exists(dir + @"\_Client");
 		}
 
 		public static int Scale(string inputName, string outputName, float multiplier, ScaleAction action)
@@ -118,15 +119,30 @@ namespace AssetProcessor
 		{
 			int errors = 0;
 
-			try
+			// Old way -> copy all files into Assets.
+			//try
+			//{
+			//	DirectoryCopy(deployName, "_PublicAssets_", true, true, symbolicLink, (file) => {
+			//		Console.WriteLine(file.FullName.Replace(Directory.GetCurrentDirectory() + @"\", "")); 
+			//	});
+			//}
+			//catch (System.Exception ex)
+			//{
+			//	Log(ex.GetType() + ": " + ex.Message, ConsoleColor.Red);
+			//	errors++;
+			//}
+
+			string deployDir = Path.Combine(Directory.GetCurrentDirectory(), deployName);
+			string deployLink = Path.Combine(Directory.GetCurrentDirectory(), "_Client/Assets-Scaled");
+
+			if (Directory.Exists(deployLink))
+				Directory.Delete(deployLink);
+
+			bool success = CreateSymbolicLink(deployLink, deployDir, SymbolicLink.Directory);
+
+			if (!success)
 			{
-				DirectoryCopy(deployName, "_PublicAssets_", true, true, symbolicLink, (file) => {
-					Console.WriteLine(file.FullName.Replace(Directory.GetCurrentDirectory() + @"\", "")); 
-				});
-			}
-			catch (System.Exception ex)
-			{
-				Log(ex.GetType() + ": " + ex.Message, ConsoleColor.Red);
+				Log("Could not create symbolic link. Try running as administrator.", ConsoleColor.Red);
 				errors++;
 			}
 

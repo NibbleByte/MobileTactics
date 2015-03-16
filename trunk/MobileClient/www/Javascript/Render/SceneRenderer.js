@@ -145,7 +145,7 @@ sjs.Sprite.prototype.addOnLoadHandler = function (handler) {
 	this.__onloadHandlers.push(handler);
 
 	// Sanity-check
-	if (this.__onloadHandlers.length > 20 && !ClientUtils.isTouchDevice) {
+	if (this.__onloadHandlers.length > 20 && !ClientUtils.isTouchDevice && this.__onloadHandlers.length < 100) {
 		console.warn("There are waaay too many OnLoad handlers - " + this.__onloadHandlers.length + ". Is this sprite gonna load at all? " + this.src);
 	}
 }
