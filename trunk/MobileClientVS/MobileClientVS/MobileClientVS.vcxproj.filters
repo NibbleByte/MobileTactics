@@ -401,6 +401,9 @@
     <None Include="..\..\MobileClient\www\Javascript\cordova-Mockup.js">
       <Filter>Javascript</Filter>
     </None>
+    <None Include="..\..\MobileClient\AssetsRepo\1.0\AssetsScale.js">
+      <Filter>Assets-Scaled</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
@@ -504,6 +507,9 @@
     </Filter>
     <Filter Include="Assets\Render\SpriteAnimations\Particles">
       <UniqueIdentifier>{9e8eb130-314a-401b-8fb5-f341e9f6146a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets-Scaled">
+      <UniqueIdentifier>{20a658df-b204-4de7-bc62-caf69e0059fc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
