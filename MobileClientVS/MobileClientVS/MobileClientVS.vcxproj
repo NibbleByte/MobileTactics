@@ -65,6 +65,7 @@
     <None Include="..\..\Internal Tools\Libs\jscolor\jscolor.js" />
     <None Include="..\..\Internal Tools\SpriteTestground\SpriteTestground-Main.js" />
     <None Include="..\..\Internal Tools\SpriteTestground\SpriteTestground.html" />
+    <None Include="..\..\MobileClient\AssetsRepo\1.0\AssetsScale.js" />
     <None Include="..\..\MobileClient\www\Assets\ActionMenu.css" />
     <None Include="..\..\MobileClient\www\Assets\BattleScreen.css" />
     <None Include="..\..\MobileClient\www\Assets\DevConsole.css" />

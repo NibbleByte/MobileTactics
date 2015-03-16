@@ -5,10 +5,16 @@
 
 var GTile = {};
 
-GTile.TILE_WIDTH = 64;
-GTile.TILE_HEIGHT = 64;
+GTile.TILE_WIDTH = 64 * Assets.scale;
+GTile.TILE_HEIGHT = 64 * Assets.scale;
 
-GTile.TILE_VSIDE = 34;	// Length of the vertical left/right side from the image
+GTile._SCALED_VSIDES = {
+	1: 34,
+	2: 70,
+	3: 104,
+}
+
+GTile.TILE_VSIDE = GTile._SCALED_VSIDES[Assets.scale];	// Length of the vertical left/right side from the image
 
 
 
@@ -54,4 +60,4 @@ GTile.TILE_VOFFSET = (GTile.TILE_HEIGHT - GTile.TILE_VSIDE) / 2 + GTile.TILE_VSI
 // Get the slope of the top-left side (line) of the hex using the 2 available points.
 GTile.TILE_SIDE_SLOPE = (0 - (GTile.TILE_HEIGHT - GTile.TILE_VOFFSET)) / (GTile.TILE_WIDTH / 2 - 0);
 
-GTile.LAYERS_PADDING = 32;
+GTile.LAYERS_PADDING = 32 * Assets.scale;
