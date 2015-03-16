@@ -27,8 +27,8 @@ mklink /D "%InternalTools%/_Client" "%Client%"
 ::
 :: Link the asset distribution folder.
 ::
-rmdir "%AssetsRepo%/_PublicAssets_" /S /Q
-mklink /D "%AssetsRepo%/_PublicAssets_" "%Client%/Assets"
+rmdir "%AssetsRepo%/_Client" /S /Q
+mklink /D "%AssetsRepo%/_Client" "%Client%"
 
 
 ::

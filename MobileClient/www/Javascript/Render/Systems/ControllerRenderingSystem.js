@@ -37,7 +37,7 @@ var ControllerRenderingSystem = function (m_renderer) {
 	}
 }
 
-ControllerRenderingSystem.TILE_SELECTED_SPRITE_PATH = 'Assets/Render/Images/hex_selected.png';
+ControllerRenderingSystem.TILE_SELECTED_SPRITE_PATH = 'Assets-Scaled/Render/Images/hex_selected.png';
 
 ECS.EntityManager.registerSystem('ControllerRenderingSystem', ControllerRenderingSystem);
 SystemsUtils.supplySubscriber(ControllerRenderingSystem);

@@ -264,9 +264,9 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 	}
 }
 
-TileRenderingSystem.TILES_SPRITE_PATH = 'Assets/Render/Images/Tiles/{terrainType}.png';
-TileRenderingSystem.ACTION_FOG_SPRITE_PATH = 'Assets/Render/Images/ActionHexFog.png';
-TileRenderingSystem.VISIBILITY_FOG_SPRITE_PATH = 'Assets/Render/Images/VisibilityHexFog.png';
+TileRenderingSystem.TILES_SPRITE_PATH = 'Assets-Scaled/Render/Images/Tiles/{terrainType}.png';
+TileRenderingSystem.ACTION_FOG_SPRITE_PATH = 'Assets-Scaled/Render/Images/ActionHexFog.png';
+TileRenderingSystem.VISIBILITY_FOG_SPRITE_PATH = 'Assets-Scaled/Render/Images/VisibilityHexFog.png';
 
 ECS.EntityManager.registerSystem('TileRenderingSystem', TileRenderingSystem);
 SystemsUtils.supplySubscriber(TileRenderingSystem);

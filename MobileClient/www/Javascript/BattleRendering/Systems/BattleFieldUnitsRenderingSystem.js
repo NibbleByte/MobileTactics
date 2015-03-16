@@ -100,7 +100,7 @@ var BattleFieldUnitsRenderingSystem = function (m_renderer) {
 }
 
 BattleFieldUnitsRenderingSystem.MAIN_SPRITE = 'MainSprite';
-BattleFieldUnitsRenderingSystem.SPRITES_PATH = 'Assets/Render/Images/Units/{race}/{fileName}';
+BattleFieldUnitsRenderingSystem.SPRITES_PATH = 'Assets-Scaled/Render/Images/Units/{race}/{fileName}';
 
 ECS.EntityManager.registerSystem('BattleFieldUnitsRenderingSystem', BattleFieldUnitsRenderingSystem);
 SystemsUtils.supplyComponentFilter(BattleFieldUnitsRenderingSystem, [CBattleUnit]);

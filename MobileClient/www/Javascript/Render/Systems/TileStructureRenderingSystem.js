@@ -98,7 +98,7 @@ var TileStructureRenderingSystem = function (m_renderer) {
 	}
 }
 
-TileStructureRenderingSystem.TILES_OVERLAY_SPRITE_PATH = 'Assets/Render/Images/TileOverlays/{terrainType}.png';
+TileStructureRenderingSystem.TILES_OVERLAY_SPRITE_PATH = 'Assets-Scaled/Render/Images/TileOverlays/{terrainType}.png';
 TileStructureRenderingSystem.OVERLAY_SPRITE_ANIMATOR = 'OverlayAnimator';
 TileStructureRenderingSystem.isStructureTile = function (entity) {
 	return entity.CTileRendering && entity.CTileRendering.sprite && entity.CTileTerrain && (
