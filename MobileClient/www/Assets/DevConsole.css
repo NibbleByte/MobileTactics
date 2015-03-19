@@ -20,18 +20,22 @@
 	font-size: 12px;
 }
 
-#BtnConsoleClose
+.asset-scale-2 #Console
+{
+	font-size: 30px;
+}
+
+.asset-scale-3 #Console
+{
+	font-size: 46px;
+}
+
+
+#ConsoleButtons
 {
 	position: absolute;
 	bottom: 4px;
 	right: 4px;
-}
-
-#BtnConsoleClear
-{
-	position: absolute;
-	bottom: 4px;
-	right: 46px;
 }
 
 #Console p

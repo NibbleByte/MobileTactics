@@ -41,8 +41,10 @@
 			</div>
 
 			<div id="Console">
-				<button id="BtnConsoleClose" onclick="$('#Console').hide();">X</button>
-				<button id="BtnConsoleClear" onclick="$('#Console').children().not(':button').remove();">Clear</button>
+				<div id="ConsoleButtons">
+					<button id="BtnConsoleClear" onclick="$('#Console').children().not('#ConsoleButtons').remove();">Clear</button>
+					<button id="BtnConsoleClose" onclick="$('#Console').hide();">&nbsp; &nbsp; X &nbsp; &nbsp;</button>
+				</div>
 			</div>
 
 
