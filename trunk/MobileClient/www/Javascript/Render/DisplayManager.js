@@ -16,7 +16,8 @@ var DisplayManager = new function () {
 	// in order to compensate large resolutions with small physical dimensions. Makes sites to look "normal" physical size.
 	// This means all images will be stretched for higher PPI, which is ugly for a game.
 	// Good explanation: http://www.paintcodeapp.com/news/ultimate-guide-to-iphone-resolutions
-	this.zoom =  1 / this.devicePixelRatio;
+	//this.zoom =  1 / this.devicePixelRatio;
+	this.zoom = (1 / Assets.scale) / this.devicePixelRatio;
 
 
 	if (params['Zoom'] || params['zoom']) {
@@ -29,9 +30,9 @@ var DisplayManager = new function () {
 
 	document.write(template.replace(new RegExp('\\$scale', 'g'), this.zoom.toPrecision(2)));
 
-	setTimeout(function () {
-		//$('#DebugStats').text(template.replace(new RegExp('\\$scale', 'g'), DisplayManager.zoom.toPrecision(2)));
-	}, 1000);
+	document.addEventListener("DOMContentLoaded", function(event) {
+		$(document.body).addClass(' asset-scale-' + Assets.scale);
+	});
 }
 
 DisplayManager.ScreenDensityType = {
