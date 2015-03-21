@@ -28,19 +28,10 @@ html, body
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-body.asset-scale-2
-{
-	font-size: 32px;
-}
-
-body.asset-scale-3
-{
-	font-size: 48px;
-}
 
 #Screen
 {
-	border: solid 1px blue;
+	/*border: solid 1px blue;*/
 	overflow: hidden;
 	position: relative;
 	
@@ -68,17 +59,7 @@ body.asset-scale-3
 	left: 0px;
 	right: 0px;
 	
-	border: solid 1px green;
-}
-
-.asset-scale-2 #GameWorldMap, .asset-scale-2 #GameWorldMapEditor
-{
-	bottom: 65px;
-}
-
-.asset-scale-3 #GameWorldMap, .asset-scale-3 #GameWorldMapEditor
-{
-	bottom: 75px;
+	/*border: solid 1px green;*/
 }
 
 
@@ -90,16 +71,6 @@ body.asset-scale-3
 	bottom: 0px;
 	
 	height: 40px;
-}
-
-.asset-scale-2 .toolbar_bottom_container
-{
-	height: 65px;
-}
-
-.asset-scale-3 .toolbar_bottom_container
-{
-	height: 75px;
 }
 
 
@@ -129,21 +100,6 @@ body.asset-scale-3
 	border-radius: 6px;
 }
 
-.asset-scale-2 .toolbar_more
-{
-	bottom: 65px;
-	width: 300px;
-	height: 400px;
-}
-
-.asset-scale-3 .toolbar_more
-{
-	bottom: 75px;
-	
-	width: 400px;
-	height: 600px;
-}
-
 .toolbar_more button, .toolbar_more input, .toolbar_more .input_file_wrapper 
 {
 	display: block;
@@ -164,16 +120,6 @@ body.asset-scale-3
 	
 	font-size: 26px;
 	font-weight: bold;
-}
-
-.asset-scale-2 #LoadingScreenContent
-{
-	font-size: 52px;
-}
-
-.asset-scale-3 #LoadingScreenContent
-{
-	font-size: 78px;
 }
 
 #RuntimeStats
@@ -227,16 +173,6 @@ button, .input_file_wrapper {
 	
 	text-shadow:0px -1px 0px #2b665e;
 	
-}
-
-.asset-scale-2 button, .asset-scale-2 .input_file_wrapper
-{
-	font-size: 36px;
-}
-
-.asset-scale-3 button, .asset-scale-3 .input_file_wrapper
-{
-	font-size: 52px;
 }
 
 button:hover, .input_file_wrapper:hover {

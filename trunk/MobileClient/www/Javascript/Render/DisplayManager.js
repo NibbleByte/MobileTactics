@@ -8,6 +8,8 @@
 
 var DisplayManager = new function () {
 
+	var self = this;
+
 	var params = getUrlVars();
 
 	this.devicePixelRatio = window.devicePixelRatio || 1;
@@ -16,7 +18,6 @@ var DisplayManager = new function () {
 	// in order to compensate large resolutions with small physical dimensions. Makes sites to look "normal" physical size.
 	// This means all images will be stretched for higher PPI, which is ugly for a game.
 	// Good explanation: http://www.paintcodeapp.com/news/ultimate-guide-to-iphone-resolutions
-	//this.zoom =  1 / this.devicePixelRatio;
 	this.zoom = (1 / Assets.scale) / this.devicePixelRatio;
 
 
@@ -26,13 +27,25 @@ var DisplayManager = new function () {
 		this.devicePixelRatio = 1 / this.zoom;
 	}
 
-	var template = '<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=$scale, maximum-scale=$scale, minimum-scale=$scale, target-densitydpi=device-dpi">';
+	// Using different approach
+	//var template = '<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=$scale, maximum-scale=$scale, minimum-scale=$scale, target-densitydpi=device-dpi">';
 
-	document.write(template.replace(new RegExp('\\$scale', 'g'), this.zoom.toPrecision(2)));
+	//document.write(template.replace(new RegExp('\\$scale', 'g'), this.zoom.toPrecision(2)));
 
 	document.addEventListener("DOMContentLoaded", function(event) {
-		$(document.body).addClass(' asset-scale-' + Assets.scale);
+		$(document.body).addClass('asset-scale-' + Assets.scale);
 	});
+
+
+	this.zoomInElement = function (element) {
+		$(element).css({
+			'-webkit-transform'	: 'scale(' + self.zoom + ')',
+			'-moz-transform'	: 'scale(' + self.zoom + ')',
+			'-ms-transform'		: 'scale(' + self.zoom + ')',
+			'-o-transform'		: 'scale(' + self.zoom + ')',
+			'transform'			: 'scale(' + self.zoom + ')'
+		});
+	}
 }
 
 DisplayManager.ScreenDensityType = {
