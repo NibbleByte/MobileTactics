@@ -99,8 +99,11 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 
 		// Use pageX && pageY because they are normalized by jQuery. FFox doesn't provide offsetX && offsetY.
 		var offset = (opt_target) ? $(opt_target).offset() : $(event.currentTarget).offset();
-		var posX = event.pageX - offset.left - GTile.LAYERS_PADDING;
-		var posY = event.pageY - offset.top - GTile.LAYERS_PADDING;
+		var posX = event.pageX - offset.left - GTile.LAYERS_PADDING * DisplayManager.zoom;
+		var posY = event.pageY - offset.top - GTile.LAYERS_PADDING * DisplayManager.zoom;
+
+		posX /= DisplayManager.zoom;
+		posY /= DisplayManager.zoom;
 
 		m_renderer.getTileCoordsAtPoint(posX, posY, clickedEventDataCache);
 		clickedEventDataCache.tile = m_world.getTile(clickedEventDataCache.row, clickedEventDataCache.column);

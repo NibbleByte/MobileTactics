@@ -26,7 +26,10 @@ var SceneRenderer = function (holderElement, eworld, layersDefinitions, layersOp
 	for(var layerName in layersDefinitions.LayerTypes) {
 		var layerType = layersDefinitions.LayerTypes[layerName];
 		if (!this.layers[layerType]) {
-			this.layers[layerType] = this.scene.Layer(layerName, layersDefinitions.layersOptions[layerName]);
+			var layer = this.scene.Layer(layerName, layersDefinitions.layersOptions[layerName]);
+			this.layers[layerType] = layer;
+
+			DisplayManager.zoomInElement(layer.dom);
 		}
 	}
 	
@@ -44,10 +47,14 @@ var SceneRenderer = function (holderElement, eworld, layersDefinitions, layersOp
 	$(this.scene.layers['default'].dom).hide();
 
 	this.refresh = function () {
+
+		var zoomedWidth = self.extentWidth * DisplayManager.zoom;
+		var zoomedHeight = self.extentHeight * DisplayManager.zoom;
+
 		
 		// HACK: Resize manually the scene and layers
-		$(self.scene.dom).width(self.extentWidth);
-		$(self.scene.dom).height(self.extentHeight);
+		$(self.scene.dom).width(zoomedWidth);
+		$(self.scene.dom).height(zoomedHeight);
 
 		for(var i = 0; i < self.layers.length; ++i) {
 			var layer = self.layers[i];
@@ -61,6 +68,9 @@ var SceneRenderer = function (holderElement, eworld, layersDefinitions, layersOp
 				$(layer.dom).width(self.extentWidth);
 				$(layer.dom).height(self.extentHeight);
 			}
+
+			$(layer.dom).css('left', (zoomedWidth - self.extentWidth) / 2);
+			$(layer.dom).css('top', (zoomedHeight - self.extentHeight) / 2);
 		}
 	}
 
