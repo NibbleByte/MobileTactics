@@ -169,3 +169,23 @@ sjs.Sprite.prototype.onload = function () {
 
 	delete this.__onloadHandlers;
 }
+
+// 
+// HACK: Fix issues with clearing canvas on Android 4.1-4.3
+// URL: https://medium.com/@dhashvir/android-4-1-x-stock-browser-canvas-solution-ffcb939af758
+//
+if (ClientUtils.isAndroid && parseFloat(ClientUtils.androidVersion) >= 4.1 && parseFloat(ClientUtils.androidVersion) <= 4.3) {
+
+	SceneRenderer.CanvasRenderingContext2D = {
+		clearRect: CanvasRenderingContext2D.prototype.clearRect
+	};
+
+	CanvasRenderingContext2D.prototype.clearRect = function () {
+		SceneRenderer.CanvasRenderingContext2D.clearRect.apply(this, arguments);
+
+		this.canvas.style.display = 'none';		// Detach from DOM
+		this.canvas.offsetHeight;				// Force the detach
+		this.canvas.style.display = 'inherit';	// Reattach to DOM
+	};
+
+}
