@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Diagnostics;
 
 namespace AssetProcessor
 {
@@ -18,13 +19,18 @@ namespace AssetProcessor
 
 			do
 			{
+				Console.ResetColor();
+
 				Console.Clear();
 				Console.WriteLine("Asset Processor:");
 				Console.WriteLine("1. ScaleUp");
 				Console.WriteLine("2. ScaleDown");
-				Console.WriteLine("3. Deploy");
+				Console.WriteLine("4. Deploy");
+				Console.WriteLine();
+				Console.WriteLine("R. Run on device");
 				Console.WriteLine("Q. Quit");
 
+				Console.WriteLine();
 				Console.Write("Enter choice: ");
 
 				key = Console.ReadKey(false);
@@ -32,9 +38,9 @@ namespace AssetProcessor
 
 				Console.WriteLine();
 
-				switch (key.Key)
+				switch (key.KeyChar)
 				{
-					case ConsoleKey.D1:
+					case '1':
 
 						Console.WriteLine("\nScaling up is BAD! Are you sure? Press Y to confirm.");
 						if (Console.ReadKey().Key != ConsoleKey.Y)
@@ -49,7 +55,7 @@ namespace AssetProcessor
 
 						break;
 
-					case ConsoleKey.D2:
+					case '2':
 
 						Console.WriteLine("\nProcessing: 2.0\n"); Thread.Sleep(750);
 						errors += AssetProcessor.Scale("3.0", "2.0", 1.5f, AssetProcessor.ScaleAction.Divide);
@@ -60,7 +66,9 @@ namespace AssetProcessor
 
 						break;
 
-					case ConsoleKey.D3:
+					case '4':
+
+						Console.ForegroundColor = ConsoleColor.DarkYellow;
 
 						Console.Clear();
 						Console.WriteLine("Deploy options:");
@@ -72,25 +80,31 @@ namespace AssetProcessor
 						var deployKey = Console.ReadKey(false);
 						Console.WriteLine();
 
-						switch (deployKey.Key)
+						switch (deployKey.KeyChar)
 						{
-							case ConsoleKey.D1:
+							case '1':
 								errors += AssetProcessor.Deploy("1.0");
 
 								PrintFinish(errors);
 								break;
-							case ConsoleKey.D2:
+							case '2':
 								errors += AssetProcessor.Deploy("2.0");
 
 								PrintFinish(errors);
 								break;
-							case ConsoleKey.D3:
+							case '3':
 								errors += AssetProcessor.Deploy("3.0");
 
 								PrintFinish(errors);
 								break;
 						}
 
+
+						break;
+
+					case 'R':
+					case 'r':
+						Process.Start("cordova", "run");
 
 						break;
 				}
