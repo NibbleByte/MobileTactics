@@ -1677,6 +1677,7 @@ Layer.prototype.clear = function clear() {
         this.ctx.clear(this.ctx.COLOR_BUFFER_BIT | this.ctx.DEPTH_BUFFER_BIT);
     else
         this.ctx.clearRect(0, 0, this.dom.width, this.dom.height);
+		// NOTE: clearRect has be overridden to hack-fix android issues.
 };
 
 Layer.prototype.Sprite = function (src, options) {
