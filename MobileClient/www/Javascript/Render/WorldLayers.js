@@ -11,10 +11,10 @@ WorldLayers.LayerTypes = {
 	Selection: 1,
 	TerrainOverlay: 1,
 	Highlights: 1,
-	Units: 1,
-	VisibilityFog: 2,
-	ActionFog: 2,
-	Statistics: 3,
+	Units: 2,
+	VisibilityFog: 3,
+	ActionFog: 3,
+	Statistics: 4,
 	
 };
 //Enums.enumerate(WorldLayers.LayerTypes);
@@ -59,8 +59,9 @@ WorldLayers.layersOptions = {
 	},
 
 	Units: {
-		useCanvas: true,
+		useCanvas: false,
 		autoClear: false,
+		useCanvasInstance: true,
 	},
 
 	ActionFog: {
