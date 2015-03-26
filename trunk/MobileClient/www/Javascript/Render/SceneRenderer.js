@@ -4,7 +4,7 @@
 //===============================================
 "use strict";
 
-var SceneRenderer = function (holderElement, eworld, layersDefinitions, layersOptions) {
+var SceneRenderer = function (holderElement, eworld, layersDefinitions) {
 	var self = this;
 	
 	console.assert(holderElement instanceof HTMLElement, "HTMLElement is required.");

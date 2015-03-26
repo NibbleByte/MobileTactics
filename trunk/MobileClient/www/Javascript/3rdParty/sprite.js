@@ -457,6 +457,13 @@ Sprite = function Sprite(scene, src, layer) {
         d.style.position = 'absolute';
         this.dom = d;
         this.layer.dom.appendChild(d);
+
+		if (this.layer.useCanvasInstance) {
+			d = doc.createElement('canvas');
+			this.canvasInstance = d;
+			this.canvasCtx = d.getContext('2d');
+			this.dom.appendChild(d);
+		}
     }
     if (src) {
         this.loadImg(src);
@@ -783,14 +790,26 @@ Sprite.prototype.update = function updateDomProperties () {
     if (!this.changed)
         return this;
 
-    if (this._dirty.w)
+    if (this._dirty.w) {
         style.width=(this.w | 0) +'px';
-    if (this._dirty.h)
+		if (this.canvasInstance) this.canvasInstance.width = this.w | 0;
+	}
+    if (this._dirty.h) {
         style.height=(this.h | 0) + 'px';
+		if (this.canvasInstance) this.canvasInstance.height = this.h | 0;
+	}
     // translate and translate3d doesn't seems to offer any speedup
     // in my tests.
-    if (this._dirty.xoffset || this._dirty.yoffset)
-        style.backgroundPosition=-(this.xoffset | 0) + 'px ' + -(this.yoffset | 0) + 'px';
+	if (!this.layer.useCanvasInstance) {
+		if (this._dirty.xoffset || this._dirty.yoffset)
+			style.backgroundPosition=-(this.xoffset | 0) + 'px ' + -(this.yoffset | 0) + 'px';
+
+	} else if (this.img){
+		// NOTE: Doesn't work with scale etc...
+		this.canvasCtx.clearRect(0, 0, this.w, this.h);
+		this.canvasCtx.drawImage(this.img, this.xoffset, this.yoffset, this.w, this.h,
+            0, 0, this.w, this.h);
+	}
 
     if (this._dirty.opacity)
         style.opacity = this.opacity;
@@ -941,7 +960,7 @@ Sprite.prototype.loadImg = function (src, resetSize) {
         img = there.img;
         sjs.spriteCache[src].loaded = true;
         there.imgLoaded = true;
-        if (there.layer && !there.layer.useCanvas)
+        if (there.layer && !there.layer.useCanvas && !there.layer.useCanvasInstance)
             there.dom.style.backgroundImage = 'url(' + src + ')';
         there.imgNaturalWidth = img.width;
         there.imgNaturalHeight = img.height;
@@ -1590,6 +1609,11 @@ Layer = function Layer(scene, name, options) {
         this.useCanvas = this.scene.useCanvas;
     else
         this.useCanvas = options.useCanvas;
+
+    if (options.useCanvasInstance === undefined)
+        this.useCanvasInstance = false;
+    else
+        this.useCanvasInstance = options.useCanvasInstance;
 
     this.useWebGL = options.useWebGL;
 
