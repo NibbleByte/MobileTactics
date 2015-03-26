@@ -18,6 +18,8 @@ var ActionFogRenderingSystem = function (m_world) {
 		self._eworldSB.subscribe(ClientEvents.Controller.ACTION_CANCEL, onActionsCleared);
 
 		self._eworldSB.subscribe(GameplayEvents.Store.PLACEABLE_BOUGHT, onActionsCleared);
+
+		self._eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGING, onTurnChanging);
 	}
 	
 	//
@@ -78,6 +80,17 @@ var ActionFogRenderingSystem = function (m_world) {
 		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.ActionFog);
 	}
 
+	var onTurnChanging = function (event) {
+
+		var gameState = self._eworld.extract(GameState);
+
+		// If about to change turn, remove finished fogs over previous player units.
+		for (var i = 0; i < gameState.currentPlaceables.length; ++i) {
+			var placeable = gameState.currentPlaceables[i];
+			placeable.CUnitRendering.hideFinished();
+		}
+	}
+
 	var hideAll = function () {
 		m_offeredActions = null;
 
@@ -93,9 +106,7 @@ var ActionFogRenderingSystem = function (m_world) {
 		// If placeable finished turn, do show fog.
 		for(var i = 0; i < gameState.currentPlaceables.length; ++i) {
 			var placeable = gameState.currentPlaceables[i];
-			if (placeable.CUnit.finishedTurn) {
-				placeable.CTilePlaceable.tile.CTileRendering.showActionFog();
-			}
+			placeable.CUnitRendering.showFinished(placeable.CUnit.finishedTurn);
 		}
 	}
 }
