@@ -804,7 +804,7 @@ Sprite.prototype.update = function updateDomProperties () {
 		if (this._dirty.xoffset || this._dirty.yoffset)
 			style.backgroundPosition=-(this.xoffset | 0) + 'px ' + -(this.yoffset | 0) + 'px';
 
-	} else if (this.img){
+	} else if (this.img && this.imgLoaded){
 		// NOTE: Doesn't work with scale etc...
 		this.canvasCtx.clearRect(0, 0, this.w, this.h);
 		this.canvasCtx.drawImage(this.img, this.xoffset, this.yoffset, this.w, this.h,
