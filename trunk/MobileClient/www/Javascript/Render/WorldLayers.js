@@ -9,12 +9,13 @@ var WorldLayers = {};
 WorldLayers.LayerTypes = {
 	Terrain: 0,
 	Selection: 1,
-	TerrainOverlay: 1,
-	Highlights: 1,
-	Units: 2,
-	VisibilityFog: 3,
-	ActionFog: 3,
-	Statistics: 4,
+	TerrainOverlay: 2,
+	Units: 3,
+	UnitsFinished: 4,
+	Highlights: 5,	// Combine highlight & action fog to gain performance. But highlights will be above unit :(
+	ActionFog: 5,
+	VisibilityFog: 6,
+	Statistics: 7,
 	
 };
 //Enums.enumerate(WorldLayers.LayerTypes);
@@ -24,10 +25,12 @@ WorldLayers.SpritesDefaultDepth = {
 	Terrain: 100,
 	Selection: 90,
 	TerrainOverlay: 80,
-	Highlights: 70,
-	Units: 60,
-	VisibilityFog: 50,
+	Units: 70,
+	UnitsFinished: 60,
+	Highlights: 50,
 	ActionFog: 40,
+	VisibilityFog: 10,
+	Statistics: 0,
 }
 
 WorldLayers.layersOptions = {
@@ -39,23 +42,14 @@ WorldLayers.layersOptions = {
 	},
 
 	Selection: {
-		useCanvas: true,
+		useCanvas: false,
 		autoClear: false,
 	},
 
 	TerrainOverlay: {
-		useCanvas: true,
+		useCanvas: false,
 		autoClear: false,
-	},
-	
-	VisibilityFog: {
-		useCanvas: true,
-		autoClear: false,
-	},
-
-	Highlights: {
-		useCanvas: true,
-		autoClear: false,
+		useCanvasInstance: true,
 	},
 
 	Units: {
@@ -64,7 +58,22 @@ WorldLayers.layersOptions = {
 		useCanvasInstance: true,
 	},
 
+	UnitsFinished: {
+		useCanvas: false,
+		autoClear: false,
+	},
+
+	Highlights: {
+		useCanvas: true,
+		autoClear: false,
+	},
+
 	ActionFog: {
+		useCanvas: true,
+		autoClear: false,
+	},
+	
+	VisibilityFog: {
 		useCanvas: true,
 		autoClear: false,
 	},

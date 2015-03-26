@@ -102,6 +102,7 @@ var UnitRenderingSystem = function (renderer) {
 		
 		// Position the health at the bottom right corner.
 		unitRendering.move(coords.x, coords.y);
+		unitRendering.showFinished(placeable.CUnit.finishedTurn);
 	}
 
 	var onAnimationFinished = function(event, params) {
@@ -129,6 +130,8 @@ var UnitRenderingSystem = function (renderer) {
 		// Unit
 		unitRendering.sprite = m_renderer.createSprite(WorldLayers.LayerTypes.Statistics);
 		unitRendering.$text.appendTo(unitRendering.sprite.dom);
+		unitRendering.spriteFinished = m_renderer.createSprite(WorldLayers.LayerTypes.UnitsFinished, UnitRenderingSystem.FINISHED_FOG_SPRITE_PATH);
+		unitRendering.hideFinished();
 		
 		renderUnitInit(placeable);
 
@@ -186,6 +189,7 @@ var UnitRenderingSystem = function (renderer) {
 UnitRenderingSystem.REQUIRED_COMPONENTS = [CUnitRendering, CTilePlaceableRendering];
 UnitRenderingSystem.MAIN_SPRITE = 'MainSprite';
 UnitRenderingSystem.SPRITES_PATH = 'Assets-Scaled/Render/Images/Units/{race}/{fileName}';
+UnitRenderingSystem.FINISHED_FOG_SPRITE_PATH = 'Assets-Scaled/Render/Images/FinishedHexFog.png';
 
 ECS.EntityManager.registerSystem('UnitRenderingSystem', UnitRenderingSystem);
 SystemsUtils.supplyComponentFilter(UnitRenderingSystem, UnitRenderingSystem.REQUIRED_COMPONENTS);

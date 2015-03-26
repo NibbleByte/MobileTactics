@@ -10,6 +10,7 @@ var RenderEvents = {
 		Sprites: {
 			SPRITE_CREATED: "render.sprites.sprite_created",					// Arguments: event, sprite
 			SPRITES_REMOVED: "render.sprites.sprites_removed",					// Arguments: event, [sprites]
+			REFRESH_SPRITES: "render.sprites.refresh_sprites",					// Arguments: event, [sprites]/sprite
 		},
 		
 		Layers: {
