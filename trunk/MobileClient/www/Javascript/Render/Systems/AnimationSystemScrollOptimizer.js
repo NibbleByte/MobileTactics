@@ -27,6 +27,7 @@ var AnimationSystemScrollOptimizer = function (m_renderer, m_animationSystem) {
 		if (m_renderer.plotContainerScroller && m_renderer.plotContainerScroller) {
 			m_renderer.plotContainerScroller.off('scrollStart', onScrollStart);
 			m_renderer.plotContainerScroller.off('scrollEnd', onScrollEnd);
+			m_renderer.plotContainerScroller.off('scrollCancel', onScrollEnd);
 		}
 	}
 	

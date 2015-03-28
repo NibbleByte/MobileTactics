@@ -35,13 +35,13 @@ var AnimationSystem = function (m_renderer, m_manual) {
 	}
 
 	this.pauseAnimations = function () {
-		if (!m_manual) {
+		if (!m_manual && !self.isPaused()) {
 			m_ticker.pause();
 		}
 	}
 
 	this.resumeAnimations = function () {
-		if (!m_manual) {
+		if (!m_manual && self.isPaused()) {
 			m_ticker.resume();
 		}
 	}
