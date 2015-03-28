@@ -9,6 +9,7 @@ var FrameStats = function (m_$text, m_refreshDelay) {
 	
 	// Stats
 	var stats;
+	var totalFramesCount = 0;
 	var refreshStats = function () {
 		
 		var restart = false;
@@ -19,6 +20,7 @@ var FrameStats = function (m_$text, m_refreshDelay) {
 			stats.lastTime = now;
 			stats.framesCount++;
 			stats.elapsed += diff;
+			totalFramesCount++;
 
 			if (now - stats.startTime > m_refreshDelay) {
 				var str = '';
@@ -26,6 +28,7 @@ var FrameStats = function (m_$text, m_refreshDelay) {
 				str += 'Elapsed AVG: ' + Math.round(stats.elapsed / stats.framesCount) + '<br />';
 				//str += 'Frames: ' + stats.framesCount + '<br />';
 				str += 'FPS: ' + Math.round(stats.framesCount / ((now - stats.startTime) / 1000) ) + '<br />';
+				//str += 'Frames: ' + totalFramesCount;
 
 				m_$text.html(str);
 				restart = true;
