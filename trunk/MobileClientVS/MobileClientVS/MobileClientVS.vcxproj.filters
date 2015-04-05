@@ -407,6 +407,12 @@
     <None Include="..\..\MobileClient\www\Javascript\AssetsStaticScaler.js">
       <Filter>Javascript</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Javascript\Render\Systems\CanvasInstancesUpdateSystem.js">
+      <Filter>Javascript\Render\Systems</Filter>
+    </None>
+    <None Include="..\..\Core\AI\Systems\AIController.js">
+      <Filter>Javascript\Core\AI\Systems</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
@@ -513,6 +519,12 @@
     </Filter>
     <Filter Include="Assets-Scaled">
       <UniqueIdentifier>{20a658df-b204-4de7-bc62-caf69e0059fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Javascript\Core\AI">
+      <UniqueIdentifier>{15feedc2-734f-4432-a5fd-242be313ca4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Javascript\Core\AI\Systems">
+      <UniqueIdentifier>{dd81fb23-0f4b-45b3-99c2-244645770d2a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

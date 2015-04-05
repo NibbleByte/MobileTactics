@@ -117,7 +117,7 @@ Serialization.registerClass(Player, 'Player');
 
 Player.Types = {
 		Human: 0,
-		CPU: 0,
+		AI: 0,
 }
 
 Player.Races = {

@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Core\AI\Systems\AIController.js" />
     <None Include="..\..\Core\Engine\3rdParty\jquery-1.9.1.js" />
     <None Include="..\..\Core\Engine\3rdParty\underscore.js" />
     <None Include="..\..\Core\Engine\Components\CTile.js" />
@@ -131,6 +132,7 @@
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\ActionFogRenderingSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\ActionsRenderingSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\AnimationSystemScrollOptimizer.js" />
+    <None Include="..\..\MobileClient\www\Javascript\Render\Systems\CanvasInstancesUpdateSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\ControllerRenderingSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\LayersUpdateSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\AnimationSystem.js" />
