@@ -15,16 +15,21 @@
 var Serialization = new function () {
 	var self = this;
 
-	// Serialize object to JSON.
+	// Serialize object to JSON/Objects.
 	// Will execute any custom serialize() functions along the way (attached to the class type).
-	this.serialize = function (obj, prettyFormatting) {
+	this.serialize = function (obj, toJSON, prettyFormatting) {
 		
 		var instanceRegister = [];
-		
+
+		var data = serializeImpl(obj, instanceRegister);
+
+		if (!toJSON)
+			return data;
+
 		if (prettyFormatting) {
-			return JSON.stringify(serializeImpl(obj, instanceRegister), null, '\t');
+			return JSON.stringify(data, null, '\t');
 		} else {
-			return JSON.stringify(serializeImpl(obj));
+			return JSON.stringify(data);
 		}
 	};
 	
@@ -33,13 +38,17 @@ var Serialization = new function () {
 	this.serializeCustom = serializeImpl;
 	
 	
-	// Deserialize object from JSON.
+	// Deserialize object from JSON/Objects.
 	// Will execute any custom deserialize() functions along the way (attached to the class type).
 	// Will also call postDeserialize() after deserializing object.
 	// Will fill out the outAllObjects array with all the deserialized objects (flat).
 	this.deserialize = function (data, outAllObjects) {
 		
-		var obj = JSON.parse(data);
+		var obj = data;
+
+		if (Utils.isString(data)) {
+			obj = JSON.parse(data);
+		}
 		
 		var instanceRegister = [];
 		

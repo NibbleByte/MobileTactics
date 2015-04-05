@@ -163,7 +163,7 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 					playersData: m_clientState.playersData,
 					world: entities,
 			};
-			m_clientState.savedGame = Serialization.serialize(fullGameState, true);
+			m_clientState.savedGame = Serialization.serialize(fullGameState, true, true);
 			
 			var blob = new Blob([m_clientState.savedGame], {type: "text/plain;charset=utf-8"});
 			saveAs(blob, m_lastFilename);

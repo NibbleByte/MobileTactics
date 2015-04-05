@@ -68,6 +68,10 @@ var PlayerController = function (m_world, m_executor) {
 	};
 	
 	var selectTile = function (tile) {
+
+		if (m_gameState.currentPlayer != null && m_gameState.currentPlayer.type != Player.Types.Human)
+			return;
+
 		// DEBUG: if tile is the same, place object
 		if (tile && tile == m_selectedTile 
 				&& tile.CTile.placedObjects.length == 0
@@ -157,6 +161,8 @@ var PlayerController = function (m_world, m_executor) {
 	}
 	
 	var clearActions = function() {
+		selectTileHighlight(null);
+
 		self._eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
 
 		m_executor.clearExecutedActions();
