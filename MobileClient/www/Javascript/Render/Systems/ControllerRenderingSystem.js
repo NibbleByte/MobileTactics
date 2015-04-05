@@ -31,7 +31,10 @@ var ControllerRenderingSystem = function (m_renderer) {
 			m_selectedSprite.update();
 		}
 
-		m_selectedSprite.skipDrawing = !tile;
+		if (tile)
+			$(m_selectedSprite.dom).show();
+		else
+			$(m_selectedSprite.dom).hide();
 
 		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.Selection);
 	}
