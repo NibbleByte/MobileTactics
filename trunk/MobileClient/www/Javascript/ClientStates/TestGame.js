@@ -221,7 +221,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		var executor = m_eworld.store(GameExecutor, new GameExecutor(m_eworld, world));
 	
 	
-		var playerController = new PlayerController(world, executor);
+		var playerController = new PlayerController(executor);
 		m_eworld.addSystem(playerController);
 	
 		m_clientState.effects = effects;
@@ -253,6 +253,11 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		m_clientState.worldRenderer = worldRenderer;
 
 
+		//
+		// AI Systems
+		//
+		m_eworld.addSystem(new AIController(executor));
+		m_eworld.addSystem(new AISimulationSystem(m_eworld));
 	
 		//
 		// Handlers
@@ -290,7 +295,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 				m_eworld.store(PlayersData, m_clientState.playersData);
 				m_eworld.store(GameState, m_clientState.gameState);
 		
-				m_eworld.triggerAsync(EngineEvents.General.GAME_LOADING);
+				m_eworld.trigger(EngineEvents.General.GAME_LOADING);
 		
 				for(var i = 0; i < allObjects.length; ++i) {
 					if (allObjects[i].onDeserialize)
@@ -342,7 +347,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 				m_clientState.gameState = new GameState();
 				m_eworld.store(GameState, m_clientState.gameState);
 			
-				m_eworld.triggerAsync(EngineEvents.General.GAME_LOADING);
+				m_eworld.trigger(EngineEvents.General.GAME_LOADING);
 
 				var ROWS = 10, COLUMNS = 10;
 				fillTerrainPattern(m_eworld, m_clientState.world, m_clientState.playersData, ROWS, COLUMNS);
