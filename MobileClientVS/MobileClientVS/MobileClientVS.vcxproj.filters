@@ -413,6 +413,12 @@
     <None Include="..\..\Core\AI\Systems\AIController.js">
       <Filter>Javascript\Core\AI\Systems</Filter>
     </None>
+    <None Include="..\..\Core\AI\Systems\AISimulationSystem.js">
+      <Filter>Javascript\Core\AI\Systems</Filter>
+    </None>
+    <None Include="..\..\Core\AI\AIEvents.js">
+      <Filter>Javascript\Core\AI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

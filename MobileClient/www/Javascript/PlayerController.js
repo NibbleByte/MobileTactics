@@ -8,7 +8,7 @@
 var executor;
 var selected;
 
-var PlayerController = function (m_world, m_executor) {
+var PlayerController = function (m_executor) {
 	var self = this;
 	
 	var m_gameState = null;
