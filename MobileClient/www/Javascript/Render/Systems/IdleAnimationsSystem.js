@@ -42,8 +42,7 @@ var IdleAnimationsSystem = function () {
 		if (entities.length == 0)
 			return;
 		
-		var index = MathUtils.randomInt(entities.length);
-		var entity = entities[index];
+		var entity = MathUtils.randomElement(entities);
 		
 		var animator = entity.CAnimations.animators[UnitRenderingSystem.MAIN_SPRITE];
 		if (animator.sequenceName == 'Idle') {
@@ -64,8 +63,7 @@ IdleAnimationsSystem.playRandomIdleAnimation = function (animator) {
 			
 			
 	if (idleIndexes.length > 0) {
-		var index = MathUtils.randomInt(idleIndexes.length);
-		animator.playSequence(animator.sequences[idleIndexes[index]]);
+		animator.playSequence(animator.sequences[MathUtils.randomElement(idleIndexes)]);
 	}
 
 }
