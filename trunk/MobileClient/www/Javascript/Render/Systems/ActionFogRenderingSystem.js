@@ -32,18 +32,8 @@ var ActionFogRenderingSystem = function (m_world) {
 		m_offeredActions = goActions.actions;
 		
 		
-		var moveAction = null;
-		var attackAction = null;
-		for (var i = 0; i < m_offeredActions.length; ++i) {
-			if (m_offeredActions[i].actionType == Actions.Classes.ActionMove) {
-				moveAction = m_offeredActions[i];
-			}
-			
-			if (m_offeredActions[i].actionType == Actions.Classes.ActionAttack) {
-				attackAction = m_offeredActions[i];
-			}
-		}
-		
+		var moveAction = goActions.getActionByType(Actions.Classes.ActionMove);
+		var attackAction = goActions.getActionByType(Actions.Classes.ActionAttack);
 		
 		// No special action available, refresh with no fog.
 		if (moveAction == null && attackAction == null) {

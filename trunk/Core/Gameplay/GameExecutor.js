@@ -34,8 +34,15 @@ var GameExecutor = function (eworld, world) {
 	}
 	
 	
-	this.getAvailableActions = function(tile) {
-		var availableActions = [];
+	// tile or placeable (and returns array or single object
+	this.getAvailableActions = function(tileOrPlaceable) {
+		
+		var tile = tileOrPlaceable;
+		if (tile.CTilePlaceable)
+			tile = tile.CTilePlaceable.tile;
+
+		var isTile = tile == tileOrPlaceable;
+		var availableActions = (isTile) ? [] : null;
 		var objects = tile.CTile.placedObjects;
 
 		// If not visible, no placeables, actions are possible.
@@ -55,8 +62,17 @@ var GameExecutor = function (eworld, world) {
 			if (placeable.CUnit.finishedTurn && placeable.CPlayerData.player == gameState.currentPlayer)
 				continue;
 
+			if (!isTile && placeable != tileOrPlaceable)
+				continue;
+
+
 			var player = placeable.CPlayerData.player;
 			var actions = getPlaceableActions(player, placeable);
+
+
+			if (!isTile && placeable == tileOrPlaceable) 
+				return new GameObjectActions(placeable, actions);
+
 			availableActions.push(new GameObjectActions(placeable, actions));
 		}
 		
@@ -207,3 +223,15 @@ var GameObjectActions = function (go, actions) {
 	this.go = go;							// Game object that has these actions
 	this.actions = actions;					// Actions available about this GO
 }
+
+// Return action by type (or null if fails).
+GameObjectActions.prototype.getActionByType = function (actionType) {
+
+	for (var i = 0; i < this.actions.length; ++i) {
+		if (this.actions[i].actionType == actionType) {
+			return this.actions[i];
+		}
+	}
+
+	return null;
+} 

@@ -410,14 +410,23 @@
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\CanvasInstancesUpdateSystem.js">
       <Filter>Javascript\Render\Systems</Filter>
     </None>
-    <None Include="..\..\Core\AI\Systems\AIController.js">
-      <Filter>Javascript\Core\AI\Systems</Filter>
-    </None>
     <None Include="..\..\Core\AI\Systems\AISimulationSystem.js">
       <Filter>Javascript\Core\AI\Systems</Filter>
     </None>
     <None Include="..\..\Core\AI\AIEvents.js">
       <Filter>Javascript\Core\AI</Filter>
+    </None>
+    <None Include="..\..\Core\AI\Components\CAIData.js">
+      <Filter>Javascript\Core\AI\Components</Filter>
+    </None>
+    <None Include="..\..\Core\AI\Systems\AITaskAttackingSystem.js">
+      <Filter>Javascript\Core\AI\Systems</Filter>
+    </None>
+    <None Include="..\..\Core\AI\AITask.js">
+      <Filter>Javascript\Core\AI</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Javascript\AIController.js">
+      <Filter>Javascript</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -531,6 +540,9 @@
     </Filter>
     <Filter Include="Javascript\Core\AI\Systems">
       <UniqueIdentifier>{dd81fb23-0f4b-45b3-99c2-244645770d2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Javascript\Core\AI\Components">
+      <UniqueIdentifier>{850aedb3-58a8-4c3e-860c-071f8a7fece1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

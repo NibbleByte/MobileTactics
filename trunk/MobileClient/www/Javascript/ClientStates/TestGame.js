@@ -256,9 +256,12 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		//
 		// AI Systems
 		//
-		m_eworld.addSystem(new AIController(executor));
 		m_eworld.addSystem(new AISimulationSystem(m_eworld));
+		m_eworld.addSystem(new AITaskAttackingSystem(world, executor));
 	
+		m_eworld.addSystem(new AIController(executor));
+
+
 		//
 		// Handlers
 		//
@@ -433,7 +436,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		}
 
 		var onHudLockRefresh = function (event) {
-			if (m_clientState.playerController.isHudLocked()) {
+			if (m_clientState.playerController.isHudLocked() || m_clientState.gameState.currentPlayer.type == Player.Types.AI) {
 				m_$ToolbarContainer.hide();
 			} else {
 				m_$ToolbarContainer.show();
@@ -455,6 +458,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		m_clientState.eworldSB.subscribe(ClientEvents.Controller.ACTION_PREEXECUTE, onHudLockRefresh);
 		m_clientState.eworldSB.subscribe(ClientEvents.Controller.ACTION_EXECUTED, onHudLockRefresh);
 		m_clientState.eworldSB.subscribe(ClientEvents.Controller.ACTIONS_OFFERED, onHudLockRefresh);
+		m_clientState.eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, onHudLockRefresh);
 
 
 		//

@@ -141,4 +141,15 @@ var MathUtils = {
 	randomNumberRange: function (min, max) {
 		return Math.random() * (max - min) + min;
 	},
+
+
+	// Returns random array element
+	// If array is empty, null is returned.
+	randomElement: function (arr) {
+
+		if (arr.length == 0)
+			return null;
+
+		return arr[Math.floor(Math.random() * arr.length)];
+	},
 }
