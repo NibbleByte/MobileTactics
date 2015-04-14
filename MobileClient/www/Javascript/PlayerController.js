@@ -241,9 +241,7 @@ var PlayerController = function (m_executor) {
 	var selectGOActions = function (goActions) {
 		m_selectedGOActions = goActions;
 		
-		GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, function (tile, action) {
-			ActionsRender.highlightTile(tile, action.actionType);
-		});
+		GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.highlightTileAction);
 	}
 	
 	var getSelectedGOActionTile = function (selectedTile) {

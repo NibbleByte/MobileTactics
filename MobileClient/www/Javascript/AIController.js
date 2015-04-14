@@ -17,6 +17,16 @@ var AIController = function (m_executor) {
 		self._eworldSB.subscribe(AIEvents.Simulation.SIMULATION_FINISHED, onSimulationFinished);
 	};
 
+	this.uninitialize = function () {
+		clearTimeout(m_currentTimeout);
+
+		m_replayAssignments = null;
+		m_replayIndex = 0;
+		m_selectedGOActions = null;
+		m_replayAction = null;
+		m_currentTimeout = null;
+	}
+
 	//
 	// Private
 	//
@@ -48,6 +58,12 @@ var AIController = function (m_executor) {
 	
 	var m_replayAssignments = null;
 	var m_replayIndex = 0;
+	var m_selectedGOActions = null;
+	var m_replayAction = null;
+	var m_currentTimeout = null;
+
+	var SELECTION_TIMEOUT = 750;
+	var ACTION_TIMEOUT = 750;
 
 	var onSimulationFinished = function (event, validAssignments) {
 		m_replayAssignments = validAssignments;
@@ -59,21 +75,49 @@ var AIController = function (m_executor) {
 
 	var processAssignments = function () {
 
+		m_currentTimeout = null;
+
 		if (m_replayIndex < m_replayAssignments.length) {
 			var assignment = m_replayAssignments[m_replayIndex];
 
 			if (!Utils.assert(assignment.taskDoer && assignment.task)) {
-				var action = assignment.task.creator.generateAction(assignment);
+				m_replayAction = assignment.task.creator.generateAction(assignment);
 
-				if (!Utils.assert(action, 'Could not generate action -> bad assignment.'))
-					m_executor.executeAction(action);
+				if (!Utils.assert(m_replayAction, 'Could not generate action -> bad assignment.')) {
+
+					// Select the unit (visually).
+					m_selectedGOActions = m_executor.getAvailableActions(assignment.taskDoer);
+					GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.highlightTileAction);
+					self._eworld.trigger(ClientEvents.Controller.TILE_SELECTED, assignment.taskDoer.CTilePlaceable.tile);
+
+					m_currentTimeout = setTimeout(processSelected, SELECTION_TIMEOUT);
+				}
+
+			}
+			
+			// If no selection was made, proceed to next one directly.
+			if (m_currentTimeout === null) {
+				m_currentTimeout = setTimeout(processAssignments, ACTION_TIMEOUT);
 			}
 
 			++m_replayIndex;
-			setTimeout(processAssignments, 500);
 		} else {
 			self._eworld.trigger(GameplayEvents.GameState.END_TURN);
 		}
+	}
+
+	var processSelected = function () {
+
+		GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.unHighlightTile);
+		m_selectedGOActions = null;
+
+		self._eworld.trigger(ClientEvents.Controller.TILE_SELECTED, m_replayAction.appliedTile);
+
+
+		m_executor.executeAction(m_replayAction);
+		m_replayAction = null;
+
+		m_currentTimeout = setTimeout(processAssignments, ACTION_TIMEOUT);
 	}
 }
 
