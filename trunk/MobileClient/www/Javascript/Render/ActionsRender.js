@@ -27,8 +27,12 @@ var ActionsRender = new function () {
 	
 	
 	
-	this.highlightTile = function (tile, action) {
-		var mode = m_highlightModes[action.actionName];
+	this.highlightTileAction = function (tile, action) {
+		self.highlightTile(tile, action.actionType);
+	}
+
+	this.highlightTile = function (tile, actionType) {
+		var mode = m_highlightModes[actionType.actionName];
 		
 		console.assert(mode != undefined, 'Unsupported highlight type.');
 		
