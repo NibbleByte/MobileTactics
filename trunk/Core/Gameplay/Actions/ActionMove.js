@@ -23,12 +23,12 @@ Actions.Classes.ActionMove = new function () {
 		}
 		
 		// Choose normal or after-attack movement.
-		var movement = (!placeable.CUnit.actionsData.hasExecutedAction(placeable.CUnit.turnPoints, Actions.Classes.ActionAttack)) 
+		var movement = (!Actions.Classes.ActionAttack.hasExecutedAction(placeable)) 
 						? placeable.CStatistics.statistics['Movement'] 
 						: placeable.CStatistics.statistics['MovementAttack'];
-		var availableTiles = world.gatherTiles(tile, movement, movementCostQuery, movementData);
+		var availableTiles = world.gatherTiles(tile, movement, this.movementCostQuery, movementData);
 
-		if (placeable.CUnit.actionsData.hasExecutedAction(placeable.CUnit.turnPoints, Actions.Classes.ActionAttack))
+		if (Actions.Classes.ActionAttack.hasExecutedAction(placeable))
 			availableTiles.push(tile);
 		
 		// If nowhere to move, action is unavailable.
@@ -58,10 +58,11 @@ Actions.Classes.ActionMove = new function () {
 		world.place(placeable, action.undoData.previousTile);
 	}
 
-	//
-	// Private
-	//
-	var movementCostQuery = function (tile, userData) {
+	this.hasExecutedAction = function (placeable) {
+		return placeable && placeable.CUnit.actionsData.hasExecutedAction(placeable.CUnit.turnPoints, this);
+	}
+
+	this.movementCostQuery = function (tile, userData) {
 		var terrainStats = userData.placeable.CStatistics.terrainStats[tile.CTileTerrain.type];
 		var terrainCost = (terrainStats) ? terrainStats.Cost : undefined;
 

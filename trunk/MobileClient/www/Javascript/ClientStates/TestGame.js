@@ -250,6 +250,8 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 	
 		m_eworld.addSystem(new ActionsMenuController(m_$ActionMenu[0]));
 
+		m_eworld.addSystem(new DebugTilesRenderingSystem(worldRenderer));
+
 		m_clientState.worldRenderer = worldRenderer;
 
 

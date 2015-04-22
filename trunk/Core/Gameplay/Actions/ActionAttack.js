@@ -11,7 +11,7 @@ Actions.Classes.ActionAttack = new function () {
 	
 	this.getAvailableActions = function (eworld, world, player, placeable, outActions) {
 
-		if (placeable.CUnit.actionsData.hasExecutedAction(placeable.CUnit.turnPoints, this))
+		if (this.hasExecutedAction(placeable, this))
 			return;
 
 		var tile = placeable.CTilePlaceable.tile;
@@ -59,5 +59,9 @@ Actions.Classes.ActionAttack = new function () {
 		}
 
 		eworld.extract(BattleSystem).revertOutcome(action.undoData.outcome);
+	}
+
+	this.hasExecutedAction = function (placeable) {
+		return placeable && placeable.CUnit.actionsData.hasExecutedAction(placeable.CUnit.turnPoints, this);
 	}
 };

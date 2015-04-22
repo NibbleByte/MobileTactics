@@ -6,3 +6,20 @@
 	text-align: center;
 	color: rgb(30, 39, 38);	
 }
+
+.debug_tile_sprite 
+{
+	text-align: center;
+	padding-top: 8px;
+}
+
+.debug_tile
+{
+	font-size: 12px;
+	
+	padding: 2px;
+	
+	background: rgba(143, 166, 166, 0.7);
+	color: rgba(0, 0, 0, 0.7);
+	border-radius: 8px;
+}

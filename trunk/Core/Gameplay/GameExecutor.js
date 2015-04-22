@@ -36,6 +36,8 @@ var GameExecutor = function (eworld, world) {
 	
 	// tile or placeable (and returns array or single object
 	this.getAvailableActions = function(tileOrPlaceable) {
+		if (Utils.assert(tileOrPlaceable.isAttached(), 'Trying to get actions for destroyed object.'))
+			return null;
 		
 		var tile = tileOrPlaceable;
 		if (tile.CTilePlaceable)
@@ -81,6 +83,9 @@ var GameExecutor = function (eworld, world) {
 	
 	this.executeAction = function(action) {
 		console.assert(action instanceof GameAction, "GameAction is required.");
+
+		if (Utils.assert(action.placeable.isAttached(), 'Trying to execute actions for destroyed object.'))
+			return null;
 		
 		var placeable = action.placeable;
 		var prevTurnPoints = action.placeable.CUnit.turnPoints;
