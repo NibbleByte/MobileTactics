@@ -139,6 +139,7 @@
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\AnimationSystemScrollOptimizer.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\CanvasInstancesUpdateSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\ControllerRenderingSystem.js" />
+    <None Include="..\..\MobileClient\www\Javascript\Render\Systems\DebugTilesRenderingSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\LayersUpdateSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\AnimationSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\IdleAnimationsSystem.js" />

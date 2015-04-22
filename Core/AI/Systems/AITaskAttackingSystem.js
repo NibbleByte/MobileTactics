@@ -33,15 +33,16 @@ var AITaskAttackingSystem = function (m_world, m_executor) {
 		var units = m_gameState.currentPlaceables;
 
 		for(var i = 0; i < enemies.length; ++i) {
+			var enemy = enemies[i];
 
-			if (!enemies[i].CTilePlaceable.tile.CTileVisibility.visible)
+			if (!enemy.CTilePlaceable.tile.CTileVisibility.visible)
 				continue;
 
 			// TODO: If enemies are not enough, some units might not go attacking, because tasks are shared.
-			var task = new AITask(1, enemies[i], self, 2);
+			var task = new AITask(1, enemy, self, 2);
 
 			for(var j = 0; j < units.length; ++j) {
-				var score = 30 / m_world.getDistance(enemies[i].CTilePlaceable.tile, units[j].CTilePlaceable.tile);
+				var score = 30 / m_world.getDistance(enemy.CTilePlaceable.tile, units[j].CTilePlaceable.tile);
 				var assignment = new AIAssignment(score, task, units[j]);
 				assignments.push(assignment);
 			}
@@ -49,19 +50,69 @@ var AITaskAttackingSystem = function (m_world, m_executor) {
 	}
 	
 	this.generateAction = function (assignment) {
+		var target = assignment.task.objective;
+		var targetTile = target.CTilePlaceable.tile;
 		var goActions = m_executor.getAvailableActions(assignment.taskDoer);
+		
 
-		if (Utils.assert(goActions, 'No actions available?!'))
-			return;
+		if (!goActions)
+			return null;
 
 		var moveAction = goActions.getActionByType(Actions.Classes.ActionMove);
 		var attackAction = goActions.getActionByType(Actions.Classes.ActionAttack);
+		var stayAction = goActions.getActionByType(Actions.Classes.ActionStay);
+
+		// NOTE: Unit can be destroyed (someone else killed it or have MovementAttack to execute.)
+		if (target.isAttached() && attackAction && attackAction.availableTiles.contains(targetTile)) {
+			attackAction.appliedTile = targetTile;
+			return attackAction;
+		}
 
 		// Move randomly.
 		if (moveAction) {
-			moveAction.appliedTile = MathUtils.randomElement(moveAction.availableTiles);
+			
+			// Has attacked already, run away.
+			if (Actions.Classes.ActionAttack.hasExecutedAction(goActions.go)) {
+				if (target.isAttached()) {
+					moveAction.appliedTile = MathUtils.randomElement(m_world.getFurthestTiles(targetTile, moveAction.availableTiles));
+				} else {
+					moveAction.appliedTile = MathUtils.randomElement(moveAction.availableTiles);
+				}
+				return moveAction;
+			}
+
+
+			var mdata = {
+				placeable: goActions.go,
+				player: goActions.go.CPlayerData.player,
+				playersData: m_playersData
+			};
+
+			var path = m_world.findPath(goActions.go.CTilePlaceable.tile, targetTile, Actions.Classes.ActionMove.movementCostQuery, mdata);
+
+			var moveTile = null;
+			for(var i = path.length; i >= 0; --i) {
+				if (moveAction.availableTiles.contains(path[i])) {
+					moveTile = path[i];
+					break;
+				}
+			}
+
+
+			if (Utils.assert(moveTile, 'No movement available?!'))
+				return null;
+
+			moveAction.appliedTile = moveTile;
 			return moveAction;
 		}
+
+
+		if (stayAction) {
+			stayAction.appliedTile = goActions.go.CTilePlaceable.tile;
+			return stayAction;
+		}
+
+		return null;
 	}
 }
 

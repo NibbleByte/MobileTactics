@@ -145,7 +145,7 @@ var GameWorld = function () {
 					tile.__$costLeft = costLeft;
 					tile.__$cameFrom = openTile;
 					
-					if (open.indexOf(tile) == -1) {
+					if (!open.contains(tile)) {
 						open.push(tile);
 					}
 				}
@@ -154,7 +154,7 @@ var GameWorld = function () {
 			}
 			
 			
-			if (visited.indexOf(openTile) == -1) {
+			if (!visited.contains(openTile)) {
 				
 				// When searching for closed tiles, recent ones should be in front because they are more likely to be needed.
 				visited.unshift(openTile);
@@ -175,6 +175,114 @@ var GameWorld = function () {
 		}
 
 		return gatheredTiles;
+	}
+
+
+	// Find path based on the lowest cost resulted in a custom user query.
+	// Returns tiles that make up the path or null if no path found.
+	// Note: Start tile is always discarded.
+	// - userData is passed onto the user query.
+	// - startTile is the start tile.
+	// - endTiles can be a single tile or an array of tiles. If array, stop at the first found end tile.
+	// - gatherQuery is a custom user function with the following parameters: userData, tile.
+	//	 The query should return an object with the following properties: cost, passOver, discard
+	//	 * cost - the cost that takes to pass over this tile.
+	//	 * passOver - can it passOver this tile (although it might be discarded).
+	//	 * discard the tile for sure from the final list.
+	this.findPath = function (startTile, endTiles, gatherQuery, userData) {
+
+		var isMultiTarget = Utils.isArray(endTiles);
+		var open = [startTile];
+		var visited = [startTile];
+
+		var bestTile = null;
+		var bestTileDist = Infinity;
+
+		startTile.__$cost = 0;
+		startTile.__$cameFrom = null;
+		startTile.__$discard = true;	// Start is always discarded.
+
+		while(open.length != 0) {
+			var openTile = open.shift();
+			var openCost = openTile.__$cost;
+
+			// Check if this tile is any end tile.
+			if (openTile == endTiles || (isMultiTarget && endTiles.contains(openTile))) {
+				bestTile = openTile;
+				break;
+			}
+
+			// Keep look out for the closest tile possible.
+			var dist = self.getLowestDistance(openTile, endTiles);
+			if (dist < bestTileDist || (dist == bestTileDist && openTile.__$cost < bestTile.__$cost)) {
+				bestTile = openTile;
+				bestTileDist = dist;
+			}
+			
+			var adjacentTiles = self.getAdjacentTiles(openTile);
+			
+			for(var i = 0; i < adjacentTiles.length; ++i) {
+				var tile = adjacentTiles[i];
+				
+				if (tile == openTile.__$cameFrom) {
+					continue;
+				}
+
+				var queryResult = gatherQuery(tile, userData);
+				
+				if (queryResult.cost == undefined)
+					continue;
+
+
+				// Check if cost is lower than previous one. Then this is shorter path.
+				if ((!tile.__$cost || openCost + queryResult.cost < tile.__$cost) && queryResult.passOver ) {
+					tile.__$cost = openCost + queryResult.cost;
+					tile.__$cameFrom = openTile;
+					
+					if (!open.contains(tile)) {
+						open.push(tile);
+						open.sort(findPathSort);
+
+						tile.__$discard = queryResult.discard;
+
+						// Store all tiles touched by the algorithm (to clean up later).
+						if (!visited.contains(tile)) {
+							visited.push(tile);
+						}
+					}
+
+				}
+
+			}
+		}
+		
+
+		if (bestTile != null) {
+
+			var pathTiles = [];
+			var tile = bestTile;
+			while(tile != null) {
+				if (!tile.__$discard)
+					pathTiles.unshift(tile);
+				tile = tile.__$cameFrom;
+			}
+
+		} else {
+			pathTiles = null;
+		}
+		
+		// Cleanup algorithm data.
+		for(var i = 0; i < visited.length; ++i) {
+			delete visited[i].__$cost;
+			delete visited[i].__$cameFrom;
+			delete visited[i].__$discard;
+		}
+
+		return pathTiles;
+	}
+
+	var findPathSort = function (tile1, tile2) {
+		return tile1.__$cost - tile2.__$cost;
 	}
 	
 	
@@ -341,6 +449,9 @@ var GameWorld = function () {
 ECS.EntityManager.registerSystem('GameWorld', GameWorld);
 SystemsUtils.supplySubscriber(GameWorld);
 
+//
+// World utilities
+//
 GameWorld.prototype.getDistance = function (tile1, tile2) {
 	
 	// Distance formula at: http://www.mattpalmerlee.com/2012/04/10/creating-a-hex-grid-for-html5-games-in-javascript/
@@ -349,6 +460,72 @@ GameWorld.prototype.getDistance = function (tile1, tile2) {
 	var deltaColumns = tile1.CTile.column - tile2.CTile.column;
 	return ((Math.abs(deltaRows) + Math.abs(deltaColumns) + Math.abs(deltaRows - deltaColumns)) / 2);
 }
+
+
+// Find the lowest distance between groups of tiles.
+GameWorld.prototype.getLowestDistance = function (tiles1, tiles2) {
+
+	var lowestDist = Infinity;
+	var dist;
+
+	if (Utils.isArray(tiles1) && Utils.isArray(tiles2)) {
+
+		for (var i = 0; i < tiles1.length; ++i) {
+			for (var j = 0; j < tiles2.length; ++j) {
+				dist = this.getDistance(tiles1[i], tiles2[j]);
+				if (dist < lowestDist) {
+					lowestDist = dist;
+				}
+			}
+		}
+	}
+
+	// Swap and let the next check do the work.
+	if (Utils.isArray(tiles1) && !Utils.isArray(tiles2)) {
+		var swp = tiles2;
+		tiles2 = tiles1;
+		tiles1 = swp;
+	}
+
+	if (!Utils.isArray(tiles1) && Utils.isArray(tiles2)) {
+		for (var j = 0; j < tiles2.length; ++j) {
+			dist = this.getDistance(tiles1, tiles2[j]);
+			if (dist < lowestDist) {
+				lowestDist = dist;
+			}
+		}
+	}
+
+	if (!Utils.isArray(tiles1) && !Utils.isArray(tiles2))
+		lowestDist = this.getDistance(tiles1, tiles2);
+
+	return lowestDist;
+}
+
+// Returns all tiles that have the furthest same distance.
+GameWorld.prototype.getFurthestTiles = function (tile, targetTiles) {
+
+	var furthestDist = 0;
+	var furthestTiles = [];
+	var dist;
+
+	for(var i = 0; i < targetTiles.length; ++i) {
+		var targetTile = targetTiles[i];
+		dist = this.getDistance(tile, targetTile);
+
+		if (dist > furthestDist) {
+			furthestDist = dist;
+			furthestTiles.clear();
+		} 
+		
+		if (dist == furthestDist) {
+			furthestTiles.push(targetTile);
+		}
+	}
+
+	return furthestTiles;
+}
+
 
 // Short-cut for creating unmanaged tile
 GameWorld.createTileUnmanaged = function (terrainType, row, column) {

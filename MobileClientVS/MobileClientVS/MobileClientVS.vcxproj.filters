@@ -428,6 +428,9 @@
     <None Include="..\..\MobileClient\www\Javascript\AIController.js">
       <Filter>Javascript</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Javascript\Render\Systems\DebugTilesRenderingSystem.js">
+      <Filter>Javascript\Render\Systems</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

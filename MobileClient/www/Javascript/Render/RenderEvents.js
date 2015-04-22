@@ -25,5 +25,11 @@ var RenderEvents = {
 			ANIMATION_BEFORE_FRAME: "render.animations.animation_before_frame",	// Arguments: event
 			ANIMATION_FINISHED: "render.animations.animation_finished",			// Arguments: event, {name, animator, entity}
 			ANIMATION_AFTER_FRAME: "render.animations.animation_after_frame",	// Arguments: event
+		},
+
+		Debug: {
+			TILE_DRAW_TEXT: "render.debug.tile_draw_text",						// Arguments: event, tile, text
+			CLEAR_TILES: "render.debug.clear_tiles",							// Arguments: event
+			
 		}
 }

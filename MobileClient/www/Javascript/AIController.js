@@ -60,6 +60,7 @@ var AIController = function (m_executor) {
 	var m_replayIndex = 0;
 	var m_selectedGOActions = null;
 	var m_replayAction = null;
+	var m_currentAssignment = null;
 	var m_currentTimeout = null;
 
 	var SELECTION_TIMEOUT = 750;
@@ -78,17 +79,17 @@ var AIController = function (m_executor) {
 		m_currentTimeout = null;
 
 		if (m_replayIndex < m_replayAssignments.length) {
-			var assignment = m_replayAssignments[m_replayIndex];
+			m_currentAssignment = m_replayAssignments[m_replayIndex];
 
-			if (!Utils.assert(assignment.taskDoer && assignment.task)) {
-				m_replayAction = assignment.task.creator.generateAction(assignment);
+			if (m_currentAssignment.isValid()) {
+				m_replayAction = m_currentAssignment.task.creator.generateAction(m_currentAssignment);
 
-				if (!Utils.assert(m_replayAction, 'Could not generate action -> bad assignment.')) {
+				if (m_replayAction) {
 
 					// Select the unit (visually).
-					m_selectedGOActions = m_executor.getAvailableActions(assignment.taskDoer);
+					m_selectedGOActions = m_executor.getAvailableActions(m_currentAssignment.taskDoer);
 					GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.highlightTileAction);
-					self._eworld.trigger(ClientEvents.Controller.TILE_SELECTED, assignment.taskDoer.CTilePlaceable.tile);
+					self._eworld.trigger(ClientEvents.Controller.TILE_SELECTED, m_currentAssignment.taskDoer.CTilePlaceable.tile);
 
 					m_currentTimeout = setTimeout(processSelected, SELECTION_TIMEOUT);
 				}
@@ -102,6 +103,8 @@ var AIController = function (m_executor) {
 
 			++m_replayIndex;
 		} else {
+
+			m_currentAssignment = null;
 			self._eworld.trigger(GameplayEvents.GameState.END_TURN);
 		}
 	}
@@ -115,9 +118,24 @@ var AIController = function (m_executor) {
 
 
 		m_executor.executeAction(m_replayAction);
-		m_replayAction = null;
 
-		m_currentTimeout = setTimeout(processAssignments, ACTION_TIMEOUT);
+
+		if (m_currentAssignment.isValid()) {
+			// Check if there are more actions to execute...
+			m_replayAction = m_currentAssignment.task.creator.generateAction(m_currentAssignment);
+		} else {
+			m_replayAction = null;
+		}
+
+		if (!m_replayAction) {
+			m_currentTimeout = setTimeout(processAssignments, ACTION_TIMEOUT);
+		} else {
+
+			m_selectedGOActions = m_executor.getAvailableActions(m_currentAssignment.taskDoer);
+			GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.highlightTileAction);
+
+			m_currentTimeout = setTimeout(processSelected, SELECTION_TIMEOUT);
+		}
 	}
 }
 

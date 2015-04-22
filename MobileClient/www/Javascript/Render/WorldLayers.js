@@ -16,7 +16,8 @@ WorldLayers.LayerTypes = {
 	ActionFog: 5,
 	VisibilityFog: 6,
 	Statistics: 7,
-	
+
+	Debug: 8,
 };
 //Enums.enumerate(WorldLayers.LayerTypes);
 // LayerTypes are no longer enum since some layers are merged (i.e. are the same).
@@ -31,6 +32,8 @@ WorldLayers.SpritesDefaultDepth = {
 	ActionFog: 40,
 	VisibilityFog: 10,
 	Statistics: 0,
+
+	Debug: -100,
 }
 
 WorldLayers.layersOptions = {
@@ -75,6 +78,13 @@ WorldLayers.layersOptions = {
 	
 	VisibilityFog: {
 		useCanvas: true,
+		autoClear: false,
+	},
+
+
+
+	Debug: {
+		useCanvas: false,
 		autoClear: false,
 	},
 }

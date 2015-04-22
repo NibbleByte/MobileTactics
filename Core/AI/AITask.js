@@ -24,6 +24,10 @@ var AIAssignment = function (score, task, taskDoer) {
 	this.taskDoer = taskDoer;
 }
 
+AIAssignment.prototype.isValid = function () {
+	return this.task && this.taskDoer && this.taskDoer.isAttached();
+}
+
 AIAssignment.prototype.canAssign = function () {
 	return this.task.taskDoers.length < this.task.taskDoersLimit && this.taskDoer.CAIData.task == null;
 }
