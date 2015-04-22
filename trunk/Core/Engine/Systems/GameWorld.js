@@ -144,13 +144,12 @@ var GameWorld = function () {
 					) {
 					tile.__$costLeft = costLeft;
 					tile.__$cameFrom = openTile;
+					tile.__$discard = queryResult.discard;
 					
 					if (!open.contains(tile)) {
 						open.push(tile);
 					}
 				}
-				
-				tile.__$discard = queryResult.discard;
 			}
 			
 			
