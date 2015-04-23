@@ -62,6 +62,9 @@ var AITaskAttackingSystem = function (m_world, m_executor) {
 		var attackAction = goActions.getActionByType(Actions.Classes.ActionAttack);
 		var stayAction = goActions.getActionByType(Actions.Classes.ActionStay);
 
+		// NOTE: Unit can be destroyed (someone else killed it or have MovementAttack to execute.)
+		var canAttack = target.isAttached() && attackAction && attackAction.availableTiles.contains(targetTile);
+
 		// Move randomly.
 		if (moveAction) {
 			
@@ -78,11 +81,10 @@ var AITaskAttackingSystem = function (m_world, m_executor) {
 
 			// Check if I'm already in a good position to attack.
 			var attackRange = goActions.go.CStatistics.statistics['AttackRange'];
-			if (attackRange == m_world.getDistance(goTile, targetTile)) {
-				if (target.isAttached() && attackAction && attackAction.availableTiles.contains(targetTile)) {
-					attackAction.appliedTile = targetTile;
-					return attackAction;
-				}
+			var dist = m_world.getDistance(goTile, targetTile);
+			if (canAttack && attackRange == dist) {
+				attackAction.appliedTile = targetTile;
+				return attackAction;
 			}
 
 			// Check if can move in attack range directly.
@@ -95,8 +97,19 @@ var AITaskAttackingSystem = function (m_world, m_executor) {
 				}
 			}
 
+
+
 			if (attackTiles.length > 0) {
-				moveAction.appliedTile = MathUtils.randomElement(m_world.getFurthestTiles(targetTile, attackTiles));	
+				var tile = MathUtils.randomElement(m_world.getFurthestTiles(targetTile, attackTiles));
+
+				// NOTE: if no edge movements possible and still in attack range, attack directly.
+				// Example: tank is in 2 out of 3 attack range, but can't move further away. Force attack to avoid worse movement.
+				if (canAttack && m_world.getDistance(tile, targetTile) < dist) {
+					attackAction.appliedTile = targetTile;
+					return attackAction;
+				}
+
+				moveAction.appliedTile = tile;
 				return moveAction;
 			}
 
@@ -128,8 +141,7 @@ var AITaskAttackingSystem = function (m_world, m_executor) {
 		}
 
 
-		// NOTE: Unit can be destroyed (someone else killed it or have MovementAttack to execute.)
-		if (target.isAttached() && attackAction && attackAction.availableTiles.contains(targetTile)) {
+		if (canAttack) {
 			attackAction.appliedTile = targetTile;
 			return attackAction;
 		}
