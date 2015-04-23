@@ -53,19 +53,14 @@ var AITaskAttackingSystem = function (m_world, m_executor) {
 		var targetTile = target.CTilePlaceable.tile;
 		var goActions = m_executor.getAvailableActions(assignment.taskDoer);
 		
-
 		if (!goActions)
 			return null;
+		
+		var goTile = goActions.go.CTilePlaceable.tile;
 
 		var moveAction = goActions.getActionByType(Actions.Classes.ActionMove);
 		var attackAction = goActions.getActionByType(Actions.Classes.ActionAttack);
 		var stayAction = goActions.getActionByType(Actions.Classes.ActionStay);
-
-		// NOTE: Unit can be destroyed (someone else killed it or have MovementAttack to execute.)
-		if (target.isAttached() && attackAction && attackAction.availableTiles.contains(targetTile)) {
-			attackAction.appliedTile = targetTile;
-			return attackAction;
-		}
 
 		// Move randomly.
 		if (moveAction) {
@@ -81,13 +76,40 @@ var AITaskAttackingSystem = function (m_world, m_executor) {
 			}
 
 
+			// Check if I'm already in a good position to attack.
+			var attackRange = goActions.go.CStatistics.statistics['AttackRange'];
+			if (attackRange == m_world.getDistance(goTile, targetTile)) {
+				if (target.isAttached() && attackAction && attackAction.availableTiles.contains(targetTile)) {
+					attackAction.appliedTile = targetTile;
+					return attackAction;
+				}
+			}
+
+			// Check if can move in attack range directly.
+			var attackTiles = m_world.getTilesInArea(targetTile, attackRange);
+
+			for(var i = 0; i < attackTiles.length; ++i) {
+				if (!moveAction.availableTiles.contains(attackTiles[i])) {
+					attackTiles.removeAt(i);
+					--i;
+				}
+			}
+
+			if (attackTiles.length > 0) {
+				moveAction.appliedTile = MathUtils.randomElement(m_world.getFurthestTiles(targetTile, attackTiles));	
+				return moveAction;
+			}
+
+			
+
+			// Move along path to the objective.
 			var mdata = {
 				placeable: goActions.go,
 				player: goActions.go.CPlayerData.player,
 				playersData: m_playersData
 			};
 
-			var path = m_world.findPath(goActions.go.CTilePlaceable.tile, targetTile, Actions.Classes.ActionMove.movementCostQuery, mdata);
+			var path = m_world.findPath(goTile, targetTile, Actions.Classes.ActionMove.movementCostQuery, mdata);
 
 			var moveTile = null;
 			for(var i = path.length; i >= 0; --i) {
@@ -106,8 +128,15 @@ var AITaskAttackingSystem = function (m_world, m_executor) {
 		}
 
 
+		// NOTE: Unit can be destroyed (someone else killed it or have MovementAttack to execute.)
+		if (target.isAttached() && attackAction && attackAction.availableTiles.contains(targetTile)) {
+			attackAction.appliedTile = targetTile;
+			return attackAction;
+		}
+
+
 		if (stayAction) {
-			stayAction.appliedTile = goActions.go.CTilePlaceable.tile;
+			stayAction.appliedTile = goTile;
 			return stayAction;
 		}
 
