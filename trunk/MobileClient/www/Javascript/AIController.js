@@ -66,8 +66,8 @@ var AIController = function (m_executor) {
 	var SELECTION_TIMEOUT = 750;
 	var ACTION_TIMEOUT = 750;
 
-	var onSimulationFinished = function (event, validAssignments) {
-		m_replayAssignments = validAssignments;
+	var onSimulationFinished = function (event, assignments) {
+		m_replayAssignments = assignments;
 		m_replayIndex = 0;
 
 		processAssignments();
@@ -81,10 +81,11 @@ var AIController = function (m_executor) {
 		if (m_replayIndex < m_replayAssignments.length) {
 			m_currentAssignment = m_replayAssignments[m_replayIndex];
 
-			if (m_currentAssignment.isValid()) {
+			if (m_currentAssignment.canAssign() && m_currentAssignment.isValid()) {
 				m_replayAction = m_currentAssignment.task.creator.generateAction(m_currentAssignment);
 
 				if (m_replayAction) {
+					m_currentAssignment.assign();
 
 					// Select the unit (visually).
 					m_selectedGOActions = m_executor.getAvailableActions(m_currentAssignment.taskDoer);
@@ -98,7 +99,7 @@ var AIController = function (m_executor) {
 			
 			// If no selection was made, proceed to next one directly.
 			if (m_currentTimeout === null) {
-				m_currentTimeout = setTimeout(processAssignments, ACTION_TIMEOUT);
+				m_currentTimeout = setTimeout(processAssignments, 0);
 			}
 
 			++m_replayIndex;

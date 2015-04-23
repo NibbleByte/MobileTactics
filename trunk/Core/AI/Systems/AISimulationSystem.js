@@ -26,23 +26,12 @@ var AISimulationSystem = function (m_eworld) {
 
 		assignments.sort(assignmentSorting);
 
-		var validAssignments = [];
-		for(var i = 0; i < assignments.length; ++i) {
-			var assignment = assignments[i];
-
-			if (assignment.canAssign()) {
-				assignment.assign();
-
-				validAssignments.push(assignment);
-			}
-		}
-
-		self._eworld.trigger(AIEvents.Simulation.SIMULATION_FINISHED, validAssignments);
+		self._eworld.trigger(AIEvents.Simulation.SIMULATION_FINISHED, assignments);
 	}
 
 	// Descending
 	var assignmentSorting = function (assignmentA, assignmentB) {
-		return assignmentB.score - assignmentA.score;
+		return assignmentB.priority - assignmentA.priority;
 	}
 }
 
