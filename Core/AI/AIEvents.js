@@ -10,6 +10,6 @@ var AIEvents = {
 	Simulation: {
 		START_SIMULATION:		"ai.simulation.start_simulation",		// event
 		GATHER_ASSIGNMENTS:		"ai.simulation.gather_assignments",		// event, [assignments]
-		SIMULATION_FINISHED:	"ai.simulation.simulation_finished",	// event, actions
+		SIMULATION_FINISHED:	"ai.simulation.simulation_finished",	// event, [assignments]
 	},
 }

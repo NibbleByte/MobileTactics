@@ -5,20 +5,21 @@
 //===============================================
 "use strict";
 
-var AITask = function (priority, objective, creator, taskDoersLimit) {
+var AITask = function (objective, creator, scoreLimit) {
 
-	this.priority = priority;
 	this.objective = objective;
 	this.creator = creator;	// The system that created this task knows how to carry out the order.
 							// Will call task.creator.carryOut(task);
 
-	this.taskDoersLimit = taskDoersLimit || 1;
+	this.scoreAssigned = 0;
+	this.scoreLimit = scoreLimit;
 	this.taskDoers = [];
 }
 
 // Binds possible assignments to specific tasks.
-var AIAssignment = function (score, task, taskDoer) {
+var AIAssignment = function (priority, score, task, taskDoer) {
 
+	this.priority = priority;
 	this.score = score;
 	this.task = task;
 	this.taskDoer = taskDoer;
@@ -29,7 +30,7 @@ AIAssignment.prototype.isValid = function () {
 }
 
 AIAssignment.prototype.canAssign = function () {
-	return this.task.taskDoers.length < this.task.taskDoersLimit && this.taskDoer.CAIData.task == null;
+	return this.task.scoreAssigned < this.task.scoreLimit && this.taskDoer.CAIData.task == null;
 }
 
 AIAssignment.prototype.assign = function () {
@@ -40,6 +41,7 @@ AIAssignment.prototype.assign = function () {
 		return;
 
 	this.task.taskDoers.push(this.taskDoer);
+	this.task.scoreAssigned += this.score;
 
 	this.taskDoer.CAIData.task = this.task;
 }

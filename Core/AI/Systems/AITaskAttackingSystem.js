@@ -38,12 +38,11 @@ var AITaskAttackingSystem = function (m_world, m_executor) {
 			if (!enemy.CTilePlaceable.tile.CTileVisibility.visible)
 				continue;
 
-			// TODO: If enemies are not enough, some units might not go attacking, because tasks are shared.
-			var task = new AITask(1, enemy, self, 2);
+			var task = new AITask(enemy, self, 10);
 
 			for(var j = 0; j < units.length; ++j) {
-				var score = 30 / m_world.getDistance(enemy.CTilePlaceable.tile, units[j].CTilePlaceable.tile);
-				var assignment = new AIAssignment(score, task, units[j]);
+				var priority = 30 / m_world.getDistance(enemy.CTilePlaceable.tile, units[j].CTilePlaceable.tile);
+				var assignment = new AIAssignment(priority, 5, task, units[j]);
 				assignments.push(assignment);
 			}
 		}
