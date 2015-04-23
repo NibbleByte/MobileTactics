@@ -387,6 +387,54 @@ var GameWorld = function () {
 		return placeables;
 	}
 
+	this.getTilesOnRadius = function (tileCenter, radius) {
+		return self.getTilesInArea(tileCenter, radius, false, true);
+	}
+
+	// Faster than gather.
+	this.getTilesInArea = function (tileCenter, radius, includeStartTile, onEdgeOnly) {
+
+		if (radius == 0) {
+			if (onEdgeOnly)
+				return [ tileCenter ];
+
+			if (includeStartTile)
+				return [ tileCenter ];
+			else
+				return [];
+		}
+
+
+		var open = [ tileCenter ];
+		var visited = [ tileCenter ];
+		var result = []
+
+		while(open.length != 0) {
+			var openTile = open.shift();
+			var adjacentTiles = self.getAdjacentTiles(openTile);
+
+			for(var i = 0; i < adjacentTiles.length; ++i) {
+				var tile = adjacentTiles[i];
+
+				var dist = self.getDistance(tileCenter, tile);
+
+				if (dist <= radius && !visited.contains(tile)) {
+					visited.push(tile);
+					open.push(tile);
+
+
+					if (dist == radius || (!onEdgeOnly && dist <= radius))
+						result.push(tile);
+				}
+			}
+		}
+		
+		if (includeStartTile)
+			result.unshift(tileCenter);
+
+		return result;
+	}
+
 	this.iterateAllPlaceables = function (functor) {
 		for (var i = 0; i < m_placeables.length; ++i) {
 			functor(m_placeables[i]);
