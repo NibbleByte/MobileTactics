@@ -25,7 +25,6 @@ var PlayerController = function (m_executor) {
 		self._eworldSB.subscribe(ClientEvents.Input.TILE_CLICKED, onTileClicked);
 		self._eworldSB.subscribe(EngineEvents.World.TILE_REMOVED, onTileRemoved);
 
-		self._eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGING, onTurnChanging);
 		self._eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, clearActions);
 		self._eworldSB.subscribe(GameplayEvents.GameState.NO_PLAYING_PLAYERS, clearActions);
 		
@@ -206,29 +205,6 @@ var PlayerController = function (m_executor) {
 		
 		if (goActions.actions.length > 0)
 			selectGOActions(goActions);
-	}
-	
-	var onTurnChanging = function (event, gameState) {
-
-		// Cycle through all current units and check if all have finished their turns.
-		// If not, use it for healing, if available.
-		for(var i = 0; i < gameState.currentPlaceables.length; ++i) {
-			var tile = gameState.currentPlaceables[i].CTilePlaceable.tile;
-			var availableGOActions = m_executor.getAvailableActions(tile);
-
-			for(var j = 0; j < availableGOActions.length; ++j) {
-				var goActions = availableGOActions[j];
-
-				if (goActions.go.CUnit.finishedTurn)
-					continue;
-
-				var action = goActions.actions.find(function (val) { return val.actionType == Actions.Classes.ActionHeal });
-				if (action) {
-					m_executor.executeAction(action);
-					--j; // Needed in order execute all the turnPoints.
-				}
-			}
-		}
 	}
 	
 	//

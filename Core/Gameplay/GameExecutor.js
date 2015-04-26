@@ -84,7 +84,8 @@ var GameExecutor = function (eworld, world) {
 	this.executeAction = function(action) {
 		console.assert(action instanceof GameAction, "GameAction is required.");
 
-		if (Utils.assert(action.placeable.isAttached(), 'Trying to execute actions for destroyed object.'))
+		// When creating new unit (not placed on any tile yet), it might still not be attached.
+		if (Utils.assert(action.placeable.isAttached() || action.placeable.CTilePlaceable.tile == null, 'Trying to execute actions for destroyed object.'))
 			return null;
 		
 		var placeable = action.placeable;
