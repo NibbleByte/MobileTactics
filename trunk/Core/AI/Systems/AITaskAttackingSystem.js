@@ -57,19 +57,26 @@ var AITaskAttackingSystem = function (m_world, m_executor) {
 			return null;
 		
 		var goTile = goActions.go.CTilePlaceable.tile;
+		var hasAttacked = Actions.Classes.ActionAttack.hasExecutedAction(goActions.go);
+
+		// Has not attacked, but target is already dead (killed by somebody else). Skip this assignment.
+		if (!hasAttacked && !target.isAttached()) {
+			return null;
+		}
+
 
 		var moveAction = goActions.getActionByType(Actions.Classes.ActionMove);
 		var attackAction = goActions.getActionByType(Actions.Classes.ActionAttack);
 		var stayAction = goActions.getActionByType(Actions.Classes.ActionStay);
 
-		// NOTE: Unit can be destroyed (someone else killed it or have MovementAttack to execute.)
+		// NOTE: Unit can be destroyed (I probably killed it and have MovementAttack to execute.)
 		var canAttack = target.isAttached() && attackAction && attackAction.availableTiles.contains(targetTile);
 
 		// Move randomly.
 		if (moveAction) {
 			
 			// Has attacked already, run away.
-			if (Actions.Classes.ActionAttack.hasExecutedAction(goActions.go)) {
+			if (hasAttacked) {
 				if (target.isAttached()) {
 					moveAction.appliedTile = MathUtils.randomElement(m_world.getFurthestTiles(targetTile, moveAction.availableTiles));
 				} else {
