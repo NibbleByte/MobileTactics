@@ -29,14 +29,11 @@ var AITaskAttackingSystem = function (m_world, m_executor) {
 	}
 	
 	var onGatherAssignments = function (event, assignments) {
-		var enemies = m_gameState.relationPlaceables[PlayersData.Relation.Enemy];
+		var enemies = m_gameState.visiblePlaceables[PlayersData.Relation.Enemy];
 		var units = m_gameState.currentPlaceables;
 
 		for(var i = 0; i < enemies.length; ++i) {
 			var enemy = enemies[i];
-
-			if (!enemy.CTilePlaceable.tile.CTileVisibility.visible)
-				continue;
 
 			var task = new AITask(enemy, self, 10);
 

@@ -76,6 +76,21 @@ var TileVisibilitySystem = function (m_world) {
 			showTiles(visibleTiles);
 		}
 
+
+		
+		// Populate visible placeables.
+		for(var relation = 0; relation < m_gameState.visiblePlaceables.length; ++relation) {
+			m_gameState.visiblePlaceables[relation].clear();
+
+			for(var i = 0; i < m_gameState.relationPlaceables[relation].length; ++i) {
+				var placeable = m_gameState.relationPlaceables[relation][i];
+				if (placeable.CTilePlaceable.tile.CTileVisibility.visible) {
+					m_gameState.visiblePlaceables[relation].push(placeable);
+				}
+			}
+		}
+
+
 		self._eworld.trigger(GameplayEvents.Fog.REFRESH_FOG);
 		self._eworld.trigger(GameplayEvents.Fog.REFRESH_FOG_AFTER);
 	}
