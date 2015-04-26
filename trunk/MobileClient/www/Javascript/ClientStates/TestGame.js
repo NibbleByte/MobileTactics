@@ -222,6 +222,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 	
 	
 		var playerController = new PlayerController(executor);
+		m_eworld.addSystem(new CommonController(executor));
 		m_eworld.addSystem(playerController);
 	
 		m_clientState.effects = effects;

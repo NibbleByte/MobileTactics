@@ -110,6 +110,7 @@
     <None Include="..\..\MobileClient\www\Javascript\ClientStates\ClientStateManager.js" />
     <None Include="..\..\MobileClient\www\Javascript\ClientStates\TestGame.js" />
     <None Include="..\..\MobileClient\www\Javascript\ClientStates\WorldEditor.js" />
+    <None Include="..\..\MobileClient\www\Javascript\CommonController.js" />
     <None Include="..\..\MobileClient\www\Javascript\cordova-Mockup.js" />
     <None Include="..\..\MobileClient\www\Javascript\DevConsole.js" />
     <None Include="..\..\MobileClient\www\Javascript\Editor\Brushes.js" />
