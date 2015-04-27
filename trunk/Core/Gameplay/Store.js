@@ -92,7 +92,7 @@ var Store = new function () {
 		
 		eworld.trigger(GameplayEvents.Store.PLACEABLE_BOUGHT, placeable);
 
-		return placeable;
+		return action;
 	};
 };
 
