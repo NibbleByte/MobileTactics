@@ -23,6 +23,8 @@ var AIAssignment = function (priority, score, task, taskDoer) {
 	this.score = score;
 	this.task = task;
 	this.taskDoer = taskDoer;
+
+	this.useAIData = true;
 }
 
 AIAssignment.prototype.isValid = function () {
@@ -30,18 +32,27 @@ AIAssignment.prototype.isValid = function () {
 }
 
 AIAssignment.prototype.canAssign = function () {
-	return this.task.scoreAssigned < this.task.scoreLimit && this.taskDoer.CAIData.task == null;
+	return this.task.scoreAssigned < this.task.scoreLimit && (!this.useAIData || this.taskDoer.CAIData.task == null);
 }
 
 AIAssignment.prototype.assign = function () {
 	
-	if (Utils.assert(this.taskDoer && this.taskDoer.CAIData, 'Trying to assign task to invalid doer.'))
-		return;
-	if (Utils.assert(this.taskDoer.CAIData.task == null, 'Task is already assigned to this unit.'))
-		return;
+	if (this.useAIData) {
+		if (Utils.assert(this.taskDoer && this.taskDoer.CAIData, 'Trying to assign task to invalid doer.'))
+			return;
+		if (Utils.assert(this.taskDoer.CAIData.task == null, 'Task is already assigned to this unit.'))
+			return;
+	}
 
 	this.task.taskDoers.push(this.taskDoer);
 	this.task.scoreAssigned += this.score;
 
-	this.taskDoer.CAIData.task = this.task;
+	if (this.useAIData) {
+		this.taskDoer.CAIData.task = this.task;
+	}
+}
+
+// Used by AI action systems.
+var AIActionData = function (action) {
+	this.action = action || null;
 }

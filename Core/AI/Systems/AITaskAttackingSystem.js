@@ -45,7 +45,7 @@ var AITaskAttackingSystem = function (m_world, m_executor) {
 		}
 	}
 	
-	this.generateAction = function (assignment) {
+	this.generateActionData = function (assignment) {
 		var target = assignment.task.objective;
 		var targetTile = target.CTilePlaceable.tile;
 		var goActions = m_executor.getAvailableActions(assignment.taskDoer);
@@ -79,7 +79,7 @@ var AITaskAttackingSystem = function (m_world, m_executor) {
 				} else {
 					moveAction.appliedTile = MathUtils.randomElement(moveAction.availableTiles);
 				}
-				return moveAction;
+				return new AIActionData(moveAction);
 			}
 
 
@@ -88,7 +88,7 @@ var AITaskAttackingSystem = function (m_world, m_executor) {
 			var dist = m_world.getDistance(goTile, targetTile);
 			if (canAttack && attackRange == dist) {
 				attackAction.appliedTile = targetTile;
-				return attackAction;
+				return new AIActionData(attackAction);
 			}
 
 			// Check if can move in attack range directly.
@@ -110,11 +110,11 @@ var AITaskAttackingSystem = function (m_world, m_executor) {
 				// Example: tank is in 2 out of 3 attack range, but can't move further away. Force attack to avoid worse movement.
 				if (canAttack && m_world.getDistance(tile, targetTile) < dist) {
 					attackAction.appliedTile = targetTile;
-					return attackAction;
+					return new AIActionData(attackAction);
 				}
 
 				moveAction.appliedTile = tile;
-				return moveAction;
+				return new AIActionData(moveAction);
 			}
 
 			
@@ -141,22 +141,30 @@ var AITaskAttackingSystem = function (m_world, m_executor) {
 				return null;
 
 			moveAction.appliedTile = moveTile;
-			return moveAction;
+			return new AIActionData(moveAction);
 		}
 
 
 		if (canAttack) {
 			attackAction.appliedTile = targetTile;
-			return attackAction;
+			return new AIActionData(attackAction);
 		}
 
 
 		if (stayAction) {
 			stayAction.appliedTile = goTile;
-			return stayAction;
+			return new AIActionData(stayAction);
 		}
 
 		return null;
+	}
+
+	this.executeAction = function (actionData) {
+
+		if (Utils.assert(actionData.action, 'No action data?!'))
+			return;
+
+		m_executor.executeAction(actionData.action);
 	}
 }
 

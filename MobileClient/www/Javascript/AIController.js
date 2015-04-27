@@ -23,7 +23,7 @@ var AIController = function (m_executor) {
 		m_replayAssignments = null;
 		m_replayIndex = 0;
 		m_selectedGOActions = null;
-		m_replayAction = null;
+		m_actionData = null;
 		m_currentTimeout = null;
 	}
 
@@ -59,7 +59,7 @@ var AIController = function (m_executor) {
 	var m_replayAssignments = null;
 	var m_replayIndex = 0;
 	var m_selectedGOActions = null;
-	var m_replayAction = null;
+	var m_actionData = null;
 	var m_currentAssignment = null;
 	var m_currentTimeout = null;
 
@@ -82,15 +82,20 @@ var AIController = function (m_executor) {
 			m_currentAssignment = m_replayAssignments[m_replayIndex];
 
 			if (m_currentAssignment.canAssign() && m_currentAssignment.isValid()) {
-				m_replayAction = m_currentAssignment.task.creator.generateAction(m_currentAssignment);
+				m_actionData = m_currentAssignment.task.creator.generateActionData(m_currentAssignment);
 
-				if (m_replayAction) {
+				if (m_actionData) {
 					m_currentAssignment.assign();
 
-					// Select the unit (visually).
-					m_selectedGOActions = m_executor.getAvailableActions(m_currentAssignment.taskDoer);
-					GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.highlightTileAction);
-					self._eworld.trigger(ClientEvents.Controller.TILE_SELECTED, m_currentAssignment.taskDoer.CTilePlaceable.tile);
+					// Select the unit (visually). Only if this is unit.
+					if (m_currentAssignment.taskDoer.CTilePlaceable) {
+						m_selectedGOActions = m_executor.getAvailableActions(m_currentAssignment.taskDoer);
+						GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.highlightTileAction);
+						self._eworld.trigger(ClientEvents.Controller.TILE_SELECTED, m_currentAssignment.taskDoer.CTilePlaceable.tile);
+					} else {
+						// Assume taskDoer is tile
+						self._eworld.trigger(ClientEvents.Controller.TILE_SELECTED, m_currentAssignment.taskDoer);
+					}
 
 					m_currentTimeout = setTimeout(processSelected, SELECTION_TIMEOUT);
 				}
@@ -112,28 +117,34 @@ var AIController = function (m_executor) {
 
 	var processSelected = function () {
 
-		GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.unHighlightTile);
-		m_selectedGOActions = null;
+		if (m_selectedGOActions) {
+			GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.unHighlightTile);
+			m_selectedGOActions = null;
+		}
 
-		self._eworld.trigger(ClientEvents.Controller.TILE_SELECTED, m_replayAction.appliedTile);
+		m_currentAssignment.task.creator.executeAction(m_actionData);
 
-
-		m_executor.executeAction(m_replayAction);
+		// Selection is after execution, as action itself can be added on executeAction.
+		if (m_actionData.action)
+			self._eworld.trigger(ClientEvents.Controller.TILE_SELECTED, m_actionData.action.appliedTile);
 
 
 		if (m_currentAssignment.isValid()) {
 			// Check if there are more actions to execute...
-			m_replayAction = m_currentAssignment.task.creator.generateAction(m_currentAssignment);
+			m_actionData = m_currentAssignment.task.creator.generateActionData(m_currentAssignment);
 		} else {
-			m_replayAction = null;
+			m_actionData = null;
 		}
 
-		if (!m_replayAction) {
+		if (!m_actionData) {
 			m_currentTimeout = setTimeout(processAssignments, ACTION_TIMEOUT);
 		} else {
 
-			m_selectedGOActions = m_executor.getAvailableActions(m_currentAssignment.taskDoer);
-			GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.highlightTileAction);
+			// Again: only for units.
+			if (m_currentAssignment.taskDoer.CTilePlaceable) {
+				m_selectedGOActions = m_executor.getAvailableActions(m_currentAssignment.taskDoer);
+				GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.highlightTileAction);
+			}
 
 			m_currentTimeout = setTimeout(processSelected, SELECTION_TIMEOUT);
 		}
