@@ -124,6 +124,7 @@ var SpriteColorizeManager = new function () {
 
 		// Replace image with canvas. Don't update.
 		sprite.img = canvas;
+		sprite.changed = true;
 	}
 
 	// Saturation is value from 0 to 1
@@ -146,5 +147,6 @@ var SpriteColorizeManager = new function () {
 
 		// Replace image with canvas. Don't update.
 		sprite.img = canvas;
+		sprite.changed = true;
 	}
 };
