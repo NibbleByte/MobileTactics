@@ -42,6 +42,7 @@ var TileStructureRenderingSystem = function (m_renderer) {
 			}
 
 			self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.TerrainOverlay);
+			self._eworld.trigger(RenderEvents.Sprites.REFRESH_SPRITES, sprite);
 		}
 	}
 

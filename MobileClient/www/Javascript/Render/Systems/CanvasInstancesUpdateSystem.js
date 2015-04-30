@@ -7,7 +7,7 @@
 var CanvasInstancesUpdateSystem = function () {
 	var self = this;
 
-	var REFRESH_PENDING_SPRITES = 'CanvasInstancesUpdateSystem.refresh_pending_sprites';
+	var REFRESH_PENDING_ANIMATORS = 'CanvasInstancesUpdateSystem.refresh_pending_animators';
 	
 	//
 	// Entity system initialize
@@ -16,7 +16,7 @@ var CanvasInstancesUpdateSystem = function () {
 		self._eworldSB.subscribe(RenderEvents.Sprites.REFRESH_SPRITES, onRefreshSprites);
 		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_FINISHED, onAnimationFinished);
 
-		self._eworldSB.subscribe(REFRESH_PENDING_SPRITES, refreshPendingSprites);
+		self._eworldSB.subscribe(REFRESH_PENDING_ANIMATORS, refreshPendingAnimators);
 	}
 	
 	//
@@ -24,7 +24,21 @@ var CanvasInstancesUpdateSystem = function () {
 	//
 	var m_pendingAnimators = [];
 
-	var refreshPendingSprites = function () {
+	var onRefreshSprites = function (event, sprites) {
+
+		if (Utils.isArray(sprites)) {
+			for (var i = 0; i < sprites.length; ++i) {
+				if (sprites[i].canvasInstance) {
+					sprites[i].update();
+				}
+			}
+		} else {
+			sprites.update();
+		}
+
+	}
+
+	var refreshPendingAnimators = function () {
 
 		for(var i = 0; i < m_pendingAnimators.length; ++i) {
 
@@ -38,15 +52,6 @@ var CanvasInstancesUpdateSystem = function () {
 		m_pendingAnimators.clear();
 	}
 
-	var onRefreshSprites = function (event, sprites) {
-
-		m_pendingAnimators = m_pendingAnimators.concat(sprites);
-
-		if (m_pendingAnimators.length == 1) {
-			self._eworld.triggerAsync(REFRESH_PENDING_SPRITES, refreshPendingSprites);
-		}
-	}
-
 	var onAnimationFinished = function (event, data) {
 		
 		// Mark only canvas instances for pending update.
@@ -54,7 +59,7 @@ var CanvasInstancesUpdateSystem = function () {
 			m_pendingAnimators.push(data.animator);
 
 		if (m_pendingAnimators.length == 1) {
-			self._eworld.triggerAsync(REFRESH_PENDING_SPRITES, refreshPendingSprites);
+			self._eworld.triggerAsync(REFRESH_PENDING_ANIMATORS, refreshPendingAnimators);
 		}
 	}
 }

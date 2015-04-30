@@ -38,6 +38,7 @@ Actions.Classes.ActionCapture = new function () {
 		// This action consumes the whole turn.
 		placeable.CUnit.turnPoints = 0;
 
+		// NOTE: this is executed BEFORE unit actually finishes turn (GameExecutor.executeAction finishes).
 		eworld.trigger(GameplayEvents.Structures.CAPTURE_STARTED, appliedTile);
 	}
 

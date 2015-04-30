@@ -17,6 +17,8 @@ var ActionFogRenderingSystem = function (m_world) {
 		self._eworldSB.subscribe(ClientEvents.Controller.ACTIONS_CLEARED, onActionsCleared);
 		self._eworldSB.subscribe(ClientEvents.Controller.ACTION_CANCEL, onActionsCleared);
 
+		self._eworldSB.subscribe(GameplayEvents.Structures.CAPTURE_STARTED, onCaptureStarted);
+
 		self._eworldSB.subscribe(GameplayEvents.Store.PLACEABLE_BOUGHT, onActionsCleared);
 
 		self._eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGING, onTurnChanging);
@@ -66,6 +68,17 @@ var ActionFogRenderingSystem = function (m_world) {
 	var onActionsCleared = function (event) {
 
 		hideAll();
+		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.Highlights);
+		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.ActionFog);
+	}
+
+	var onCaptureStarted = function (event, tile) {
+		
+		if (Utils.assert(tile.CTile.placedObjects.length > 0))
+			return;
+
+		tile.CTile.placedObjects[0].CUnitRendering.showFinished(true);
+		
 		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.Highlights);
 		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.ActionFog);
 	}

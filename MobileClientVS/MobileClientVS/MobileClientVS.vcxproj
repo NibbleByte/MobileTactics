@@ -17,6 +17,7 @@
     <None Include="..\..\Core\AI\Systems\AISimulationSystem.js" />
     <None Include="..\..\Core\AI\Systems\AITaskAttackingSystem.js" />
     <None Include="..\..\Core\AI\Systems\AITaskBuyingSystem.js" />
+    <None Include="..\..\Core\AI\Systems\AITaskCaptureSystem.js" />
     <None Include="..\..\Core\Engine\3rdParty\jquery-1.9.1.js" />
     <None Include="..\..\Core\Engine\3rdParty\underscore.js" />
     <None Include="..\..\Core\Engine\Components\CTile.js" />

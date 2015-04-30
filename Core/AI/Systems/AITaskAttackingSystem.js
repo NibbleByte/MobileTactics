@@ -38,8 +38,9 @@ var AITaskAttackingSystem = function (m_world, m_executor) {
 			var task = new AITask(enemy, self, 10);
 
 			for(var j = 0; j < units.length; ++j) {
-				var priority = 30 / m_world.getDistance(enemy.CTilePlaceable.tile, units[j].CTilePlaceable.tile);
-				var assignment = new AIAssignment(priority, 5, task, units[j]);
+				var unit = units[j];
+				var priority = 30 / m_world.getDistance(enemy.CTilePlaceable.tile, unit.CTilePlaceable.tile);
+				var assignment = new AIAssignment(priority, 5, task, unit);
 				assignments.push(assignment);
 			}
 		}
