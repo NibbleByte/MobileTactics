@@ -62,8 +62,8 @@
     <None Include="..\..\Core\Gameplay\Systems\BattleSystem.js" />
     <None Include="..\..\Core\Gameplay\Systems\EffectsSystem.js" />
     <None Include="..\..\Core\Gameplay\Systems\GameStateSystem.js" />
-    <None Include="..\..\Core\Gameplay\Systems\TileBaseSystem.js" />
     <None Include="..\..\Core\Gameplay\Systems\TileCapturingSystem.js" />
+    <None Include="..\..\Core\Gameplay\Systems\TileStructuresSystem.js" />
     <None Include="..\..\Core\Gameplay\Systems\TileVisibilitySystem.js" />
     <None Include="..\..\Core\Gameplay\Systems\UnitsSystem.js" />
     <None Include="..\..\Core\Gameplay\TerrainType.js" />

@@ -29,8 +29,8 @@ var AITaskCaptureSystem = function (m_world, m_executor) {
 	}
 	
 	var onGatherAssignments = function (event, assignments) {
-		var enemyStructures = m_gameState.relationStructures[PlayersData.Relation.Enemy];
-		var neutralStructures = m_gameState.relationStructures[PlayersData.Relation.Neutral];
+		var enemyStructures = m_gameState.knownStructures[PlayersData.Relation.Enemy];
+		var neutralStructures = m_gameState.knownStructures[PlayersData.Relation.Neutral];
 		var targetStructures = neutralStructures.concat(enemyStructures);
 		var units = m_gameState.currentPlaceables;
 

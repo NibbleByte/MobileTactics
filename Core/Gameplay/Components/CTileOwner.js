@@ -3,6 +3,8 @@
 var CTileOwner = function CTileOwner() {
 	this.owner = null;				// Player
 
+	this.knowledge = {};			// <playerId, owner> - who does given player think the owner is.
+
 	this.beingCapturedBy = null;	// Unit
 	this.captureTurns = 0;			// Remaining capture turns.
 };

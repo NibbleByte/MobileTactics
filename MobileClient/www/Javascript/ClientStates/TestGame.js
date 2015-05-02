@@ -73,6 +73,10 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 							tile.CTileOwner.owner = playersData.players[basesCount % 2];
 						}
 
+						if (basesCount == 1) {
+							tile.CTileOwner.owner = playersData.players[1];
+						}
+
 						basesCount++;
 					}
 				}
@@ -214,8 +218,8 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		m_eworld.addSystem(m_eworld.store(BattleSystem, new BattleSystem(world)));
 		m_eworld.addSystem(new UnitsSystem());
 		m_eworld.addSystem(new GameStateSystem());
-		m_eworld.addSystem(new TileCapturingSystem());
-		m_eworld.addSystem(new TileBaseSystem());
+		m_eworld.addSystem(new TileStructuresSystem());	// Before TileVisibilitySystem, because structures also define visibility
+		m_eworld.addSystem(new TileCapturingSystem());	// After TileStructuresSystem
 		m_eworld.addSystem(new TileVisibilitySystem(world));
 	
 		var executor = m_eworld.store(GameExecutor, new GameExecutor(m_eworld, world));

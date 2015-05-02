@@ -23,6 +23,7 @@ var TileVisibilitySystem = function (m_world) {
 		self._eworldSB.subscribe(GameplayEvents.Structures.CAPTURE_FINISHED, refreshVisibility);
 
 		self._eworldSB.subscribe(EngineEvents.World.TILE_ADDED, onTileAdded);
+		self._eworldSB.subscribe(EngineEvents.World.TILE_REMOVED, refreshVisibility);
 		m_world.iterateAllTiles(function(tile){
 			onTileAdded(null, tile);
 		});
@@ -44,6 +45,9 @@ var TileVisibilitySystem = function (m_world) {
 
 	var onTileAdded = function(event, tile) {
 		tile.addComponent(CTileVisibility);
+
+		if (m_gameState && m_gameState.currentPlayer)
+			refreshVisibility();
 	}
 
 	var refreshVisibility = function () {
@@ -80,10 +84,9 @@ var TileVisibilitySystem = function (m_world) {
 		
 		// Populate visible placeables.
 		for(var relation = 0; relation < m_gameState.visiblePlaceables.length; ++relation) {
-			m_gameState.visiblePlaceables[relation].clear();
-
 			for(var i = 0; i < m_gameState.relationPlaceables[relation].length; ++i) {
 				var placeable = m_gameState.relationPlaceables[relation][i];
+
 				if (placeable.CTilePlaceable.tile.CTileVisibility.visible) {
 					m_gameState.visiblePlaceables[relation].push(placeable);
 				}
