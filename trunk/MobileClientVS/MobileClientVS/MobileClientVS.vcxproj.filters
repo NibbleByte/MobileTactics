@@ -218,9 +218,6 @@
     <None Include="..\..\Core\Gameplay\Components\CTileOwner.js">
       <Filter>Javascript\Core\Gameplay\Components</Filter>
     </None>
-    <None Include="..\..\Core\Gameplay\Systems\TileBaseSystem.js">
-      <Filter>Javascript\Core\Gameplay\Systems</Filter>
-    </None>
     <None Include="..\..\Core\Engine\Systems\UtilsSystem.js">
       <Filter>Javascript\Core\Engine\Systems</Filter>
     </None>
@@ -439,6 +436,9 @@
     </None>
     <None Include="..\..\Core\AI\Systems\AITaskCaptureSystem.js">
       <Filter>Javascript\Core\AI\Systems</Filter>
+    </None>
+    <None Include="..\..\Core\Gameplay\Systems\TileStructuresSystem.js">
+      <Filter>Javascript\Core\Gameplay\Systems</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

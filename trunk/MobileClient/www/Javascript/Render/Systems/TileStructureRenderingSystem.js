@@ -19,13 +19,36 @@ var TileStructureRenderingSystem = function (m_renderer) {
 		self._entityFilter.addRefreshEvent(EngineEvents.World.TILE_ADDED);
 		self._entityFilter.addRefreshEvent(EngineEvents.World.TILE_CHANGED);
 		self._entityFilter.addRefreshEvent(EngineEvents.World.TILE_REMOVING);
+
+		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADING, onGameLoading);
 		
 		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_FINISHED, onAnimationFinished);
 		self._eworldSB.subscribe(GameplayEvents.Structures.CAPTURE_FINISHED, onRefreshStructureTile);
+		self._eworldSB.subscribe(GameplayEvents.Fog.REFRESH_FOG_AFTER, refreshKnowledge);
 
-		var tiles = self._entityFilter.entities.slice(0);
+		var tiles = self._entityFilter.entities;
 		for(var i = 0; i < tiles.length; ++i) {
 			registerTileStructure(tiles[i]);
+		}
+	}
+
+	//
+	// ---- Private ----
+	//
+	var m_gameState = null;
+
+	var onGameLoading = function (event) {
+		m_gameState = self._eworld.extract(GameState);
+	}
+
+	var refreshKnowledge = function () {
+
+		var tiles = self._entityFilter.entities;
+		for (var i = 0; i < tiles.length; ++i) {
+			var sprite = tiles[i].CTileOverlayRendering.sprite;
+
+			if (sprite && sprite.imgLoaded)
+				refreshStructureTile(tiles[i]);
 		}
 	}
 
@@ -34,8 +57,8 @@ var TileStructureRenderingSystem = function (m_renderer) {
 
 		if (tile.CTileOwner) {
 			// If structure can be owned, apply team colors/sprites
-			var owner = tile.CTileOwner.owner;
-			if (owner == null) {
+			var owner = tile.CTileOwner.knowledge[m_gameState.currentPlayer.playerId];
+			if (!owner) {
 				SpriteColorizeManager.saturateSprite(sprite, 0);
 			} else {
 				SpriteColorizeManager.colorizeSprite(sprite, owner.colorHue);

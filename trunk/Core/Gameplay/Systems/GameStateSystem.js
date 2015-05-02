@@ -98,7 +98,7 @@ var GameStateSystem = function () {
 			return;
 		}
 		
-		if (previousPlayer != null && previousPlayer.id > m_gameState.currentPlayer.id) {
+		if (previousPlayer != null && previousPlayer.playerId > m_gameState.currentPlayer.playerId) {
 			++m_gameState.turnsPassed;
 		}
 		

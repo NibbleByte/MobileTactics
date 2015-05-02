@@ -25,12 +25,18 @@ GameState.prototype.init = function () {
 	this.visiblePlaceables[PlayersData.Relation.Ally] = [];
 
 	this.bases = [];
+	this.structures = [];
 
 	this.currentStructures = [];
 	this.relationStructures = [];
 	this.relationStructures[PlayersData.Relation.Enemy] = [];
 	this.relationStructures[PlayersData.Relation.Neutral] = [];
 	this.relationStructures[PlayersData.Relation.Ally] = [];
+
+	this.knownStructures = [];
+	this.knownStructures[PlayersData.Relation.Enemy] = [];
+	this.knownStructures[PlayersData.Relation.Neutral] = [];
+	this.knownStructures[PlayersData.Relation.Ally] = [];
 }
 
 Serialization.registerClass(GameState, 'GameState');
@@ -52,6 +58,10 @@ GameState.prototype.clearStructures = function () {
 	
 	for(var i = 0; i < this.relationStructures.length; ++i) {
 		this.relationStructures[i].clear();
+	}
+
+	for(var i = 0; i < this.knownStructures.length; ++i) {
+		this.knownStructures[i].clear();
 	}
 }
 

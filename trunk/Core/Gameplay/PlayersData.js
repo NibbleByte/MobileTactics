@@ -51,7 +51,7 @@ PlayersData.prototype.getFirstPlayingPlayer = function () {
 }
 	
 PlayersData.prototype.getNextPlayingPlayer = function (player) {
-	var id = player.id;
+	var id = player.playerId;
 	
 	var nextId = (id + 1) % this.players.length;
 	
@@ -78,7 +78,7 @@ PlayersData.prototype.stopPlaying = function (player) {
 	
 PlayersData.prototype.getRelation = function (player1, player2) {
 	
-	if (player1.teamId == player2.teamId && (player1.teamId != -1 || player1.id == player2.id)) {
+	if (player1.teamId == player2.teamId && (player1.teamId != -1 || player1.playerId == player2.playerId)) {
 		return PlayersData.Relation.Ally;
 	}
 	
@@ -103,7 +103,7 @@ Enums.enumerate(PlayersData.Relation);
 
 // This class is read-only data.
 var Player = function (id, name, type, race, colorHue, teamId) {
-	this.id = id;
+	this.playerId = id;
 	this.name = name;
 	this.race = race;
 	this.colorHue = colorHue;

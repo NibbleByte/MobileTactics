@@ -20,9 +20,6 @@ var TileCapturingSystem = function () {
 		self._eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, onTurnChanged);
 		self._eworldSB.subscribe(GameplayEvents.Units.UNIT_DESTROYING, onUnitDestroying);
 		self._eworldSB.subscribe(GameplayEvents.Units.UNIT_DESTROYING_UNDO, onUnitDestroyingUndo);
-
-		self._eworldSB.subscribe(EngineEvents.World.TILE_ADDED, onTileAdded);
-		self._eworldSB.subscribe(EngineEvents.World.TILE_REMOVING, onTileRemoving);
 	}
 
 	//
@@ -59,28 +56,12 @@ var TileCapturingSystem = function () {
 	}
 
 	var onTurnChanged = function (event, gameState, hasJustLoaded) {
-		m_gameState.clearStructures();
-
-		var player = m_gameState.currentPlayer;
-
-		var entities = self._entityFilter.entities;
-		for (var i = 0; i < entities.length; ++i) {
-			var tile = entities[i];
-
-			if (tile.CTileOwner.owner == player) {
-				m_gameState.currentStructures.push(tile);
-			}
-
-			var relation = PlayersData.Relation.Neutral;
-			if (tile.CTileOwner.owner != null) {
-				relation = m_playersData.getRelation(tile.CTileOwner.owner, player);
-			}
-			m_gameState.relationStructures[relation].push(tile);
-		}
-
+		
 		// Turn has not actually passed, so capture state should remain the same.
 		if (hasJustLoaded)
 			return;
+
+		var player = m_gameState.currentPlayer;
 
 		for(var i = 0; i < m_capturingTiles.length; ++i) {
 			var tile = m_capturingTiles[i]
@@ -93,8 +74,11 @@ var TileCapturingSystem = function () {
 
 					// Remove from previous relation.
 					var relation = PlayersData.Relation.Neutral;
-					if (tile.CTileOwner.owner != null) {
+					if (tile.CTileOwner.owner) {
 						relation = m_playersData.getRelation(tile.CTileOwner.owner, player);
+
+						// The x owner knows who took it from him!
+						tile.CTileOwner.knowledge[tile.CTileOwner.owner.playerId] = player;
 					}
 					m_gameState.relationStructures[relation].remove(tile);
 
@@ -102,6 +86,7 @@ var TileCapturingSystem = function () {
 					tile.CTileOwner.owner = player;
 					tile.CTileOwner.beingCapturedBy.destroy();
 					tile.CTileOwner.beingCapturedBy = null;
+					tile.CTileOwner.knowledge[player.playerId] = player;
 					m_capturingTiles.remove(tile);
 					--i;
 
@@ -156,33 +141,6 @@ var TileCapturingSystem = function () {
 					break;
 				}
 			}
-		}
-	}
-
-	var onTileAdded = function (event, tile) {
-		if (!tile.CTileOwner || m_gameState == null || m_gameState.currentPlayer == null)
-			return;
-
-		if (tile.CTileOwner.owner == m_gameState.currentPlayer) {
-			m_gameState.currentStructures.push(tile);
-		}
-
-		var relation = PlayersData.Relation.Neutral;
-		if (tile.CTileOwner.owner != null) {
-			relation = m_playersData.getRelation(tile.CTileOwner.owner, m_gameState.currentPlayer);
-		}
-		m_gameState.relationStructures[relation].push(tile);
-	}
-
-	var onTileRemoving = function (event, tile) {
-		if (!tile.CTileOwner || m_gameState == null || m_gameState.currentPlayer == null)
-			return;
-
-		// Remove from game state.
-		m_gameState.currentStructures.remove(tile);
-
-		for (var i = 0; i < m_gameState.relationStructures.length; ++i) {
-			m_gameState.relationStructures[i].remove(tile);
 		}
 	}
 };
