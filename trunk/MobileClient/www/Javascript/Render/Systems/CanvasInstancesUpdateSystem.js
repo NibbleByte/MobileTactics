@@ -45,7 +45,8 @@ var CanvasInstancesUpdateSystem = function () {
 			// Refresh only sprites that finished animations, and has changed sequence,
 			// cause no one will refresh them if paused.
 			if (!m_pendingAnimators[i].finished && m_pendingAnimators[i].isPaused) {
-				m_pendingAnimators[i].sprite.update();
+				if (!Utils.isInvalidated(m_pendingAnimators[i].sprite))
+					m_pendingAnimators[i].sprite.update();
 			}
 		}
 
@@ -53,6 +54,10 @@ var CanvasInstancesUpdateSystem = function () {
 	}
 
 	var onAnimationFinished = function (event, data) {
+		
+		// Might happen if someone destroys it in the current ANIMATION_FINISHED event before us.
+		if (Utils.isInvalidated(data.animator.sprite))
+			return;
 		
 		// Mark only canvas instances for pending update.
 		if (data.animator.sprite.canvasInstance)
