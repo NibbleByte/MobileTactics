@@ -114,11 +114,11 @@ ECS.EntityManager._getComponentId = function () {
 //
 
 ECS.EntityManager._getSystemName = function () {
-	return this._COMP_NAME;
+	return this._SYS_NAME;
 }
 
 ECS.EntityManager._getSystemId = function () {
-	return this._COMP_ID;
+	return this._SYS_ID;
 }
 
 ECS.EntityManager._getEntityWorld = function () {

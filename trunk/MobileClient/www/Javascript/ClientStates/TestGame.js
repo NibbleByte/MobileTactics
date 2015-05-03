@@ -270,6 +270,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		m_eworld.addSystem(new AITaskBuyingSystem(world, executor));
 	
 		m_eworld.addSystem(new AIController(executor));
+		m_eworld.addSystem(new AIControllerUI(executor, m_eworld.getSystem(AIController)));
 
 
 		//

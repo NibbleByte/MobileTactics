@@ -25,6 +25,26 @@ var AIController = function (m_executor) {
 		m_selectedGOActions = null;
 		m_actionData = null;
 		m_currentTimeout = null;
+
+		m_scheduleData.handler = null;
+	}
+
+	this.pause = function () {
+		m_scheduleData.paused = true;
+
+		clearTimeout(m_currentTimeout);
+	}
+
+	this.nextStep = function () {
+		self.pause();
+
+		m_scheduleData.handler();
+	}
+
+	this.resume = function () {
+		m_scheduleData.paused = false;
+
+		scheduleNextStep(m_scheduleData.handler, m_scheduleData.timeout);
 	}
 
 	//
@@ -63,8 +83,25 @@ var AIController = function (m_executor) {
 	var m_currentAssignment = null;
 	var m_currentTimeout = null;
 
-	var SELECTION_TIMEOUT = 750;
-	var ACTION_TIMEOUT = 750;
+	this.SELECTION_TIMEOUT = 800;
+	this.ACTION_TIMEOUT = 800;
+
+
+
+	var m_scheduleData = {
+		handler: null,
+		timeout: 0,
+		paused: false,
+	}
+
+	var scheduleNextStep = function (handler, timeout) {
+		m_scheduleData.handler = handler;
+		m_scheduleData.timeout = timeout;
+
+		if (!m_scheduleData.paused) {
+			m_currentTimeout = setTimeout(m_scheduleData.handler, m_scheduleData.timeout);
+		}
+	}
 
 	var onSimulationFinished = function (event, assignments) {
 		m_replayAssignments = assignments;
@@ -76,7 +113,7 @@ var AIController = function (m_executor) {
 
 	var processAssignments = function () {
 
-		m_currentTimeout = null;
+		m_scheduleData.handler = null;
 
 		if (m_replayIndex < m_replayAssignments.length) {
 			m_currentAssignment = m_replayAssignments[m_replayIndex];
@@ -97,13 +134,14 @@ var AIController = function (m_executor) {
 						self._eworld.trigger(ClientEvents.Controller.TILE_SELECTED, m_currentAssignment.taskDoer);
 					}
 
-					m_currentTimeout = setTimeout(processSelected, SELECTION_TIMEOUT);
+					self._eworld.trigger(AIEvents.Execution.CURRENT_ASSIGNMENT_CHANGED, m_currentAssignment);
+					scheduleNextStep(processSelected, self.SELECTION_TIMEOUT);
 				}
 
 			}
 			
 			// If no selection was made, proceed to next one directly.
-			if (m_currentTimeout === null) {
+			if (m_scheduleData.handler != processSelected) {
 				m_currentTimeout = setTimeout(processAssignments, 0);
 			}
 
@@ -138,7 +176,7 @@ var AIController = function (m_executor) {
 		}
 
 		if (!m_actionData) {
-			m_currentTimeout = setTimeout(processAssignments, ACTION_TIMEOUT);
+			scheduleNextStep(processAssignments, self.ACTION_TIMEOUT);
 		} else {
 
 			// Again: only for units.
@@ -147,7 +185,7 @@ var AIController = function (m_executor) {
 				GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.highlightTileAction);
 			}
 
-			m_currentTimeout = setTimeout(processSelected, SELECTION_TIMEOUT);
+			scheduleNextStep(processSelected, self.SELECTION_TIMEOUT);
 		}
 	}
 }

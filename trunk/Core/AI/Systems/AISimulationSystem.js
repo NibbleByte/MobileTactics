@@ -26,7 +26,7 @@ var AISimulationSystem = function (m_eworld) {
 
 		assignments.sort(assignmentSorting);
 
-		self._eworld.trigger(AIEvents.Simulation.SIMULATION_FINISHED, assignments);
+		self._eworld.triggerAsync(AIEvents.Simulation.SIMULATION_FINISHED, assignments);
 	}
 
 	// Descending

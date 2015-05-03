@@ -443,6 +443,9 @@
     <None Include="..\..\Core\AI\Systems\AITaskHealSystem.js">
       <Filter>Javascript\Core\AI\Systems</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Javascript\AIControllerUI.js">
+      <Filter>Javascript</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
