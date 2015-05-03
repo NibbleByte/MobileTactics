@@ -119,6 +119,7 @@ var AIController = function (m_executor) {
 
 		if (m_selectedGOActions) {
 			GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.unHighlightTile);
+			self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.Highlights);
 			m_selectedGOActions = null;
 		}
 
