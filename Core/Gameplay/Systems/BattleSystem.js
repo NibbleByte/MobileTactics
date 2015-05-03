@@ -11,13 +11,14 @@ var BattleSystem = function (m_world) {
 		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADING, onGameLoading);
 	}
 
-	this.predictOutcome = function (attacker, defender) {
+	// Can also predict if attacker/defender were placed on a specific tiles.
+	this.predictOutcome = function (attacker, defender, opt_attackerTile, opt_defenderTile) {
 
 		if (Utils.assert(!!attacker.CStatistics.statistics['Attack'])) return;
 		if (Utils.assert(!!defender.CStatistics.statistics['Defence'])) return;
 
 		// Attacker parameters
-		var aTile = attacker.CTilePlaceable.tile;
+		var aTile = opt_attackerTile || attacker.CTilePlaceable.tile;
 		var aTerrainMod = attacker.CStatistics.terrainStats[aTile.CTileTerrain.type].Attack || 0;
 		var aRange = attacker.CStatistics.statistics['AttackRange'];
 		var aHealthMod = attacker.CUnit.health / attacker.CStatistics.statistics['MaxHealth'];
@@ -26,7 +27,7 @@ var BattleSystem = function (m_world) {
 
 
 		// Defender parameters
-		var dTile = defender.CTilePlaceable.tile;
+		var dTile = opt_defenderTile || defender.CTilePlaceable.tile;
 		var dTerrainMod = defender.CStatistics.terrainStats[dTile.CTileTerrain.type].Defence || 0;
 		var dRange = defender.CStatistics.statistics['AttackRange'];
 		var dHealthMod = defender.CUnit.health / defender.CStatistics.statistics['MaxHealth'];
@@ -60,8 +61,8 @@ var BattleSystem = function (m_world) {
 			attacker: attacker,
 			defender: defender,
 
-			attackerTile: attacker.CTilePlaceable.tile,
-			defenderTile: defender.CTilePlaceable.tile,
+			attackerTile: aTile,
+			defenderTile: dTile,
 
 			attackerHealth: attacker.CUnit.health,
 			defenderHealth: defender.CUnit.health,
@@ -81,6 +82,11 @@ var BattleSystem = function (m_world) {
 
 	this.applyOutcome = function (battleOutcome) {
 		
+		if (Utils.assert(battleOutcome.attackerTile == battleOutcome.attacker.CTilePlaceable.tile, 'Attacker is on different tile.'))
+			return;
+		if (Utils.assert(battleOutcome.defenderTile == battleOutcome.defender.CTilePlaceable.tile, 'Defender is on different tile.'))
+			return;
+
 		battleOutcome.attacker.CUnit.health = battleOutcome.attackerHealthOutcome;
 		battleOutcome.defender.CUnit.health = battleOutcome.defenderHealthOutcome;
 
@@ -89,6 +95,11 @@ var BattleSystem = function (m_world) {
 	}
 
 	this.revertOutcome = function (battleOutcome) {
+		if (Utils.assert(battleOutcome.attackerTile == battleOutcome.attacker.CTilePlaceable.tile, 'Attacker is on different tile.'))
+			return;
+		if (Utils.assert(battleOutcome.defenderTile == battleOutcome.defender.CTilePlaceable.tile, 'Defender is on different tile.'))
+			return;
+
 		battleOutcome.attacker.CUnit.health = battleOutcome.attackerHealth;
 		battleOutcome.defender.CUnit.health = battleOutcome.defenderHealth;
 
