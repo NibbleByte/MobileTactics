@@ -7,7 +7,6 @@ Actions.Classes = Actions.Classes || {};
 Actions.Classes.ActionBuy = new function () {
 	
 	this.actionName = 'ActionBuy';
-	this.shouldRefreshVisibility = false;
 	
 	this.executeAction = function (eworld, world, action) {
 		

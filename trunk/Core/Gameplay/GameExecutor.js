@@ -93,8 +93,10 @@ var GameExecutor = function (eworld, world) {
 
 		m_eworld.blackboard[GameplayBlackBoard.Actions.CURRENT_ACTION] = action;
 
+		placeable.CUnit.actionsData.currentActionType = action.actionType;
 		action.actionType.executeAction(m_eworld, m_world, action);
 		m_executedActions.push(action);
+		placeable.CUnit.actionsData.currentActionType = null;
 		placeable.CUnit.actionsData.addExecutedAction(prevTurnPoints, action.actionType);
 
 		m_eworld.blackboard[GameplayBlackBoard.Actions.CURRENT_ACTION] = null;
@@ -111,11 +113,6 @@ var GameExecutor = function (eworld, world) {
 		// Placeable might got destroyed during the action.
 		if (placeable.destroyed || !placeable.isAttached()) {
 			return null;
-		}
-
-		// Refresh visibility.
-		if (action.actionType.shouldRefreshVisibility) {
-			world.place(placeable, placeable.CTilePlaceable.tile);
 		}
 
 		// Turn passed, no actions.
@@ -147,7 +144,9 @@ var GameExecutor = function (eworld, world) {
 
 		m_eworld.blackboard[GameplayBlackBoard.Actions.CURRENT_ACTION] = action;
 
+		placeable.CUnit.actionsData.currentActionType = action.actionType;
 		action.actionType.undoAction(m_eworld, m_world, action);
+		placeable.CUnit.actionsData.currentActionType = null;
 		placeable.CUnit.actionsData.removeLastExecutedAction(action.placeable.CUnit.turnPoints, action.actionType);
 		// NOTE: some actions might not be in placeable.CUnit.actionsData on undo, for example ActionCreate.
 
@@ -162,8 +161,8 @@ var GameExecutor = function (eworld, world) {
 
 
 		// Refresh visibility.
-		if (action.actionType.shouldRefreshVisibility && placeable.isAttached()) {
-			world.place(placeable, placeable.CTilePlaceable.tile);
+		if (placeable.isAttached()) {
+			eworld.triggerAsync(GameplayEvents.Fog.FORCE_FOG_REFRESH);
 		}
 
 		if (placeable.isAttached()) {

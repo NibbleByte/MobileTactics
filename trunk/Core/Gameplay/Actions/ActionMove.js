@@ -7,7 +7,6 @@ Actions.Classes.ActionMove = new function () {
 	
 	this.actionName = 'ActionMove';
 	this.quickAction = false;
-	this.shouldRefreshVisibility = true;	// Because while moving placeable, visibility will be applied without preview.
 
 	this.getAvailableActions = function (eworld, world, player, placeable, outActions) {
 
