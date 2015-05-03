@@ -7,7 +7,6 @@ Actions.Classes.ActionAttack = new function () {
 	
 	this.actionName = 'ActionAttack';
 	this.quickAction = false;
-	this.shouldRefreshVisibility = true;
 	
 	this.getAvailableActions = function (eworld, world, player, placeable, outActions) {
 
@@ -49,6 +48,8 @@ Actions.Classes.ActionAttack = new function () {
 
 		var outcome = eworld.extract(BattleSystem).doAttack(action.placeable, action.appliedTile.CTile.placedObjects[0]);
 		action.undoData.outcome = outcome;
+
+		eworld.triggerAsync(GameplayEvents.Fog.FORCE_FOG_REFRESH);
 	}
 
 	this.undoAction = function (eworld, world, action) {

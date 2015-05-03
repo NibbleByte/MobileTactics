@@ -7,7 +7,6 @@ Actions.Classes.ActionStay = new function () {
 	
 	this.actionName = 'ActionStay';
 	this.quickAction = true;
-	this.shouldRefreshVisibility = true;
 
 	this.getAvailableActions = function (eworld, world, player, placeable, outActions) {
 		// Can stay only if just moved.
@@ -23,6 +22,8 @@ Actions.Classes.ActionStay = new function () {
 		var placeable = action.placeable;
 
 		placeable.CUnit.turnPoints--;
+
+		eworld.triggerAsync(GameplayEvents.Fog.FORCE_FOG_REFRESH);
 	}
 
 	this.undoAction = function (eworld, world, action) {

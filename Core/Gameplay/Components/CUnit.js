@@ -17,6 +17,9 @@ CUnit.prototype.postDeserialize = function () {
 // Actions can add additional custom data to this instance, to help them execute correctly.
 var ActionsData = function () {
 
+	// Action that is being currently executed (because at that moment, it is not yet added to previously "executed" actions).
+	this.currentActionType = null;
+
 	// Holds data per turnPoint
 	this.turnsData = [];
 }

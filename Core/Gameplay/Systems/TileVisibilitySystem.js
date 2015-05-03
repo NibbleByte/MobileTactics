@@ -22,6 +22,8 @@ var TileVisibilitySystem = function (m_world) {
 		self._eworldSB.subscribe(EngineEvents.World.TILE_REMOVED, refreshVisibility);
 		self._eworldSB.subscribe(GameplayEvents.Structures.CAPTURE_FINISHED, refreshVisibility);
 
+		self._eworldSB.subscribe(GameplayEvents.Fog.FORCE_FOG_REFRESH, refreshVisibility);
+
 		self._eworldSB.subscribe(EngineEvents.World.TILE_ADDED, onTileAdded);
 		self._eworldSB.subscribe(EngineEvents.World.TILE_REMOVED, refreshVisibility);
 		m_world.iterateAllTiles(function(tile){
@@ -60,7 +62,9 @@ var TileVisibilitySystem = function (m_world) {
 			var tile = placeable.CTilePlaceable.tile;
 
 			// If previewing some movement, use the preview tile instead of the current tile (avoid peek cheating).
-			if (placeable.CUnit.actionsData.getTurnData(placeable.CUnit.turnPoints).executedActions.last() == Actions.Classes.ActionMove) {
+			if (placeable.CUnit.actionsData.getTurnData(placeable.CUnit.turnPoints).executedActions.last() == Actions.Classes.ActionMove ||
+				placeable.CUnit.actionsData.currentActionType == Actions.Classes.ActionMove	// Avoid problems during the ActionMove
+				) {
 				tile = placeable.CUnit.actionsData.getTurnData(placeable.CUnit.turnPoints).previewOriginalTile.last() || tile;
 			}
 

@@ -7,7 +7,6 @@ Actions.Classes = Actions.Classes || {};
 Actions.Classes.ActionCreate = new function () {
 	
 	this.actionName = 'ActionCreate';
-	this.shouldRefreshVisibility = false;
 	
 	this.executeAction = function (eworld, world, action) {
 		
