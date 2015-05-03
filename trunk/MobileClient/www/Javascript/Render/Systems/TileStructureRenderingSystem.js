@@ -55,9 +55,12 @@ var TileStructureRenderingSystem = function (m_renderer) {
 	var refreshStructureTile = function (tile) {
 		var sprite = tile.CTileOverlayRendering.sprite;
 
+		// If structure can be owned, apply team colors/sprites
 		if (tile.CTileOwner) {
-			// If structure can be owned, apply team colors/sprites
-			var owner = tile.CTileOwner.knowledge[m_gameState.currentPlayer.playerId];
+
+			var owner = tile.CTileOwner.owner;
+			if (m_gameState.currentPlayer)	// If no currentPlayer, show real owner (probably in world editor).
+				owner = tile.CTileOwner.knowledge[m_gameState.currentPlayer.playerId];
 			if (!owner) {
 				SpriteColorizeManager.saturateSprite(sprite, 0);
 			} else {
