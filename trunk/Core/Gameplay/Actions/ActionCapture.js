@@ -40,6 +40,8 @@ Actions.Classes.ActionCapture = new function () {
 
 		// NOTE: this is executed BEFORE unit actually finishes turn (GameExecutor.executeAction finishes).
 		eworld.trigger(GameplayEvents.Structures.CAPTURE_STARTED, appliedTile);
+
+		eworld.triggerAsync(GameplayEvents.Fog.FORCE_FOG_REFRESH);
 	}
 
 	this.undoAction = function (eworld, world, action) {
