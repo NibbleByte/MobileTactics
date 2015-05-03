@@ -440,6 +440,9 @@
     <None Include="..\..\Core\Gameplay\Systems\TileStructuresSystem.js">
       <Filter>Javascript\Core\Gameplay\Systems</Filter>
     </None>
+    <None Include="..\..\Core\AI\Systems\AITaskHealSystem.js">
+      <Filter>Javascript\Core\AI\Systems</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

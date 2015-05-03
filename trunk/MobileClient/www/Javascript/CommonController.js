@@ -28,7 +28,7 @@ var CommonController = function (m_executor) {
 				if (goActions.go.CUnit.finishedTurn)
 					continue;
 
-				var action = goActions.actions.find(function (val) { return val.actionType == Actions.Classes.ActionHeal });
+				var action = goActions.getActionByType(Actions.Classes.ActionHeal);
 				if (action) {
 					m_executor.executeAction(action);
 					--j; // Needed in order execute all the turnPoints.

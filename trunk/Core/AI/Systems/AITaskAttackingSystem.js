@@ -50,9 +50,10 @@ var AITaskAttackingSystem = function (m_world, m_executor, m_battleSystem) {
 				// Graph formula: sin(x / 6 + PI / 2)
 				// Gives from 1 to 0 for distance 1 to 10. Don't fall below 0.1.
 				priority *= Math.max(Math.sin(dist / 6 + Math.PI / 2), 0.1);
-				priority *= strengthFavor;	// Should be between 0 and 10-20. 1 means equal strength.
+				priority *= (strengthFavor >= 1) ? strengthFavor : (strengthFavor / 2); // Lower priority if weaker.
 				priority = Math.min(priority, AIAssignment.BASE_TOP_PRIORITY);
 				
+				// TODO: Score based on strength
 				var assignment = new AIAssignment(priority, 5, task, unit);
 				assignments.push(assignment);
 			}

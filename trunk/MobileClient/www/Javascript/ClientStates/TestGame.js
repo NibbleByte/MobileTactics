@@ -265,7 +265,8 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		//
 		m_eworld.addSystem(new AISimulationSystem(m_eworld));
 		m_eworld.addSystem(new AITaskAttackingSystem(world, executor, m_eworld.extract(BattleSystem)));
-		m_eworld.addSystem(new AITaskCaptureSystem(world, executor));
+		m_eworld.addSystem(new AITaskHealSystem(world, executor));
+		//m_eworld.addSystem(new AITaskCaptureSystem(world, executor));
 		m_eworld.addSystem(new AITaskBuyingSystem(world, executor));
 	
 		m_eworld.addSystem(new AIController(executor));
