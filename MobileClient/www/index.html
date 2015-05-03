@@ -168,6 +168,21 @@
 				</div>
 			</div>
 
+			<div id="AIToolbarContainer" class="toolbar_bottom_container">
+				<div id="AIToolbar" class="toolbar_bottom">
+					<button id="Button1" onclick="$('#Console').toggle();">~</button>
+					<button id="BtnAIPause">Pause</button>
+					<button id="BtnAINext">Next</button>
+					<button id="BtnAIResume">Resume</button>
+					<button id="BtnAISlower">-</button>
+					<button id="BtnAIFaster">+</button>
+					<span style="font-size: medium; font-family: Calibri;">
+						<span style="font-weight: bold;">Task:</span>
+						<span id="LbAIAssignmentDesc" ></span>
+					</span>
+				</div>
+			</div>
+
 			<div id="ToolbarMoreEditor" class="toolbar_more" >
 				<button id="BtnConsoleEditor" onclick="$('#Console').toggle();">~</button>
 				<button id="BtnGamePropsEditor">Map</button>
@@ -284,6 +299,7 @@
 			<script type="text/javascript" src="Javascript/Core/AI/Systems/AITaskBuyingSystem.js"></script>
 			
 			<script type="text/javascript" src="Javascript/AIController.js"></script>
+			<script type="text/javascript" src="Javascript/AIControllerUI.js"></script>
 
 		<!-- ==========	Mobile Client ====================== -->
 			<script type="text/javascript" charset="utf-8" src="Javascript/BrowserBackwardCompatibility.js"></script>

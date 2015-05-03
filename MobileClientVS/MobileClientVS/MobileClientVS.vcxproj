@@ -96,6 +96,7 @@
     <None Include="..\..\MobileClient\www\Javascript\3rdParty\sylvester.src.js" />
     <None Include="..\..\MobileClient\www\Javascript\ActionsMenuController.js" />
     <None Include="..\..\MobileClient\www\Javascript\AIController.js" />
+    <None Include="..\..\MobileClient\www\Javascript\AIControllerUI.js" />
     <None Include="..\..\MobileClient\www\Javascript\AssetsStaticScaler.js" />
     <None Include="..\..\MobileClient\www\Javascript\BattleRendering\BattleFieldRenderer.js" />
     <None Include="..\..\MobileClient\www\Javascript\BattleRendering\BattleRenderingEvents.js" />
