@@ -33,6 +33,7 @@ var AITaskBuyingSystem = function (m_world, m_executor) {
 		for(var i = 0; i < m_gameState.currentStructures.length; ++i) {
 			var structure = m_gameState.currentStructures[i];
 
+			// TODO: Decide whether to buy cheap unit now or expensive unit later.
 			var task = new AITask(structure, self, 1);
 			var assignment = new AIAssignment(2, 1, task, structure);
 			assignment.useAIData = false;
@@ -47,6 +48,8 @@ var AITaskBuyingSystem = function (m_world, m_executor) {
 		if (!Store.canPlayerShop(self._eworld, target)) {
 			return null;	
 		}
+
+		// TODO: Buy stuff that counters what the enemy has.
 
 		// Return empty action. Will decide later what unit to build (based on how the turn got executed and what is needed).
 		var actionData = new AIActionData(null);

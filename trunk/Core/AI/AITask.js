@@ -27,6 +27,9 @@ var AIAssignment = function (priority, score, task, taskDoer) {
 	this.useAIData = true;
 }
 
+// When creating tasks, this will propose what is top priority.
+AIAssignment.BASE_TOP_PRIORITY = 100;
+
 AIAssignment.prototype.isValid = function () {
 	return this.task && this.taskDoer && this.taskDoer.isAttached();
 }

@@ -54,8 +54,12 @@ var AITaskCaptureSystem = function (m_world, m_executor) {
 				if (dist > 0 && dist <= 2 && structure.CTile.placedObjects.length > 0)
 					occupiedPenalty = 2;
 
-				var priority = 50 / dist;
-				//priority /= occupiedPenalty;
+				var priority = AIAssignment.BASE_TOP_PRIORITY;
+
+				// Graph formula: sin(x / 10 + PI / 2)
+				// Gives from 1 to 0 for distance 1 to 16. Don't fall below 0.2.
+				priority *= Math.max(Math.sin(dist / 10 + Math.PI / 2), 0.2);
+				priority /= occupiedPenalty;
 				var assignment = new AIAssignment(priority, unit.CUnit.health, task, unit);
 				assignments.push(assignment);
 			}

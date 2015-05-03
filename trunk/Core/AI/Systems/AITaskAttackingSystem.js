@@ -4,7 +4,7 @@
 //===============================================
 "use strict";
 
-var AITaskAttackingSystem = function (m_world, m_executor) {
+var AITaskAttackingSystem = function (m_world, m_executor, m_battleSystem) {
 	var self = this;
 	
 	//
@@ -39,7 +39,20 @@ var AITaskAttackingSystem = function (m_world, m_executor) {
 
 			for(var j = 0; j < units.length; ++j) {
 				var unit = units[j];
-				var priority = 30 / m_world.getDistance(enemy.CTilePlaceable.tile, unit.CTilePlaceable.tile);
+
+				// Take distance and strengths into account.
+				var dist = m_world.getDistance(enemy.CTilePlaceable.tile, unit.CTilePlaceable.tile);
+				var outcome = m_battleSystem.predictOutcome(unit, enemy);
+				var strengthFavor = outcome.attackerStrength / outcome.defenderStrength;
+				
+				var priority = AIAssignment.BASE_TOP_PRIORITY;
+
+				// Graph formula: sin(x / 6 + PI / 2)
+				// Gives from 1 to 0 for distance 1 to 10. Don't fall below 0.1.
+				priority *= Math.max(Math.sin(dist / 6 + Math.PI / 2), 0.1);
+				priority *= strengthFavor;	// Should be between 0 and 10-20. 1 means equal strength.
+				priority = Math.min(priority, AIAssignment.BASE_TOP_PRIORITY);
+				
 				var assignment = new AIAssignment(priority, 5, task, unit);
 				assignments.push(assignment);
 			}
