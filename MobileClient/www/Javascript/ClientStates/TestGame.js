@@ -392,7 +392,17 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 			}
 		}
 	
+		var m_debugShown = false;
 		var onBtnDebug = function () {
+			
+			m_debugShown = !m_debugShown;
+
+			if (!m_debugShown) {
+				m_eworld.trigger(RenderEvents.Debug.CLEAR_TILES);
+				return;
+			}
+
+			
 			var entities = m_eworld.getEntities();
 		
 			for(var i = 0; i < entities.length; ++i) {
@@ -404,26 +414,16 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 				if (!tile || !rendering)
 					continue;
 			
-				$(rendering.sprite.dom)
-				.html(	'<br />' +
-						'RC: ' + tile.row + ', ' + tile.column +
-						'<br />' +
-						'X: ' + parseInt(rendering.sprite.x) +
-						'<br />' +
-						'Y: ' + parseInt(rendering.sprite.y));
-			
-			
-				$(rendering.sprite.dom)
-				.css('background', 
-						(tile.column % 2) 
-						? 'url("Assets-Scaled/Render/Images/hex.png") no-repeat' 
-						: 'url("Assets-Scaled/Render/Images/hex_bluesh.png") no-repeat'
-					)
-				.css('background-size', '100% 100%');
+
+				var text = 'RC: ' + tile.row + ', ' + tile.column;
+				text += '\nX: ' + parseInt(rendering.sprite.x);
+				text += '\nY: ' + parseInt(rendering.sprite.y);
+
+				if (tile.column % 2) 
+					m_eworld.trigger(RenderEvents.Debug.TILE_DRAW_TEXT, entity, text);
+				else
+					m_eworld.trigger(RenderEvents.Debug.TILE_DRAW_TEXT, entity, text, 'Assets-Scaled/Render/Images/hex_bluesh.png');
 			}
-		
-			// Added by the SceneRenderer
-			$('.scene_plot').css('background-color', 'white');
 		}
 	
 

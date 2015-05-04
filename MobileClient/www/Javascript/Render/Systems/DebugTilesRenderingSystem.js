@@ -20,7 +20,7 @@ var DebugTilesRenderingSystem = function (m_renderer) {
 		self._eworldSB.subscribe(RenderEvents.Debug.CLEAR_TILES, onClearTiles);
 	}
 
-	var onTileDrawText = function (event, tile, text) {
+	var onTileDrawText = function (event, tile, text, opt_backgroundImage) {
 		var pair = m_tileSprites.find(function (val) { return val.tile == tile});
 
 		if (!pair) {
@@ -28,6 +28,9 @@ var DebugTilesRenderingSystem = function (m_renderer) {
 			var $text = $('<span class="debug_tile" />').appendTo(sprite.dom);
 			$(sprite.dom).addClass('debug_tile_sprite');
 
+			if (opt_backgroundImage) {
+				$(sprite.dom).css('background-image', 'url(' + opt_backgroundImage + ')');
+			}
 			
 			var coords = m_renderer.getRenderedTilePosition(tile.CTile.row, tile.CTile.column);
 
