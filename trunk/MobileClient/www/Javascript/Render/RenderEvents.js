@@ -28,7 +28,7 @@ var RenderEvents = {
 		},
 
 		Debug: {
-			TILE_DRAW_TEXT: "render.debug.tile_draw_text",						// Arguments: event, tile, text
+			TILE_DRAW_TEXT: "render.debug.tile_draw_text",						// Arguments: event, tile, text, opt_backgroundImage
 			CLEAR_TILES: "render.debug.clear_tiles",							// Arguments: event
 			
 		}
