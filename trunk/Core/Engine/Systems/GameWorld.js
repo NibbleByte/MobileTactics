@@ -96,6 +96,19 @@ var GameWorld = function () {
 		}
 	}
 
+	// Return array of tiles that passes the filter test.
+	this.filterTiles = function (filterHandler) {
+		var tiles = [];
+
+		self.iterateAllTiles(function (tile) {
+			if (filterHandler(tile)) {
+				tiles.push(tile);
+			}
+		});
+
+		return tiles;
+	}
+
 
 	// Gather tiles based on a cost resulted in a custom user query.
 	// Note: Start tile is always discarded.
@@ -280,6 +293,55 @@ var GameWorld = function () {
 		return pathTiles;
 	}
 
+
+	this.getTilesOnRadius = function (tileCenter, radius) {
+		return self.getTilesInArea(tileCenter, radius, false, true);
+	}
+
+	// Faster than gather.
+	this.getTilesInArea = function (tileCenter, radius, includeStartTile, onEdgeOnly) {
+
+		if (radius == 0) {
+			if (onEdgeOnly)
+				return [tileCenter];
+
+			if (includeStartTile)
+				return [tileCenter];
+			else
+				return [];
+		}
+
+
+		var open = [tileCenter];
+		var visited = [tileCenter];
+		var result = []
+
+		while (open.length != 0) {
+			var openTile = open.shift();
+			var adjacentTiles = self.getAdjacentTiles(openTile);
+
+			for (var i = 0; i < adjacentTiles.length; ++i) {
+				var tile = adjacentTiles[i];
+
+				var dist = self.getDistance(tileCenter, tile);
+
+				if (dist <= radius && !visited.contains(tile)) {
+					visited.push(tile);
+					open.push(tile);
+
+
+					if (dist == radius || (!onEdgeOnly && dist <= radius))
+						result.push(tile);
+				}
+			}
+		}
+
+		if (includeStartTile)
+			result.unshift(tileCenter);
+
+		return result;
+	}
+
 	var findPathSort = function (tile1, tile2) {
 		return tile1.__$cost - tile2.__$cost;
 	}
@@ -355,6 +417,7 @@ var GameWorld = function () {
 	}
 	
 		
+
 	//
 	// Placed objects handling
 	//	
@@ -385,54 +448,6 @@ var GameWorld = function () {
 		}
 		
 		return placeables;
-	}
-
-	this.getTilesOnRadius = function (tileCenter, radius) {
-		return self.getTilesInArea(tileCenter, radius, false, true);
-	}
-
-	// Faster than gather.
-	this.getTilesInArea = function (tileCenter, radius, includeStartTile, onEdgeOnly) {
-
-		if (radius == 0) {
-			if (onEdgeOnly)
-				return [ tileCenter ];
-
-			if (includeStartTile)
-				return [ tileCenter ];
-			else
-				return [];
-		}
-
-
-		var open = [ tileCenter ];
-		var visited = [ tileCenter ];
-		var result = []
-
-		while(open.length != 0) {
-			var openTile = open.shift();
-			var adjacentTiles = self.getAdjacentTiles(openTile);
-
-			for(var i = 0; i < adjacentTiles.length; ++i) {
-				var tile = adjacentTiles[i];
-
-				var dist = self.getDistance(tileCenter, tile);
-
-				if (dist <= radius && !visited.contains(tile)) {
-					visited.push(tile);
-					open.push(tile);
-
-
-					if (dist == radius || (!onEdgeOnly && dist <= radius))
-						result.push(tile);
-				}
-			}
-		}
-		
-		if (includeStartTile)
-			result.unshift(tileCenter);
-
-		return result;
 	}
 
 	this.iterateAllPlaceables = function (functor) {
