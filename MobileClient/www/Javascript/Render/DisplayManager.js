@@ -18,7 +18,50 @@ var DisplayManager = new function () {
 	// in order to compensate large resolutions with small physical dimensions. Makes sites to look "normal" physical size.
 	// This means all images will be stretched for higher PPI, which is ugly for a game.
 	// Good explanation: http://www.paintcodeapp.com/news/ultimate-guide-to-iphone-resolutions
-	this.zoom = (1 / Assets.scale) / this.devicePixelRatio;
+	//this.zoom = (1 / Assets.scale) / this.devicePixelRatio;
+
+	// NOTE: Using customized per-dpr based hard-coded numbers,
+	//		 as it seems easier than having a single do-it-all formula as the dpr itself is pretty untrustworthy.
+	//		 In other words: calculating is one thing, making it look good in different combinations is completely different story.
+	// Example:  dpr  |  as  |  zoom
+	//			 1.0	1.0		1.0
+	//			 1.5	1.0		0.8  // Try to keep original size and reduce stretching.
+	//			 2.0	1.0		1.0	 // Image is too small by now, stretching is needed.
+	var calculateZoom = function (dpr, as) {
+
+		if (as == 1) {
+		
+			if (dpr <= 1.4)	return (1 / dpr);
+			if (dpr <= 1.9)	return (0.8);	// 0.75 is more sharp but too small.
+			
+			// Anything bigger... just scale it :(
+			return 1.0;
+		}
+		
+		if (as == 2) {
+			if (dpr <= 1.4)	return ((1 / as) / dpr);
+			if (dpr <= 1.9)	return ((1 / as) * 0.9);
+			if (dpr <= 2.5) return (1 / dpr);
+
+			// TODO: Test on device with dpr 3 or higher.
+			return 0.25 * dpr;
+		}
+
+		// TODO: Test these as well.
+		if (as == 3) {
+			if (dpr <= 1.4)	return ((1 / as) / dpr);
+			if (dpr <= 1.9)	return ((1 / as) * 0.9);
+			if (dpr <= 2.5) return ((1 / as) * 0.75);
+			if (dpr <= 3.5) return (1 / dpr);
+
+			return 0.25 * dpr;
+		}
+		
+
+		return 1 / dpr;
+	};
+	
+	this.zoom = calculateZoom(this.devicePixelRatio, Assets.scale);
 
 
 	if (params['Zoom'] || params['zoom']) {
