@@ -125,13 +125,24 @@ var GameExecutor = function (eworld, world) {
 
 	this.getLastExecutedAction = function () {
 		if (m_executedActions.length > 0) {
-			return m_executedActions[m_executedActions.length - 1];
+			return m_executedActions.last();
 		} else {
 			return null;
 		}
 	}
 
+	this.canUndo = function () {
+		if (m_executedActions.length > 0) {
+			return !!m_executedActions.last().actionType.undoAction;
+		} else {
+			return false;
+		}
+	}
+
 	this.undoLastAction = function () {
+		
+		if (!this.canUndo())
+			return;
 		
 		var action = m_executedActions.pop();
 
