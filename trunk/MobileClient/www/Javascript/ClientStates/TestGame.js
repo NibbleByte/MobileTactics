@@ -468,7 +468,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		m_clientState.eworldSB.subscribe(ClientEvents.Controller.ACTIONS_CLEARED, onHudLockRefresh);
 		m_clientState.eworldSB.subscribe(ClientEvents.Controller.ACTION_CANCEL, onHudLockRefresh);
 		m_clientState.eworldSB.subscribe(ClientEvents.Controller.ACTION_PREEXECUTE, onHudLockRefresh);
-		m_clientState.eworldSB.subscribe(ClientEvents.Controller.ACTION_EXECUTED, onHudLockRefresh);
+		m_clientState.eworldSB.subscribe(ClientEvents.Controller.ACTION_EXECUTE, onHudLockRefresh);
 		m_clientState.eworldSB.subscribe(ClientEvents.Controller.ACTIONS_OFFERED, onHudLockRefresh);
 		m_clientState.eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, onHudLockRefresh);
 

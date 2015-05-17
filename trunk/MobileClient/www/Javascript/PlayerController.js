@@ -28,6 +28,7 @@ var PlayerController = function (m_executor) {
 		self._eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, clearActions);
 		self._eworldSB.subscribe(GameplayEvents.GameState.NO_PLAYING_PLAYERS, clearActions);
 		
+		self._eworldSB.subscribe(ClientEvents.Controller.ACTION_EXECUTE, onActionExecute);
 		self._eworldSB.subscribe(ClientEvents.Controller.ACTIONS_CLEARED, onActionsCleared);
 		self._eworldSB.subscribe(ClientEvents.Controller.ACTION_CANCEL, onActionsCancelled);
 		self._eworldSB.subscribe(ClientEvents.Controller.ACTIONS_OFFERED, onActionsOffered);
@@ -168,6 +169,21 @@ var PlayerController = function (m_executor) {
 	}
 	
 	
+	var onActionExecute = function(event, action, goActions) {
+
+		if (m_gameState.currentPlayer.type != Player.Types.Human)
+			return;
+
+		var goActions = m_executor.executeAction(action);
+
+		// If no more goActions available, clear anyway.
+		if (goActions) {
+			self._eworld.triggerAsync(ClientEvents.Controller.ACTIONS_OFFERED, goActions);
+		} else {
+			self._eworld.triggerAsync(ClientEvents.Controller.ACTIONS_CLEARED, goActions);
+		}
+	}
+
 	var onActionsCleared = function(event) {
 		clearSelectedGOActions();
 	}
