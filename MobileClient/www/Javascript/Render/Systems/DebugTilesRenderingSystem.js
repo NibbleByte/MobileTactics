@@ -1,6 +1,6 @@
 //===============================================
 // DebugTilesRenderingSystem
-// Optimizes animations when scrolling (panning) the world.
+// Shows text over specific tile. Used in development.
 //===============================================
 "use strict";
 

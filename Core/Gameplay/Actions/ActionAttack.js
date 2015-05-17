@@ -50,6 +50,8 @@ Actions.Classes.ActionAttack = new function () {
 		action.undoData.outcome = outcome;
 
 		eworld.triggerAsync(GameplayEvents.Fog.FORCE_FOG_REFRESH);
+
+		eworld.trigger(GameplayEvents.Actions.ATTACK, outcome);
 	}
 
 	this.undoAction = function (eworld, world, action) {

@@ -21,6 +21,9 @@ var UnitRenderingSystem = function (renderer) {
 		
 		self._eworldSB.subscribe(GameplayEvents.Units.UNIT_CHANGED, onUnitChanged);
 
+		self._eworldSB.subscribe(GameplayEvents.Actions.ATTACK, onActionAttack);
+		self._eworldSB.subscribe(GameplayEvents.Actions.HEAL, onActionHeal);
+
 		self._eworldSB.subscribe(GameplayEvents.Fog.REFRESH_FOG, refreshFog);
 		
 		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_FINISHED, onAnimationFinished);
@@ -165,6 +168,33 @@ var UnitRenderingSystem = function (renderer) {
 		} else {
 			unit.CUnitRendering.$text.text('');
 		}
+	}
+
+
+	var FLOAT_TEXT_OFFSET = { x: 12, y: -12 };
+	var onActionAttack = function (event, outcome) {
+
+		if (outcome.attackerHealthOutcome > 0) {
+			var intent = (outcome.damageToAttacker > 0) ? RenderIntents.Negative : RenderIntents.Positive;
+			var sign = (outcome.damageToAttacker > 0) ? '-' : '';
+			self._eworld.trigger(RenderEvents.OverlayEffects.FLOAT_TEXT_TILE, outcome.attackerTile, sign + outcome.damageToAttacker,
+				{ offset: FLOAT_TEXT_OFFSET, intent: intent }
+			);
+		}
+
+		if (outcome.defenderHealthOutcome > 0) {
+			var intent = (outcome.damageToDefender > 0) ? RenderIntents.Negative : RenderIntents.Positive;
+			var sign = (outcome.damageToDefender > 0) ? '-' : '';
+			self._eworld.trigger(RenderEvents.OverlayEffects.FLOAT_TEXT_TILE, outcome.defenderTile, sign + outcome.damageToDefender,
+				{ offset: FLOAT_TEXT_OFFSET, intent: intent }
+			);
+		}
+	}
+
+	var onActionHeal = function (event, unit, amount) {
+		self._eworld.trigger(RenderEvents.OverlayEffects.FLOAT_TEXT_TILE,unit.CTilePlaceable.tile, '+' +  amount, 
+			{ offset: FLOAT_TEXT_OFFSET, intent: RenderIntents.Positive }
+		);
 	}
 
 

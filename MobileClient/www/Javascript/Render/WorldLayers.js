@@ -16,22 +16,24 @@ WorldLayers.LayerTypes = {
 	ActionFog: 5,
 	VisibilityFog: 6,
 	Statistics: 7,
+	OverlayEffects: 8,
 
-	Debug: 8,
+	Debug: 9,
 };
 //Enums.enumerate(WorldLayers.LayerTypes);
 // LayerTypes are no longer enum since some layers are merged (i.e. are the same).
 
 WorldLayers.SpritesDefaultDepth = {
-	Terrain: 100,
-	Selection: 90,
-	TerrainOverlay: 80,
-	Units: 70,
-	UnitsFinished: 60,
-	Highlights: 50,
-	ActionFog: 40,
-	VisibilityFog: 10,
-	Statistics: 0,
+	Terrain: 200,
+	Selection: 180,
+	TerrainOverlay: 160,
+	Units: 140,
+	UnitsFinished: 120,
+	Highlights: 100,
+	ActionFog: 80,
+	VisibilityFog: 60,
+	Statistics: 40,
+	OverlayEffects: 20,
 
 	Debug: -100,
 }

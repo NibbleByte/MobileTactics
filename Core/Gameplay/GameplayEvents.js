@@ -35,6 +35,11 @@ var GameplayEvents = {
 			NO_PLAYING_PLAYERS: "gameplay.game_state.no_playingplayers",// event, player
 		},
 
+		Actions: {
+			ATTACK: 			"gameplay.actions.attack",				// event, outcome
+			HEAL: 				"gameplay.actions.heal",				// event, unit, amount
+		},
+
 		Store: {
 			PLACEABLE_BOUGHT:	"gameplay.store.placeable_bought",		// event, placeable
 		},

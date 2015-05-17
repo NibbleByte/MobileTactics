@@ -6,20 +6,48 @@
 .unit_health
 {
 	position: absolute;
-	top: 10px;
-	left: 14px;
-	font-size: 16px;
-	color: darkred;
+	top: -4px;
+	left: 18px;
+	
+	color: rgb(139, 247, 239);
+	
 }
 
 .asset-scale-2 .unit_health
 {
 	left: 18px;
-	font-size: 32px;
 }
 
 .asset-scale-3 .unit_health
 {
 	left: 26px;
+}
+
+.statistics_text
+{
+	font-size: 14px;
+	font-family: Arial;
+	font-weight: bold;
+	
+	/* webkit stroke sux! */
+	/* -webkit-text-stroke: 0.6px black; */
+	
+	/* Source: https://css-tricks.com/adding-stroke-to-web-text/ */
+	text-shadow:
+   -1px -1px 0 #000,  
+	1px -1px 0 #000,
+	-1px 1px 0 #000,
+	 1px 1px 0 #000;
+}
+
+
+.asset-scale-2 .statistics_text
+{
+	left: 18px;
+	font-size: 32px;
+}
+
+.asset-scale-3 .statistics_text
+{
 	font-size: 48px;
 }

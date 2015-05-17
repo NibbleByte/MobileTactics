@@ -34,6 +34,8 @@ Actions.Classes.ActionHeal = new function () {
 		placeable.CUnit.turnPoints--;
 
 		eworld.trigger(GameplayEvents.Units.UNIT_CHANGED, placeable);
+
+		eworld.trigger(GameplayEvents.Actions.HEAL, placeable, placeable.CUnit.health - action.undoData.previousHealth);
 	};
 
 

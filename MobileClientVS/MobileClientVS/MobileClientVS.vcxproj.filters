@@ -449,6 +449,12 @@
     <None Include="..\..\Core\AI\Systems\AITaskExploreSystem.js">
       <Filter>Javascript\Core\AI\Systems</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Javascript\Render\Systems\FloatingTextsSystem.js">
+      <Filter>Javascript\Render\Systems</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Assets\Render\OverlayEffects.css">
+      <Filter>Assets\Render</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
