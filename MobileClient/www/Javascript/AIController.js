@@ -15,6 +15,8 @@ var AIController = function (m_executor) {
 		self._eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, onTurnChanged);
 
 		self._eworldSB.subscribe(AIEvents.Simulation.SIMULATION_FINISHED, onSimulationFinished);
+
+		self._eworldSB.subscribe(ClientEvents.Controller.ACTION_EXECUTE, onActionExecute);
 	};
 
 	this.uninitialize = function () {
@@ -161,11 +163,20 @@ var AIController = function (m_executor) {
 			m_selectedGOActions = null;
 		}
 
-		m_currentAssignment.task.creator.executeAction(m_actionData);
-
-		// Selection is after execution, as action itself can be added on executeAction.
-		if (m_actionData.action)
+		if (m_actionData.action) {
 			self._eworld.trigger(ClientEvents.Controller.TILE_SELECTED, m_actionData.action.appliedTile);
+			self._eworld.trigger(ClientEvents.Controller.ACTION_PREEXECUTE, m_actionData.action);
+		} else {
+			onActionExecute();
+		}
+	}
+
+	var onActionExecute = function () {
+
+		if (m_gameState.currentPlayer.type != Player.Types.AI)
+			return;
+
+		m_currentAssignment.task.creator.executeAction(m_actionData);
 
 
 		if (m_currentAssignment.isValid()) {
@@ -187,7 +198,7 @@ var AIController = function (m_executor) {
 
 			scheduleNextStep(processSelected, self.SELECTION_TIMEOUT);
 		}
-	}
+	};
 }
 
 ECS.EntityManager.registerSystem('AIController', AIController);
