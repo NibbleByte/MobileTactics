@@ -82,6 +82,7 @@
     <None Include="..\..\MobileClient\www\Assets\Editor.css" />
     <None Include="..\..\MobileClient\www\Assets\Game.css" />
     <None Include="..\..\MobileClient\www\Assets\Main.css" />
+    <None Include="..\..\MobileClient\www\Assets\Render\OverlayEffects.css" />
     <None Include="..\..\MobileClient\www\Assets\Render\Placeables.css" />
     <None Include="..\..\MobileClient\www\Assets\Render\SceneRenderer.css" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Base.js" />
@@ -146,6 +147,7 @@
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\CanvasInstancesUpdateSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\ControllerRenderingSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\DebugTilesRenderingSystem.js" />
+    <None Include="..\..\MobileClient\www\Javascript\Render\Systems\FloatingTextsSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\LayersUpdateSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\AnimationSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\IdleAnimationsSystem.js" />

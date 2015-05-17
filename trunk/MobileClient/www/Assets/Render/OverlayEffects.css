@@ -1,0 +1,30 @@
+.floating_text_container
+{
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+
+.floating_text
+{
+	text-align: center;
+	
+	position: relative;
+}
+
+.floating_text_intent_positive
+{
+	color: rgb(22, 221, 22);
+}
+
+.floating_text_intent_neutral
+{
+	color: rgb(221, 189, 25);
+}
+
+.floating_text_intent_negative
+{
+	color: rgb(213, 19, 19);
+}

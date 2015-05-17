@@ -3,7 +3,7 @@
 var CUnitRendering = function CUnitRendering() {
 	
 	this.sprite = null;
-	this.$text = $('<span class="unit_health" />');
+	this.$text = $('<span class="unit_health statistics_text" />');
 
 	this.spriteFinished = null;
 };

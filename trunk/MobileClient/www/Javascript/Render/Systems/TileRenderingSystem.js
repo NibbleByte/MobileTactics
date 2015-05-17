@@ -177,7 +177,6 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 		
 		var sprite = m_renderer.createSprite(layerType, resourcePath)
 		.size(GTile.TILE_WIDTH, GTile.TILE_HEIGHT);
-		$(sprite.dom).addClass('tile');
 		
 		return sprite;
 	}

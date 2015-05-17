@@ -254,6 +254,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		m_eworld.addSystem(new VisibilityFogRenderingSystem(world));
 	
 		m_eworld.addSystem(new ActionsMenuController(m_$ActionMenu[0]));
+		m_eworld.addSystem(new FloatingTextsSystem(worldRenderer));
 
 		m_eworld.addSystem(new DebugTilesRenderingSystem(worldRenderer));
 

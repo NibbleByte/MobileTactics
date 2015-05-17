@@ -93,7 +93,7 @@ var AnimationSystem = function (m_renderer, m_manual) {
 		}
 
 
-		self._eworld.trigger(RenderEvents.Animations.ANIMATION_AFTER_FRAME, m_processedAnimationsData);
+		self._eworld.trigger(RenderEvents.Animations.ANIMATION_AFTER_FRAME, m_processedAnimationsData, ticker);
 
 		// Clean processed animators
 		m_processedAnimationsData.clear();
