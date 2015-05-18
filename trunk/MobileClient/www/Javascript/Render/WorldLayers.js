@@ -84,6 +84,17 @@ WorldLayers.layersOptions = {
 	},
 
 
+	Statistics: {
+		useCanvas: false,
+		disableZoom: true,
+	},
+
+	OverlayEffects: {
+		useCanvas: false,
+		disableZoom: true,
+	},
+
+
 
 	Debug: {
 		useCanvas: false,

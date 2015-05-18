@@ -478,14 +478,14 @@ Sprite.prototype.constructor = Sprite;
 Sprite.prototype.setX = function setX(value) {
     this.x = value;
     // this secessary for the physic
-    this._x_rounded = value | 0;
+    this._x_rounded = Math.round(value | 0);
     this.changed = true;
     return this;
 };
 
 Sprite.prototype.setY = function setY(value) {
     this.y = value;
-    this._y_rounded = value | 0;
+    this._y_rounded = Math.round(value | 0);
     this.changed = true;
     return this;
 };

@@ -45,6 +45,7 @@ var FloatingTextsSystem = function (m_renderer) {
 		.html(text);
 			
 		var coords = m_renderer.getRenderedTileCenter(tile.CTile.row, tile.CTile.column);
+		m_renderer.zoomBackCoords(coords);
 
 		sprite.position(coords.x, coords.y);
 		sprite.update();

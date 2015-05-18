@@ -34,20 +34,8 @@
 	
 	/* Source: https://css-tricks.com/adding-stroke-to-web-text/ */
 	text-shadow:
-   -1px -1px 0 #000,  
+   -1px -1px 0 #000,
 	1px -1px 0 #000,
 	-1px 1px 0 #000,
 	 1px 1px 0 #000;
-}
-
-
-.asset-scale-2 .statistics_text
-{
-	left: 18px;
-	font-size: 32px;
-}
-
-.asset-scale-3 .statistics_text
-{
-	font-size: 48px;
 }
