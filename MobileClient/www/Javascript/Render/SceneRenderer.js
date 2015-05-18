@@ -26,10 +26,18 @@ var SceneRenderer = function (holderElement, eworld, layersDefinitions) {
 	for(var layerName in layersDefinitions.LayerTypes) {
 		var layerType = layersDefinitions.LayerTypes[layerName];
 		if (!this.layers[layerType]) {
-			var layer = this.scene.Layer(layerName, layersDefinitions.layersOptions[layerName]);
+			var options = layersDefinitions.layersOptions[layerName] || {};
+			var layer = this.scene.Layer(layerName, options);
+
+			layer.options = options;
 			this.layers[layerType] = layer;
 
-			DisplayManager.zoomInElement(layer.dom);
+			if (!options.disableZoom)
+				DisplayManager.zoomInElement(layer.dom);
+			
+			// HACK: z-index seems to distort text outlines made with text-shadow property
+			//		 on Android 4.4 Kitkat (test with floating numbers).
+			$(layer.dom).css('z-index', '');
 		}
 	}
 	
@@ -48,8 +56,8 @@ var SceneRenderer = function (holderElement, eworld, layersDefinitions) {
 
 	this.refresh = function () {
 
-		var zoomedWidth = self.extentWidth * DisplayManager.zoom;
-		var zoomedHeight = self.extentHeight * DisplayManager.zoom;
+		var zoomedWidth = Math.ceil(self.extentWidth * DisplayManager.zoom);
+		var zoomedHeight = Math.ceil(self.extentHeight * DisplayManager.zoom);
 
 		
 		// HACK: Resize manually the scene and layers
@@ -61,16 +69,19 @@ var SceneRenderer = function (holderElement, eworld, layersDefinitions) {
 
 			console.assert(layer.useCanvas != undefined, 'Sprite.js API changed.');
 
+			var canvasWidth = (layer.options.disableZoom) ? zoomedWidth : self.extentWidth;
+			var canvasHeight = (layer.options.disableZoom) ? zoomedHeight : self.extentHeight;
+
 			if (layer.useCanvas) {
-				$(layer.dom).attr('width', self.extentWidth);
-				$(layer.dom).attr('height', self.extentHeight);
+				$(layer.dom).attr('width', canvasWidth);
+				$(layer.dom).attr('height', canvasHeight);
 			} else {
-				$(layer.dom).width(self.extentWidth);
-				$(layer.dom).height(self.extentHeight);
+				$(layer.dom).width(canvasWidth);
+				$(layer.dom).height(canvasHeight);
 			}
 
-			$(layer.dom).css('left', (zoomedWidth - self.extentWidth) / 2);
-			$(layer.dom).css('top', (zoomedHeight - self.extentHeight) / 2);
+			$(layer.dom).css('left', Math.floor((zoomedWidth - canvasWidth) / 2));
+			$(layer.dom).css('top', Math.floor((zoomedHeight - canvasHeight) / 2));
 		}
 	}
 
@@ -78,6 +89,14 @@ var SceneRenderer = function (holderElement, eworld, layersDefinitions) {
 		self.extentWidth = width;
 		self.extentHeight = height;
 		self.refresh();
+	}
+
+	this.zoomBack = function (value) {
+		return value * DisplayManager.zoom;
+	}
+	this.zoomBackCoords = function (coords) {
+		coords.x *= DisplayManager.zoom;
+		coords.y *= DisplayManager.zoom;
 	}
 
 	// Enhancement of Sprite.js functionality - Sprite.loadImg. It adds parameters to the UN-DOCUMENTED "onload" callback.

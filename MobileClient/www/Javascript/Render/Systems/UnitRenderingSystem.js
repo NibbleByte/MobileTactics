@@ -104,7 +104,7 @@ var UnitRenderingSystem = function (renderer) {
 		}
 		
 		// Position the health at the bottom right corner.
-		unitRendering.move(coords.x, coords.y);
+		unitRendering.move(coords.x, coords.y, m_renderer);
 		unitRendering.showFinished(placeable.CUnit.finishedTurn);
 	}
 

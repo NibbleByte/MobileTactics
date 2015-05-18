@@ -42,8 +42,8 @@ CUnitRendering.prototype.showFinished = function (finished) {
 	}
 };
 
-CUnitRendering.prototype.move = function (x, y) {
-	this.sprite.position(x, y);
+CUnitRendering.prototype.move = function (x, y, renderer) {
+	this.sprite.position(renderer.zoomBack(x), renderer.zoomBack(y));
 	this.sprite.update();
 
 	// Cause unit sprites are centered.
