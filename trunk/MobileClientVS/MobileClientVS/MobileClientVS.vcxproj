@@ -139,6 +139,7 @@
     <None Include="..\..\MobileClient\www\Javascript\Render\ImageUtils\SpriteColorizeManager.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\ImageUtils\SpriteTracker.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\RenderEvents.js" />
+    <None Include="..\..\MobileClient\www\Javascript\Render\RenderUtils.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\SceneRenderer.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\StoreRender.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\ActionFogRenderingSystem.js" />

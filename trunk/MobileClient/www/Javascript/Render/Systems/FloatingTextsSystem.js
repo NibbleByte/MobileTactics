@@ -43,6 +43,8 @@ var FloatingTextsSystem = function (m_renderer) {
 		.addClass((params.intent) ? 'floating_text_intent_' + params.intent : null)
 		.appendTo(sprite.dom)
 		.html(text);
+
+		RenderUtils.addTextOutline($text);
 			
 		var coords = m_renderer.getRenderedTileCenter(tile.CTile.row, tile.CTile.column);
 		m_renderer.zoomBackCoords(coords);
