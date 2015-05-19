@@ -133,6 +133,7 @@ var UnitRenderingSystem = function (renderer) {
 		// Unit
 		unitRendering.sprite = m_renderer.createSprite(WorldLayers.LayerTypes.Statistics);
 		unitRendering.$text.appendTo(unitRendering.sprite.dom);
+		RenderUtils.addTextOutline(unitRendering.$text);
 		unitRendering.spriteFinished = m_renderer.createSprite(WorldLayers.LayerTypes.UnitsFinished, UnitRenderingSystem.FINISHED_FOG_SPRITE_PATH);
 		unitRendering.hideFinished();
 		
@@ -165,6 +166,7 @@ var UnitRenderingSystem = function (renderer) {
 	var onUnitChanged = function(event, unit) {
 		if (unit.CUnit.health != unit.CStatistics.statistics['MaxHealth']) {
 			unit.CUnitRendering.$text.text(unit.CUnit.health);
+			RenderUtils.addTextOutline(unit.CUnitRendering.$text)
 		} else {
 			unit.CUnitRendering.$text.text('');
 		}

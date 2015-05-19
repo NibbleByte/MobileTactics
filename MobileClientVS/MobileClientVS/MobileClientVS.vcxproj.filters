@@ -455,6 +455,9 @@
     <None Include="..\..\MobileClient\www\Assets\Render\OverlayEffects.css">
       <Filter>Assets\Render</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Javascript\Render\RenderUtils.js">
+      <Filter>Javascript\Render</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
