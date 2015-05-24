@@ -1,10 +1,14 @@
+
+/* HACK: Scaling the text fixes outline issues (flickering) on moving texts (floating), due to dpr scaling. */
+/* NOTE: This is not a full fix! Flickering still exists and might be different in different phones. */
+/*		 Probably the best solution is to zoom-out the browser default zoom, so all pixel lines are rendered properly. :( */
 .floating_text_container
 {
-	-webkit-transform: translate(-50%, -50%);
-	-moz-transform: translate(-50%, -50%);
-	-ms-transform: translate(-50%, -50%);
-	-o-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%) scale(0.8);
+	-moz-transform: translate(-50%, -50%) scale(0.8);
+	-ms-transform: translate(-50%, -50%) scale(0.8);
+	-o-transform: translate(-50%, -50%) scale(0.8);
+	transform: translate(-50%, -50%) scale(0.8);
 }
 
 .floating_text
