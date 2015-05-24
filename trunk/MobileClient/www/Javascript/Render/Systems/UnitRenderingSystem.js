@@ -132,6 +132,7 @@ var UnitRenderingSystem = function (renderer) {
 		
 		// Unit
 		unitRendering.sprite = m_renderer.createSprite(WorldLayers.LayerTypes.Statistics);
+		$(unitRendering.sprite.dom).addClass('statistics_text_container');
 		unitRendering.$text.appendTo(unitRendering.sprite.dom);
 		RenderUtils.addTextOutline(unitRendering.$text);
 		unitRendering.spriteFinished = m_renderer.createSprite(WorldLayers.LayerTypes.UnitsFinished, UnitRenderingSystem.FINISHED_FOG_SPRITE_PATH);
@@ -173,7 +174,7 @@ var UnitRenderingSystem = function (renderer) {
 	}
 
 
-	var FLOAT_TEXT_OFFSET = { x: 12, y: -12 };
+	var FLOAT_TEXT_OFFSET = { x: 20, y: -12 };
 	var onActionAttack = function (event, outcome) {
 
 		if (outcome.attackerHealthOutcome > 0) {
