@@ -88,6 +88,7 @@
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Base.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Particles\GroundExplosion.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\TeslaTrooper.js" />
+    <None Include="..\..\MobileClient\www\Assets\Render\TextEffects.css" />
     <None Include="..\..\MobileClient\www\Assets\Render\TileRenderingSystem.css" />
     <None Include="..\..\MobileClient\www\index.html" />
     <None Include="..\..\MobileClient\www\Javascript\3rdParty\Blob.js" />

@@ -37,3 +37,10 @@ var EngineEvents = {
 			INVALIDATE:		"engine.utils.invalidate"	// event, object
 		},
 }
+
+var EngineBlackBoard = {
+
+	Serialization: {
+		IS_LOADING:		"engine.serialization.is_loading",
+	},
+};

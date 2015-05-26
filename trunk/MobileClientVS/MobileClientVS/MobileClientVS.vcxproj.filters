@@ -458,6 +458,9 @@
     <None Include="..\..\MobileClient\www\Javascript\Render\RenderUtils.js">
       <Filter>Javascript\Render</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Assets\Render\TextEffects.css">
+      <Filter>Assets</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
