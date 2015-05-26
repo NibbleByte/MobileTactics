@@ -48,6 +48,9 @@ var TileVisibilitySystem = function (m_world) {
 	var onTileAdded = function(event, tile) {
 		tile.addComponent(CTileVisibility);
 
+		if (self._eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING])
+			return;
+
 		if (m_gameState && m_gameState.currentPlayer)
 			refreshVisibility();
 	}

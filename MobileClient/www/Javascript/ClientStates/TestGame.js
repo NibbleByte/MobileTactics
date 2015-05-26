@@ -310,6 +310,8 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 				m_clientState.playersData = fullGameState.playersData;
 				m_eworld.store(PlayersData, m_clientState.playersData);
 				m_eworld.store(GameState, m_clientState.gameState);
+
+				m_eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING] = true;
 		
 				m_eworld.trigger(EngineEvents.General.GAME_LOADING);
 		
@@ -330,6 +332,8 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 				}
 		
 				m_eworld.triggerAsync(EngineEvents.General.GAME_LOADED);
+
+				m_eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING] = false;
 
 			}, 200);
 		}
