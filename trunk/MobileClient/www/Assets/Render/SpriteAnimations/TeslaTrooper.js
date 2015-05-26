@@ -36,7 +36,7 @@ SpriteAnimations.TeslaTrooper = {
 			startIndex: 31,
 			frames: 5,
 			wrapMode: Animator.WrapMode.Loop,
-			duration: 150,
+			duration: 3000,
 		},
 
 		{
@@ -44,7 +44,7 @@ SpriteAnimations.TeslaTrooper = {
 			startIndex: 36,
 			frames: 6,
 			wrapMode: Animator.WrapMode.Loop,
-			duration: 150,
+			duration: 2500,
 		},
 
 		{
