@@ -68,7 +68,7 @@ var Animator = function (animData, sprite, scene) {
 		if (m_currentCycle.repeat) {
 			m_currentCycle.__repeatTicksElapsed += ticks;
 			
-			if (m_currentCycle.__repeatDuration && m_currentCycle.__repeatTicksElapsed >= m_currentCycle.__repeatDuration) {
+			if (m_currentCycle.__repeatDuration && m_currentCycle.__repeatTicksElapsed * scene.ticker.tickDuration >= m_currentCycle.__repeatDuration) {
 				self.finished = true;
 			}
 			
