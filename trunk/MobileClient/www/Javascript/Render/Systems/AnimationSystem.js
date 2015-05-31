@@ -66,12 +66,54 @@ var AnimationSystem = function (m_renderer, m_manual) {
 				var animator = anim.animators[name];
 				
 				if(!animator.isPaused) {
+					
+					if (animator.sequenceData.events) {
+						var prevFrame = animator.getCurrentFrame();
+						var prevElapsedTime = animator.getCurrentElapsedTime();
+						var prevTimeNormalized = animator.getCurrentNormalizedTime();
+					}
+
+
 					animator.next(ticker.lastTicksElapsed);
 					var data = {
 						name: name,
 						animator: animator,
 						entity: entity,
 					};
+
+
+					if (animator.sequenceData.events) {
+						var nextFrame = animator.getCurrentFrame();
+						var nextElapsedTime = animator.getCurrentElapsedTime();
+						var nextTimeNormalized = animator.getCurrentNormalizedTime();
+
+						for(var j = 0; j < animator.sequenceData.events.length; ++j) {
+							var animEvent = animator.sequenceData.events[j];
+
+							if (animEvent.frame !== undefined) {
+								// NOTE: this doesn't work for 0th frame and animation just started.
+								if (nextFrame >= animEvent.frame && prevFrame < animEvent.frame) {
+									self._eworld.trigger(animEvent.event, animEvent.params);
+								}
+								continue;
+							}
+
+							if (animEvent.elapsed !== undefined) {
+								if (nextElapsedTime >= animEvent.elapsed && prevElapsedTime < animEvent.elapsed) {
+									self._eworld.trigger(animEvent.event, animEvent.params);
+								}
+								continue;
+							}
+
+							if (animEvent.timeNormalized !== undefined) {
+								if (nextTimeNormalized >= animEvent.timeNormalized && prevTimeNormalized < animEvent.timeNormalized) {
+									self._eworld.trigger(animEvent.event, animEvent.params);
+								}
+								continue;
+							}
+						}
+					}
+
 
 					if (animator.finished) {
 						self._eworld.trigger(RenderEvents.Animations.ANIMATION_FINISHED, data);

@@ -11,6 +11,7 @@ var Animator = function (animData, sprite, scene) {
 	this.isPaused = false;
 	this.finished = false;
 	this.sequenceName = '';
+	this.sequenceData = null;
 	this.sequences = [];
 	this.sprite = sprite;	// Read-only
 	
@@ -22,13 +23,13 @@ var Animator = function (animData, sprite, scene) {
 		m_currentCycle = m_cycles[name];
 		m_currentCycle.reset(true);
 		
-		if (m_currentCycle.repeat) {
-			m_currentCycle.__repeatTicksElapsed = 0;
-		}
+		m_currentCycle.__ticksElapsed = 0;
+		m_currentCycle.__timeElapsed = 0;
 		
 		self.isPaused = false;
 		self.finished = false;
 		self.sequenceName = name;
+		self.sequenceData = animData.sequences.find(function (sequence) { return sequence.name == self.sequenceName; });
 	}
 	
 	this.pauseSequence = function (name, frame) {
@@ -44,6 +45,7 @@ var Animator = function (animData, sprite, scene) {
 		self.isPaused = true;
 		self.finished = false;
 		self.sequenceName = name;
+		self.sequenceData = animData.sequences.find(function (sequence) { return sequence.name == self.sequenceName; });
 	}
 
 	this.play = function () {
@@ -65,10 +67,12 @@ var Animator = function (animData, sprite, scene) {
 	this.next = function (ticks) {
 		m_currentCycle.next(ticks, true);
 		
+		m_currentCycle.__ticksElapsed += ticks;
+		m_currentCycle.__timeElapsed = m_currentCycle.__ticksElapsed * scene.ticker.tickDuration;
+
 		if (m_currentCycle.repeat) {
-			m_currentCycle.__repeatTicksElapsed += ticks;
 			
-			if (m_currentCycle.__repeatDuration && m_currentCycle.__repeatTicksElapsed * scene.ticker.tickDuration >= m_currentCycle.__repeatDuration) {
+			if (m_currentCycle.__repeatDuration && m_currentCycle.__timeElapsed >= m_currentCycle.__repeatDuration) {
 				self.finished = true;
 			}
 			
@@ -105,6 +109,22 @@ var Animator = function (animData, sprite, scene) {
 	
 	this.getCurrentCycle = function () {
 		return m_currentCycle;
+	}
+
+	this.getCurrentElapsedTime = function () {
+		return m_currentCycle.__timeElapsed;
+	}
+
+	this.getCurrentNormalizedTime = function () {
+		if (m_currentCycle.repeat)
+			var totalTime = self.sequenceData.duration || Number.POSITIVE_INFINITY;
+		else
+			var totalTime = m_currentCycle.cycleDuration * scene.ticker.tickDuration;
+		return m_currentCycle.__timeElapsed / (totalTime);
+	}
+
+	this.getCurrentFrame = function () {
+		return m_currentCycle.currentTripletIndex;
 	}
 
 	//
@@ -166,6 +186,51 @@ var Animator = function (animData, sprite, scene) {
 			sprite.position(sprite.x, sprite.y);	// NOTE: This will CHANGE x & y with the anchor values.
 			sprite.update();
 			
+
+			// Validate events
+			if (sequence.events) {
+				for(var j = 0; j < sequence.events.length; ++j) {
+					var animEvent = sequence.events[j];
+
+					if (animEvent.frame === undefined && animEvent.elapsed == undefined && animEvent.timeNormalized == undefined) {
+						console.warn('Event data does\'t specify when to trigger for: ' + self.resourcePath + ' on ' + sequence.name + ' - ' + animEvent.event);
+						continue;
+					}
+
+
+
+					if (animEvent.frame !== undefined) {
+						var totalFrames = cycle.triplets.length - 1;
+						if (animEvent.frame < 0 || animEvent.frame >= totalFrames) {
+							console.warn('Event data scheduled for ' + animEvent.frame + ' frame, but only [0, ' + (totalFrames - 1) + '] allowed for: ' + self.resourcePath + ' on ' + sequence.name + ' - ' + animEvent.event);
+						}
+						continue;
+					}
+
+					if (animEvent.elapsed !== undefined) {
+						if (cycle.repeat)
+							var totalDutation = sequence.duration || Number.POSITIVE_INFINITY;
+						else
+							var totalDutation = cycle.cycleDuration * scene.ticker.tickDuration;
+
+						if (animEvent.elapsed < 0 || animEvent.elapsed > totalDutation) {
+							console.warn('Event data scheduled for ' + animEvent.elapsed + ' time, but only [0, ' + totalDutation + '] allowed for: ' + self.resourcePath + ' on ' + sequence.name + ' - ' + animEvent.event);
+						}
+						continue;
+					}
+
+					if (animEvent.timeNormalized !== undefined) {
+						if (cycle.repeat && sequence.duration === undefined)
+							console.warn('Event data scheduled for ' + animEvent.timeNormalized + ' normalized time, but animation is endless: ' + self.resourcePath + ' on ' + sequence.name + ' - ' + animEvent.event);
+
+						if (animEvent.timeNormalized < 0 || animEvent.timeNormalized > 1) {
+							console.warn('Event data scheduled for ' + animEvent.timeNormalized + ' normalized time, but only [0, 1] allowed for: ' + self.resourcePath + ' on ' + sequence.name + ' - ' + animEvent.event);
+						}
+						continue;
+					}
+				}
+			}
+
 			
 			// Expose available sequence names.
 			self.sequences.push(sequence.name);
