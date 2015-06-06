@@ -9,7 +9,7 @@ SpriteAnimations.TeslaTrooper = {
 	anchorX: 32,
 	anchorY: 32,
 	
-	framesPerRow: 36,
+	framesPerRow: 15,
 	speed: 10,
 	
 	sequences: [
