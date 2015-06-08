@@ -779,9 +779,25 @@ Sprite.prototype.update = function updateDomProperties () {
     var style = this.dom.style, trans;
     // using Math.round to round integers before changing seems to improve a bit performances
     if (this._x_before !== this._x_rounded)
-    style.left=(this.x | 0) + 'px';
+		style.left=(this.x | 0) + 'px';
     if (this._y_before !== this._y_rounded)
         style.top=(this.y | 0) + 'px';
+
+
+	// 
+	// Anchor
+	//
+	var anchorX = Math.round((this.anchorX || 0) * Math.abs(this.xscale));
+	var anchorY = Math.round((this.anchorY || 0) * Math.abs(this.yscale));
+
+	// If scale is smaller, image is flipped, so anchor should be relative to the width/height.
+	if (this.xscale < 0) anchorX = this.w - anchorX;
+	if (this.yscale < 0) anchorY = this.h - anchorY;
+
+	style.marginLeft = -anchorX + 'px';
+	style.marginTop = -anchorY + 'px';
+
+
 
     // cache rounded positions, it's used to avoid unecessary update
     this._x_before = this._x_rounded;
@@ -857,6 +873,16 @@ Sprite.prototype.canvasUpdate = function canvasUpdate(layer) {
         return this;
     }
 
+    // 
+    // Anchor
+    //
+    var anchorX = Math.round((this.anchorX || 0) * Math.abs(this.xscale));
+    var anchorY = Math.round((this.anchorY || 0) * Math.abs(this.yscale));
+
+    // If scale is smaller, image is flipped, so anchor should be relative to the width/height.
+    if (this.xscale < 0) anchorX = this.w - anchorX;
+    if (this.yscale < 0) anchorY = this.h - anchorY;
+
     var fast_track = (
         this.angle == 0
         && this.opacity == 1
@@ -866,7 +892,7 @@ Sprite.prototype.canvasUpdate = function canvasUpdate(layer) {
     )
     if(fast_track) {
         ctx.drawImage(this.img, this.xoffset, this.yoffset, this.w, this.h,
-            this._x_rounded, this._y_rounded, this.w, this.h);
+            this._x_rounded - anchorX, this._y_rounded - anchorY, this.w, this.h);
         return this;
     }
 
@@ -881,7 +907,7 @@ Sprite.prototype.canvasUpdate = function canvasUpdate(layer) {
     }
 
     // rounding the coordinates yield a big performance improvement
-    ctx.translate(this._x_rounded + transx, this._y_rounded + transy);
+    ctx.translate(this._x_rounded + transx - anchorX, this._y_rounded + transy - anchorY);
     ctx.rotate(this.angle);
     if (this.xscale !== 1 || this.yscale !== 1)
         ctx.scale(this.xscale, this.yscale);
