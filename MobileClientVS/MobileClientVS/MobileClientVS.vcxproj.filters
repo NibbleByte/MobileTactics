@@ -461,6 +461,9 @@
     <None Include="..\..\MobileClient\www\Assets\Render\TextEffects.css">
       <Filter>Assets</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\_ExampleAnimations.js">
+      <Filter>Assets\Render\SpriteAnimations</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
