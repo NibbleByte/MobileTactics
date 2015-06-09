@@ -29,7 +29,9 @@ var Animator = function (animData, sprite, scene) {
 		self.isPaused = false;
 		self.finished = false;
 		self.sequenceName = name;
-		self.sequenceData = animData.sequences.find(function (sequence) { return sequence.name == self.sequenceName; });
+		self.sequenceData = m_sequencesData[self.sequenceName];
+
+		applySequenceData(self.sequenceData);
 	}
 	
 	this.pauseSequence = function (name, frame) {
@@ -45,7 +47,9 @@ var Animator = function (animData, sprite, scene) {
 		self.isPaused = true;
 		self.finished = false;
 		self.sequenceName = name;
-		self.sequenceData = animData.sequences.find(function (sequence) { return sequence.name == self.sequenceName; });
+		self.sequenceData = m_sequencesData[self.sequenceName];
+
+		applySequenceData(self.sequenceData);
 	}
 
 	this.play = function () {
@@ -136,9 +140,23 @@ var Animator = function (animData, sprite, scene) {
 	var m_anchorX = animData.anchorX || 0;
 	var m_anchorY = animData.anchorY || 0;
 	var m_framesPerRow = animData.framesPerRow || 0;	// If no count, infinite.
-	var m_defaultSpeed = animData.speed;
+	var m_speed = animData.speed;
 	var m_cycles = {};
 	var m_currentCycle = null;
+
+	var m_sequencesData = {};
+
+
+	var applySequenceData = function (sequenceData) {
+
+		var frameWidth = (sequenceData.frameWidth == undefined) ? m_frameWidth : sequenceData.frameWidth;
+		var frameHeight = (sequenceData.frameHeight == undefined) ? m_frameHeight : sequenceData.frameHeight;
+
+		sprite.anchorX = (sequenceData.anchorX == undefined) ? m_anchorX: sequenceData.anchorX;
+		sprite.anchorY = (sequenceData.anchorY == undefined) ? m_anchorY: sequenceData.anchorY;
+
+		sprite.size(frameWidth, frameHeight);
+	}
 	
 	var validate = function () {
 		for(var name in m_cycles) {
@@ -157,35 +175,45 @@ var Animator = function (animData, sprite, scene) {
 	}
 	
 	var initialize = function () {
+		var fx, fy;
+
 		for(var i = 0; i < animData.sequences.length; ++i) {
 			var sequence = animData.sequences[i];
 			
-			var speed = (sequence.speed == undefined) ? m_defaultSpeed : sequence.speed;
+			var speed = (sequence.speed == undefined) ? m_speed : sequence.speed;
+			var startX = (sequence.startX == undefined) ? 0 : sequence.startX;
+			var startY = (sequence.startY == undefined) ? 0 : sequence.startY;
+			var frameWidth = (sequence.frameWidth == undefined) ? m_frameWidth : sequence.frameWidth;
+			var frameHeight = (sequence.frameHeight == undefined) ? m_frameHeight : sequence.frameHeight;
+			var framesPerRow = (sequence.framesPerRow == undefined) ? m_framesPerRow : sequence.framesPerRow;
 
 			var triplets = [];
-			for(var index = sequence.startIndex; index <= sequence.startIndex +sequence.frames; ++index) {
+			var startIndex = sequence.startIndex || 0;
+			var endIndex = startIndex + sequence.frames;
+			for(var index = startIndex; index <= endIndex ; ++index) {
 				
-				if (m_framesPerRow > 0) {
-					triplets.push([
-									(index % m_framesPerRow) * m_frameWidth,
-									parseInt(index / m_framesPerRow) * m_frameHeight,
-									speed
-								]);
+				if (framesPerRow > 0) {
+					fx = startX + (index % framesPerRow) * frameWidth;
+					fy = startY + parseInt(index / framesPerRow) * frameHeight;
 				} else {
-					triplets.push([ index * m_frameWidth, 0, speed ]);
+					fx = startX + index * frameWidth;
+					fy = startY;
 				}
+
+
+
+				var frameSpeed = (Utils.isFunction(speed)) ? speed(index - startIndex) : speed;
+
+				if (sequence.frameSpeeds && index - startIndex < sequence.frameSpeeds.length) {
+					frameSpeed = sequence.frameSpeeds[index - startIndex] || frameSpeed;
+				}
+
+				triplets.push([ fx, fy, frameSpeed ]);
 			}
 
 			var cycle = generateCycle(sequence, triplets);
 			cycle.addSprite(sprite);
 			m_cycles[sequence.name] = cycle;
-			
-			sprite.size(m_frameWidth, m_frameHeight);
-			sprite.anchorX = m_anchorX;
-			sprite.anchorY = m_anchorY;
-			sprite.position(sprite.x, sprite.y);	// NOTE: This will CHANGE x & y with the anchor values.
-			sprite.update();
-			
 
 			// Validate events
 			if (sequence.events) {
@@ -234,13 +262,18 @@ var Animator = function (animData, sprite, scene) {
 			
 			// Expose available sequence names.
 			self.sequences.push(sequence.name);
+			m_sequencesData[sequence.name] = sequence;
 		}
 
+		sprite.size(m_frameWidth, m_frameHeight);
+		sprite.anchorX = m_anchorX;
+		sprite.anchorY = m_anchorY;
+
 		// Sanity-checks
-		if (self.sprite.imgNaturalWidth) {
+		if (sprite.imgNaturalWidth) {
 			validate();
 		} else {
-			self.sprite.addOnLoadHandler(validate);
+			sprite.addOnLoadHandler(validate);
 		}
 	}
 
@@ -287,12 +320,6 @@ var Animator = function (animData, sprite, scene) {
 	
 	initialize();
 }
-
-Animator.spriteOriginal = {
-	setX: sjs.Sprite.prototype.setX,
-	setY: sjs.Sprite.prototype.setY,
-}
-
 
 
 Animator.WrapMode = {

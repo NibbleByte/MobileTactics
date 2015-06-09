@@ -21,8 +21,27 @@ SpriteAnimations._ExampleAnimations = {
 		
 		{
 			name: 'Idle0',
-			startIndex: 1,
+			startIndex: 1,	// If 0, can be omitted
 			frames: 15,
+
+
+			startX: 0,
+			startY: 64,
+			frameWidth: 80,
+			frameHeight: 64,
+
+			anchorX: 16,
+			anchorY: 32,
+	
+			framesPerRow: 36,
+
+			// Speed variants
+			speed: 4,
+			speed: function (index) {
+				return index * 10;
+			},
+
+			frameSpeeds: [60, 5, 0, 30],	// NOTE: if 0 or less number of elements than fames, speed/speed(i) is used.
 		},
 		
 		{
