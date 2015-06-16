@@ -1,0 +1,38 @@
+#FightScreenContainer
+{
+	background-color: rgba(0, 0, 0, 0.8);
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	z-index: 100;
+	
+	display: none;
+}
+
+#FightScreen
+{
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	
+	overflow: visible;
+}
+
+.fight_scene_plot
+{
+	overflow: visible;
+	/*transform-origin: top left; - doesn't work on android */
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+.fight_scene_plot .sjs
+{
+	border: 1px solid red;
+	background-color: cadetblue;
+}

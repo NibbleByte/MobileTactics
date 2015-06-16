@@ -16,6 +16,9 @@ var SceneRenderer = function (holderElement, eworld, layersDefinitions) {
 	
 	this.$pnScenePlot = $('<div class="scene_plot"></div>').appendTo(this.pnHolder);
 	
+	// Overrides scene + layers zoom globally.
+	this.disableSceneZoom = false;
+
 	this.scene = sjs.Scene({
 		parent: this.$pnScenePlot[0],
 		autoPause: false,
@@ -55,9 +58,14 @@ var SceneRenderer = function (holderElement, eworld, layersDefinitions) {
 	$(this.scene.layers['default'].dom).hide();
 
 	this.refresh = function () {
-
-		var zoomedWidth = Math.ceil(self.extentWidth * DisplayManager.zoom);
-		var zoomedHeight = Math.ceil(self.extentHeight * DisplayManager.zoom);
+		
+		if (self.disableSceneZoom) {
+			var zoomedWidth = self.extentWidth;
+			var zoomedHeight = self.extentHeight;
+		} else {
+			var zoomedWidth = Math.ceil(self.extentWidth * DisplayManager.zoom);
+			var zoomedHeight = Math.ceil(self.extentHeight * DisplayManager.zoom);
+		}
 
 		
 		// HACK: Resize manually the scene and layers

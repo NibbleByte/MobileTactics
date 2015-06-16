@@ -65,7 +65,7 @@ var AnimationSystem = function (m_renderer, m_manual) {
 			for(var name in anim.animators) {
 				var animator = anim.animators[name];
 				
-				if(!animator.isPaused) {
+				if(!animator.isPaused && animator.sequenceData) {
 					
 					if (animator.sequenceData.events) {
 						var prevFrame = animator.getCurrentFrame();

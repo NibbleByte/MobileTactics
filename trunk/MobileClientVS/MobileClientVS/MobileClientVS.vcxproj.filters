@@ -464,6 +464,33 @@
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\_ExampleAnimations.js">
       <Filter>Assets\Render\SpriteAnimations</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Assets\FightScreen.css">
+      <Filter>Assets</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Javascript\FightRendering\FightRenderingManager.js">
+      <Filter>Javascript\FightRendering</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Javascript\FightRendering\FightRenderer.js">
+      <Filter>Javascript\FightRendering</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Javascript\FightRendering\Components\CFightUnitRendering.js">
+      <Filter>Javascript\FightRendering\Components</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Javascript\FightRendering\FightRenderingEvents.js">
+      <Filter>Javascript\FightRendering</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Javascript\FightRendering\Components\CFightUnit.js">
+      <Filter>Javascript\FightRendering\Components</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightControllerSystem.js">
+      <Filter>Javascript\FightRendering\Systems</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Javascript\FightRendering\Components\CSpatial.js">
+      <Filter>Javascript\FightRendering\Components</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightUnitsRenderingSystem.js">
+      <Filter>Javascript\FightRendering\Systems</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
@@ -579,6 +606,15 @@
     </Filter>
     <Filter Include="Javascript\Core\AI\Components">
       <UniqueIdentifier>{850aedb3-58a8-4c3e-860c-071f8a7fece1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Javascript\FightRendering">
+      <UniqueIdentifier>{22a8256b-344e-4c60-a646-95bd0781d55a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Javascript\FightRendering\Components">
+      <UniqueIdentifier>{e14ce705-9d93-4c1a-8529-c1fc9c6967c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Javascript\FightRendering\Systems">
+      <UniqueIdentifier>{03a6647a-5df0-4a8f-89c3-ebc31c8cf957}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

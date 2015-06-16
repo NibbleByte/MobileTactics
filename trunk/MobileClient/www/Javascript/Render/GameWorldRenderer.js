@@ -10,6 +10,8 @@ var GameWorldRenderer = new function () {
 	this.Build = function (holderElement, eworld, scrollerOptions) {
 		var renderer = new SceneRenderer(holderElement, eworld, WorldLayers);
 
+		renderer.$pnScenePlot.addClass('game_scene_plot');
+
 		// Overwrite methods
 		var overwritten = {
 			refresh: renderer.refresh,
