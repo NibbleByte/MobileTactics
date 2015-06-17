@@ -178,6 +178,7 @@ var FightRenderingManager = new function () {
 		m_fightWorld.addSystem(new LayersUpdateSystem(m_renderer, FightRenderer.LayerTypes));
 		m_fightWorld.addSystem(new FightControllerSystem(m_renderer));
 		m_fightWorld.addSystem(new FightUnitsRenderingSystem(m_renderer));
+		m_fightWorld.addSystem(new FightUnitsAnimationsController());
 	}
 
 	initialize();
