@@ -40,11 +40,11 @@ var FightControllerSystem = function (m_renderer) {
 		var leftFightUnit = createFightUnit(leftUnit, FightRenderer.DirectionType.Right);
 		var rightFightUnit = createFightUnit(rightUnit, FightRenderer.DirectionType.Left);
 
-		leftFightUnit.CSpatial.x = 200;
-		leftFightUnit.CSpatial.y = m_renderer.extentHeight - 100;
+		leftFightUnit.CSpatial.x = FightRenderingManager.FightFrame.left + FightRenderingManager.FIGHT_FRAME_WIDTH_HALF / 2;
+		leftFightUnit.CSpatial.y = FightRenderingManager.FightFrame.bottom;
 
-		rightFightUnit.CSpatial.x = m_renderer.extentWidth - 200;
-		rightFightUnit.CSpatial.y = m_renderer.extentHeight - 100;
+		rightFightUnit.CSpatial.x = FightRenderingManager.FightFrame.right - FightRenderingManager.FIGHT_FRAME_WIDTH_HALF / 2;
+		rightFightUnit.CSpatial.y = FightRenderingManager.FightFrame.bottom;
 
 		self._eworld.addUnmanagedEntity(leftFightUnit);
 		self._eworld.addUnmanagedEntity(rightFightUnit);

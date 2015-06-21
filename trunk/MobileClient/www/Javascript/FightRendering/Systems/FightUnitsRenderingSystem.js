@@ -83,7 +83,7 @@ var FightUnitsRenderingSystem = function (m_renderer) {
 }
 
 FightUnitsRenderingSystem.MAIN_SPRITE = 'MainSprite';
-FightUnitsRenderingSystem.SPRITES_PATH = 'Assets/Render/Images/FightUnits/{race}/{fileName}';
+FightUnitsRenderingSystem.SPRITES_PATH = 'Assets-Scaled/Render/Images/FightUnits/{race}/{fileName}';
 
 ECS.EntityManager.registerSystem('FightUnitsRenderingSystem', FightUnitsRenderingSystem);
 SystemsUtils.supplyComponentFilter(FightUnitsRenderingSystem, [CFightUnit]);

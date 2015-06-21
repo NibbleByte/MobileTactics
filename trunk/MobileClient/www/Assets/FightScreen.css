@@ -22,17 +22,8 @@
 	overflow: visible;
 }
 
-.fight_scene_plot
+#FightFrame
 {
-	overflow: visible;
-	/*transform-origin: top left; - doesn't work on android */
 	position: absolute;
-	top: 0px;
-	left: 0px;
-}
-
-.fight_scene_plot .sjs
-{
-	border: 1px solid red;
-	background-color: cadetblue;
+	border: 2px solid red;
 }
