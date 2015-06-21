@@ -138,11 +138,13 @@ var SceneRenderer = function (holderElement, eworld, layersDefinitions) {
 	}
 
 	// Builds animator if possible.
-	this.buildAnimator = function (animationName, sprite) {
-		if (SpriteAnimations[animationName] == undefined)
+	this.buildAnimator = function (animationName, sprite, animationDefinitions) {
+		animationDefinitions = animationDefinitions || SpriteAnimations;
+
+		if (animationDefinitions[animationName] == undefined)
 			return null;
 
-		var animData = SpriteAnimations[animationName];
+		var animData = animationDefinitions[animationName];
 		return new Animator(animData, sprite, self.scene);
 	}
 

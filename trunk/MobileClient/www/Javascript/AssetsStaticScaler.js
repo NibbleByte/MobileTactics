@@ -15,11 +15,14 @@ var AssetsStaticScaler = new function () {
 
 			// Check if it is an animation or a collection of animations (namespace).
 			if (animation.resourcePath) {
+				if (animation.dontScale)
+					continue;
+
 				animation.frameWidth *= Assets.scale;
 				animation.frameHeight *= Assets.scale;
 
-				animation.anchorX *= Assets.scale;
-				animation.anchorY *= Assets.scale;
+				if (Utils.isNumber(animation.anchorX)) animation.anchorX *= Assets.scale;
+				if (Utils.isNumber(animation.anchorY)) animation.anchorY *= Assets.scale;
 
 			} else {
 				scaleAnimations(animation);

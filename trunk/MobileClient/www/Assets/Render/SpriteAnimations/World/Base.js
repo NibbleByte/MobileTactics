@@ -1,6 +1,5 @@
-var SpriteAnimations = SpriteAnimations || {};
 
-SpriteAnimations.Base = {
+SpriteAnimations.World.Base = {
 
 	resourcePath: 'Base.png',
 	

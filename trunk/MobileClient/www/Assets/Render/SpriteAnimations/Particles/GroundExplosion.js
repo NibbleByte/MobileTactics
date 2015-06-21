@@ -1,5 +1,3 @@
-var SpriteAnimations = SpriteAnimations || {};
-SpriteAnimations.Particles = SpriteAnimations.Particles || {};
 
 SpriteAnimations.Particles.GroundExplosion = {
 

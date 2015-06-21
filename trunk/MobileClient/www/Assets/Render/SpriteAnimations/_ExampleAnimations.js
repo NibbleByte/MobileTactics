@@ -1,4 +1,3 @@
-var SpriteAnimations = SpriteAnimations || {};
 
 SpriteAnimations._ExampleAnimations = {
 

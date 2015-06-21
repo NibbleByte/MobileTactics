@@ -1,13 +1,12 @@
-var SpriteAnimations = SpriteAnimations || {};
 
-SpriteAnimations.TeslaTrooper = {
+SpriteAnimations.Units.TeslaTrooper = {
 
 	resourcePath: 'TeslaTrooper.png',
 	
 	frameWidth: 64,
 	frameHeight: 64,
-	anchorX: 32,
-	anchorY: 32,
+	anchorX: Animator.AnchorX.Center,
+	anchorY: Animator.AnchorY.Center,
 	
 	framesPerRow: 15,
 	speed: 10,

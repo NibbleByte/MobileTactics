@@ -32,7 +32,7 @@ var BattleFieldUnitsRenderingSystem = function (m_renderer) {
 			Enums.getName(Player.Races, battleUnit.CBattleUnit.unit.CPlayerData.player.race));
 
 		var resourcePath;
-		var animator = m_renderer.buildAnimator(unitRendering.skin, unitRendering.sprite);
+		var animator = m_renderer.buildAnimator(unitRendering.skin, unitRendering.sprite, SpriteAnimations.Units);
 
 		// Get information depending if has animations or is still image.
 		if (animator) {

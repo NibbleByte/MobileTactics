@@ -14,9 +14,6 @@
     <None Include="..\..\MobileClient\www\Assets\Render\TileRenderingSystem.css">
       <Filter>Assets\Render</Filter>
     </None>
-    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\TeslaTrooper.js">
-      <Filter>Assets\Render\SpriteAnimations</Filter>
-    </None>
     <None Include="..\..\MobileClient\www\Javascript\ActionsMenuController.js">
       <Filter>Javascript</Filter>
     </None>
@@ -223,9 +220,6 @@
     </None>
     <None Include="..\..\MobileClient\www\Javascript\Render\Components\CTileOverlayRendering.js">
       <Filter>Javascript\Render\Components</Filter>
-    </None>
-    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Base.js">
-      <Filter>Assets\Render\SpriteAnimations</Filter>
     </None>
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\TileStructureRenderingSystem.js">
       <Filter>Javascript\Render\Systems</Filter>
@@ -494,6 +488,18 @@
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightUnitsAnimationsController.js">
       <Filter>Javascript\FightRendering\Systems</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\FightUnits\TeslaTrooperFight.js">
+      <Filter>Assets\Render\SpriteAnimations\FightUnits</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\World\Base.js">
+      <Filter>Assets\Render\SpriteAnimations\World</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\TeslaTrooper.js">
+      <Filter>Assets\Render\SpriteAnimations\Units</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\SpriteAnimations.js">
+      <Filter>Assets\Render\SpriteAnimations</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
@@ -618,6 +624,15 @@
     </Filter>
     <Filter Include="Javascript\FightRendering\Systems">
       <UniqueIdentifier>{03a6647a-5df0-4a8f-89c3-ebc31c8cf957}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Render\SpriteAnimations\FightUnits">
+      <UniqueIdentifier>{455dcf65-e8e7-4e7e-bd96-ac23bb779984}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Render\SpriteAnimations\Units">
+      <UniqueIdentifier>{44367d48-3fff-480c-b26d-e89c54c2c942}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Render\SpriteAnimations\World">
+      <UniqueIdentifier>{1e97b9cb-e6d8-486e-9ac0-75b81162a44f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

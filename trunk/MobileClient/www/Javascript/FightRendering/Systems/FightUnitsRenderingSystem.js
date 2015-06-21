@@ -32,7 +32,7 @@ var FightUnitsRenderingSystem = function (m_renderer) {
 			Enums.getName(Player.Races, fightUnit.CFightUnit.unit.CPlayerData.player.race));
 
 		var resourcePath;
-		var animator = m_renderer.buildAnimator(unitRendering.skin, unitRendering.sprite);
+		var animator = m_renderer.buildAnimator(unitRendering.skin, unitRendering.sprite, SpriteAnimations.FightUnits);
 
 		// Get information depending if has animations or is still image.
 		if (animator) {
@@ -67,7 +67,7 @@ var FightUnitsRenderingSystem = function (m_renderer) {
 		var y = fightUnit.CSpatial.y;
 
 
-		unitRendering.sprite.setXScale(fightUnit.CFightUnit.direction * -1);
+		unitRendering.sprite.setXScale(fightUnit.CFightUnit.direction);
 		unitRendering.move(x, y);
 	}
 
@@ -83,7 +83,7 @@ var FightUnitsRenderingSystem = function (m_renderer) {
 }
 
 FightUnitsRenderingSystem.MAIN_SPRITE = 'MainSprite';
-FightUnitsRenderingSystem.SPRITES_PATH = 'Assets-Scaled/Render/Images/Units/{race}/{fileName}';
+FightUnitsRenderingSystem.SPRITES_PATH = 'Assets/Render/Images/FightUnits/{race}/{fileName}';
 
 ECS.EntityManager.registerSystem('FightUnitsRenderingSystem', FightUnitsRenderingSystem);
 SystemsUtils.supplyComponentFilter(FightUnitsRenderingSystem, [CFightUnit]);
