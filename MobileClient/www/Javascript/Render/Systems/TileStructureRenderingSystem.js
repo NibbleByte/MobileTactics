@@ -96,7 +96,7 @@ var TileStructureRenderingSystem = function (m_renderer) {
 		.update();
 
 		// Add animation
-		var animator = m_renderer.buildAnimator(terrainName, overlay.sprite);
+		var animator = m_renderer.buildAnimator(terrainName, overlay.sprite, SpriteAnimations.World);
 		if (animator) {
 			var animations = tile.addComponentSafe(CAnimations);
 

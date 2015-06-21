@@ -89,14 +89,13 @@ var Animator = function (animData, sprite, scene) {
 					m_currentCycle.go(0);
 				}
 
-				// Note: Last triplet is not valid.
 				if (m_currentCycle.__wrapMode == Animator.WrapMode.OnceEnd) {
 					self.isPaused = true;
-					m_currentCycle.go(m_currentCycle.triplets.length - 2);
+					m_currentCycle.go(m_currentCycle.triplets.length - 1);
 				}
 
 				if (m_currentCycle.__wrapMode == Animator.WrapMode.ClampForever) {
-					m_currentCycle.go(m_currentCycle.triplets.length - 2);
+					m_currentCycle.go(m_currentCycle.triplets.length - 1);
 				}
 			}
 		}
@@ -152,25 +151,37 @@ var Animator = function (animData, sprite, scene) {
 		var frameWidth = (sequenceData.frameWidth == undefined) ? m_frameWidth : sequenceData.frameWidth;
 		var frameHeight = (sequenceData.frameHeight == undefined) ? m_frameHeight : sequenceData.frameHeight;
 
-		sprite.anchorX = (sequenceData.anchorX == undefined) ? m_anchorX: sequenceData.anchorX;
-		sprite.anchorY = (sequenceData.anchorY == undefined) ? m_anchorY: sequenceData.anchorY;
+		var anchorX = (sequenceData.anchorX == undefined) ? m_anchorX: sequenceData.anchorX;
+		var anchorY = (sequenceData.anchorY == undefined) ? m_anchorY: sequenceData.anchorY;
 
+		if (anchorX == Animator.AnchorX.Left) anchorX = 0;
+		if (anchorX == Animator.AnchorX.Center) anchorX = frameWidth / 2;
+		if (anchorX == Animator.AnchorX.Right) anchorX = frameWidth;
+
+		if (anchorY == Animator.AnchorY.Top) anchorY = 0;
+		if (anchorY == Animator.AnchorY.Center) anchorY = frameHeight / 2;
+		if (anchorY == Animator.AnchorY.Bottom) anchorY = frameHeight;
+
+
+		sprite.anchorX = anchorX;
+		sprite.anchorY = anchorY;
 		sprite.size(frameWidth, frameHeight);
+		sprite.update();
 	}
 	
 	var validate = function () {
 		for(var name in m_cycles) {
 			var cycle = m_cycles[name];
 
-			// NOTE: last triplet is invalid, don't take it into account.
-			for(var i = 0; i < cycle.triplets.length - 1; ++i) {
+			for(var i = 0; i < cycle.triplets.length; ++i) {
 				var triplet = cycle.triplets[i];
 				if (self.sprite.imgNaturalWidth < triplet[0] + m_frameWidth || self.sprite.imgNaturalHeight < triplet[1] + m_frameHeight)
 					console.warn('The animator of ' + self.resourcePath + ' has a sequence ' + self.sequenceName + ' that is bigger than the sprite!');
 			}
 
-			if (self.sprite.imgNaturalWidth % m_frameWidth != 0 || self.sprite.imgNaturalHeight % m_frameHeight != 0)
-				console.warn('The animator of ' + self.resourcePath + ' detected that the sprite size is not multiple of the frame width/height.');
+			// This is no longer true.
+			//if (self.sprite.imgNaturalWidth % m_frameWidth != 0 || self.sprite.imgNaturalHeight % m_frameHeight != 0)
+			//	console.warn('The animator of ' + self.resourcePath + ' detected that the sprite size is not multiple of the frame width/height.');
 		}
 	}
 	
@@ -190,7 +201,7 @@ var Animator = function (animData, sprite, scene) {
 			var triplets = [];
 			var startIndex = sequence.startIndex || 0;
 			var endIndex = startIndex + sequence.frames;
-			for(var index = startIndex; index <= endIndex ; ++index) {
+			for(var index = startIndex; index < endIndex ; ++index) {
 				
 				if (framesPerRow > 0) {
 					fx = startX + (index % framesPerRow) * frameWidth;
@@ -329,5 +340,17 @@ Animator.WrapMode = {
 	Loop: 0,			// Loop forever, until stopped.
 	PingPong: 0,		// Play forward + backward animation forever.
 	ClampForever: 0,	// Run once and keep playing last frame forever.
-}
+};
 Enums.enumerate(Animator.WrapMode);
+
+Animator.AnchorX = {
+	Left: 'Left',
+	Center: 'Center',
+	Right: 'Right',
+};
+
+Animator.AnchorY = {
+	Top: 'Top',
+	Center: 'Center',
+	Bottom: 'Bottom',
+};

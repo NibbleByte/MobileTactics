@@ -1154,6 +1154,10 @@ Cycle.prototype.removeSprite = function removeSprite(sprite) {
 };
 
 Cycle.prototype.next = function (ticks, update) {
+
+	ticks = ticks || 1; // default tick: 1
+	this.tick = this.tick + ticks;
+
     if (this.tick > this.cycleDuration) {
         if (this.repeat)
             this.tick = 0;
@@ -1163,25 +1167,23 @@ Cycle.prototype.next = function (ticks, update) {
         }
     }
     // search if we are in a new triplet
-    var newTripletIndex, i, j, sprite;
-    for (i = 0; i < this.changingTicks.length - 1; i++) {
+    var newTripletIndex, sprite;
+    for (var i = 0; i < this.changingTicks.length - 1; i++) {
         if (this.tick >= this.changingTicks[i] && this.tick < this.changingTicks[i+1]) {
-            newTripletIndex = i;
+            newTripletIndex = i + 1;
             break;
         }
     }
     if (newTripletIndex !== undefined && newTripletIndex !== this.currentTickIndex) {
-        for (j = 0; sprite = this.sprites[j]; j++) {
-            sprite.setXOffset(this.triplets[i][0]);
-            sprite.setYOffset(this.triplets[i][1]);
+        for (var j = 0; sprite = this.sprites[j]; j++) {
+            sprite.setXOffset(this.triplets[newTripletIndex][0]);
+            sprite.setYOffset(this.triplets[newTripletIndex][1]);
             if (update)
                 sprite.update();
         }
         this.currentTripletIndex = newTripletIndex;
     }
 
-    ticks = ticks || 1; // default tick: 1
-    this.tick = this.tick + ticks;
     return this;
 };
 

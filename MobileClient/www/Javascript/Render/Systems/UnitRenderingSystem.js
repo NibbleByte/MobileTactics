@@ -43,7 +43,7 @@ var UnitRenderingSystem = function (renderer) {
 			Enums.getName(Player.Races, placeable.CPlayerData.player.race));
 
 		var resourcePath;
-		var animator = m_renderer.buildAnimator(placeableRendering.skin, placeableRendering.sprite);
+		var animator = m_renderer.buildAnimator(placeableRendering.skin, placeableRendering.sprite, SpriteAnimations.Units);
 		
 		// Get information depending if has animations or is still image.
 		if (animator) {

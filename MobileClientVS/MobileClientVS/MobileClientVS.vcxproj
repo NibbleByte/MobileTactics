@@ -86,9 +86,11 @@
     <None Include="..\..\MobileClient\www\Assets\Render\OverlayEffects.css" />
     <None Include="..\..\MobileClient\www\Assets\Render\Placeables.css" />
     <None Include="..\..\MobileClient\www\Assets\Render\SceneRenderer.css" />
-    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Base.js" />
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\FightUnits\TeslaTrooperFight.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Particles\GroundExplosion.js" />
-    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\TeslaTrooper.js" />
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\SpriteAnimations.js" />
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\TeslaTrooper.js" />
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\World\Base.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\_ExampleAnimations.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\TextEffects.css" />
     <None Include="..\..\MobileClient\www\Assets\Render\TileRenderingSystem.css" />
