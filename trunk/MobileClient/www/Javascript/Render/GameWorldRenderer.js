@@ -11,6 +11,7 @@ var GameWorldRenderer = new function () {
 		var renderer = new SceneRenderer(holderElement, eworld, WorldLayers);
 
 		renderer.$pnScenePlot.addClass('game_scene_plot');
+		renderer.backgroundColor = renderer.$pnScenePlot.css('background-color');
 
 		// Overwrite methods
 		var overwritten = {
@@ -51,8 +52,8 @@ var GameWorldRenderer = new function () {
 				renderer.plotContainerScroller.refresh();
 
 				// Check if scrolling is needed but not detected.
-				if ((renderer.$pnScenePlot.width() < renderer.extentWidth && !renderer.plotContainerScroller.hasHorizontalScroll) ||
-					(renderer.$pnScenePlot.height() < renderer.extentHeight && !renderer.plotContainerScroller.hasVerticalScroll)
+				if ((renderer.$pnScenePlot.width() < $(renderer.scene.dom).width() && !renderer.plotContainerScroller.hasHorizontalScroll) ||
+					(renderer.$pnScenePlot.height() < $(renderer.scene.dom).height() && !renderer.plotContainerScroller.hasVerticalScroll)
 					) {
 
 					scrollerRefreshTimeout = setTimeout(function () {
@@ -160,5 +161,67 @@ var GameWorldRenderer = new function () {
 				return Math.round((this.extentWidth - GTile.LAYERS_PADDING * 2 - GTile.TILE_HOFFSET) / GTile.TILE_WIDTH);
 			}
 		},
+
+		// Make screenshot of the world onto the provided canvas (layer by layer).
+		// Used for optimization, to avoid rendering the whole world when static.
+		makeShot: function (targetCanvas, layersFilter) {
+
+			// Get the viewport
+			var viewX = this.zoomIn(-this.plotContainerScroller.x);
+			var viewY = this.zoomIn(-this.plotContainerScroller.y);
+			var viewWidth = this.$pnScenePlot.width();
+			var viewHeight = this.$pnScenePlot.height();
+
+			var canvasWidth = this.zoomIn(viewWidth);
+			var canvasHeight = this.zoomIn(viewHeight);
+			
+			$(targetCanvas).attr('width', canvasWidth);
+			$(targetCanvas).attr('height', canvasHeight);
+
+			DisplayManager.zoomInElement(targetCanvas);
+
+			$(targetCanvas).css('margin-left', Math.floor((viewWidth - canvasWidth) / 2));
+			$(targetCanvas).css('margin-top', Math.floor((viewHeight - canvasHeight) / 2));
+
+
+			//
+			// Start shot
+			//
+			var targetCtx = targetCanvas.getContext("2d");
+
+			targetCtx.fillStyle = this.backgroundColor;
+			targetCtx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+			for(var i = 0; i < layersFilter.length; ++i) {
+				var layer = this.layers[layersFilter[i]];
+
+				if (layer.useCanvas)
+					targetCtx.drawImage(layer.dom, viewX, viewY, canvasWidth, canvasHeight, 0, 0, canvasWidth, canvasHeight);
+
+				if (layer.useCanvasInstance || !layer.useCanvas) {
+					var sprites = this.spriteTracker.layerSprites[layer.name];
+					for(var j = 0; j < sprites.length; ++j) {
+						var sprite = sprites[j];
+
+						if (sprite.skipDrawing)
+							continue;
+
+						// Optimization (avoid touching the dom?). Not tested!
+						//if ($(sprite.dom).is(":hidden"))
+						//	continue;
+
+						var anchorX = Math.round((sprite.anchorX || 0) * Math.abs(sprite.xscale));
+						var anchorY = Math.round((sprite.anchorY || 0) * Math.abs(sprite.yscale));
+
+						var offsetX = (layer.useCanvasInstance) ? 0 : sprite.xoffset;
+						var offsetY = (layer.useCanvasInstance) ? 0 : sprite.yoffset;
+
+						var dom = (layer.useCanvasInstance) ? sprite.canvasInstance : sprite.img;
+
+						targetCtx.drawImage(dom, offsetX, offsetY, sprite.w, sprite.h, sprite.x - viewX - anchorX, sprite.y - viewY - anchorY, sprite.w, sprite.h);
+					}
+				}
+			}
+		}
 	};
 }

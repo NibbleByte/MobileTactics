@@ -26,6 +26,9 @@ var FightRenderingManager = new function () {
 	var m_$FightScreen = $('#FightScreen');
 	var m_$FightFrame = $('#FightFrame');
 
+	var m_$world = $('#GameWorldMap');
+	var m_$worldShot = $('#GameWorldMapShot');
+
 	var m_fightWorld = null;
 	var m_renderer = null;
 
@@ -33,11 +36,27 @@ var FightRenderingManager = new function () {
 
 	var subscriber = new DOMSubscriber();
 
+	var shotLayers = [
+		WorldLayers.LayerTypes.Terrain,
+		WorldLayers.LayerTypes.TerrainOverlay,
+		WorldLayers.LayerTypes.Units,
+		//WorldLayers.LayerTypes.UnitsFinished, // Shot doesn't check if div element are visible (optimization?)
+		//WorldLayers.LayerTypes.ActionFog,	// It is merged with Highlights layer
+		WorldLayers.LayerTypes.VisibilityFog,
+	]
+
 	//
 	// Visualize battle
 	//
 	this.visualizeBattle = function (eworld, attacker, defender) {
 		m_$FightScreenContainer.show();
+
+		// Order is important. Make shot before hiding the world.
+		eworld.extract(GameWorldRenderer).makeShot(m_$worldShot[0], shotLayers);
+
+		m_$world.hide();
+		m_$worldShot.show();
+
 
 		m_currentFight = {
 			eworld: eworld,
@@ -89,6 +108,12 @@ var FightRenderingManager = new function () {
 		m_currentFight = null;
 
 		m_$FightScreenContainer.hide();
+		m_$world.show();
+		m_$worldShot.hide();
+
+		// Clear shot.
+		m_$worldShot.attr('width', 0);
+		m_$worldShot.attr('height', 0);
 	}
 
 	var restartCurrentFight = function () {
