@@ -86,6 +86,8 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 			fadeScrollbars: false,
 			interactiveScrollbars: true,
 		});
+
+		eworld.store(GameWorldRenderer, worldRenderer);
 	
 		eworld.addSystem(new TileRenderingSystem(worldRenderer, false, false, false));
 		eworld.addSystem(new UnitRenderingSystem(worldRenderer));

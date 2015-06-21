@@ -156,6 +156,8 @@ ECS.EntityWorld = function () {
 		while(m_entities.length > 0) {
 			m_entities[0].destroy();
 		}
+
+		self.blackboard = null;
 	}
 	
 
