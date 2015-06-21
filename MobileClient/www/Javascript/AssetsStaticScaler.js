@@ -17,12 +17,25 @@ var AssetsStaticScaler = new function () {
 			if (animation.resourcePath) {
 				if (animation.dontScale)
 					continue;
-
-				animation.frameWidth *= Assets.scale;
-				animation.frameHeight *= Assets.scale;
+				if (Utils.isNumber(animation.frameWidth)) animation.frameWidth *= Assets.scale;
+				if (Utils.isNumber(animation.frameHeight)) animation.frameHeight *= Assets.scale;
 
 				if (Utils.isNumber(animation.anchorX)) animation.anchorX *= Assets.scale;
 				if (Utils.isNumber(animation.anchorY)) animation.anchorY *= Assets.scale;
+
+
+				for(var i = 0; i < animation.sequences.length; ++i) {
+					var sequence = animation.sequences[i];
+
+					if (Utils.isNumber(sequence.startX)) sequence.startX *= Assets.scale;
+					if (Utils.isNumber(sequence.startY)) sequence.startY *= Assets.scale;
+
+					if (Utils.isNumber(sequence.frameWidth)) sequence.frameWidth *= Assets.scale;
+					if (Utils.isNumber(sequence.frameHeight)) sequence.frameHeight *= Assets.scale;
+
+					if (Utils.isNumber(sequence.anchorX)) sequence.anchorX *= Assets.scale;
+					if (Utils.isNumber(sequence.anchorY)) sequence.anchorY *= Assets.scale;
+				}
 
 			} else {
 				scaleAnimations(animation);

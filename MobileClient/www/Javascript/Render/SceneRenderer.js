@@ -102,6 +102,9 @@ var SceneRenderer = function (holderElement, eworld, layersDefinitions) {
 	this.zoomBack = function (value) {
 		return value * DisplayManager.zoom;
 	}
+	this.zoomIn = function (value) {
+		return value / DisplayManager.zoom;
+	}
 	this.zoomBackCoords = function (coords) {
 		coords.x *= DisplayManager.zoom;
 		coords.y *= DisplayManager.zoom;

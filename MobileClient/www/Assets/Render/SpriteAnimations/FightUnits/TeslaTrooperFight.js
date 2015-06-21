@@ -3,7 +3,6 @@
 SpriteAnimations.FightUnits.TeslaTrooper = {
 
 	resourcePath: 'elec.png',
-	dontScale: true, // For now...
 
 	anchorX: Animator.AnchorX.Center,
 	anchorY: Animator.AnchorY.Bottom,
@@ -54,5 +53,5 @@ SpriteAnimations.FightUnits.TeslaTrooper = {
 };
 
 // TODO: These units don't have sprites yet. Remove this when they do!
-SpriteAnimations.FightUnits.RhinoTank = SpriteAnimations.FightUnits.TeslaTrooper;
-SpriteAnimations.FightUnits.WarMiner = SpriteAnimations.FightUnits.TeslaTrooper;
+SpriteAnimations.FightUnits.RhinoTank = $.extend(true, {}, SpriteAnimations.FightUnits.TeslaTrooper);
+SpriteAnimations.FightUnits.WarMiner = $.extend(true, {}, SpriteAnimations.FightUnits.TeslaTrooper);

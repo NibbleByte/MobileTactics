@@ -28,11 +28,14 @@
 	</head>
 	
 	<body>
-		<div id="RuntimeStats" onclick="$('#RuntimeStats').hide();">
+		<div id="RuntimeStats" onclick="$('#RuntimeStats').hide(); $('#RuntimeStatsButton').show();" style="display: none;">
 			<div id="FrameStats"></div>
 			<div id="ScreenStats"></div>
 			<div id="AssetsStats"></div>
 			<div id="DebugStats"></div>
+		</div>
+		<div id="RuntimeStatsButton" onclick="$('#RuntimeStats').show(); $('#RuntimeStatsButton').hide();">
+			FPS
 		</div>
 
 		<div id="Screen">
@@ -81,6 +84,12 @@
 			<div id="FightScreenContainer">
 				<div id="FightScreen">
 					
+				</div>
+				<div id="FightFrame">
+				</div>
+
+				<div id="FightScreenQuit" style="position:absolute; bottom: 0px; right: 0px; color: white; background: rgba(82, 82, 82, 0.88); border-radius: 8px; padding: 8px;">
+					Quit
 				</div>
 			</div>
 
@@ -158,7 +167,7 @@
 				<button id="BtnRestart">Res</button>
 				<button id="BtnDebug">Debug</button>
 				<button id="BtnBattle" onclick="BattleRenderingManager.visualizeBattle(currentState.eworld, lastCreated, selected.CTile.placedObjects[0]);" >Battle</button>
-				<button id="BtnFight" onclick="FightRenderingManager.visualizeBattle(currentState.eworld, lastCreated, selected.CTile.placedObjects[0]);" >Fight</button>
+				<button id="BtnFight" onclick="FightRenderingManager.visualizeBattle(currentState.eworld, lastCreated, selected.CTile.placedObjects[0]); $('#ToolbarMore').hide();" >Fight</button>
 
 				<button id="BtnAddress">Address</button>
 				<button id="BtnBrowse" style="display: none;">Browse</button>

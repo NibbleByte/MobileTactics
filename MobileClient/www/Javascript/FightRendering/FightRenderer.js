@@ -11,28 +11,9 @@ var FightRenderer = new function () {
 		var renderer = new SceneRenderer(holderElement, eworld, FightRenderer);
 
 		renderer.$pnScenePlot.addClass('fight_scene_plot');
-		renderer.disableSceneZoom = true;
-
-		$.extend(renderer, extension);
 
 		return renderer;
 	}
-
-	var extension = {
-		refreshScaleTo: function (scaleFactor) {
-
-			$(this.$pnScenePlot).css({
-				'-webkit-transform'	: 'scale(' + scaleFactor + ')',
-				'-moz-transform'	: 'scale(' + scaleFactor + ')',
-				'-ms-transform'		: 'scale(' + scaleFactor + ')',
-				'-o-transform'		: 'scale(' + scaleFactor + ')',
-				'transform'			: 'scale(' + scaleFactor + ')'
-			});
-
-			$(this.$pnScenePlot).css('margin-left', -Math.floor((this.extentWidth - this.extentWidth * scaleFactor) / 2));
-			$(this.$pnScenePlot).css('margin-top', -Math.floor((this.extentHeight - this.extentHeight * scaleFactor) / 2));
-		},
-	};
 }
 
 FightRenderer.DirectionType = {
