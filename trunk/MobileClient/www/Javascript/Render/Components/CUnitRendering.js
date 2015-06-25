@@ -23,22 +23,22 @@ CUnitRendering.prototype.destroy = function () {
 //
 
 CUnitRendering.prototype.hide = function () {
-	$(this.sprite.dom).hide();
+	this.sprite.hide();
 };
 
 CUnitRendering.prototype.show = function () {
-	$(this.sprite.dom).show();
+	this.sprite.show();
 };
 
 CUnitRendering.prototype.hideFinished = function () {
-	$(this.spriteFinished.dom).hide();
+	this.spriteFinished.hide();
 };
 
 CUnitRendering.prototype.showFinished = function (finished) {
 	if (finished || finished === undefined) {
-		$(this.spriteFinished.dom).show();
+		this.spriteFinished.show();
 	} else {
-		this.hideFinished();
+		this.spriteFinished.hide();
 	}
 };
 

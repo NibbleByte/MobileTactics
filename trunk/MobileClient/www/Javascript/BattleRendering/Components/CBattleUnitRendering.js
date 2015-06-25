@@ -24,11 +24,11 @@ CBattleUnitRendering.prototype.destroy = function () {
 //
 
 CBattleUnitRendering.prototype.hide = function () {
-	this.sprite.skipDrawing = true; 	// Custom field!
+	this.sprite.hide();
 };
 
 CBattleUnitRendering.prototype.show = function () {
-	this.sprite.skipDrawing = false; // Custom field!
+	this.sprite.show();
 };
 
 CBattleUnitRendering.prototype.move = function (x, y) {

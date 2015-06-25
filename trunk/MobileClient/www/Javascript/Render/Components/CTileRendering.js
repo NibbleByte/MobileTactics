@@ -51,7 +51,7 @@ CTileRendering.prototype.highlight = function (mode) {
 		return;
 	}
 	
-	this.spriteHighlight.skipDrawing = false;
+	this.spriteHighlight.show();
 	
 	this.highlightMode = mode;
 	this.spriteHighlight.loadImg(CTileRendering.getSpritePath(this.highlightMode));
@@ -59,23 +59,23 @@ CTileRendering.prototype.highlight = function (mode) {
 };
 
 CTileRendering.prototype.unHighlight = function () {
-	this.spriteHighlight.skipDrawing = true;
+	this.spriteHighlight.hide();
 };
 
 CTileRendering.prototype.showActionFog = function () {
-	this.spriteActionFog.skipDrawing = false;
+	this.spriteActionFog.show();
 }
 
 CTileRendering.prototype.hideActionFog = function () {
-	this.spriteActionFog.skipDrawing = true;
+	this.spriteActionFog.hide();
 }
 
 CTileRendering.prototype.showVisibilityFog = function () {
-	this.spriteVisibilityFog.skipDrawing = false;
+	this.spriteVisibilityFog.show();
 }
 
 CTileRendering.prototype.hideVisibilityFog = function () {
-	this.spriteVisibilityFog.skipDrawing = true;
+	this.spriteVisibilityFog.hide();
 }
 
 
