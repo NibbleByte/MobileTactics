@@ -32,9 +32,9 @@ var ControllerRenderingSystem = function (m_renderer) {
 		}
 
 		if (tile)
-			$(m_selectedSprite.dom).show();
+			m_selectedSprite.show();
 		else
-			$(m_selectedSprite.dom).hide();
+			m_selectedSprite.hide();
 
 		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.Selection);
 	}

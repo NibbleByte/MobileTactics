@@ -16,11 +16,11 @@ CTileOverlayRendering.prototype.destroy = function () {
 //
 
 CTileOverlayRendering.prototype.hide = function () {
-	this.sprite.skipDrawing = true; // Custom field!
+	this.sprite.hide();
 };
 
 CTileOverlayRendering.prototype.show = function () {
-	this.sprite.skipDrawing = false; // Custom field!
+	this.sprite.show();
 };
 
 CTileOverlayRendering.prototype.move = function (x, y) {

@@ -13,6 +13,8 @@ var SceneRenderer = function (holderElement, eworld, layersDefinitions) {
 	this.pnHolder = holderElement;
 	this.extentWidth = 0;
 	this.extentHeight = 0;
+	this.viewWidth = 0;
+	this.viewHeight = 0;
 	
 	this.$pnScenePlot = $('<div class="scene_plot"></div>').appendTo(this.pnHolder);
 	
@@ -91,6 +93,9 @@ var SceneRenderer = function (holderElement, eworld, layersDefinitions) {
 			$(layer.dom).css('left', Math.floor((zoomedWidth - canvasWidth) / 2));
 			$(layer.dom).css('top', Math.floor((zoomedHeight - canvasHeight) / 2));
 		}
+
+		this.viewWidth = this.$pnScenePlot.width();
+		this.viewHeight = this.$pnScenePlot.height();
 	}
 
 	this.resize = function (width, height) {
@@ -175,6 +180,53 @@ var SceneRenderer = function (holderElement, eworld, layersDefinitions) {
 
 		self.$pnScenePlot.remove();
 	}
+}
+
+
+//
+// Enhance sprite.js to show/hide sprites.
+//
+sjs.Sprite.prototype.show = function () {
+	this._isShown = true;
+
+	this.cull(this._isCulled || true);
+}
+
+sjs.Sprite.prototype.hide = function () {
+	this._isShown = false;
+
+	this.cull(this._isCulled || true);
+}
+
+sjs.Sprite.prototype.isShown = function () {
+	return this._isShown || true;
+}
+
+// isCulled - is actually shown.
+sjs.Sprite.prototype.cull = function (isCulled) {
+	this._isCulled = isCulled;
+
+	if (this._isCulled && this._isShown) {
+		
+		if (this.layer.useCanvas) {
+			this.skipDrawing = false; // Custom field!
+		} else {
+			$(this.dom).show();
+		}
+
+	} else {
+
+		if (this.layer.useCanvas) {
+			this.skipDrawing = true; // Custom field!
+		} else {
+			$(this.dom).hide();
+		}
+
+	}
+}
+
+sjs.Sprite.prototype.isCulled = function () {
+	return this._isCulled || true;
 }
 
 

@@ -20,7 +20,7 @@ var GameWorldRenderer = new function () {
 		};
 
 		renderer.refresh = function () {
-			overwritten.refresh();
+			overwritten.refresh.apply(this);
 
 			scrollerRefresh();
 		};
@@ -169,19 +169,17 @@ var GameWorldRenderer = new function () {
 			// Get the viewport
 			var viewX = this.zoomIn(-this.plotContainerScroller.x);
 			var viewY = this.zoomIn(-this.plotContainerScroller.y);
-			var viewWidth = this.$pnScenePlot.width();
-			var viewHeight = this.$pnScenePlot.height();
 
-			var canvasWidth = this.zoomIn(viewWidth);
-			var canvasHeight = this.zoomIn(viewHeight);
+			var canvasWidth = this.zoomIn(this.viewWidth);
+			var canvasHeight = this.zoomIn(this.viewHeight);
 			
 			$(targetCanvas).attr('width', canvasWidth);
 			$(targetCanvas).attr('height', canvasHeight);
 
 			DisplayManager.zoomInElement(targetCanvas);
 
-			$(targetCanvas).css('margin-left', Math.floor((viewWidth - canvasWidth) / 2));
-			$(targetCanvas).css('margin-top', Math.floor((viewHeight - canvasHeight) / 2));
+			$(targetCanvas).css('margin-left', Math.floor((this.viewWidth - canvasWidth) / 2));
+			$(targetCanvas).css('margin-top', Math.floor((this.viewHeight - canvasHeight) / 2));
 
 
 			//

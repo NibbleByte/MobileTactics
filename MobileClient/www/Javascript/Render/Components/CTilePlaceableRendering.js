@@ -17,11 +17,11 @@ CTilePlaceableRendering.prototype.destroy = function () {
 //
 
 CTilePlaceableRendering.prototype.hide = function () {
-	$(this.sprite.dom).hide();
+	this.sprite.hide();
 };
 
 CTilePlaceableRendering.prototype.show = function () {
-	$(this.sprite.dom).show();
+	this.sprite.show();
 };
 
 CTilePlaceableRendering.prototype.move = function (x, y) {
