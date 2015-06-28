@@ -42,8 +42,9 @@ WorldLayers.layersOptions = {
 	
 
 	Terrain: {
-		useCanvas: true,
+		useCanvas: false,
 		autoClear: false,
+		static: true,
 	},
 
 	Selection: {
@@ -66,32 +67,38 @@ WorldLayers.layersOptions = {
 	UnitsFinished: {
 		useCanvas: false,
 		autoClear: false,
+		static: true,
 	},
 
 	Highlights: {
-		useCanvas: true,
+		useCanvas: false,
 		autoClear: false,
+		static: true,
 	},
 
 	ActionFog: {
-		useCanvas: true,
+		useCanvas: false,
 		autoClear: false,
+		static: true,
 	},
 	
 	VisibilityFog: {
-		useCanvas: true,
+		useCanvas: false,
 		autoClear: false,
+		static: true,
 	},
 
 
 	Statistics: {
 		useCanvas: false,
 		disableZoom: true,
+		static: true,
 	},
 
 	OverlayEffects: {
 		useCanvas: false,
 		disableZoom: true,
+		static: true,
 	},
 
 
@@ -99,5 +106,6 @@ WorldLayers.layersOptions = {
 	Debug: {
 		useCanvas: false,
 		autoClear: false,
+		static: true,
 	},
 }

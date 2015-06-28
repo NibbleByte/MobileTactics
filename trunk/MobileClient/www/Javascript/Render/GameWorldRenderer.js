@@ -13,6 +13,9 @@ var GameWorldRenderer = new function () {
 		renderer.$pnScenePlot.addClass('game_scene_plot');
 		renderer.backgroundColor = renderer.$pnScenePlot.css('background-color');
 
+		renderer.viewWidth = 0;
+		renderer.viewHeight = 0;
+
 		// Overwrite methods
 		var overwritten = {
 			refresh: renderer.refresh,
@@ -23,11 +26,17 @@ var GameWorldRenderer = new function () {
 			overwritten.refresh.apply(this);
 
 			scrollerRefresh();
+
+			onScreenResize();
 		};
 
 		renderer.destroy = function () {
 
 			clearTimeout(scrollerRefreshTimeout);
+			$(window).off('orientationchange', onScreenResize);
+			$(window).off('resize', onScreenResize);
+			renderer.plotContainerScroller.off('scrollStart', onScrollStart);
+			renderer.plotContainerScroller.off('scrollEnd', onScrollEnd);
 			renderer.plotContainerScroller.destroy();
 			renderer.plotContainerScroller = null;
 
@@ -64,6 +73,66 @@ var GameWorldRenderer = new function () {
 			}
 		}
 
+
+		var onScrollStart = function () {
+
+			// Show everything for better scrolling.
+			for(var name in renderer.spriteTracker.layerSprites) {
+				var sprites = renderer.spriteTracker.layerSprites[name];
+				
+				for(var i = 0; i < sprites.length; ++i) {
+					var sprite = sprites[i];
+
+					// Optimization, avoid function call.
+					var isCulled = (sprite._isCulled !== undefined) ? sprite._isCulled : true;
+
+					if (!isCulled)
+						sprite.cull(true);
+				}
+			}
+
+		};
+
+		var onScrollEnd = function () {
+
+			// Cull only sprites inside the screen.
+			var left = renderer.zoomIn(-renderer.plotContainerScroller.x);
+			var top = renderer.zoomIn(-renderer.plotContainerScroller.y);
+			var right = left + renderer.zoomIn(renderer.viewWidth);
+			var bottom = top + renderer.zoomIn(renderer.viewHeight);
+
+			for(var name in renderer.spriteTracker.layerSprites) {
+				var sprites = renderer.spriteTracker.layerSprites[name];
+
+				for(var i = 0; i < sprites.length; ++i) {
+					var sprite = sprites[i];
+
+					var shouldCull = 
+						(sprite.x + sprite.w >= left) &&
+						(sprite.x <= right) &&
+						(sprite.y + sprite.h >= top) &&
+						(sprite.y <= bottom);
+
+					// Optimization, avoid function call.
+					var isCulled = (sprite._isCulled !== undefined) ? sprite._isCulled : true;
+
+					if (shouldCull != isCulled)
+						sprite.cull(shouldCull);
+				}
+			}
+		}
+
+
+		var resizeRefreshTimeout = null;
+		var onScreenResize = function () {
+			renderer.viewWidth = renderer.$pnScenePlot.width();
+			renderer.viewHeight = renderer.$pnScenePlot.height();
+
+			clearTimeout(resizeRefreshTimeout);
+
+			resizeRefreshTimeout = setTimeout(onScrollEnd, 100);
+		}
+
 		renderer.plotContainerScroller = new IScroll(renderer.$pnScenePlot[0], $.extend({
 			freeScroll: true,
 			keyBindings: true,
@@ -79,11 +148,18 @@ var GameWorldRenderer = new function () {
 			HWCompositing: true,
 		}, scrollerOptions));
 
+		renderer.plotContainerScroller.on('scrollStart', onScrollStart);
+		renderer.plotContainerScroller.on('scrollEnd', onScrollEnd);
+		$(window).on('orientationchange', onScreenResize);
+		$(window).on('resize', onScreenResize);
 
 		return renderer;
 	};
 
-	
+
+	//
+	// Extensions
+	//
 	var extension = {
 		getRenderedTilePosition: function (row, column) {
 		

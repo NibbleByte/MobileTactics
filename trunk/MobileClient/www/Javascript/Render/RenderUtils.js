@@ -60,5 +60,26 @@ var RenderUtils = {
 		};
 	})(),
 
+
+	transformSet: function (element, value) {
+		$(element).css({
+			'-webkit-transform': value,
+			'-moz-transform': value,
+			'-ms-transform': value,
+			'-o-transform': value,
+			'transform': value
+		});
+	},
+
+	trasnformAppend: function (element, value) {
+		$(element).css({
+			'-webkit-transform'	: $(element).css('-webkit-transform') + value,
+			'-moz-transform'	: $(element).css('-moz-transform') + value,
+			'-ms-transform'		: $(element).css('-ms-transform') + value,
+			'-o-transform'		: $(element).css('-o-transform') + value,
+			'transform'			: $(element).css('transform') + value
+		});
+	},
+
 };
 

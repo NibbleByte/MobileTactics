@@ -794,14 +794,18 @@ Sprite.prototype.update = function updateDomProperties () {
 	if (this.xscale < 0) anchorX = this.w - anchorX;
 	if (this.yscale < 0) anchorY = this.h - anchorY;
 
-	style.marginLeft = -anchorX + 'px';
-	style.marginTop = -anchorY + 'px';
+	if (this._anchorX_before !== anchorX)
+		style.marginLeft = -anchorX + 'px';
+	if (this._anchorY_before !== anchorY)
+		style.marginTop = -anchorY + 'px';
 
 
 
     // cache rounded positions, it's used to avoid unecessary update
     this._x_before = this._x_rounded;
     this._y_before = this._y_rounded;
+	this._anchorX_before = anchorX;
+	this._anchorY_before = anchorY;
 
     if (!this.changed)
         return this;

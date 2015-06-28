@@ -34,6 +34,10 @@ var IdleAnimationsSystem = function () {
 		var entities = [];
 		for(var i = 0; i < self._entityFilter.entities.length; ++i) {
 			var entity = self._entityFilter.entities[i];
+
+			if (!entity.CTilePlaceableRendering.sprite.isCulled())
+				continue;
+
 			// Editor does not have CTileVisibility.
 			if (!entity.CTilePlaceable.tile.CTileVisibility || entity.CTilePlaceable.tile.CTileVisibility.visible)
 				entities.push(entity);

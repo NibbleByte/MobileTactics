@@ -13,8 +13,6 @@ var SceneRenderer = function (holderElement, eworld, layersDefinitions) {
 	this.pnHolder = holderElement;
 	this.extentWidth = 0;
 	this.extentHeight = 0;
-	this.viewWidth = 0;
-	this.viewHeight = 0;
 	
 	this.$pnScenePlot = $('<div class="scene_plot"></div>').appendTo(this.pnHolder);
 	
@@ -39,6 +37,10 @@ var SceneRenderer = function (holderElement, eworld, layersDefinitions) {
 
 			if (!options.disableZoom)
 				DisplayManager.zoomInElement(layer.dom);
+
+			if (options.static) {
+				RenderUtils.trasnformAppend(layer.dom, ' translateZ(0)');
+			}
 			
 			// HACK: z-index seems to distort text outlines made with text-shadow property
 			//		 on Android 4.4 Kitkat (test with floating numbers).
@@ -93,9 +95,6 @@ var SceneRenderer = function (holderElement, eworld, layersDefinitions) {
 			$(layer.dom).css('left', Math.floor((zoomedWidth - canvasWidth) / 2));
 			$(layer.dom).css('top', Math.floor((zoomedHeight - canvasHeight) / 2));
 		}
-
-		this.viewWidth = this.$pnScenePlot.width();
-		this.viewHeight = this.$pnScenePlot.height();
 	}
 
 	this.resize = function (width, height) {
@@ -199,14 +198,16 @@ sjs.Sprite.prototype.hide = function () {
 }
 
 sjs.Sprite.prototype.isShown = function () {
-	return this._isShown || true;
+	return (this._isShown !== undefined) ? this._isShown : true;
 }
 
 // isCulled - is actually shown.
 sjs.Sprite.prototype.cull = function (isCulled) {
 	this._isCulled = isCulled;
 
-	if (this._isCulled && this._isShown) {
+	var isShown = (this._isShown !== undefined) ? this._isShown : true;
+
+	if (this._isCulled && isShown) {
 		
 		if (this.layer.useCanvas) {
 			this.skipDrawing = false; // Custom field!
@@ -226,7 +227,7 @@ sjs.Sprite.prototype.cull = function (isCulled) {
 }
 
 sjs.Sprite.prototype.isCulled = function () {
-	return this._isCulled || true;
+	return (this._isCulled !== undefined) ? this._isCulled : true;
 }
 
 
@@ -258,6 +259,9 @@ sjs.Sprite.prototype.onload = function () {
 // HACK: Fix issues with clearing canvas on Android 4.1-4.3
 // URL: https://medium.com/@dhashvir/android-4-1-x-stock-browser-canvas-solution-ffcb939af758
 //
+
+/*
+//	Happens only when using big canvases (for now). Currently no big canvases are used.
 if (ClientUtils.isAndroid && parseFloat(ClientUtils.androidVersion) >= 4.1 && parseFloat(ClientUtils.androidVersion) <= 4.3) {
 
 	SceneRenderer.CanvasRenderingContext2D = {
@@ -273,3 +277,4 @@ if (ClientUtils.isAndroid && parseFloat(ClientUtils.androidVersion) >= 4.1 && pa
 	};
 
 }
+*/
