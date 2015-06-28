@@ -23,6 +23,10 @@ var GameWorldRenderer = new function () {
 		};
 
 		renderer.refresh = function () {
+
+			if (eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING])
+				return;
+
 			overwritten.refresh.apply(this);
 
 			scrollerRefresh();

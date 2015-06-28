@@ -63,6 +63,9 @@ var SceneRenderer = function (holderElement, eworld, layersDefinitions) {
 
 	this.refresh = function () {
 		
+		if (eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING])
+			return;
+		
 		if (self.disableSceneZoom) {
 			var zoomedWidth = self.extentWidth;
 			var zoomedHeight = self.extentHeight;

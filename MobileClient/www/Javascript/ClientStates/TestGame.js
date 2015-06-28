@@ -336,6 +336,9 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 
 				m_eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING] = false;
 
+				// Avoid refreshing while loading.
+				m_eworld.extract(GameWorldRenderer).refresh();
+
 			}, 200);
 		}
 	
@@ -367,6 +370,9 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 	
 				m_clientState.gameState = new GameState();
 				m_eworld.store(GameState, m_clientState.gameState);
+
+
+				m_eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING] = true;
 			
 				m_eworld.trigger(EngineEvents.General.GAME_LOADING);
 
@@ -374,6 +380,11 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 				fillTerrainPattern(m_eworld, m_clientState.world, m_clientState.playersData, ROWS, COLUMNS);
 
 				m_eworld.triggerAsync(EngineEvents.General.GAME_LOADED);
+
+				m_eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING] = false;
+
+				// Avoid refreshing while loading.
+				m_eworld.extract(GameWorldRenderer).refresh();
 
 
 				m_clientState.playersData.stopPlaying(m_clientState.playersData.getPlayer(2));
