@@ -81,13 +81,7 @@ var DisplayManager = new function () {
 
 
 	this.zoomInElement = function (element) {
-		$(element).css({
-			'-webkit-transform'	: 'scale(' + self.zoom + ')',
-			'-moz-transform'	: 'scale(' + self.zoom + ')',
-			'-ms-transform'		: 'scale(' + self.zoom + ')',
-			'-o-transform'		: 'scale(' + self.zoom + ')',
-			'transform'			: 'scale(' + self.zoom + ')'
-		});
+		RenderUtils.transformSet(element, 'scale(' + self.zoom + ')');
 	}
 }
 
