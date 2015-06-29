@@ -500,6 +500,12 @@
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\SpriteAnimations.js">
       <Filter>Assets\Render\SpriteAnimations</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Javascript\DevTools.js">
+      <Filter>Javascript</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Assets\DevTools.css">
+      <Filter>Assets</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

@@ -91,7 +91,7 @@ html, body
 	left: 0px;
 	bottom: 45px;
 	
-	height: 250px;
+	height: 300px;
 	width: 200px;
 	overflow: hidden;
 	
@@ -120,20 +120,6 @@ html, body
 	
 	font-size: 26px;
 	font-weight: bold;
-}
-
-#RuntimeStats, #RuntimeStatsButton
-{
-	color: white;
-	position: absolute;
-	top: 2px;
-	left: 8px;
-	text-align: left;
-	z-index: 999;
-	
-	background: rgba(22, 26, 26, 0.88);
-	border-radius: 8px;
-	padding: 8px;
 }
 
 /* Controls */
