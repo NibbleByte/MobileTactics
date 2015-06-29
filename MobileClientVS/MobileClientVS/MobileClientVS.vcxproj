@@ -78,6 +78,7 @@
     <None Include="..\..\MobileClient\www\Assets\ActionMenu.css" />
     <None Include="..\..\MobileClient\www\Assets\BattleScreen.css" />
     <None Include="..\..\MobileClient\www\Assets\DevConsole.css" />
+    <None Include="..\..\MobileClient\www\Assets\DevTools.css" />
     <None Include="..\..\MobileClient\www\Assets\Dialogs.css" />
     <None Include="..\..\MobileClient\www\Assets\Editor.css" />
     <None Include="..\..\MobileClient\www\Assets\FightScreen.css" />
@@ -124,6 +125,7 @@
     <None Include="..\..\MobileClient\www\Javascript\CommonController.js" />
     <None Include="..\..\MobileClient\www\Javascript\cordova-Mockup.js" />
     <None Include="..\..\MobileClient\www\Javascript\DevConsole.js" />
+    <None Include="..\..\MobileClient\www\Javascript\DevTools.js" />
     <None Include="..\..\MobileClient\www\Javascript\Editor\Brushes.js" />
     <None Include="..\..\MobileClient\www\Javascript\Editor\EditorEvents.js" />
     <None Include="..\..\MobileClient\www\Javascript\Editor\Systems\EditorController.js" />

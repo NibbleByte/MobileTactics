@@ -17,6 +17,7 @@
 			<link rel="stylesheet" href="Assets/Render/OverlayEffects.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/Render/Placeables.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/ActionMenu.css" type="text/css" media="screen">
+			<link rel="stylesheet" href="Assets/DevTools.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/DevConsole.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/Dialogs.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/Game.css" type="text/css" media="screen">
@@ -37,6 +38,19 @@
 		<div id="RuntimeStatsButton" onclick="$('#RuntimeStats').show(); $('#RuntimeStatsButton').hide();">
 			FPS
 		</div>
+
+		<div id="AnimationInfoTool">
+			Animation Tool: <br />
+			<select id="AnimationsList">
+			</select>
+
+			<br />
+			Size: <span id="LbAnimationInfoSize">0x0</span> <br />
+			Frames: <span id="LbAnimationInfoFrames">0</span> <br />
+			Events: <span id="LbAnimationInfoEvents">0</span> <br />
+			Speed: <input id="TbAnimationInfo" type="number" step="1" /> <button id="BtnAnimationInfoApply">Apply</button>
+		</div>
+
 
 		<div id="Screen">
 			<div id="LoadingScreen" class="dialog_blocker" style="display: block">
@@ -168,6 +182,7 @@
 				<button id="BtnConsole" onclick="$('#Console').toggle();">~</button>
 				<button id="BtnRestart">Res</button>
 				<button id="BtnDebug">Debug</button>
+				<button id="BtnAnimationTool" onclick="$('#AnimationInfoTool').toggle(); $('#ToolbarMore').hide();" >Animation Info</button>
 				<button id="BtnBattle" onclick="BattleRenderingManager.visualizeBattle(currentState.eworld, lastCreated, selected.CTile.placedObjects[0]);" >Battle</button>
 				<button id="BtnFight" onclick="FightRenderingManager.visualizeBattleTest(); $('#ToolbarMore').hide();" >Fight</button>
 
@@ -451,6 +466,7 @@
 			
 			
 			<script type="text/javascript" src="Javascript/DevConsole.js"></script>
+			<script type="text/javascript" src="Javascript/DevTools.js"></script>
 			<script type="text/javascript" src="Javascript/Main.js"></script>
 
 		<!-- ==========	Mobile Client - Editor ====================== -->

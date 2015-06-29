@@ -32,6 +32,8 @@ var Animator = function (animData, sprite, scene) {
 		self.sequenceData = m_sequencesData[self.sequenceName];
 
 		applySequenceData(self.sequenceData);
+
+		refreshChangedCycles();
 	}
 	
 	this.pauseSequence = function (name, frame) {
@@ -99,6 +101,8 @@ var Animator = function (animData, sprite, scene) {
 				}
 			}
 		}
+
+		refreshChangedCycles();
 	}
 	
 	this.destroy = function () {
@@ -145,6 +149,7 @@ var Animator = function (animData, sprite, scene) {
 
 	var m_sequencesData = {};
 
+	var lastChangedSequenceCount = 0;	// Debugging
 
 	var applySequenceData = function (sequenceData) {
 
@@ -168,7 +173,38 @@ var Animator = function (animData, sprite, scene) {
 		sprite.size(frameWidth, frameHeight);
 		sprite.update();
 	}
+
+	// Check if someone has changed some cycles runtime (used for development only).
+	var refreshChangedCycles = function () {
+
+		if (!Animator._changedSequences)
+			return;
+
+		while(lastChangedSequenceCount < Animator._changedSequences.length) {
+
+			var sequence = Animator._changedSequences[lastChangedSequenceCount];
+
+			if (animData.sequences.contains(sequence)) {
+				var oldCycle = m_cycles[sequence.name];
+				oldCycle.removeSprite(sprite);
+
+				var triplets = generateTriplets(sequence);
+
+				var cycle = generateCycle(sequence, triplets);
+				cycle.addSprite(sprite);
+				m_cycles[sequence.name] = cycle;
+
+				if (m_currentCycle == oldCycle) {
+					m_currentCycle = cycle;
+				}
+			}
+
+			lastChangedSequenceCount++;
+		}
+
+	}
 	
+
 	var validate = function () {
 		for(var name in m_cycles) {
 			var cycle = m_cycles[name];
@@ -186,41 +222,11 @@ var Animator = function (animData, sprite, scene) {
 	}
 	
 	var initialize = function () {
-		var fx, fy;
 
 		for(var i = 0; i < animData.sequences.length; ++i) {
 			var sequence = animData.sequences[i];
 			
-			var speed = (sequence.speed == undefined) ? m_speed : sequence.speed;
-			var startX = (sequence.startX == undefined) ? 0 : sequence.startX;
-			var startY = (sequence.startY == undefined) ? 0 : sequence.startY;
-			var frameWidth = (sequence.frameWidth == undefined) ? m_frameWidth : sequence.frameWidth;
-			var frameHeight = (sequence.frameHeight == undefined) ? m_frameHeight : sequence.frameHeight;
-			var framesPerRow = (sequence.framesPerRow == undefined) ? m_framesPerRow : sequence.framesPerRow;
-
-			var triplets = [];
-			var startIndex = sequence.startIndex || 0;
-			var endIndex = startIndex + sequence.frames;
-			for(var index = startIndex; index < endIndex ; ++index) {
-				
-				if (framesPerRow > 0) {
-					fx = startX + (index % framesPerRow) * frameWidth;
-					fy = startY + parseInt(index / framesPerRow) * frameHeight;
-				} else {
-					fx = startX + index * frameWidth;
-					fy = startY;
-				}
-
-
-
-				var frameSpeed = (Utils.isFunction(speed)) ? speed(index - startIndex) : speed;
-
-				if (sequence.frameSpeeds && index - startIndex < sequence.frameSpeeds.length) {
-					frameSpeed = sequence.frameSpeeds[index - startIndex] || frameSpeed;
-				}
-
-				triplets.push([ fx, fy, frameSpeed ]);
-			}
+			var triplets = generateTriplets(sequence);
 
 			var cycle = generateCycle(sequence, triplets);
 			cycle.addSprite(sprite);
@@ -286,6 +292,43 @@ var Animator = function (animData, sprite, scene) {
 		} else {
 			sprite.addOnLoadHandler(validate);
 		}
+	}
+
+	var generateTriplets = function (sequence) {
+		var fx, fy;
+
+		var speed = (sequence.speed == undefined) ? m_speed : sequence.speed;
+		var startX = (sequence.startX == undefined) ? 0 : sequence.startX;
+		var startY = (sequence.startY == undefined) ? 0 : sequence.startY;
+		var frameWidth = (sequence.frameWidth == undefined) ? m_frameWidth : sequence.frameWidth;
+		var frameHeight = (sequence.frameHeight == undefined) ? m_frameHeight : sequence.frameHeight;
+		var framesPerRow = (sequence.framesPerRow == undefined) ? m_framesPerRow : sequence.framesPerRow;
+
+		var triplets = [];
+		var startIndex = sequence.startIndex || 0;
+		var endIndex = startIndex + sequence.frames;
+		for(var index = startIndex; index < endIndex ; ++index) {
+				
+			if (framesPerRow > 0) {
+				fx = startX + (index % framesPerRow) * frameWidth;
+				fy = startY + parseInt(index / framesPerRow) * frameHeight;
+			} else {
+				fx = startX + index * frameWidth;
+				fy = startY;
+			}
+
+
+
+			var frameSpeed = (Utils.isFunction(speed)) ? speed(index - startIndex) : speed;
+
+			if (sequence.frameSpeeds && index - startIndex < sequence.frameSpeeds.length) {
+				frameSpeed = sequence.frameSpeeds[index - startIndex] || frameSpeed;
+			}
+
+			triplets.push([ fx, fy, frameSpeed ]);
+		}
+
+		return triplets;
 	}
 
 	var generateCycle = function (sequence, triplets) {
