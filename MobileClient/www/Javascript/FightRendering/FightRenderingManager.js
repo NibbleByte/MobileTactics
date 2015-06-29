@@ -45,6 +45,27 @@ var FightRenderingManager = new function () {
 		WorldLayers.LayerTypes.VisibilityFog,
 	]
 
+	this.visualizeBattleTest = function () {
+		var eworld = currentState.eworld;
+		var gameState = eworld.extract(GameState);
+		var leftUnit = lastCreated;
+		var rightUnit = (selected) ? selected.CTile.placedObjects[0] : null;
+
+		if (!leftUnit) {
+			leftUnit = gameState.currentPlaceables.find(function (placeable) {
+				return placeable.CUnit.name == 'TeslaTrooper';
+			});
+		}
+
+		if (!rightUnit) {
+			rightUnit = gameState.currentPlaceables.find(function (placeable) {
+				return placeable.CUnit.name == 'TeslaTrooper';
+			});
+		}
+
+		FightRenderingManager.visualizeBattle(eworld, leftUnit, rightUnit);
+	}
+
 	//
 	// Visualize battle
 	//
