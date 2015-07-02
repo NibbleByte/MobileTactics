@@ -6,6 +6,8 @@
 
 var SceneRenderer = function (holderElement, eworld, layersDefinitions) {
 	var self = this;
+
+	var shown = true;
 	
 	console.assert(holderElement instanceof HTMLElement, "HTMLElement is required.");
 	if (!layersDefinitions.layersOptions) layersDefinitions.layersOptions = {};
@@ -15,6 +17,20 @@ var SceneRenderer = function (holderElement, eworld, layersDefinitions) {
 	this.extentHeight = 0;
 	
 	this.$pnScenePlot = $('<div class="scene_plot"></div>').appendTo(this.pnHolder);
+
+	this.isShown = function () {
+		return shown;
+	};
+
+	this.show = function () {
+		shown = true;
+		$(self.pnHolder).show();
+	}
+	
+	this.hide = function () {
+		shown = false;
+		$(self.pnHolder).hide();
+	}
 	
 	// Overrides scene + layers zoom globally.
 	this.disableSceneZoom = false;

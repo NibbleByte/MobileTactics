@@ -129,12 +129,16 @@ var GameWorldRenderer = new function () {
 
 		var resizeRefreshTimeout = null;
 		var onScreenResize = function () {
-			renderer.viewWidth = renderer.$pnScenePlot.width();
-			renderer.viewHeight = renderer.$pnScenePlot.height();
 
 			clearTimeout(resizeRefreshTimeout);
 
-			resizeRefreshTimeout = setTimeout(onScrollEnd, 100);
+			// Some time to redraw.
+			resizeRefreshTimeout = setTimeout(function () {
+				renderer.viewWidth = renderer.$pnScenePlot.width();
+				renderer.viewHeight = renderer.$pnScenePlot.height();
+
+				onScrollEnd();
+			}, 100);
 		}
 
 		renderer.plotContainerScroller = new IScroll(renderer.$pnScenePlot[0], $.extend({
