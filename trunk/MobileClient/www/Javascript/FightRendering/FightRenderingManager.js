@@ -26,7 +26,6 @@ var FightRenderingManager = new function () {
 	var m_$FightScreen = $('#FightScreen');
 	var m_$FightFrame = $('#FightFrame');
 
-	var m_$world = $('#GameWorldMap');
 	var m_$worldShot = $('#GameWorldMapShot');
 
 	var m_fightWorld = null;
@@ -73,16 +72,19 @@ var FightRenderingManager = new function () {
 		m_$FightScreenContainer.show();
 
 		// Order is important. Make shot before hiding the world.
-		eworld.extract(GameWorldRenderer).makeShot(m_$worldShot[0], shotLayers);
+		var renderer = eworld.extract(GameWorldRenderer);
 
-		m_$world.hide();
+		renderer.makeShot(m_$worldShot[0], shotLayers);
+		renderer.hide();
+		
 		m_$worldShot.show();
 
 
 		m_currentFight = {
 			eworld: eworld,
 			attacker: attacker,
-			defender: defender
+			defender: defender,
+			renderer: renderer,
 		};
 
 		// World doesn't need to play animations in background.
@@ -126,10 +128,11 @@ var FightRenderingManager = new function () {
 
 		m_fightWorld.getSystem(AnimationSystem).pauseAnimations();
 
+		m_currentFight.renderer.show();
+
 		m_currentFight = null;
 
 		m_$FightScreenContainer.hide();
-		m_$world.show();
 		m_$worldShot.hide();
 
 		// Clear shot.
@@ -141,12 +144,15 @@ var FightRenderingManager = new function () {
 		if (Utils.assert(m_currentFight))
 			return;
 
-		// After unitialize, will be set to null.
+		// After uninitialize, will be set to null.
 		var currentFight = m_currentFight;
 
 		uninitializeFight();
 
-		self.visualizeBattle(currentFight.eworld, currentFight.attacker, currentFight.defender);
+		// Some time to redraw.
+		setTimeout(function () {
+			self.visualizeBattle(currentFight.eworld, currentFight.attacker, currentFight.defender);
+		}, 100);
 	}
 
 	//
