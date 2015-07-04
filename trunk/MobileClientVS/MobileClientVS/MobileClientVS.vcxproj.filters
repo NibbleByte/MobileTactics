@@ -509,6 +509,9 @@
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightTilesRenderingSystem.js">
       <Filter>Javascript\FightRendering\Systems</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Javascript\3rdParty\t.js">
+      <Filter>Javascript\3rdParty</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

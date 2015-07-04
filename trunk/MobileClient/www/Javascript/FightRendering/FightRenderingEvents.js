@@ -9,10 +9,13 @@
 var FightRenderingEvents = {
 		Fight: {
 			INITIALIZE: "ft.fight.initialize",					// Arguments: event
+			SHOW_UP:	"ft.fight.show_up",						// Arguments: event
+			IDLE:		"ft.fight.idle",						// Arguments: event
 			UNINITIALIZE: "ft.fight.uninitialize",				// Arguments: event
 		},
 
 		Units: {
+			UNIT_MOVED: "ft.units.moved",						// Arguments: event, fightUnit
 			UNIT_KILLED: "ft.units.unit_killed",				// Arguments: event, fightUnit
 		},
 };

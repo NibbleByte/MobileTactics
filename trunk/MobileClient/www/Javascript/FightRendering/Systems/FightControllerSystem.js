@@ -9,13 +9,20 @@ var FightControllerSystem = function (m_renderer) {
 
 	console.assert(m_renderer instanceof SceneRenderer, "SceneRenderer is required.");
 	
-	var m_fightUnits = [];
+	var m_leftUnit = null;
+	var m_rightUnit = null;
+
+	var m_timeouts = {
+		showUp: null,
+		Idle: null,
+	}
 	
 	//
 	// Entity system initialize
 	//
 	this.initialize = function () {
 		self._eworldSB.subscribe(FightRenderingEvents.Fight.INITIALIZE, onInitializeFight);
+		self._eworldSB.subscribe(FightRenderingEvents.Fight.SHOW_UP, onShowUp);
 		self._eworldSB.subscribe(FightRenderingEvents.Fight.UNINITIALIZE, onUninitializeFight);
 	}
 
@@ -26,10 +33,14 @@ var FightControllerSystem = function (m_renderer) {
 
 		fightUnit.CFightUnit.unit = unit;
 		fightUnit.CFightUnit.direction = direction;
-
-		m_fightUnits.push(fightUnit);
 		
 		return fightUnit;
+	}
+
+	var updateUnitPosition = function (tween, unit) {
+		unit.CSpatial.x = tween.x;
+
+		self._eworld.trigger(FightRenderingEvents.Units.UNIT_MOVED, unit);
 	}
 
 	var onInitializeFight = function (event) {
@@ -37,25 +48,45 @@ var FightControllerSystem = function (m_renderer) {
 		var leftUnit = self._eworld.blackboard[FightRenderingBlackBoard.Battle.LEFT_UNIT];
 		var rightUnit = self._eworld.blackboard[FightRenderingBlackBoard.Battle.RIGHT_UNIT];
 
-		var leftFightUnit = createFightUnit(leftUnit, FightRenderer.DirectionType.Right);
-		var rightFightUnit = createFightUnit(rightUnit, FightRenderer.DirectionType.Left);
+		m_leftUnit = createFightUnit(leftUnit, FightRenderer.DirectionType.Right);
+		m_rightUnit = createFightUnit(rightUnit, FightRenderer.DirectionType.Left);
 
-		leftFightUnit.CSpatial.x = FightRenderingManager.FightFrame.leftHalf;
-		leftFightUnit.CSpatial.y = FightRenderingManager.FightFrame.bottom - FightControllerSystem.BOTTOM_OFFSET;
+		m_leftUnit.CSpatial.x = -1000;
+		m_leftUnit.CSpatial.y = FightRenderingManager.FightFrame.bottom - FightControllerSystem.BOTTOM_OFFSET;
 
-		rightFightUnit.CSpatial.x = FightRenderingManager.FightFrame.rightHalf;
-		rightFightUnit.CSpatial.y = FightRenderingManager.FightFrame.bottom - FightControllerSystem.BOTTOM_OFFSET;
+		m_rightUnit.CSpatial.x = -1000;
+		m_rightUnit.CSpatial.y = FightRenderingManager.FightFrame.bottom - FightControllerSystem.BOTTOM_OFFSET;
 
-		self._eworld.addUnmanagedEntity(leftFightUnit);
-		self._eworld.addUnmanagedEntity(rightFightUnit);
+		self._eworld.addUnmanagedEntity(m_leftUnit);
+		self._eworld.addUnmanagedEntity(m_rightUnit);
+
+		m_timeouts.showUp = setTimeout(onShowUp, 500);
+	}
+
+	var onShowUp = function () {
+		var leftTween = { x: FightRenderingManager.FightFrame.left - FightRenderingManager.FIGHT_FRAME_WIDTH_HALF };
+		var rightTween = { x: FightRenderingManager.FightFrame.right + FightRenderingManager.FIGHT_FRAME_WIDTH_HALF };
+
+		var leftXEnd = FightRenderingManager.FightFrame.leftHalf;
+		var rightXEnd = FightRenderingManager.FightFrame.rightHalf;
+
+		var leftParams = [ leftTween, m_leftUnit ];
+		var rightParams = [ rightTween, m_rightUnit ];
+
+		Tweener.addTween(leftTween, {x: leftXEnd, time: 1, delay: 0, transition: "easeOutBack", onUpdate: updateUnitPosition, onUpdateParams: leftParams });
+		Tweener.addTween(rightTween, {x: rightXEnd, time: 1, delay: 0, transition: "easeOutBack", onUpdate: updateUnitPosition, onUpdateParams: rightParams });
 	}
 
 	var onUninitializeFight = function (event) {
-		for(var i = 0; i < m_fightUnits.length; ++i) {
-			m_fightUnits[i].destroy();
-		}
+		m_leftUnit.destroy();
+		m_leftUnit = null;
 
-		m_fightUnits = [];
+		m_rightUnit.destroy();
+		m_rightUnit = null;
+
+		for(var timeout in m_timeouts) {
+			clearTimeout(m_timeouts[timeout]);
+		}
 	}
 }
 

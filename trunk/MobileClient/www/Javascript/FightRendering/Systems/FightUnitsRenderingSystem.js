@@ -17,6 +17,7 @@ var FightUnitsRenderingSystem = function (m_renderer) {
 		self._entityFilter.onEntityAddedHandler = registerUnit;
 
 		self._eworldSB.subscribe(FightRenderingEvents.Fight.INITIALIZE, onInitializeFight);
+		self._eworldSB.subscribe(FightRenderingEvents.Units.UNIT_MOVED, onUnitMoved);
 	}
 
 	// Clear any previous drawings
@@ -69,6 +70,12 @@ var FightUnitsRenderingSystem = function (m_renderer) {
 
 		unitRendering.sprite.setXScale(fightUnit.CFightUnit.direction);
 		unitRendering.move(x, y);
+
+		self._entityWorld.trigger(RenderEvents.Layers.REFRESH_LAYER, FightRenderer.LayerTypes.Units);
+	}
+
+	var onUnitMoved = function (event, fightUnit) {
+		renderUnit(fightUnit);
 	}
 
 	var registerUnit = function (fightUnit) {
