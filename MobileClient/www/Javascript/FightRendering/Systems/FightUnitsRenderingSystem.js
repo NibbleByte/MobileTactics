@@ -16,11 +16,11 @@ var FightUnitsRenderingSystem = function (m_renderer) {
 
 		self._entityFilter.onEntityAddedHandler = registerUnit;
 
-		self._eworldSB.subscribe(FightRenderingEvents.Fight.INITIALIZE, onInitializeBattle);
+		self._eworldSB.subscribe(FightRenderingEvents.Fight.INITIALIZE, onInitializeFight);
 	}
 
 	// Clear any previous drawings
-	var onInitializeBattle = function (event) {
+	var onInitializeFight = function (event) {
 		self._entityWorld.trigger(RenderEvents.Layers.REFRESH_LAYER, FightRenderer.LayerTypes.Units);
 	}
 
