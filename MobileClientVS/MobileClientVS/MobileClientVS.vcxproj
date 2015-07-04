@@ -102,6 +102,7 @@
     <None Include="..\..\MobileClient\www\Javascript\3rdParty\persist.js" />
     <None Include="..\..\MobileClient\www\Javascript\3rdParty\sprite.js" />
     <None Include="..\..\MobileClient\www\Javascript\3rdParty\sylvester.src.js" />
+    <None Include="..\..\MobileClient\www\Javascript\3rdParty\t.js" />
     <None Include="..\..\MobileClient\www\Javascript\ActionsMenuController.js" />
     <None Include="..\..\MobileClient\www\Javascript\AIController.js" />
     <None Include="..\..\MobileClient\www\Javascript\AIControllerUI.js" />

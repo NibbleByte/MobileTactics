@@ -72,8 +72,6 @@ var FightRenderingManager = new function () {
 	// Visualize battle
 	//
 	this.visualizeBattle = function (eworld, attacker, defender) {
-		m_$FightScreenContainer.show();
-
 		// Order is important. Make shot before hiding the world.
 		var renderer = eworld.extract(GameWorldRenderer);
 
@@ -114,7 +112,7 @@ var FightRenderingManager = new function () {
 		m_fightWorld.blackboard[FightRenderingBlackBoard.Battle.RIGHT_UNIT] = rightUnit;
 
 
-		initializeFight();
+		m_$FightScreenContainer.fadeIn('fast', initializeFight);
 	};
 
 	var initializeFight = function () {
