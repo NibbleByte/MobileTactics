@@ -56,24 +56,16 @@ var GameWorldRenderer = new function () {
 		// Scroller stuff
 		//
 
-		// Refreshes scroller. If sizes haven't fully initialized yet, it will refresh again after some time.
-		// Some phones can't pick it up from the first time.
-		var scrollerRefreshTimeout = null;	// Avoid firing multiple timeouts.
+		// Refreshes scroller.
+		// Give some time for DOM changes to be applied.
+		var scrollerRefreshTimeout = null;
 		var scrollerRefresh = function () {
 
 			if (scrollerRefreshTimeout == null) {
-				renderer.plotContainerScroller.refresh();
-
-				// Check if scrolling is needed but not detected.
-				if ((renderer.$pnScenePlot.width() < $(renderer.scene.dom).width() && !renderer.plotContainerScroller.hasHorizontalScroll) ||
-					(renderer.$pnScenePlot.height() < $(renderer.scene.dom).height() && !renderer.plotContainerScroller.hasVerticalScroll)
-					) {
-
-					scrollerRefreshTimeout = setTimeout(function () {
-						scrollerRefreshTimeout = null;
-						scrollerRefresh();
-					}, 200);
-				}
+				scrollerRefreshTimeout = setTimeout(function () {
+					scrollerRefreshTimeout = null;
+					renderer.plotContainerScroller.refresh();
+				}, 200);
 			}
 		}
 
