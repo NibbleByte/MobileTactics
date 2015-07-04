@@ -15,8 +15,8 @@ var FightControllerSystem = function (m_renderer) {
 	// Entity system initialize
 	//
 	this.initialize = function () {
-		self._eworldSB.subscribe(FightRenderingEvents.Fight.INITIALIZE, onInitializeBattle);
-		self._eworldSB.subscribe(FightRenderingEvents.Fight.UNINITIALIZE, onUninitializeBattle);
+		self._eworldSB.subscribe(FightRenderingEvents.Fight.INITIALIZE, onInitializeFight);
+		self._eworldSB.subscribe(FightRenderingEvents.Fight.UNINITIALIZE, onUninitializeFight);
 	}
 
 	var createFightUnit = function (unit, direction) {
@@ -32,7 +32,7 @@ var FightControllerSystem = function (m_renderer) {
 		return fightUnit;
 	}
 
-	var onInitializeBattle = function (event) {
+	var onInitializeFight = function (event) {
 		
 		var leftUnit = self._eworld.blackboard[FightRenderingBlackBoard.Battle.LEFT_UNIT];
 		var rightUnit = self._eworld.blackboard[FightRenderingBlackBoard.Battle.RIGHT_UNIT];
@@ -40,17 +40,17 @@ var FightControllerSystem = function (m_renderer) {
 		var leftFightUnit = createFightUnit(leftUnit, FightRenderer.DirectionType.Right);
 		var rightFightUnit = createFightUnit(rightUnit, FightRenderer.DirectionType.Left);
 
-		leftFightUnit.CSpatial.x = FightRenderingManager.FightFrame.left + FightRenderingManager.FIGHT_FRAME_WIDTH_HALF / 2;
-		leftFightUnit.CSpatial.y = FightRenderingManager.FightFrame.bottom;
+		leftFightUnit.CSpatial.x = FightRenderingManager.FightFrame.leftHalf;
+		leftFightUnit.CSpatial.y = FightRenderingManager.FightFrame.bottom - FightControllerSystem.BOTTOM_OFFSET;
 
-		rightFightUnit.CSpatial.x = FightRenderingManager.FightFrame.right - FightRenderingManager.FIGHT_FRAME_WIDTH_HALF / 2;
-		rightFightUnit.CSpatial.y = FightRenderingManager.FightFrame.bottom;
+		rightFightUnit.CSpatial.x = FightRenderingManager.FightFrame.rightHalf;
+		rightFightUnit.CSpatial.y = FightRenderingManager.FightFrame.bottom - FightControllerSystem.BOTTOM_OFFSET;
 
 		self._eworld.addUnmanagedEntity(leftFightUnit);
 		self._eworld.addUnmanagedEntity(rightFightUnit);
 	}
 
-	var onUninitializeBattle = function (event) {
+	var onUninitializeFight = function (event) {
 		for(var i = 0; i < m_fightUnits.length; ++i) {
 			m_fightUnits[i].destroy();
 		}
@@ -58,6 +58,8 @@ var FightControllerSystem = function (m_renderer) {
 		m_fightUnits = [];
 	}
 }
+
+FightControllerSystem.BOTTOM_OFFSET = 5;
 
 ECS.EntityManager.registerSystem('FightControllerSystem', FightControllerSystem);
 SystemsUtils.supplySubscriber(FightControllerSystem);

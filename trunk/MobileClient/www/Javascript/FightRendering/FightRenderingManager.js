@@ -19,6 +19,9 @@ var FightRenderingManager = new function () {
 		bottom: 0,
 		width: this.FIGHT_FRAME_WIDTH,
 		height: this.FIGHT_FRAME_HEIGHT,
+
+		leftHalf: 0,
+		rightHalf: 0,
 	}
 
 	var m_$Screen = $('#Screen');
@@ -175,6 +178,8 @@ var FightRenderingManager = new function () {
 			self.FightFrame.bottom = m_renderer.extentHeight / 2 + self.FIGHT_FRAME_HEIGHT / 2;
 			self.FightFrame.left = m_renderer.extentWidth / 2 - self.FIGHT_FRAME_WIDTH_HALF;
 			self.FightFrame.right = m_renderer.extentWidth / 2 + self.FIGHT_FRAME_WIDTH_HALF;
+			self.FightFrame.leftHalf = self.FightFrame.left + FightRenderingManager.FIGHT_FRAME_WIDTH_HALF / 2;
+			self.FightFrame.rightHalf = self.FightFrame.right - FightRenderingManager.FIGHT_FRAME_WIDTH_HALF / 2;
 
 			m_$FightFrame.css({
 				top: m_renderer.zoomBack(self.FightFrame.top),
@@ -214,6 +219,7 @@ var FightRenderingManager = new function () {
 		m_fightWorld.addSystem(new AnimationSystem(m_renderer));
 		m_fightWorld.addSystem(new LayersUpdateSystem(m_renderer, FightRenderer.LayerTypes));
 		m_fightWorld.addSystem(new FightControllerSystem(m_renderer));
+		m_fightWorld.addSystem(new FightTilesRenderingSystem(m_renderer));
 		m_fightWorld.addSystem(new FightUnitsRenderingSystem(m_renderer));
 		m_fightWorld.addSystem(new FightUnitsAnimationsController());
 	}

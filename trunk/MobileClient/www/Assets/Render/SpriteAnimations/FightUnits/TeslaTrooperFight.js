@@ -19,7 +19,7 @@ SpriteAnimations.FightUnits.TeslaTrooper = {
 			frames: 1,
 		},
 		
-		/*
+		
 		{
 			name: 'Idle0',
 			startX: 0,
@@ -28,8 +28,8 @@ SpriteAnimations.FightUnits.TeslaTrooper = {
 			frameHeight: 73,
 			frames: 4,
 		},
-		*/
-
+		
+		/*
 		{
 			name: 'Idle0',
 			speed: 8,
@@ -40,6 +40,7 @@ SpriteAnimations.FightUnits.TeslaTrooper = {
 			framesPerRow: 3,
 			frames: 7,
 		},
+		*/
 		
 		{
 			name: 'Attack',
