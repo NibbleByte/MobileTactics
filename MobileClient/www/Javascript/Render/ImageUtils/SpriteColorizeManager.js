@@ -15,7 +15,7 @@ var SpriteColorizeManager = new function () {
 	var convertImageToCanvas = function (image) {
 		console.assert(image);
 
-		var canvas = document.createElement("canvas");
+		var canvas = document.createElement('canvas');
 		canvas.width = image.width;
 		canvas.height = image.height;
 		canvas.getContext("2d").drawImage(image, 0, 0);
@@ -105,48 +105,59 @@ var SpriteColorizeManager = new function () {
 		ctx.putImageData(imgData, 0, 0);
 	}
 
-	// Hue is value from 0 to 360
-	this.colorizeSprite = function (sprite, primaryHue, secondaryHue) {
-		// TODO: Add secondaryHue usage?
+	var applyEffect = function (sprite, primary, secondary, db, executor) {
 
 		// Get hash code.
-		var hash = sprite.img.src + ':' + primaryHue + ':' + secondaryHue + '<colorize>';
+		var hash = sprite.img.src + ':' + primary + ':' + secondary;
 
-		var canvas = m_colorizedDB[hash];
+		var img = db[hash];
 
-		if (canvas == undefined) {
-			canvas = getOriginalCanvas(sprite);
+		if (img == undefined) {
+			var canvas = getOriginalCanvas(sprite);
 
-			colorizeCanvas(canvas, primaryHue, secondaryHue);
+			executor(canvas, primary, secondary);
 
-			m_colorizedDB[hash] = canvas;
+			// Using img has higher performance than canvas on some phones.
+			// If toDataURL is not supported, fallback to canvases.
+			if (canvas.toDataURL) {
+				img = document.createElement('img');
+
+				img.onload = function () {
+					// If setting src to dataURL took time, replace the canvas instance.
+					if (img == canvas && this.width != 0 && this.height != 0) {
+						db[hash] = this;
+						sprite.img = this;
+					}
+
+					this.onload = null;
+				}
+
+				img.src = canvas.toDataURL('image/png');
+
+				// HACK: Some old Android 2.x doesn't support setting dataURL as src to image. Fallback to canvas.
+				// Info: http://stackoverflow.com/questions/4776670/should-setting-an-image-src-to-data-url-be-available-immediately
+				// Test: http://davidwalsh.name/demo/convert-canvas-image.php
+				if (img.width == 0 && img.height == 0)
+					img = canvas;
+
+			} else {
+				img = canvas;
+			}
+
+			db[hash] = img;
 		}
 
 		// Replace image with canvas. Don't update.
-		sprite.img = canvas;
+		sprite.img = img;
 		sprite.changed = true;
+		
 	}
 
-	// Saturation is value from 0 to 1
+	this.colorizeSprite = function (sprite, primaryHue, secondaryHue) {
+		applyEffect(sprite, primaryHue, secondaryHue, m_colorizedDB, colorizeCanvas);
+	}
+
 	this.saturateSprite = function (sprite, primarySaturation, secondarySaturation) {
-		// TODO: Add secondarySaturation usage?
-
-		// Get hash code.
-		var hash = sprite.img.src + ':' + primarySaturation + ':' + secondarySaturation + '<saturate>';
-
-		var canvas = m_saturatedDB[hash];
-
-		if (canvas == undefined) {
-
-			canvas = getOriginalCanvas(sprite);
-
-			saturateCanvas(canvas, primarySaturation, secondarySaturation);
-
-			m_saturatedDB[hash] = canvas;
-		}
-
-		// Replace image with canvas. Don't update.
-		sprite.img = canvas;
-		sprite.changed = true;
+		applyEffect(sprite, primarySaturation, secondarySaturation, m_saturatedDB, saturateCanvas);
 	}
 };
