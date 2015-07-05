@@ -38,6 +38,12 @@ var FightControllerSystem = function (m_renderer) {
 	}
 
 	var updateUnitPosition = function (tween, unit) {
+		
+		// On changing screen size causes restart of the fight and units get destroyed.
+		// Tweener might still be executing, so just do nothing.
+		if (Utils.isInvalidated(unit))
+			return;
+
 		unit.CSpatial.x = tween.x;
 
 		self._eworld.trigger(FightRenderingEvents.Units.UNIT_MOVED, unit);
