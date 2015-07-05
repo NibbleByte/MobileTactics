@@ -9,7 +9,7 @@ var RenderUtils = {
 	// Add shadows to text span/div, by adding same text spans inside with black color and offset.
 	addTextOutline: function (textElement) {
 		
-		var androidVer = ClientUtils.isAndroid ? parseFloat(ClientUtils.androidVersion) : 9999;
+		var androidVer = ClientUtils.isAndroid ? ClientUtils.androidVersion : 9999;
 
 		// HACK: Android 2.x doesn't support properly textShadow with 0 blur radius. Check text_outline_shadow class.
 		if (RenderUtils.supports('textShadow') && androidVer >= 3) {

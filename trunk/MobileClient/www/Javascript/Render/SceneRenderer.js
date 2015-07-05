@@ -226,7 +226,13 @@ sjs.Sprite.prototype.cull = function (isCulled) {
 
 	var isShown = (this._isShown !== undefined) ? this._isShown : true;
 
-	if (this._isCulled && isShown) {
+	var shouldDraw = this._isCulled && isShown;
+
+	// Already applied. First time isDrawn is undefined.
+	if (shouldDraw === this._isDrawn)
+		return;
+
+	if (shouldDraw) {
 		
 		if (this.layer.useCanvas) {
 			this.skipDrawing = false; // Custom field!
@@ -241,8 +247,9 @@ sjs.Sprite.prototype.cull = function (isCulled) {
 		} else {
 			$(this.dom).hide();
 		}
-
 	}
+
+	this._isDrawn = shouldDraw;
 }
 
 sjs.Sprite.prototype.isCulled = function () {
@@ -280,7 +287,7 @@ sjs.Sprite.prototype.onload = function () {
 //
 
 //	Happens when using big canvases and fight unit animations don't clear properly (for now).
-if (ClientUtils.isAndroid && parseFloat(ClientUtils.androidVersion) >= 4.1 && parseFloat(ClientUtils.androidVersion) <= 4.3) {
+if (ClientUtils.isAndroid && ClientUtils.androidVersion >= 4.1 && ClientUtils.androidVersion <= 4.3) {
 
 	SceneRenderer.CanvasRenderingContext2D = {
 		clearRect: CanvasRenderingContext2D.prototype.clearRect
@@ -298,6 +305,8 @@ if (ClientUtils.isAndroid && parseFloat(ClientUtils.androidVersion) >= 4.1 && pa
 			this.canvas.style.display = 'none';		// Detach from DOM
 			this.canvas.offsetHeight;				// Force the detach
 			this.canvas.style.display = 'inherit';	// Reattach to DOM
+			// NOTE: this fix is also used in LayersUpdateSystem to fix non-canvas layers.
+
 		} else {
 			// Forcing redraw by opacity seems to be most lightweight.
 			// But oddly doesn't work the few first seconds of the canvas creation.
