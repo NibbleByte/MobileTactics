@@ -24,6 +24,9 @@ var AnimationSystem = function (m_renderer, m_manual) {
 		if (!m_manual) {
 			m_ticker.pause();
 		}
+
+		if (AnimationSystem.currentTweenOwner == this)
+			AnimationSystem.currentTweenOwner = null;
 	}
 
 	this.isPaused = function () {
@@ -37,6 +40,9 @@ var AnimationSystem = function (m_renderer, m_manual) {
 	this.pauseAnimations = function () {
 		if (!m_manual && !self.isPaused()) {
 			m_ticker.pause();
+
+			if (AnimationSystem.currentTweenOwner == this)
+				AnimationSystem.currentTweenOwner = null;
 		}
 	}
 
@@ -139,9 +145,29 @@ var AnimationSystem = function (m_renderer, m_manual) {
 
 		// Clean processed animators
 		m_processedAnimationsData.clear();
+
+		if (AnimationSystem.currentTweenOwner == null) {
+			AnimationSystem.currentTweenOwner = this;
+		}
+		if (AnimationSystem.currentTweenOwner == this && Tweener.looping) {
+			Tweener.step();
+		}
 	}
 	
 }
+
+// Used to invoke the tweener system. Only one animation system at a given time can do that.
+AnimationSystem.currentTweenOwner = null;
+
+// HACK: Override tween own refresh mechanics. AnimationSystem will invoke updates.
+Tweener.loop = function () {
+	var T = Tweener;
+	if (!T.looping) {
+		T._ptime = new Date().getTime();
+	}
+	T.looping = true;
+};
+window.requestAnimFrame = function () {}	// AnimationSystem will call updates instead.
 
 ECS.EntityManager.registerSystem('AnimationSystem', AnimationSystem);
 SystemsUtils.supplyComponentFilter(AnimationSystem, [CAnimations]);

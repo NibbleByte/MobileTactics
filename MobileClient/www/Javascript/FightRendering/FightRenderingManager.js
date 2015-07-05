@@ -86,6 +86,7 @@ var FightRenderingManager = new function () {
 			attacker: attacker,
 			defender: defender,
 			renderer: renderer,
+			initialized: false,	// Prevents from problems while restarting on screen resize.
 		};
 
 		// World doesn't need to play animations in background.
@@ -116,14 +117,22 @@ var FightRenderingManager = new function () {
 	};
 
 	var initializeFight = function () {
+		
+		// Restarting or restarted.
+		if (m_currentFight == null || m_currentFight.initialized)
+			return;
+
 		m_fightWorld.trigger(FightRenderingEvents.Fight.INITIALIZE);
+
+		m_currentFight.initialized = true;
 
 		//setTimeout(uninitializeFight, 1000 * 5);
 	}
 
 	var uninitializeFight = function () {
 
-		m_fightWorld.trigger(FightRenderingEvents.Fight.UNINITIALIZE);
+		if (m_currentFight.initialized)
+			m_fightWorld.trigger(FightRenderingEvents.Fight.UNINITIALIZE);
 
 		m_currentFight.eworld.getSystem(AnimationSystem).resumeAnimations();
 
@@ -147,6 +156,8 @@ var FightRenderingManager = new function () {
 
 		// After uninitialize, will be set to null.
 		var currentFight = m_currentFight;
+
+		m_$FightScreenContainer.stop(true, true);
 
 		uninitializeFight();
 
