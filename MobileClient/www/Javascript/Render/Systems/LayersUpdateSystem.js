@@ -50,9 +50,21 @@ var LayersUpdateSystem = function (m_renderer, layerTypes) {
 
 	var refreshLayer = function (layer) {
 
+
 		// Needed only when using canvas
-		if (!layer.useCanvas)
+		if (!layer.useCanvas) {
+			
+			if (ClientUtils.isAndroid && ClientUtils.androidVersion >= 4.1 && ClientUtils.androidVersion <= 4.3) {
+				// HACK: Sprites don't disappear on $(sprite.dom).hide(); for non-canvas layers.
+				//		 This forces all sprites in this layer to redraw.
+				// TEST: Select and de-select tiles, units etc.
+				layer.dom.style.display = 'none'; 	 // Detach from DOM
+				layer.dom.offsetHeight; 			 // Force the detach
+				layer.dom.style.display = 'inherit'; // Reattach to DOM
+			}
+
 			return;
+		}
 
 		layer.clear();
 
