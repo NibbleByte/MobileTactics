@@ -279,8 +279,7 @@ sjs.Sprite.prototype.onload = function () {
 // URL: https://medium.com/@dhashvir/android-4-1-x-stock-browser-canvas-solution-ffcb939af758
 //
 
-/*
-//	Happens only when using big canvases (for now). Currently no big canvases are used.
+//	Happens when using big canvases and fight unit animations don't clear properly (for now).
 if (ClientUtils.isAndroid && parseFloat(ClientUtils.androidVersion) >= 4.1 && parseFloat(ClientUtils.androidVersion) <= 4.3) {
 
 	SceneRenderer.CanvasRenderingContext2D = {
@@ -290,10 +289,21 @@ if (ClientUtils.isAndroid && parseFloat(ClientUtils.androidVersion) >= 4.1 && pa
 	CanvasRenderingContext2D.prototype.clearRect = function () {
 		SceneRenderer.CanvasRenderingContext2D.clearRect.apply(this, arguments);
 
-		this.canvas.style.display = 'none';		// Detach from DOM
-		this.canvas.offsetHeight;				// Force the detach
-		this.canvas.style.display = 'inherit';	// Reattach to DOM
+		this.forceRedrawCounter = this.forceRedrawCounter || 0;
+		this.forceRedrawCounter++;
+
+
+		if (this.forceRedrawCounter < 120 * Assets.scale) {
+			// This works for sure, but has high performance impact.
+			this.canvas.style.display = 'none';		// Detach from DOM
+			this.canvas.offsetHeight;				// Force the detach
+			this.canvas.style.display = 'inherit';	// Reattach to DOM
+		} else {
+			// Forcing redraw by opacity seems to be most lightweight.
+			// But oddly doesn't work the few first seconds of the canvas creation.
+			// Fails with large assets as well, so more testing is needed.
+			this.canvas.style.opacity = (this.forceRedrawCounter % 2 == 0) ? 1.0 : 0.99;
+		}
 	};
 
 }
-*/
