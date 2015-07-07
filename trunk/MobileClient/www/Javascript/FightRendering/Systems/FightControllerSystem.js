@@ -70,8 +70,8 @@ var FightControllerSystem = function (m_renderer) {
 	}
 
 	var onShowUp = function () {
-		var leftTween = { x: FightRenderingManager.FightFrame.left - FightRenderingManager.FIGHT_FRAME_WIDTH_HALF };
-		var rightTween = { x: FightRenderingManager.FightFrame.right + FightRenderingManager.FIGHT_FRAME_WIDTH_HALF };
+		var leftTween = { x: -FightRenderingManager.FIGHT_FRAME_WIDTH_HALF };
+		var rightTween = { x: m_renderer.extentWidth + FightRenderingManager.FIGHT_FRAME_WIDTH_HALF };
 
 		var leftXEnd = FightRenderingManager.FightFrame.leftHalf;
 		var rightXEnd = FightRenderingManager.FightFrame.rightHalf;
