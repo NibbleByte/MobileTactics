@@ -213,6 +213,7 @@ var FightRenderingManager = new function () {
 	subscriber.subscribe(window, 'orientationchange', onScreenResize);
 
 	// DEBUG
+	subscriber.subscribe($('#FightScreenRestart')[0], 'click', restartCurrentFight);
 	subscriber.subscribe($('#FightScreenQuit')[0], 'click', uninitializeFight);
 
 
