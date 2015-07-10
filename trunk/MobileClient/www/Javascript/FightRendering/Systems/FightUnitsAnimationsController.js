@@ -16,6 +16,9 @@ var FightUnitsAnimationsController = function () {
 		self._entityFilter.onEntityRemovedHandler = unregisterUnit;
 
 		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_FINISHED, onAnimationFinished);
+
+		self._eworldSB.subscribe(FightRenderingEvents.Fight.ATTACK, onAttack);
+		self._eworldSB.subscribe(FightRenderingEvents.Fight.ATTACK_FINISH, onAttackFinish);
 	}
 	
 	//
@@ -25,7 +28,7 @@ var FightUnitsAnimationsController = function () {
 
 		var animator = fightUnit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_SPRITE];
 
-		IdleAnimationsSystem.playRandomIdleAnimation(animator);
+		animator.playSequence('Run');
 	}
 
 	var unregisterUnit = function (fightUnit) {
@@ -39,6 +42,24 @@ var FightUnitsAnimationsController = function () {
 
 		if (params.name == FightUnitsRenderingSystem.MAIN_SPRITE) {
 			IdleAnimationsSystem.playRandomIdleAnimation(params.animator);
+		}
+	}
+
+	var onAttack = function (event, unit) {
+		var animator = unit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_SPRITE];
+
+		animator.playSequence('Attack');
+	}
+
+	var onAttackFinish = function (event) {
+		for(var i = 0; i < self._entityFilter.entities.length; ++i) {
+			var unit = self._entityFilter.entities[i];
+
+			var animator = unit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_SPRITE];
+
+			if (!IdleAnimationsSystem.playsIdleAnimation(animator)) {
+				IdleAnimationsSystem.playRandomIdleAnimation(animator);
+			}
 		}
 	}
 }

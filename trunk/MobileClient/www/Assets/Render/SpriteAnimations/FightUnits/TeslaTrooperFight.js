@@ -6,8 +6,6 @@ SpriteAnimations.FightUnits.TeslaTrooper = {
 
 	anchorX: Animator.AnchorX.Center,
 	anchorY: Animator.AnchorY.Bottom,
-
-	speed: 20,
 	
 	sequences: [
 		{
@@ -22,6 +20,7 @@ SpriteAnimations.FightUnits.TeslaTrooper = {
 		
 		{
 			name: 'Idle0',
+			speed: 20,
 			startX: 0,
 			startY: 461,
 			frameWidth: 98,
@@ -43,7 +42,21 @@ SpriteAnimations.FightUnits.TeslaTrooper = {
 		*/
 		
 		{
+			name: 'Run',
+			speed: 10,
+			startX: 0,
+			startY: 0,
+			anchorX: Animator.AnchorX.Center,
+			frameWidth: 102,
+			frameHeight: 78,
+			framesPerRow: 4,
+			frames: 8,
+			wrapMode: Animator.WrapMode.Loop,
+		},
+
+		{
 			name: 'Attack',
+			speed: 10,
 			startX: 0,
 			startY: 157,
 			anchorX: 49,
@@ -55,6 +68,7 @@ SpriteAnimations.FightUnits.TeslaTrooper = {
 
 		{
 			name: 'Hurt',
+			speed: 10,
 			startX: 0,
 			startY: 314,
 			frameWidth: 98,

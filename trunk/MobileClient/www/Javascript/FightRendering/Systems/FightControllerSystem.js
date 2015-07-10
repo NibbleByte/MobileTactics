@@ -14,7 +14,9 @@ var FightControllerSystem = function (m_renderer) {
 
 	var m_timeouts = {
 		showUp: null,
-		Idle: null,
+		attackLeft: null,
+		attackRight: null,
+		attackFinish: null,
 	}
 	
 	//
@@ -22,17 +24,17 @@ var FightControllerSystem = function (m_renderer) {
 	//
 	this.initialize = function () {
 		self._eworldSB.subscribe(FightRenderingEvents.Fight.INITIALIZE, onInitializeFight);
-		self._eworldSB.subscribe(FightRenderingEvents.Fight.SHOW_UP, onShowUp);
 		self._eworldSB.subscribe(FightRenderingEvents.Fight.UNINITIALIZE, onUninitializeFight);
 	}
 
-	var createFightUnit = function (unit, direction) {
+	var createFightUnit = function (unit, direction, state) {
 		var fightUnit = new ECS.Entity();
 		fightUnit.addComponent(CFightUnit);
 		fightUnit.addComponent(CSpatial);
 
 		fightUnit.CFightUnit.unit = unit;
 		fightUnit.CFightUnit.direction = direction;
+		fightUnit.CFightUnit.state = state;
 		
 		return fightUnit;
 	}
@@ -54,8 +56,8 @@ var FightControllerSystem = function (m_renderer) {
 		var leftUnit = self._eworld.blackboard[FightRenderingBlackBoard.Battle.LEFT_UNIT];
 		var rightUnit = self._eworld.blackboard[FightRenderingBlackBoard.Battle.RIGHT_UNIT];
 
-		m_leftUnit = createFightUnit(leftUnit, FightRenderer.DirectionType.Right);
-		m_rightUnit = createFightUnit(rightUnit, FightRenderer.DirectionType.Left);
+		m_leftUnit = createFightUnit(leftUnit, FightRenderer.DirectionType.Right, FightUnitState.ShowingUp);
+		m_rightUnit = createFightUnit(rightUnit, FightRenderer.DirectionType.Left, FightUnitState.ShowingUp);
 
 		m_leftUnit.CSpatial.x = -1000;
 		m_leftUnit.CSpatial.y = FightRenderingManager.FightFrame.bottom - FightControllerSystem.BOTTOM_OFFSET;
@@ -79,8 +81,42 @@ var FightControllerSystem = function (m_renderer) {
 		var leftParams = [ leftTween, m_leftUnit ];
 		var rightParams = [ rightTween, m_rightUnit ];
 
-		Tweener.addTween(leftTween, {x: leftXEnd, time: 1, delay: 0, transition: "easeOutBack", onUpdate: updateUnitPosition, onUpdateParams: leftParams });
+		Tweener.addTween(leftTween, {x: leftXEnd, time: 1, delay: 0, transition: "easeOutBack", onUpdate: updateUnitPosition, onUpdateParams: leftParams, onComplete: onShowUpFinished, onCompleteParams: leftParams });
 		Tweener.addTween(rightTween, {x: rightXEnd, time: 1, delay: 0, transition: "easeOutBack", onUpdate: updateUnitPosition, onUpdateParams: rightParams });
+	}
+
+	// NOTE: Called only for the left unit.
+	var onShowUpFinished = function (tween, unit) {
+
+		// On changing screen size causes restart of the fight and units get destroyed.
+		// Tweener might still be executing, so just do nothing.
+		if (Utils.isInvalidated(unit))
+			return;
+
+		m_leftUnit.CFightUnit.state = FightUnitState.Idle;
+		m_rightUnit.CFightUnit.state = FightUnitState.Idle;
+
+		self._eworld.trigger(FightRenderingEvents.Fight.SHOW_UP_FINISH);
+
+		m_timeouts.attackLeft = setTimeout(function () { onAttack(m_leftUnit); }, 500);
+		m_timeouts.attackRight = setTimeout(function () { onAttack(m_rightUnit); }, 1500);
+		m_timeouts.attackFinish = setTimeout(onAttackFinish, 3000);
+	}
+
+	var onAttack = function (unit) {
+		
+		unit.CFightUnit.state = FightUnitState.Attacking;
+
+		self._eworld.trigger(FightRenderingEvents.Fight.ATTACK, unit);
+	}
+
+	var onAttackFinish = function () {
+
+		m_leftUnit.CFightUnit.state = FightUnitState.Idle;
+		m_rightUnit.CFightUnit.state = FightUnitState.Idle;
+
+		self._eworld.trigger(FightRenderingEvents.Fight.ATTACK_FINISH);
+
 	}
 
 	var onUninitializeFight = function (event) {
