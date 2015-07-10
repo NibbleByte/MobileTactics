@@ -8,10 +8,12 @@
 // Supported render events that user can subscribe to.
 var FightRenderingEvents = {
 		Fight: {
-			INITIALIZE: "ft.fight.initialize",					// Arguments: event
-			SHOW_UP:	"ft.fight.show_up",						// Arguments: event
-			IDLE:		"ft.fight.idle",						// Arguments: event
-			UNINITIALIZE: "ft.fight.uninitialize",				// Arguments: event
+			INITIALIZE:		"ft.fight.initialize",				// Arguments: event
+			SHOW_UP_FINISH:	"ft.fight.show_up_finish",			// Arguments: event
+			ATTACK:			"ft.fight.attack",					// Arguments: event, unit
+			ATTACK_FINISH:	"ft.fight.attack_finish",			// Arguments: event
+			IDLE:			"ft.fight.idle",					// Arguments: event
+			UNINITIALIZE:	"ft.fight.uninitialize",			// Arguments: event
 		},
 
 		Units: {

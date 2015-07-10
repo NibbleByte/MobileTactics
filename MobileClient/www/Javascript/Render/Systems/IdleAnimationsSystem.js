@@ -72,6 +72,10 @@ IdleAnimationsSystem.playRandomIdleAnimation = function (animator) {
 
 }
 
+IdleAnimationsSystem.playsIdleAnimation = function (animator) {
+	return IdleAnimationsSystem.IDLE_ANIMATION_PATTERN.test(animator.sequenceName);
+}
+
 IdleAnimationsSystem.RANDOM_IDLE_ANIMATION_INTERVAL = 4000;
 IdleAnimationsSystem.IDLE_ANIMATION_PATTERN = /Idle\d+/i;
 
