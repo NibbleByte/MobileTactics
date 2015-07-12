@@ -77,8 +77,11 @@ Tweener.addTween = function(o, ps)
 	}
 	if(tp.onStart) if(tp.onStartParams) tp.onStart.apply(null, tp.onStartParams);  else tp.onStart();
 	
-	T.twns.push(new T.Tween(o, tp, prms, tgts));
+	var tween = new T.Tween(o, tp, prms, tgts)
+	T.twns.push(tween);
 	T.loop();
+
+	return tween;
 }
 
 Tweener.loop = function()
@@ -102,6 +105,11 @@ Tweener.step = function()
 	for(var i=0; i<T.twns.length; i++)
 	{
 		var t = T.twns[i];
+
+		if (t.cancel) {
+			T.twns.splice(i--, 1);
+			continue;
+		}
 		
 		if(t.tp.delay > 0) t.tp.delay -= step;
 		else
@@ -130,6 +138,10 @@ Tweener.step = function()
 	}
 	if(T.twns.length>0) requestAnimFrame(T.step);
 	else T.looping = false;
+}
+
+Tweener.cancel = function(tween) {
+	tween.cancel = true;
 }
 
 /*

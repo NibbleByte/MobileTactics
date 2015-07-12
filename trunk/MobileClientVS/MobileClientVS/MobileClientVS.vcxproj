@@ -134,6 +134,7 @@
     <None Include="..\..\MobileClient\www\Javascript\Editor\Systems\EditorUnitPropertiesController.js" />
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Components\CFightUnit.js" />
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Components\CFightUnitRendering.js" />
+    <None Include="..\..\MobileClient\www\Javascript\FightRendering\Components\CFightUnitRenderingEffects.js" />
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Components\CSpatial.js" />
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\FightRenderer.js" />
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\FightRenderingEvents.js" />
@@ -141,6 +142,7 @@
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightControllerSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightTilesRenderingSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightUnitsAnimationsController.js" />
+    <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightUnitsRenderingEffectsSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightUnitsRenderingSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\Main.js" />
     <None Include="..\..\MobileClient\www\Javascript\PlayerController.js" />

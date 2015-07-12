@@ -58,7 +58,6 @@ var AnimationSystem = function (m_renderer, m_manual) {
 	var m_ticker = null;
 
 	var m_processedAnimationsData = [];	// To avoid garbage, re-use the same array.
-	var m_cachedParams = [];
 	
 	this.paint = function (ticker) {
 
@@ -96,27 +95,25 @@ var AnimationSystem = function (m_renderer, m_manual) {
 
 						for(var j = 0; j < animator.sequenceData.events.length; ++j) {
 							var animEvent = animator.sequenceData.events[j];
-							m_cachedParams[0] = data;
-							m_cachedParams[1] = animEvent.params;
 
 							if (animEvent.frame !== undefined) {
 								// NOTE: this doesn't work for 0th frame and animation just started.
 								if (nextFrame >= animEvent.frame && prevFrame < animEvent.frame) {
-									self._eworld.trigger(animEvent.event, m_cachedParams);
+									self._eworld.trigger(animEvent.event, data, animEvent.params);
 								}
 								continue;
 							}
 
 							if (animEvent.elapsed !== undefined) {
 								if (nextElapsedTime >= animEvent.elapsed && prevElapsedTime < animEvent.elapsed) {
-									self._eworld.trigger(animEvent.event, m_cachedParams);
+									self._eworld.trigger(animEvent.event, data, animEvent.params);
 								}
 								continue;
 							}
 
 							if (animEvent.timeNormalized !== undefined) {
 								if (nextTimeNormalized >= animEvent.timeNormalized && prevTimeNormalized < animEvent.timeNormalized) {
-									self._eworld.trigger(animEvent.event, m_cachedParams);
+									self._eworld.trigger(animEvent.event, data, animEvent.params);
 								}
 								continue;
 							}
