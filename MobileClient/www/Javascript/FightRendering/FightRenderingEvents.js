@@ -17,8 +17,8 @@ var FightRenderingEvents = {
 		},
 
 		Animations: {
-			FIRE:			"ft.animations.fire",				// Arguments: event, animData, weaponType,
-			FIRE_FINAL:		"ft.animations.fire_final",			// Arguments: event, animData, weaponType,
+			FIRE:			"ft.animations.fire",				// Arguments: event, animData, {weaponType, final},
+			HURT:			"ft.animations.hurt",				// Arguments: event, unit, {weaponType, final},
 		},
 
 		Units: {

@@ -25,6 +25,8 @@ var FightControllerSystem = function (m_renderer) {
 	this.initialize = function () {
 		self._eworldSB.subscribe(FightRenderingEvents.Fight.INITIALIZE, onInitializeFight);
 		self._eworldSB.subscribe(FightRenderingEvents.Fight.UNINITIALIZE, onUninitializeFight);
+
+		self._eworldSB.subscribe(FightRenderingEvents.Animations.FIRE, onFire);
 	}
 
 	var createFightUnit = function (unit, direction, state) {
@@ -117,6 +119,12 @@ var FightControllerSystem = function (m_renderer) {
 
 		self._eworld.trigger(FightRenderingEvents.Fight.ATTACK_FINISH);
 
+	}
+
+	var onFire = function (event, animData, params) {
+		var hurtUnit = (animData.entity == m_leftUnit) ? m_rightUnit : m_leftUnit;
+
+		self._eworld.trigger(FightRenderingEvents.Animations.HURT, hurtUnit, params);
 	}
 
 	var onUninitializeFight = function (event) {
