@@ -81,5 +81,25 @@ var RenderUtils = {
 		});
 	},
 
+	filterSet: function (element, value) {
+		$(element).css({
+			'-webkit-filter': value,
+			'-moz-filter': value,
+			'-ms-filter': value,
+			'-o-filter': value,
+			'filter': value
+		});
+	},
+
+	filterAppend: function (element, value) {
+		$(element).css({
+			'-webkit-filter'	: $(element).css('-webkit-filter') + value,
+			'-moz-filter'	: $(element).css('-moz-filter') + value,
+			'-ms-filter'		: $(element).css('-ms-filter') + value,
+			'-o-filter'		: $(element).css('-o-filter') + value,
+			'filter'			: $(element).css('filter') + value
+		});
+
+	},
 };
 
