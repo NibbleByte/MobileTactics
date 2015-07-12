@@ -99,8 +99,8 @@ var FightControllerSystem = function (m_renderer) {
 		self._eworld.trigger(FightRenderingEvents.Fight.SHOW_UP_FINISH);
 
 		m_timeouts.attackLeft = setTimeout(function () { onAttack(m_leftUnit); }, 500);
-		m_timeouts.attackRight = setTimeout(function () { onAttack(m_rightUnit); }, 1500);
-		m_timeouts.attackFinish = setTimeout(onAttackFinish, 3000);
+		m_timeouts.attackRight = setTimeout(function () { onAttack(m_rightUnit); }, 2000);
+		m_timeouts.attackFinish = setTimeout(onAttackFinish, 3500);
 	}
 
 	var onAttack = function (unit) {

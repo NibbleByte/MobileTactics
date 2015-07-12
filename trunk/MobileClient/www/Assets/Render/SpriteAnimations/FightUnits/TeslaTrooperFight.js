@@ -64,6 +64,20 @@ SpriteAnimations.FightUnits.TeslaTrooper = {
 			frameHeight: 78,
 			framesPerRow: 3,
 			frames: 6,
+
+			events: [
+				{
+					frame: 1,
+					event: FightRenderingEvents.Animations.FIRE,
+					params: FightUnitWeaponType.Pistols,
+				},
+				
+				{
+					frame: 4,
+					event: FightRenderingEvents.Animations.FIRE_FINAL,
+					params: FightUnitWeaponType.Pistols,
+				},
+			],
 		},
 
 		{
