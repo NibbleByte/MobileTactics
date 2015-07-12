@@ -22,7 +22,7 @@ var FightUnitsRenderingEffectsSystem = function (m_renderer) {
 		unit.addComponent(CFightUnitRenderingEffects);
 	}
 
-	var updateShake = function (tween, unit) {
+	var onUpdateShake = function (tween, unit) {
 		
 		// On changing screen size causes restart of the fight and units get destroyed.
 		// Tweener might still be executing, so just do nothing.
@@ -34,6 +34,10 @@ var FightUnitsRenderingEffectsSystem = function (m_renderer) {
 		unit.CSpatial.x = tween.x;
 
 		self._eworld.trigger(FightRenderingEvents.Units.UNIT_MOVED, unit);
+	}
+
+	var onCompleteShake = function (tween, unit) {
+		RenderUtils.filterSet(unit.CFightUnitRendering.sprite.dom, 'brightness(1)');
 	}
 
 	var onHurt = function (event, unit, params) {
@@ -49,10 +53,12 @@ var FightUnitsRenderingEffectsSystem = function (m_renderer) {
 			x: unit.CSpatial.x - unit.CFightUnit.direction * 4,
 		};
 
+		RenderUtils.filterSet(unit.CFightUnitRendering.sprite.dom, 'brightness(4)');
+
 		var tweenParams = [effects.shakeData, unit];
 
 		effects.shakeData.tween = 
-			Tweener.addTween(effects.shakeData, {x: unit.CSpatial.x, time: 0.2, delay: 0, transition: "linear", onUpdate: updateShake, onUpdateParams: tweenParams });
+			Tweener.addTween(effects.shakeData, {x: unit.CSpatial.x, time: 0.2, delay: 0, transition: "linear", onUpdate: onUpdateShake, onUpdateParams: tweenParams, onComplete: onCompleteShake, onCompleteParams: tweenParams});
 	}
 }
 
