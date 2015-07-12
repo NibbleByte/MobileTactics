@@ -16,6 +16,11 @@ var FightRenderingEvents = {
 			UNINITIALIZE:	"ft.fight.uninitialize",			// Arguments: event
 		},
 
+		Animations: {
+			FIRE:			"ft.animations.fire",				// Arguments: event, animData, weaponType,
+			FIRE_FINAL:		"ft.animations.fire_final",			// Arguments: event, animData, weaponType,
+		},
+
 		Units: {
 			UNIT_MOVED: "ft.units.moved",						// Arguments: event, fightUnit
 			UNIT_KILLED: "ft.units.unit_killed",				// Arguments: event, fightUnit

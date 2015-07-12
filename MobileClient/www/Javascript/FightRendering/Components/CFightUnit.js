@@ -18,3 +18,19 @@ var FightUnitState = {
 }
 
 Enums.enumerate(FightUnitState);
+
+var FightUnitWeaponType = {
+	None: 0,
+
+	Pistols: 0,
+	MachineGun: 0,
+	Flamethrower: 0,
+	RocketLauncher: 0,
+
+	LaserRifle: 0,
+
+	Claws: 0,
+	AcidSpit: 0,
+}
+
+Enums.enumerate(FightUnitState);
