@@ -62,6 +62,25 @@ Array.prototype.findAll = Array.prototype.findAll || function (predicate) {
 	return ret;
 }
 
+// Removes the first element of an array that satisfies given predicate
+// Returns true if element removed or false if not.
+Array.prototype.findRemove = function (predicate) {
+	if (typeof predicate !== 'function') {
+		return undefined;
+	}
+
+	for (var i = 0; i < this.length; i++) {
+		if (i in this && predicate(this[i])) break;
+	}
+
+	if (i < this.length) {
+		this.splice(i, 1);
+		return true;
+	} else {
+		return false;
+	}
+}
+
 Array.prototype.last = function () {
 	return this[this.length - 1];
 }
