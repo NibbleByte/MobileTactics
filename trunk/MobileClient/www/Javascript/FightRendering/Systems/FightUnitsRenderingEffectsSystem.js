@@ -37,7 +37,7 @@ var FightUnitsRenderingEffectsSystem = function (m_renderer) {
 	}
 
 	var onCompleteShake = function (tween, unit) {
-		RenderUtils.filterSet(unit.CFightUnitRendering.sprite.dom, 'brightness(1)');
+		SpriteColorizeManager.clearSpriteBrightness(unit.CFightUnitRendering.sprite);
 	}
 
 	var onHurt = function (event, unit, params) {
@@ -53,7 +53,7 @@ var FightUnitsRenderingEffectsSystem = function (m_renderer) {
 			x: unit.CSpatial.x - unit.CFightUnit.direction * 4,
 		};
 
-		RenderUtils.filterSet(unit.CFightUnitRendering.sprite.dom, 'brightness(4)');
+		SpriteColorizeManager.setSpriteBrightness(unit.CFightUnitRendering.sprite, 4);
 
 		var tweenParams = [effects.shakeData, unit];
 

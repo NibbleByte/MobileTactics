@@ -402,6 +402,15 @@ Sprite = function Sprite(scene, src, layer) {
     this.opacity = 1;
     this.color = false;
 
+	// Handlers here will be executed right before and after canvas update
+	// handler(sprite, canvasContext, xoffset, yoffset, width, height);
+	this.preCanvasEffects = [];
+	this.postCanvasEffects = [];
+	this._drawEffects = function (effects, canvasCtx, xoffset, yoffset, width, height) {
+		for(var i = 0; i < effects.length; ++i)
+			effects[i].handler(this, canvasCtx, xoffset, yoffset, width, height, effects[i].param);
+	}
+
     this.id = ++nb_sprite;
 
     // necessary to get set
@@ -827,8 +836,13 @@ Sprite.prototype.update = function updateDomProperties () {
 	} else if (this.img && this.imgLoaded){
 		// NOTE: Doesn't work with scale etc...
 		this.canvasCtx.clearRect(0, 0, this.w, this.h);
+
+		this._drawEffects(this.preCanvasEffects, this.canvasCtx, 0, 0, this.w, this.h);
+
 		this.canvasCtx.drawImage(this.img, this.xoffset, this.yoffset, this.w, this.h,
             0, 0, this.w, this.h);
+
+		this._drawEffects(this.postCanvasEffects, this.canvasCtx, 0, 0, this.w, this.h);
 	}
 
     if (this._dirty.opacity)
@@ -895,8 +909,14 @@ Sprite.prototype.canvasUpdate = function canvasUpdate(layer) {
         && this.xTransformOrigin === null
     )
     if(fast_track) {
+
+		this._drawEffects(this.preCanvasEffects, this.canvasCtx, this._x_rounded - anchorX, this._y_rounded - anchorY, this.w, this.h);
+
         ctx.drawImage(this.img, this.xoffset, this.yoffset, this.w, this.h,
             this._x_rounded - anchorX, this._y_rounded - anchorY, this.w, this.h);
+
+		this._drawEffects(this.postCanvasEffects, this.canvasCtx, this._x_rounded - anchorX, this._y_rounded - anchorY, this.w, this.h);
+
         return this;
     }
 
@@ -931,6 +951,9 @@ Sprite.prototype.canvasUpdate = function canvasUpdate(layer) {
                 repeat_y = Math.floor(this.h / this.imgNaturalHeight);
                 while(repeat_y > 0) {
                     repeat_y = repeat_y-1;
+
+					this._drawEffects(this.preCanvasEffects, this.canvasCtx, repeat_w * this.imgNaturalWidth, repeat_y * this.imgNaturalHeight, this.w, this.h);
+
                     ctx.drawImage(this.img, this.xoffset, this.yoffset,
                         this.imgNaturalWidth,
                         this.imgNaturalHeight,
@@ -938,12 +961,19 @@ Sprite.prototype.canvasUpdate = function canvasUpdate(layer) {
                         repeat_y * this.imgNaturalHeight,
                         this.imgNaturalWidth,
                         this.imgNaturalHeight);
+
+					this._drawEffects(this.postCanvasEffects, this.canvasCtx, repeat_w * this.imgNaturalWidth, repeat_y * this.imgNaturalHeight, this.w, this.h);
                 }
 
             }
         } else {
+			
+			this._drawEffects(this.preCanvasEffects, this.canvasCtx, 0, 0, this.w, this.h);
+
             // image with normal size or with
             ctx.drawImage(this.img, this.xoffset, this.yoffset, this.w, this.h, 0, 0, this.w, this.h);
+
+			this._drawEffects(this.postCanvasEffects, this.canvasCtx, 0, 0, this.w, this.h);
         }
     }
     ctx.restore();

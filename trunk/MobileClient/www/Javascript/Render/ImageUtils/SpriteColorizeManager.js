@@ -12,6 +12,10 @@ var SpriteColorizeManager = new function () {
 	var m_colorizedDB = {};
 	var m_saturatedDB = {};
 
+	var SUPPORT_CSS_FILTER = RenderUtils.supports('filter');
+	if (ClientUtils.isAndroid && ClientUtils.androidVersion < 4.4)
+		SUPPORT_CSS_FILTER = false;	// It's all lies!!!
+
 	var convertImageToCanvas = function (image) {
 		console.assert(image);
 
@@ -153,11 +157,66 @@ var SpriteColorizeManager = new function () {
 		
 	}
 
+	var preEffects = {};
+	var postEffects = {
+
+		brightness: function (sprite, canvasContext, xoffset, yoffset, width, height, param) {
+
+			var imgData = canvasContext.getImageData(xoffset, yoffset, width, height);
+
+			var data = imgData.data;
+			var len = data.length;
+			var rgb = {}, hsv = {};
+			for (var i = 0; i < len; i += 4) {
+
+				// Skip if transparent
+				if (data[i + 3] == 0)
+					continue;
+
+				// NOTE: "+ 20" is so black pixels are affected by brightness as well.
+				data[i + 0] = (data[i + 0] + 20) * param;
+				data[i + 1] = (data[i + 1] + 20) * param;
+				data[i + 2] = (data[i + 2] + 20) * param;
+			}
+
+			canvasContext.putImageData(imgData, 0, 0);
+		}
+	};
+
+
 	this.colorizeSprite = function (sprite, primaryHue, secondaryHue) {
 		applyEffect(sprite, primaryHue, secondaryHue, m_colorizedDB, colorizeCanvas);
 	}
 
 	this.saturateSprite = function (sprite, primarySaturation, secondarySaturation) {
 		applyEffect(sprite, primarySaturation, secondarySaturation, m_saturatedDB, saturateCanvas);
+	}
+
+	// Set post brightness effect. 1 is default.
+	// Uses CSS filter property. If not supported, falls back to canvas post effects.
+	this.setSpriteBrightness = function (sprite, value) {
+
+		if (SUPPORT_CSS_FILTER) {
+			// NOTE: contrast is used, so black pixels are affected by brightness as well.
+			RenderUtils.filterSet(sprite.dom, 'contrast(0.75) brightness(' + value + ')');
+
+		} else {
+			sprite.postCanvasEffects.push({
+				handler: postEffects.brightness,
+				param: value,
+			});
+		}
+	}
+	
+	this.clearSpriteBrightness = function (sprite) {
+
+		if (SUPPORT_CSS_FILTER) {
+			RenderUtils.filterSet(sprite.dom, '');
+
+		} else {
+			sprite.postCanvasEffects.findRemove(function (effect) {
+				return effect.handler == postEffects.brightness;
+			});
+		}
 	}
 };
