@@ -17,8 +17,13 @@ var FightUnitsAnimationsController = function () {
 
 		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_FINISHED, onAnimationFinished);
 
+		self._eworldSB.subscribe(FightRenderingEvents.Fight.SHOW_UP_FINISH, all2Idle);
+
 		self._eworldSB.subscribe(FightRenderingEvents.Fight.ATTACK, onAttack);
-		self._eworldSB.subscribe(FightRenderingEvents.Fight.ATTACK_FINISH, onAttackFinish);
+		self._eworldSB.subscribe(FightRenderingEvents.Fight.ATTACK_FINISH, all2Idle);
+
+		self._eworldSB.subscribe(FightRenderingEvents.Animations.HURT, onHurt);
+		self._eworldSB.subscribe(FightRenderingEvents.Animations.HURT_FINISH, onHurtFinish);
 	}
 	
 	//
@@ -51,7 +56,7 @@ var FightUnitsAnimationsController = function () {
 		animator.playSequence('Attack');
 	}
 
-	var onAttackFinish = function (event) {
+	var all2Idle = function (event) {
 		for(var i = 0; i < self._entityFilter.entities.length; ++i) {
 			var unit = self._entityFilter.entities[i];
 
@@ -61,6 +66,20 @@ var FightUnitsAnimationsController = function () {
 				IdleAnimationsSystem.playRandomIdleAnimation(animator);
 			}
 		}
+	}
+
+	var onHurt = function (event, unit, params) {
+
+		var animator = unit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_SPRITE];
+
+		animator.pause();
+	}
+
+	var onHurtFinish = function (event, unit) {
+
+		var animator = unit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_SPRITE];
+
+		animator.play();
 	}
 }
 

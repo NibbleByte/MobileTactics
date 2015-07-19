@@ -38,6 +38,8 @@ var FightUnitsRenderingEffectsSystem = function (m_renderer) {
 
 	var onCompleteShake = function (tween, unit) {
 		SpriteColorizeManager.clearSpriteBrightness(unit.CFightUnitRendering.sprite);
+
+		self._eworld.trigger(FightRenderingEvents.Animations.HURT_FINISH, unit);
 	}
 
 	var onHurt = function (event, unit, params) {
