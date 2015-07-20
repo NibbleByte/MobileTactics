@@ -796,6 +796,8 @@ Sprite.prototype.update = function updateDomProperties () {
 	// 
 	// Anchor
 	//
+	if (this.src != null && Utils.isString(this.anchorX)) console.warn('AnchorX of sprite ', this.src, 'at layer ', this.layer.name, ' is string: ', this.anchorX);
+	if (this.src != null && Utils.isString(this.anchorY)) console.warn('AnchorY of sprite ', this.src, 'at layer ', this.layer.name, ' is string: ', this.anchorY);
 	var anchorX = Math.round((this.anchorX || 0) * Math.abs(this.xscale));
 	var anchorY = Math.round((this.anchorY || 0) * Math.abs(this.yscale));
 

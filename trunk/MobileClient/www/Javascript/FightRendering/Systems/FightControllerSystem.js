@@ -140,7 +140,7 @@ var FightControllerSystem = function (m_renderer) {
 	}
 }
 
-FightControllerSystem.BOTTOM_OFFSET = 5;
+FightControllerSystem.BOTTOM_OFFSET = 25;
 
 ECS.EntityManager.registerSystem('FightControllerSystem', FightControllerSystem);
 SystemsUtils.supplySubscriber(FightControllerSystem);

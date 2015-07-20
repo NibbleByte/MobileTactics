@@ -22,6 +22,7 @@ FightRenderer.DirectionType = {
 }
 
 FightRenderer.LayerTypes = {
+	Portraits: 0,
 	Tiles: 0,
 	Units: 0,
 	Particles: 0,
@@ -29,6 +30,11 @@ FightRenderer.LayerTypes = {
 Enums.enumerate(FightRenderer.LayerTypes);
 
 FightRenderer.layersOptions = {
+
+	Portraits: {
+		useCanvas: false,
+		autoClear: false,
+	},
 
 	Tiles: {
 		useCanvas: false,

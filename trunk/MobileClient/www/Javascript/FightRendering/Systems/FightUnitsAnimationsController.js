@@ -13,7 +13,6 @@ var FightUnitsAnimationsController = function () {
 	this.initialize = function () {
 
 		self._entityFilter.onEntityAddedHandler = registerUnit;
-		self._entityFilter.onEntityRemovedHandler = unregisterUnit;
 
 		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_FINISHED, onAnimationFinished);
 
@@ -34,10 +33,6 @@ var FightUnitsAnimationsController = function () {
 		var animator = fightUnit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_SPRITE];
 
 		animator.playSequence('Run');
-	}
-
-	var unregisterUnit = function (fightUnit) {
-
 	}
 
 

@@ -3,6 +3,7 @@
 var SpriteAnimations = {
 	Units: {},
 	FightUnits: {},
+	FightPortraits: {},
 	World: {},
 	Particles: {},
 };

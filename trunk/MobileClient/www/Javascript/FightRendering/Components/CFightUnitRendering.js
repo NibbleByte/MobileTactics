@@ -4,6 +4,8 @@ var CFightUnitRendering = function CFightUnitRendering() {
 	this.skin = '';
 	this.sprite = null;
 	this.tileSprite = null;
+
+	this.ownerPortrait = null; // HACK: Cause it is simpler to attach portrait to the single unit.
 };
 
 ComponentsUtils.registerNonPersistent(CFightUnitRendering);
@@ -12,6 +14,7 @@ ComponentsUtils.registerNonPersistent(CFightUnitRendering);
 CFightUnitRendering.prototype.destroy = function () {
 	if (this.sprite) this.sprite.remove();
 	if (this.tileSprite) this.tileSprite.remove();
+	if (this.ownerPortrait) this.ownerPortrait.remove();
 }
 
 //

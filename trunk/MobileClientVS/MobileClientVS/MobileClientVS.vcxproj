@@ -87,6 +87,8 @@
     <None Include="..\..\MobileClient\www\Assets\Render\OverlayEffects.css" />
     <None Include="..\..\MobileClient\www\Assets\Render\Placeables.css" />
     <None Include="..\..\MobileClient\www\Assets\Render\SceneRenderer.css" />
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\FightPortraits\Baron.js" />
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\FightPortraits\Colonel.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\FightUnits\TeslaTrooperFight.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Particles\GroundExplosion.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\SpriteAnimations.js" />
@@ -140,6 +142,7 @@
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\FightRenderingEvents.js" />
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\FightRenderingManager.js" />
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightControllerSystem.js" />
+    <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightPortraitsController.js" />
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightTilesRenderingSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightUnitsAnimationsController.js" />
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightUnitsRenderingEffectsSystem.js" />
