@@ -518,6 +518,15 @@
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Components\CFightUnitRenderingEffects.js">
       <Filter>Javascript\FightRendering\Components</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightPortraitsController.js">
+      <Filter>Javascript\FightRendering\Systems</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\FightPortraits\Colonel.js">
+      <Filter>Assets\Render\SpriteAnimations\FightPortraits</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\FightPortraits\Baron.js">
+      <Filter>Assets\Render\SpriteAnimations\FightPortraits</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
@@ -651,6 +660,9 @@
     </Filter>
     <Filter Include="Assets\Render\SpriteAnimations\World">
       <UniqueIdentifier>{1e97b9cb-e6d8-486e-9ac0-75b81162a44f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Render\SpriteAnimations\FightPortraits">
+      <UniqueIdentifier>{918ce182-b63f-4fa9-be0a-e4b2e5357236}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
