@@ -72,7 +72,7 @@ var FightPortraitsController = function (m_renderer) {
 
 		var sprite = fightUnit.CFightUnitRendering.ownerPortrait;
 		sprite.setXScale(-fightUnit.CFightUnit.direction);
-		sprite.position(fightUnit.CSpatial.x, FightRenderingManager.FightFrame.top + FightPortraitsController.TOP_OFFSET);
+		sprite.position(fightUnit.CSpatial.x, sprite.y);
 		sprite.update();
 
 		self._entityWorld.trigger(RenderEvents.Layers.REFRESH_LAYER, FightRenderer.LayerTypes.Portraits);

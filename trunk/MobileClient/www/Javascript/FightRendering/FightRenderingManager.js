@@ -99,18 +99,35 @@ var FightRenderingManager = new function () {
 
 
 		// Choose screen sides
-		var leftUnit = attacker;
-		var rightUnit = defender;
-		if (gameState.currentPlayer == defender.CPlayerData.player) {
-			var leftUnit = defender;
-			var rightUnit = attacker;
-		}
-
 		var outcome = battleSystem.predictOutcome(attacker, defender);
 
+		var leftStats = {
+			unit: outcome.attacker,
+			tile: outcome.attackerTile,
+			strength: outcome.attackerStrength,
+			health: outcome.attackerHealth,
+			damageTaken: outcome.damageToAttacker,
+			healthOutcome: outcome.attackerHealthOutcome,
+		};
+		var rightStats = {
+			unit: outcome.defender,
+			tile: outcome.defenderTile,
+			strength: outcome.defenderStrength,
+			health: outcome.defenderHealth,
+			damageTaken: outcome.damageToDefender,
+			healthOutcome: outcome.defenderHealthOutcome,
+		};
+		if (gameState.currentPlayer == defender.CPlayerData.player) {
+			var swp = leftStats;
+			leftStats = rightStats;
+			rightStats = swp;
+		}
+
 		m_fightWorld.blackboard[FightRenderingBlackBoard.Battle.OUTCOME] = outcome;
-		m_fightWorld.blackboard[FightRenderingBlackBoard.Battle.LEFT_UNIT] = leftUnit;
-		m_fightWorld.blackboard[FightRenderingBlackBoard.Battle.RIGHT_UNIT] = rightUnit;
+		m_fightWorld.blackboard[FightRenderingBlackBoard.Battle.LEFT_UNIT] = leftStats.unit;
+		m_fightWorld.blackboard[FightRenderingBlackBoard.Battle.RIGHT_UNIT] = rightStats.unit;
+		m_fightWorld.blackboard[FightRenderingBlackBoard.Battle.LEFT_STATS] = leftStats;
+		m_fightWorld.blackboard[FightRenderingBlackBoard.Battle.RIGHT_STATS] = rightStats;
 
 
 		m_$FightScreenContainer.fadeIn('fast', initializeFight);
@@ -234,6 +251,7 @@ var FightRenderingManager = new function () {
 		m_fightWorld.addSystem(new FightUnitsRenderingEffectsSystem(m_renderer));
 		m_fightWorld.addSystem(new FightUnitsAnimationsController());
 		m_fightWorld.addSystem(new FightPortraitsController(m_renderer));
+		m_fightWorld.addSystem(new FightUnitStatsController(m_renderer));
 	}
 
 	initialize();

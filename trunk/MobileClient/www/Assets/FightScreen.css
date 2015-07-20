@@ -27,3 +27,18 @@
 	position: absolute;
 	border: 2px solid red;
 }
+
+.fight_unit_stats
+{
+	color: white;
+	white-space: nowrap;
+}
+
+.fight_unit_stats_container
+{
+	-webkit-transform: translateX(-50%);
+	-moz-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	-o-transform: translateX(-50%);
+	transform: translateX(-50%);
+}
