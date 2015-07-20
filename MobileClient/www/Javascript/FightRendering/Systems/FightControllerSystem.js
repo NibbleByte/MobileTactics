@@ -67,6 +67,9 @@ var FightControllerSystem = function (m_renderer) {
 		m_rightUnit.CSpatial.x = -1000;
 		m_rightUnit.CSpatial.y = FightRenderingManager.FightFrame.bottom - FightControllerSystem.BOTTOM_OFFSET;
 
+		self._eworld.blackboard[FightRenderingBlackBoard.Battle.LEFT_FIGHTER] = m_leftUnit;
+		self._eworld.blackboard[FightRenderingBlackBoard.Battle.RIGHT_FIGHTER] = m_rightUnit;
+
 		self._eworld.addUnmanagedEntity(m_leftUnit);
 		self._eworld.addUnmanagedEntity(m_rightUnit);
 
@@ -133,6 +136,9 @@ var FightControllerSystem = function (m_renderer) {
 
 		m_rightUnit.destroy();
 		m_rightUnit = null;
+
+		self._eworld.blackboard[FightRenderingBlackBoard.Battle.LEFT_FIGHTER] = null;
+		self._eworld.blackboard[FightRenderingBlackBoard.Battle.RIGHT_FIGHTER] = null;
 
 		for(var timeout in m_timeouts) {
 			clearTimeout(m_timeouts[timeout]);

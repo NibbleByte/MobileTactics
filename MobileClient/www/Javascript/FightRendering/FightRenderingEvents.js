@@ -34,7 +34,9 @@ var FightRenderingBlackBoard = {
 		OUTCOME:		"battlerendering.battle.outcome",
 		LEFT_UNIT:		"battlerendering.battle.left_unit",
 		RIGHT_UNIT:		"battlerendering.battle.right_unit",
-		LEFT_FIGHTER:		"battlerendering.battle.left_fighter",
-		RIGHT_FIGHTER:		"battlerendering.battle.right_fighter",
+		LEFT_STATS:		"battlerendering.battle.left_stats",
+		RIGHT_STATS:	"battlerendering.battle.right_stats",
+		LEFT_FIGHTER:	"battlerendering.battle.left_fighter",
+		RIGHT_FIGHTER:	"battlerendering.battle.right_fighter",
 	},
 };
