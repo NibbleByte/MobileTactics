@@ -46,7 +46,7 @@ var FightUnitsRenderingEffectsSystem = function (m_renderer) {
 		self._eworld.trigger(FightRenderingEvents.Animations.HURT_FINISH, unit);
 	}
 
-	var onHurt = function (event, unit, params) {
+	var onHurt = function (unit, params) {
 		var effects = unit.CFightUnitRenderingEffects;
 
 		if (effects.shakeData != null) {

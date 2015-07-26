@@ -12,13 +12,14 @@ var TickerStats = function (m_ticker, m_$text, m_refreshDelay) {
 		
 		var restart = false;
 
+		var now = Date.now();
+
 		if (stats) {
 			stats.paintsCount++;
 			stats.fpsSum += m_ticker.fps;
 			stats.ticksElapsedSum += m_ticker.lastTicksElapsed;
 			stats.diffSum += m_ticker.diff;
 
-			var now = new Date().getTime();
 
 			if (now - stats.startTime > m_refreshDelay) {
 				var str = '';
@@ -41,13 +42,16 @@ var TickerStats = function (m_ticker, m_$text, m_refreshDelay) {
 
 		// Restart stats
 		if (restart)	{
-			stats = {
-				paintsCount: 0,
-				fpsSum: 0,
-				ticksElapsedSum: 0,
-				diffSum: 0,
-				startTime: new Date().getTime(),
-			};
+
+			if (!stats)
+				stats = {};
+
+			
+			stats.paintsCount = 0;
+			stats.fpsSum = 0;
+			stats.ticksElapsedSum = 0;
+			stats.diffSum = 0;
+			stats.startTime = now;
 		}
 
 	}

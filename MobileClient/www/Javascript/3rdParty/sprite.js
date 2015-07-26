@@ -877,7 +877,21 @@ Sprite.prototype.update = function updateDomProperties () {
     }
     // reset
     this.changed = false;
-    this._dirty = {};
+	// Causes too much garbage.
+    //this._dirty = {};
+	this._dirty.w = false;
+	this._dirty.h = false;
+	this._dirty.xoffset = false;
+	this._dirty.yoffset = false;
+	this._dirty.angle = false;
+	this._dirty.color = false;
+	this._dirty.opacity = false;
+	this._dirty.xscale = false;
+	this._dirty.yscale = false;
+	this._dirty.transform = false;
+	this._dirty.backgroundRepeat = false;
+	this._dirty.zindex = false;
+
     return this;
 };
 
@@ -1277,7 +1291,7 @@ Ticker_ = function Ticker_(scene, paint, options) {
     var that = this;
     this.bindedRun = function bindedRun(t) {that.run(t);}
 
-    this.start = new Date().getTime();
+    this.start = Date.now();
     this.now = this.start;
     this.ticksElapsed = 0;
     // absolute number of ticks that have been played ever
@@ -1289,7 +1303,7 @@ Ticker_ = function Ticker_(scene, paint, options) {
 };
 
 Ticker_.prototype.next = function (timestamp) {
-    var now = new Date().getTime();
+    var now = Date.now();
     this.diff = now - this.now;
     this.now = now;
     // number of ticks that have elapsed since the last start
@@ -1345,7 +1359,7 @@ Ticker_.prototype.run = function(timestamp) {
           this.scene.input.next();
       }
     
-    this.timeToPaint = (new Date().getTime()) - this.now;
+    this.timeToPaint = (Date.now()) - this.now;
     // spread the load value on 2 frames so the value is more stable
     this.load = ((this.timeToPaint / this.tickDuration * 100) + this.load) / 2 | 0;
     this.fps = Math.round(1000 / (this.now - (this.lastPaintAt || 0)));
@@ -1370,7 +1384,7 @@ Ticker_.prototype.pause = function () {
 };
 
 Ticker_.prototype.resume = function () {
-    this.start = new Date().getTime();
+    this.start = Date.now();
     this.ticksElapsed = 0;
     this.ticksSinceLastStart = 0;
     this.paused = false;

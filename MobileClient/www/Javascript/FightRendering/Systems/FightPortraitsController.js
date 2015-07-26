@@ -78,12 +78,12 @@ var FightPortraitsController = function (m_renderer) {
 		self._entityWorld.trigger(RenderEvents.Layers.REFRESH_LAYER, FightRenderer.LayerTypes.Portraits);
 	}
 
-	var onUnitMoved = function (event, fightUnit) {
+	var onUnitMoved = function (fightUnit) {
 		if (fightUnit.CFightUnit.state == FightUnitState.ShowingUp)
 			renderPortrait(fightUnit);
 	}
 
-	var onFire = function (event, animData, params) {
+	var onFire = function (animData, params) {
 		if (!params.final)
 			return;
 
@@ -92,7 +92,7 @@ var FightPortraitsController = function (m_renderer) {
 		IdleAnimationsSystem.playRandomIdleAnimation(unit.CAnimations.animators[FightPortraitsController.PORTRAIT_SPRITE]);
 	}
 
-	var onAnimationFinished = function (event, params) {
+	var onAnimationFinished = function (params) {
 		if (!params.entity.hasComponents(FightPortraitsController.REQUIRED_COMPONENTS))
 			return;
 

@@ -48,10 +48,10 @@ var PlayerController = function (m_executor) {
 	}
 
 	this.undoLastAction = function () {
-		onActionsCancelled(null);
+		onActionsCancelled(true);
 	}
 	
-	var onGameLoading = function (event) {
+	var onGameLoading = function () {
 		m_gameState = self._eworld.extract(GameState);
 	}
 	
@@ -147,14 +147,14 @@ var PlayerController = function (m_executor) {
 	}
 	
 	
-	var onTileClicked = function(event, hitData) {
+	var onTileClicked = function(hitData) {
 		
 		if (m_inputActive) {
 			selectTile(hitData.tile);
 		}
 	}
 
-	var onTileRemoved = function (event) {
+	var onTileRemoved = function () {
 		clearActions();
 		m_selectedTile = null;
 		selected = null;
@@ -169,7 +169,7 @@ var PlayerController = function (m_executor) {
 	}
 	
 	
-	var onActionExecute = function(event, action, goActions) {
+	var onActionExecute = function(action, goActions) {
 
 		if (m_gameState.currentPlayer.type != Player.Types.Human)
 			return;
@@ -184,11 +184,11 @@ var PlayerController = function (m_executor) {
 		}
 	}
 
-	var onActionsCleared = function(event) {
+	var onActionsCleared = function() {
 		clearSelectedGOActions();
 	}
 
-	var onActionsCancelled = function(event) {
+	var onActionsCancelled = function(debug) {
 		
 		var lastAction = m_executor.getLastExecutedAction();
 
@@ -199,8 +199,8 @@ var PlayerController = function (m_executor) {
 		}
 
 		// Only ActionMove is allowed to undo.
-		// DEBUG: remove 'event != null', used to undo for debugging.
-		if (event != null && lastAction.actionType != Actions.Classes.ActionMove) {
+		// DEBUG: remove 'debug', used to undo for debugging.
+		if (debug && lastAction.actionType != Actions.Classes.ActionMove) {
 			self._eworld.triggerAsync(ClientEvents.Controller.ACTIONS_CLEARED);
 			return;
 		}
@@ -216,7 +216,7 @@ var PlayerController = function (m_executor) {
 		}
 	}
 
-	var onActionsOffered = function(event, goActions) {
+	var onActionsOffered = function(goActions) {
 		clearSelectedGOActions();
 		
 		if (goActions.actions.length > 0)

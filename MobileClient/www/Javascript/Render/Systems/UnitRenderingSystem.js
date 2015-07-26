@@ -108,15 +108,16 @@ var UnitRenderingSystem = function (renderer) {
 		unitRendering.showFinished(placeable.CUnit.finishedTurn);
 	}
 
-	var onAnimationFinished = function(event, params) {
+	var onAnimationFinished = function(params) {
 		if (!params.entity.hasComponents(UnitRenderingSystem.REQUIRED_COMPONENTS))
 			return;
 		
-		if (params.name == UnitRenderingSystem.MAIN_SPRITE)
+		if (params.name == UnitRenderingSystem.MAIN_SPRITE) {
 			params.entity.CAnimations.animators[UnitRenderingSystem.MAIN_SPRITE].pauseSequence('Idle');
+		}
 	}
 	
-	var onPlaceableRegistered = function(event, placeable) {
+	var onPlaceableRegistered = function(placeable) {
 		
 		// Only interested in units.
 		if (!placeable.hasComponents(CUnit))
@@ -140,10 +141,10 @@ var UnitRenderingSystem = function (renderer) {
 		
 		renderUnitInit(placeable);
 
-		onUnitChanged(event, placeable);
+		onUnitChanged(placeable);
 	}
 	
-	var onPlaceableMoving = function(event, placeable) {
+	var onPlaceableMoving = function(placeable) {
 		
 		if (!placeable.hasComponents(UnitRenderingSystem.REQUIRED_COMPONENTS))
 			return;
@@ -151,7 +152,7 @@ var UnitRenderingSystem = function (renderer) {
 		renderUnit(placeable);
 	}
 	
-	var onPlaceableUnregistered = function(event, placeable) {
+	var onPlaceableUnregistered = function(placeable) {
 		
 		if (!placeable.hasComponents(UnitRenderingSystem.REQUIRED_COMPONENTS))
 			return;
@@ -164,7 +165,7 @@ var UnitRenderingSystem = function (renderer) {
 		placeable.removeComponent(CTilePlaceableRendering);
 	}
 	
-	var onUnitChanged = function(event, unit) {
+	var onUnitChanged = function(unit) {
 		if (unit.CUnit.health != unit.CStatistics.statistics['MaxHealth']) {
 			unit.CUnitRendering.$text.text(unit.CUnit.health);
 			RenderUtils.addTextOutline(unit.CUnitRendering.$text)
@@ -175,7 +176,7 @@ var UnitRenderingSystem = function (renderer) {
 
 
 	var FLOAT_TEXT_OFFSET = { x: 20, y: -12 };
-	var onActionAttack = function (event, outcome) {
+	var onActionAttack = function (outcome) {
 
 		if (outcome.attackerHealthOutcome > 0) {
 			var intent = (outcome.damageToAttacker > 0) ? RenderIntents.Negative : RenderIntents.Positive;
@@ -194,7 +195,7 @@ var UnitRenderingSystem = function (renderer) {
 		}
 	}
 
-	var onActionHeal = function (event, unit, amount) {
+	var onActionHeal = function (unit, amount) {
 		self._eworld.trigger(RenderEvents.OverlayEffects.FLOAT_TEXT_TILE,unit.CTilePlaceable.tile, '+' +  amount, 
 			{ offset: FLOAT_TEXT_OFFSET, intent: RenderIntents.Positive }
 		);
@@ -214,7 +215,7 @@ var UnitRenderingSystem = function (renderer) {
 		}
 	}
 
-	var refreshFog = function (event) {
+	var refreshFog = function () {
 		self._eworld.extract(GameWorld).iterateAllPlaceables(applyVisibilityFog);
 	}
 }

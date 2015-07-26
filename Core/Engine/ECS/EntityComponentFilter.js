@@ -50,7 +50,7 @@ ECS.EntityComponentFilter = function (world, componentFilterClassesOrPredicate) 
 	//
 	// Entities
 	//
-	var onEntityAdded = function (event, entity) {
+	var onEntityAdded = function (entity) {
 		// NOTE: Recursively it is possible first to be called refresh, before add event.
 		// This is why we need to check if not already in the collection.
 		if (isInterested(entity) && self.entities.indexOf(entity) == -1) {
@@ -62,7 +62,7 @@ ECS.EntityComponentFilter = function (world, componentFilterClassesOrPredicate) 
 	}
 	
 	
-	var onEntityRefresh = function (event, entity) {
+	var onEntityRefresh = function (entity) {
 		
 		var foundIndex = self.entities.indexOf(entity);
 		var interested = isInterested(entity);
@@ -82,7 +82,7 @@ ECS.EntityComponentFilter = function (world, componentFilterClassesOrPredicate) 
 	}
 	
 	
-	var onEntityRemoved = function (event, entity) {
+	var onEntityRemoved = function (entity) {
 		var foundIndex = self.entities.indexOf(entity);
 		if (foundIndex > -1) {
 			self.entities.splice(foundIndex, 1);

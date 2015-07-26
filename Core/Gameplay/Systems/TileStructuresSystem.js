@@ -30,7 +30,7 @@ var TileStructuresSystem = function () {
 
 	
 
-	var onGameLoading = function (event) {
+	var onGameLoading = function () {
 		m_gameState = self._eworld.extract(GameState);
 		m_playersData = self._eworld.extract(PlayersData);
 
@@ -40,11 +40,11 @@ var TileStructuresSystem = function () {
 		m_gameState.bases = [];
 		var entities = self._entityFilter.entities;
 		for(var i = 0; i < entities.length; ++i) {
-			onTileAdded(null, entities[i]);
+			onTileAdded(entities[i]);
 		}
 	}
 
-	var onTurnChanged = function (event, gameState, hasJustLoaded) {
+	var onTurnChanged = function (gameState, hasJustLoaded) {
 		m_gameState.clearStructures();
 
 		var player = m_gameState.currentPlayer;
@@ -69,7 +69,7 @@ var TileStructuresSystem = function () {
 		}
 	}
 
-	var onFogRefresh = function (event) {
+	var onFogRefresh = function () {
 
 		var player = m_gameState.currentPlayer;
 
@@ -94,7 +94,7 @@ var TileStructuresSystem = function () {
 		}
 	}
 
-	var onTileAdded = function (event, tile) {
+	var onTileAdded = function (tile) {
 		
 		if (!tile.CTileOwner || m_gameState == null)
 			return;
@@ -126,7 +126,7 @@ var TileStructuresSystem = function () {
 		m_gameState.relationStructures[relation].push(tile);
 	}
 
-	var onTileRemoving = function (event, tile) {
+	var onTileRemoving = function (tile) {
 		
 		if (!tile.CTileOwner || m_gameState == null)
 			return;

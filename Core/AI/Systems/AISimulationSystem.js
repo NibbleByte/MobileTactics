@@ -19,7 +19,7 @@ var AISimulationSystem = function (m_eworld) {
 	// Private
 	//
 
-	var onSimulationStart = function (event) {
+	var onSimulationStart = function () {
 
 		var assignments = [];
 		self._eworld.trigger(AIEvents.Simulation.GATHER_ASSIGNMENTS, assignments);

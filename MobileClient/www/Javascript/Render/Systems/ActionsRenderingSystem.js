@@ -14,7 +14,7 @@ var ActionsRenderingSystem = function (m_executor) {
 		self._eworldSB.subscribe(ClientEvents.Controller.ACTION_PREEXECUTE, onActionPreExecute);
 	}
 	
-	var onActionPreExecute = function(event, action) {
+	var onActionPreExecute = function(action) {
 		
 		var preExecutorClass = m_actionPreExecutors[action.actionType.actionName]
 							|| ActionsRenderingSystem.ActionExecutors.DefaultExecutor;
@@ -111,7 +111,7 @@ ActionsRenderingSystem.ActionExecutors.AttackExecutor = function (m_executor, m_
 		}
 	}
 	
-	var onAnimationFinished = function (event, params) {
+	var onAnimationFinished = function (params) {
 		
 		// When all affected units has finished their animations, execute the actual action.
 		finishAttackAnimation(params.entity);

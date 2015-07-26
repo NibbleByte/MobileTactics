@@ -36,7 +36,7 @@ var FightUnitsAnimationsController = function () {
 	}
 
 
-	var onAnimationFinished = function (event, params) {
+	var onAnimationFinished = function (params) {
 		if (!params.entity.hasComponents(FightUnitsAnimationsController.REQUIRED_COMPONENTS))
 			return;
 
@@ -45,13 +45,13 @@ var FightUnitsAnimationsController = function () {
 		}
 	}
 
-	var onAttack = function (event, unit) {
+	var onAttack = function (unit) {
 		var animator = unit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_SPRITE];
 
 		animator.playSequence('Attack');
 	}
 
-	var all2Idle = function (event) {
+	var all2Idle = function () {
 		for(var i = 0; i < self._entityFilter.entities.length; ++i) {
 			var unit = self._entityFilter.entities[i];
 
@@ -63,14 +63,14 @@ var FightUnitsAnimationsController = function () {
 		}
 	}
 
-	var onHurt = function (event, unit, params) {
+	var onHurt = function (unit, params) {
 
 		var animator = unit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_SPRITE];
 
 		animator.pause();
 	}
 
-	var onHurtFinish = function (event, unit) {
+	var onHurtFinish = function (unit) {
 
 		var animator = unit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_SPRITE];
 

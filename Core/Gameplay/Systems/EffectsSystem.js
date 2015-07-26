@@ -39,7 +39,7 @@ var EffectsSystem = function () {
 		return foundEffects;
 	};
 	
-	var onTurnChanged = function (event, gameState, hasJustLoaded) {
+	var onTurnChanged = function (gameState, hasJustLoaded) {
 		if (hasJustLoaded)
 			return;
 
@@ -142,7 +142,7 @@ var EffectsSystem = function () {
 	//
 	// World events
 	//
-	var onPlaceableRegistered = function(event, placeable) {				
+	var onPlaceableRegistered = function(placeable) {				
 		recalculateStatistics(placeable);
 	}
 };

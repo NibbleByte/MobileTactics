@@ -180,7 +180,8 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		m_$ToolbarContainer.show();
 
 		// Some statistics
-		var m_FrameStats = new FrameStats($('#FrameStats'), 1000);
+		window.FrameStats = new FrameStats($('#FrameStats'), 1000);
+		window.FrameStats.pause();
 		var onScreenResize = function (event) {
 			var screenStats = '';
 			//screenStats += 'Screen Width: ' + screen.width + '<br />';
@@ -402,7 +403,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 			m_eworld.trigger(GameplayEvents.GameState.END_TURN);
 		}
 	
-		var onTurnChanged = function (event) {
+		var onTurnChanged = function () {
 			if (m_clientState.gameState.currentPlayer) {
 				m_$BtnPlayer.text(m_clientState.gameState.currentPlayer.name)
 			} else {
@@ -464,7 +465,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 			m_$BtnAddress.remove();
 		}
 
-		var onHudLockRefresh = function (event) {
+		var onHudLockRefresh = function () {
 			if (m_clientState.playerController.isHudLocked() || m_clientState.gameState.currentPlayer.type == Player.Types.AI) {
 				m_$ToolbarContainer.hide();
 			} else {
@@ -472,7 +473,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 			}
 		}
 	
-		var onGameLoaded = function (event) {
+		var onGameLoaded = function () {
 			m_loadingScreen.hide();
 		}
 	

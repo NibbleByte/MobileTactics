@@ -29,13 +29,13 @@
 	</head>
 	
 	<body>
-		<div id="RuntimeStats" onclick="$('#RuntimeStats').hide(); $('#RuntimeStatsButton').show();" style="display: none;">
+		<div id="RuntimeStats" onclick="$('#RuntimeStats').hide(); $('#RuntimeStatsButton').show(); window.FrameStats.pause();" style="display: none;">
 			<div id="FrameStats"></div>
 			<div id="ScreenStats"></div>
 			<div id="AssetsStats"></div>
 			<div id="DebugStats"></div>
 		</div>
-		<div id="RuntimeStatsButton" onclick="$('#RuntimeStats').show(); $('#RuntimeStatsButton').hide();">
+		<div id="RuntimeStatsButton" onclick="$('#RuntimeStats').show(); $('#RuntimeStatsButton').hide(); window.FrameStats.resume();">
 			FPS
 		</div>
 

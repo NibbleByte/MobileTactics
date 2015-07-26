@@ -24,7 +24,7 @@ var CanvasInstancesUpdateSystem = function () {
 	//
 	var m_pendingAnimators = [];
 
-	var onRefreshSprites = function (event, sprites) {
+	var onRefreshSprites = function (sprites) {
 
 		if (Utils.isArray(sprites)) {
 			for (var i = 0; i < sprites.length; ++i) {
@@ -53,7 +53,7 @@ var CanvasInstancesUpdateSystem = function () {
 		m_pendingAnimators.clear();
 	}
 
-	var onAnimationFinished = function (event, data) {
+	var onAnimationFinished = function (data) {
 		
 		// Might happen if someone destroys it in the current ANIMATION_FINISHED event before us.
 		if (Utils.isInvalidated(data.animator.sprite))

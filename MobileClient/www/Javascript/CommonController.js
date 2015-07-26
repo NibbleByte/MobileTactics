@@ -14,7 +14,7 @@ var CommonController = function (m_executor) {
 		self._eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGING, onTurnChanging);
 	};
 
-	var onTurnChanging = function (event, gameState) {
+	var onTurnChanging = function (gameState) {
 	
 		// Cycle through all current units and check if all have finished their turns.
 		// If not, use it for healing, if available.

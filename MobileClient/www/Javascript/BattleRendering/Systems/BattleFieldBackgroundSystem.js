@@ -18,7 +18,7 @@ var BattleFieldBackgroundSystem = function (m_renderer) {
 		self._eworldSB.subscribe(BattleRenderingEvents.Battle.INITIALIZE, onInitializeBattle);
 	}
 
-	var onInitializeBattle = function (event) {
+	var onInitializeBattle = function () {
 
 		var unit = self._eworld.blackboard[BattleRenderingBlackBoard.Battle.THIS_UNIT];
 

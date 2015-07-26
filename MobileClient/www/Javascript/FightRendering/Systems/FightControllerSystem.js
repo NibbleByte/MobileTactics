@@ -53,7 +53,7 @@ var FightControllerSystem = function (m_renderer) {
 		self._eworld.trigger(FightRenderingEvents.Units.UNIT_MOVED, unit);
 	}
 
-	var onInitializeFight = function (event) {
+	var onInitializeFight = function () {
 		
 		var leftUnit = self._eworld.blackboard[FightRenderingBlackBoard.Battle.LEFT_UNIT];
 		var rightUnit = self._eworld.blackboard[FightRenderingBlackBoard.Battle.RIGHT_UNIT];
@@ -124,13 +124,13 @@ var FightControllerSystem = function (m_renderer) {
 
 	}
 
-	var onFire = function (event, animData, params) {
+	var onFire = function (animData, params) {
 		var hurtUnit = (animData.entity == m_leftUnit) ? m_rightUnit : m_leftUnit;
 
 		self._eworld.trigger(FightRenderingEvents.Animations.HURT, hurtUnit, params);
 	}
 
-	var onUninitializeFight = function (event) {
+	var onUninitializeFight = function () {
 		m_leftUnit.destroy();
 		m_leftUnit = null;
 

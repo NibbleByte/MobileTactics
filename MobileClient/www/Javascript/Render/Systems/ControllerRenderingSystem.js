@@ -20,10 +20,10 @@ var ControllerRenderingSystem = function (m_renderer) {
 		m_selectedSprite = m_renderer.createSprite(WorldLayers.LayerTypes.Selection, ControllerRenderingSystem.TILE_SELECTED_SPRITE_PATH)
 		.size(GTile.TILE_WIDTH, GTile.TILE_HEIGHT);
 
-		onTileSelected(null, null);
+		onTileSelected(null);
 	}
 
-	var onTileSelected = function (event, tile) {
+	var onTileSelected = function (tile) {
 
 		if (tile) {
 			var coords = m_renderer.getRenderedTilePosition(tile.CTile.row, tile.CTile.column);

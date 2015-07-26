@@ -6,7 +6,7 @@
 // TODO: This file isn't used anymore. Remove it remains the same.
 var UnitsFactoryClient = new function () {
 	
-	var applyClient = function (event, unit) {
+	var applyClient = function (unit) {
 		// Fill custom client logic.
 	}
 	

@@ -17,7 +17,7 @@ var UnitsSystem = function () {
 		self._eworldSB.subscribe(GameplayEvents.Units.DESTROY_UNIT, onDestroyUnit);
 	}
 
-	var onTurnChanged = function (event, gameState, hasJustLoaded) {
+	var onTurnChanged = function (gameState, hasJustLoaded) {
 
 		if (hasJustLoaded)
 			return;
@@ -31,7 +31,7 @@ var UnitsSystem = function () {
 		}
 	}
 		
-	var onUnitChanged = function(event, unit) {
+	var onUnitChanged = function(unit) {
 		
 		// Check if dead.
 		if (unit.CUnit.health <= 0) {
@@ -50,7 +50,7 @@ var UnitsSystem = function () {
 		}
 	}	
 
-	var onDestroyUnit = function(event, unit) {
+	var onDestroyUnit = function(unit) {
 		self._eworld.trigger(GameplayEvents.Units.UNIT_DESTROYING, unit);
 		self._eworld.removeManagedEntity(unit);
 	}
