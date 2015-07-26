@@ -20,7 +20,7 @@ var BattleFieldControllerSystem = function (m_renderer) {
 		self._eworldSB.subscribe(BattleRenderingEvents.Battle.UNINITIALIZE, onUninitializeBattle);
 	}
 
-	var onInitializeBattle = function (event) {
+	var onInitializeBattle = function () {
 
 		var unit = self._eworld.blackboard[BattleRenderingBlackBoard.Battle.THIS_UNIT];
 
@@ -55,7 +55,7 @@ var BattleFieldControllerSystem = function (m_renderer) {
 		}
 	}
 
-	var onHit = function (event) {
+	var onHit = function () {
 		var alive = m_battleUnits.clone();
 		var dieCount = MathUtils.randomIntRange(Math.min(1, alive.length), Math.floor(alive.length / 2));
 
@@ -71,7 +71,7 @@ var BattleFieldControllerSystem = function (m_renderer) {
 		}
 	}
 
-	var onUninitializeBattle = function (event) {
+	var onUninitializeBattle = function () {
 		for(var i = 0; i < m_battleUnits.length; ++i) {
 			m_battleUnits[i].destroy();
 		}

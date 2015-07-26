@@ -10,8 +10,8 @@ GTile.TILE_HEIGHT = 64 * Assets.scale;
 
 GTile._SCALED_VSIDES = {
 	1: 34,
-	2: 70,
-	3: 104,
+	2: 68,
+	3: 102,
 }
 
 GTile.TILE_VSIDE = GTile._SCALED_VSIDES[Assets.scale];	// Length of the vertical left/right side from the image

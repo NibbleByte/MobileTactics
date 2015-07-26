@@ -6,16 +6,43 @@
 
 var FrameStats = function (m_$text, m_refreshDelay) {
 	var self = this;
+
+
+	this.togglePause = function () {
+		if (isPaused)
+			self.resume();
+		else
+			self.pause();
+	}
+
+	this.pause = function () {
+		isPaused = true;
+	}
+	this.resume = function () {
+		isPaused = false;
+
+		refreshStats();
+	}
+
+	this.isPaused = function () {
+		return isPaused;
+	}
 	
+	var isPaused = false;
+
 	// Stats
 	var stats;
 	var totalFramesCount = 0;
 	var refreshStats = function () {
+
+		if (isPaused)
+			return;
 		
 		var restart = false;
 
+		var now = Date.now();
+
 		if (stats) {
-			var now = new Date().getTime();
 			var diff = now - stats.lastTime;
 			stats.lastTime = now;
 			stats.framesCount++;
@@ -40,13 +67,14 @@ var FrameStats = function (m_$text, m_refreshDelay) {
 		}
 
 		// Restart stats
-		if (restart)	{
-			stats = {
-				framesCount: 0,
-				elapsed: 0,
-				lastTime: new Date().getTime(),
-				startTime: new Date().getTime(),
-			};
+		if (restart) {
+			if (!stats)
+				stats = {};
+
+			stats.framesCount = 0;
+			stats.elapsed = 0;
+			stats.lastTime = now;
+			stats.startTime = now;
 		}
 
 		if (window.requestAnimationFrame) {

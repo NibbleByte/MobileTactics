@@ -247,7 +247,7 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 			}
 		}
 
-		var onGameLoaded = function (event) {
+		var onGameLoaded = function () {
 			m_loadingScreen.hide();
 		}
 

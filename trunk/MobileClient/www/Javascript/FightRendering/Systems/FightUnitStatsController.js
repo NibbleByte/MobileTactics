@@ -41,7 +41,7 @@ var FightUnitStatsController = function (m_renderer) {
 	var m_leftSprite = null;
 	var m_rightSprite = null;
 
-	var onInitializeFight = function (event) {
+	var onInitializeFight = function () {
 		var leftStats = self._eworld.blackboard[FightRenderingBlackBoard.Battle.LEFT_STATS];
 		var rightStats = self._eworld.blackboard[FightRenderingBlackBoard.Battle.RIGHT_STATS];
 
@@ -55,7 +55,7 @@ var FightUnitStatsController = function (m_renderer) {
 		m_rightSprite.update();
 	}
 
-	var onUninitializeFight = function (event) {
+	var onUninitializeFight = function () {
 		// Note: hide texts on uninitialize, because on slow devices can be seen on show up for a moment.
 		m_leftSprite.position(-1000, m_leftSprite.y);
 		m_leftSprite.update();
@@ -64,7 +64,7 @@ var FightUnitStatsController = function (m_renderer) {
 		m_rightSprite.update();
 	}
 
-	var onUnitMoved = function (event, fightUnit) {
+	var onUnitMoved = function (fightUnit) {
 		if (fightUnit.CFightUnit.state != FightUnitState.ShowingUp)
 			return;
 

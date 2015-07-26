@@ -45,15 +45,15 @@ var AIControllerUI = function (m_executor, m_aiController) {
 	}
 
 
-	var onTurnChanged = function (event) {
+	var onTurnChanged = function () {
 		m_$ToolbarContainer.hide();
 	}
 
-	var onSimulationFinished = function (event, assignments) {
+	var onSimulationFinished = function (assignments) {
 		m_$ToolbarContainer.show();
 	}
 
-	var onAssignmentChanged = function (event, assignment) {
+	var onAssignmentChanged = function (assignment) {
 		var priority = Math.round(assignment.priority);
 
 		var creatorName = assignment.task.creator.getSystemName().replace('AITask', '').replace('System', '');

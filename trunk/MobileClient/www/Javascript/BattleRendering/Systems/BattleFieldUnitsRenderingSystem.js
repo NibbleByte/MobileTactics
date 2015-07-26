@@ -20,7 +20,7 @@ var BattleFieldUnitsRenderingSystem = function (m_renderer) {
 	}
 
 	// Clear any previous drawings
-	var onInitializeBattle = function (event) {
+	var onInitializeBattle = function () {
 		self._entityWorld.trigger(RenderEvents.Layers.REFRESH_LAYER, BattleFieldRenderer.LayerTypes.Units);
 	}
 

@@ -126,7 +126,7 @@ var BattleSystem = function (m_world) {
 	var m_gameState = null;
 	var m_playersData = null;
 
-	var onGameLoading = function (event) {
+	var onGameLoading = function () {
 		m_gameState = self._eworld.extract(GameState);
 		m_playersData = self._eworld.extract(PlayersData);
 	}

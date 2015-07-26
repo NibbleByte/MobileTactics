@@ -16,7 +16,7 @@ var BattleFieldUnitsParticleSystem = function (m_renderer) {
 		self._eworldSB.subscribe(BattleRenderingEvents.Units.UNIT_KILLED, onUnitKilled);
 	}
 
-	var onUnitKilled = function (event, battleUnit) {
+	var onUnitKilled = function (battleUnit) {
 
 		if (!battleUnit.CAnimations)
 			return;

@@ -482,7 +482,7 @@ var GameWorld = function () {
 	
 	
 	
-	var onEntityAdded = function (event, entity) {
+	var onEntityAdded = function (entity) {
 		
 		if (entity.hasComponents(CTile)) {
 			addTile(entity);
@@ -492,7 +492,7 @@ var GameWorld = function () {
 		
 	}
 
-	var onEntityRemoved = function (event, entity) {
+	var onEntityRemoved = function (entity) {
 		
 		if (entity.hasComponents(CTile)) {
 			removeTile(entity);

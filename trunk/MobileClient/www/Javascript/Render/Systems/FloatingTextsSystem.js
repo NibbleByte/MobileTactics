@@ -29,7 +29,7 @@ var FloatingTextsSystem = function (m_renderer) {
 	}
 
 
-	var onFloatTextTile = function (event, tile, text, params) {
+	var onFloatTextTile = function (tile, text, params) {
 
 		text = text.toString().replace(/\n/g, '<br />');
 
@@ -62,7 +62,7 @@ var FloatingTextsSystem = function (m_renderer) {
 
 	}
 
-	var onAnimationAfterFrame = function (event, processedAnimationsData, ticker) {
+	var onAnimationAfterFrame = function (processedAnimationsData, ticker) {
 		for(var i = 0; i < m_textSprites.length; ++i) {
 			var pair = m_textSprites[i];
 
@@ -83,7 +83,7 @@ var FloatingTextsSystem = function (m_renderer) {
 		}
 	}
 
-	var onClearTexts = function (event) {
+	var onClearTexts = function () {
 		for(var i = 0; i < m_textSprites.length; ++i) {
 			var pair = m_textSprites[i];
 			

@@ -26,11 +26,11 @@ var VisibilityFogRenderingSystem = function (m_world) {
 		}
 	}
 	
-	var refreshFog = function (event) {
+	var refreshFog = function () {
 		m_world.iterateAllTiles(applyVisibilityFog);
 	}
 
-	var refreshFogAfter = function (event) {
+	var refreshFogAfter = function () {
 		self._eworld.trigger(RenderEvents.Layers.REFRESH_ALL);
 	}
 }

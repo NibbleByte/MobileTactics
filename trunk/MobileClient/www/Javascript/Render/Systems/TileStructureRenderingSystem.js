@@ -37,7 +37,7 @@ var TileStructureRenderingSystem = function (m_renderer) {
 	//
 	var m_gameState = null;
 
-	var onGameLoading = function (event) {
+	var onGameLoading = function () {
 		m_gameState = self._eworld.extract(GameState);
 	}
 
@@ -80,7 +80,7 @@ var TileStructureRenderingSystem = function (m_renderer) {
 		refreshStructureTile(tile);
 	}
 
-	var onRefreshStructureTile = function (event, tile) {
+	var onRefreshStructureTile = function (tile) {
 		refreshStructureTile(tile);
 	}
 
@@ -116,7 +116,7 @@ var TileStructureRenderingSystem = function (m_renderer) {
 		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.TerrainOverlay);
 	}
 
-	var onAnimationFinished = function (event, params) {
+	var onAnimationFinished = function (params) {
 		if (!TileStructureRenderingSystem.isStructureTile(params.entity))
 			return;
 

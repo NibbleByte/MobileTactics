@@ -56,13 +56,13 @@ var AIController = function (m_executor) {
 	var m_gameState = null;
 	var m_playersData = null;
 
-	var onGameLoading = function (event) {
+	var onGameLoading = function () {
 		m_gameState = self._eworld.extract(GameState);
 		m_playersData = self._eworld.extract(PlayersData);
 	}
 
 
-	var onTurnChanged = function (event) {
+	var onTurnChanged = function () {
 
 		if (m_gameState.currentPlayer != null 
 			&& m_gameState.currentPlayer.isPlaying
@@ -105,7 +105,7 @@ var AIController = function (m_executor) {
 		}
 	}
 
-	var onSimulationFinished = function (event, assignments) {
+	var onSimulationFinished = function (assignments) {
 		m_replayAssignments = assignments;
 		m_replayIndex = 0;
 

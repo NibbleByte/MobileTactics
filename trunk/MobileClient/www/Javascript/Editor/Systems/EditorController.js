@@ -190,7 +190,7 @@ var EditorController = function (m_world, m_renderer) {
 
 	var lastTouchRow = null;
 	var lastTouchColumn = null;
-	var onTileTouched = function (event, hitData) {
+	var onTileTouched = function (hitData) {
 		
 		if (m_currentBrush && (lastTouchRow != hitData.row || lastTouchColumn != hitData.column)) {
 			lastTouchRow = hitData.row;
@@ -242,7 +242,7 @@ var EditorController = function (m_world, m_renderer) {
 		}
 	}
 
-	var onTileTouchedEnd = function (event, hitData) {
+	var onTileTouchedEnd = function (hitData) {
 		lastTouchRow = null;
 		lastTouchColumn = null;
 	}

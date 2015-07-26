@@ -21,7 +21,7 @@ var FightUnitsRenderingSystem = function (m_renderer) {
 	}
 
 	// Clear any previous drawings
-	var onInitializeFight = function (event) {
+	var onInitializeFight = function () {
 		self._entityWorld.trigger(RenderEvents.Layers.REFRESH_LAYER, FightRenderer.LayerTypes.Units);
 	}
 
@@ -74,7 +74,7 @@ var FightUnitsRenderingSystem = function (m_renderer) {
 		self._entityWorld.trigger(RenderEvents.Layers.REFRESH_LAYER, FightRenderer.LayerTypes.Units);
 	}
 
-	var onUnitMoved = function (event, fightUnit) {
+	var onUnitMoved = function (fightUnit) {
 		renderUnit(fightUnit);
 	}
 

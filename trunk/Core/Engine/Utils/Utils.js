@@ -10,19 +10,23 @@ var Utils = {
 	// Check types
 	//
 	isArray: function(object) {
-		return Object.prototype.toString.call(object) === '[object Array]';
+		if (!object)
+			return false;
+
+		// Second condition is for arguments array, as they are special and don't have splice and other methods.
+		return !!object.splice || (object.length !== undefined && !object.substring);
 	},
 
 	isString: function(object) {
-		return Object.prototype.toString.call(object) === '[object String]';
+		return object && !!object.substring;
 	},
 
 	isBoolean: function(object) {
-		return Object.prototype.toString.call(object) === '[object Boolean]';
+		return object === true || object === false;
 	},
 
 	isNumber: function(object) {
-		return Object.prototype.toString.call(object) === '[object Number]';
+		return object && !!object.toFixed;
 	},
 
 	isFunction: function(object) {

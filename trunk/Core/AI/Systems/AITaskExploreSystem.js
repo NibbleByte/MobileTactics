@@ -23,12 +23,12 @@ var AITaskExploreSystem = function (m_world, m_executor) {
 	var m_gameState = null;
 	var m_playersData = null;
 
-	var onGameLoading = function (event) {
+	var onGameLoading = function () {
 		m_gameState = self._eworld.extract(GameState);
 		m_playersData = self._eworld.extract(PlayersData);
 	}
 	
-	var onGatherAssignments = function (event, assignments) {
+	var onGatherAssignments = function (assignments) {
 		var units = m_gameState.currentPlaceables;
 		var enemyStructures = m_gameState.knownStructures[PlayersData.Relation.Enemy];
 		var neutralStructures = m_gameState.knownStructures[PlayersData.Relation.Neutral];

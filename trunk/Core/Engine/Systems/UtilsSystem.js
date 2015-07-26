@@ -17,13 +17,13 @@ var UtilsSystem = function () {
 		self._eworldSB.subscribe(EngineEvents.Utils.INVALIDATE, onInvalidate);
 	}
 
-	var onEntityDestroyed = function (event, entity) {
+	var onEntityDestroyed = function (entity) {
 		// Async invalidate, so the others can deal with the object too.
 		self._eworld.triggerAsync(EngineEvents.Utils.INVALIDATE, entity);
 	}
 
 	// A way to invalidate object using world event. Useful when used with async trigger.
-	var onInvalidate = function (event, obj) {
+	var onInvalidate = function (obj) {
 		var destroyed = obj.destroyed;
 		Utils.invalidate(obj);
 

@@ -41,6 +41,8 @@ var AnimationSystem = function (m_renderer, m_manual) {
 		if (!m_manual && !self.isPaused()) {
 			m_ticker.pause();
 
+			m_dataObjects = [];
+
 			if (AnimationSystem.currentTweenOwner == this)
 				AnimationSystem.currentTweenOwner = null;
 		}
@@ -58,8 +60,12 @@ var AnimationSystem = function (m_renderer, m_manual) {
 	var m_ticker = null;
 
 	var m_processedAnimationsData = [];	// To avoid garbage, re-use the same array.
+
+	var m_dataObjects = [];
 	
 	this.paint = function (ticker) {
+		
+		var nextDataObjectIndex = 0;
 
 		self._eworld.trigger(RenderEvents.Animations.ANIMATION_BEFORE_FRAME);
 	
@@ -81,11 +87,17 @@ var AnimationSystem = function (m_renderer, m_manual) {
 
 
 					animator.next(ticker.lastTicksElapsed);
-					var data = {
-						name: name,
-						animator: animator,
-						entity: entity,
-					};
+
+					if (nextDataObjectIndex >= m_dataObjects.length) {
+						m_dataObjects.push({});
+					}
+
+					var data = m_dataObjects[nextDataObjectIndex];
+					nextDataObjectIndex++;
+
+					data.name = name;
+					data.animator = animator;
+					data.entity = entity;
 
 
 					if (animator.sequenceData.events) {
@@ -146,6 +158,11 @@ var AnimationSystem = function (m_renderer, m_manual) {
 		// Clean processed animators
 		m_processedAnimationsData.clear();
 
+		// Remove un-neded data objects.
+		while(m_dataObjects.length > nextDataObjectIndex && m_dataObjects.length > 0) {
+			m_dataObjects.pop();
+		}
+
 		if (AnimationSystem.currentTweenOwner == null) {
 			AnimationSystem.currentTweenOwner = this;
 		}
@@ -163,7 +180,7 @@ AnimationSystem.currentTweenOwner = null;
 Tweener.loop = function () {
 	var T = Tweener;
 	if (!T.looping) {
-		T._ptime = new Date().getTime();
+		T._ptime = Date.now();
 	}
 	T.looping = true;
 };

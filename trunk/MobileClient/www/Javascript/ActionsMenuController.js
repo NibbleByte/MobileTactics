@@ -112,7 +112,7 @@ var ActionsMenuController = function (actionMenuElement) {
 		)
 	}
 	
-	var onActionsOffered = function (event, goActions) {
+	var onActionsOffered = function (goActions) {
 		m_currentGOActions = goActions;
 		
 		if (shouldHideMenu(m_currentGOActions)) {

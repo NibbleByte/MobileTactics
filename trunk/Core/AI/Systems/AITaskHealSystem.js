@@ -23,12 +23,12 @@ var AITaskHealSystem = function (m_world, m_executor) {
 	var m_gameState = null;
 	var m_playersData = null;
 
-	var onGameLoading = function (event) {
+	var onGameLoading = function () {
 		m_gameState = self._eworld.extract(GameState);
 		m_playersData = self._eworld.extract(PlayersData);
 	}
 	
-	var onGatherAssignments = function (event, assignments) {
+	var onGatherAssignments = function (assignments) {
 
 		for (var i = 0; i < m_gameState.currentPlaceables.length; ++i) {
 			var unit = m_gameState.currentPlaceables[i];

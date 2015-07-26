@@ -24,7 +24,7 @@ var GameStateSystem = function () {
 		self._eworldSB.subscribe(GameplayEvents.Players.PLAYER_STOPPED_PLAYING, onPlayerRemoved);
 	}
 	
-	var onRemovePlaceable = function (event, placeable) {
+	var onRemovePlaceable = function (placeable) {
 		if (placeable.CPlayerData) {
 			
 			if (placeable.CPlayerData.player == m_gameState.currentPlayer) {
@@ -36,7 +36,7 @@ var GameStateSystem = function () {
 		}
 	}
 	
-	var onAppendPlaceable = function (event, placeable) {
+	var onAppendPlaceable = function (placeable) {
 		
 		// currentPlayer can be null, if game is still loading for the first time.
 		if (placeable.CPlayerData && m_gameState.currentPlayer) {
@@ -58,16 +58,16 @@ var GameStateSystem = function () {
 		for(var i = 0; i < placeables.length; ++i) {
 			var placeable = placeables[i];
 			
-			onAppendPlaceable(null, placeable);
+			onAppendPlaceable(placeable);
 		}
 	}
 	
-	var onGameLoading = function (event) {
+	var onGameLoading = function () {
 		m_playersData = self._eworld.extract(PlayersData);
 		m_gameState = self._eworld.extract(GameState);
 	}
 
-	var onGameLoaded = function (event) {
+	var onGameLoaded = function () {
 		if (m_gameState.currentPlayer == null)
 			m_gameState.currentPlayer = m_playersData.getFirstPlayingPlayer();
 		
@@ -80,7 +80,7 @@ var GameStateSystem = function () {
 		}
 	}
 	
-	var onEndTurn = function (event) {
+	var onEndTurn = function () {
 
 		self._eworld.trigger(GameplayEvents.GameState.TURN_CHANGING, m_gameState);
 
@@ -108,7 +108,7 @@ var GameStateSystem = function () {
 		self._eworld.triggerAsync(GameplayEvents.GameState.TURN_CHANGED, m_gameState, false);
 	}
 	
-	var onPlayerRemoved = function (event, player) {
+	var onPlayerRemoved = function (player) {
 		if (player == m_gameState.currentPlayer) {
 			self._eworld.trigger(GameplayEvents.GameState.END_TURN);
 		}

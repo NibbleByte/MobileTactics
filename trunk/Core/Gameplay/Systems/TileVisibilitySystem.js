@@ -27,7 +27,7 @@ var TileVisibilitySystem = function (m_world) {
 		self._eworldSB.subscribe(EngineEvents.World.TILE_ADDED, onTileAdded);
 		self._eworldSB.subscribe(EngineEvents.World.TILE_REMOVED, refreshVisibility);
 		m_world.iterateAllTiles(function(tile){
-			onTileAdded(null, tile);
+			onTileAdded(tile);
 		});
 	}
 
@@ -41,11 +41,11 @@ var TileVisibilitySystem = function (m_world) {
 		}
 	}
 
-	var onGameLoading = function (event) {
+	var onGameLoading = function () {
 		m_gameState = self._eworld.extract(GameState);
 	}
 
-	var onTileAdded = function(event, tile) {
+	var onTileAdded = function(tile) {
 		tile.addComponent(CTileVisibility);
 
 		if (self._eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING])

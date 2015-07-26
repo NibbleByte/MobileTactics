@@ -163,7 +163,7 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 		m_renderer.extentHeight = 0;
 		
 		m_world.iterateAllTiles(function(tile){
-			onTileAdded(null, tile);
+			onTileAdded(tile);
 		});
 		
 		// Plot size
@@ -181,7 +181,7 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 		return sprite;
 	}
 	
-	var onTileAdded = function(event, tile) {
+	var onTileAdded = function(tile) {
 		
 		tile.addComponent(CTileRendering);
 		
@@ -221,7 +221,7 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 			m_renderer.refresh();
 	}
 
-	var onTileChanged = function (event, tile) {
+	var onTileChanged = function (tile) {
 
 		var terrainName = Enums.getName(GameWorldTerrainType, tile.CTileTerrain.type);
 		var spritePath = TileRenderingSystem.TILES_SPRITE_PATH.replace(/{terrainType}/g, terrainName);
@@ -229,7 +229,7 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 		tile.CTileRendering.sprite.loadImg(spritePath);
 	}
 	
-	var onTileRemoving = function(event, tile) {
+	var onTileRemoving = function(tile) {
 		
 		// Resize if needed...
 		m_renderer.extentWidth = 0;
@@ -256,7 +256,7 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 		tile.removeComponent(CTileRendering);
 	}
 	
-	var onGameLoaded = function (event) {
+	var onGameLoaded = function () {
 		// First sort all sprites, so it doesn't matter which is in which layer actually.
 		self._eworld.trigger(RenderEvents.Layers.SORT_DEPTH_ALL);
 

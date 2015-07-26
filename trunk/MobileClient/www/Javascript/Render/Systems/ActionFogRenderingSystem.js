@@ -27,7 +27,7 @@ var ActionFogRenderingSystem = function (m_world) {
 	//
 	// Private
 	//	
-	var onActionsOffered = function (event, goActions) {
+	var onActionsOffered = function (goActions) {
 		
 		hideAll();
 		
@@ -65,14 +65,14 @@ var ActionFogRenderingSystem = function (m_world) {
 		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.ActionFog);
 	}
 	
-	var onActionsCleared = function (event) {
+	var onActionsCleared = function () {
 
 		hideAll();
 		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.Highlights);
 		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.ActionFog);
 	}
 
-	var onCaptureStarted = function (event, tile) {
+	var onCaptureStarted = function (tile) {
 		
 		if (Utils.assert(tile.CTile.placedObjects.length > 0))
 			return;
@@ -83,7 +83,7 @@ var ActionFogRenderingSystem = function (m_world) {
 		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.ActionFog);
 	}
 
-	var onTurnChanging = function (event) {
+	var onTurnChanging = function () {
 
 		var gameState = self._eworld.extract(GameState);
 

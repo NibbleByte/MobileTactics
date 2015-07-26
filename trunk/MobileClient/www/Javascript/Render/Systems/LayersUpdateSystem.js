@@ -110,7 +110,7 @@ var LayersUpdateSystem = function (m_renderer, layerTypes) {
 		m_hasPendingRefreshes = false;
 	}
 
-	var onRefreshLayer = function (event, layer) {
+	var onRefreshLayer = function (layer) {
 		m_pendingRefreshLayers[layer] = true;
 
 		if (!m_hasPendingRefreshes) {
@@ -119,9 +119,9 @@ var LayersUpdateSystem = function (m_renderer, layerTypes) {
 		}
 	}
 
-	var onRefreshAll = function (event) {
+	var onRefreshAll = function () {
 		for(var i = 0; i < m_pendingRefreshLayers.length; ++i)
-			onRefreshLayer(event, i);
+			onRefreshLayer(i);
 	}
 
 
@@ -133,7 +133,7 @@ var LayersUpdateSystem = function (m_renderer, layerTypes) {
 	}
 
 	// depth is a custom field introduced to the sprite instances. Higher depth number is on top of others.
-	var onSortByDepth = function (event, layerOrSprite) {
+	var onSortByDepth = function (layerOrSprite) {
 		if (Utils.assert(layerOrSprite instanceof sjs.Sprite || Enums.isValidValue(layerTypes, layerOrSprite)))
 			return;
 
@@ -145,24 +145,24 @@ var LayersUpdateSystem = function (m_renderer, layerTypes) {
 		}
 	}
 
-	var onSortByDepthAll = function (event) {
+	var onSortByDepthAll = function () {
 		for(var layerName in layerTypes) {
-			onSortByDepth(event, layerTypes[layerName]);
+			onSortByDepth(layerTypes[layerName]);
 		}
 	}
 
-	var onSortByDepthRefresh = function (event, layerOrSprite) {
+	var onSortByDepthRefresh = function (layerOrSprite) {
 		if (Utils.assert(layerOrSprite instanceof sjs.Sprite || Enums.isValidValue(layerTypes, layerOrSprite)))
 			return;
 
 		var layer = (layerOrSprite instanceof sjs.Sprite) ? layerTypes[layerOrSprite.layer.name] : layerOrSprite;
 
-		onSortByDepth(event, layer);
-		onRefreshLayer(event, layer);
+		onSortByDepth(layer);
+		onRefreshLayer(layer);
 	}
 
 
-	var onAnimationAfterFrame = function (event, processedAnimationsData) {
+	var onAnimationAfterFrame = function (processedAnimationsData) {
 		
 		for(var i = 0; i < processedAnimationsData.length; ++i) {
 			m_layersDirty[processedAnimationsData[i].animator.sprite.layer.name] = true;

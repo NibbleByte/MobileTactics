@@ -47,7 +47,7 @@ var FightTilesRenderingSystem = function (m_renderer) {
 		fightUnit.CFightUnitRendering.tileSprite = sprite;
 	}
 
-	var onUnitMoved = function (event, fightUnit) {
+	var onUnitMoved = function (fightUnit) {
 		self._entityWorld.trigger(RenderEvents.Layers.REFRESH_LAYER, FightRenderer.LayerTypes.Tiles);
 	}
 }

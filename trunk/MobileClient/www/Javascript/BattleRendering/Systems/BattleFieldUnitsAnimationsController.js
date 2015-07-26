@@ -55,15 +55,15 @@ var BattleFieldUnitsAnimationsController = function () {
 	}
 
 
-	var onAttack = function (event) {
+	var onAttack = function () {
 		changeUnitsAnimations('Attack');
 	}
 
-	var onDefend = function (event) {
+	var onDefend = function () {
 		changeUnitsAnimations('AttackDefending');
 	}
 
-	var onUnitKilled = function (event, battleUnit) {
+	var onUnitKilled = function (battleUnit) {
 		
 		if (battleUnit.CAnimations) {
 			var animator = battleUnit.CAnimations.animators[BattleFieldUnitsRenderingSystem.MAIN_SPRITE];
@@ -73,7 +73,7 @@ var BattleFieldUnitsAnimationsController = function () {
 	}
 
 
-	var onAnimationFinished = function (event, params) {
+	var onAnimationFinished = function (params) {
 		if (!params.entity.hasComponents(BattleFieldUnitsAnimationsController.REQUIRED_COMPONENTS))
 			return;
 

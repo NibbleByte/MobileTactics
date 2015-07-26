@@ -30,12 +30,12 @@ var TileCapturingSystem = function () {
 	var m_playersData = null;
 	var m_capturingTiles = [];
 
-	var onGameLoading = function (event) {
+	var onGameLoading = function () {
 		m_gameState = self._eworld.extract(GameState);
 		m_playersData = self._eworld.extract(PlayersData);
 	}
 
-	var onGameLoaded = function (event) {
+	var onGameLoaded = function () {
 		m_capturingTiles = [];
 
 		var entities = self._entityFilter.entities;
@@ -47,15 +47,15 @@ var TileCapturingSystem = function () {
 		}
 	}
 
-	var onCaptureStarted = function (event, tile) {
+	var onCaptureStarted = function (tile) {
 		m_capturingTiles.push(tile);
 	}
 
-	var onCaptureStopped = function (event, tile) {
+	var onCaptureStopped = function (tile) {
 		m_capturingTiles.remove(tile);
 	}
 
-	var onTurnChanged = function (event, gameState, hasJustLoaded) {
+	var onTurnChanged = function (gameState, hasJustLoaded) {
 		
 		// Turn has not actually passed, so capture state should remain the same.
 		if (hasJustLoaded)
@@ -101,7 +101,7 @@ var TileCapturingSystem = function () {
 		}
 	}
 
-	var onUnitDestroying = function (event, unit) {
+	var onUnitDestroying = function (unit) {
 		var tile = unit.CTilePlaceable.tile;
 		if (tile.CTileOwner && tile.CTileOwner.beingCapturedBy == unit) {
 
@@ -124,7 +124,7 @@ var TileCapturingSystem = function () {
 		}
 	}
 
-	var onUnitDestroyingUndo = function (event, unit) {
+	var onUnitDestroyingUndo = function (unit) {
 		var tile = unit.CTilePlaceable.tile;
 
 		// Prepare undo data
