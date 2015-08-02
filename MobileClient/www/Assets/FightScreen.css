@@ -42,3 +42,55 @@
 	-o-transform: translateX(-50%);
 	transform: translateX(-50%);
 }
+
+
+
+.fight_health_bar_container 
+{
+	width: 100px;
+	height: 16px;
+}
+
+.fight_health_bar_value
+{
+	display: inline-block;
+	vertical-align: middle;
+	
+	color: rgb(139, 247, 239);
+	font-family: Arial;
+	font-weight: bold;
+	
+	width: 30px;
+	
+	margin: 0px 4px;
+}
+
+.fight_health_bar_background
+{
+	display: inline-block;
+	vertical-align: middle;
+	
+	width: 60px;
+	height: 100%;
+	background-color: #8C0404;
+	border: 1px solid #4E2828;
+	border-radius: 4px;
+}
+
+.fight_health_bar_foreground
+{
+	width: 50%;
+	height: 100%;
+	background-color: #39B339;
+	border-radius: 4px;
+}
+
+.fight_health_bar_right_direction_offset
+{
+	margin-left: 39px;
+}
+
+.fight_health_bar_left_direction_offset
+{
+	margin-left: -32px;
+}

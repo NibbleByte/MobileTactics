@@ -68,14 +68,12 @@ var FightUnitStatsController = function (m_renderer) {
 		if (fightUnit.CFightUnit.state != FightUnitState.ShowingUp)
 			return;
 
-		var x = fightUnit.CSpatial.x;
-
 		var sprite = m_leftSprite;
-		if (self._eworld.blackboard[FightRenderingBlackBoard.Battle.LEFT_FIGHTER] != fightUnit) {
+		if (fightUnit.CFightUnit.direction == FightRenderer.DirectionType.Left) {
 			sprite = m_rightSprite;
 		}
 
-		sprite.position(x, sprite.y);
+		sprite.position(fightUnit.CSpatial.x, sprite.y);
 		sprite.update();
 	}
 }

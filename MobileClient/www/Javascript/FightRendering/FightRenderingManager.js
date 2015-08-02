@@ -108,6 +108,7 @@ var FightRenderingManager = new function () {
 			health: outcome.attackerHealth,
 			damageTaken: outcome.damageToAttacker,
 			healthOutcome: outcome.attackerHealthOutcome,
+			healthMax: outcome.attacker.CStatistics.statistics['MaxHealth'],
 		};
 		var rightStats = {
 			unit: outcome.defender,
@@ -116,6 +117,7 @@ var FightRenderingManager = new function () {
 			health: outcome.defenderHealth,
 			damageTaken: outcome.damageToDefender,
 			healthOutcome: outcome.defenderHealthOutcome,
+			healthMax: outcome.defender.CStatistics.statistics['MaxHealth'],
 		};
 		if (gameState.currentPlayer == defender.CPlayerData.player) {
 			var swp = leftStats;
@@ -252,6 +254,7 @@ var FightRenderingManager = new function () {
 		m_fightWorld.addSystem(new FightUnitsAnimationsController());
 		m_fightWorld.addSystem(new FightPortraitsController(m_renderer));
 		m_fightWorld.addSystem(new FightUnitStatsController(m_renderer));
+		m_fightWorld.addSystem(new FightUnitHealthsController(m_renderer));
 
 		m_fightWorld.getSystem(AnimationSystem).pauseAnimations();
 	}
