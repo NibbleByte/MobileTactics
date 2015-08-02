@@ -4,6 +4,7 @@ var CFightUnit = function CFightUnit() {
 	this.unit = null;
 	this.state = FightUnitState.None;
 	this.direction = null;
+	this.battleStats = null;
 };
 
 ComponentsUtils.registerNonPersistent(CFightUnit);

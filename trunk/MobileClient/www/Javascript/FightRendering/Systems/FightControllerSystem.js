@@ -29,7 +29,7 @@ var FightControllerSystem = function (m_renderer) {
 		self._eworldSB.subscribe(FightRenderingEvents.Animations.FIRE, onFire);
 	}
 
-	var createFightUnit = function (unit, direction, state) {
+	var createFightUnit = function (unit, direction, state, battleStats) {
 		var fightUnit = new ECS.Entity();
 		fightUnit.addComponent(CFightUnit);
 		fightUnit.addComponent(CSpatial);
@@ -37,6 +37,7 @@ var FightControllerSystem = function (m_renderer) {
 		fightUnit.CFightUnit.unit = unit;
 		fightUnit.CFightUnit.direction = direction;
 		fightUnit.CFightUnit.state = state;
+		fightUnit.CFightUnit.battleStats = battleStats;
 		
 		return fightUnit;
 	}
@@ -58,8 +59,11 @@ var FightControllerSystem = function (m_renderer) {
 		var leftUnit = self._eworld.blackboard[FightRenderingBlackBoard.Battle.LEFT_UNIT];
 		var rightUnit = self._eworld.blackboard[FightRenderingBlackBoard.Battle.RIGHT_UNIT];
 
-		m_leftUnit = createFightUnit(leftUnit, FightRenderer.DirectionType.Right, FightUnitState.ShowingUp);
-		m_rightUnit = createFightUnit(rightUnit, FightRenderer.DirectionType.Left, FightUnitState.ShowingUp);
+		var leftStats = self._eworld.blackboard[FightRenderingBlackBoard.Battle.LEFT_STATS];
+		var rightStats = self._eworld.blackboard[FightRenderingBlackBoard.Battle.RIGHT_STATS];
+
+		m_leftUnit = createFightUnit(leftUnit, FightRenderer.DirectionType.Right, FightUnitState.ShowingUp, leftStats);
+		m_rightUnit = createFightUnit(rightUnit, FightRenderer.DirectionType.Left, FightUnitState.ShowingUp, rightStats);
 
 		m_leftUnit.CSpatial.x = -1000;
 		m_leftUnit.CSpatial.y = FightRenderingManager.FightFrame.bottom - FightControllerSystem.BOTTOM_OFFSET;
@@ -146,7 +150,7 @@ var FightControllerSystem = function (m_renderer) {
 	}
 }
 
-FightControllerSystem.BOTTOM_OFFSET = 25;
+FightControllerSystem.BOTTOM_OFFSET = 40;
 
 ECS.EntityManager.registerSystem('FightControllerSystem', FightControllerSystem);
 SystemsUtils.supplySubscriber(FightControllerSystem);

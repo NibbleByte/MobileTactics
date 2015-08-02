@@ -530,6 +530,12 @@
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightUnitStatsController.js">
       <Filter>Javascript\FightRendering\Systems</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightUnitHealthsController.js">
+      <Filter>Javascript\FightRendering\Systems</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Javascript\FightRendering\FightHealthBar.js">
+      <Filter>Javascript\FightRendering</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
