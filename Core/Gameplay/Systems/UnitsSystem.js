@@ -35,10 +35,13 @@ var UnitsSystem = function () {
 		
 		// Check if dead.
 		if (unit.CUnit.health <= 0) {
+
+			self._eworld.trigger(GameplayEvents.Units.DESTROY_UNIT, unit);
+
 			// Don't allow others to receive onChange event if unit is about to be destroyed.
 			// Ensure I'm the first in the event chain.
-			event.stopImmediatePropagation();
-			self._eworld.trigger(GameplayEvents.Units.DESTROY_UNIT, unit);
+			return { stopPropagation: true };
+
 		} else {
 
 			// Undo support (probably was dead).

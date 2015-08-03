@@ -96,11 +96,19 @@ Subscriber._callSubscribers = function (event, data) {
 
 	if (Utils.isArray(data)) {
 		for(var i = 0, len = subscribers.length; i < len; ++i) {
-			subscribers[i].apply(this, data);
+			var result = subscribers[i].apply(this, data);
+
+			if (result && result.stopPropagation) {
+				break;
+			}
 		}
 	} else {
 		for(var i = 0, len = subscribers.length; i < len; ++i) {
-			subscribers[i].call(this, data);
+			var result = subscribers[i].call(this, data);
+
+			if (result && result.stopPropagation) {
+				break;
+			}
 		}
 	}
 }
@@ -109,6 +117,9 @@ Subscriber._callSubscribers = function (event, data) {
 // Subscriber methods
 //
 
+// NOTE: handlers can return result which will be handled by the subscriber.
+//		 Result is an object that can have the following keys:
+//		 stopPropagation (boolean) - should stop propagation of event.
 Subscriber.prototype.subscribe = function(event, handler) {
 	
 	console.assert(event);
