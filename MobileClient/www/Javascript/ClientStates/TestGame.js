@@ -59,6 +59,9 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 				if (i % 7 <= 2 && j % 5 <= 1) {
 					tile.CTileTerrain.type = GameWorldTerrainType.Mountain;
 				}
+				if (i % 5 <= 1 && j % 4 <= 1) {
+					tile.CTileTerrain.type = GameWorldTerrainType.Forest;
+				}
 				if (i >= rows - 2 && rows > 4) {
 					tile.CTileTerrain.type = GameWorldTerrainType.Water;
 				}
@@ -365,9 +368,9 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 				m_clientState.playersData = new PlayersData(m_eworld);
 				m_eworld.store(PlayersData, m_clientState.playersData);
 				m_clientState.playersData.addPlayer('Pl1', Player.Types.Human, Player.Races.Humans, 60);
-				m_clientState.playersData.addPlayer('Pl2', Player.Types.AI, Player.Races.Humans, 120);
-				m_clientState.playersData.addPlayer('Pl3', Player.Types.Human, Player.Races.Humans, 175);
-				m_clientState.playersData.addPlayer('Pl4', Player.Types.Human, Player.Races.Humans, 220);
+				m_clientState.playersData.addPlayer('Pl2', Player.Types.Human, Player.Races.Humans, 120);
+				m_clientState.playersData.addPlayer('Pl3', Player.Types.Human, Player.Races.Developers, 175);
+				m_clientState.playersData.addPlayer('Pl4', Player.Types.Human, Player.Races.Developers, 220);
 	
 				m_clientState.gameState = new GameState();
 				m_eworld.store(GameState, m_clientState.gameState);

@@ -121,9 +121,10 @@ Player.Types = {
 }
 
 Player.Races = {
+	Developers: 0,
 	Humans: 0,
 	Roaches: 0,
-	JunkBots: 0,
+	JunkPeople: 0,
 }
 
 Enums.enumerate(Player.Types);
