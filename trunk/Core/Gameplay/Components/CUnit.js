@@ -1,6 +1,7 @@
 "use strict";
 
 var CUnit = function CUnit() {
+	this.race = -1;
 	this.name = '';
 	this.health = 0;
 

@@ -40,7 +40,7 @@ var UnitRenderingSystem = function (renderer) {
 		var placeableRendering = placeable.CTilePlaceableRendering;
 		
 		var spritePath = UnitRenderingSystem.SPRITES_PATH.replace(/{race}/g, 
-			Enums.getName(Player.Races, placeable.CPlayerData.player.race));
+			Enums.getName(Player.Races, placeable.CUnit.race));
 
 		var resourcePath;
 		var animator = m_renderer.buildAnimator(placeableRendering.skin, placeableRendering.sprite, SpriteAnimations.Units);

@@ -86,7 +86,7 @@ $(function () {
 		defenderPlayer = m_playersData.addPlayer('Pl2', Player.Types.Human, UnitsFactory.resolveDefinitionPathRace($defenderList.val()), 120);
 		genericPlayers[Player.Races.Humans] = m_playersData.addPlayer('GenericHumans', Player.Types.Human, Player.Races.Humans, 45);
 		genericPlayers[Player.Races.Roaches] = m_playersData.addPlayer('GenericRoaches', Player.Types.Human, Player.Races.Roaches, 90);
-		genericPlayers[Player.Races.JunkBots] = m_playersData.addPlayer('GenericJunkBots', Player.Types.Human, Player.Races.JunkBots, 135);
+		genericPlayers[Player.Races.JunkPeople] = m_playersData.addPlayer('GenericJunkPeople', Player.Types.Human, Player.Races.JunkPeople, 135);
 
 		m_gameState = m_eworld.store(GameState, new GameState());
 
