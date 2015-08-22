@@ -77,7 +77,6 @@
     <None Include="..\..\Internal Tools\SpriteTestground\SpriteTestground.html" />
     <None Include="..\..\MobileClient\AssetsRepo\1.0\AssetsScale.js" />
     <None Include="..\..\MobileClient\www\Assets\ActionMenu.css" />
-    <None Include="..\..\MobileClient\www\Assets\BattleScreen.css" />
     <None Include="..\..\MobileClient\www\Assets\DevConsole.css" />
     <None Include="..\..\MobileClient\www\Assets\DevTools.css" />
     <None Include="..\..\MobileClient\www\Assets\Dialogs.css" />
@@ -110,17 +109,6 @@
     <None Include="..\..\MobileClient\www\Javascript\AIController.js" />
     <None Include="..\..\MobileClient\www\Javascript\AIControllerUI.js" />
     <None Include="..\..\MobileClient\www\Javascript\AssetsStaticScaler.js" />
-    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\BattleFieldRenderer.js" />
-    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\BattleRenderingEvents.js" />
-    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\BattleRenderingManager.js" />
-    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\Components\CBattleUnit.js" />
-    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\Components\CBattleUnitRendering.js" />
-    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\Components\CSpatial.js" />
-    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\Systems\BattleFieldBackgroundSystem.js" />
-    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\Systems\BattleFieldControllerSystem.js" />
-    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\Systems\BattleFieldUnitsAnimationsController.js" />
-    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\Systems\BattleFieldUnitsParticleSystem.js" />
-    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\Systems\BattleFieldUnitsRenderingSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\BrowserBackwardCompatibility.js" />
     <None Include="..\..\MobileClient\www\Javascript\ClientEvents.js" />
     <None Include="..\..\MobileClient\www\Javascript\ClientStates\ClientStateManager.js" />
