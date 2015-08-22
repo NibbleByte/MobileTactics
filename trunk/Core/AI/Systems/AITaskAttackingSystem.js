@@ -99,7 +99,9 @@ var AITaskAttackingSystem = function (m_world, m_executor, m_battleSystem) {
 
 
 			// Check if I'm already in a good position to attack.
+			var attackRangeMin = goActions.go.CStatistics.statistics['AttackRangeMin'] || 0;
 			var attackRange = goActions.go.CStatistics.statistics['AttackRange'];
+			
 			var dist = m_world.getDistance(goTile, targetTile);
 			if (canAttack && attackRange == dist) {
 				attackAction.appliedTile = targetTile;
@@ -107,7 +109,7 @@ var AITaskAttackingSystem = function (m_world, m_executor, m_battleSystem) {
 			}
 
 			// Check if can move in attack range directly.
-			var attackTiles = m_world.getTilesInArea(targetTile, attackRange);
+			var attackTiles = m_world.getTilesInArea(targetTile, attackRangeMin, attackRange);
 
 			for(var i = 0; i < attackTiles.length; ++i) {
 				if (!moveAction.availableTiles.contains(attackTiles[i])) {

@@ -295,11 +295,11 @@ var GameWorld = function () {
 
 
 	this.getTilesOnRadius = function (tileCenter, radius) {
-		return self.getTilesInArea(tileCenter, radius, false, true);
+		return self.getTilesInArea(tileCenter, 0, radius, false, true);
 	}
 
 	// Faster than gather.
-	this.getTilesInArea = function (tileCenter, radius, includeStartTile, onEdgeOnly) {
+	this.getTilesInArea = function (tileCenter, radiusMin, radius, includeStartTile, onEdgeOnly) {
 
 		if (radius == 0) {
 			if (onEdgeOnly)
@@ -325,7 +325,7 @@ var GameWorld = function () {
 
 				var dist = self.getDistance(tileCenter, tile);
 
-				if (dist <= radius && !visited.contains(tile)) {
+				if (dist >= radiusMin && dist <= radius && !visited.contains(tile)) {
 					visited.push(tile);
 					open.push(tile);
 
@@ -436,13 +436,14 @@ var GameWorld = function () {
 		self._eworld.trigger(EngineEvents.Placeables.PLACEABLE_MOVED, placeable);
 	};
 	
-	this.getPlaceablesInArea = function (tileCenter, radius, excludePlaceable) {
+	this.getPlaceablesInArea = function (tileCenter, radiusMin, radius, excludePlaceable) {
 		var placeables = [];
 		
 		for(var i = 0; i < m_placeables.length; ++i) {
 			var placeable = m_placeables[i];
-			
-			if (self.getDistance(tileCenter, placeable.CTilePlaceable.tile) <= radius && placeable != excludePlaceable) {
+			var dist = self.getDistance(tileCenter, placeable.CTilePlaceable.tile);
+
+			if (dist >= radiusMin && dist <= radius && placeable != excludePlaceable) {
 				placeables.push(placeable);
 			}
 		}
