@@ -30,7 +30,7 @@ var FightUnitsRenderingSystem = function (m_renderer) {
 		var unitRendering = fightUnit.CFightUnitRendering;
 
 		var spritePath = FightUnitsRenderingSystem.SPRITES_PATH.replace(/{race}/g,
-			Enums.getName(Player.Races, fightUnit.CFightUnit.unit.CPlayerData.player.race));
+			Enums.getName(Player.Races, fightUnit.CFightUnit.unit.CUnit.race));
 
 		var resourcePath;
 		var animator = m_renderer.buildAnimator(unitRendering.skin, unitRendering.sprite, SpriteAnimations.FightUnits);
