@@ -154,7 +154,7 @@ $(function () {
 		}
 
 
-		var outcome = m_battle.predictOutcome(attacker, defender);
+		var outcome = m_battle.predictOutcome(attacker, defender, true);
 
 
 		//
@@ -683,7 +683,7 @@ $(function () {
 			return;
 		}
 
-		var outcome = m_battle.predictOutcome(attacker, defender);
+		var outcome = m_battle.predictOutcome(attacker, defender, true);
 
 		renderBattleOutcome(outcome);
 	}
@@ -749,7 +749,7 @@ $(function () {
 			for (var key in UnitsDefinitions[i]) {
 				var definition = UnitsDefinitions[i][key];
 
-				if (!UnitsUtils.canAttackType(attacker, defenderDefinition.type)) {
+				if (!UnitsUtils.canAttackType(attacker, definition.type)) {
 					continue;
 				}
 				
@@ -765,7 +765,7 @@ $(function () {
 					m_world.place(genericUnit, genericTiles[GameWorldTerrainType.Grass]);
 				}
 
-				var outcome = m_battle.predictOutcome(attacker, genericUnit);
+				var outcome = m_battle.predictOutcome(attacker, genericUnit, true);
 				renderBattleOutcome(outcome);
 
 				genericUnit.destroy();
