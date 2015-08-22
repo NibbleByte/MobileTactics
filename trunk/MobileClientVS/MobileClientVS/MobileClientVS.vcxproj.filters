@@ -323,50 +323,14 @@
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\ControllerRenderingSystem.js">
       <Filter>Javascript\Render\Systems</Filter>
     </None>
-    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\BattleRenderingManager.js">
-      <Filter>Javascript\BattleRendering</Filter>
-    </None>
     <None Include="..\..\MobileClient\www\Javascript\Render\SceneRenderer.js">
       <Filter>Javascript\Render</Filter>
     </None>
     <None Include="..\..\MobileClient\www\Assets\Render\SceneRenderer.css">
       <Filter>Assets\Render</Filter>
     </None>
-    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\BattleFieldRenderer.js">
-      <Filter>Javascript\BattleRendering</Filter>
-    </None>
-    <None Include="..\..\MobileClient\www\Assets\BattleScreen.css">
-      <Filter>Assets</Filter>
-    </None>
-    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\BattleRenderingEvents.js">
-      <Filter>Javascript\BattleRendering</Filter>
-    </None>
-    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\Systems\BattleFieldBackgroundSystem.js">
-      <Filter>Javascript\BattleRendering\Systems</Filter>
-    </None>
-    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\Components\CBattleUnit.js">
-      <Filter>Javascript\BattleRendering\Components</Filter>
-    </None>
-    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\Systems\BattleFieldControllerSystem.js">
-      <Filter>Javascript\BattleRendering\Systems</Filter>
-    </None>
-    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\Components\CSpatial.js">
-      <Filter>Javascript\BattleRendering\Components</Filter>
-    </None>
-    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\Systems\BattleFieldUnitsRenderingSystem.js">
-      <Filter>Javascript\BattleRendering\Systems</Filter>
-    </None>
-    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\Components\CBattleUnitRendering.js">
-      <Filter>Javascript\BattleRendering\Components</Filter>
-    </None>
-    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\Systems\BattleFieldUnitsAnimationsController.js">
-      <Filter>Javascript\BattleRendering\Systems</Filter>
-    </None>
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Particles\GroundExplosion.js">
       <Filter>Assets\Render\SpriteAnimations\Particles</Filter>
-    </None>
-    <None Include="..\..\MobileClient\www\Javascript\BattleRendering\Systems\BattleFieldUnitsParticleSystem.js">
-      <Filter>Javascript\BattleRendering\Systems</Filter>
     </None>
     <None Include="..\..\Core\Gameplay\Actions\ActionCreate.js">
       <Filter>Javascript\Core\Gameplay\Actions</Filter>
@@ -630,15 +594,6 @@
     </Filter>
     <Filter Include="Javascript\Editor\Systems">
       <UniqueIdentifier>{0cd8018d-c387-4562-af53-fd5afb424da9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Javascript\BattleRendering">
-      <UniqueIdentifier>{b8d23214-fe79-48c2-9476-772165c0714f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Javascript\BattleRendering\Systems">
-      <UniqueIdentifier>{65ed4155-2433-464a-b368-5ce12ebff3e4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Javascript\BattleRendering\Components">
-      <UniqueIdentifier>{b41170c7-0586-48d7-b39a-c70b26704736}</UniqueIdentifier>
     </Filter>
     <Filter Include="Assets\Render\SpriteAnimations\Particles">
       <UniqueIdentifier>{9e8eb130-314a-401b-8fb5-f341e9f6146a}</UniqueIdentifier>

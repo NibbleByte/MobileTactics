@@ -45,8 +45,8 @@ var FightUnitStatsController = function (m_renderer) {
 		var leftStats = self._eworld.blackboard[FightRenderingBlackBoard.Battle.LEFT_STATS];
 		var rightStats = self._eworld.blackboard[FightRenderingBlackBoard.Battle.RIGHT_STATS];
 
-		m_$leftStat.text('Strength: ' + leftStats.strength);
-		m_$rightStat.text('Strength: ' + rightStats.strength);
+		m_$leftStat.text('Strength: ' + leftStats.strength.toFixed(1));
+		m_$rightStat.text('Strength: ' + rightStats.strength.toFixed(1));
 
 		m_leftSprite.position(-1000, FightRenderingManager.FightFrame.top + FightUnitStatsController.TOP_OFFSET);
 		m_leftSprite.update();

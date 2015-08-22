@@ -21,7 +21,6 @@
 			<link rel="stylesheet" href="Assets/DevConsole.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/Dialogs.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/Game.css" type="text/css" media="screen">
-			<link rel="stylesheet" href="Assets/BattleScreen.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/FightScreen.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/Editor.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/Main.css" type="text/css" media="screen">
@@ -75,22 +74,6 @@
 					<div class="dialog_buttons">
 						<button id="BtnStoreBuy">Buy</button>
 						<button id="BtnStoreClose">Close</button>
-					</div>
-				</div>
-			</div>
-
-			<div id="BattleScreenContainer">
-				<div id="BattleRenderingStats">0 FPS</div>
-
-				<div id="BattleScreen">
-
-					<div id="BattleFields">
-
-						<div id="BattleFieldLeft" class="battle_field"></div><!-- 
-						HACK: Remove white-space between these 2 divs, so they stay on the same line at 50% width.
-					 --><div id="BattleFieldRight" class="battle_field"></div>
-
-						<div id="BattleFieldSeparator"></div>
 					</div>
 				</div>
 			</div>
@@ -188,7 +171,6 @@
 				<button id="BtnRestart">Res</button>
 				<button id="BtnDebug">Debug</button>
 				<button id="BtnAnimationTool" onclick="$('#AnimationInfoTool').toggle(); $('#ToolbarMore').hide();" >Animation Info</button>
-				<!--button id="BtnBattle" onclick="BattleRenderingManager.visualizeBattle(currentState.eworld, lastCreated, selected.CTile.placedObjects[0]);" >Battle</button-->
 				<button id="BtnFight" onclick="FightRenderingManager.visualizeBattleTest(); $('#ToolbarMore').hide();" >Fight</button>
 
 				<button id="BtnAddress">Address</button>
@@ -421,23 +403,6 @@
 			<script type="text/javascript" src="Javascript/ActionsMenuController.js"></script>
 			<script type="text/javascript" src="Javascript/CommonController.js"></script>
 			<script type="text/javascript" src="Javascript/PlayerController.js"></script>
-
-
-		<!-- Battle Screen -->
-			<!--script type="text/javascript" src="Javascript/BattleRendering/BattleRenderingEvents.js"></script>
-			<script type="text/javascript" src="Javascript/BattleRendering/BattleFieldRenderer.js"></script>
-
-			<script type="text/javascript" src="Javascript/BattleRendering/Components/CBattleUnit.js"></script>
-			<script type="text/javascript" src="Javascript/BattleRendering/Components/CBattleUnitRendering.js"></script>
-			<script type="text/javascript" src="Javascript/BattleRendering/Components/CSpatial.js"></script>
-
-			<script type="text/javascript" src="Javascript/BattleRendering/Systems/BattleFieldControllerSystem.js"></script>
-			<script type="text/javascript" src="Javascript/BattleRendering/Systems/BattleFieldBackgroundSystem.js"></script>
-			<script type="text/javascript" src="Javascript/BattleRendering/Systems/BattleFieldUnitsRenderingSystem.js"></script>
-			<script type="text/javascript" src="Javascript/BattleRendering/Systems/BattleFieldUnitsAnimationsController.js"></script>
-			<script type="text/javascript" src="Javascript/BattleRendering/Systems/BattleFieldUnitsParticleSystem.js"></script>
-
-			<script type="text/javascript" src="Javascript/BattleRendering/BattleRenderingManager.js"></script-->
 
 
 		<!-- Fight Screen -->
