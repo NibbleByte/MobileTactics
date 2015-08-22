@@ -13,11 +13,11 @@ var GameExecutor = function (eworld, world) {
 		
 		// TODO: Remove testing effects.
 		var effect = new Effect();
-		effect.addStatisticModifier('Attack', 20);
+		effect.addStatisticModifier('AttackMultiplier', 20);
 		//placeable.CEffects.effects.push(effect);
 		
 		effect = new Effect();
-		effect.addStatisticModifier('Attack', -30);
+		effect.addStatisticModifier('AttackMultiplier', -30);
 		effect.timeLeft = 2;
 		//placeable.CEffects.effects.push(effect);
 

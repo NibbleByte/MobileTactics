@@ -59,6 +59,7 @@
     <None Include="..\..\Core\Gameplay\GameState.js" />
     <None Include="..\..\Core\Gameplay\PlaceableFactory\UnitFactory.js" />
     <None Include="..\..\Core\Gameplay\PlaceableFactory\UnitsDefinitions.js" />
+    <None Include="..\..\Core\Gameplay\PlaceableFactory\UnitsUtils.js" />
     <None Include="..\..\Core\Gameplay\Store.js" />
     <None Include="..\..\Core\Gameplay\PlayersData.js" />
     <None Include="..\..\Core\Gameplay\Systems\BattleSystem.js" />

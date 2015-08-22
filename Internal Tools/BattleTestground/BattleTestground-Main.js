@@ -28,9 +28,28 @@ $(function () {
 		});
 	}
 
+
+
+	var appendStat = function (val) {
+		if (val > 0)
+			return ' + ' + val;
+		if (val == 0)
+			return '';
+		if (val < 0) {
+			return ' - ' + Math.abs(val);
+		}
+	};
+
+	var pretify = function (str, className) {
+		return (str) ? '<span class="' + className + '">' + str + '</span>' : '';
+	}
+
 	
 	var attacker = null;
 	var defender = null;
+
+	var attackerDefinition = null;
+	var defenderDefinition = null;
 
 	var attackerTiles = [];
 	var defenderTiles = [];
@@ -55,8 +74,11 @@ $(function () {
 
 		rebuildGameData();
 
-		attacker = UnitsFactory.createUnit(UnitsFactory.resolveDefinitionPath($attackerList.val()), attackerPlayer);
-		defender = UnitsFactory.createUnit(UnitsFactory.resolveDefinitionPath($defenderList.val()), defenderPlayer);
+		attackerDefinition = UnitsFactory.resolveDefinitionPath($attackerList.val());
+		defenderDefinition = UnitsFactory.resolveDefinitionPath($defenderList.val());
+
+		attacker = UnitsFactory.createUnit(attackerDefinition, attackerPlayer);
+		defender = UnitsFactory.createUnit(defenderDefinition, defenderPlayer);
 		storeValue($attackerList);
 		storeValue($defenderList);
 		
@@ -119,9 +141,18 @@ $(function () {
 	}
 
 	var predictOutcome = function () {
+		
+		setActionsError();
+
 		if (attacker.CUnit.health == 0 || defender.CUnit.health == 0) {
 			return;
 		}
+
+		if (!UnitsUtils.canAttackType(attacker, defenderDefinition.type)) {
+			setActionsError('Attacker can\'t attack defender\'s type.');
+			return;
+		}
+
 
 		var outcome = m_battle.predictOutcome(attacker, defender);
 
@@ -185,6 +216,8 @@ $(function () {
 				stats[statName][0] = attacker.CStatistics.baseStatistics[statName];
 			}
 		}
+		stats['Attack'][0] = UnitsUtils.getAttackBase(attacker, defenderDefinition.type);
+
 
 		for (var statName in defender.CStatistics.baseStatistics) {
 			if ($cbShowDetails.is(':checked') || stats[statName]) {
@@ -192,32 +225,27 @@ $(function () {
 				stats[statName][1] = defender.CStatistics.baseStatistics[statName];
 			}
 		}
+		stats['Attack'][1] = UnitsUtils.getAttackBase(defender, attackerDefinition.type);
+
 
 		//
 		// Some default parameters
 		//
 		$('<tr> ' +
-				'<td>' + UnitsFactory.resolveDefinitionPath($attackerList.val()).price + '</td>' +
+				'<td>' + attackerDefinition.price + '</td>' +
 				'<td>' + 'Price' + '</td>' +
-				'<td>' + UnitsFactory.resolveDefinitionPath($defenderList.val()).price + '</td>' +
+				'<td>' + defenderDefinition.price + '</td>' +
 			'</tr>'
 		).appendTo($unitStatisticsTableBody);
 
+		$('<tr> ' +
+				'<td>' + pretify(Enums.getName(UnitType, attackerDefinition.type), 'stat_unit_type_' + attackerDefinition.type) + '</td>' +
+				'<td>' + 'Type' + '</td>' +
+				'<td>' + pretify(Enums.getName(UnitType, defenderDefinition.type), 'stat_unit_type_' + defenderDefinition.type) + '</td>' +
+			'</tr>'
+		).appendTo($unitStatisticsTableBody);
 
-
-		var appendStat = function (val) {
-			if (val > 0)
-				return ' + ' + val;
-			if (val == 0)
-				return '';
-			if (val < 0) {
-				return ' - ' + Math.abs(val);
-			}
-		};
-
-		var pretify = function (str, className) {
-			return (str) ? '<span class="' + className + '">' + str + '</span>' : '';
-		}
+		
 
 		var aTerrain = attacker.CStatistics.terrainStats[attackerTile.CTileTerrain.type];
 		var dTerrain = defender.CStatistics.terrainStats[defenderTile.CTileTerrain.type];
@@ -243,6 +271,10 @@ $(function () {
 				// Not only number, show sum
 				if (vals[0].indexOf(' ') != -1) vals[0] += ' = ' + aval;
 				if (vals[1].indexOf(' ') != -1) vals[1] += ' = ' + dval;
+
+				// HACK: If unit can't attack, for pretty code, recognize if the string has undefined.
+				if (vals[0].indexOf('undefined') != -1) vals[0] = '-';
+				if (vals[1].indexOf('undefined') != -1) vals[1] = '-';
 			}
 			if (statName == 'Defence') {
 				aval += aTerrain.Defence + attackerModDefence;
@@ -286,8 +318,8 @@ $(function () {
 		// Modify statistics
 		// NOTE: Rendering base statistics, so modifier can be applied to real statistics.
 		//		 If effects are added, will have to be drawn separately ' + 3'.
-		attacker.CStatistics.statistics['Attack'] = attacker.CStatistics.baseStatistics['Attack'] + attackerModAttack;
-		defender.CStatistics.statistics['Attack'] = defender.CStatistics.baseStatistics['Attack'] + defenderModAttack;
+		attacker.CStatistics.statistics[UnitTypeStatNames[defenderDefinition.type]] = UnitsUtils.getAttackBase(attacker, defenderDefinition.type) + attackerModAttack;
+		defender.CStatistics.statistics[UnitTypeStatNames[attackerDefinition.type]] = UnitsUtils.getAttackBase(defender, attackerDefinition.type) + defenderModAttack;
 		attacker.CStatistics.statistics['Defence'] = attacker.CStatistics.baseStatistics['Defence'] + attackerModDefence;
 		defender.CStatistics.statistics['Defence'] = defender.CStatistics.baseStatistics['Defence'] + defenderModDefence;
 
@@ -540,7 +572,7 @@ $(function () {
 		restoreData.defenderTerrain = Enums.getName(GameWorldTerrainType, outcome.defenderTile.CTileTerrain.type);
 
 		$('<td />')
-		.text(outcome.attacker.CStatistics.statistics['Attack'])
+		.text(UnitsUtils.getAttack(outcome.attacker, defenderDefinition.type))
 		.appendTo($tr);
 		restoreData.attackerModAttack = $attackerModAttack.val();
 		restoreData.attackerModDefence = $attackerModDefence.val();
@@ -646,6 +678,11 @@ $(function () {
 			return;
 		}
 
+		if (!UnitsUtils.canAttackType(attacker, defenderDefinition.type)) {
+			alert('Attacker can\'t attack defender\'s type.');
+			return;
+		}
+
 		var outcome = m_battle.predictOutcome(attacker, defender);
 
 		renderBattleOutcome(outcome);
@@ -654,6 +691,11 @@ $(function () {
 	var onFight = function (event) {
 		if (attacker.CUnit.health == 0 || defender.CUnit.health == 0) {
 			alert('Both unit must have some health.');
+			return;
+		}
+
+		if (!UnitsUtils.canAttackType(attacker, defenderDefinition.type)) {
+			alert('Attacker can\'t attack defender\'s type.');
 			return;
 		}
 
@@ -671,6 +713,11 @@ $(function () {
 	var onFightBack = function (event) {
 		if (attacker.CUnit.health == 0 || defender.CUnit.health == 0) {
 			alert('Both unit must have some health.');
+			return;
+		}
+
+		if (!UnitsUtils.canAttackType(attacker, defenderDefinition.type)) {
+			alert('Defender can\'t attack attackers\'s type.');
 			return;
 		}
 
@@ -692,10 +739,19 @@ $(function () {
 		}
 
 		for (var i = 0; i < UnitsDefinitions.length; ++i) {
+			
+			// Don't show races that are not interesting (developers race).
+			if (!genericPlayers[i])
+				continue;
+
 			renderSeparator(Enums.getName(Player.Races, i));
 
 			for (var key in UnitsDefinitions[i]) {
 				var definition = UnitsDefinitions[i][key];
+
+				if (!UnitsUtils.canAttackType(attacker, defenderDefinition.type)) {
+					continue;
+				}
 				
 				var genericUnit = UnitsFactory.createUnit(definition, genericPlayers[i]);
 				genericUnit.CUnit.health = defender.CUnit.health;
@@ -725,6 +781,17 @@ $(function () {
 		$battleOutcomeTableBody.empty();
 	}
 
+	var setActionsError = function (message) {
+		if (message) {
+			$battleActionsPanel.hide();
+			$battleActionsError.show();	
+			
+			$battleActionsError.text(message);
+		} else {
+			$battleActionsPanel.show();
+			$battleActionsError.hide();
+		}
+	}
 
 	//
 	// Initialize
@@ -846,6 +913,9 @@ $(function () {
 	var $battleOutcomeTableBody = $('#BattleOutcomeTable > tbody');
 
 	var $cbShowDetails = $('#CbShowDetails');
+
+	var $battleActionsPanel = $('#BattleActionsPanel');
+	var $battleActionsError = $('#BattleActionsError');
 
 
 	//

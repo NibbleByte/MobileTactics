@@ -11,6 +11,13 @@ var CUnit = function CUnit() {
 	this.postDeserialize();
 };
 
+CUnit.prototype.getDefinition = function () {
+	return UnitsDefinitions[this.race][this.name];
+}
+CUnit.prototype.getType = function () {
+	return UnitsDefinitions[this.race][this.name].type;
+}
+
 CUnit.prototype.postDeserialize = function () {
 	this.actionsData = new ActionsData();
 }
