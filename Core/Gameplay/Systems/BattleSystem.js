@@ -20,6 +20,7 @@ var BattleSystem = function (m_world) {
 		// Attacker parameters
 		var aTile = opt_attackerTile || attacker.CTilePlaceable.tile;
 		var aTerrainMod = attacker.CStatistics.terrainStats[aTile.CTileTerrain.type].Attack || 0;
+		var aRangeMin = attacker.CStatistics.statistics['AttackRangeMin'] || 0;
 		var aRange = attacker.CStatistics.statistics['AttackRange'];
 		var aHealthMod = attacker.CUnit.health / attacker.CStatistics.statistics['MaxHealth'];
 		var aFirePower = attacker.CStatistics.statistics['FirePower'];
@@ -31,6 +32,7 @@ var BattleSystem = function (m_world) {
 		// Defender parameters
 		var dTile = opt_defenderTile || defender.CTilePlaceable.tile;
 		var dTerrainMod = defender.CStatistics.terrainStats[dTile.CTileTerrain.type].Defence || 0;
+		var dRangeMin = defender.CStatistics.statistics['AttackRangeMin'];
 		var dRange = defender.CStatistics.statistics['AttackRange'];
 		var dHealthMod = defender.CUnit.health / defender.CStatistics.statistics['MaxHealth'];
 		var dFirePower = defender.CStatistics.statistics['FirePower'];
@@ -39,6 +41,7 @@ var BattleSystem = function (m_world) {
 
 		// Common
 		var distance = m_world.getDistance(aTile, dTile);
+		var canDefenderFightBack = UnitsUtils.canAttackType(defender, attacker);
 
 
 		// Battle!
@@ -49,10 +52,16 @@ var BattleSystem = function (m_world) {
 
 		// Check if actually in range.
 		if (!opt_ignoreRanges) {
-			if (aRange < distance) dInflictedDamage = 0;
-			if (dRange < distance) aInflictedDamage = 0;
-		}
 
+			if (Utils.assert(aRangeMin <= distance && distance <= aRange)) return null;
+
+			if (distance < dRangeMin || dRange < distance) canDefenderFightBack = false;
+		}
+		
+		if (!canDefenderFightBack)
+			aInflictedDamage = 0;
+
+		
 		dInflictedDamage = Math.round(dInflictedDamage);
 		aInflictedDamage = Math.round(aInflictedDamage);
 
@@ -81,6 +90,8 @@ var BattleSystem = function (m_world) {
 
 			attackerHealthOutcome: Math.max(0, attacker.CUnit.health - aInflictedDamage),
 			defenderHealthOutcome: Math.max(0, defender.CUnit.health - dInflictedDamage),
+
+			defenderFightsBack: canDefenderFightBack,
 		};
 	}
 

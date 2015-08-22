@@ -287,6 +287,7 @@ UnitsDefinitions[Player.Races.Humans] = {
 			AttackHeavy: 10,
 			AttackAerial: 7,
 			AttackRange: 6,
+			AttackRangeMin: 2,
 			HealRate: 1,
 			Defence: 2,
 			Movement: 4,
