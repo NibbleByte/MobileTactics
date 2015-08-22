@@ -11,6 +11,8 @@ var FightControllerSystem = function (m_renderer) {
 	
 	var m_leftUnit = null;
 	var m_rightUnit = null;
+	var m_isLeftAttacker = false;
+	var m_defenderFightsBack = true;
 
 	var m_timeouts = {
 		showUp: null,
@@ -62,6 +64,10 @@ var FightControllerSystem = function (m_renderer) {
 		var leftStats = self._eworld.blackboard[FightRenderingBlackBoard.Battle.LEFT_STATS];
 		var rightStats = self._eworld.blackboard[FightRenderingBlackBoard.Battle.RIGHT_STATS];
 
+		// Recognize who has to attack first.
+		m_isLeftAttacker = leftStats.isAttacker;
+		m_defenderFightsBack = (m_isLeftAttacker) ? rightStats.canFire : leftStats.canFire
+
 		m_leftUnit = createFightUnit(leftUnit, FightRenderer.DirectionType.Right, FightUnitState.ShowingUp, leftStats);
 		m_rightUnit = createFightUnit(rightUnit, FightRenderer.DirectionType.Left, FightUnitState.ShowingUp, rightStats);
 
@@ -107,9 +113,17 @@ var FightControllerSystem = function (m_renderer) {
 
 		self._eworld.trigger(FightRenderingEvents.Fight.SHOW_UP_FINISH);
 
-		m_timeouts.attackLeft = setTimeout(function () { onAttack(m_leftUnit); }, 500);
-		m_timeouts.attackRight = setTimeout(function () { onAttack(m_rightUnit); }, 2000);
-		m_timeouts.attackFinish = setTimeout(onAttackFinish, 3500);
+
+		if (m_defenderFightsBack) {
+			m_timeouts.attackLeft = setTimeout(function () { onAttack( (m_isLeftAttacker) ? m_leftUnit : m_rightUnit); }, 500);
+			m_timeouts.attackRight = setTimeout(function () { onAttack((m_isLeftAttacker) ? m_rightUnit : m_leftUnit); }, 2000);
+			m_timeouts.attackFinish = setTimeout(onAttackFinish, 3500);
+		} else {
+			m_timeouts.attackLeft = setTimeout(function () { onAttack( (m_isLeftAttacker) ? m_leftUnit : m_rightUnit); }, 500);
+			m_timeouts.attackRight = null;
+			m_timeouts.attackFinish = setTimeout(onAttackFinish, 2000);
+
+		}
 	}
 
 	var onAttack = function (unit) {

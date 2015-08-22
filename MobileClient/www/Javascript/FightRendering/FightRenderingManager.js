@@ -62,12 +62,13 @@ var FightRenderingManager = new function () {
 		}
 
 		if (!rightUnit) {
-			rightUnit = gameState.currentPlaceables.find(function (placeable) {
+			rightUnit = gameState.relationPlaceables[PlayersData.Relation.Enemy].find(function (placeable) {
 				return placeable.CUnit.name == 'TeslaTrooper';
 			});
 		}
 
-		FightRenderingManager.visualizeBattle(eworld, leftUnit, rightUnit, true);
+		if (UnitsUtils.canAttackType(leftUnit, rightUnit))
+			FightRenderingManager.visualizeBattle(eworld, leftUnit, rightUnit, true);
 	}
 
 	//
@@ -112,6 +113,8 @@ var FightRenderingManager = new function () {
 			damageTaken: outcome.damageToAttacker,
 			healthOutcome: outcome.attackerHealthOutcome,
 			healthMax: outcome.attacker.CStatistics.statistics['MaxHealth'],
+			isAttacker: true,
+			canFire: true,	// Attacker can always fire.
 		};
 		var rightStats = {
 			unit: outcome.defender,
@@ -121,6 +124,8 @@ var FightRenderingManager = new function () {
 			damageTaken: outcome.damageToDefender,
 			healthOutcome: outcome.defenderHealthOutcome,
 			healthMax: outcome.defender.CStatistics.statistics['MaxHealth'],
+			isAttacker: false,
+			canFire: outcome.defenderFightsBack,
 		};
 		if (gameState.currentPlayer == defender.CPlayerData.player) {
 			var swp = leftStats;
