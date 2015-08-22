@@ -36,6 +36,8 @@ var FightRenderingManager = new function () {
 
 	var m_currentFight = null;
 
+	var m_ignoreRangesLast = false;
+
 	var subscriber = new DOMSubscriber();
 
 	var shotLayers = [
@@ -65,13 +67,13 @@ var FightRenderingManager = new function () {
 			});
 		}
 
-		FightRenderingManager.visualizeBattle(eworld, leftUnit, rightUnit);
+		FightRenderingManager.visualizeBattle(eworld, leftUnit, rightUnit, true);
 	}
 
 	//
 	// Visualize battle
 	//
-	this.visualizeBattle = function (eworld, attacker, defender) {
+	this.visualizeBattle = function (eworld, attacker, defender, ignoreRanges) {
 		// Order is important. Make shot before hiding the world.
 		var renderer = eworld.extract(GameWorldRenderer);
 
@@ -99,7 +101,8 @@ var FightRenderingManager = new function () {
 
 
 		// Choose screen sides
-		var outcome = battleSystem.predictOutcome(attacker, defender);
+		var outcome = battleSystem.predictOutcome(attacker, defender, ignoreRanges);
+		m_ignoreRangesLast = ignoreRanges;
 
 		var leftStats = {
 			unit: outcome.attacker,
@@ -182,7 +185,7 @@ var FightRenderingManager = new function () {
 
 		// Some time to redraw.
 		setTimeout(function () {
-			self.visualizeBattle(currentFight.eworld, currentFight.attacker, currentFight.defender);
+			self.visualizeBattle(currentFight.eworld, currentFight.attacker, currentFight.defender, m_ignoreRangesLast);
 		}, 100);
 	}
 

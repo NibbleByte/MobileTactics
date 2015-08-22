@@ -12,7 +12,7 @@ var BattleSystem = function (m_world) {
 	}
 
 	// Can also predict if attacker/defender were placed on a specific tiles.
-	this.predictOutcome = function (attacker, defender, opt_attackerTile, opt_defenderTile) {
+	this.predictOutcome = function (attacker, defender, opt_ignoreRanges, opt_attackerTile, opt_defenderTile) {
 
 		if (Utils.assert(UnitsUtils.canAttackType(attacker, defender))) return null;
 		if (Utils.assert(!!defender.CStatistics.statistics['Defence'])) return null;
@@ -48,8 +48,10 @@ var BattleSystem = function (m_world) {
 		var aInflictedDamage = (aStrength >= dStrength) ? dFirePower / strengthRatio : dFirePower * strengthRatio;
 
 		// Check if actually in range.
-		if (aRange < distance) dInflictedDamage = 0;
-		if (dRange < distance) aInflictedDamage = 0;
+		if (!opt_ignoreRanges) {
+			if (aRange < distance) dInflictedDamage = 0;
+			if (dRange < distance) aInflictedDamage = 0;
+		}
 
 		dInflictedDamage = Math.round(dInflictedDamage);
 		aInflictedDamage = Math.round(aInflictedDamage);
