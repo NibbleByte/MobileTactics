@@ -64,6 +64,16 @@
 				color: red;
 			}
 			
+			#BattleActionsError
+			{
+				font-size: larger;
+				font-family: monospace;
+				background-color: #F1A9A0;
+				border-radius: 6px;
+				color: #313131;
+				border: 2px solid #A06463;
+			}
+			
 			/* * * * * * * * * * * *
 			 * Statistics
 			 */
@@ -114,6 +124,22 @@
 				background: rgb(72, 131, 86) !important;
 			}
 			
+			
+			/* Unit type value, check with the enum. */
+			.stat_unit_type_0
+			{
+				color: #C9DAF8;
+			}
+			
+			.stat_unit_type_1
+			{
+				color: #DD7E6B;
+			}
+			
+			.stat_unit_type_2
+			{
+				color: #F1C232;
+			}
 			
 			
 			.stat_terrain_value
@@ -332,12 +358,14 @@
 
 				</table>
 
-				<input id="BtnPredict" type="button" value="Predict" />
-				<input id="BtnFight" type="button" value="Fight" />
-				<input id="BtnFightBack" type="button" value="Fight Back" />
-				<input id="BtnPredictAll" type="button" value="Predict All" />
-
-				<br />
+				<div id="BattleActionsPanel">
+					<input id="BtnPredict" type="button" value="Predict" />
+					<input id="BtnFight" type="button" value="Fight" />
+					<input id="BtnFightBack" type="button" value="Fight Back" />
+					<input id="BtnPredictAll" type="button" value="Predict All" />
+				</div>
+				<div id="BattleActionsError" style="display: none;">
+				</div>
 
 				<input id="BtnSeparator" type="button" value="Separator" />
 				<input id="BtnClear" type="button" value="Clear" />
@@ -486,6 +514,7 @@
 			<script type="text/javascript" src="../_Core/Gameplay/Actions/ActionHeal.js"></script>
 
 			<script type="text/javascript" src="../_Core/Gameplay/PlaceableFactory/UnitsDefinitions.js"></script>
+			<script type="text/javascript" src="../_Core/Gameplay/PlaceableFactory/UnitsUtils.js"></script>
 			<script type="text/javascript" src="../_Core/Gameplay/PlaceableFactory/UnitFactory.js"></script>
 			
 		<!-- ==========	Mobile Client ====================== -->

@@ -536,6 +536,9 @@
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\FightHealthBar.js">
       <Filter>Javascript\FightRendering</Filter>
     </None>
+    <None Include="..\..\Core\Gameplay\PlaceableFactory\UnitsUtils.js">
+      <Filter>Javascript\Core\Gameplay\PlaceableFactory</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

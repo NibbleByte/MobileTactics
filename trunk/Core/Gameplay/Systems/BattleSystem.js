@@ -14,8 +14,8 @@ var BattleSystem = function (m_world) {
 	// Can also predict if attacker/defender were placed on a specific tiles.
 	this.predictOutcome = function (attacker, defender, opt_attackerTile, opt_defenderTile) {
 
-		if (Utils.assert(!!attacker.CStatistics.statistics['Attack'])) return;
-		if (Utils.assert(!!defender.CStatistics.statistics['Defence'])) return;
+		if (Utils.assert(UnitsUtils.canAttackType(attacker, defender))) return null;
+		if (Utils.assert(!!defender.CStatistics.statistics['Defence'])) return null;
 
 		// Attacker parameters
 		var aTile = opt_attackerTile || attacker.CTilePlaceable.tile;
@@ -23,7 +23,9 @@ var BattleSystem = function (m_world) {
 		var aRange = attacker.CStatistics.statistics['AttackRange'];
 		var aHealthMod = attacker.CUnit.health / attacker.CStatistics.statistics['MaxHealth'];
 		var aFirePower = attacker.CStatistics.statistics['FirePower'];
-		var aStrength = (attacker.CStatistics.statistics['Attack'] + aTerrainMod) * aHealthMod;
+		var aAttack = UnitsUtils.getAttack(attacker, defender);
+		aAttack = (aAttack + aTerrainMod) * attacker.CStatistics.statistics['AttackMultiplier'];
+		var aStrength = aAttack* aHealthMod;
 
 
 		// Defender parameters
@@ -31,7 +33,7 @@ var BattleSystem = function (m_world) {
 		var dTerrainMod = defender.CStatistics.terrainStats[dTile.CTileTerrain.type].Defence || 0;
 		var dRange = defender.CStatistics.statistics['AttackRange'];
 		var dHealthMod = defender.CUnit.health / defender.CStatistics.statistics['MaxHealth'];
-		var dFirePower = defender.CStatistics.statistics['FirePower']
+		var dFirePower = defender.CStatistics.statistics['FirePower'];
 		var dStrength = (defender.CStatistics.statistics['Defence'] + dTerrainMod) * dHealthMod;
 
 

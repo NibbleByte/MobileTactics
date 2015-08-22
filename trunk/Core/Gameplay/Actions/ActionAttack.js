@@ -20,8 +20,11 @@ Actions.Classes.ActionAttack = new function () {
 		
 		var availableTiles = [];
 		for(var i = 0; i < placeables.length; ++i) {
-			if (playersData.getRelation(placeables[i].CPlayerData.player, player) == PlayersData.Relation.Enemy	&&
-				placeables[i].CTilePlaceable.tile.CTileVisibility.visible
+			var target = placeables[i];
+
+			if (playersData.getRelation(target.CPlayerData.player, player) == PlayersData.Relation.Enemy &&
+				target.CTilePlaceable.tile.CTileVisibility.visible &&
+				UnitsUtils.canAttackType(placeable, target)
 			)
 				availableTiles.push(placeables[i].CTilePlaceable.tile);
 		}

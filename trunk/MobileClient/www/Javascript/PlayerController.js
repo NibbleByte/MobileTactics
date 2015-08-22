@@ -7,6 +7,7 @@
 // DEBUG: global Access
 var executor;
 var selected;
+var selectedUnit;
 
 var PlayerController = function (m_executor) {
 	var self = this;
@@ -65,6 +66,7 @@ var PlayerController = function (m_executor) {
 
 		// DEBUG: global access
 		selected = m_selectedTile;
+		selectedUnit = (m_selectedTile && m_selectedTile.CTile.placedObjects.length > 0) ? m_selectedTile.CTile.placedObjects[0] : null;
 	};
 	
 	var selectTile = function (tile) {
@@ -158,6 +160,7 @@ var PlayerController = function (m_executor) {
 		clearActions();
 		m_selectedTile = null;
 		selected = null;
+		selectedUnit = null;
 	}
 	
 	var clearActions = function() {
