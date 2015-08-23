@@ -13,6 +13,9 @@ Actions.Classes.ActionAttack = new function () {
 		if (this.hasExecutedAction(placeable, this))
 			return;
 
+		if (!this.canExecuteAction(placeable))
+			return;
+
 		var tile = placeable.CTilePlaceable.tile;
 
 		var attackRangeMin = placeable.CStatistics.statistics['AttackRangeMin'] || 0;
@@ -72,5 +75,13 @@ Actions.Classes.ActionAttack = new function () {
 
 	this.hasExecutedAction = function (placeable) {
 		return placeable && placeable.CUnit.actionsData.hasExecutedAction(placeable.CUnit.turnPoints, this);
+	}
+
+	this.canExecuteAction = function (placeable) {
+		if (!placeable)
+			return false;
+
+		var hasMoved = placeable.CUnit.actionsData.hasExecutedAction(placeable.CUnit.turnPoints, Actions.Classes.ActionMove)
+		return !hasMoved || (hasMoved && !placeable.CUnit.getDefinition().disableMoveAttack);
 	}
 };

@@ -282,6 +282,8 @@ UnitsDefinitions[Player.Races.Humans] = {
 		price: 600,
 		type: UnitType.Heavy,
 
+		disableMoveAttack: true,
+
 		baseStatistics: {
 			AttackLight: 7,
 			AttackHeavy: 10,
