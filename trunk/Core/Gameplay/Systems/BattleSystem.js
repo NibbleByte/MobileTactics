@@ -39,36 +39,49 @@ var BattleSystem = function (m_world) {
 		var dStrength = (defender.CStatistics.statistics['Defence'] + dTerrainMod) * dHealthMod;
 
 
+
 		// Common
 		var distance = m_world.getDistance(aTile, dTile);
+
+		// Check if actually can fight back.
 		var canDefenderFightBack = UnitsUtils.canAttackType(defender, attacker);
-
-
-		// Battle!
-		var strengthRatio = Math.max(aStrength, dStrength) / Math.min(aStrength, dStrength);
-
-		var dInflictedDamage = (aStrength >= dStrength) ? aFirePower * strengthRatio : aFirePower / strengthRatio;
-		var aInflictedDamage = (aStrength >= dStrength) ? dFirePower / strengthRatio : dFirePower * strengthRatio;
-
-		// Check if actually in range.
 		if (!opt_ignoreRanges) {
 
 			if (Utils.assert(aRangeMin <= distance && distance <= aRange)) return null;
 
 			if (distance < dRangeMin || dRange < distance) canDefenderFightBack = false;
 		}
-		
-		if (!canDefenderFightBack)
-			aInflictedDamage = 0;
 
-		
+
+		// Battle!
+		var strengthRatio = Math.max(aStrength, dStrength) / Math.min(aStrength, dStrength);
+
+		var dInflictedDamage = (aStrength >= dStrength) ? aFirePower * strengthRatio : aFirePower / strengthRatio;
+		//var aInflictedDamage = (aStrength >= dStrength) ? dFirePower / strengthRatio : dFirePower * strengthRatio;
+
 		dInflictedDamage = Math.round(dInflictedDamage);
-		aInflictedDamage = Math.round(aInflictedDamage);
 
-		// If defender dies, attacker is considered lucky.
-		if (defender.CUnit.health - dInflictedDamage <= 0 && attacker.CUnit.health - aInflictedDamage <= 0) {
-			aInflictedDamage = attacker.CUnit.health - 1;
+		//
+		// Fight Back - Secondary
+		// Defender fights back with strength equal to the new health.
+		// Recalculate strengths and inflicted damage.
+		//
+		if (defender.CUnit.health > dInflictedDamage && canDefenderFightBack) {
+
+			var dHealthMod = (defender.CUnit.health - dInflictedDamage) / defender.CStatistics.statistics['MaxHealth'];
+			var dStrengthSecondary = (defender.CStatistics.statistics['Defence'] + dTerrainMod) * dHealthMod;
+
+			var strengthRatioSecondary = Math.max(aStrength, dStrengthSecondary) / Math.min(aStrength, dStrengthSecondary);
+
+			var aInflictedDamage = (aStrength >= dStrengthSecondary) ? dFirePower / strengthRatioSecondary : dFirePower * strengthRatioSecondary;
+
+			aInflictedDamage = Math.round(aInflictedDamage);
+		} else {
+			var dStrengthSecondary = 0;
+			var strengthRatioSecondary = 0;
+			var aInflictedDamage = 0;
 		}
+
 
 		return {
 			attacker: attacker,
@@ -82,8 +95,10 @@ var BattleSystem = function (m_world) {
 
 			attackerStrength: aStrength,
 			defenderStrength: dStrength,
+			defenderStrengthSecondary: dStrengthSecondary,
 
 			strengthRatio: strengthRatio,
+			strengthRatioSecondary: strengthRatioSecondary,
 
 			damageToAttacker: aInflictedDamage,
 			damageToDefender: dInflictedDamage,

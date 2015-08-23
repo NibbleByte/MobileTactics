@@ -195,6 +195,7 @@ $(function () {
 
 		$defenderStrengthPredicted.val(outcome.defenderStrength);
 		$lbDefenderStrengthPredicted.text(outcome.defenderStrength.toPrecision(2));
+		$lbDefenderStrengthSecondaryPredicted.text(outcome.defenderStrengthSecondary.toPrecision(2));
 
 		$lbStrengthPredictedRatio.text(outcome.strengthRatio.toPrecision(2));
 	}
@@ -904,6 +905,7 @@ $(function () {
 	var $defenderStrengthPredicted = $('#DefenderStrengthPredicted');
 	var $lbAttackerStrengthPredicted = $('#AttackerStrengthPredictedLabel');
 	var $lbDefenderStrengthPredicted = $('#DefenderStrengthPredictedLabel');
+	var $lbDefenderStrengthSecondaryPredicted = $('#DefenderStrengthSecondaryPredictedLabel');
 	var $lbStrengthPredictedRatio = $('#StrengthPredictedRatio');
 
 	var $unitStatisticsTableBody = $('#UnitStatistics > tbody');
