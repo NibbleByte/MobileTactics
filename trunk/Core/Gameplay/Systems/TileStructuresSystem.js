@@ -34,10 +34,6 @@ var TileStructuresSystem = function () {
 		m_gameState = self._eworld.extract(GameState);
 		m_playersData = self._eworld.extract(PlayersData);
 
-		//
-		// Bases
-		//
-		m_gameState.bases = [];
 		var entities = self._entityFilter.entities;
 		for(var i = 0; i < entities.length; ++i) {
 			onTileAdded(entities[i]);
@@ -58,6 +54,7 @@ var TileStructuresSystem = function () {
 
 			if (tile.CTileOwner.owner == player) {
 				m_gameState.currentStructures.push(tile);
+				m_gameState.currentStructuresTypes[tile.CTileTerrain.type].push(tile);
 			}
 
 			var relation = PlayersData.Relation.Neutral;
@@ -77,8 +74,8 @@ var TileStructuresSystem = function () {
 			return;
 
 		// Populate known structures.
-		for (var i = 0; i < m_gameState.structures.length; ++i) {
-			var tile = m_gameState.structures[i];
+		for (var i = 0; i < m_gameState.ownerableStructures.length; ++i) {
+			var tile = m_gameState.ownerableStructures[i];
 
 			// Apply visibility to knowledge.
 			if (tile.CTileVisibility.visible) {
@@ -102,11 +99,10 @@ var TileStructuresSystem = function () {
 		//
 		// Common
 		//
-		m_gameState.structures.push(tile);
+		m_gameState.ownerableStructures.push(tile);
 
-		if (TileStructuresSystem.isBaseTile(tile)) {
-			m_gameState.bases.push(tile);
-		}
+		// Populate empty arrays for each structure met.
+		m_gameState.currentStructuresTypes[tile.CTileTerrain.type] = m_gameState.currentStructuresTypes[tile.CTileTerrain.type] || [];
 
 
 		//
@@ -117,6 +113,7 @@ var TileStructuresSystem = function () {
 
 		if (tile.CTileOwner.owner == m_gameState.currentPlayer) {
 			m_gameState.currentStructures.push(tile);
+			m_gameState.currentStructuresTypes[tile.CTileTerrain.type].push(tile);
 		}
 
 		var relation = PlayersData.Relation.Neutral;
@@ -133,12 +130,7 @@ var TileStructuresSystem = function () {
 		//
 		// Common
 		//
-		m_gameState.structures.remove(tile);
-
-		if (TileStructuresSystem.isBaseTile(tile)) {
-			m_gameState.bases.remove(tile);
-		}
-
+		m_gameState.ownerableStructures.remove(tile);
 
 		//
 		// Relations
@@ -148,6 +140,7 @@ var TileStructuresSystem = function () {
 
 		// Remove from game state.
 		m_gameState.currentStructures.remove(tile);
+		m_gameState.currentStructuresTypes[tile.CTileTerrain.type].remove(tile);
 
 		for (var i = 0; i < m_gameState.relationStructures.length; ++i) {
 			m_gameState.relationStructures[i].remove(tile);
@@ -157,8 +150,22 @@ var TileStructuresSystem = function () {
 
 
 TileStructuresSystem.REQUIRED_COMPONENTS = [CTileTerrain, CTileOwner];
-TileStructuresSystem.isBaseTile = function (entity) {
-	return entity.hasComponents(TileStructuresSystem.REQUIRED_COMPONENTS) && entity.CTileTerrain.type == GameWorldTerrainType.Base;
+TileStructuresSystem.isStructureTile = function (entity) {
+	var terrain = entity.CTileTerrain;
+
+	return terrain && (
+		terrain.type == GameWorldTerrainType.Base ||
+		terrain.type == GameWorldTerrainType.HQ ||
+		terrain.type == GameWorldTerrainType.City ||
+		terrain.type == GameWorldTerrainType.Factory ||
+		terrain.type == GameWorldTerrainType.Harbour ||
+		terrain.type == GameWorldTerrainType.Medical ||
+		terrain.type == GameWorldTerrainType.WatchTower
+	);
+}
+
+TileStructuresSystem.isOwnerableStructure = function (entity) {
+	return TileStructuresSystem.isStructureTile(entity) && entity.hasComponents(TileStructuresSystem.REQUIRED_COMPONENTS);
 }
 
 

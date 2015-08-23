@@ -24,10 +24,10 @@ GameState.prototype.init = function () {
 	this.visiblePlaceables[PlayersData.Relation.Neutral] = [];
 	this.visiblePlaceables[PlayersData.Relation.Ally] = [];
 
-	this.bases = [];
-	this.structures = [];
+	this.ownerableStructures = [];
 
 	this.currentStructures = [];
+	this.currentStructuresTypes = {};	// Holds current structures by tile type.
 	this.relationStructures = [];
 	this.relationStructures[PlayersData.Relation.Enemy] = [];
 	this.relationStructures[PlayersData.Relation.Neutral] = [];
@@ -55,6 +55,10 @@ GameState.prototype.clearPlaceables = function () {
 
 GameState.prototype.clearStructures = function () {
 	this.currentStructures.clear();
+	
+	for(var type in this.currentStructuresTypes) {
+		this.currentStructuresTypes[type].clear();
+	}
 	
 	for(var i = 0; i < this.relationStructures.length; ++i) {
 		this.relationStructures[i].clear();

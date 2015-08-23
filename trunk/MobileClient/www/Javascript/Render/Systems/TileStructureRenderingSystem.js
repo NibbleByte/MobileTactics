@@ -101,7 +101,8 @@ var TileStructureRenderingSystem = function (m_renderer) {
 			var animations = tile.addComponentSafe(CAnimations);
 
 			animations.add(TileStructureRenderingSystem.OVERLAY_SPRITE_ANIMATOR, animator);
-			animator.playSequence('Idle0');
+
+			IdleAnimationsSystem.playRandomIdleAnimation(animator);
 		}
 	}
 	
@@ -128,13 +129,9 @@ var TileStructureRenderingSystem = function (m_renderer) {
 TileStructureRenderingSystem.TILES_OVERLAY_SPRITE_PATH = 'Assets-Scaled/Render/Images/TileOverlays/{terrainType}.png';
 TileStructureRenderingSystem.OVERLAY_SPRITE_ANIMATOR = 'OverlayAnimator';
 TileStructureRenderingSystem.isStructureTile = function (entity) {
-	return entity.CTileRendering && entity.CTileRendering.sprite && entity.CTileTerrain && (
-		entity.CTileTerrain.type == GameWorldTerrainType.Base ||
-		entity.CTileTerrain.type == GameWorldTerrainType.Harbour ||
-		entity.CTileTerrain.type == GameWorldTerrainType.Medical ||
-		entity.CTileTerrain.type == GameWorldTerrainType.WatchTower
-	)
-	;
+	return entity.CTileRendering &&
+	entity.CTileRendering.sprite && 
+	TileStructuresSystem.isStructureTile(entity);
 }
 
 ECS.EntityManager.registerSystem('TileStructureRenderingSystem', TileStructureRenderingSystem);

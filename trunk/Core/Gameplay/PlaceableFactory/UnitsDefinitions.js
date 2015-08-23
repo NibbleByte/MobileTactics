@@ -55,6 +55,9 @@ UnitsDefinitions[Player.Races.Developers] = {
 			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: 0, Defence: 1};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.City] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: 0};
 		},
 	}, 
@@ -88,6 +91,9 @@ UnitsDefinitions[Player.Races.Developers] = {
 			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: 0, Defence: -1};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.City] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: 0};
 		},
 	},
@@ -123,6 +129,9 @@ UnitsDefinitions[Player.Races.Developers] = {
 			this[GameWorldTerrainType.Mountain] =	{ Cost: 2, Attack: 1, Defence: 1};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.City] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.Harbour] =	{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.WatchTower] = { Cost: 1, Attack: 0, Defence: 0};
@@ -165,6 +174,9 @@ UnitsDefinitions[Player.Races.Humans] = {
 			this[GameWorldTerrainType.Mountain] =	{ Cost: 3, Attack: 2, Defence: 3};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 1, Defence: 2};
+			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 1, Defence: 2};
+			this[GameWorldTerrainType.City] =		{ Cost: 1, Attack: 1, Defence: 1};
+			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 1, Defence: 1};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 1, Defence: 0};
 		},
 	},
@@ -201,6 +213,9 @@ UnitsDefinitions[Player.Races.Humans] = {
 			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: -1, Defence: -1};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.City] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: -1};
 		},
 	},
@@ -236,6 +251,9 @@ UnitsDefinitions[Player.Races.Humans] = {
 			this[GameWorldTerrainType.Water] =		{ Cost: 2, Attack: -1, Defence: -2};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.City] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: 1};
 		},
 	},
@@ -272,6 +290,9 @@ UnitsDefinitions[Player.Races.Humans] = {
 			this[GameWorldTerrainType.Water] =		{ Cost: 1, Attack: 0, Defence: 0};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.City] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: 0};
 		},
 	},
@@ -309,6 +330,9 @@ UnitsDefinitions[Player.Races.Humans] = {
 			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: -2, Defence: -1};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.City] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: 0};
 		},
 	},
@@ -350,6 +374,9 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 			this[GameWorldTerrainType.Mountain] =	{ Cost: 3, Attack: 1, Defence: 2};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 1, Defence: 2};
+			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 1, Defence: 2};
+			this[GameWorldTerrainType.City] =		{ Cost: 1, Attack: 1, Defence: 2};
+			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 1, Defence: 2};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 1, Defence: 0};
 		},
 	},
@@ -386,6 +413,9 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 			this[GameWorldTerrainType.Mountain] =	{ Cost: 2, Attack: 1, Defence: 0};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.City] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: -1};
 		},
 	},
@@ -419,6 +449,9 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: -1, Defence: -2};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.City] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: -1};
 		},
 	},
@@ -454,6 +487,9 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 			this[GameWorldTerrainType.Mountain] =	{ Cost: 2, Attack: 1, Defence: 1};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.City] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: -1};
 		},
 	},
@@ -488,6 +524,9 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: -2, Defence: -1};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.City] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: 0};
 		},
 	},
