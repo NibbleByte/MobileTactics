@@ -92,6 +92,7 @@ var TileCapturingSystem = function () {
 
 					// Set up game state structures
 					m_gameState.currentStructures.push(tile);
+					m_gameState.currentStructuresTypes[tile.CTileTerrain.type].push(tile);
 					m_gameState.relationStructures[PlayersData.Relation.Ally].push(tile);
 
 					// Notify

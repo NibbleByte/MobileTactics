@@ -83,10 +83,55 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 						basesCount++;
 					}
 				}
-			
+				
+
+				//
+				// Add basic structures
+				//
+
+				// Player 0
+				if (i == 3 && j == 2) {
+					tile.addComponentSafe(CTileOwner);
+					tile.CTileTerrain.type = GameWorldTerrainType.HQ;
+					tile.CTileOwner.owner = playersData.players[0];
+				}
+				
+				if (i == 4 && j == 3) {
+					tile.addComponentSafe(CTileOwner);
+					tile.CTileTerrain.type = GameWorldTerrainType.Factory;
+					tile.CTileOwner.owner = playersData.players[0];
+				}
+
+				if (i == 1 && j == 2) {
+					tile.addComponentSafe(CTileOwner);
+					tile.CTileTerrain.type = GameWorldTerrainType.Factory;
+					tile.CTileOwner.owner = playersData.players[0];
+				}
+
+				// Player 1
+				if (i == 3 && j == 10) {
+					tile.addComponentSafe(CTileOwner);
+					tile.CTileTerrain.type = GameWorldTerrainType.HQ;
+					tile.CTileOwner.owner = playersData.players[1];
+				}
+				
+				if (i == 5 && j == 10) {
+					tile.addComponentSafe(CTileOwner);
+					tile.CTileTerrain.type = GameWorldTerrainType.Factory;
+					tile.CTileOwner.owner = playersData.players[1];
+				}
+
+				if (i == 1 && j == 8) {
+					tile.addComponentSafe(CTileOwner);
+					tile.CTileTerrain.type = GameWorldTerrainType.Factory;
+					tile.CTileOwner.owner = playersData.players[1];
+				}
+
+
 				eworld.addUnmanagedEntity(tile);
 			}
 		}
+
 
 		//
 		// Add some testing units.

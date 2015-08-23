@@ -503,6 +503,15 @@
     <None Include="..\..\Core\Gameplay\PlaceableFactory\UnitsUtils.js">
       <Filter>Javascript\Core\Gameplay\PlaceableFactory</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\World\City.js">
+      <Filter>Assets\Render\SpriteAnimations\World</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\World\Factory.js">
+      <Filter>Assets\Render\SpriteAnimations\World</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\World\HQ.js">
+      <Filter>Assets\Render\SpriteAnimations\World</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
