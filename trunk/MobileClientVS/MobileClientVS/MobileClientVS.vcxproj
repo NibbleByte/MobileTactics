@@ -69,6 +69,7 @@
     <None Include="..\..\Core\Gameplay\Systems\TileStructuresSystem.js" />
     <None Include="..\..\Core\Gameplay\Systems\TileVisibilitySystem.js" />
     <None Include="..\..\Core\Gameplay\Systems\UnitsSystem.js" />
+    <None Include="..\..\Core\Gameplay\Systems\ResourcesSystem.js" />
     <None Include="..\..\Core\Gameplay\TerrainType.js" />
     <None Include="..\..\Internal Tools\BattleTestground\BattleTestground-Main.js" />
     <None Include="..\..\Internal Tools\BattleTestground\BattleTestground.html" />

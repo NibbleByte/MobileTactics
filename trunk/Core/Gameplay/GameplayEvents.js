@@ -40,6 +40,10 @@ var GameplayEvents = {
 			HEAL: 				"gameplay.actions.heal",				// event, unit, amount
 		},
 
+		Resources: {
+			CREDITS_CHANGED: 	"gameplay.resources.credits_changed",	// event, player, value, delta
+		},
+
 		Store: {
 			PLACEABLE_BOUGHT:	"gameplay.store.placeable_bought",		// event, placeable
 		},

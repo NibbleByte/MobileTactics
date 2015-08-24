@@ -512,6 +512,9 @@
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\World\HQ.js">
       <Filter>Assets\Render\SpriteAnimations\World</Filter>
     </None>
+    <None Include="..\..\Core\Gameplay\Systems\ResourcesSystem.js">
+      <Filter>Javascript\Core\Gameplay\Systems</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
