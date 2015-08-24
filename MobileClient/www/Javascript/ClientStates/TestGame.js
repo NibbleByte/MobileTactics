@@ -267,6 +267,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		m_eworld.addSystem(m_eworld.store(BattleSystem, new BattleSystem(world)));
 		m_eworld.addSystem(new UnitsSystem());
 		m_eworld.addSystem(new GameStateSystem());
+		m_eworld.addSystem(new ResourcesSystem());
 		m_eworld.addSystem(new TileStructuresSystem());	// Before TileVisibilitySystem, because structures also define visibility
 		m_eworld.addSystem(new TileCapturingSystem());	// After TileStructuresSystem
 		m_eworld.addSystem(new TileVisibilitySystem(world));
@@ -293,7 +294,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		m_eworld.addSystem(new TileRenderingSystem(worldRenderer, true, true, true));
 		m_eworld.addSystem(new UnitRenderingSystem(worldRenderer));
 		m_eworld.addSystem(new TileStructureRenderingSystem(worldRenderer));
-		m_eworld.addSystem(new ControllerRenderingSystem(worldRenderer));
+		m_eworld.addSystem(new ControllerRenderingSystem(worldRenderer, $('#LbCredits')));
 		m_eworld.addSystem(new AnimationSystem(worldRenderer));
 		m_eworld.addSystem(new AnimationSystemScrollOptimizer(worldRenderer, m_eworld.getSystem(AnimationSystem)));
 		m_eworld.addSystem(new LayersUpdateSystem(worldRenderer, WorldLayers.LayerTypes));
