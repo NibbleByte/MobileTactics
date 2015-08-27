@@ -179,6 +179,16 @@ button:active, .input_file_wrapper:active {
 	top:1px;
 }
 
+button[disabled], .input_file_wrapper[disabled] 
+{
+	-moz-box-shadow:inset 0px 1px 3px 0px #B3B3B3;
+	-webkit-box-shadow:inset 0px 1px 3px 0px #B3B3B3;
+	box-shadow:inset 0px 1px 3px 0px #B3B3B3;
+	
+	color: #C1C1C1;
+	background: gray;
+}
+
 .input_file_wrapper {
 	padding-left: 0px;
 	padding-right: 0px;

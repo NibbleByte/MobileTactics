@@ -1,12 +1,42 @@
 #StoreContainer
 {
-	width: 200px;
-	height: 124px;
+	margin-top: 40px;
 }
 
 #SelStoreList
 {
 	margin: 8px 0px;
+}
+
+#StoreList td,
+#StoreList th
+{
+	text-align:right;
+	vertical-align: baseline;
+	padding: 2px;
+}
+
+#StoreList td + td,
+#StoreList th + th
+{
+	text-align:left;
+}
+
+#LbCredits
+{
+	border: 4px ridge #FFDB1A;
+	border-radius: 6px;
+	background-color: #083B40;
+	color: #E2D747;
+	padding: 4px;
+	
+	display: inline-block;
+	min-width: 40px;
+	text-align: right;
+	
+	position: absolute;
+	bottom: 50px;
+	right: 4px;
 }
 
 .game_scene_plot

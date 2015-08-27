@@ -17,6 +17,8 @@ var ResourcesSystem = function () {
 	this.initialize = function () {
 		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADING, onGameLoading);
 		self._eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, onTurnChanged);
+
+		self._eworldSB.subscribe(GameplayEvents.Resources.ADD_CREDITS, onAddCredits);
 	}
 	
 	var onGameLoading = function () {
@@ -54,6 +56,18 @@ var ResourcesSystem = function () {
 		self._eworld.trigger(GameplayEvents.Resources.CREDITS_CHANGED, m_gameState.currentCredits, delta);
 	}
 
+	var onAddCredits = function (player, value) {
+		
+		if (value == 0)
+			return;
+
+		m_gameState.credits[player.playerId] += value;
+		
+		if (m_gameState.currentPlayer == player) {
+			m_gameState.currentCredits += value;
+			self._eworld.trigger(GameplayEvents.Resources.CREDITS_CHANGED, m_gameState.currentCredits, value);
+		}
+	}
 };
 
 ECS.EntityManager.registerSystem('ResourcesSystem', ResourcesSystem);
