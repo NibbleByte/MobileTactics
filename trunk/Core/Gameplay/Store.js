@@ -8,7 +8,7 @@ var Store = new function () {
 
 	var self = this;
 
-	this.canPlayerShop = function (eworld, tile) {
+	this.canPlayerShop = function (eworld, tile, opt_player) {
 
 		// Currently only base tiles sell placeables.
 		if (tile.CTileTerrain.type != GameWorldTerrainType.Base)
@@ -17,9 +17,12 @@ var Store = new function () {
 		if (tile.CTile.placedObjects.length > 0)
 			return false;
 
-		var gameState = eworld.extract(GameState);
+		if (!opt_player) {
+			var gameState = eworld.extract(GameState);
+			opt_player = gameState.currentPlayer;
+		}
 
-		if (gameState.currentPlayer != tile.CTileOwner.owner)
+		if (opt_player != tile.CTileOwner.owner)
 			return false;
 
 		return true;
@@ -34,12 +37,12 @@ var Store = new function () {
 
 		var gameState = eworld.extract(GameState);
 		var player = tile.CTileOwner.owner;
-		var raceDefinitions = UnitsDefinitions[player.race];
 
 		// Base not owned, cannot buy.
 		if (!player)
 			return list;
 		
+		var raceDefinitions = UnitsDefinitions[player.race];
 		
 		// TODO: use the gameState to check if there are excluded units for this map/game.
 		for(var name in raceDefinitions) {
@@ -57,7 +60,11 @@ var Store = new function () {
 		if (!self.canPlayerShop(storeItem.eworld, storeItem.tile))
 			return false;
 
-		// TODO: Do check if player have enough money and other prerequisites
+		var gameState = storeItem.eworld.extract(GameState);
+
+		if (gameState.credits[storeItem.player.playerId] < storeItem.price) {
+			return false;
+		}
 
 		return true;
 	}

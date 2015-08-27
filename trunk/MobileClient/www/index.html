@@ -68,11 +68,16 @@
 				<div id="StoreContainer" class="dialog dialog_container_floating">
 					<div class="dialog_title">Unit Store</div>
 					
-					<select id="SelStoreList">
-					</select>
+					<table id="StoreList" class="dialog_body">
+						<tbody>
+							<tr>
+								<td>Unit</td>
+								<td>Price</td>
+							</tr>
+						</tbody>
+					</table>
 					
 					<div class="dialog_buttons">
-						<button id="BtnStoreBuy">Buy</button>
 						<button id="BtnStoreClose">Close</button>
 					</div>
 				</div>
@@ -187,9 +192,10 @@
 					<button id="BtnLoad">Load</button>
 					<button id="BtnPlayer">Player</button>
 					<button id="BtnRemoveTile">Rem</button>
-					<span id="LbCredits">0</button>
 				</div>
 			</div>
+
+			<span id="LbCredits">0</button>
 
 			<div id="AIToolbarContainer" class="toolbar_bottom_container">
 				<div id="AIToolbar" class="toolbar_bottom">

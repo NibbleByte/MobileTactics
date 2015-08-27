@@ -8,7 +8,8 @@ var StoreRender = new function () {
 	var self = this;
 	
 	var m_$container = $('#Store');
-	var m_$list = $('#SelStoreList');
+	var m_$table = $('#StoreList > tbody');
+	var m_$btnBuy = $('#BtnStoreBuy');
 	var m_items = null;
 
 	var subscriber = new DOMSubscriber();
@@ -19,14 +20,29 @@ var StoreRender = new function () {
 		if (m_items && m_items.length > 0) {
 			m_$container.show();
 
-			m_$list.empty();
+			m_$table.empty();
+
+			// Headers
+			var $tr = $('<tr>').appendTo(m_$table);
+
+			$('<th>').appendTo($tr).text('Unit');
+			$('<th>').appendTo($tr).text('Price');
+
 
 			for(var i = 0; i < m_items.length; ++i) {
-				$('<option></option>')
-				.attr("value", i)
+				var item = m_items[i];
+				
+				var $tr = $('<tr>').appendTo(m_$table);
+
+				var $btnBuy = $('<button>')
+				.attr('itemIndex', i)
 				.attr('disabled', !Store.canBuyItem(m_items[i]))
-				.text(m_items[i].name)
-				.appendTo(m_$list);
+				.click(buyItem)
+				.text('Buy');
+
+				$('<td>').appendTo($tr).text(item.name);
+				$('<td>').appendTo($tr).text(item.price);
+				$('<td>').appendTo($tr).append($btnBuy);
 			}
 
 		} else {
@@ -39,7 +55,7 @@ var StoreRender = new function () {
 	}
 
 	var buyItem = function (event) {
-		var item = m_items[m_$list.val()];
+		var item = m_items[$(event.target).attr('itemIndex')];
 
 		if (Utils.assert(item)) {
 			self.hide();
@@ -47,9 +63,11 @@ var StoreRender = new function () {
 		}
 
 		// Yes, this can happen, if the browser doesn't support "disabled" property (yes, IE7).
-		if (Store.canBuyItem(item)) {
-			Utils.assert(Store.buyItem(item), 'Could not buy item: ' + item.name);
+		if (Utils.assert(Store.canBuyItem(item), 'Could not buy item: ' + item.name)) {
+			return;
 		}
+		
+		Store.buyItem(item);
 
 		self.hide();
 	}
@@ -57,5 +75,4 @@ var StoreRender = new function () {
 	// Initialize
 	this.hide();
 	subscriber.subscribe($('#BtnStoreClose'), 'click', this.hide);
-	subscriber.subscribe($('#BtnStoreBuy'), 'click', buyItem);
 };

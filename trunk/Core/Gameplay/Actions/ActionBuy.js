@@ -12,7 +12,8 @@ Actions.Classes.ActionBuy = new function () {
 		
 		var placeable = action.placeable;
 
-		// TODO: Take players money. Take storeItem from action.undoData. Don't forget to undo it too.
+		var storeItem = action.undoData;
+		eworld.trigger(GameplayEvents.Resources.ADD_CREDITS, storeItem.player, -storeItem.price);
 
 		placeable.CUnit.turnPoints = 0;
 		placeable.CUnit.finishedTurn = true;
@@ -23,5 +24,8 @@ Actions.Classes.ActionBuy = new function () {
 
 	this.undoAction = function (eworld, world, action) {
 		eworld.removeManagedEntity(action.placeable);
+
+		var storeItem = action.undoData;
+		eworld.trigger(GameplayEvents.Resources.ADD_CREDITS, storeItem.player, storeItem.price);
 	}
 };
