@@ -212,7 +212,7 @@ var Animator = function (animData, sprite, scene) {
 			for(var i = 0; i < cycle.triplets.length; ++i) {
 				var triplet = cycle.triplets[i];
 				if (self.sprite.imgNaturalWidth < triplet[0] + m_frameWidth || self.sprite.imgNaturalHeight < triplet[1] + m_frameHeight)
-					console.warn('The animator of ' + self.resourcePath + ' has a sequence ' + self.sequenceName + ' that is bigger than the sprite!');
+					console.warn('The animator of ' + self.resourcePath + ' has a sequence ' + name + ' that is bigger than the sprite!');
 			}
 
 			// This is no longer true.
@@ -245,7 +245,7 @@ var Animator = function (animData, sprite, scene) {
 
 
 					if (animEvent.frame !== undefined) {
-						var totalFrames = cycle.triplets.length - 1;
+						var totalFrames = cycle.triplets.length;
 						if (animEvent.frame < 0 || animEvent.frame >= totalFrames) {
 							console.warn('Event data scheduled for ' + animEvent.frame + ' frame, but only [0, ' + (totalFrames - 1) + '] allowed for: ' + self.resourcePath + ' on ' + sequence.name + ' - ' + animEvent.event);
 						}
