@@ -5,6 +5,7 @@ SpriteAnimations.Units.PeaceKeeper = {
 	
 	frameWidth: 111,
 	frameHeight: 72,
+	framesPerRow: 4,
 	anchorX: 28,
 	anchorY: 46,
 	
@@ -14,7 +15,6 @@ SpriteAnimations.Units.PeaceKeeper = {
 			startX: 0,
 			startY: 144,
 			startIndex: 1,
-			framesPerRow: 4,
 			frames: 1,
 		},
 		
@@ -23,7 +23,6 @@ SpriteAnimations.Units.PeaceKeeper = {
 			speed: 20,
 			startX: 0,
 			startY: 0,
-			framesPerRow: 4,
 			frames: 7,
 		},
 		
@@ -32,7 +31,6 @@ SpriteAnimations.Units.PeaceKeeper = {
 			speed: 10,
 			startX: 0,
 			startY: 0,
-			framesPerRow: 4,
 			frames: 7,
 			wrapMode: Animator.WrapMode.Loop,
 			duration: 3000,

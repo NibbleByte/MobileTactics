@@ -5,6 +5,7 @@ SpriteAnimations.Units.FlakTrooper = {
 	
 	frameWidth: 95,
 	frameHeight: 72,
+	framesPerRow: 5,
 	anchorX: 46,
 	anchorY: 46,
 	
@@ -22,7 +23,6 @@ SpriteAnimations.Units.FlakTrooper = {
 			speed: 10,
 			startX: 0,
 			startY: 0,
-			framesPerRow: 5,
 			frames: 7,
 		},
 		
@@ -31,7 +31,6 @@ SpriteAnimations.Units.FlakTrooper = {
 			speed: 10,
 			startX: 0,
 			startY: 0,
-			framesPerRow: 5,
 			frames: 7,
 			wrapMode: Animator.WrapMode.Loop,
 			duration: 3000,
