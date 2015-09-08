@@ -24,6 +24,7 @@ var FightUnitWeaponType = {
 	None: 0,
 
 	Pistols: 0,
+	Shotgun: 0,
 	MachineGun: 0,
 	Flamethrower: 0,
 	RocketLauncher: 0,

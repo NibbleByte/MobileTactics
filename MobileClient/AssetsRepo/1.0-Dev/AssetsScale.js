@@ -1,0 +1,10 @@
+//////////////////////////////////////////////////////////////
+// Used to set the current asset deployment scale.
+// This file can be located under each scale (1.0, 2.0, 3.0).
+//
+//////////////////////////////////////////////////////////////
+"use strict";
+
+var Assets = Assets || {};
+
+Assets.scale = 1;

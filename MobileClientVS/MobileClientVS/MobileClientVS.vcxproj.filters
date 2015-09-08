@@ -515,6 +515,18 @@
     <None Include="..\..\Core\Gameplay\Systems\ResourcesSystem.js">
       <Filter>Javascript\Core\Gameplay\Systems</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\FightUnits\PeaceKeeperFight.js">
+      <Filter>Assets\Render\SpriteAnimations\FightUnits</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\FightUnits\FlakTrooperFight.js">
+      <Filter>Assets\Render\SpriteAnimations\FightUnits</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\PeaceKeeper.js">
+      <Filter>Assets\Render\SpriteAnimations\Units</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\FlakTrooper.js">
+      <Filter>Assets\Render\SpriteAnimations\Units</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
