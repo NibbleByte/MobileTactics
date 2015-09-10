@@ -13,8 +13,6 @@ SpriteAnimations.FightUnits.PeaceKeeper = {
 	sequences: [
 		{
 			name: 'Idle',
-			startX: 0,
-			startY: 576,
 			startIndex: 1,
 			frames: 1,
 		},
@@ -23,26 +21,23 @@ SpriteAnimations.FightUnits.PeaceKeeper = {
 		{
 			name: 'Idle0',
 			speed: 20,
-			startX: 0,
-			startY: 576,
+			startIndex: 0,
 			frames: 4,
 		},
 		
 		{
 			name: 'Run',
 			speed: 10,
-			startX: 0,
-			startY: 432,
+			startIndex: 5,
 			frames: 7,
 			wrapMode: Animator.WrapMode.Loop,
 		},
 
 		{
 			name: 'Attack',
-			speed: 8,
+			speed: 11,
 			frameSpeeds: [0, 0, 0, 0, 4, 4, 4, 0],
-			startX: 0,
-			startY: 0,
+			startIndex: 11,
 			frames: 14,
 
 			events: [
@@ -56,6 +51,13 @@ SpriteAnimations.FightUnits.PeaceKeeper = {
 					}
 				},
 			],
+		},
+
+		{
+			name: 'Taunt',
+			speed: 20,
+			startIndex: 25,
+			frames: 7,
 		},
 
 	]

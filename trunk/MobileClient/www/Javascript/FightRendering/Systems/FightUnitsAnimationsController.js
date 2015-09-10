@@ -20,6 +20,7 @@ var FightUnitsAnimationsController = function () {
 
 		self._eworldSB.subscribe(FightRenderingEvents.Fight.ATTACK, onAttack);
 		self._eworldSB.subscribe(FightRenderingEvents.Fight.ATTACK_FINISH, all2Idle);
+		self._eworldSB.subscribe(FightRenderingEvents.Fight.END_TAUNT, onEndTaunt);
 
 		self._eworldSB.subscribe(FightRenderingEvents.Animations.HURT, onHurt);
 		self._eworldSB.subscribe(FightRenderingEvents.Animations.HURT_FINISH, onHurtFinish);
@@ -60,6 +61,15 @@ var FightUnitsAnimationsController = function () {
 			if (!IdleAnimationsSystem.playsIdleAnimation(animator)) {
 				IdleAnimationsSystem.playRandomIdleAnimation(animator);
 			}
+		}
+	}
+
+	var onEndTaunt = function (unit) {
+
+		var animator = unit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_SPRITE];
+
+		if (animator.hasSequence('Taunt')) {
+			animator.playSequence('Taunt');
 		}
 	}
 

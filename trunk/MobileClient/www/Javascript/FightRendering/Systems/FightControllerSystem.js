@@ -19,6 +19,8 @@ var FightControllerSystem = function (m_renderer) {
 		attackLeft: null,
 		attackRight: null,
 		attackFinish: null,
+		endTauntLeft: null,
+		endTauntRight: null,
 	}
 	
 	//
@@ -140,6 +142,12 @@ var FightControllerSystem = function (m_renderer) {
 
 		self._eworld.trigger(FightRenderingEvents.Fight.ATTACK_FINISH);
 
+		m_timeouts.endTauntLeft = setTimeout(function () { onEndTaunt(m_leftUnit); }, 250);
+		m_timeouts.endTauntRight = setTimeout(function () { onEndTaunt(m_rightUnit); }, 750);
+	}
+
+	var onEndTaunt = function (unit) {
+		self._eworld.trigger(FightRenderingEvents.Fight.END_TAUNT, unit);
 	}
 
 	var onFire = function (animData, params) {

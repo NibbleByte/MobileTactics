@@ -12,8 +12,6 @@ SpriteAnimations.Units.PeaceKeeper = {
 	sequences: [
 		{
 			name: 'Idle',
-			startX: 0,
-			startY: 144,
 			startIndex: 1,
 			frames: 1,
 		},
@@ -21,19 +19,15 @@ SpriteAnimations.Units.PeaceKeeper = {
 		{
 			name: 'Idle0',
 			speed: 20,
-			startX: 0,
-			startY: 0,
-			frames: 7,
+			startIndex: 0,
+			frames: 4,
 		},
 		
 		{
 			name: 'Attack',
 			speed: 10,
-			startX: 0,
-			startY: 0,
-			frames: 7,
-			wrapMode: Animator.WrapMode.Loop,
-			duration: 3000,
+			startIndex: 11,
+			frames: 14,
 		},
 		
 	]
