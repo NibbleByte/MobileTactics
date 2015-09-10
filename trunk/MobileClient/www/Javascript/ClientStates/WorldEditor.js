@@ -95,7 +95,7 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 		eworld.addSystem(new AnimationSystem(worldRenderer));
 		eworld.addSystem(new AnimationSystemScrollOptimizer(worldRenderer, m_clientState.eworld.getSystem(AnimationSystem)));
 		eworld.addSystem(new LayersUpdateSystem(worldRenderer, WorldLayers.LayerTypes));
-		eworld.addSystem(new CanvasInstancesUpdateSystem());
+		eworld.addSystem(new CanvasInstancesUpdateSystem(worldRenderer, WorldLayers.LayerTypes));
 		eworld.addSystem(new IdleAnimationsSystem(worldRenderer));	// Just for fun
 
 		m_clientState.worldRenderer = worldRenderer;

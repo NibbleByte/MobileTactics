@@ -4,7 +4,7 @@
 //===============================================
 "use strict";
 
-var CanvasInstancesUpdateSystem = function () {
+var CanvasInstancesUpdateSystem = function (m_renderer, layerTypes) {
 	var self = this;
 
 	var REFRESH_PENDING_ANIMATORS = 'CanvasInstancesUpdateSystem.refresh_pending_animators';
@@ -17,6 +17,11 @@ var CanvasInstancesUpdateSystem = function () {
 		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_FINISHED, onAnimationFinished);
 
 		self._eworldSB.subscribe(REFRESH_PENDING_ANIMATORS, refreshPendingAnimators);
+
+		self._eworldSB.subscribe(RenderEvents.Layers.SORT_DEPTH, onSortByDepth);
+		self._eworldSB.subscribe(RenderEvents.Layers.SORT_DEPTH_ALL, onSortByDepthAll);
+		self._eworldSB.subscribe(RenderEvents.Layers.SORT_DEPTH_REFRESH, onSortByDepth);
+
 	}
 	
 	//
@@ -65,6 +70,33 @@ var CanvasInstancesUpdateSystem = function () {
 
 		if (m_pendingAnimators.length == 1) {
 			self._eworld.triggerAsync(REFRESH_PENDING_ANIMATORS, refreshPendingAnimators);
+		}
+	}
+
+
+
+	// depth is a custom field introduced to the sprite instances. Higher depth number is on top of others.
+	var onSortByDepth = function (layerOrSprite) {
+		if (Utils.assert(layerOrSprite instanceof sjs.Sprite || Enums.isValidValue(layerTypes, layerOrSprite)))
+			return;
+
+		var layer = (layerOrSprite instanceof sjs.Sprite) ? layerTypes[layerOrSprite.layer.name] : layerOrSprite;
+
+		if (layer.useCanvas)
+			return;
+
+		var sprites = m_renderer.spriteTracker.layerSprites[Enums.getName(layerTypes, layer)];
+
+		if (sprites) {
+			for(var i = 0; i < sprites.length; ++i) {
+				sprites[i].dom.style.zIndex = sprites[i].depth || 0;
+			}
+		}
+	}
+
+	var onSortByDepthAll = function () {
+		for (var layerName in layerTypes) {
+			onSortByDepth(layerTypes[layerName]);
 		}
 	}
 }

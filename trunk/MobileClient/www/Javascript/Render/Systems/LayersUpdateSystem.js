@@ -139,6 +139,9 @@ var LayersUpdateSystem = function (m_renderer, layerTypes) {
 
 		var layer = (layerOrSprite instanceof sjs.Sprite) ? layerTypes[layerOrSprite.layer.name] : layerOrSprite;
 
+		if (!layer.useCanvas)
+			return;
+
 		var sprites = m_renderer.spriteTracker.layerSprites[Enums.getName(layerTypes, layer)];
 		if (sprites) {
 			sprites.sort(depthSorter);
