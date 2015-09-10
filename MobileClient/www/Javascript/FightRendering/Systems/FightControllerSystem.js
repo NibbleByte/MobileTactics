@@ -11,6 +11,8 @@ var FightControllerSystem = function (m_renderer) {
 	
 	var m_leftUnit = null;
 	var m_rightUnit = null;
+	var m_attackerUnit = null;
+	var m_defenderUnit = null;
 	var m_isLeftAttacker = false;
 	var m_defenderFightsBack = true;
 
@@ -68,10 +70,13 @@ var FightControllerSystem = function (m_renderer) {
 
 		// Recognize who has to attack first.
 		m_isLeftAttacker = leftStats.isAttacker;
-		m_defenderFightsBack = (m_isLeftAttacker) ? rightStats.canFire : leftStats.canFire
+		m_defenderFightsBack = (m_isLeftAttacker) ? rightStats.canFire : leftStats.canFire;
 
 		m_leftUnit = createFightUnit(leftUnit, FightRenderer.DirectionType.Right, FightUnitState.ShowingUp, leftStats);
 		m_rightUnit = createFightUnit(rightUnit, FightRenderer.DirectionType.Left, FightUnitState.ShowingUp, rightStats);
+
+		m_attackerUnit = (m_isLeftAttacker) ? m_leftUnit : m_rightUnit;
+		m_defenderUnit = (m_isLeftAttacker) ? m_rightUnit : m_leftUnit;
 
 		m_leftUnit.CSpatial.x = -1000;
 		m_leftUnit.CSpatial.y = FightRenderingManager.FightFrame.bottom - FightControllerSystem.BOTTOM_OFFSET;
@@ -117,11 +122,11 @@ var FightControllerSystem = function (m_renderer) {
 
 
 		if (m_defenderFightsBack) {
-			m_timeouts.attackLeft = setTimeout(function () { onAttack( (m_isLeftAttacker) ? m_leftUnit : m_rightUnit); }, 500);
-			m_timeouts.attackRight = setTimeout(function () { onAttack((m_isLeftAttacker) ? m_rightUnit : m_leftUnit); }, 2000);
+			m_timeouts.attackLeft = setTimeout(function () { onAttack( m_attackerUnit); }, 500);
+			m_timeouts.attackRight = setTimeout(function () { onAttack( m_defenderUnit ); }, 2000);
 			m_timeouts.attackFinish = setTimeout(onAttackFinish, 3500);
 		} else {
-			m_timeouts.attackLeft = setTimeout(function () { onAttack( (m_isLeftAttacker) ? m_leftUnit : m_rightUnit); }, 500);
+			m_timeouts.attackLeft = setTimeout(function () { onAttack( m_attackerUnit ) }, 500);
 			m_timeouts.attackRight = null;
 			m_timeouts.attackFinish = setTimeout(onAttackFinish, 2000);
 
@@ -142,8 +147,8 @@ var FightControllerSystem = function (m_renderer) {
 
 		self._eworld.trigger(FightRenderingEvents.Fight.ATTACK_FINISH);
 
-		m_timeouts.endTauntLeft = setTimeout(function () { onEndTaunt(m_leftUnit); }, 250);
-		m_timeouts.endTauntRight = setTimeout(function () { onEndTaunt(m_rightUnit); }, 750);
+		m_timeouts.endTauntLeft = setTimeout(function () { onEndTaunt( m_attackerUnit ); }, 250);
+		m_timeouts.endTauntRight = setTimeout(function () { onEndTaunt( m_defenderUnit ); }, 750);
 	}
 
 	var onEndTaunt = function (unit) {
@@ -162,6 +167,9 @@ var FightControllerSystem = function (m_renderer) {
 
 		m_rightUnit.destroy();
 		m_rightUnit = null;
+
+		m_attackerUnit = null;
+		m_defenderUnit = null;
 
 		self._eworld.blackboard[FightRenderingBlackBoard.Battle.LEFT_FIGHTER] = null;
 		self._eworld.blackboard[FightRenderingBlackBoard.Battle.RIGHT_FIGHTER] = null;
