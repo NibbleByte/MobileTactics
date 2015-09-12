@@ -112,7 +112,7 @@ var SpriteColorizeManager = new function () {
 	var applyEffect = function (sprite, primary, secondary, db, executor) {
 
 		// Get hash code.
-		var hash = sprite.img.src + ':' + primary + ':' + secondary;
+		var hash = sprite.src + ':' + primary + ':' + secondary;
 
 		var img = db[hash];
 
