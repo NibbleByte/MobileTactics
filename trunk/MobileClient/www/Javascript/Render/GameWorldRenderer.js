@@ -103,11 +103,14 @@ var GameWorldRenderer = new function () {
 				for(var i = 0; i < sprites.length; ++i) {
 					var sprite = sprites[i];
 
+					var anchorX = Math.round((sprite.anchorX || 0) * Math.abs(sprite.xscale));
+					var anchorY = Math.round((sprite.anchorY || 0) * Math.abs(sprite.yscale));
+
 					var shouldCull = 
-						(sprite.x + sprite.w >= left) &&
-						(sprite.x <= right) &&
-						(sprite.y + sprite.h >= top) &&
-						(sprite.y <= bottom);
+						(sprite.x - anchorX + sprite.w >= left) &&
+						(sprite.x - anchorX <= right) &&
+						(sprite.y - anchorY + sprite.h >= top) &&
+						(sprite.y - anchorY <= bottom);
 
 					// Optimization, avoid function call.
 					var isCulled = (sprite._isCulled !== undefined) ? sprite._isCulled : true;
