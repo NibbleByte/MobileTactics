@@ -42,7 +42,7 @@ var AITaskAttackingSystem = function (m_world, m_executor, m_battleSystem) {
 
 				// Take distance and strengths into account.
 				var dist = m_world.getDistance(enemy.CTilePlaceable.tile, unit.CTilePlaceable.tile);
-				var outcome = m_battleSystem.predictOutcome(unit, enemy);
+				var outcome = m_battleSystem.predictOutcome(unit, enemy, true);
 				var strengthFavor = outcome.attackerStrength / outcome.defenderStrength;
 				
 				var priority = AIAssignment.BASE_TOP_PRIORITY;
