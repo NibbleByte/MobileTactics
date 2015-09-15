@@ -12,10 +12,6 @@ var SpriteColorizeManager = new function () {
 	var m_colorizedDB = {};
 	var m_saturatedDB = {};
 
-	var SUPPORT_CSS_FILTER = RenderUtils.supports('filter');
-	if (ClientUtils.isAndroid && ClientUtils.androidVersion < 4.4)
-		SUPPORT_CSS_FILTER = false;	// It's all lies!!!
-
 	var convertImageToCanvas = function (image) {
 		console.assert(image);
 
@@ -196,7 +192,7 @@ var SpriteColorizeManager = new function () {
 	// Uses CSS filter property. If not supported, falls back to canvas post effects.
 	this.setSpriteBrightness = function (sprite, value) {
 
-		if (SUPPORT_CSS_FILTER) {
+		if (RenderUtils.supportsFilter) {
 			// NOTE: contrast is used, so black pixels are affected by brightness as well.
 			RenderUtils.filterSet(sprite.dom, 'contrast(0.75) brightness(' + value + ')');
 
@@ -210,7 +206,7 @@ var SpriteColorizeManager = new function () {
 	
 	this.clearSpriteBrightness = function (sprite) {
 
-		if (SUPPORT_CSS_FILTER) {
+		if (RenderUtils.supportsFilter) {
 			RenderUtils.filterSet(sprite.dom, '');
 
 		} else {

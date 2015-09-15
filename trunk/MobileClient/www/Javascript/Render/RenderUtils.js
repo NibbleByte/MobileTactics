@@ -103,3 +103,6 @@ var RenderUtils = {
 	},
 };
 
+RenderUtils.supportsFilter = RenderUtils.supports('filter');
+if (ClientUtils.isAndroid && ClientUtils.androidVersion < 4.4)
+	RenderUtils.supportsFilter = false;	// It's all lies!!!
