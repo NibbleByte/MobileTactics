@@ -1033,8 +1033,12 @@ Sprite.prototype.loadImg = function (src, resetSize) {
             return;
         }
 
-        img = there.img;
+        img = sjs.spriteCache[src].img;
         sjs.spriteCache[src].loaded = true;
+
+		if (there.src != src)
+			return;
+
         there.imgLoaded = true;
         if (there.layer && !there.layer.useCanvas && !there.layer.useCanvasInstance)
             there.dom.style.backgroundImage = 'url(' + src + ')';
