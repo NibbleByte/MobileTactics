@@ -194,7 +194,7 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 			tile.CTileRendering.spriteHighlight = createTileSprite(CTileRendering.getSpritePath(CTileRendering.HighlightType.Move), WorldLayers.LayerTypes.Highlights);
 		if (renderActionFog)
 			tile.CTileRendering.spriteActionFog = createTileSprite(TileRenderingSystem.ACTION_FOG_SPRITE_PATH, WorldLayers.LayerTypes.ActionFog);
-		if (renderVisibilityFog)
+		if (renderVisibilityFog && !RenderUtils.supportsFilter)
 			tile.CTileRendering.spriteVisibilityFog = createTileSprite(TileRenderingSystem.VISIBILITY_FOG_SPRITE_PATH, WorldLayers.LayerTypes.VisibilityFog);
 		
 		if (renderHighlight)
@@ -263,6 +263,28 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.Highlights);
 		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.ActionFog);
 		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.VisibilityFog);
+	}
+}
+
+TileRenderingSystem.setTileVisibilityFog = function(tile, show) {
+	if (!RenderUtils.supportsFilter) {
+		
+		if (show)
+			tile.CTileRendering.showVisibilityFog();
+		else
+			tile.CTileRendering.hideVisibilityFog();
+			
+	} else {
+		
+		if (show) {
+			$(tile.CTileRendering.sprite.dom).addClass('visibility_fog_filter');
+			if (tile.CTileOverlayRendering)
+				$(tile.CTileOverlayRendering.sprite.dom).addClass('visibility_fog_filter');
+		} else {
+			$(tile.CTileRendering.sprite.dom).removeClass('visibility_fog_filter');
+			if (tile.CTileOverlayRendering)
+				$(tile.CTileOverlayRendering.sprite.dom).removeClass('visibility_fog_filter');
+		}
 	}
 }
 

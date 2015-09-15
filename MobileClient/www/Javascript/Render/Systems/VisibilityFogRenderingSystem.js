@@ -19,11 +19,7 @@ var VisibilityFogRenderingSystem = function (m_world) {
 	// Private
 	//
 	var applyVisibilityFog = function (tile) {
-		if (tile.CTileVisibility.visible) {
-			tile.CTileRendering.hideVisibilityFog();
-		} else {
-			tile.CTileRendering.showVisibilityFog();
-		}
+		TileRenderingSystem.setTileVisibilityFog(tile, !tile.CTileVisibility.visible);
 	}
 	
 	var refreshFog = function () {
