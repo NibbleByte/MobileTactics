@@ -110,7 +110,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 
 				if (i == 2 && j == 4) {
 					tile.addComponentSafe(CTileOwner);
-					tile.CTileTerrain.type = GameWorldTerrainType.ResourcePile;
+					tile.CTileTerrain.type = GameWorldTerrainType.Minerals;
 					tile.CTileOwner.owner = playersData.players[0];
 				}
 
@@ -135,14 +135,14 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 
 				if (i == 3 && j == 9) {
 					tile.addComponentSafe(CTileOwner);
-					tile.CTileTerrain.type = GameWorldTerrainType.ResourcePile;
+					tile.CTileTerrain.type = GameWorldTerrainType.Minerals;
 					tile.CTileOwner.owner = playersData.players[1];
 				}
 
 				// No one
 				if (i == 6 && j == 7) {
 					tile.addComponentSafe(CTileOwner);
-					tile.CTileTerrain.type = GameWorldTerrainType.ResourcePile;
+					tile.CTileTerrain.type = GameWorldTerrainType.Minerals;
 				}
 
 

@@ -14,7 +14,7 @@ var GameWorldTerrainType = {
 		/* Special tiles */
 		Base: 0,
 		HQ: 0,
-		ResourcePile: 0,
+		Minerals: 0,
 		Factory: 0,
 		Harbour: 0,
 		Medical: 0,
