@@ -503,9 +503,6 @@
     <None Include="..\..\Core\Gameplay\PlaceableFactory\UnitsUtils.js">
       <Filter>Javascript\Core\Gameplay\PlaceableFactory</Filter>
     </None>
-    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\World\City.js">
-      <Filter>Assets\Render\SpriteAnimations\World</Filter>
-    </None>
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\World\Factory.js">
       <Filter>Assets\Render\SpriteAnimations\World</Filter>
     </None>
@@ -526,6 +523,9 @@
     </None>
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\FlakTrooper.js">
       <Filter>Assets\Render\SpriteAnimations\Units</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\World\ResourcePile.js">
+      <Filter>Assets\Render\SpriteAnimations\World</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -108,6 +108,12 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 					tile.CTileOwner.owner = playersData.players[0];
 				}
 
+				if (i == 2 && j == 4) {
+					tile.addComponentSafe(CTileOwner);
+					tile.CTileTerrain.type = GameWorldTerrainType.ResourcePile;
+					tile.CTileOwner.owner = playersData.players[0];
+				}
+
 				// Player 1
 				if (i == 3 && j == 10) {
 					tile.addComponentSafe(CTileOwner);
@@ -125,6 +131,18 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 					tile.addComponentSafe(CTileOwner);
 					tile.CTileTerrain.type = GameWorldTerrainType.Factory;
 					tile.CTileOwner.owner = playersData.players[1];
+				}
+
+				if (i == 3 && j == 9) {
+					tile.addComponentSafe(CTileOwner);
+					tile.CTileTerrain.type = GameWorldTerrainType.ResourcePile;
+					tile.CTileOwner.owner = playersData.players[1];
+				}
+
+				// No one
+				if (i == 6 && j == 7) {
+					tile.addComponentSafe(CTileOwner);
+					tile.CTileTerrain.type = GameWorldTerrainType.ResourcePile;
 				}
 
 
