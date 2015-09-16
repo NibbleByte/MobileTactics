@@ -156,7 +156,7 @@ TileStructuresSystem.isStructureTile = function (entity) {
 	return terrain && (
 		terrain.type == GameWorldTerrainType.Base ||
 		terrain.type == GameWorldTerrainType.HQ ||
-		terrain.type == GameWorldTerrainType.ResourcePile ||
+		terrain.type == GameWorldTerrainType.Minerals ||
 		terrain.type == GameWorldTerrainType.Factory ||
 		terrain.type == GameWorldTerrainType.Harbour ||
 		terrain.type == GameWorldTerrainType.Medical ||
