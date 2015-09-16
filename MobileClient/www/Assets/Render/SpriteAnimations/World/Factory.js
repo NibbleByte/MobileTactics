@@ -6,17 +6,20 @@ SpriteAnimations.World.Factory = {
 	frameWidth: 64,
 	frameHeight: 64,
 
-	anchorY: 5,
-	
-	framesPerRow: 0,
-
-	speed: 10,
+	speed: 16,
 	
 	sequences: [
 		{
 			name: 'Idle',
 			startIndex: 0,
 			frames: 1,
+		},
+
+
+		{
+			name: 'Idle0',
+			startIndex: 0,
+			frames: 3,
 		},
 	]
 };
