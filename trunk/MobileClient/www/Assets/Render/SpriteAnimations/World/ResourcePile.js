@@ -1,7 +1,7 @@
 
-SpriteAnimations.World.City = {
+SpriteAnimations.World.ResourcePile = {
 
-	resourcePath: 'City.png',
+	resourcePath: 'ResourcePile.png',
 	
 	frameWidth: 64,
 	frameHeight: 64,
