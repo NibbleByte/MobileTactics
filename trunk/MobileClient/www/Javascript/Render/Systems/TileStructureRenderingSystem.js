@@ -122,7 +122,7 @@ var TileStructureRenderingSystem = function (m_renderer) {
 			return;
 
 		if (params.name == TileStructureRenderingSystem.OVERLAY_SPRITE_ANIMATOR)
-			params.entity.CAnimations.animators[TileStructureRenderingSystem.OVERLAY_SPRITE_ANIMATOR].pauseSequence('Idle');
+			IdleAnimationsSystem.playRandomIdleAnimation(params.entity.CAnimations.animators[TileStructureRenderingSystem.OVERLAY_SPRITE_ANIMATOR]);
 	}
 }
 
