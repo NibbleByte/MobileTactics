@@ -338,9 +338,6 @@ var Animator = function (animData, sprite, scene) {
 
 		// Add reverse triplets if needed
 		if (sequence.wrapMode == Animator.WrapMode.OnceReverse || sequence.wrapMode == Animator.WrapMode.PingPong) {
-			// Note: Last triplet is not valid.
-			triplets.splice(triplets.length - 1, 1);
-
 			for(var t = triplets.length - 1; t >= 0; --t) {
 				triplets.push(triplets[t].slice(0));
 			}
