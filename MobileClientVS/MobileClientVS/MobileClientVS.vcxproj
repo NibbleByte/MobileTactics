@@ -101,7 +101,7 @@
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\World\Base.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\World\Factory.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\World\HQ.js" />
-    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\World\ResourcePile.js" />
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\World\Minerals.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\_ExampleAnimations.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\TextEffects.css" />
     <None Include="..\..\MobileClient\www\Assets\Render\TileRenderingSystem.css" />

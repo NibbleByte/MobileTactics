@@ -20,7 +20,7 @@ SpriteAnimations.World.Minerals = {
 		{
 			name: 'Idle0',
 			startIndex: 0,
-			frames: 5,
+			frames: 4,
 			wrapMode: Animator.WrapMode.OnceReverse,
 		},
 	]
