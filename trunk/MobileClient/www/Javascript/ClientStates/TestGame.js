@@ -47,7 +47,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 	var fillTerrainPattern = function (eworld, world, playersData, rows, columns) {
 		var tile;
 	
-		var basesCount = 0;
+		var count = 0;
 
 		for(var i = 0; i < rows; ++i) {
 			for(var j = Math.ceil(i / 2); j < columns + i / 2; ++j) {
@@ -69,18 +69,18 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 				var playersData = eworld.extract(PlayersData);
 				if (i == Math.floor(rows / 4) || i == Math.floor(rows / 3) || i == Math.floor(rows / 2)) {
 					if (j == i || j == rows - i) {
-						tile.CTileTerrain.type = GameWorldTerrainType.Base;
+						tile.CTileTerrain.type = GameWorldTerrainType.Minerals;
 						tile.addComponent(CTileOwner);
 
-						if (basesCount % 3 == 0) {
-							tile.CTileOwner.owner = playersData.players[basesCount % 2];
+						if (count % 3 == 0) {
+							tile.CTileOwner.owner = playersData.players[count % 2];
 						}
 
-						if (basesCount == 1) {
+						if (count == 1) {
 							tile.CTileOwner.owner = playersData.players[1];
 						}
 
-						basesCount++;
+						count++;
 					}
 				}
 				

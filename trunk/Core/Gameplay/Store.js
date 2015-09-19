@@ -11,7 +11,7 @@ var Store = new function () {
 	this.canPlayerShop = function (eworld, tile, opt_player) {
 
 		// Currently only base tiles sell placeables.
-		if (tile.CTileTerrain.type != GameWorldTerrainType.Base)
+		if (tile.CTileTerrain.type != GameWorldTerrainType.Base && tile.CTileTerrain.type != GameWorldTerrainType.Factory)
 			return false;
 
 		if (tile.CTile.placedObjects.length > 0)
@@ -31,8 +31,7 @@ var Store = new function () {
 	this.getPriceListFromTile = function (eworld, tile) {
 		var list = [];
 
-		// Currently only base tiles sell placeables.
-		if (tile.CTileTerrain.type != GameWorldTerrainType.Base)
+		if (tile.CTileTerrain.type != GameWorldTerrainType.Base && tile.CTileTerrain.type != GameWorldTerrainType.Factory)
 			return list;
 
 		var gameState = eworld.extract(GameState);

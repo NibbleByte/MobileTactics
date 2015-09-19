@@ -218,9 +218,6 @@
     <None Include="..\..\Core\Engine\Systems\UtilsSystem.js">
       <Filter>Javascript\Core\Engine\Systems</Filter>
     </None>
-    <None Include="..\..\MobileClient\www\Javascript\Render\Components\CTileOverlayRendering.js">
-      <Filter>Javascript\Render\Components</Filter>
-    </None>
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\TileStructureRenderingSystem.js">
       <Filter>Javascript\Render\Systems</Filter>
     </None>

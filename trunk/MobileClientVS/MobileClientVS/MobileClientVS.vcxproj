@@ -152,7 +152,6 @@
     <None Include="..\..\MobileClient\www\Javascript\Render\ActionsRender.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Animator.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Components\CAnimations.js" />
-    <None Include="..\..\MobileClient\www\Javascript\Render\Components\CTileOverlayRendering.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Components\CTilePlaceableRendering.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Components\CTileRendering.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Components\CUnitRendering.js" />
