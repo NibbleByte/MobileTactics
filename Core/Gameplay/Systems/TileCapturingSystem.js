@@ -148,6 +148,9 @@ var TileCapturingSystem = function () {
 
 TileCapturingSystem.isOwnerableTile = function (terrainType) {
 	return terrainType == GameWorldTerrainType.Base
+		|| terrainType == GameWorldTerrainType.HQ
+		|| terrainType == GameWorldTerrainType.Factory
+		|| terrainType == GameWorldTerrainType.Minerals
 		|| terrainType == GameWorldTerrainType.Harbour
 		|| terrainType == GameWorldTerrainType.WatchTower;
 }

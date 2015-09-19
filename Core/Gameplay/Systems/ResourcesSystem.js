@@ -43,8 +43,8 @@ var ResourcesSystem = function () {
 
 		// hasJustLoaded - Turn has not actually passed, so no credits earning.
 		// turnsPassed - First turn doesn't earn anything.
-		if (m_gameState.currentStructuresTypes[GameWorldTerrainType.Base] && m_gameState.turnsPassed != 0 && !hasJustLoaded)
-			var citiesCount = m_gameState.currentStructuresTypes[GameWorldTerrainType.Base].length;
+		if (m_gameState.currentStructuresTypes[GameWorldTerrainType.Minerals] && m_gameState.turnsPassed != 0 && !hasJustLoaded)
+			var citiesCount = m_gameState.currentStructuresTypes[GameWorldTerrainType.Minerals].length;
 		else
 			var citiesCount = 0;
 

@@ -21,7 +21,6 @@ var TileStructureRenderingSystem = function (m_renderer) {
 
 		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADING, onGameLoading);
 		
-		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_FINISHED, onAnimationFinished);
 		self._eworldSB.subscribe(GameplayEvents.Structures.CAPTURE_FINISHED, onRefreshStructureTile);
 		self._eworldSB.subscribe(GameplayEvents.Fog.REFRESH_FOG_AFTER, refreshKnowledge);
 
@@ -79,8 +78,10 @@ var TileStructureRenderingSystem = function (m_renderer) {
 		
 		var sprite = tile.CTileRendering.sprite;
 		sprite.changeToCanvasInstance().update();
-
-		IdleAnimationsSystem.playRandomIdleAnimation(tile.CAnimations.animators[TileRenderingSystem.TILES_SPRITE_ANIMATION]);
+		
+		if (tile.CAnimations.animators[TileRenderingSystem.TILES_SPRITE_ANIMATION].params.playIdleDirectly) {
+			IdleAnimationsSystem.playRandomIdleAnimation(tile.CAnimations.animators[TileRenderingSystem.TILES_SPRITE_ANIMATION]);
+		}
 
 		if (sprite.imgLoaded) {
 			refreshStructureTile(tile);
@@ -89,14 +90,6 @@ var TileStructureRenderingSystem = function (m_renderer) {
 				refreshStructureTile(tile);
 			});
 		}
-	}
-	
-	var onAnimationFinished = function (params) {
-		if (!TileStructureRenderingSystem.isStructureTile(params.entity))
-			return;
-
-		if (params.name == TileRenderingSystem.TILES_SPRITE_ANIMATION)
-			IdleAnimationsSystem.playRandomIdleAnimation(params.entity.CAnimations.animators[TileRenderingSystem.TILES_SPRITE_ANIMATION]);
 	}
 }
 

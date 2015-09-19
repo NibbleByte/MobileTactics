@@ -8,12 +8,13 @@ var Animator = function (animData, sprite, scene) {
 	var self = this;
 	
 	this.resourcePath = animData.resourcePath;
-	this.isPaused = false;
+	this.isPaused = false;	// Check out isPlaying() too.
 	this.finished = false;
 	this.sequenceName = '';
 	this.sequenceData = null;
 	this.sequences = [];
-	this.sprite = sprite;	// Read-only
+	this.sprite = sprite;					// Read-only
+	this.params = animData.params || {};	// Read-only
 	
 	this.playSequence = function (name) {
 		if (m_currentCycle) {
@@ -68,6 +69,10 @@ var Animator = function (animData, sprite, scene) {
 	
 	this.hasSequence = function (name) {
 		return self.sequences.indexOf(name) != -1;
+	}
+
+	this.isPlaying = function () {
+		return !self.isPaused && !self.finished;
 	}
 	
 	this.next = function (ticks) {
