@@ -146,6 +146,10 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 				}
 
 
+
+				// Pick random skin
+				tile.CTileTerrain.skin = (i + j * 3) % GameWorldTerrainSkin[tile.CTileTerrain.type].length;
+
 				eworld.addUnmanagedEntity(tile);
 			}
 		}

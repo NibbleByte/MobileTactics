@@ -34,7 +34,7 @@ var EditorUnitPropertiesController = function () {
 	};
 
 	
-	var onTileClicked = function (event, hitData) {
+	var onTileClicked = function (hitData) {
 		
 		var brush = self._eworld.blackboard[EditorBlackBoard.Brushes.CURRENT_BRUSH];
 
