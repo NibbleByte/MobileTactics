@@ -42,7 +42,6 @@ var FightRenderingManager = new function () {
 
 	var shotLayers = [
 		WorldLayers.LayerTypes.Terrain,
-		WorldLayers.LayerTypes.TerrainOverlay,
 		WorldLayers.LayerTypes.Units,
 		//WorldLayers.LayerTypes.UnitsFinished, // Shot doesn't check if div element are visible (optimization?)
 		//WorldLayers.LayerTypes.ActionFog,	// It is merged with Highlights layer

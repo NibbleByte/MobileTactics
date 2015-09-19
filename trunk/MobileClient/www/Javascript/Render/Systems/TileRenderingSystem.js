@@ -205,6 +205,19 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 		renderTile(tile);
 				
 		var sprite = tile.CTileRendering.sprite;
+
+		// Add animation
+		var animator = m_renderer.buildAnimator(terrainName, sprite, SpriteAnimations.World);
+		if (animator) {
+
+			tile.addComponentSafe(CAnimations, function (animations) {
+				animations.add(TileRenderingSystem.TILES_SPRITE_ANIMATION, animator);
+
+				// NOTE: This should be here, so anyone outside can change the animation after adding CAnimations.
+				animator.pauseSequence('Idle');
+			});
+
+		}
 		
 		// Resize plot
 		var resized = false;
@@ -254,6 +267,10 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 		m_renderer.refresh();
 		
 		tile.removeComponent(CTileRendering);
+
+		if (tile.CAnimations) {
+			tile.CAnimations.remove(TileRenderingSystem.TILES_SPRITE_ANIMATION);
+		}
 	}
 	
 	var onGameLoaded = function () {
@@ -278,16 +295,13 @@ TileRenderingSystem.setTileVisibilityFog = function(tile, show) {
 		
 		if (show) {
 			$(tile.CTileRendering.sprite.dom).addClass('visibility_fog_filter');
-			if (tile.CTileOverlayRendering)
-				$(tile.CTileOverlayRendering.sprite.dom).addClass('visibility_fog_filter');
 		} else {
 			$(tile.CTileRendering.sprite.dom).removeClass('visibility_fog_filter');
-			if (tile.CTileOverlayRendering)
-				$(tile.CTileOverlayRendering.sprite.dom).removeClass('visibility_fog_filter');
 		}
 	}
 }
 
+TileRenderingSystem.TILES_SPRITE_ANIMATION = 'TileAnimator';
 TileRenderingSystem.TILES_SPRITE_PATH = 'Assets-Scaled/Render/Images/Tiles/{terrainType}.png';
 TileRenderingSystem.ACTION_FOG_SPRITE_PATH = 'Assets-Scaled/Render/Images/ActionHexFog.png';
 TileRenderingSystem.VISIBILITY_FOG_SPRITE_PATH = 'Assets-Scaled/Render/Images/VisibilityHexFog.png';

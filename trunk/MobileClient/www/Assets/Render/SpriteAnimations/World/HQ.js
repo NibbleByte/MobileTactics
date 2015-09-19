@@ -4,9 +4,9 @@ SpriteAnimations.World.HQ = {
 	resourcePath: 'HQ.png',
 	
 	frameWidth: 64,
-	frameHeight: 84,
+	frameHeight: 96,
 
-	anchorY: 34,
+	anchorY: 32,
 	
 	framesPerRow: 0,
 
