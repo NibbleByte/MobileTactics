@@ -56,8 +56,13 @@ ECS.Entity.prototype.addComponentSafe = function (componentClass, initializer) {
 
 	var component = this[componentName];
 
-	if (component == undefined)
+	if (component == undefined) {
 		component = this.addComponent(componentClass, initializer);
+
+	} else if (initializer) {
+		initializer(component, this);
+	}
+		
 	
 	return component;
 }

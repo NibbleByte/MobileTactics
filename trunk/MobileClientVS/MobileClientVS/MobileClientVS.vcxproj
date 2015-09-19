@@ -95,6 +95,7 @@
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\FightUnits\TeslaTrooperFight.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Particles\GroundExplosion.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\SpriteAnimations.js" />
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\TerrainSkins.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\FlakTrooper.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\PeaceKeeper.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\TeslaTrooper.js" />

@@ -524,6 +524,9 @@
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\World\Minerals.js">
       <Filter>Assets\Render\SpriteAnimations\World</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\TerrainSkins.js">
+      <Filter>Assets\Render\SpriteAnimations</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

@@ -184,9 +184,12 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 	var onTileAdded = function(tile) {
 		
 		tile.addComponent(CTileRendering);
-		
-		var terrainName = Enums.getName(GameWorldTerrainType, tile.CTileTerrain.type);
-		var spritePath = TileRenderingSystem.TILES_SPRITE_PATH.replace(/{terrainType}/g, terrainName);
+
+		if (Utils.assert(tile.CTileTerrain.skin >= 0, 'Invalid terrain skin: ' + tile.CTileTerrain.skin + ' for type: ' + tile.CTileTerrain.type))
+			return;
+
+		var terrainName = GameWorldTerrainSkin[tile.CTileTerrain.type][tile.CTileTerrain.skin];
+		var spritePath = TileRenderingSystem.TILES_SPRITE_PATH.replace(/{terrainSkin}/g, terrainName);
 		
 		// Setup sprites.
 		tile.CTileRendering.sprite = createTileSprite(spritePath, WorldLayers.LayerTypes.Terrain);
@@ -235,11 +238,40 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 	}
 
 	var onTileChanged = function (tile) {
+		
+		if (Utils.assert(tile.CTileTerrain.skin >= 0, 'Invalid terrain skin: ' + tile.CTileTerrain.skin + ' for type: ' + tile.CTileTerrain.type))
+			return;
 
-		var terrainName = Enums.getName(GameWorldTerrainType, tile.CTileTerrain.type);
-		var spritePath = TileRenderingSystem.TILES_SPRITE_PATH.replace(/{terrainType}/g, terrainName);
+		var terrainName = GameWorldTerrainSkin[tile.CTileTerrain.type][tile.CTileTerrain.skin];
+		var spritePath = TileRenderingSystem.TILES_SPRITE_PATH.replace(/{terrainSkin}/g, terrainName);
 
-		tile.CTileRendering.sprite.loadImg(spritePath);
+		if (tile.CAnimations) {
+			tile.CAnimations.remove(TileRenderingSystem.TILES_SPRITE_ANIMATION);
+		}
+		tile.CTileRendering.sprite.remove();
+
+
+		tile.CTileRendering.sprite = createTileSprite(spritePath, WorldLayers.LayerTypes.Terrain);
+
+		renderTile(tile);
+
+		var sprite = tile.CTileRendering.sprite;
+
+
+		// Add animation
+		var animator = m_renderer.buildAnimator(terrainName, sprite, SpriteAnimations.World);
+		if (animator) {
+
+			tile.addComponentSafe(CAnimations, function (animations) {
+				animations.add(TileRenderingSystem.TILES_SPRITE_ANIMATION, animator);
+
+				// NOTE: This should be here, so anyone outside can change the animation after adding CAnimations.
+				animator.pauseSequence('Idle');
+			});
+
+		} else {
+			tile.removeComponentSafe(CAnimations);
+		}
 	}
 	
 	var onTileRemoving = function(tile) {
@@ -302,7 +334,7 @@ TileRenderingSystem.setTileVisibilityFog = function(tile, show) {
 }
 
 TileRenderingSystem.TILES_SPRITE_ANIMATION = 'TileAnimator';
-TileRenderingSystem.TILES_SPRITE_PATH = 'Assets-Scaled/Render/Images/Tiles/{terrainType}.png';
+TileRenderingSystem.TILES_SPRITE_PATH = 'Assets-Scaled/Render/Images/Tiles/{terrainSkin}.png';
 TileRenderingSystem.ACTION_FOG_SPRITE_PATH = 'Assets-Scaled/Render/Images/ActionHexFog.png';
 TileRenderingSystem.VISIBILITY_FOG_SPRITE_PATH = 'Assets-Scaled/Render/Images/VisibilityHexFog.png';
 

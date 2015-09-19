@@ -20,6 +20,7 @@ var TileStructureRenderingSystem = function (m_renderer) {
 		self._entityFilter.addRefreshEvent(EngineEvents.World.TILE_REMOVING);
 
 		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADING, onGameLoading);
+		self._eworldSB.subscribe(EngineEvents.World.TILE_CHANGED, onTileChanged);
 		
 		self._eworldSB.subscribe(GameplayEvents.Structures.CAPTURE_FINISHED, onRefreshStructureTile);
 		self._eworldSB.subscribe(GameplayEvents.Fog.REFRESH_FOG_AFTER, refreshKnowledge);
@@ -72,6 +73,12 @@ var TileStructureRenderingSystem = function (m_renderer) {
 
 	var onRefreshStructureTile = function (tile) {
 		refreshStructureTile(tile);
+	}
+
+	var onTileChanged = function (tile) {
+		// In editor, if replacing another colorized tile, register won't call.
+		if (TileStructureRenderingSystem.isStructureTile(tile))
+			registerTileStructure(tile);
 	}
 
 	var registerTileStructure = function (tile) {

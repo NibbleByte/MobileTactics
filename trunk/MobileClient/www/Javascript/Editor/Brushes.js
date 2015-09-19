@@ -27,6 +27,7 @@ var TerrainBrush = function (m_eworld, m_world, terrainType) {
 				tile.removeComponent(CTileOwner);
 
 			tile.CTileTerrain.type = self.terrainType;
+			tile.CTileTerrain.skin = MathUtils.randomIntRange(0, GameWorldTerrainSkin[self.terrainType].length);
 
 			m_eworld.trigger(EngineEvents.World.TILE_CHANGED, tile);
 		}
