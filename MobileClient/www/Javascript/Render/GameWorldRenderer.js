@@ -277,6 +277,10 @@ var GameWorldRenderer = new function () {
 
 				if (layer.useCanvasInstance || !layer.useCanvas) {
 					var sprites = this.spriteTracker.layerSprites[layer.name];
+
+					if (!sprites)
+						continue;
+
 					for(var j = 0; j < sprites.length; ++j) {
 						var sprite = sprites[j];
 
