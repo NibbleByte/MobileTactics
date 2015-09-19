@@ -1,6 +1,6 @@
 //===============================================
 // TileStructureRenderingSystem
-// Renders structures (a special kind of tile overlay).
+// Renders structures colorized.
 //===============================================
 "use strict";
 
@@ -15,7 +15,6 @@ var TileStructureRenderingSystem = function (m_renderer) {
 	this.initialize = function () {
 
 		self._entityFilter.onEntityAddedHandler = registerTileStructure;
-		self._entityFilter.onEntityRemovedHandler = unregisterTileStructure;
 		self._entityFilter.addRefreshEvent(EngineEvents.World.TILE_ADDED);
 		self._entityFilter.addRefreshEvent(EngineEvents.World.TILE_CHANGED);
 		self._entityFilter.addRefreshEvent(EngineEvents.World.TILE_REMOVING);
@@ -45,7 +44,7 @@ var TileStructureRenderingSystem = function (m_renderer) {
 
 		var tiles = self._entityFilter.entities;
 		for (var i = 0; i < tiles.length; ++i) {
-			var sprite = tiles[i].CTileOverlayRendering.sprite;
+			var sprite = tiles[i].CTileRendering.sprite;
 
 			if (sprite && sprite.imgLoaded)
 				refreshStructureTile(tiles[i]);
@@ -53,7 +52,7 @@ var TileStructureRenderingSystem = function (m_renderer) {
 	}
 
 	var refreshStructureTile = function (tile) {
-		var sprite = tile.CTileOverlayRendering.sprite;
+		var sprite = tile.CTileRendering.sprite;
 
 		// If structure can be owned, apply team colors/sprites
 		if (tile.CTileOwner) {
@@ -67,17 +66,9 @@ var TileStructureRenderingSystem = function (m_renderer) {
 				SpriteColorizeManager.colorizeSprite(sprite, owner.colorHue);
 			}
 
-			self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.TerrainOverlay);
+			self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.Terrain);
 			self._eworld.trigger(RenderEvents.Sprites.REFRESH_SPRITES, sprite);
 		}
-	}
-
-	var onResourcesLoaded = function (sprite, tile) {
-		// If image is already loaded, assigning of the sprite might not have happened yet,
-		// but it is needed for the refresh to work.
-		tile.CTileOverlayRendering.sprite = sprite;
-
-		refreshStructureTile(tile);
 	}
 
 	var onRefreshStructureTile = function (tile) {
@@ -85,49 +76,30 @@ var TileStructureRenderingSystem = function (m_renderer) {
 	}
 
 	var registerTileStructure = function (tile) {
-		var overlay = tile.addComponent(CTileOverlayRendering);
+		
+		var sprite = tile.CTileRendering.sprite;
+		sprite.changeToCanvasInstance().update();
 
-		var terrainName = Enums.getName(GameWorldTerrainType, tile.CTileTerrain.type);
-		var spritePath = TileStructureRenderingSystem.TILES_OVERLAY_SPRITE_PATH.replace(/{terrainType}/g, terrainName);
+		IdleAnimationsSystem.playRandomIdleAnimation(tile.CAnimations.animators[TileRenderingSystem.TILES_SPRITE_ANIMATION]);
 
-		overlay.sprite = m_renderer.createSprite(WorldLayers.LayerTypes.TerrainOverlay, spritePath, onResourcesLoaded, tile)
-		.size(GTile.TILE_WIDTH, GTile.TILE_HEIGHT)
-		.move(tile.CTileRendering.sprite.x, tile.CTileRendering.sprite.y)
-		.update();
-
-		// Add animation
-		var animator = m_renderer.buildAnimator(terrainName, overlay.sprite, SpriteAnimations.World);
-		if (animator) {
-			var animations = tile.addComponentSafe(CAnimations);
-
-			animations.add(TileStructureRenderingSystem.OVERLAY_SPRITE_ANIMATOR, animator);
-
-			IdleAnimationsSystem.playRandomIdleAnimation(animator);
+		if (sprite.imgLoaded) {
+			refreshStructureTile(tile);
+		} else {
+			sprite.addOnLoadHandler(function () {
+				refreshStructureTile(tile);
+			});
 		}
 	}
 	
-	var unregisterTileStructure = function (tile) {
-		
-		if (tile.CAnimations) {
-			tile.CAnimations.remove(TileStructureRenderingSystem.OVERLAY_SPRITE_ANIMATOR);
-		}
-
-		tile.removeComponent(CTileOverlayRendering);
-
-		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.TerrainOverlay);
-	}
-
 	var onAnimationFinished = function (params) {
 		if (!TileStructureRenderingSystem.isStructureTile(params.entity))
 			return;
 
-		if (params.name == TileStructureRenderingSystem.OVERLAY_SPRITE_ANIMATOR)
-			IdleAnimationsSystem.playRandomIdleAnimation(params.entity.CAnimations.animators[TileStructureRenderingSystem.OVERLAY_SPRITE_ANIMATOR]);
+		if (params.name == TileRenderingSystem.TILES_SPRITE_ANIMATION)
+			IdleAnimationsSystem.playRandomIdleAnimation(params.entity.CAnimations.animators[TileRenderingSystem.TILES_SPRITE_ANIMATION]);
 	}
 }
 
-TileStructureRenderingSystem.TILES_OVERLAY_SPRITE_PATH = 'Assets-Scaled/Render/Images/TileOverlays/{terrainType}.png';
-TileStructureRenderingSystem.OVERLAY_SPRITE_ANIMATOR = 'OverlayAnimator';
 TileStructureRenderingSystem.isStructureTile = function (entity) {
 	return entity.CTileRendering &&
 	entity.CTileRendering.sprite && 

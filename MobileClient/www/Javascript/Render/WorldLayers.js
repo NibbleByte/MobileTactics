@@ -9,16 +9,15 @@ var WorldLayers = {};
 WorldLayers.LayerTypes = {
 	Terrain: 0,
 	Selection: 1,
-	TerrainOverlay: 2,
-	Units: 3,
-	UnitsFinished: 4,
-	Highlights: 5,	// Combine highlight & action fog to gain performance. But highlights will be above unit :(
-	ActionFog: 5,
-	VisibilityFog: 6,
-	Statistics: 7,
-	OverlayEffects: 8,
+	Units: 2,
+	UnitsFinished: 3,
+	Highlights: 4,	// Combine highlight & action fog to gain performance. But highlights will be above unit :(
+	ActionFog: 4,
+	VisibilityFog: 5,
+	Statistics: 6,
+	OverlayEffects: 7,
 
-	Debug: 9,
+	Debug: 8,
 };
 //Enums.enumerate(WorldLayers.LayerTypes);
 // LayerTypes are no longer enum since some layers are merged (i.e. are the same).
@@ -26,7 +25,6 @@ WorldLayers.LayerTypes = {
 WorldLayers.SpritesDefaultDepth = {
 	Terrain: 200,
 	Selection: 180,
-	TerrainOverlay: 160,
 	Units: 140,
 	UnitsFinished: 120,
 	Highlights: 100,
@@ -44,18 +42,11 @@ WorldLayers.layersOptions = {
 	Terrain: {
 		useCanvas: false,
 		autoClear: false,
-		static: true,
 	},
 
 	Selection: {
 		useCanvas: false,
 		autoClear: false,
-	},
-
-	TerrainOverlay: {
-		useCanvas: false,
-		autoClear: false,
-		useCanvasInstance: true,
 	},
 
 	Units: {

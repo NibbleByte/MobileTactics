@@ -461,7 +461,7 @@ Sprite = function Sprite(scene, src, layer) {
         this.layer = scene.layers['default'];
     }
 
-    if (this.layer  && !this.layer.useCanvas) {
+    if (this.layer && !this.layer.useCanvas) {
         d = doc.createElement('div');
         d.style.position = 'absolute';
         this.dom = d;
@@ -831,7 +831,7 @@ Sprite.prototype.update = function updateDomProperties () {
 	}
     // translate and translate3d doesn't seems to offer any speedup
     // in my tests.
-	if (!this.layer.useCanvasInstance) {
+	if (!this.canvasInstance) {
 		if (this._dirty.xoffset || this._dirty.yoffset)
 			style.backgroundPosition=-(this.xoffset | 0) + 'px ' + -(this.yoffset | 0) + 'px';
 
@@ -1008,6 +1008,27 @@ Sprite.prototype.onload = function (callback) {
     }
 };
 
+Sprite.prototype.changeToCanvasInstance = function () {
+
+	if (this.canvasInstance)
+		return this;
+
+	var d = doc.createElement('canvas');
+	this.canvasInstance = d;
+	this.canvasCtx = d.getContext('2d');
+	this.dom.appendChild(d);
+	this.changed = true;
+
+	// Re-apply the current parameters so canvas gets updated.
+	this.dom.style.backgroundImage = '';
+	this._dirty.w = true;
+	this._dirty.h = true;
+	this._dirty.xoffset = true;
+	this._dirty.yoffset = true;
+
+	return this;
+}
+
 Sprite.prototype.loadImg = function (src, resetSize) {
     // the image exact source value will change according to the
     // hostname, this is useful to retain the original source value here.
@@ -1040,7 +1061,7 @@ Sprite.prototype.loadImg = function (src, resetSize) {
 			return;
 
         there.imgLoaded = true;
-        if (there.layer && !there.layer.useCanvas && !there.layer.useCanvasInstance)
+        if (there.layer && !there.layer.useCanvas && !there.canvasInstance)
             there.dom.style.backgroundImage = 'url(' + src + ')';
         there.imgNaturalWidth = img.width;
         there.imgNaturalHeight = img.height;
