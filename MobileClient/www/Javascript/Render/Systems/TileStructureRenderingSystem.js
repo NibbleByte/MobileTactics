@@ -130,7 +130,12 @@ TileStructureRenderingSystem.setIdleAnimation = function (tile, owner, playing) 
 
 	if (owner == null) {
 
-		if (animator.params.playIdleDirectly || playing) {
+		if (animator.params.playIdleConstant) {
+			animator.pauseSequence('Idle');
+			return;
+		}
+
+		if (playing) {
 			IdleAnimationsSystem.playRandomIdleAnimation(animator);
 		} else {
 			animator.pauseSequence('Idle');
@@ -140,7 +145,7 @@ TileStructureRenderingSystem.setIdleAnimation = function (tile, owner, playing) 
 
 		var raceName = Enums.getName(Player.Races, owner.race);
 
-		if (animator.params.playIdleDirectly || playing) {
+		if (animator.params.playIdleConstant || playing) {
 			var patternTemplate = 'Idle-{race}-\\d+'.replace('{race}', raceName);
 			var pattern = new RegExp(patternTemplate, 'i');
 
