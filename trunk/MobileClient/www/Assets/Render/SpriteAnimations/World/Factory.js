@@ -9,7 +9,7 @@ SpriteAnimations.World.Factory = {
 	speed: 16,
 
 	params: {
-		playIdleDirectly: true,
+		playIdleConstant: true,
 	},
 	
 	sequences: [
@@ -22,7 +22,7 @@ SpriteAnimations.World.Factory = {
 
 		{
 			name: 'Idle0',
-			startIndex: 0,
+			startIndex: 1,
 			frames: 5,
 			wrapMode: Animator.WrapMode.Loop,
 		},
