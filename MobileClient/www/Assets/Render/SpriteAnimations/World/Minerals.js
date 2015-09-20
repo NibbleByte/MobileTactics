@@ -6,7 +6,7 @@ SpriteAnimations.World.Minerals = {
 	frameWidth: 64,
 	frameHeight: 64,
 	
-	framesPerRow: 0,
+	framesPerRow: 4,
 
 	speed: 12,
 	
@@ -20,6 +20,45 @@ SpriteAnimations.World.Minerals = {
 		{
 			name: 'Idle0',
 			startIndex: 0,
+			frames: 4,
+			wrapMode: Animator.WrapMode.OnceReverse,
+		},
+		
+		{
+			name: 'Idle-Empire',
+			startIndex: 4,
+			frames: 1,
+		},
+
+		{
+			name: 'Idle-Empire-0',
+			startIndex: 4,
+			frames: 4,
+			wrapMode: Animator.WrapMode.OnceReverse,
+		},
+
+		{
+			name: 'Idle-JunkPeople',
+			startIndex: 8,
+			frames: 1,
+		},
+
+		{
+			name: 'Idle-JunkPeople-0',
+			startIndex: 8,
+			frames: 4,
+			wrapMode: Animator.WrapMode.OnceReverse,
+		},
+
+		{
+			name: 'Idle-Roaches',
+			startIndex: 12,
+			frames: 1,
+		},
+
+		{
+			name: 'Idle-Roaches-0',
+			startIndex: 12,
 			frames: 4,
 			wrapMode: Animator.WrapMode.OnceReverse,
 		},

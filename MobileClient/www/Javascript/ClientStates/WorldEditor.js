@@ -127,10 +127,10 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 				// Initialize new data
 				m_clientState.playersData = new PlayersData(m_eworld);
 				m_eworld.store(PlayersData, m_clientState.playersData);
-				m_clientState.playersData.addPlayer('Pl1', Player.Types.Human, Player.Races.Humans, 60);
-				m_clientState.playersData.addPlayer('Pl2', Player.Types.Human, Player.Races.Humans, 120);
-				m_clientState.playersData.addPlayer('Pl3', Player.Types.Human, Player.Races.Humans, 175);
-				m_clientState.playersData.addPlayer('Pl4', Player.Types.Human, Player.Races.Humans, 220);
+				m_clientState.playersData.addPlayer('Pl1', Player.Types.Human, Player.Races.Empire, 60);
+				m_clientState.playersData.addPlayer('Pl2', Player.Types.Human, Player.Races.Empire, 120);
+				m_clientState.playersData.addPlayer('Pl3', Player.Types.Human, Player.Races.Empire, 175);
+				m_clientState.playersData.addPlayer('Pl4', Player.Types.Human, Player.Races.Empire, 220);
 	
 				m_clientState.gameState = new GameState();
 				m_eworld.store(GameState, m_clientState.gameState);

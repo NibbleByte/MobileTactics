@@ -435,7 +435,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 				// Initialize new data
 				m_clientState.playersData = new PlayersData(m_eworld);
 				m_eworld.store(PlayersData, m_clientState.playersData);
-				m_clientState.playersData.addPlayer('Pl1', Player.Types.Human, Player.Races.Humans, 60);
+				m_clientState.playersData.addPlayer('Pl1', Player.Types.Human, Player.Races.Empire, 60);
 				m_clientState.playersData.addPlayer('Pl2', Player.Types.Human, Player.Races.JunkPeople, 120);
 				m_clientState.playersData.addPlayer('Pl3', Player.Types.Human, Player.Races.Developers, 175);
 				m_clientState.playersData.addPlayer('Pl4', Player.Types.Human, Player.Races.Developers, 220);

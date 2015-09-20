@@ -39,25 +39,25 @@ var IdleAnimationsSystem = function () {
 		// Find only visible entities.
 		var entities = [];
 		for(var i = 0; i < self._entityFilter.entities.length; ++i) {
-			var entity = self._entityFilter.entities[i];
+			var unit = self._entityFilter.entities[i];
 
-			if (!entity.CTilePlaceableRendering.sprite.isCulled())
+			if (!unit.CAnimations || !unit.CTilePlaceableRendering.sprite.isCulled())
+				continue;
+
+			if (unit.CAnimations.animators[UnitRenderingSystem.MAIN_SPRITE].isPlaying())
 				continue;
 
 			// Editor does not have CTileVisibility.
-			if (!entity.CTilePlaceable.tile.CTileVisibility || entity.CTilePlaceable.tile.CTileVisibility.visible)
-				entities.push(entity);
+			if (!unit.CTilePlaceable.tile.CTileVisibility || unit.CTilePlaceable.tile.CTileVisibility.visible)
+				entities.push(unit);
 		}
 		
 		if (entities.length == 0)
 			return;
 		
-		var entity = MathUtils.randomElement(entities);
-		
-		var animator = entity.CAnimations.animators[UnitRenderingSystem.MAIN_SPRITE];
-		if (animator.sequenceName == 'Idle') {
-			IdleAnimationsSystem.playRandomIdleAnimation(animator);
-		}
+		var unit = MathUtils.randomElement(entities);
+
+		self._eworld.trigger(RenderEvents.IdleAnimations.START_IDLE_ANIMATION_UNIT, unit);
 	}
 
 	var startRandomStructureIdleAnimation = function () {
@@ -90,18 +90,19 @@ var IdleAnimationsSystem = function () {
 			return;
 		
 		var tile = MathUtils.randomElement(tiles);
-		
-		var animator = tile.CAnimations.animators[TileRenderingSystem.TILES_SPRITE_ANIMATION];
-		IdleAnimationsSystem.playRandomIdleAnimation(animator);
+
+		self._eworld.trigger(RenderEvents.IdleAnimations.START_IDLE_ANIMATION_STRUCTURE, tile);
 	}
 }
 
 
-IdleAnimationsSystem.playRandomIdleAnimation = function (animator) {
+IdleAnimationsSystem.playRandomIdleAnimation = function (animator, pattern) {
 
+	pattern = pattern || IdleAnimationsSystem.IDLE_ANIMATION_PATTERN;
+	
 	var idleIndexes = [];
 	for(var i = 0; i < animator.sequences.length; ++i) {
-		if (IdleAnimationsSystem.IDLE_ANIMATION_PATTERN.test(animator.sequences[i])) {
+		if (pattern.test(animator.sequences[i])) {
 			idleIndexes.push(i);
 		}
 	}
@@ -109,8 +110,10 @@ IdleAnimationsSystem.playRandomIdleAnimation = function (animator) {
 			
 	if (idleIndexes.length > 0) {
 		animator.playSequence(animator.sequences[MathUtils.randomElement(idleIndexes)]);
+		return true;
 	}
 
+	return false;
 }
 
 IdleAnimationsSystem.playsIdleAnimation = function (animator) {
