@@ -285,9 +285,9 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		// Gameplay Systems
 		//
 		var effects = new EffectsSystem();
-		m_eworld.addSystem(effects);
 		m_eworld.addSystem(m_eworld.store(BattleSystem, new BattleSystem(world)));
 		m_eworld.addSystem(new UnitsSystem());
+		m_eworld.addSystem(effects);
 		m_eworld.addSystem(new GameStateSystem());
 		m_eworld.addSystem(new ResourcesSystem());
 		m_eworld.addSystem(new TileStructuresSystem());	// Before TileVisibilitySystem, because structures also define visibility

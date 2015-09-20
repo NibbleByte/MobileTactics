@@ -70,17 +70,14 @@ var UnitsFactory = new function () {
 		obj.addComponent(CActions);
 		obj.addComponent(CPlayerData);
 		
-		obj.addComponent(CStatistics);
 		obj.addComponent(CEffects);
 		
-		obj.CStatistics.resetStatistics(definition.baseStatistics);
-		obj.CStatistics.terrainStats = definition.terrainStats;
 		obj.CActions.actions = definition.actions;
 		obj.CPlayerData.player = player;
 		obj.CUnit.race = definition.race;
 		obj.CUnit.name = definition.name;
-		obj.CUnit.turnPoints = obj.CStatistics.statistics['TurnPoints'] || 1;
-		obj.CUnit.health = obj.CStatistics.statistics['MaxHealth'];
+		obj.CUnit.turnPoints = definition.baseStatistics['TurnPoints'] || 1;
+		obj.CUnit.health = definition.baseStatistics['MaxHealth'];
 
 		lastCreated = obj;
 		
