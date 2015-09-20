@@ -18,7 +18,7 @@ var Utils = {
 	},
 
 	isString: function(object) {
-		return object && !!object.substring;
+		return (object && !!object.substring) || object === '';
 	},
 
 	isBoolean: function(object) {
@@ -26,7 +26,7 @@ var Utils = {
 	},
 
 	isNumber: function(object) {
-		return object && !!object.toFixed;
+		return (object && !!object.toFixed) || object === 0;
 	},
 
 	isFunction: function(object) {

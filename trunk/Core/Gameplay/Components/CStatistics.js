@@ -7,15 +7,12 @@ var CStatistics = function CStatistics() {
 	this.terrainStats = null;
 };
 
-ComponentsUtils.registerPersistent(CStatistics);
+ComponentsUtils.registerNonPersistent(CStatistics);
 
 //
 //Short-cuts
 //	
-CStatistics.prototype.resetStatistics = function (baseStatistics) {
-	if (baseStatistics)
-		this.baseStatistics = baseStatistics;
-	
+CStatistics.prototype.resetStatistics = function () {
 	this.statistics = {};
 	$.extend(this.statistics, this.baseStatistics);
 };
