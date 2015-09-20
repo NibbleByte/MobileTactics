@@ -122,7 +122,7 @@ Player.Types = {
 
 Player.Races = {
 	Developers: 0,
-	Humans: 0,
+	Empire: 0,
 	Roaches: 0,
 	JunkPeople: 0,
 }

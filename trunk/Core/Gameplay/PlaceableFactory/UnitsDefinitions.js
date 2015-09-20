@@ -140,7 +140,7 @@ UnitsDefinitions[Player.Races.Developers] = {
 };
 
 
-UnitsDefinitions[Player.Races.Humans] = {
+UnitsDefinitions[Player.Races.Empire] = {
 
 	PeaceKeeper: {
 		race: 0,

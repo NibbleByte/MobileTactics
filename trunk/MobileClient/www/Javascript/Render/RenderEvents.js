@@ -33,6 +33,11 @@ var RenderEvents = {
 			
 		},
 
+		IdleAnimations: {
+			START_IDLE_ANIMATION_STRUCTURE: "render.IdleAnimations.start_idle_animations_structure",	// Arguments: tile
+			START_IDLE_ANIMATION_UNIT:		"render.IdleAnimations.start_idle_animations_unit",			// Arguments: unit
+		},
+
 		Debug: {
 			TILE_DRAW_TEXT: "render.debug.tile_draw_text",						// Arguments: event, tile, text, opt_backgroundImage
 			CLEAR_TILES: "render.debug.clear_tiles",							// Arguments: event

@@ -26,6 +26,7 @@ var UnitRenderingSystem = function (renderer) {
 
 		self._eworldSB.subscribe(GameplayEvents.Fog.REFRESH_FOG, refreshFog);
 		
+		self._eworldSB.subscribe(RenderEvents.IdleAnimations.START_IDLE_ANIMATION_UNIT, onIdleAnimation);
 		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_FINISHED, onAnimationFinished);
 	}
 		
@@ -106,6 +107,10 @@ var UnitRenderingSystem = function (renderer) {
 		// Position the health at the bottom right corner.
 		unitRendering.move(coords.x, coords.y, m_renderer);
 		unitRendering.showFinished(placeable.CUnit.finishedTurn);
+	}
+
+	var onIdleAnimation = function (unit) {
+		IdleAnimationsSystem.playRandomIdleAnimation(unit.CAnimations.animators[UnitRenderingSystem.MAIN_SPRITE]);
 	}
 
 	var onAnimationFinished = function(params) {
