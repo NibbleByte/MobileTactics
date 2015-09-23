@@ -79,6 +79,8 @@ var UnitsFactory = new function () {
 		obj.CUnit.turnPoints = definition.baseStatistics['TurnPoints'] || 1;
 		obj.CUnit.health = definition.baseStatistics['MaxHealth'];
 
+		applyStatistics(obj);
+
 		lastCreated = obj;
 		
 		self.trigger(self.Events.UNIT_CREATED, obj);
@@ -91,7 +93,19 @@ var UnitsFactory = new function () {
 		if (!entity.hasComponents(CUnit))
 			return;
 		
+		applyStatistics(entity);
+
 		self.trigger(self.Events.UNIT_DESERIALIZED, entity);
+	}
+
+	var applyStatistics = function (placeable) {
+		placeable.addComponent(CStatistics);
+
+		var definition = UnitsDefinitions[placeable.CUnit.race][placeable.CUnit.name];
+
+		placeable.CStatistics.baseStatistics = definition.baseStatistics;
+		placeable.CStatistics.terrainStats = definition.terrainStats;
+		placeable.CStatistics.resetStatistics();
 	}
 	
 	Subscriber.makeSubscribable(this);

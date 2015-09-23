@@ -11,22 +11,10 @@ var UnitsSystem = function () {
 	// Entity system initialize
 	//
 	this.initialize = function () {
-		self._eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_REGISTERED, onPlaceableRegistered);
-
 		self._eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, onTurnChanged);
 		
 		self._eworldSB.subscribe(GameplayEvents.Units.UNIT_CHANGED, onUnitChanged);
 		self._eworldSB.subscribe(GameplayEvents.Units.DESTROY_UNIT, onDestroyUnit);
-	}
-
-	var onPlaceableRegistered = function (placeable) {
-
-		placeable.addComponent(CStatistics);
-
-		var definition = UnitsDefinitions[placeable.CUnit.race][placeable.CUnit.name];
-
-		placeable.CStatistics.baseStatistics = definition.baseStatistics;
-		placeable.CStatistics.terrainStats = definition.terrainStats;
 	}
 
 	var onTurnChanged = function (gameState, hasJustLoaded) {
