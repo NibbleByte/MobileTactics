@@ -208,37 +208,48 @@ var EditorController = function (m_world, m_renderer) {
 			var resizeHorizontal = hitData.column == columns + Math.ceil(hitData.row / 2) - 1;
 			var resizeVertical = hitData.row == rows - 1;
 
-			if (resizeHorizontal || resizeVertical) {
-				self.setWorldSize(false, 
-					(resizeVertical) ? rows + 2 : rows, 
-					(resizeHorizontal) ? columns + 2 : columns
-				);
-			}
-
-			// Auto-scroll when touching near the edges. A bit hacky, so shoot me.
-			if (window.event) {
-				var plotPos = m_renderer.$pnScenePlot.offset();
-
-				var pointerEvent = window.event;
-				if (ClientUtils.isTouchDevice) {
-					pointerEvent = pointerEvent.touches[0] || pointerEvent.changedTouches[0];
-				}
-
-				if (pointerEvent.clientX < plotPos.left + + 30) {
-					m_renderer.plotContainerScroller.scrollBy(10, 0);
-				}
-				if (pointerEvent.clientY < plotPos.top + + 30) {
-					m_renderer.plotContainerScroller.scrollBy(0, 10);
-				}
-				if (pointerEvent.clientX > plotPos.left + m_renderer.$pnScenePlot.width() - 30) {
-					m_renderer.plotContainerScroller.scrollBy(-10, 0);
-				}
-				if (pointerEvent.clientY > plotPos.top + m_renderer.$pnScenePlot.height() - 30) {
-					m_renderer.plotContainerScroller.scrollBy(0, -10);
+			if (hitData.tile) {
+				if (resizeHorizontal || resizeVertical) {
+					self.setWorldSize(false, 
+						(resizeVertical) ? rows + 2 : rows, 
+						(resizeHorizontal) ? columns + 2 : columns
+					);
 				}
 			}
 
 			self._eworld.triggerAsync(RenderEvents.Layers.REFRESH_ALL);
+		}
+
+
+		// Auto-scroll when touching near the edges. A bit hacky, so shoot me.
+		if (window.event) {
+			var plotPos = m_renderer.$pnScenePlot.offset();
+			var shouldRefresh = false;
+
+			var pointerEvent = window.event;
+			if (ClientUtils.isTouchDevice) {
+				pointerEvent = pointerEvent.touches[0] || pointerEvent.changedTouches[0];
+			}
+
+			if (pointerEvent.clientX < plotPos.left + +30) {
+				m_renderer.plotContainerScroller.scrollBy(10, 0);
+				shouldRefresh = true;
+			}
+			if (pointerEvent.clientY < plotPos.top + +30) {
+				m_renderer.plotContainerScroller.scrollBy(0, 10);
+				shouldRefresh = true;
+			}
+			if (pointerEvent.clientX > plotPos.left + m_renderer.$pnScenePlot.width() - 30) {
+				m_renderer.plotContainerScroller.scrollBy(-10, 0);
+				shouldRefresh = true;
+			}
+			if (pointerEvent.clientY > plotPos.top + m_renderer.$pnScenePlot.height() - 30) {
+				m_renderer.plotContainerScroller.scrollBy(0, -10);
+				shouldRefresh = true;
+			}
+
+			if (shouldRefresh)
+				m_renderer.refresh();
 		}
 	}
 
