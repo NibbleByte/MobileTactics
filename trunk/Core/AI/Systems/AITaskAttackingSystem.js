@@ -40,6 +40,9 @@ var AITaskAttackingSystem = function (m_world, m_executor, m_battleSystem) {
 			for(var j = 0; j < units.length; ++j) {
 				var unit = units[j];
 
+				if (!UnitsUtils.canAttackType(unit, enemy))
+					continue;
+
 				// Take distance and strengths into account.
 				var dist = m_world.getDistance(enemy.CTilePlaceable.tile, unit.CTilePlaceable.tile);
 				var outcome = m_battleSystem.predictOutcome(unit, enemy, true);
