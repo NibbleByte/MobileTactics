@@ -179,6 +179,10 @@ UnitsDefinitions[Player.Races.Empire] = {
 			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 1, Defence: 1};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 1, Defence: 0};
 		},
+
+		AIHints: {
+			preferedMinCount: 2,
+		},
 	},
 	
 	Ranger: {
@@ -335,6 +339,10 @@ UnitsDefinitions[Player.Races.Empire] = {
 			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: 0};
 		},
+
+		AIHints: {
+			guardsNeeded: 4,
+		}
 	},
 };
 
@@ -378,6 +386,10 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 			this[GameWorldTerrainType.Minerals] =		{ Cost: 1, Attack: 1, Defence: 2};
 			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 1, Defence: 2};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 1, Defence: 0};
+		},
+
+		AIHints: {
+			preferedMinCount: 3,
 		},
 	},
 
@@ -529,6 +541,10 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: 0};
 		},
+
+		AIHints: {
+			guardsNeeded: 3,
+		}
 	},
 };
 
@@ -546,6 +562,7 @@ UnitsDefinitions[Player.Races.Roaches] = {
 			definition.baseStatistics['MaxHealth'] = definition.baseStatistics['MaxHealth'] || 10;
 			definition.baseStatistics['FirePower'] = definition.baseStatistics['FirePower'] || 4;
 			definition.baseStatistics['AttackMultiplier'] = definition.baseStatistics['AttackMultiplier'] || 1;
+			definition.AIHints = definition.AIHints || {};
 		}
 	}
 

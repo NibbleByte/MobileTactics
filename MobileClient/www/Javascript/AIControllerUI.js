@@ -67,6 +67,8 @@ var AIControllerUI = function (m_executor, m_aiController) {
 		var objectiveName = '???';
 		if (assignment.task.objective.CUnit)
 			objectiveName = assignment.task.objective.CUnit.name;
+		if (assignment.task.objective.name)
+			objectiveName = assignment.task.objective.name;
 		if (assignment.task.objective.CTileTerrain) {
 			var tile = assignment.task.objective;
 			objectiveName = Enums.getName(GameWorldTerrainType, tile.CTileTerrain.type) + '{' + tile.CTile.row + ',' + tile.CTile.column +'}';

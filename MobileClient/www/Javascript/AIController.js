@@ -44,6 +44,9 @@ var AIController = function (m_executor) {
 	}
 
 	this.resume = function () {
+		if (!m_scheduleData.paused)
+			return;
+
 		m_scheduleData.paused = false;
 
 		scheduleNextStep(m_scheduleData.handler, m_scheduleData.timeout);
