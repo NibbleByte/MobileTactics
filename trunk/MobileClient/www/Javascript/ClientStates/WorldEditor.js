@@ -10,6 +10,7 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 
 	var m_$GameWorldMap = $('#GameWorldMapEditor').hide();
 	var m_$ToolbarContainer = $('#ToolbarContainerEditor').hide();
+	var m_$BtnLoad = $('#BtnLoadEditor');
 
 	var m_subscriber = new DOMSubscriber();
 	var m_clientState = null;
@@ -134,12 +135,18 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 	
 				m_clientState.gameState = new GameState();
 				m_eworld.store(GameState, m_clientState.gameState);
-			
+				
+				m_eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING] = true;
+				
 				m_eworld.triggerAsync(EngineEvents.General.GAME_LOADING);
 
 				m_clientState.editorController.setWorldSize(true, DEFAULT_ROWS, DEFAULT_COLUMNS);
 
 				m_eworld.triggerAsync(EngineEvents.General.GAME_LOADED);
+
+				m_eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING] = false;
+
+				m_renderer.refresh();
 
 				m_lastFilename = 'Untitled.json';
 
@@ -181,9 +188,6 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 
 				var file = event.target.files[0];
 
-				if (file.type != 'text/plain')
-					return;
-
 				var reader = new BrowserAPI.FileReader();
 				reader.onload = function (event) {
 					var data = event.target.result;
@@ -205,6 +209,8 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 						m_clientState.playersData = fullGameState.playersData;
 						m_eworld.store(PlayersData, m_clientState.playersData);
 						m_eworld.store(GameState, m_clientState.gameState);
+
+						m_eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING] = true;
 		
 						m_eworld.triggerAsync(EngineEvents.General.GAME_LOADING);
 		
@@ -226,14 +232,20 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 
 						m_eworld.triggerAsync(EngineEvents.General.GAME_LOADED);
 
+						m_eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING] = false;
+
 						// Fill out the rest with empty tiles.
 						var rows = Math.max(m_renderer.getRenderedRows() + 2, DEFAULT_ROWS);
 						var columns = Math.max(m_renderer.getRenderedColumns() + 2, DEFAULT_COLUMNS);
 						
 						m_clientState.editorController.setWorldSize(false, rows, columns);
 
+						m_renderer.refresh();
+
 						m_lastFilename = file.name;
-						$('#BtnLoadEditor').val('');
+
+						// Clear the value of the input, so it can load the same file again if needed.
+						m_$BtnLoad.val('');
 
 						m_eworld.triggerAsync(RenderEvents.Layers.REFRESH_ALL);
 
@@ -259,7 +271,7 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 		onBtnRestart();
 
 		m_subscriber.subscribe($('#BtnSaveEditor'), 'click', onBtnSave);
-		m_subscriber.subscribe($('#BtnLoadEditor'), 'change', onBtnLoad);
+		m_subscriber.subscribe(m_$BtnLoad, 'change', onBtnLoad);
 
 		return m_clientState;
 	}
