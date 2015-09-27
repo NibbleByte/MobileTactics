@@ -19,6 +19,7 @@ var GameplayEvents = {
 			CAPTURE_STOPPED: 		"gameplay.structures.capture_stopped",		// event, tile
 			CAPTURE_INTERUPTED: 	"gameplay.structures.capture_interupted",	// event, tile
 			CAPTURE_FINISHED:		"gameplay.structures.capture_finished",		// event, tile
+			OWNER_CHANGED:			"gameplay.structures.owner_changed",		// event, tile
 		},
 		
 		Players: {

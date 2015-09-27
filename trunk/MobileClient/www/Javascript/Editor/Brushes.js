@@ -4,10 +4,11 @@
 //===============================================
 "use strict";
 
-var TerrainBrush = function (m_eworld, m_world, terrainType) {
+var TerrainBrush = function (m_eworld, m_world, terrainType, player) {
 	var self = this;
 	
 	this.terrainType = terrainType;
+	this.player = player;
 
 	this.place = function (row, column, tile) {
 		
@@ -30,6 +31,11 @@ var TerrainBrush = function (m_eworld, m_world, terrainType) {
 			tile.CTileTerrain.skin = MathUtils.randomIntRange(0, GameWorldTerrainSkin[self.terrainType].length);
 
 			m_eworld.trigger(EngineEvents.World.TILE_CHANGED, tile);
+
+			if (isOwnerable && tile.CTileOwner.owner != self.player) {
+				tile.CTileOwner.owner = self.player;
+				m_eworld.trigger(GameplayEvents.Structures.OWNER_CHANGED, tile);
+			}
 		}
 	}
 }
