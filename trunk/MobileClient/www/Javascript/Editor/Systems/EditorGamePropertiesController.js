@@ -11,7 +11,8 @@ var EditorGamePropertiesController = function (m_editorController, m_renderer) {
 	var m_$GamePropsName = $('#GamePropsNameEditor');
 	var m_$GamePropsDescription = $('#GamePropsDescriptionEditor');
 	var m_$GamePropsWidth = $('#GamePropsWidthEditor');
-	var m_$GamePropsHeight= $('#GamePropsHeightEditor');
+	var m_$GamePropsHeight = $('#GamePropsHeightEditor');
+	var m_$GamePropsLockSizes = $('#GamePropsLockSizesEditor');
 
 	var m_subscriber = new DOMSubscriber();
 
@@ -24,6 +25,8 @@ var EditorGamePropertiesController = function (m_editorController, m_renderer) {
 
 		m_subscriber.subscribe($('#BtnGamePropsApply'), 'click', onBtnApply);
 		m_subscriber.subscribe($('#BtnGamePropsCancel'), 'click', onBtnCancel);
+
+		self._eworld.blackboard[EditorBlackBoard.Properties.LOCK_SIZES] = false;
 	};
 	
 	this.uninitialize = function () {
@@ -35,12 +38,16 @@ var EditorGamePropertiesController = function (m_editorController, m_renderer) {
 
 		m_$GamePropsWidth.val(m_renderer.getRenderedColumns());
 		m_$GamePropsHeight.val(m_renderer.getRenderedRows());
+
+		m_$GamePropsLockSizes.prop('checked', self._eworld.blackboard[EditorBlackBoard.Properties.LOCK_SIZES]);
 	}
 
 	var onBtnApply = function (event) {
 		m_$GameProps.hide();
 
 		m_editorController.setWorldSize(false, parseInt(m_$GamePropsHeight.val()), parseInt(m_$GamePropsWidth.val()));
+
+		self._eworld.blackboard[EditorBlackBoard.Properties.LOCK_SIZES] = m_$GamePropsLockSizes.prop('checked');
 	}
 	
 	var onBtnCancel = function (event) {

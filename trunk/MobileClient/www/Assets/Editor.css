@@ -10,5 +10,6 @@
 }
 #UnitPropsEditorContainer > table td:nth-child(2), #GamePropsEditorContainer > table td:nth-child(2)
 {
+	text-align: left;
 	width: 150px;
 }
