@@ -85,11 +85,11 @@ var ActionFogRenderingSystem = function (m_world) {
 
 	var onTurnChanging = function () {
 
-		var gameState = self._eworld.extract(GameState);
+		var placeables = self._eworld.getSystem(GameWorld).getPlaceables();
 
 		// If about to change turn, remove finished fogs over previous player units.
-		for (var i = 0; i < gameState.currentPlaceables.length; ++i) {
-			var placeable = gameState.currentPlaceables[i];
+		for (var i = 0; i < placeables.length; ++i) {
+			var placeable = placeables[i];
 			placeable.CUnitRendering.hideFinished();
 		}
 	}

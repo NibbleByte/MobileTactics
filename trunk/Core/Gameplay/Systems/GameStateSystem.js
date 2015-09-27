@@ -68,6 +68,9 @@ var GameStateSystem = function () {
 	}
 
 	var onGameLoaded = function () {
+
+		self._eworld.trigger(GameplayEvents.GameState.TURN_CHANGING, m_gameState, true);
+
 		if (m_gameState.currentPlayer == null)
 			m_gameState.currentPlayer = m_playersData.getFirstPlayingPlayer();
 		
@@ -82,7 +85,7 @@ var GameStateSystem = function () {
 	
 	var onEndTurn = function () {
 
-		self._eworld.trigger(GameplayEvents.GameState.TURN_CHANGING, m_gameState);
+		self._eworld.trigger(GameplayEvents.GameState.TURN_CHANGING, m_gameState, false);
 
 		var previousPlayer = m_gameState.currentPlayer;
 		

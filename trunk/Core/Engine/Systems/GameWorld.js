@@ -456,6 +456,10 @@ var GameWorld = function () {
 			functor(m_placeables[i]);
 		}
 	}
+
+	this.getPlaceables = function () {
+		return m_placeables;
+	}
 	
 	var registerPlaceable = function (placeable) {
 		
