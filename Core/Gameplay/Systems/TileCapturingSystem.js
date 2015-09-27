@@ -96,6 +96,7 @@ var TileCapturingSystem = function () {
 					m_gameState.relationStructures[PlayersData.Relation.Ally].push(tile);
 
 					// Notify
+					self._eworld.trigger(GameplayEvents.Structures.OWNER_CHANGED, tile);
 					self._eworld.trigger(GameplayEvents.Structures.CAPTURE_FINISHED, tile);
 				}
 			}

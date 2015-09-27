@@ -20,7 +20,7 @@ var TileVisibilitySystem = function (m_world) {
 		self._eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_MOVED, refreshVisibility);
 		self._eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_UNREGISTERED, refreshVisibility);
 		self._eworldSB.subscribe(EngineEvents.World.TILE_REMOVED, refreshVisibility);
-		self._eworldSB.subscribe(GameplayEvents.Structures.CAPTURE_FINISHED, refreshVisibility);
+		self._eworldSB.subscribe(GameplayEvents.Structures.OWNER_CHANGED, refreshVisibility);
 
 		self._eworldSB.subscribe(GameplayEvents.Fog.FORCE_FOG_REFRESH, refreshVisibility);
 

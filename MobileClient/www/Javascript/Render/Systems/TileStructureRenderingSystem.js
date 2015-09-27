@@ -22,7 +22,7 @@ var TileStructureRenderingSystem = function (m_renderer) {
 		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADING, onGameLoading);
 		self._eworldSB.subscribe(EngineEvents.World.TILE_CHANGED, onTileChanged);
 		
-		self._eworldSB.subscribe(GameplayEvents.Structures.CAPTURE_FINISHED, onRefreshStructureTile);
+		self._eworldSB.subscribe(GameplayEvents.Structures.OWNER_CHANGED, refreshStructureTile);
 		self._eworldSB.subscribe(GameplayEvents.Fog.REFRESH_FOG_AFTER, refreshKnowledge);
 
 		self._eworldSB.subscribe(RenderEvents.IdleAnimations.START_IDLE_ANIMATION_STRUCTURE, onIdleAnimation);
@@ -69,6 +69,13 @@ var TileStructureRenderingSystem = function (m_renderer) {
 	var refreshStructureTile = function (tile) {
 		var sprite = tile.CTileRendering.sprite;
 
+		if (!sprite.imgLoaded) {
+			sprite.addOnLoadHandler(function () {
+				refreshStructureTile(tile);
+			});
+			return;
+		}
+
 		// If structure can be owned, apply team colors/sprites
 		if (tile.CTileOwner) {
 
@@ -87,10 +94,6 @@ var TileStructureRenderingSystem = function (m_renderer) {
 		}
 	}
 
-	var onRefreshStructureTile = function (tile) {
-		refreshStructureTile(tile);
-	}
-
 	var onTileChanged = function (tile) {
 		// In editor, if replacing another colorized tile, register won't call.
 		if (TileStructureRenderingSystem.isStructureTile(tile))
@@ -102,13 +105,7 @@ var TileStructureRenderingSystem = function (m_renderer) {
 		var sprite = tile.CTileRendering.sprite;
 		sprite.changeToCanvasInstance().update();
 
-		if (sprite.imgLoaded) {
-			refreshStructureTile(tile);
-		} else {
-			sprite.addOnLoadHandler(function () {
-				refreshStructureTile(tile);
-			});
-		}
+		refreshStructureTile(tile);
 	}
 
 	var onIdleAnimation = function (tile) {

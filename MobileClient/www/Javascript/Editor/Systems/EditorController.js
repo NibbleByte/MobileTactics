@@ -36,7 +36,7 @@ var EditorController = function (m_world, m_renderer) {
 
 		m_subscriber.subscribe(m_$TerrainBrushList, 'change', onTerrainBrushListChange);
 		m_subscriber.subscribe(m_$PlaceablesBrushList, 'change', onPlaceablesBrushListChange);
-		m_subscriber.subscribe(m_$PlayerBrushList, 'change', onPlaceablesBrushListChange);
+		m_subscriber.subscribe(m_$PlayerBrushList, 'change', onPlayerBrushListChange);
 
 		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADING, rebuildPlayersList);
 	};
@@ -115,6 +115,11 @@ var EditorController = function (m_world, m_renderer) {
 	var rebuildPlayersList = function () {
 		m_$PlayerBrushList.empty();
 		m_playersData = self._eworld.extract(PlayersData);
+
+		$('<option />')
+		.attr('value', '-')
+		.text('Neutral')
+		.appendTo(m_$PlayerBrushList);
 		
 		for(var i = 0; i < m_playersData.players.length; ++i) {
 			$('<option />')
@@ -148,10 +153,21 @@ var EditorController = function (m_world, m_renderer) {
 
 	var onBtnTerrain = function (event) {
 		m_$TerrainBrushList.show();
-		m_$PlayerBrushList.hide();
+		m_$PlayerBrushList.show();
 		m_$PlaceablesBrushList.hide();
 
-		changeBrush(new TerrainBrush(self._eworld, m_world, parseInt(m_$TerrainBrushList.val())));
+		m_$PlayerBrushList.find('option[value="-"]').removeAttr('disabled');
+
+		if (m_$PlayerBrushList.val() == '-') {
+			var player = null;
+		} else {
+			var player = m_playersData.players[parseInt(m_$PlayerBrushList.val())];
+		}
+
+		changeBrush(new TerrainBrush(self._eworld, m_world,
+			parseInt(m_$TerrainBrushList.val()),
+			player
+		));
 
 		m_renderer.plotContainerScroller.disable();
 	}
@@ -160,6 +176,10 @@ var EditorController = function (m_world, m_renderer) {
 		m_$TerrainBrushList.hide();
 		m_$PlayerBrushList.show();
 		m_$PlaceablesBrushList.show();
+
+		m_$PlayerBrushList.find('option[value="-"]').attr('disabled', 'disabled');
+
+		if (!m_$PlayerBrushList.val() || m_$PlayerBrushList.val() == '-') m_$PlayerBrushList.val('0').change();
 
 		changeBrush(new UnitsBrush(self._eworld, m_world, 
 			UnitsFactory.resolveDefinitionPath(m_$PlaceablesBrushList.val()),
@@ -174,6 +194,7 @@ var EditorController = function (m_world, m_renderer) {
 			return;
 
 		m_currentBrush.terrainType = parseInt(m_$TerrainBrushList.val());
+		m_currentBrush.player = m_playersData.players[parseInt(m_$PlayerBrushList.val())];
 
 		self._eworld.trigger(EditorEvents.Brushes.ACTIVE_BRUSH_MODIFIED, m_currentBrush);
 	}
@@ -186,6 +207,13 @@ var EditorController = function (m_world, m_renderer) {
 		m_currentBrush.player = m_playersData.players[parseInt(m_$PlayerBrushList.val())];
 
 		self._eworld.trigger(EditorEvents.Brushes.ACTIVE_BRUSH_MODIFIED, m_currentBrush);
+	}
+
+	var onPlayerBrushListChange = function () {
+		if (m_currentBrush instanceof UnitsBrush)
+			onPlaceablesBrushListChange();
+		else
+			onTerrainBrushListChange();
 	}
 
 	var lastTouchRow = null;
