@@ -87,6 +87,7 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 		var coords = m_renderer.getRenderedTilePosition(row, column);
 		
 		tile.CTileRendering.move(coords.x, coords.y);
+		tile.CTileRendering.sprite.depth = coords.y;
 	}
 	
 
@@ -272,6 +273,8 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 		} else {
 			tile.removeComponentSafe(CAnimations);
 		}
+
+		self._eworld.trigger(RenderEvents.Layers.SORT_DEPTH, sprite);
 	}
 	
 	var onTileRemoving = function(tile) {
