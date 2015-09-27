@@ -31,7 +31,7 @@ var GameplayEvents = {
 		
 		GameState: {
 			END_TURN: 			"gameplay.game_state.end_turn",			// event
-			TURN_CHANGING: 		"gameplay.game_state.turn_changing",	// event, gameState
+			TURN_CHANGING: 		"gameplay.game_state.turn_changing",	// event, gameState, hasJustLoaded
 			TURN_CHANGED: 		"gameplay.game_state.turn_changed",		// event, gameState, hasJustLoaded
 			NO_PLAYING_PLAYERS: "gameplay.game_state.no_playingplayers",// event, player
 		},
