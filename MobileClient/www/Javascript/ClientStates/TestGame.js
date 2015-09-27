@@ -10,6 +10,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 	var m_$GameWorldMap = $('#GameWorldMap').hide();
 	var m_$ActionMenu = $('#ActionMenu').hide();
 	var m_$ToolbarContainer = $('#ToolbarContainer').hide();
+	var m_$ToolbarMore = $('#ToolbarMore').hide();
 
 	var m_$BtnSave = $('#BtnSave');
 	var m_$BtnLoad = $('#BtnLoad');
@@ -20,6 +21,8 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 	var m_$BtnDebug = $('#BtnDebug');
 	var m_$BtnBrowse = $('#BtnBrowse');
 	var m_$BtnAddress = $('#BtnAddress');
+
+	var m_$BtnDance42 = $('#BtnDance42');
 
 	var m_$TbBrowseAddress = $('#TbBrowseAddress');
 
@@ -361,9 +364,13 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 			};
 			m_clientState.savedGame = Serialization.serialize(fullGameState, true, true);
 		}
-	
-		var onBtnLoad = function () {
-			if (!m_clientState.savedGame)
+		
+		var onBtnLoad = function (event, data) {
+			
+			if (!data)
+				data = m_clientState.savedGame;
+
+			if (!data)
 				return;
 
 			m_loadingScreen.show();
@@ -376,8 +383,8 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 				Utils.invalidate(m_clientState.gameState);
 		
 				var allObjects = [];
-		
-				var fullGameState = Serialization.deserialize(m_clientState.savedGame, allObjects);
+			
+				var fullGameState = Serialization.deserialize(data, allObjects);
 		
 				m_clientState.gameState = fullGameState.gameState;
 				m_clientState.playersData = fullGameState.playersData;
@@ -412,6 +419,18 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 				m_eworld.extract(GameWorldRenderer).refresh();
 
 			}, 200);
+		}
+
+		var onLoadDance42 = function () {
+			m_loadingScreen.show();
+
+			MapStorage.loadMap('Dance42', function (data) {
+				onBtnLoad(event, data);
+			}, function () {
+				m_loadingScreen.hide();
+			});
+
+			m_$ToolbarMore.hide();
 		}
 	
 		var onBtnRemoveTile = function () {
@@ -571,6 +590,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		// Toolbar listeners
 		subscriber.subscribe(m_$BtnSave, 'click', onBtnSave);
 		subscriber.subscribe(m_$BtnLoad, 'click', onBtnLoad);
+		subscriber.subscribe(m_$BtnDance42, 'click', onLoadDance42);
 		subscriber.subscribe(m_$BtnRemoveTile, 'click', onBtnRemoveTile);
 		subscriber.subscribe(m_$BtnRestart, 'click', onBtnRestart);
 		subscriber.subscribe(m_$BtnUndo, 'click', onBtnUndo);

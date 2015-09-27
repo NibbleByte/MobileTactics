@@ -149,6 +149,7 @@
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightUnitsRenderingSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightUnitStatsController.js" />
     <None Include="..\..\MobileClient\www\Javascript\Main.js" />
+    <None Include="..\..\MobileClient\www\Javascript\MapsStorage.js" />
     <None Include="..\..\MobileClient\www\Javascript\PlayerController.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\ActionsRender.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Animator.js" />

@@ -235,8 +235,13 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 						m_eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING] = false;
 
 						// Fill out the rest with empty tiles.
-						var rows = Math.max(m_renderer.getRenderedRows() + 2, DEFAULT_ROWS);
-						var columns = Math.max(m_renderer.getRenderedColumns() + 2, DEFAULT_COLUMNS);
+						var rows = Math.max(m_renderer.getRenderedRows(), DEFAULT_ROWS);
+						var columns = Math.max(m_renderer.getRenderedColumns(), DEFAULT_COLUMNS);
+
+						if (!m_eworld.blackboard[EditorBlackBoard.Properties.LOCK_SIZES]) {
+							rows += 2;
+							columns += 2;
+						}	
 						
 						m_clientState.editorController.setWorldSize(false, rows, columns);
 
