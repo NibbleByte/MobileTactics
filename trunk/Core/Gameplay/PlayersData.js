@@ -8,15 +8,32 @@ var PlayersData = function (eworld) {
 	this._eworld = eworld;
 	this.players = [];	// Read-only field!
 };
-	
+
 PlayersData.prototype.addPlayer = function (name, type, race, colorHue, teamId) {
+
+	// Find next possible id.
+	var nextId = 0;
+	for(var i = 0; i < this.players.length; ++i) {
+		if (nextId <= this.players[i].playerId)
+			nextId = this.players[i].playerId + 1;
+	}
 	
-	var player = new Player(this.players.length, name, type, race, colorHue, teamId || -1);
+	var player = new Player(nextId, name, type, race, colorHue, teamId || -1);
 	this.players.push(player);
 	
 	this._eworld.trigger(GameplayEvents.Players.PLAYER_ADDED, player);
 	
 	return player;
+}
+
+PlayersData.prototype.removePlayer = function (player) {
+	var success = this.players.remove(player);
+
+	if (success) {
+		this._eworld.trigger(GameplayEvents.Players.PLAYER_REMOVED, player);
+	}
+
+	return success;
 }
 	
 PlayersData.prototype.clearPlayers = function () {
@@ -25,8 +42,14 @@ PlayersData.prototype.clearPlayers = function () {
 	this._eworld.trigger(GameplayEvents.Players.PLAYERS_CLEARED);
 }
 	
-PlayersData.prototype.getPlayer = function (id) {
-	return this.players[id];
+PlayersData.prototype.getPlayer = function (playerId) {
+
+	for(var i = 0; i < this.players.length; ++i) {
+		if (this.players[i].playerId == playerId)
+			return this.players[i];
+	}
+
+	return null;
 }
 
 PlayersData.prototype.getPlayingPlayersCount = function () {
@@ -36,6 +59,8 @@ PlayersData.prototype.getPlayingPlayersCount = function () {
 		if (this.players[i].isPlaying)
 			 ++count;
 	}
+
+	return count;
 }
 	
 PlayersData.prototype.getFirstPlayingPlayer = function () {
@@ -51,17 +76,22 @@ PlayersData.prototype.getFirstPlayingPlayer = function () {
 }
 	
 PlayersData.prototype.getNextPlayingPlayer = function (player) {
-	var id = player.playerId;
 	
-	var nextId = (id + 1) % this.players.length;
+	var index = this.players.indexOf(player);
 	
-	while(!this.players[nextId].isPlaying && id != nextId) {
-		var nextId = (nextId + 1) % this.players.length;
+	if (index == -1) {
+		return null;
+	}
+
+	index = (index + 1) % this.players.length;
+	
+	while(!this.players[index].isPlaying && this.players[index] != player) {
+		var index = (index + 1) % this.players.length;
 	}
 	
 	// If got to the same player, he might not be playing as well.
-	if (this.players[nextId].isPlaying) {
-		return this.players[nextId];
+	if (this.players[index].isPlaying) {
+		return this.players[index];
 	} else {
 		return null;
 	}

@@ -556,7 +556,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		}
 
 		var onHudLockRefresh = function () {
-			if (m_clientState.playerController.isHudLocked() || m_clientState.gameState.currentPlayer.type == Player.Types.AI) {
+			if (m_clientState.playerController.isHudLocked() || (m_clientState.gameState.currentPlayer && m_clientState.gameState.currentPlayer.type == Player.Types.AI)) {
 				m_$ToolbarContainer.hide();
 			} else {
 				m_$ToolbarContainer.show();
