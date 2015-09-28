@@ -158,14 +158,36 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 		var onBtnSave = function(event) {
 
 			var entities = m_eworld.getEntities().clone();
+			var usedPlayers = {};
 
 			// Remove empty tiles
 			for(var i = 0; i < entities.length; ++i) {
-				if (entities[i].CTileTerrain && entities[i].CTileTerrain.type == GameWorldTerrainType.None) {
+				var entity = entities[i];
+
+				if (entity.CTileTerrain && entity.CTileTerrain.type == GameWorldTerrainType.None) {
 					entities.removeAt(i);
+					--i;
+					continue;
+				}
+
+				if (entity.CTileOwner && entity.CTileOwner.owner != null) {
+					usedPlayers[entity.CTileOwner.owner.playerId] = true;
+				}
+				if (entity.CPlayerData && entity.CPlayerData.player != null) {
+					usedPlayers[entity.CPlayerData.player.playerId] = true;
+				}
+			}
+
+			// Remove unused players
+			for(var i = 0; i < m_clientState.playersData.players.length; ++i) {
+				var player = m_clientState.playersData.players[i];
+
+				if (!usedPlayers[player.playerId]) {
+					m_clientState.playersData.removePlayer(player);
 					--i;
 				}
 			}
+
 		
 			var fullGameState = {
 					gameState: m_clientState.gameState,
