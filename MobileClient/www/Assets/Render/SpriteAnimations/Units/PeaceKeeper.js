@@ -8,6 +8,10 @@ SpriteAnimations.Units.PeaceKeeper = {
 	framesPerRow: 4,
 	anchorX: 28,
 	anchorY: 46,
+
+	params: {
+		forwardDirection: -1,
+	},
 	
 	sequences: [
 		{
