@@ -39,7 +39,7 @@ GameState.prototype.init = function () {
 	this.knownStructures[PlayersData.Relation.Ally] = [];
 
 	this.startCredits = 500;
-	this.creditsPerCity = 100;
+	this.creditsPerMine = 100;
 	this.credits = [];					// credits per player.
 	this.currentCredits = 0;
 }
