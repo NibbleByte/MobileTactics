@@ -48,7 +48,7 @@ var ResourcesSystem = function () {
 		else
 			var citiesCount = 0;
 
-		var delta = m_gameState.creditsPerCity * citiesCount;
+		var delta = m_gameState.creditsPerMine * citiesCount;
 		m_gameState.credits[player.playerId] += delta;
 
 		m_gameState.currentCredits = m_gameState.credits[player.playerId];
