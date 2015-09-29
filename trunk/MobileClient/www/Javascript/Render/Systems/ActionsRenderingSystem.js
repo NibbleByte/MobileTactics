@@ -66,20 +66,20 @@ ActionsRenderingSystem.ActionExecutors.AttackExecutor = function (m_executor, m_
 		
 		// Start animations and wait for them to finish. Only if units are in range.
 		if (attacker.CStatistics.statistics['AttackRange'] >= distance)
-			playAttackAnimation(attacker);
+			var attackerForward = playAttackAnimation(attacker);
 		if (defender.CStatistics.statistics['AttackRange'] >= distance)
-			playAttackAnimation(defender);
+			var defenderForward = playAttackAnimation(defender);
 		
 		
 		// Flip sprites to face one another.
 		var attackerSprite = m_action.placeable.CTilePlaceableRendering.sprite;
 		var defenderSprite = m_action.appliedTile.CTile.placedObjects[0].CTilePlaceableRendering.sprite;
 		if (attackerSprite.x < defenderSprite.x) {
-			attackerSprite.setXScale(-1);
-			defenderSprite.setXScale(1);
+			attackerSprite.setXScale(-attackerForward);
+			defenderSprite.setXScale(defenderForward);
 		} else {
-			attackerSprite.setXScale(1);
-			defenderSprite.setXScale(-1);
+			attackerSprite.setXScale(attackerForward);
+			defenderSprite.setXScale(-defenderForward);
 		}
 		attackerSprite.update();
 		defenderSprite.update();
@@ -101,8 +101,13 @@ ActionsRenderingSystem.ActionExecutors.AttackExecutor = function (m_executor, m_
 			if (animator.hasSequence('Attack')) {
 				animator.playSequence('Attack');
 				++m_waitedAnimations;
+
 			}
+
+			return animator.params.forwardDirection || 1;
 		}
+
+		return 1;
 	}
 	
 	var finishAttackAnimation = function (placeable) {
