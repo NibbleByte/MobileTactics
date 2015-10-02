@@ -15,6 +15,7 @@ var EditorGamePropertiesController = function (m_editorController, m_renderer) {
 	var m_$GamePropsLockSizes = $('#GamePropsLockSizesEditor');
 	var m_$GamePropsStartingCredits = $('#GamePropsStartingCreditsEditor');
 	var m_$GamePropsCreditsPerMine = $('#GamePropsCreditsPerMineEditor');
+	var m_$GamePropsPlayers = $('#GamePropsPlayersEditor');
 
 	var m_subscriber = new DOMSubscriber();
 
@@ -54,6 +55,8 @@ var EditorGamePropertiesController = function (m_editorController, m_renderer) {
 		m_$GamePropsStartingCredits.val(m_gameState.startCredits);
 		m_$GamePropsCreditsPerMine.val(m_gameState.creditsPerMine);
 
+		m_$GamePropsPlayers.val(m_playersData.players.length);
+
 		m_$GamePropsLockSizes.prop('checked', self._eworld.blackboard[EditorBlackBoard.Properties.LOCK_SIZES]);
 	}
 
@@ -64,6 +67,18 @@ var EditorGamePropertiesController = function (m_editorController, m_renderer) {
 
 		m_gameState.startCredits = parseInt(m_$GamePropsStartingCredits.val());
 		m_gameState.creditsPerMine = parseInt(m_$GamePropsCreditsPerMine.val());
+
+		var playersCount = parseInt(m_$GamePropsPlayers.val());
+		while(m_playersData.players.length > playersCount) {
+			m_playersData.removePlayer(m_playersData.players.last());
+		}
+
+		while(m_playersData.players.length < playersCount) {
+			var name = 'Pl' + (m_playersData.players.length + 1);
+			var color = PlayerColors[m_playersData.players.length];
+			
+			m_playersData.addPlayer(name, Player.Types.Human, Player.Races.Empire, color);
+		}
 
 		self._eworld.blackboard[EditorBlackBoard.Properties.LOCK_SIZES] = m_$GamePropsLockSizes.prop('checked');
 	}

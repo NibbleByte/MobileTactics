@@ -21,7 +21,7 @@ var GameStateSystem = function () {
 		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADED, onGameLoaded);
 		self._eworldSB.subscribe(GameplayEvents.GameState.END_TURN, onEndTurn);
 		self._eworldSB.subscribe(GameplayEvents.Players.PLAYER_REMOVED, onPlayerRemoved);
-		self._eworldSB.subscribe(GameplayEvents.Players.PLAYER_STOPPED_PLAYING, onPlayerRemoved);
+		self._eworldSB.subscribe(GameplayEvents.Players.IS_PLAYING_CHANGED, onIsPlayingChanged);
 	}
 	
 	var onRemovePlaceable = function (placeable) {
@@ -114,6 +114,12 @@ var GameStateSystem = function () {
 	var onPlayerRemoved = function (player) {
 		if (player == m_gameState.currentPlayer) {
 			self._eworld.trigger(GameplayEvents.GameState.END_TURN);
+		}
+	}
+
+	var onIsPlayingChanged = function (player) {
+		if (!player.isPlaying) {
+			onPlayerRemoved(player);
 		}
 	}
 };

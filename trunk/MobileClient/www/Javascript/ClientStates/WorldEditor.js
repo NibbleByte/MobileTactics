@@ -128,10 +128,10 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 				// Initialize new data
 				m_clientState.playersData = new PlayersData(m_eworld);
 				m_eworld.store(PlayersData, m_clientState.playersData);
-				m_clientState.playersData.addPlayer('Pl1', Player.Types.Human, Player.Races.Empire, 60);
-				m_clientState.playersData.addPlayer('Pl2', Player.Types.Human, Player.Races.Empire, 120);
-				m_clientState.playersData.addPlayer('Pl3', Player.Types.Human, Player.Races.Empire, 175);
-				m_clientState.playersData.addPlayer('Pl4', Player.Types.Human, Player.Races.Empire, 220);
+				m_clientState.playersData.addPlayer('Pl1', Player.Types.Human, Player.Races.Empire, PlayerColors[0]);
+				m_clientState.playersData.addPlayer('Pl2', Player.Types.Human, Player.Races.Empire, PlayerColors[1]);
+				m_clientState.playersData.addPlayer('Pl3', Player.Types.Human, Player.Races.Empire, PlayerColors[2]);
+				m_clientState.playersData.addPlayer('Pl4', Player.Types.Human, Player.Races.Empire, PlayerColors[3]);
 	
 				m_clientState.gameState = new GameState();
 				m_eworld.store(GameState, m_clientState.gameState);
@@ -162,7 +162,7 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 
 			// Remove empty tiles
 			for(var i = 0; i < entities.length; ++i) {
-				var entity = entities[i];
+				var entity = entities[i]; 
 
 				if (entity.CTileTerrain && entity.CTileTerrain.type == GameWorldTerrainType.None) {
 					entities.removeAt(i);
@@ -178,15 +178,13 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 				}
 			}
 
-			// Remove unused players
+			// Unused players...
 			for(var i = 0; i < m_clientState.playersData.players.length; ++i) {
 				var player = m_clientState.playersData.players[i];
 
-				if (!usedPlayers[player.playerId]) {
-					m_clientState.playersData.removePlayer(player);
-					--i;
-				}
+				m_clientState.playersData.setIsPlaying(player, usedPlayers[player.playerId]);
 			}
+
 
 		
 			var fullGameState = {

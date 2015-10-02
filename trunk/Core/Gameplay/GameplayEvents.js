@@ -23,10 +23,10 @@ var GameplayEvents = {
 		},
 		
 		Players: {
-			PLAYER_ADDED: 			"gameplay.players.player_added",	// event, player
-			PLAYER_STOPPED_PLAYING: "gameplay.players.player_stopped",	// event, player
-			PLAYER_REMOVED: 		"gameplay.players.player_removed",	// event, player
-			PLAYERS_CLEARED: 		"gameplay.players.player_cleared",	// event
+			PLAYER_ADDED: 			"gameplay.players.player_added",		// event, player
+			IS_PLAYING_CHANGED:		"gameplay.players.is_playing_changed",	// event, player
+			PLAYER_REMOVED: 		"gameplay.players.player_removed",		// event, player
+			PLAYERS_CLEARED: 		"gameplay.players.player_cleared",		// event
 		},
 		
 		GameState: {

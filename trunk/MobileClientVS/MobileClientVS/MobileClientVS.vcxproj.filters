@@ -530,6 +530,9 @@
     <None Include="..\..\MobileClient\www\Javascript\MapsStorage.js">
       <Filter>Javascript</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\World\Forest.js">
+      <Filter>Assets\Render\SpriteAnimations\World</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
