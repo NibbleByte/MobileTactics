@@ -97,12 +97,14 @@ PlayersData.prototype.getNextPlayingPlayer = function (player) {
 	}
 }
 
-PlayersData.prototype.stopPlaying = function (player) {
-	console.assert(player.isPlaying, 'Player have already stopped playing.');
+PlayersData.prototype.setIsPlaying = function (player, isPlaying) {
 	
-	player.isPlaying = false;
+	if (player.isPlaying == !!isPlaying)
+		return;
+
+	player.isPlaying = !!isPlaying;
 	
-	this._eworld.trigger(GameplayEvents.Players.PLAYER_STOPPED_PLAYING, player);
+	this._eworld.trigger(GameplayEvents.Players.IS_PLAYING_CHANGED, player);
 }
 	
 	

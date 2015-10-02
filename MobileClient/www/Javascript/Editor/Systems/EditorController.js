@@ -39,6 +39,9 @@ var EditorController = function (m_world, m_renderer) {
 		m_subscriber.subscribe(m_$PlayerBrushList, 'change', onPlayerBrushListChange);
 
 		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADING, rebuildPlayersList);
+
+		self._eworldSB.subscribe(GameplayEvents.Players.PLAYER_ADDED, onPlayersChanged);
+		self._eworldSB.subscribe(GameplayEvents.Players.PLAYER_REMOVED, onPlayerRemoved);
 	};
 	
 	this.uninitialize = function () {
@@ -179,12 +182,13 @@ var EditorController = function (m_world, m_renderer) {
 
 		m_$PlayerBrushList.find('option[value="-"]').attr('disabled', 'disabled');
 
-		if (!m_$PlayerBrushList.val() || m_$PlayerBrushList.val() == '-') m_$PlayerBrushList.val('0').change();
 
 		changeBrush(new UnitsBrush(self._eworld, m_world, 
 			UnitsFactory.resolveDefinitionPath(m_$PlaceablesBrushList.val()),
 			m_playersData.players[parseInt(m_$PlayerBrushList.val())]
 		));
+
+		if (!m_$PlayerBrushList.val() || m_$PlayerBrushList.val() == '-') m_$PlayerBrushList.val('0').change();
 
 		m_renderer.plotContainerScroller.disable();
 	}
@@ -284,6 +288,31 @@ var EditorController = function (m_world, m_renderer) {
 	var onTileTouchedEnd = function (hitData) {
 		lastTouchRow = null;
 		lastTouchColumn = null;
+	}
+
+	var onPlayersChanged = function () {
+		rebuildPlayersList();
+		onBtnPan(null);
+	}
+
+	var onPlayerRemoved = function (player) {
+		var entities = self._eworld.getEntities();
+
+		for(var i = 0; i < entities.length; ++i) {
+			var entity = entities[i];
+
+			if (entity.CTileOwner && entity.CTileOwner.owner == player) {
+				entity.CTileOwner.owner = null;
+				self._eworld.trigger(GameplayEvents.Structures.OWNER_CHANGED, entity);
+			}
+
+			if (entity.CPlayerData && entity.CPlayerData.player == player) {
+				entity.destroy();
+				--i;
+			}
+		}
+
+		onPlayersChanged();
 	}
 }
 
