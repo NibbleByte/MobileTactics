@@ -7,7 +7,6 @@
 
 var ResourcesSystem = function () {
 	var self = this;
-	var m_playersData = null;
 	var m_gameState = null;
 	
 	//
@@ -22,17 +21,7 @@ var ResourcesSystem = function () {
 	}
 	
 	var onGameLoading = function () {
-		m_playersData = self._eworld.extract(PlayersData);
 		m_gameState = self._eworld.extract(GameState);
-
-		for(var i = 0; i < m_playersData.players.length; ++i) {
-
-			// First timer - set credits, instead of earning them.
-			// NOTE: this should not happen in editor.
-			if (m_gameState.credits[m_playersData.players[i].playerId] === undefined) {
-				m_gameState.credits[m_playersData.players[i].playerId] = m_gameState.startCredits;
-			}
-		}
 	}
 	
 	var onTurnChanged = function (gameState, hasJustLoaded) {
@@ -48,24 +37,21 @@ var ResourcesSystem = function () {
 		else
 			var citiesCount = 0;
 
-		var delta = m_gameState.creditsPerMine * citiesCount;
-		m_gameState.credits[player.playerId] += delta;
+		var delta = player.creditsPerMine * citiesCount;
+		player.credits += delta;
 
-		m_gameState.currentCredits = m_gameState.credits[player.playerId];
-
-		self._eworld.trigger(GameplayEvents.Resources.CREDITS_CHANGED, m_gameState.currentCredits, delta);
+		self._eworld.trigger(GameplayEvents.Resources.CURRENT_CREDITS_CHANGED, player.credits, delta);
 	}
 
-	var onAddCredits = function (player, value) {
+	var onAddCredits = function (player, delta) {
 		
-		if (value == 0)
+		if (delta == 0)
 			return;
 
-		m_gameState.credits[player.playerId] += value;
+		player.credits += delta;
 		
 		if (m_gameState.currentPlayer == player) {
-			m_gameState.currentCredits += value;
-			self._eworld.trigger(GameplayEvents.Resources.CREDITS_CHANGED, m_gameState.currentCredits, value);
+			self._eworld.trigger(GameplayEvents.Resources.CURRENT_CREDITS_CHANGED, player.credits, delta);
 		}
 	}
 };

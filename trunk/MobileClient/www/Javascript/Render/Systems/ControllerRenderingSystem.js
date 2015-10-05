@@ -17,7 +17,7 @@ var ControllerRenderingSystem = function (m_renderer, m_$creditsLabel) {
 	this.initialize = function () {
 		self._eworldSB.subscribe(ClientEvents.Controller.TILE_SELECTED, onTileSelected);
 
-		self._eworldSB.subscribe(GameplayEvents.Resources.CREDITS_CHANGED, onCreditsChanged);
+		self._eworldSB.subscribe(GameplayEvents.Resources.CURRENT_CREDITS_CHANGED, onCreditsChanged);
 
 		m_selectedSprite = m_renderer.createSprite(WorldLayers.LayerTypes.Selection, ControllerRenderingSystem.TILE_SELECTED_SPRITE_PATH)
 		.size(GTile.TILE_WIDTH, GTile.TILE_HEIGHT);

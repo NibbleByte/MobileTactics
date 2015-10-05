@@ -37,11 +37,6 @@ GameState.prototype.init = function () {
 	this.knownStructures[PlayersData.Relation.Enemy] = [];
 	this.knownStructures[PlayersData.Relation.Neutral] = [];
 	this.knownStructures[PlayersData.Relation.Ally] = [];
-
-	this.startCredits = 500;
-	this.creditsPerMine = 100;
-	this.credits = [];					// credits per player.
-	this.currentCredits = 0;
 }
 
 Serialization.registerClass(GameState, 'GameState');
