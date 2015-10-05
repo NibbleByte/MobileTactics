@@ -133,7 +133,7 @@ var AITaskBuyingSystem = function (m_world, m_executor) {
 		//
 		// Buy biggest possible.
 		//
-		var budget = m_gameState.currentCredits;
+		var budget = m_gameState.currentPlayer.credits;
 		var bestRating = consideredList.last();
 		var purchaseList = [];
 		for (var buyIndex = consideredList.length - 1; buyIndex >= 0; buyIndex--) {

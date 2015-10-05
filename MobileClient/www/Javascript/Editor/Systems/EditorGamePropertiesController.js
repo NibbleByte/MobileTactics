@@ -52,8 +52,8 @@ var EditorGamePropertiesController = function (m_editorController, m_renderer) {
 		m_$GamePropsWidth.val(m_renderer.getRenderedColumns());
 		m_$GamePropsHeight.val(m_renderer.getRenderedRows());
 
-		m_$GamePropsStartingCredits.val(m_gameState.startCredits);
-		m_$GamePropsCreditsPerMine.val(m_gameState.creditsPerMine);
+		m_$GamePropsStartingCredits.val(m_playersData.players[0].credits);
+		m_$GamePropsCreditsPerMine.val(m_playersData.players[0].creditsPerMine);
 
 		m_$GamePropsPlayers.val(m_playersData.players.length);
 
@@ -65,8 +65,13 @@ var EditorGamePropertiesController = function (m_editorController, m_renderer) {
 
 		m_editorController.setWorldSize(false, parseInt(m_$GamePropsHeight.val()), parseInt(m_$GamePropsWidth.val()));
 
-		m_gameState.startCredits = parseInt(m_$GamePropsStartingCredits.val());
-		m_gameState.creditsPerMine = parseInt(m_$GamePropsCreditsPerMine.val());
+
+		for(var i = 0; i < m_playersData.players.length; ++i) {
+			var player = m_playersData.players[i];
+
+			player.creditsPerMine = parseInt(m_$GamePropsCreditsPerMine.val());
+			player.credits = parseInt(m_$GamePropsStartingCredits.val());
+		}
 
 		var playersCount = parseInt(m_$GamePropsPlayers.val());
 		while(m_playersData.players.length > playersCount) {

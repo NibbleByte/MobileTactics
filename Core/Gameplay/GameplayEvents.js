@@ -42,8 +42,8 @@ var GameplayEvents = {
 		},
 
 		Resources: {
-			CREDITS_CHANGED: 	"gameplay.resources.credits_changed",	// event, player, value, delta
-			ADD_CREDITS: 		"gameplay.resources.add_credits",		// event, player, value
+			CURRENT_CREDITS_CHANGED: "gameplay.resources.current_credits_changed",	// event, value, delta
+			ADD_CREDITS: 			 "gameplay.resources.add_credits",				// event, player, delta
 		},
 
 		Store: {

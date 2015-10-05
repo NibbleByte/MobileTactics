@@ -59,9 +59,7 @@ var Store = new function () {
 		if (!self.canPlayerShop(storeItem.eworld, storeItem.tile))
 			return false;
 
-		var gameState = storeItem.eworld.extract(GameState);
-
-		if (gameState.credits[storeItem.player.playerId] < storeItem.price) {
+		if (storeItem.player.credits < storeItem.price) {
 			return false;
 		}
 
