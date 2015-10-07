@@ -1,6 +1,6 @@
 //===============================================
-// EditorController
-// User control in the editor.
+// EditorGamePropertiesController
+// User control game properties menu.
 //===============================================
 "use strict";
 
@@ -16,6 +16,10 @@ var EditorGamePropertiesController = function (m_editorController, m_renderer) {
 	var m_$GamePropsStartingCredits = $('#GamePropsStartingCreditsEditor');
 	var m_$GamePropsCreditsPerMine = $('#GamePropsCreditsPerMineEditor');
 	var m_$GamePropsPlayers = $('#GamePropsPlayersEditor');
+
+	var m_$GamePropsCustomMap = $('#GamePropsCustomMapEditor');
+	var m_$CustomMapMenus = m_$GameProps.find('[custom_map]');
+	var m_$GenericMapMenus = m_$GameProps.find('[generic_map]');
 
 	var m_subscriber = new DOMSubscriber();
 
@@ -34,7 +38,16 @@ var EditorGamePropertiesController = function (m_editorController, m_renderer) {
 		m_subscriber.subscribe($('#BtnGamePropsApply'), 'click', onBtnApply);
 		m_subscriber.subscribe($('#BtnGamePropsCancel'), 'click', onBtnCancel);
 
+		m_subscriber.subscribe(m_$GamePropsCustomMap, 'change', onCustomMapChanged);
+
+		// Hide/Show during PlayersProps menu
+		m_subscriber.subscribe($('#BtnPlayersProps'), 'click', onPlayersProps);
+		m_subscriber.subscribe($('#BtnPlayersPropsClose'), 'click', onPlayersPropsHide);
+
 		self._eworld.blackboard[EditorBlackBoard.Properties.LOCK_SIZES] = false;
+
+		EditorPlayersPropertiesController.populateStartCreditsOptions(m_$GamePropsStartingCredits.empty());
+		EditorPlayersPropertiesController.populateCreditsPerMineOptions(m_$GamePropsCreditsPerMine.empty());
 	};
 	
 	this.uninitialize = function () {
@@ -58,6 +71,9 @@ var EditorGamePropertiesController = function (m_editorController, m_renderer) {
 		m_$GamePropsPlayers.val(m_playersData.players.length);
 
 		m_$GamePropsLockSizes.prop('checked', self._eworld.blackboard[EditorBlackBoard.Properties.LOCK_SIZES]);
+		m_$GamePropsCustomMap.prop('checked', m_gameState.isCustomMap);
+
+		showCustomMapMenus(m_$GamePropsCustomMap.prop('checked'));
 	}
 
 	var onBtnApply = function (event) {
@@ -65,12 +81,16 @@ var EditorGamePropertiesController = function (m_editorController, m_renderer) {
 
 		m_editorController.setWorldSize(false, parseInt(m_$GamePropsHeight.val()), parseInt(m_$GamePropsWidth.val()));
 
+		m_gameState.isCustomMap = m_$GamePropsCustomMap.prop('checked');
 
-		for(var i = 0; i < m_playersData.players.length; ++i) {
-			var player = m_playersData.players[i];
 
-			player.creditsPerMine = parseInt(m_$GamePropsCreditsPerMine.val());
-			player.credits = parseInt(m_$GamePropsStartingCredits.val());
+		if (!m_gameState.isCustomMap) {
+			for(var i = 0; i < m_playersData.players.length; ++i) {
+				var player = m_playersData.players[i];
+
+				player.creditsPerMine = parseInt(m_$GamePropsCreditsPerMine.val());
+				player.credits = parseInt(m_$GamePropsStartingCredits.val());
+			}
 		}
 
 		var playersCount = parseInt(m_$GamePropsPlayers.val());
@@ -90,6 +110,32 @@ var EditorGamePropertiesController = function (m_editorController, m_renderer) {
 	
 	var onBtnCancel = function (event) {
 		m_$GameProps.hide();
+	}
+
+	var onPlayersProps = function (event) {
+		m_$GameProps.hide();
+	}
+
+	var onPlayersPropsHide = function (event) {
+
+		// To make sure if changes to players were made, canceling here works correctly.
+		m_gameState.isCustomMap = true;
+
+		m_$GameProps.show();
+	}
+
+	var onCustomMapChanged = function () {
+		showCustomMapMenus(m_$GamePropsCustomMap.prop('checked'));
+	}
+
+	var showCustomMapMenus = function (isCustom) {
+		if (isCustom) {
+			m_$CustomMapMenus.show();
+			m_$GenericMapMenus.hide();
+		} else {
+			m_$CustomMapMenus.hide();
+			m_$GenericMapMenus.show();	
+		}
 	}
 }
 

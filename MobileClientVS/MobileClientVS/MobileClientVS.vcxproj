@@ -132,6 +132,7 @@
     <None Include="..\..\MobileClient\www\Javascript\Editor\EditorEvents.js" />
     <None Include="..\..\MobileClient\www\Javascript\Editor\Systems\EditorController.js" />
     <None Include="..\..\MobileClient\www\Javascript\Editor\Systems\EditorGamePropertiesController.js" />
+    <None Include="..\..\MobileClient\www\Javascript\Editor\Systems\EditorPlayersPropertiesController.js" />
     <None Include="..\..\MobileClient\www\Javascript\Editor\Systems\EditorUnitPropertiesController.js" />
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Components\CFightUnit.js" />
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Components\CFightUnitRendering.js" />

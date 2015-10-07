@@ -12,6 +12,7 @@ var GameState = function () {
 GameState.prototype.init = function () {
 	this.currentPlayer = null;
 	this.turnsPassed = 0;
+	this.isCustomMap = true;
 	
 	this.currentPlaceables = [];
 	this.relationPlaceables = [];
@@ -73,6 +74,7 @@ GameState.serialize = function (input, output, instanceRegister) {
 
 	output.currentPlayer = Serialization.serializeCustom(input.currentPlayer, instanceRegister);
 	output.turnsPassed = Serialization.serializeCustom(input.turnsPassed, instanceRegister);
+	output.isCustomMap = Serialization.serializeCustom(input.isCustomMap, instanceRegister);
 };
 
 GameState.deserialize = function (input, output, instanceRegister, outAllObjects) {
@@ -81,4 +83,5 @@ GameState.deserialize = function (input, output, instanceRegister, outAllObjects
 
 	output.currentPlayer = Serialization.deserializeCustom(input.currentPlayer, instanceRegister, outAllObjects);
 	output.turnsPassed = Serialization.deserializeCustom(input.turnsPassed, instanceRegister, outAllObjects);
+	output.isCustomMap = Serialization.deserializeCustom(input.isCustomMap, instanceRegister, outAllObjects);
 };
