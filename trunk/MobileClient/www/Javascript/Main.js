@@ -38,11 +38,13 @@ $(function () {
 			if (e.which == 13) {	// Enter
 				e.preventDefault();
 				$('.btn_apply:visible').click();
+				$('.btn_done:visible').click();
 			}
 
 			if (e.which == 27) {	// ESC
 				e.preventDefault();
 				$('.btn_cancel:visible').click();
+				$('.btn_done:visible').click();
 			}
 		});
 	

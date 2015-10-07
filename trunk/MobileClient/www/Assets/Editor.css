@@ -4,31 +4,36 @@
 	height: 400px;
 }
 
-#UnitPropsEditorContainer > table td:nth-child(1), #GamePropsEditorContainer > table td:nth-child(1)
+
+.editor_props_container > table td:nth-child(1)
 {
 	text-align: right;
 	width: 150px;
 }
-#UnitPropsEditorContainer > table td:nth-child(2), #GamePropsEditorContainer > table td:nth-child(2)
+.editor_props_container > table td:nth-child(2)
 {
 	text-align: left;
 	width: 150px;
 }
+.editor_props_container > table th
+{
+	text-align: center;
+	border-top: 1px solid white;
+	border-bottom: 1px solid white;
+	border-radius: 12px;
+}
 
-#UnitPropsEditorContainer input[type="text"], 
-#GamePropsEditorContainer input[type="text"]
+.editor_props_container input[type="text"]
 {
 	width: 120px;
 }
 
-#UnitPropsEditorContainer input[type="number"], 
-#GamePropsEditorContainer input[type="number"]
+.editor_props_container input[type="number"]
 {
 	width: 30px;
 }
 
-#UnitPropsEditorContainer select, 
-#GamePropsEditorContainer select
+.editor_props_container select
 {
 	width: 75px;
 }
