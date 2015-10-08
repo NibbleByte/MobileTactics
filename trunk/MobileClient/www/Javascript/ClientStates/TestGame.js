@@ -461,11 +461,6 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 				// Initialize new data
 				m_clientState.playersData = new PlayersData(m_eworld);
 				m_eworld.store(PlayersData, m_clientState.playersData);
-				m_clientState.playersData.addPlayer('Pl1', Player.Types.Human, Player.Races.Empire, PlayerColors[0]);
-				m_clientState.playersData.addPlayer('Pl2', Player.Types.Human, Player.Races.JunkPeople, PlayerColors[1]);
-				m_clientState.playersData.addPlayer('Pl3', Player.Types.Human, Player.Races.Developers, PlayerColors[2]);
-				m_clientState.playersData.addPlayer('Pl4', Player.Types.Human, Player.Races.Developers, PlayerColors[3]);
-	
 				m_clientState.gameState = new GameState();
 				m_eworld.store(GameState, m_clientState.gameState);
 
@@ -474,6 +469,11 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 			
 				m_eworld.trigger(EngineEvents.General.GAME_LOADING);
 
+				m_clientState.playersData.addPlayer('Pl1', Player.Types.Human, Player.Races.Empire, PlayerColors[0]);
+				m_clientState.playersData.addPlayer('Pl2', Player.Types.Human, Player.Races.JunkPeople, PlayerColors[1]);
+				m_clientState.playersData.addPlayer('Pl3', Player.Types.Human, Player.Races.Developers, PlayerColors[2]);
+				m_clientState.playersData.addPlayer('Pl4', Player.Types.Human, Player.Races.Developers, PlayerColors[3]);
+	
 				var ROWS = 10, COLUMNS = 10;
 				fillTerrainPattern(m_eworld, m_clientState.world, m_clientState.playersData, ROWS, COLUMNS);
 

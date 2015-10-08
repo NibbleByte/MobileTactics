@@ -542,6 +542,9 @@
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\FightUnits\NibblerFight.js">
       <Filter>Assets\Render\SpriteAnimations\FightUnits</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Javascript\Editor\EditorState.js">
+      <Filter>Javascript\Editor</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

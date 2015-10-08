@@ -103,7 +103,7 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 
 		m_clientState.editorController = eworld.addSystem(new EditorController(world, worldRenderer));
 		eworld.addSystem(new EditorUnitPropertiesController());
-		eworld.addSystem(new EditorGamePropertiesController(m_clientState.editorController, worldRenderer));
+		eworld.addSystem(new EditorGamePropertiesController(worldRenderer));
 		eworld.addSystem(new EditorPlayersPropertiesController());
 
 
@@ -129,10 +129,6 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 				// Initialize new data
 				m_clientState.playersData = new PlayersData(m_eworld);
 				m_eworld.store(PlayersData, m_clientState.playersData);
-				m_clientState.playersData.addPlayer('Pl1', Player.Types.Human, Player.Races.Empire, PlayerColors[0]);
-				m_clientState.playersData.addPlayer('Pl2', Player.Types.Human, Player.Races.Empire, PlayerColors[1]);
-				m_clientState.playersData.addPlayer('Pl3', Player.Types.Human, Player.Races.Empire, PlayerColors[2]);
-				m_clientState.playersData.addPlayer('Pl4', Player.Types.Human, Player.Races.Empire, PlayerColors[3]);
 	
 				m_clientState.gameState = new GameState();
 				m_clientState.editorState = new EditorState();
@@ -142,6 +138,11 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 				m_eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING] = true;
 				
 				m_eworld.triggerAsync(EngineEvents.General.GAME_LOADING);
+
+				m_clientState.playersData.addPlayer('Pl1', Player.Types.Human, Player.Races.Empire, PlayerColors[0]);
+				m_clientState.playersData.addPlayer('Pl2', Player.Types.Human, Player.Races.Empire, PlayerColors[1]);
+				m_clientState.playersData.addPlayer('Pl3', Player.Types.Human, Player.Races.Empire, PlayerColors[2]);
+				m_clientState.playersData.addPlayer('Pl4', Player.Types.Human, Player.Races.Empire, PlayerColors[3]);
 
 				m_clientState.editorController.setWorldSize(true, DEFAULT_ROWS, DEFAULT_COLUMNS);
 
