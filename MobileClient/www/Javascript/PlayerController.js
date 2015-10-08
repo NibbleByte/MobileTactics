@@ -73,16 +73,6 @@ var PlayerController = function (m_executor) {
 
 		if (m_gameState.currentPlayer != null && m_gameState.currentPlayer.type != Player.Types.Human)
 			return;
-
-		// DEBUG: if tile is the same, place object
-		if (tile && tile == m_selectedTile 
-				&& tile.CTile.placedObjects.length == 0
-				&& m_gameState.currentPlayer != null
-				) {
-			
-			m_executor.createObjectAt(tile, m_gameState.currentPlayer);
-			return;
-		}
 		
 		selectTileHighlight(tile);
 
@@ -152,7 +142,21 @@ var PlayerController = function (m_executor) {
 	var onTileClicked = function(hitData) {
 		
 		if (m_inputActive) {
-			selectTile(hitData.tile);
+			
+			var tile = hitData.tile;
+
+			// DEBUG: place object if shift key is pressed.
+			if (hitData.event.originalEvent.originalInputEvent.shiftKey
+				&& tile 
+				&& tile.CTile.placedObjects.length == 0
+				&& m_gameState.currentPlayer != null
+				) {
+
+				m_executor.createObjectAt(tile, m_gameState.currentPlayer);
+				return;
+			}
+
+			selectTile(tile);
 		}
 	}
 
