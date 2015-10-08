@@ -14,6 +14,7 @@ var EditorController = function (m_world, m_renderer) {
 	var m_currentBrush = null;
 	
 	var m_subscriber = new DOMSubscriber();
+	var m_gameState = null;
 	var m_playersData = null;
 
 	//
@@ -25,9 +26,9 @@ var EditorController = function (m_world, m_renderer) {
 		self._eworldSB.subscribe(ClientEvents.Input.TILE_TOUCH, onTileTouched);
 		self._eworldSB.subscribe(ClientEvents.Input.TILE_TOUCH_UP, onTileTouchedEnd);
 
-		rebuildTerrainBrushList();
-		rebuildUnitsList();
-		onBtnPan();
+		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADING, onGameLoading);
+		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADED, onGameLoaded);
+		self._eworldSB.subscribe(EditorEvents.Properties.GAME_PROPERTIES_CHANGED, onGamePropsChanged);
 
 		// Toolbar listeners
 		m_subscriber.subscribe($('#BtnPanEditor'), 'click', onBtnPan);
@@ -81,6 +82,36 @@ var EditorController = function (m_world, m_renderer) {
 		}
 	}
 
+	var onGameLoading = function () {
+		m_gameState = self._eworld.extract(GameState);
+		m_playersData = self._eworld.extract(PlayersData);
+	}
+
+	var onGameLoaded = function () {
+		rebuildTerrainBrushList();
+		rebuildUnitsList();
+		onBtnPan();
+	}
+
+	var onGamePropsChanged = function (width, height) {
+
+		self.setWorldSize(false, width, height);
+
+		rebuildUnitsList();
+
+		// If map is custom, remove all redundant units.
+		var entities = self._eworld.getEntities();
+
+		for (var i = 0; i < entities.length; ++i) {
+			var entity = entities[i];
+
+			if (entity.CUnit && !GenericUnits.contains(entity.CUnit.getDefinition())) {
+				entity.destroy();
+				--i;
+			}
+		}
+	}
+
 	var rebuildTerrainBrushList = function () {
 		m_$TerrainBrushList.empty();
 
@@ -95,6 +126,17 @@ var EditorController = function (m_world, m_renderer) {
 
 	var rebuildUnitsList = function () {
 		m_$PlaceablesBrushList.empty();
+
+		// Generic games allow only basic unit to be placed.
+		if (!m_gameState.isCustomMap) {
+			$('<option />')
+			.text('Race Basic Unit')
+			.attr('value', UnitsFactory.generateDefinitionPath(UnitsDefinitions[Player.Races.Empire].PeaceKeeper))
+			.appendTo(m_$PlaceablesBrushList);
+
+			return;
+		}
+
 
 		for (var i = 0; i < UnitsDefinitions.length; ++i) {
 
@@ -117,7 +159,6 @@ var EditorController = function (m_world, m_renderer) {
 
 	var rebuildPlayersList = function () {
 		m_$PlayerBrushList.empty();
-		m_playersData = self._eworld.extract(PlayersData);
 
 		$('<option />')
 		.attr('value', '-')

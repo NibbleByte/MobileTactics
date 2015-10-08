@@ -4,7 +4,7 @@
 //===============================================
 "use strict";
 
-var EditorGamePropertiesController = function (m_editorController, m_renderer) {
+var EditorGamePropertiesController = function (m_renderer) {
 	var self = this;
 	
 	var m_$GameProps = $('#GamePropsEditor');
@@ -77,8 +77,6 @@ var EditorGamePropertiesController = function (m_editorController, m_renderer) {
 	var onBtnApply = function (event) {
 		m_$GameProps.hide();
 
-		m_editorController.setWorldSize(false, parseInt(m_$GamePropsHeight.val()), parseInt(m_$GamePropsWidth.val()));
-
 		m_gameState.isCustomMap = m_$GamePropsCustomMap.prop('checked');
 
 
@@ -104,6 +102,8 @@ var EditorGamePropertiesController = function (m_editorController, m_renderer) {
 		}
 
 		self._eworld.extract(EditorState).mapLockedSizes = m_$GamePropsLockSizes.prop('checked');
+
+		self._eworld.trigger(EditorEvents.Properties.GAME_PROPERTIES_CHANGED, parseInt(m_$GamePropsHeight.val()), parseInt(m_$GamePropsWidth.val()));
 	}
 	
 	var onBtnCancel = function (event) {

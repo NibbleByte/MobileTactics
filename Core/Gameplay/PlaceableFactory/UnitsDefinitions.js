@@ -19,6 +19,7 @@ UnitTypeStatNames[UnitType.Aerial] = 'AttackAerial';
 UnitTypeStatNames[UnitType.Naval] = 'AttackNaval';
 
 var UnitsDefinitions = [];
+var GenericUnits = [];	// Contains the definitions of all generic units (i.e. basic race unit that can be used in generic maps).
 
 UnitsDefinitions[Player.Races.Developers] = {
 
@@ -593,6 +594,11 @@ UnitsDefinitions[Player.Races.Roaches] = {
 	},
 
 };
+
+GenericUnits.push(UnitsDefinitions[Player.Races.Empire].PeaceKeeper);
+GenericUnits.push(UnitsDefinitions[Player.Races.JunkPeople].FlakTrooper);
+GenericUnits.push(UnitsDefinitions[Player.Races.Roaches].Nibbler);
+
 
 (function () {
 	
