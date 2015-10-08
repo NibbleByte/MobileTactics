@@ -14,10 +14,6 @@ var EditorEvents = {
 
 var EditorBlackBoard = {
 	
-	Properties: {
-		LOCK_SIZES: "editor.brushes.lock_sizes",
-	},
-
 	Brushes: {
 		CURRENT_BRUSH:	"editor.brushes.current_brush",
 	},

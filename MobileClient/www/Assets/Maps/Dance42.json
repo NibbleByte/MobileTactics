@@ -1,4 +1,8 @@
 {
+	"editorState": {
+		"__serializationTypeName": "EditorState",
+		"mapLockedSizes": true
+	},
 	"gameState": {
 		"__serializationTypeName": "GameState",
 		"currentPlayer": null,
@@ -210,13 +214,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 4
+								"__serializationRefId": 5
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 45
+								"__serializationRefId": 46
 							}
 						},
 						"CUnit": {
@@ -321,7 +325,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 4
+					"__serializationRefId": 5
 				}
 			},
 			"CTileTerrain": {
@@ -344,7 +348,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 4
+					"__serializationRefId": 5
 				}
 			},
 			"CTileTerrain": {
@@ -437,7 +441,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 4
+					"__serializationRefId": 5
 				}
 			},
 			"CTileTerrain": {
@@ -551,7 +555,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 4
+					"__serializationRefId": 5
 				}
 			},
 			"CTileTerrain": {
@@ -574,7 +578,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 4
+					"__serializationRefId": 5
 				}
 			},
 			"CTileTerrain": {
@@ -692,13 +696,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 4
+								"__serializationRefId": 5
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 176
+								"__serializationRefId": 177
 							}
 						},
 						"CUnit": {
@@ -842,13 +846,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 5
+								"__serializationRefId": 6
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 215
+								"__serializationRefId": 216
 							}
 						},
 						"CUnit": {
@@ -998,13 +1002,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 5
+								"__serializationRefId": 6
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 256
+								"__serializationRefId": 257
 							}
 						},
 						"CUnit": {
@@ -1067,7 +1071,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 5
+					"__serializationRefId": 6
 				}
 			},
 			"CTileTerrain": {
@@ -1090,7 +1094,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 5
+					"__serializationRefId": 6
 				}
 			},
 			"CTileTerrain": {
@@ -1113,7 +1117,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 5
+					"__serializationRefId": 6
 				}
 			},
 			"CTileTerrain": {
@@ -1472,7 +1476,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 5
+					"__serializationRefId": 6
 				}
 			},
 			"CTileTerrain": {
@@ -1523,7 +1527,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 5
+					"__serializationRefId": 6
 				}
 			},
 			"CTileTerrain": {
@@ -1771,16 +1775,16 @@
 			}
 		},
 		{
-			"__serializationRefId": 48
+			"__serializationRefId": 49
 		},
 		{
-			"__serializationRefId": 179
+			"__serializationRefId": 180
 		},
 		{
-			"__serializationRefId": 259
+			"__serializationRefId": 260
 		},
 		{
-			"__serializationRefId": 218
+			"__serializationRefId": 219
 		}
 	]
 }

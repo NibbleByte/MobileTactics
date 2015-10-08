@@ -44,8 +44,6 @@ var EditorGamePropertiesController = function (m_editorController, m_renderer) {
 		m_subscriber.subscribe($('#BtnPlayersProps'), 'click', onPlayersProps);
 		m_subscriber.subscribe($('#BtnPlayersPropsClose'), 'click', onPlayersPropsHide);
 
-		self._eworld.blackboard[EditorBlackBoard.Properties.LOCK_SIZES] = false;
-
 		EditorPlayersPropertiesController.populateStartCreditsOptions(m_$GamePropsStartingCredits.empty());
 		EditorPlayersPropertiesController.populateCreditsPerMineOptions(m_$GamePropsCreditsPerMine.empty());
 	};
@@ -70,7 +68,7 @@ var EditorGamePropertiesController = function (m_editorController, m_renderer) {
 
 		m_$GamePropsPlayers.val(m_playersData.players.length);
 
-		m_$GamePropsLockSizes.prop('checked', self._eworld.blackboard[EditorBlackBoard.Properties.LOCK_SIZES]);
+		m_$GamePropsLockSizes.prop('checked', self._eworld.extract(EditorState).mapLockedSizes);
 		m_$GamePropsCustomMap.prop('checked', m_gameState.isCustomMap);
 
 		showCustomMapMenus(m_$GamePropsCustomMap.prop('checked'));
@@ -105,7 +103,7 @@ var EditorGamePropertiesController = function (m_editorController, m_renderer) {
 			m_playersData.addPlayer(name, Player.Types.Human, Player.Races.Empire, color);
 		}
 
-		self._eworld.blackboard[EditorBlackBoard.Properties.LOCK_SIZES] = m_$GamePropsLockSizes.prop('checked');
+		self._eworld.extract(EditorState).mapLockedSizes = m_$GamePropsLockSizes.prop('checked');
 	}
 	
 	var onBtnCancel = function (event) {
