@@ -10,31 +10,33 @@ var EngineEvents = {
 		General: {
 			// Use GAME_LOADING to cache the NEW game state (including on re-loading world).
 			// GAME_LOADED is after all loading is done.
-			GAME_LOADING:	"engine.general.game_loading",	// event
-			GAME_LOADED:	"engine.general.game_loaded",	// event
+			GAME_LOADING:			"engine.general.game_loading",				// 
+			GAME_VALIDATE:			"engine.general.game_validate",				// failReasons
+			GAME_VALIDATION_FAILED:	"engine.general.game_validation_failed",	// failReasons
+			GAME_LOADED:			"engine.general.game_loaded",				// 
 		},
 		
 		World: {
-			TILE_ADDED: 	"engine.world.tile_added",		// event, addedTile
-			TILE_CHANGED: 	"engine.world.tile_changed",	// event, changedTile
-			TILE_REMOVING: 	"engine.world.tile_removing",	// event, removedTile
-			TILE_REMOVED: 	"engine.world.tile_removed",	// event
+			TILE_ADDED: 	"engine.world.tile_added",		// addedTile
+			TILE_CHANGED: 	"engine.world.tile_changed",	// changedTile
+			TILE_REMOVING: 	"engine.world.tile_removing",	// removedTile
+			TILE_REMOVED: 	"engine.world.tile_removed",	// 
 		},
 
 		Placeables: {
-			PLACEABLE_REGISTERED: 		"engine.world.placeable_registered",	// event, placeable
-			PLACEABLE_MOVING: 			"engine.world.placeable_moving",		// event, placeable
-			PLACEABLE_MOVED: 			"engine.world.placeable_moved",			// event, placeable
-			PLACEABLE_UNREGISTERING: 	"engine.world.placeable_unregistering",	// event, placeable		
-			PLACEABLE_UNREGISTERED: 	"engine.world.placeable_unregistered",	// event		
+			PLACEABLE_REGISTERED: 		"engine.world.placeable_registered",	// placeable
+			PLACEABLE_MOVING: 			"engine.world.placeable_moving",		// placeable
+			PLACEABLE_MOVED: 			"engine.world.placeable_moved",			// placeable
+			PLACEABLE_UNREGISTERING: 	"engine.world.placeable_unregistering",	// placeable		
+			PLACEABLE_UNREGISTERED: 	"engine.world.placeable_unregistered",	// 
 		},
 		
 		Serialization: {
-			ENTITY_DESERIALIZED:	"engine.serialization.deserialized",	// event, entity
+			ENTITY_DESERIALIZED:	"engine.serialization.deserialized",	// entity
 		},
 
 		Utils: {
-			INVALIDATE:		"engine.utils.invalidate"	// event, object
+			INVALIDATE:		"engine.utils.invalidate"	// object
 		},
 }
 

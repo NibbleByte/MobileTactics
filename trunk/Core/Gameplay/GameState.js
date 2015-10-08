@@ -13,6 +13,7 @@ GameState.prototype.init = function () {
 	this.currentPlayer = null;
 	this.turnsPassed = 0;
 	this.isCustomMap = true;
+	this.gameStarted = false;
 	
 	this.currentPlaceables = [];
 	this.relationPlaceables = [];

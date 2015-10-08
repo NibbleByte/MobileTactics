@@ -18,6 +18,7 @@ var GameStateSystem = function () {
 		self._eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_UNREGISTERING, onRemovePlaceable);
 		
 		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADING, onGameLoading);
+		self._eworldSB.subscribe(EngineEvents.General.GAME_VALIDATE, onGameValidation);
 		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADED, onGameLoaded);
 		self._eworldSB.subscribe(GameplayEvents.GameState.END_TURN, onEndTurn);
 		self._eworldSB.subscribe(GameplayEvents.Players.PLAYER_REMOVED, onPlayerRemoved);
@@ -67,8 +68,29 @@ var GameStateSystem = function () {
 		m_gameState = self._eworld.extract(GameState);
 	}
 
+	var onGameValidation = function (failReasons) {
+
+		// TODO: Editor doesn't do these checks on load up, because this system is not present there.
+		if (m_gameState.gameStarted)
+			return;
+		
+		if (!m_gameState.isCustomMap) {
+			var entities = self._eworld.getEntities();
+
+			for (var i = 0; i < entities.length; ++i) {
+				var entity = entities[i];
+
+				if (entity.CUnit && !GenericUnits.contains(entity.CUnit.getDefinition())) {
+					failReasons.push('Generic maps is not allowed to have any units except generic ones. Found unit: ' + entity.CUnit.name);
+				}
+			}
+		}
+	}
+
 	var onGameLoaded = function () {
 
+		m_gameState.gameStarted = true;
+		
 		self._eworld.trigger(GameplayEvents.GameState.TURN_CHANGING, m_gameState, true);
 
 		if (m_gameState.currentPlayer == null)
