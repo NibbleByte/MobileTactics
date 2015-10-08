@@ -418,6 +418,12 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 					m_eworld.trigger(EngineEvents.Serialization.ENTITY_DESERIALIZED, entities[i]);
 				}
 		
+				var failReasons = [];
+				m_eworld.trigger(EngineEvents.General.GAME_VALIDATE, failReasons);
+				if (failReasons.length > 0) {
+					m_eworld.trigger(EngineEvents.General.GAME_VALIDATION_FAILED, failReasons);
+				}
+
 				m_eworld.triggerAsync(EngineEvents.General.GAME_LOADED);
 
 				m_eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING] = false;
@@ -476,6 +482,12 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 	
 				var ROWS = 10, COLUMNS = 10;
 				fillTerrainPattern(m_eworld, m_clientState.world, m_clientState.playersData, ROWS, COLUMNS);
+
+				var failReasons = [];
+				m_eworld.trigger(EngineEvents.General.GAME_VALIDATE, failReasons);
+				if (failReasons.length > 0) {
+					m_eworld.trigger(EngineEvents.General.GAME_VALIDATION_FAILED, failReasons);
+				}
 
 				m_eworld.triggerAsync(EngineEvents.General.GAME_LOADED);
 
@@ -573,10 +585,20 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		var onGameLoaded = function () {
 			m_loadingScreen.hide();
 		}
+
+		var onValidationFailed = function (failedReasons) {
+
+			console.error('Game validation failed:');
+
+			for(var i = 0; i < failedReasons.length; ++i) {
+				console.error('> ' + failedReasons[i]);
+			}
+		}
 	
 		m_clientState.eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, onTurnChanged);
 		m_clientState.eworldSB.subscribe(GameplayEvents.GameState.NO_PLAYING_PLAYERS, onTurnChanged);
 
+		m_clientState.eworldSB.subscribe(EngineEvents.General.GAME_VALIDATION_FAILED, onValidationFailed);
 		m_clientState.eworldSB.subscribe(EngineEvents.General.GAME_LOADED, onGameLoaded);
 	
 		// Hud locking... just hit them all...

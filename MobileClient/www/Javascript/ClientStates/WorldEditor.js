@@ -146,6 +146,12 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 
 				m_clientState.editorController.setWorldSize(true, DEFAULT_ROWS, DEFAULT_COLUMNS);
 
+				var failReasons = [];
+				m_eworld.trigger(EngineEvents.General.GAME_VALIDATE, failReasons);
+				if (failReasons.length > 0) {
+					m_eworld.trigger(EngineEvents.General.GAME_VALIDATION_FAILED, failReasons);
+				}
+
 				m_eworld.triggerAsync(EngineEvents.General.GAME_LOADED);
 
 				m_eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING] = false;
@@ -257,6 +263,12 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 							m_eworld.trigger(EngineEvents.Serialization.ENTITY_DESERIALIZED, entities[i]);
 						}
 
+						var failReasons = [];
+						m_eworld.trigger(EngineEvents.General.GAME_VALIDATE, failReasons);
+						if (failReasons.length > 0) {
+							m_eworld.trigger(EngineEvents.General.GAME_VALIDATION_FAILED, failReasons);
+						}
+
 						m_eworld.triggerAsync(EngineEvents.General.GAME_LOADED);
 
 						m_eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING] = false;
@@ -295,6 +307,16 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 			m_loadingScreen.hide();
 		}
 
+		var onValidationFailed = function (failedReasons) {
+
+			console.error('Game validation failed:');
+
+			for(var i = 0; i < failedReasons.length; ++i) {
+				console.error('> ' + failedReasons[i]);
+			}
+		}
+
+		m_clientState.eworldSB.subscribe(EngineEvents.General.GAME_VALIDATION_FAILED, onValidationFailed);
 		m_clientState.eworldSB.subscribe(EngineEvents.General.GAME_LOADED, onGameLoaded);
 
 		//
