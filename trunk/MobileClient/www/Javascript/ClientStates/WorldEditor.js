@@ -135,7 +135,9 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 				m_clientState.playersData.addPlayer('Pl4', Player.Types.Human, Player.Races.Empire, PlayerColors[3]);
 	
 				m_clientState.gameState = new GameState();
+				m_clientState.editorState = new EditorState();
 				m_eworld.store(GameState, m_clientState.gameState);
+				m_eworld.store(EditorState, m_clientState.editorState);
 				
 				m_eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING] = true;
 				
@@ -191,6 +193,7 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 			var fullGameState = {
 					gameState: m_clientState.gameState,
 					playersData: m_clientState.playersData,
+					editorState: m_clientState.editorState,
 					world: entities,
 			};
 			m_clientState.savedGame = Serialization.serialize(fullGameState, true, true);
@@ -227,9 +230,11 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 						var fullGameState = Serialization.deserialize(data, allObjects);
 		
 						m_clientState.gameState = fullGameState.gameState;
+						m_clientState.editorState = fullGameState.editorState || new EditorState();
 						m_clientState.playersData = fullGameState.playersData;
 						m_eworld.store(PlayersData, m_clientState.playersData);
 						m_eworld.store(GameState, m_clientState.gameState);
+						m_eworld.store(EditorState, m_clientState.editorState);
 
 						m_eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING] = true;
 		
@@ -259,7 +264,7 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 						var rows = Math.max(m_renderer.getRenderedRows(), DEFAULT_ROWS);
 						var columns = Math.max(m_renderer.getRenderedColumns(), DEFAULT_COLUMNS);
 
-						if (!m_eworld.blackboard[EditorBlackBoard.Properties.LOCK_SIZES]) {
+						if (!m_clientState.editorState.mapLockedSizes) {
 							rows += 2;
 							columns += 2;
 						}	

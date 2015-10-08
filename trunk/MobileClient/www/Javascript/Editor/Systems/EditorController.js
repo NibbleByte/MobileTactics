@@ -240,7 +240,7 @@ var EditorController = function (m_world, m_renderer) {
 			var resizeHorizontal = hitData.column == columns + Math.ceil(hitData.row / 2) - 1;
 			var resizeVertical = hitData.row == rows - 1;
 
-			if (hitData.tile && !self._eworld.blackboard[EditorBlackBoard.Properties.LOCK_SIZES]) {
+			if (hitData.tile && !self._eworld.extract(EditorState).mapLockedSizes) {
 				if (resizeHorizontal || resizeVertical) {
 					self.setWorldSize(false, 
 						(resizeVertical) ? rows + 2 : rows, 
