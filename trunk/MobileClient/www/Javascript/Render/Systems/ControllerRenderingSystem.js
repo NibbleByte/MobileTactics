@@ -19,10 +19,19 @@ var ControllerRenderingSystem = function (m_renderer, m_$creditsLabel) {
 
 		self._eworldSB.subscribe(GameplayEvents.Resources.CURRENT_CREDITS_CHANGED, onCreditsChanged);
 
+		self._eworldSB.subscribe(RenderEvents.FightAnimations.FIGHT_STARTED, onFightStarted);
+		self._eworldSB.subscribe(RenderEvents.FightAnimations.FIGHT_FINISHED, onFightFinished);
+
 		m_selectedSprite = m_renderer.createSprite(WorldLayers.LayerTypes.Selection, ControllerRenderingSystem.TILE_SELECTED_SPRITE_PATH)
 		.size(GTile.TILE_WIDTH, GTile.TILE_HEIGHT);
 
 		onTileSelected(null);
+
+		m_$creditsLabel.show();
+	}
+
+	this.uninitialize = function () {
+		m_$creditsLabel.hide();
 	}
 
 	var onTileSelected = function (tile) {
@@ -43,6 +52,14 @@ var ControllerRenderingSystem = function (m_renderer, m_$creditsLabel) {
 
 	var onCreditsChanged = function (value, delta) {
 		m_$creditsLabel.text(value);
+	}
+
+	var onFightStarted = function () {
+		m_$creditsLabel.hide();
+	}
+
+	var onFightFinished = function () {
+		m_$creditsLabel.show();
 	}
 }
 

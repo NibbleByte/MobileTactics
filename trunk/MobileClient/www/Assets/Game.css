@@ -24,13 +24,14 @@
 
 #LbCredits
 {
+	display: none;
+	
 	border: 4px ridge #FFDB1A;
 	border-radius: 6px;
 	background-color: #083B40;
 	color: #E2D747;
 	padding: 4px;
 	
-	display: inline-block;
 	min-width: 40px;
 	text-align: right;
 	

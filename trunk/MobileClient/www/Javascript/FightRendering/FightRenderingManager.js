@@ -140,6 +140,8 @@ var FightRenderingManager = new function () {
 
 
 		m_$FightScreenContainer.fadeIn('fast', initializeFight);
+
+		m_currentFight.eworld.trigger(RenderEvents.FightAnimations.FIGHT_STARTED);
 	};
 
 	var initializeFight = function () {
@@ -165,6 +167,8 @@ var FightRenderingManager = new function () {
 		m_fightWorld.getSystem(AnimationSystem).pauseAnimations();
 
 		m_currentFight.renderer.show();
+
+		m_currentFight.eworld.trigger(RenderEvents.FightAnimations.FIGHT_FINISHED);
 
 		m_currentFight = null;
 
