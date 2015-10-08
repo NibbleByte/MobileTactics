@@ -536,6 +536,12 @@
     <None Include="..\..\MobileClient\www\Javascript\Editor\Systems\EditorPlayersPropertiesController.js">
       <Filter>Javascript\Editor\Systems</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\Nibbler.js">
+      <Filter>Assets\Render\SpriteAnimations\Units</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\FightUnits\NibblerFight.js">
+      <Filter>Assets\Render\SpriteAnimations\FightUnits</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

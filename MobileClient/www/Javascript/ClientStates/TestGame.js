@@ -191,6 +191,13 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 			world.place(unit, tile);
 		}
 
+		tile = world.getTile(6, 4);
+		if (tile) {
+			var unit = UnitsFactory.createUnit(UnitsDefinitions[2].Nibbler, playersData.players[0]);
+			eworld.addUnmanagedEntity(unit);
+			world.place(unit, tile);
+		}
+
 
 		// Player 1
 		tile = world.getTile(2, 6);

@@ -56,7 +56,7 @@ UnitsDefinitions[Player.Races.Developers] = {
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: 0};
-			this[GameWorldTerrainType.Minerals] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Minerals] =	{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: 0};
 		},
@@ -92,7 +92,7 @@ UnitsDefinitions[Player.Races.Developers] = {
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: 0};
-			this[GameWorldTerrainType.Minerals] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Minerals] =	{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: 0};
 		},
@@ -130,7 +130,7 @@ UnitsDefinitions[Player.Races.Developers] = {
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: 0};
-			this[GameWorldTerrainType.Minerals] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Minerals] =	{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.Harbour] =	{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: 0};
@@ -175,7 +175,7 @@ UnitsDefinitions[Player.Races.Empire] = {
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 1, Defence: 2};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 1, Defence: 2};
-			this[GameWorldTerrainType.Minerals] =		{ Cost: 1, Attack: 1, Defence: 1};
+			this[GameWorldTerrainType.Minerals] =	{ Cost: 1, Attack: 1, Defence: 1};
 			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 1, Defence: 1};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 1, Defence: 0};
 		},
@@ -218,7 +218,7 @@ UnitsDefinitions[Player.Races.Empire] = {
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: -1};
-			this[GameWorldTerrainType.Minerals] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.Minerals] =	{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: -1};
 		},
@@ -256,7 +256,7 @@ UnitsDefinitions[Player.Races.Empire] = {
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: -1};
-			this[GameWorldTerrainType.Minerals] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.Minerals] =	{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: 1};
 		},
@@ -295,7 +295,7 @@ UnitsDefinitions[Player.Races.Empire] = {
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: -1};
-			this[GameWorldTerrainType.Minerals] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.Minerals] =	{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: 0};
 		},
@@ -335,7 +335,7 @@ UnitsDefinitions[Player.Races.Empire] = {
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: -1};
-			this[GameWorldTerrainType.Minerals] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.Minerals] =	{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: 0};
 		},
@@ -383,7 +383,7 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 1, Defence: 2};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 1, Defence: 2};
-			this[GameWorldTerrainType.Minerals] =		{ Cost: 1, Attack: 1, Defence: 2};
+			this[GameWorldTerrainType.Minerals] =	{ Cost: 1, Attack: 1, Defence: 2};
 			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 1, Defence: 2};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 1, Defence: 0};
 		},
@@ -426,7 +426,7 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: -1};
-			this[GameWorldTerrainType.Minerals] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.Minerals] =	{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: -1};
 		},
@@ -462,7 +462,7 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: -1};
-			this[GameWorldTerrainType.Minerals] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.Minerals] =	{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: -1};
 		},
@@ -500,7 +500,7 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: -1};
-			this[GameWorldTerrainType.Minerals] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.Minerals] =	{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: -1};
 		},
@@ -537,7 +537,7 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: -1};
-			this[GameWorldTerrainType.Minerals] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.Minerals] =	{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: 0};
 		},
@@ -549,6 +549,49 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 };
 
 UnitsDefinitions[Player.Races.Roaches] = {
+
+	Nibbler: {
+		race: 0,
+		name: '@!@',
+		price: 100,
+		type: UnitType.Light,
+
+		baseStatistics: {
+			AttackLight: 6,
+			AttackHeavy: 4,
+			AttackRange: 1,
+			HealRate: 1,
+			Defence: 4,
+			Movement: 3,
+			Visibility: 4,
+		},
+		
+		actions: [
+				  Actions.Classes.ActionCapture,
+				  Actions.Classes.ActionMove,
+				  Actions.Classes.ActionStay,
+				  Actions.Classes.ActionAttack,
+				  Actions.Classes.ActionHeal,
+				 ],
+		
+		terrainStats: new function () {
+			this[GameWorldTerrainType.Grass] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Dirt] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: 0, Defence: 1};
+			this[GameWorldTerrainType.Mountain] =	{ Cost: 3, Attack: 1, Defence: 2};
+
+			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 1, Defence: 2};
+			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 1, Defence: 2};
+			this[GameWorldTerrainType.Minerals] =	{ Cost: 1, Attack: 1, Defence: 2};
+			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 1, Defence: 2};
+			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 1, Defence: 0};
+		},
+
+		AIHints: {
+			preferedMinCount: 3,
+		},
+	},
+
 };
 
 (function () {
