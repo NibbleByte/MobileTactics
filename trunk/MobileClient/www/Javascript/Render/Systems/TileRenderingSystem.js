@@ -93,7 +93,7 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 
 
 	// Avoid creating object every time.
-	var clickedEventDataCache = { tile: null, row: 0, column: 0 };
+	var clickedEventDataCache = { tile: null, row: 0, column: 0, event: null };
 
 	// It is just the same code for all events...
 	var extractClickedTileFromEvent = function (event, opt_target) {
@@ -121,8 +121,11 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 		}
 		
 		var hitData = extractClickedTileFromEvent(eventOrig, m_renderer.scene.dom);
-		
+		hitData.event = event;
+
 		self._eworld.trigger(ClientEvents.Input.TILE_CLICKED, hitData);
+
+		hitData.event = null;
 	}
 
 	var onPlotMouseMove = function (event) {
