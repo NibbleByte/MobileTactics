@@ -50,10 +50,10 @@ UnitsDefinitions[Player.Races.Developers] = {
 				 ],
 		
 		terrainStats: new function () {
-			this[GameWorldTerrainType.Grass] =		{ Cost: 1, Attack: 0, Defence: 0};
-			this[GameWorldTerrainType.Dirt] =		{ Cost: 1, Attack: 1, Defence: 0};
+			this[GameWorldTerrainType.Plains] =		{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.Mountain] =	{ Cost: 3, Attack: 0, Defence: 1};
 			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: 0, Defence: 1};
+			this[GameWorldTerrainType.Rough] =		{ Cost: 3, Attack: -1, Defence: -2};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: 0};
@@ -87,9 +87,9 @@ UnitsDefinitions[Player.Races.Developers] = {
 				 ],
 		
 		terrainStats: new function () {
-			this[GameWorldTerrainType.Grass] =		{ Cost: 1, Attack: 0, Defence: 0};
-			this[GameWorldTerrainType.Dirt] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Plains] =		{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.Rough] =		{ Cost: 3, Attack: -1, Defence: -2};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: 0};
@@ -124,10 +124,10 @@ UnitsDefinitions[Player.Races.Developers] = {
 				 ],
 		
 		terrainStats: new function () {
-			this[GameWorldTerrainType.Grass] =		{ Cost: 1, Attack: 0, Defence: -1};
-			this[GameWorldTerrainType.Dirt] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Plains] =		{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: 0, Defence: 1};
 			this[GameWorldTerrainType.Mountain] =	{ Cost: 2, Attack: 1, Defence: 1};
+			this[GameWorldTerrainType.Rough] =		{ Cost: 2, Attack: -2, Defence: -3};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: 0};
@@ -169,10 +169,10 @@ UnitsDefinitions[Player.Races.Empire] = {
 				 ],
 		
 		terrainStats: new function () {
-			this[GameWorldTerrainType.Grass] =		{ Cost: 1, Attack: 0, Defence: 0};
-			this[GameWorldTerrainType.Dirt] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Plains] =		{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: 1, Defence: 2};
 			this[GameWorldTerrainType.Mountain] =	{ Cost: 3, Attack: 2, Defence: 3};
+			this[GameWorldTerrainType.Rough] =		{ Cost: 3, Attack: -2, Defence: -2};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 1, Defence: 2};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 1, Defence: 2};
@@ -213,9 +213,9 @@ UnitsDefinitions[Player.Races.Empire] = {
 				 ],
 		
 		terrainStats: new function () {
-			this[GameWorldTerrainType.Grass] =		{ Cost: 1, Attack: 1, Defence: 0};
-			this[GameWorldTerrainType.Dirt] =		{ Cost: 1, Attack: 1, Defence: 0};
+			this[GameWorldTerrainType.Plains] =		{ Cost: 1, Attack: 1, Defence: 0};
 			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: -1, Defence: -1};
+			this[GameWorldTerrainType.Rough] =		{ Cost: 3, Attack: -2, Defence: -2};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: -1};
@@ -250,9 +250,9 @@ UnitsDefinitions[Player.Races.Empire] = {
 				 ],
 		
 		terrainStats: new function () {
-			this[GameWorldTerrainType.Grass] =		{ Cost: 1, Attack: 0, Defence: 0};
-			this[GameWorldTerrainType.Dirt] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Plains] =		{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: -2, Defence: -1};
+			this[GameWorldTerrainType.Rough] =		{ Cost: 3, Attack: -2, Defence: -3};
 			this[GameWorldTerrainType.Water] =		{ Cost: 2, Attack: -1, Defence: -2};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
@@ -288,10 +288,10 @@ UnitsDefinitions[Player.Races.Empire] = {
 				 ],
 		
 		terrainStats: new function () {
-			this[GameWorldTerrainType.Grass] =		{ Cost: 1, Attack: 0, Defence: 0};
-			this[GameWorldTerrainType.Dirt] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Plains] =		{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.Forest] =		{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.Mountain] =	{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Rough] =		{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.Water] =		{ Cost: 1, Attack: 0, Defence: 0};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
@@ -330,9 +330,9 @@ UnitsDefinitions[Player.Races.Empire] = {
 				 ],
 		
 		terrainStats: new function () {
-			this[GameWorldTerrainType.Grass] =		{ Cost: 1, Attack: 0, Defence: -1};
-			this[GameWorldTerrainType.Dirt] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.Plains] =		{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: -2, Defence: -1};
+			this[GameWorldTerrainType.Rough] =		{ Cost: 3, Attack: -2, Defence: -3};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: -1};
@@ -377,10 +377,10 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 				 ],
 		
 		terrainStats: new function () {
-			this[GameWorldTerrainType.Grass] =		{ Cost: 1, Attack: 0, Defence: 0};
-			this[GameWorldTerrainType.Dirt] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Plains] =		{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: 0, Defence: 1};
 			this[GameWorldTerrainType.Mountain] =	{ Cost: 3, Attack: 1, Defence: 2};
+			this[GameWorldTerrainType.Rough] =		{ Cost: 3, Attack: -2, Defence: -2};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 1, Defence: 2};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 1, Defence: 2};
@@ -420,10 +420,10 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 				 ],
 		
 		terrainStats: new function () {
-			this[GameWorldTerrainType.Grass] =		{ Cost: 1, Attack: 0, Defence: -1};
-			this[GameWorldTerrainType.Dirt] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Plains] =		{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: 1, Defence: 0};
 			this[GameWorldTerrainType.Mountain] =	{ Cost: 2, Attack: 1, Defence: 0};
+			this[GameWorldTerrainType.Rough] =		{ Cost: 3, Attack: -2, Defence: -2};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: -1};
@@ -457,9 +457,9 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 				 ],
 		
 		terrainStats: new function () {
-			this[GameWorldTerrainType.Grass] =		{ Cost: 1, Attack: 0, Defence: 0};
-			this[GameWorldTerrainType.Dirt] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Plains] =		{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: -1, Defence: -2};
+			this[GameWorldTerrainType.Rough] =		{ Cost: 3, Attack: -2, Defence: -3};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: -1};
@@ -494,10 +494,10 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 				 ],
 		
 		terrainStats: new function () {
-			this[GameWorldTerrainType.Grass] =		{ Cost: 1, Attack: 0, Defence: 0};
-			this[GameWorldTerrainType.Dirt] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Plains] =		{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: 1, Defence: 1};
 			this[GameWorldTerrainType.Mountain] =	{ Cost: 2, Attack: 1, Defence: 1};
+			this[GameWorldTerrainType.Rough] =		{ Cost: 3, Attack: -2, Defence: -2};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: -1};
@@ -532,9 +532,9 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 				 ],
 		
 		terrainStats: new function () {
-			this[GameWorldTerrainType.Grass] =		{ Cost: 1, Attack: 0, Defence: -1};
-			this[GameWorldTerrainType.Dirt] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.Plains] =		{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: -2, Defence: -1};
+			this[GameWorldTerrainType.Rough] =		{ Cost: 3, Attack: -2, Defence: -3};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: -1};
@@ -576,10 +576,10 @@ UnitsDefinitions[Player.Races.Roaches] = {
 				 ],
 		
 		terrainStats: new function () {
-			this[GameWorldTerrainType.Grass] =		{ Cost: 1, Attack: 0, Defence: 0};
-			this[GameWorldTerrainType.Dirt] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Plains] =		{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: 0, Defence: 1};
 			this[GameWorldTerrainType.Mountain] =	{ Cost: 3, Attack: 1, Defence: 2};
+			this[GameWorldTerrainType.Rough] =		{ Cost: 3, Attack: -2, Defence: -2};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 1, Defence: 2};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 1, Defence: 2};

@@ -55,9 +55,9 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		for(var i = 0; i < rows; ++i) {
 			for(var j = Math.ceil(i / 2); j < columns + i / 2; ++j) {
 			
-				tile = GameWorld.createTileUnmanaged(GameWorldTerrainType.Grass, i, j);
+				tile = GameWorld.createTileUnmanaged(GameWorldTerrainType.Plains, i, j);
 				if (i % 3 <= 1 && j % 4 >= 2) {
-					tile.CTileTerrain.type = GameWorldTerrainType.Dirt;
+					tile.CTileTerrain.type = GameWorldTerrainType.Rough;
 				}
 				if (i % 7 <= 2 && j % 5 <= 1) {
 					tile.CTileTerrain.type = GameWorldTerrainType.Mountain;
