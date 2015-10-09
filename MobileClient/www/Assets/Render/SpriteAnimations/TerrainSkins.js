@@ -3,10 +3,10 @@
 var GameWorldTerrainSkin = [];
 
 GameWorldTerrainSkin[GameWorldTerrainType.None] = [ 'None' ];
-GameWorldTerrainSkin[GameWorldTerrainType.Grass] = [ 'Grass' ];
-GameWorldTerrainSkin[GameWorldTerrainType.Dirt] = [ 'Dirt' ];
+GameWorldTerrainSkin[GameWorldTerrainType.Plains] = [ 'Plains' ];
 GameWorldTerrainSkin[GameWorldTerrainType.Forest] = [ 'Forest01', 'Forest02' ];
 GameWorldTerrainSkin[GameWorldTerrainType.Mountain] = [ 'Mountain' ];
+GameWorldTerrainSkin[GameWorldTerrainType.Rough] = [ 'Rough' ];
 GameWorldTerrainSkin[GameWorldTerrainType.Water] = [ 'Water' ];
 GameWorldTerrainSkin[GameWorldTerrainType.Base] = [ 'Base' ];
 GameWorldTerrainSkin[GameWorldTerrainType.HQ] = [ 'HQ' ];

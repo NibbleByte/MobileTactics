@@ -763,7 +763,7 @@ $(function () {
 				if (genericUnit.CStatistics.terrainStats[GameWorldTerrainType[$defenderTerrainList.val()]]) {
 					m_world.place(genericUnit, genericTiles[GameWorldTerrainType[$defenderTerrainList.val()]]);
 				} else {
-					m_world.place(genericUnit, genericTiles[GameWorldTerrainType.Grass]);
+					m_world.place(genericUnit, genericTiles[GameWorldTerrainType.Plains]);
 				}
 
 				var outcome = m_battle.predictOutcome(attacker, genericUnit, true);

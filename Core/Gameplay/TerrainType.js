@@ -5,20 +5,19 @@
 
 var GameWorldTerrainType = {
 		None: 0,
-		Grass: 0,
-		Dirt: 0,
-		Forest: 0,
-		Mountain: 0,
-		Water: 0,
+		Plains: 1,
+		Forest: 4,
+		Mountain: 8,
+		Rough: 12,
+		Water: 16,
 
 		/* Special tiles */
-		Base: 0,
-		HQ: 0,
-		Minerals: 0,
-		Factory: 0,
-		Harbour: 0,
-		Medical: 0,
-		WatchTower: 0,
+		Base: 18,
+		HQ: 20,
+		Minerals: 24,
+		Factory: 28,
+		Harbour: 32,
+		Medical: 36,
+		WatchTower: 40,
 
 };
-Enums.enumerate(GameWorldTerrainType);

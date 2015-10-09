@@ -119,7 +119,7 @@ var EditorController = function (m_world, m_renderer) {
 			$('<option />')
 			.attr('value', GameWorldTerrainType[name])
 			.text(name)
-			.prop('selected', GameWorldTerrainType[name] == GameWorldTerrainType.Grass )
+			.prop('selected', GameWorldTerrainType[name] == GameWorldTerrainType.Plains )
 			.appendTo(m_$TerrainBrushList);
 		}
 	}
