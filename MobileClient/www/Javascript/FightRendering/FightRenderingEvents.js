@@ -11,7 +11,8 @@ var FightRenderingEvents = {
 			INITIALIZE:		"ft.fight.initialize",				// Arguments: 
 			SHOW_UP_FINISH:	"ft.fight.show_up_finish",			// Arguments: 
 			ATTACK:			"ft.fight.attack",					// Arguments: unit
-			ATTACK_FINISH:	"ft.fight.attack_finish",			// Arguments: 
+			ATTACK_FINISH:	"ft.fight.attack_finish",			// Arguments: unit
+			ATTACKS_FINALIZE:	"ft.fight.attacks_finalize",	// Arguments: 
 			END_TAUNT:		"ft.fight.end_taunt",				// Arguments: unit
 			IDLE:			"ft.fight.idle",					// Arguments: 
 			UNINITIALIZE:	"ft.fight.uninitialize",			// Arguments: 
@@ -21,6 +22,7 @@ var FightRenderingEvents = {
 			FIRE:			"ft.animations.fire",				// Arguments: animData, {weaponType, final},
 			HURT:			"ft.animations.hurt",				// Arguments: unit, {weaponType, final},
 			HURT_FINISH:	"ft.animations.hurt_finish",		// Arguments: unit
+			DIES:			"ft.animations.dies",				// Arguments: unit
 		},
 
 		Units: {

@@ -19,11 +19,11 @@ var FightUnitsAnimationsController = function () {
 		self._eworldSB.subscribe(FightRenderingEvents.Fight.SHOW_UP_FINISH, all2Idle);
 
 		self._eworldSB.subscribe(FightRenderingEvents.Fight.ATTACK, onAttack);
-		self._eworldSB.subscribe(FightRenderingEvents.Fight.ATTACK_FINISH, all2Idle);
 		self._eworldSB.subscribe(FightRenderingEvents.Fight.END_TAUNT, onEndTaunt);
 
 		self._eworldSB.subscribe(FightRenderingEvents.Animations.HURT, onHurt);
 		self._eworldSB.subscribe(FightRenderingEvents.Animations.HURT_FINISH, onHurtFinish);
+		self._eworldSB.subscribe(FightRenderingEvents.Animations.DIES, onUnitDying);
 	}
 	
 	//
@@ -41,8 +41,15 @@ var FightUnitsAnimationsController = function () {
 		if (!params.entity.hasComponents(FightUnitsAnimationsController.REQUIRED_COMPONENTS))
 			return;
 
+
 		if (params.name == FightUnitsRenderingSystem.MAIN_SPRITE) {
+
 			IdleAnimationsSystem.playRandomIdleAnimation(params.animator);
+
+			var entity = params.entity;
+			if (entity.CFightUnit && entity.CFightUnit.state == FightUnitState.Attacking) {
+				self._eworld.trigger(FightRenderingEvents.Fight.ATTACK_FINISH, entity);	
+			}
 		}
 	}
 
@@ -55,6 +62,9 @@ var FightUnitsAnimationsController = function () {
 	var all2Idle = function () {
 		for(var i = 0; i < self._entityFilter.entities.length; ++i) {
 			var unit = self._entityFilter.entities[i];
+
+			if (unit.CFightUnit.state != FightUnitState.Idle)
+				continue;
 
 			var animator = unit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_SPRITE];
 
@@ -85,6 +95,14 @@ var FightUnitsAnimationsController = function () {
 		var animator = unit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_SPRITE];
 
 		animator.play();
+	}
+
+	var onUnitDying = function (unit) {
+
+		var animator = unit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_SPRITE];
+
+		animator.pause();
+		animator.sprite.hide();
 	}
 }
 

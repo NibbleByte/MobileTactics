@@ -5,8 +5,8 @@ SpriteAnimations.Particles.GroundExplosion = {
 	
 	frameWidth: 50,
 	frameHeight: 128,
-	anchorX: 25,
-	anchorY: 96,
+	anchorX: Animator.AnchorX.Center,
+	anchorY: Animator.AnchorY.Bottom,
 	
 	framesPerRow: 20,
 	speed: 5,

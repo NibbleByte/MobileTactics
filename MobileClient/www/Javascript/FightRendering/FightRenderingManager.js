@@ -113,6 +113,7 @@ var FightRenderingManager = new function () {
 			healthOutcome: outcome.attackerHealthOutcome,
 			healthMax: outcome.attacker.CStatistics.statistics['MaxHealth'],
 			isAttacker: true,
+			dies: outcome.attackerDies,
 			canFire: true,	// Attacker can always fire.
 		};
 		var rightStats = {
@@ -124,7 +125,8 @@ var FightRenderingManager = new function () {
 			healthOutcome: outcome.defenderHealthOutcome,
 			healthMax: outcome.defender.CStatistics.statistics['MaxHealth'],
 			isAttacker: false,
-			canFire: outcome.defenderFightsBack,
+			dies: outcome.defenderDies,
+			canFire: !outcome.defenderDies && outcome.canDefenderFightBack,
 		};
 		if (gameState.currentPlayer == defender.CPlayerData.player) {
 			var swp = leftStats;

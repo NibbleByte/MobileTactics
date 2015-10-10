@@ -22,7 +22,7 @@ var Animator = function (animData, sprite, scene) {
 		}
 		
 		m_currentCycle = m_cycles[name];
-		m_currentCycle.reset(true);
+		m_currentCycle.reset(false);
 		
 		m_currentCycle.__ticksElapsed = 0;
 		m_currentCycle.__timeElapsed = 0;

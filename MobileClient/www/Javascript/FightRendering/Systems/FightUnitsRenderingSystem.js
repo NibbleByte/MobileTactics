@@ -18,6 +18,8 @@ var FightUnitsRenderingSystem = function (m_renderer) {
 
 		self._eworldSB.subscribe(FightRenderingEvents.Fight.INITIALIZE, onInitializeFight);
 		self._eworldSB.subscribe(FightRenderingEvents.Units.UNIT_MOVED, onUnitMoved);
+
+		self._eworldSB.subscribe(FightRenderingEvents.Animations.DIES, onUnitDying);
 	}
 
 	// Clear any previous drawings
@@ -78,6 +80,20 @@ var FightUnitsRenderingSystem = function (m_renderer) {
 		renderUnit(fightUnit);
 	}
 
+	var onUnitDying = function (unit) {
+
+		// TODO: Maybe this should be done using particles or something :-?
+		var dyingSprite = m_renderer.createSprite(FightRenderer.LayerTypes.Units, SpriteAnimations.Particles.GroundExplosion.resourcePath);
+		unit.CFightUnitRendering.dylingSprite = dyingSprite;
+
+		var animator = new Animator(SpriteAnimations.Particles.GroundExplosion, dyingSprite, m_renderer.scene);
+		unit.CAnimations.add(FightUnitsRenderingSystem.DYING_SPRITE, animator);
+
+		animator.playSequence('Boom');
+
+		renderUnit(unit);
+	}
+
 	var registerUnit = function (fightUnit) {
 		
 		var unitRendering = fightUnit.addComponent(CFightUnitRendering);
@@ -90,6 +106,7 @@ var FightUnitsRenderingSystem = function (m_renderer) {
 }
 
 FightUnitsRenderingSystem.MAIN_SPRITE = 'MainSprite';
+FightUnitsRenderingSystem.DYING_SPRITE = 'DyingSprite';
 FightUnitsRenderingSystem.SPRITES_PATH = 'Assets-Scaled/Render/Images/FightUnits/{race}/{fileName}';
 
 ECS.EntityManager.registerSystem('FightUnitsRenderingSystem', FightUnitsRenderingSystem);
