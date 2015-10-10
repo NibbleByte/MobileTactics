@@ -173,6 +173,14 @@ var AnimationSystem = function (m_renderer, m_manual) {
 	
 }
 
+// Use this to generate unique animation token (for CAnimations).
+AnimationSystem.__nextToken = 0;
+AnimationSystem.getAnimationToken = function (opt_name) {
+	AnimationSystem.__nextToken++;
+
+	return 'Animation-' + ((opt_name) ? opt_name + '-' : '') + (AnimationSystem.__nextToken - 1);
+}
+
 // Used to invoke the tweener system. Only one animation system at a given time can do that.
 AnimationSystem.currentTweenOwner = null;
 

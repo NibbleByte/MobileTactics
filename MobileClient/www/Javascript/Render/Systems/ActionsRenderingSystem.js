@@ -64,8 +64,8 @@ ActionsRenderingSystem.ActionExecutors.AttackExecutor = function (m_executor, m_
 
 		var distance = m_eworld.extract(GameWorld).getDistance(attacker.CTilePlaceable.tile, defender.CTilePlaceable.tile);
 		
-		var attackerForward = getForwardParam(attacker);
-		var defenderForward = getForwardParam(defender);
+		var attackerForward = getForwardDirection(attacker);
+		var defenderForward = getForwardDirection(defender);
 
 		// Start animations and wait for them to finish. Only if units are in range.
 		playAttackAnimation(attacker);
@@ -98,7 +98,7 @@ ActionsRenderingSystem.ActionExecutors.AttackExecutor = function (m_executor, m_
 	
 	var playAttackAnimation = function (placeable) {
 		if (placeable.CAnimations) {
-			var animator = placeable.CAnimations.animators[UnitRenderingSystem.MAIN_SPRITE];
+			var animator = placeable.CAnimations.animators[UnitRenderingSystem.MAIN_ANIM];
 			
 			if (animator.hasSequence('Attack')) {
 				animator.playSequence('Attack');
@@ -113,10 +113,10 @@ ActionsRenderingSystem.ActionExecutors.AttackExecutor = function (m_executor, m_
 	}
 
 	// HACK: Just till all sprites are fixed to face the same direction.
-	var getForwardParam = function (placeable) {
+	var getForwardDirection = function (placeable) {
 
 		if (placeable.CAnimations) {
-			var animator = placeable.CAnimations.animators[UnitRenderingSystem.MAIN_SPRITE];
+			var animator = placeable.CAnimations.animators[UnitRenderingSystem.MAIN_ANIM];
 
 			return animator.params.forwardDirection || 1;
 		}

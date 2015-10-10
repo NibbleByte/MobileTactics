@@ -52,7 +52,7 @@ var UnitRenderingSystem = function (renderer) {
 
 			resourcePath = spritePath.replace(/{fileName}/g, animator.resourcePath);
 			
-			animations.add(UnitRenderingSystem.MAIN_SPRITE, animator);
+			animations.add(UnitRenderingSystem.MAIN_ANIM, animator);
 			animator.pauseSequence('Idle');
 			
 		} else {
@@ -110,15 +110,15 @@ var UnitRenderingSystem = function (renderer) {
 	}
 
 	var onIdleAnimation = function (unit) {
-		IdleAnimationsSystem.playRandomIdleAnimation(unit.CAnimations.animators[UnitRenderingSystem.MAIN_SPRITE]);
+		IdleAnimationsSystem.playRandomIdleAnimation(unit.CAnimations.animators[UnitRenderingSystem.MAIN_ANIM]);
 	}
 
 	var onAnimationFinished = function(params) {
 		if (!params.entity.hasComponents(UnitRenderingSystem.REQUIRED_COMPONENTS))
 			return;
 		
-		if (params.name == UnitRenderingSystem.MAIN_SPRITE) {
-			params.entity.CAnimations.animators[UnitRenderingSystem.MAIN_SPRITE].pauseSequence('Idle');
+		if (params.name == UnitRenderingSystem.MAIN_ANIM) {
+			params.entity.CAnimations.animators[UnitRenderingSystem.MAIN_ANIM].pauseSequence('Idle');
 		}
 	}
 	
@@ -163,7 +163,7 @@ var UnitRenderingSystem = function (renderer) {
 			return;
 
 		if (placeable.CAnimations) {
-			placeable.CAnimations.remove(UnitRenderingSystem.MAIN_SPRITE);
+			placeable.CAnimations.remove(UnitRenderingSystem.MAIN_ANIM);
 		}
 
 		placeable.removeComponent(CUnitRendering);
@@ -226,7 +226,7 @@ var UnitRenderingSystem = function (renderer) {
 }
 
 UnitRenderingSystem.REQUIRED_COMPONENTS = [CUnitRendering, CTilePlaceableRendering];
-UnitRenderingSystem.MAIN_SPRITE = 'MainSprite';
+UnitRenderingSystem.MAIN_ANIM = AnimationSystem.getAnimationToken('Unit');
 UnitRenderingSystem.SPRITES_PATH = 'Assets-Scaled/Render/Images/Units/{race}/{fileName}';
 UnitRenderingSystem.FINISHED_FOG_SPRITE_PATH = 'Assets-Scaled/Render/Images/FinishedHexFog.png';
 

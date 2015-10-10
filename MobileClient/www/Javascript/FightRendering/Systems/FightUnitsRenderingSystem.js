@@ -44,7 +44,7 @@ var FightUnitsRenderingSystem = function (m_renderer) {
 
 				resourcePath = spritePath.replace(/{fileName}/g, animator.resourcePath);
 
-				animations.add(FightUnitsRenderingSystem.MAIN_SPRITE, animator);
+				animations.add(FightUnitsRenderingSystem.MAIN_ANIM, animator);
 			});
 
 		} else {
@@ -87,7 +87,7 @@ var FightUnitsRenderingSystem = function (m_renderer) {
 		unit.CFightUnitRendering.dylingSprite = dyingSprite;
 
 		var animator = new Animator(SpriteAnimations.Particles.GroundExplosion, dyingSprite, m_renderer.scene);
-		unit.CAnimations.add(FightUnitsRenderingSystem.DYING_SPRITE, animator);
+		unit.CAnimations.add(FightUnitsRenderingSystem.DYING_ANIM, animator);
 
 		animator.playSequence('Boom');
 
@@ -105,8 +105,8 @@ var FightUnitsRenderingSystem = function (m_renderer) {
 	}
 }
 
-FightUnitsRenderingSystem.MAIN_SPRITE = 'MainSprite';
-FightUnitsRenderingSystem.DYING_SPRITE = 'DyingSprite';
+FightUnitsRenderingSystem.MAIN_ANIM = AnimationSystem.getAnimationToken('FightUnit');
+FightUnitsRenderingSystem.DYING_ANIM = AnimationSystem.getAnimationToken('FightDying');
 FightUnitsRenderingSystem.SPRITES_PATH = 'Assets-Scaled/Render/Images/FightUnits/{race}/{fileName}';
 
 ECS.EntityManager.registerSystem('FightUnitsRenderingSystem', FightUnitsRenderingSystem);

@@ -51,7 +51,7 @@ var FightPortraitsController = function (m_renderer) {
 
 			resourcePath = spritePath.replace(/{fileName}/g, animator.resourcePath);
 
-			fightUnit.CAnimations.add(FightPortraitsController.PORTRAIT_SPRITE, animator);
+			fightUnit.CAnimations.add(FightPortraitsController.PORTRAIT_ANIM, animator);
 
 			animator.pauseSequence('Idle');
 
@@ -89,21 +89,21 @@ var FightPortraitsController = function (m_renderer) {
 
 		var unit = animData.entity;
 
-		IdleAnimationsSystem.playRandomIdleAnimation(unit.CAnimations.animators[FightPortraitsController.PORTRAIT_SPRITE]);
+		IdleAnimationsSystem.playRandomIdleAnimation(unit.CAnimations.animators[FightPortraitsController.PORTRAIT_ANIM]);
 	}
 
 	var onAnimationFinished = function (params) {
 		if (!params.entity.hasComponents(FightPortraitsController.REQUIRED_COMPONENTS))
 			return;
 
-		if (params.name == FightPortraitsController.PORTRAIT_SPRITE) {
+		if (params.name == FightPortraitsController.PORTRAIT_ANIM) {
 			params.animator.pauseSequence('Idle');
 		}
 	}
 }
 
 FightPortraitsController.REQUIRED_COMPONENTS = [CFightUnitRendering, CAnimations];
-FightPortraitsController.PORTRAIT_SPRITE = 'PortraitSprite';
+FightPortraitsController.PORTRAIT_ANIM = AnimationSystem.getAnimationToken('FightPortrait');
 FightPortraitsController.SPRITES_PATH = 'Assets-Scaled/Render/Images/FightPortraits/{fileName}';
 
 FightPortraitsController.TOP_OFFSET = 10;

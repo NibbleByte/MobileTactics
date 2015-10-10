@@ -44,7 +44,7 @@ var IdleAnimationsSystem = function () {
 			if (!unit.CAnimations || !unit.CTilePlaceableRendering.sprite.isCulled())
 				continue;
 
-			if (unit.CAnimations.animators[UnitRenderingSystem.MAIN_SPRITE].isPlaying())
+			if (unit.CAnimations.animators[UnitRenderingSystem.MAIN_ANIM].isPlaying())
 				continue;
 
 			// Editor does not have CTileVisibility.
@@ -78,7 +78,7 @@ var IdleAnimationsSystem = function () {
 			if (!tile.CAnimations || !tile.CTileRendering.sprite.isCulled())
 				return;
 
-			if (tile.CAnimations.animators[TileRenderingSystem.TILES_SPRITE_ANIMATION].isPlaying())
+			if (tile.CAnimations.animators[TileRenderingSystem.TILES_ANIM].isPlaying())
 				return;
 
 			// Editor does not have CTileVisibility.

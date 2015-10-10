@@ -31,7 +31,7 @@ var FightUnitsAnimationsController = function () {
 	//
 	var registerUnit = function (fightUnit) {
 
-		var animator = fightUnit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_SPRITE];
+		var animator = fightUnit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_ANIM];
 
 		animator.playSequence('Run');
 	}
@@ -42,7 +42,7 @@ var FightUnitsAnimationsController = function () {
 			return;
 
 
-		if (params.name == FightUnitsRenderingSystem.MAIN_SPRITE) {
+		if (params.name == FightUnitsRenderingSystem.MAIN_ANIM) {
 
 			IdleAnimationsSystem.playRandomIdleAnimation(params.animator);
 
@@ -54,7 +54,7 @@ var FightUnitsAnimationsController = function () {
 	}
 
 	var onAttack = function (unit) {
-		var animator = unit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_SPRITE];
+		var animator = unit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_ANIM];
 
 		animator.playSequence('Attack');
 	}
@@ -66,7 +66,7 @@ var FightUnitsAnimationsController = function () {
 			if (unit.CFightUnit.state != FightUnitState.Idle)
 				continue;
 
-			var animator = unit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_SPRITE];
+			var animator = unit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_ANIM];
 
 			if (!IdleAnimationsSystem.playsIdleAnimation(animator)) {
 				IdleAnimationsSystem.playRandomIdleAnimation(animator);
@@ -76,7 +76,7 @@ var FightUnitsAnimationsController = function () {
 
 	var onEndTaunt = function (unit) {
 
-		var animator = unit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_SPRITE];
+		var animator = unit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_ANIM];
 
 		if (animator.hasSequence('Taunt')) {
 			animator.playSequence('Taunt');
@@ -85,21 +85,21 @@ var FightUnitsAnimationsController = function () {
 
 	var onHurt = function (unit, params) {
 
-		var animator = unit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_SPRITE];
+		var animator = unit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_ANIM];
 
 		animator.pause();
 	}
 
 	var onHurtFinish = function (unit) {
 
-		var animator = unit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_SPRITE];
+		var animator = unit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_ANIM];
 
 		animator.play();
 	}
 
 	var onUnitDying = function (unit) {
 
-		var animator = unit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_SPRITE];
+		var animator = unit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_ANIM];
 
 		animator.pause();
 		animator.sprite.hide();

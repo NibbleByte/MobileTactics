@@ -52,7 +52,7 @@ var FightTilesRenderingSystem = function (m_renderer) {
 	}
 }
 
-FightTilesRenderingSystem.MAIN_SPRITE = 'MainSprite';
+FightTilesRenderingSystem.MAIN_ANIM = 'MainSprite';
 FightTilesRenderingSystem.SPRITES_PATH = 'Assets-Scaled/Render/Images/FightTiles/{terrainType}.png';
 
 ECS.EntityManager.registerSystem('FightTilesRenderingSystem', FightTilesRenderingSystem);
