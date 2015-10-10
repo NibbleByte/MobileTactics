@@ -64,11 +64,13 @@ ActionsRenderingSystem.ActionExecutors.AttackExecutor = function (m_executor, m_
 
 		var distance = m_eworld.extract(GameWorld).getDistance(attacker.CTilePlaceable.tile, defender.CTilePlaceable.tile);
 		
+		var attackerForward = getForwardParam(attacker);
+		var defenderForward = getForwardParam(defender);
+
 		// Start animations and wait for them to finish. Only if units are in range.
-		if (attacker.CStatistics.statistics['AttackRange'] >= distance)
-			var attackerForward = playAttackAnimation(attacker);
+		playAttackAnimation(attacker);
 		if (defender.CStatistics.statistics['AttackRange'] >= distance)
-			var defenderForward = playAttackAnimation(defender);
+			playAttackAnimation(defender);
 		
 		
 		// Flip sprites to face one another.
@@ -103,6 +105,18 @@ ActionsRenderingSystem.ActionExecutors.AttackExecutor = function (m_executor, m_
 				++m_waitedAnimations;
 
 			}
+
+			return animator.params.forwardDirection || 1;
+		}
+
+		return 1;
+	}
+
+	// HACK: Just till all sprites are fixed to face the same direction.
+	var getForwardParam = function (placeable) {
+
+		if (placeable.CAnimations) {
+			var animator = placeable.CAnimations.animators[UnitRenderingSystem.MAIN_SPRITE];
 
 			return animator.params.forwardDirection || 1;
 		}
