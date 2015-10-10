@@ -15,6 +15,7 @@ var FightControllerSystem = function (m_renderer) {
 	var m_defenderUnit = null;
 	var m_isLeftAttacker = false;
 	var m_defenderFightsBack = true;
+	var m_attacksExpected = 0;
 
 	var m_timeouts = {
 		showUp: null,
@@ -32,6 +33,7 @@ var FightControllerSystem = function (m_renderer) {
 		self._eworldSB.subscribe(FightRenderingEvents.Fight.INITIALIZE, onInitializeFight);
 		self._eworldSB.subscribe(FightRenderingEvents.Fight.UNINITIALIZE, onUninitializeFight);
 
+		self._eworldSB.subscribe(FightRenderingEvents.Fight.ATTACK_FINISH, onAttackFinish);
 		self._eworldSB.subscribe(FightRenderingEvents.Animations.FIRE, onFire);
 	}
 
@@ -122,13 +124,13 @@ var FightControllerSystem = function (m_renderer) {
 
 
 		if (m_defenderFightsBack) {
-			m_timeouts.attackLeft = setTimeout(function () { onAttack( m_attackerUnit); }, 500);
+			m_timeouts.attackLeft = setTimeout(function () { onAttack( m_attackerUnit ); }, 500);
 			m_timeouts.attackRight = setTimeout(function () { onAttack( m_defenderUnit ); }, 2000);
-			m_timeouts.attackFinish = setTimeout(onAttackFinish, 3500);
+			m_attacksExpected = 2;
 		} else {
 			m_timeouts.attackLeft = setTimeout(function () { onAttack( m_attackerUnit ) }, 500);
 			m_timeouts.attackRight = null;
-			m_timeouts.attackFinish = setTimeout(onAttackFinish, 2000);
+			m_attacksExpected = 1;
 
 		}
 	}
@@ -140,15 +142,21 @@ var FightControllerSystem = function (m_renderer) {
 		self._eworld.trigger(FightRenderingEvents.Fight.ATTACK, unit);
 	}
 
-	var onAttackFinish = function () {
+	var onAttackFinish = function (unit) {
 
-		m_leftUnit.CFightUnit.state = FightUnitState.Idle;
-		m_rightUnit.CFightUnit.state = FightUnitState.Idle;
+		unit.CFightUnit.state = FightUnitState.Idle;
 
-		self._eworld.trigger(FightRenderingEvents.Fight.ATTACK_FINISH);
+		m_attacksExpected--;
 
-		m_timeouts.endTauntLeft = setTimeout(function () { onEndTaunt( m_attackerUnit ); }, 250);
-		m_timeouts.endTauntRight = setTimeout(function () { onEndTaunt( m_defenderUnit ); }, 750);
+		if (m_attacksExpected == 0) {
+			self._eworld.trigger(FightRenderingEvents.Fight.ATTACKS_FINALIZE);
+
+			if (m_attackerUnit.CFightUnit.state != FightUnitState.Dead)
+				m_timeouts.endTauntLeft = setTimeout(function () { onEndTaunt( m_attackerUnit ); }, 250);
+
+			if (m_defenderUnit.CFightUnit.state != FightUnitState.Dead) 
+				m_timeouts.endTauntRight = setTimeout(function () { onEndTaunt( m_defenderUnit ); }, 750);
+		}
 	}
 
 	var onEndTaunt = function (unit) {
@@ -157,6 +165,12 @@ var FightControllerSystem = function (m_renderer) {
 
 	var onFire = function (animData, params) {
 		var hurtUnit = (animData.entity == m_leftUnit) ? m_rightUnit : m_leftUnit;
+
+		if (params.final && hurtUnit.CFightUnit.battleStats.dies) {
+			hurtUnit.CFightUnit.state = FightUnitState.Dead;
+			self._eworld.trigger(FightRenderingEvents.Animations.DIES, hurtUnit);
+			return;
+		}
 
 		self._eworld.trigger(FightRenderingEvents.Animations.HURT, hurtUnit, params);
 	}

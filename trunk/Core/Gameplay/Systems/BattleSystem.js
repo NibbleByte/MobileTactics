@@ -61,12 +61,14 @@ var BattleSystem = function (m_world) {
 
 		dInflictedDamage = Math.round(dInflictedDamage);
 
+		var defenderDies = defender.CUnit.health <= dInflictedDamage;
+
 		//
 		// Fight Back - Secondary
 		// Defender fights back with strength equal to the new health.
 		// Recalculate strengths and inflicted damage.
 		//
-		if (defender.CUnit.health > dInflictedDamage && canDefenderFightBack) {
+		if (!defenderDies && canDefenderFightBack) {
 
 			var dHealthMod = (defender.CUnit.health - dInflictedDamage) / defender.CStatistics.statistics['MaxHealth'];
 			var dStrengthSecondary = (defender.CStatistics.statistics['Defence'] + dTerrainMod) * dHealthMod;
@@ -76,10 +78,14 @@ var BattleSystem = function (m_world) {
 			var aInflictedDamage = (aStrength >= dStrengthSecondary) ? dFirePower / strengthRatioSecondary : dFirePower * strengthRatioSecondary;
 
 			aInflictedDamage = Math.round(aInflictedDamage);
+
+			var attackerDies = attacker.CUnit.health <= aInflictedDamage;
+
 		} else {
 			var dStrengthSecondary = 0;
 			var strengthRatioSecondary = 0;
 			var aInflictedDamage = 0;
+			var attackerDies = false;
 		}
 
 
@@ -106,7 +112,9 @@ var BattleSystem = function (m_world) {
 			attackerHealthOutcome: Math.max(0, attacker.CUnit.health - aInflictedDamage),
 			defenderHealthOutcome: Math.max(0, defender.CUnit.health - dInflictedDamage),
 
-			defenderFightsBack: canDefenderFightBack,
+			canDefenderFightBack: canDefenderFightBack,
+			attackerDies: attackerDies,
+			defenderDies: defenderDies,
 		};
 	}
 
