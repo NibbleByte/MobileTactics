@@ -116,14 +116,14 @@ var TileStructureRenderingSystem = function (m_renderer) {
 		if (!TileStructureRenderingSystem.isStructureTile(params.entity))
 			return;
 
-		if (params.name == UnitRenderingSystem.MAIN_SPRITE) {
+		if (params.name == UnitRenderingSystem.MAIN_ANIM) {
 			TileStructureRenderingSystem.setIdleAnimation(tile, getCurrentlyKnownOwner(tile), false);
 		}
 	}
 }
 
 TileStructureRenderingSystem.setIdleAnimation = function (tile, owner, playing) {
-	var animator = tile.CAnimations.animators[TileRenderingSystem.TILES_SPRITE_ANIMATION];
+	var animator = tile.CAnimations.animators[TileRenderingSystem.TILES_ANIM];
 
 	if (owner == null) {
 
