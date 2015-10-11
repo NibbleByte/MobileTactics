@@ -81,6 +81,7 @@ var AIController = function (m_executor) {
 		}
 	}
 	
+	var m_replayTasks = null;
 	var m_replayAssignments = null;
 	var m_replayIndex = 0;
 	var m_selectedGOActions = null;
@@ -108,7 +109,8 @@ var AIController = function (m_executor) {
 		}
 	}
 
-	var onSimulationFinished = function (assignments) {
+	var onSimulationFinished = function (tasks, assignments) {
+		m_replayTasks = tasks;
 		m_replayAssignments = assignments;
 		m_replayIndex = 0;
 
@@ -154,7 +156,20 @@ var AIController = function (m_executor) {
 		} else {
 
 			m_currentAssignment = null;
-			self._eworld.trigger(GameplayEvents.GameState.END_TURN);
+
+			if (!self._eworld.blackboard[AIBlackBoard.Simulation.RESUME_NEEDED]) {
+				self._eworld.trigger(GameplayEvents.GameState.END_TURN);
+			} else {
+
+				// Clear all previous tasks so units with more turns be available for use once again.
+				// Plus add CAIData for newly created units.
+				var units = m_gameState.currentPlaceables;
+				for(var i = 0; i < units.length; ++i) {
+					units[i].addComponentSafe(CAIData).reset();
+				}
+
+				self._eworld.trigger(AIEvents.Simulation.RESUME_SIMULATION, m_replayTasks);
+			}
 		}
 	}
 
@@ -179,10 +194,18 @@ var AIController = function (m_executor) {
 		if (m_gameState.currentPlayer.type != Player.Types.AI)
 			return;
 
+		// Use only one turn point (next unit turn point will be used in the next simulation iteration).
+		var prevTurnpoints = (m_currentAssignment.taskDoer.CUnit) ? m_currentAssignment.taskDoer.CUnit.turnPoints : 1;
+
 		m_currentAssignment.task.creator.executeAction(m_actionData);
 
+		var currentTurnpoints = (m_currentAssignment.taskDoer.CUnit) ? m_currentAssignment.taskDoer.CUnit.turnPoints : 1;
 
-		if (m_currentAssignment.isValid()) {
+		// Detect units with more turn points pending.
+		if (prevTurnpoints != currentTurnpoints && currentTurnpoints > 0)
+			self._eworld.blackboard[AIBlackBoard.Simulation.RESUME_NEEDED] = true;
+
+		if (m_currentAssignment.isValid() && prevTurnpoints == currentTurnpoints) {
 			// Check if there are more actions to execute...
 			m_actionData = m_currentAssignment.task.creator.generateActionData(m_currentAssignment);
 		} else {

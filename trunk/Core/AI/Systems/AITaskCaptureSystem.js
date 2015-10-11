@@ -28,7 +28,7 @@ var AITaskCaptureSystem = function (m_world, m_executor) {
 		m_playersData = self._eworld.extract(PlayersData);
 	}
 	
-	var onGatherAssignments = function (assignments) {
+	var onGatherAssignments = function (tasks, assignments) {
 		var enemyStructures = m_gameState.knownStructures[PlayersData.Relation.Enemy];
 		var neutralStructures = m_gameState.knownStructures[PlayersData.Relation.Neutral];
 		var targetStructures = neutralStructures.concat(enemyStructures);
@@ -37,7 +37,12 @@ var AITaskCaptureSystem = function (m_world, m_executor) {
 		for(var i = 0; i < targetStructures.length; ++i) {
 			var structure = targetStructures[i];
 
-			var task = new AITask(structure, self, 15);
+			var task = tasks.find(function (t) { return t.objective == structure && t.creator == self; });
+
+			if (!task) {
+				task = new AITask(structure, self, 15);
+				tasks.push(task);
+			}
 
 			for(var j = 0; j < units.length; ++j) {
 				var unit = units[j];
@@ -45,6 +50,8 @@ var AITaskCaptureSystem = function (m_world, m_executor) {
 				if (CTileOwner.isCapturing(unit))
 					continue;
 				if (!unit.CActions.actions.contains(Actions.Classes.ActionCapture))
+					continue;
+				if (unit.CUnit.finishedTurn)
 					continue;
 
 				var dist = m_world.getDistance(structure, unit.CTilePlaceable.tile);

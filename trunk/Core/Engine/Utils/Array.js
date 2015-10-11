@@ -81,6 +81,20 @@ Array.prototype.findRemove = function (predicate) {
 	}
 }
 
+// Removes all elements of an array that satisfy given predicate
+Array.prototype.findRemoveAll = function (predicate) {
+	if (typeof predicate !== 'function') {
+		return undefined;
+	}
+
+	for (var i = 0; i < this.length; i++) {
+		if (i in this && predicate(this[i])) {
+			this.splice(i, 1);
+			--i;
+		}
+	}
+}
+
 Array.prototype.last = function () {
 	return this[this.length - 1];
 }

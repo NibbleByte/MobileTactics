@@ -28,7 +28,10 @@ var AITaskHealSystem = function (m_world, m_executor) {
 		m_playersData = self._eworld.extract(PlayersData);
 	}
 	
-	var onGatherAssignments = function (assignments) {
+	var onGatherAssignments = function (tasks, assignments) {
+
+		// Remove any previous such tasks, cause it is easier to create all from scrap.
+		tasks.findRemoveAll(function (t) { return t.creator == self; });
 
 		for (var i = 0; i < m_gameState.currentPlaceables.length; ++i) {
 			var unit = m_gameState.currentPlaceables[i];
@@ -36,13 +39,14 @@ var AITaskHealSystem = function (m_world, m_executor) {
 			var maxHealth = unit.CStatistics.statistics['MaxHealth'];
 
 			// Full health is very likely to happen.
-			if (unit.CUnit.health == maxHealth)
+			if (unit.CUnit.health == maxHealth || unit.CUnit.finishedTurn)
 				continue;
 
 			var priority = AIAssignment.BASE_TOP_PRIORITY;
 			priority *= (maxHealth - unit.CUnit.health) / maxHealth;
 
 			var task = new AITask(unit, self, 1);
+			tasks.push(task);
 
 			var assignment = new AIAssignment(priority, 1, task, unit);
 			assignments.push(assignment);

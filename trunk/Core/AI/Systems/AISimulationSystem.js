@@ -11,7 +11,8 @@ var AISimulationSystem = function (m_eworld) {
 	// Entity system initialize
 	//
 	this.initialize = function () {
-		self._eworldSB.subscribe(AIEvents.Simulation.START_SIMULATION, onSimulationStart);
+		self._eworldSB.subscribe(AIEvents.Simulation.START_SIMULATION, doSimulation);
+		self._eworldSB.subscribe(AIEvents.Simulation.RESUME_SIMULATION, doSimulation);
 	}
 
 
@@ -19,14 +20,17 @@ var AISimulationSystem = function (m_eworld) {
 	// Private
 	//
 
-	var onSimulationStart = function () {
+	var doSimulation = function (tasks) {
 
+		tasks = tasks || [];
 		var assignments = [];
-		self._eworld.trigger(AIEvents.Simulation.GATHER_ASSIGNMENTS, assignments);
+		self._eworld.trigger(AIEvents.Simulation.GATHER_ASSIGNMENTS, tasks, assignments);
 
 		assignments.sort(assignmentSorting);
 
-		self._eworld.triggerAsync(AIEvents.Simulation.SIMULATION_FINISHED, assignments);
+		self._eworld.blackboard[AIBlackBoard.Simulation.RESUME_NEEDED] = false;
+
+		self._eworld.triggerAsync(AIEvents.Simulation.SIMULATION_FINISHED, tasks, assignments);
 	}
 
 	// Descending

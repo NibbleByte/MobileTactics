@@ -51,11 +51,17 @@ var AITaskBuyingSystem = function (m_world, m_executor) {
 	}
 	
 
-	var onGatherAssignments = function (assignments) {
+	var onGatherAssignments = function (tasks, assignments) {
+
+		// TODO: AITaskBuyingSystem should be named Planning or Economic system or similar.
+		// TODO: Purchased units will be moved immediately.
 		
 		var factories = m_gameState.currentStructuresTypes[GameWorldTerrainType.Factory];
 		if (factories.length == 0)
 			return;
+
+		// Remove any previous such tasks, cause it is easier to create all from scrap.
+		tasks.findRemoveAll(function (t) { return t.creator == self; });
 
 		// Prepare some stats
 		var enemyCounts = countUnitsByType(m_gameState.relationPlaceables[PlayersData.Relation.Enemy]);
@@ -157,6 +163,8 @@ var AITaskBuyingSystem = function (m_world, m_executor) {
 		for (var i = 0; i < purchaseList.length; ++i) {
 
 			var task = new AITask(purchaseList[i], self, 1);
+			tasks.push(task);
+
 			// TODO: Choose better factories.
 			var assignment = new AIAssignment(2, 1, task, MathUtils.randomElement(factories));
 			assignment.useAIData = false;

@@ -28,19 +28,25 @@ var AITaskAttackingSystem = function (m_world, m_executor, m_battleSystem) {
 		m_playersData = self._eworld.extract(PlayersData);
 	}
 	
-	var onGatherAssignments = function (assignments) {
+	var onGatherAssignments = function (tasks, assignments) {
 		var enemies = m_gameState.visiblePlaceables[PlayersData.Relation.Enemy];
 		var units = m_gameState.currentPlaceables;
 
 		for(var i = 0; i < enemies.length; ++i) {
 			var enemy = enemies[i];
 
-			var task = new AITask(enemy, self, 10);
+			// Reuse old tasks to avoid too many units attacking the same objective between simulation iteration (resume).
+			var task = tasks.find(function (t) { return t.objective == enemy && t.creator == self; });
+
+			if (!task) {
+				task = new AITask(enemy, self, 10);
+				tasks.push(task);
+			}
 
 			for(var j = 0; j < units.length; ++j) {
 				var unit = units[j];
 
-				if (!UnitsUtils.canAttackType(unit, enemy))
+				if (!UnitsUtils.canAttackType(unit, enemy) || unit.CUnit.finishedTurn)
 					continue;
 
 				// Take distance and strengths into account.
