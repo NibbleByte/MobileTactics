@@ -28,7 +28,11 @@ var AITaskExploreSystem = function (m_world, m_executor) {
 		m_playersData = self._eworld.extract(PlayersData);
 	}
 	
-	var onGatherAssignments = function (assignments) {
+	var onGatherAssignments = function (tasks, assignments) {
+
+		// Remove any previous such tasks, cause it is easier to create all from scrap.
+		tasks.findRemoveAll(function (t) { return t.creator == self; });
+
 		var units = m_gameState.currentPlaceables;
 		var enemyStructures = m_gameState.knownStructures[PlayersData.Relation.Enemy];
 		var neutralStructures = m_gameState.knownStructures[PlayersData.Relation.Neutral];
@@ -48,7 +52,11 @@ var AITaskExploreSystem = function (m_world, m_executor) {
 		for(var i = 0; i < units.length; ++i) {
 			var unit = units[i];
 
+			if (unit.CUnit.finishedTurn)
+				continue;
+
 			var task = new AITask(MathUtils.randomElement(targetTiles), self, 1);
+			tasks.push(task);
 
 			// Low priority, exploring is like fallback when there is nothing else to do.
 			var priority = AIAssignment.BASE_TOP_PRIORITY * 0.1;
