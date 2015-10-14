@@ -54,7 +54,6 @@ var AITaskBuyingSystem = function (m_world, m_executor) {
 	var onGatherAssignments = function (tasks, assignments) {
 
 		// TODO: AITaskBuyingSystem should be named Planning or Economic system or similar.
-		// TODO: Purchased units will be moved immediately.
 		
 		var factories = m_gameState.currentStructuresTypes[GameWorldTerrainType.Factory];
 		if (factories.length == 0)
@@ -200,6 +199,8 @@ var AITaskBuyingSystem = function (m_world, m_executor) {
 			return;
 
 		actionData.action = Store.buyItem(actionData.shopItem);
+
+		self._eworld.blackboard[AIBlackBoard.Simulation.RESUME_NEEDED] = true;
 	}
 }
 
