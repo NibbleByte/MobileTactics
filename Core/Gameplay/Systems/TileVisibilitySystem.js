@@ -105,12 +105,10 @@ var TileVisibilitySystem = function (m_world) {
 		self._eworld.trigger(GameplayEvents.Fog.REFRESH_FOG_AFTER);
 	}
 
-	var visibilityCostQuery = function (tile) {
-		return {
-			cost: 1,
-			passOver: true,
-			discard: false,
-		};
+	var visibilityCostQuery = function (tile, userData, queryResult) {
+		queryResult.cost = 1;
+		queryResult.passOver = true;
+		queryResult.discard = false;
 	}
 };
 

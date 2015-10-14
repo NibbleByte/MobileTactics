@@ -19,6 +19,7 @@ Actions.Classes.ActionMove = new function () {
 			placeable: placeable,
 			player: player,
 			playersData: eworld.extract(PlayersData),
+			world: world,
 		}
 		
 		// Choose normal or after-attack movement.
@@ -61,9 +62,8 @@ Actions.Classes.ActionMove = new function () {
 		return placeable && placeable.CUnit.actionsData.hasExecutedAction(placeable.CUnit.turnPoints, this);
 	}
 
-	this.movementCostQuery = function (tile, userData) {
+	this.movementCostQuery = function (tile, userData, queryResult, prevTile) {
 		var terrainStats = userData.placeable.CStatistics.terrainStats[tile.CTileTerrain.type];
-		var terrainCost = (terrainStats) ? terrainStats.Cost : undefined;
 
 		// Check if has any placeable and its relation towards it.
 		var placedObject = tile.CTile.placedObjects[0];
@@ -74,17 +74,34 @@ Actions.Classes.ActionMove = new function () {
 
 		var visible = tile.CTileVisibility.visible;
 
+		queryResult.cost = (terrainStats) ? terrainStats.Cost : undefined;
+
 		// Can't pass over enemies... unless it can't see them (for enemy preview ONLY).
-		var passOver = relation != PlayersData.Relation.Enemy || !visible;
+		queryResult.passOver = relation != PlayersData.Relation.Enemy || !visible;
+
+		if (queryResult.passOver && !userData.world.isStartGatheredTile(prevTile)) {
+			queryResult.passOver = checkZoneOfControl(tile, userData) || checkZoneOfControl(prevTile, userData);
+		}
 
 		// Same...
-		var discard = tile.CTile.placedObjects.length != 0 && visible;
-
-		return {
-			cost: terrainCost,
-			passOver: passOver,
-			discard: discard,
-		};
+		queryResult.discard = tile.CTile.placedObjects.length != 0 && visible;
 	}
 
+
+	var checkZoneOfControl = function (tile, userData) {
+		var adjacentTiles = userData.world.getAdjacentTiles(tile);
+		for(var i = 0; i < adjacentTiles.length; ++i) {
+			var adjacentTile = adjacentTiles[i];
+			if (adjacentTile.CTile.placedObjects.length > 0) {
+				var adjacentPlaceable = adjacentTile.CTile.placedObjects[0];
+					
+				var relation = userData.playersData.getRelation(userData.player, adjacentPlaceable.CPlayerData.player);
+				if (relation == PlayersData.Relation.Enemy) {
+					return false;
+				}	
+			}
+		}
+
+		return true;
+	}
 };
