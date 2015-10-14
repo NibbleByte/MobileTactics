@@ -115,16 +115,17 @@ var GameWorld = function () {
 	// - userData is passed onto the user query.
 	// - startTile is the start tile.
 	// - startCost is the starting 
-	// - gatherQuery is a custom user function with the following parameters: userData, tile.
-	//	 The query should return an object with the following properties: cost, passOver, discard
+	// - gatherQuery is a custom user function with the following parameters: tile, userData, queryResult, prevTile.
+	//	 The query should return via queryResult object the following properties: cost, passOver, discard
 	//	 * cost - the cost that takes to pass over this tile.
-	//	 * passOver - can it passOver this tile (although it might be discarded).
+	//	 * passOver - can it pass over this tile (although it might be discarded).
 	//	 * discard the tile for sure from the final list.
 	this.gatherTiles = function (startTile, startCost, gatherQuery, userData) {
 		var gatheredTiles = [];
 
 		var open = [startTile];
 		var visited = [];
+		var queryResult = {};
 
 		startTile.__$costLeft = startCost;
 		startTile.__$cameFrom = null;
@@ -143,7 +144,7 @@ var GameWorld = function () {
 					continue;
 				}
 
-				var queryResult = gatherQuery(tile, userData);
+				gatherQuery(tile, userData, queryResult, openTile);
 				
 				if (queryResult.cost == undefined)
 					continue;
@@ -187,6 +188,12 @@ var GameWorld = function () {
 		}
 
 		return gatheredTiles;
+	}
+
+	// Checks if given tile is the start tile in the gatherTiles algorithm.
+	// Should be used only within gatherTiles execution.
+	this.isStartGatheredTile = function (tile) {
+		return tile.__$cameFrom === null;
 	}
 
 
