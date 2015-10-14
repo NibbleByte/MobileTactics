@@ -79,7 +79,9 @@ Actions.Classes.ActionMove = new function () {
 		// Can't pass over enemies... unless it can't see them (for enemy preview ONLY).
 		queryResult.passOver = relation != PlayersData.Relation.Enemy || !visible;
 
-		if (queryResult.passOver && !userData.world.isStartGatheredTile(prevTile)) {
+		var bypassZoC = userData.placeable.CUnit.getDefinition().bypassZoneOfControl;
+
+		if (!bypassZoC && queryResult.passOver && !userData.world.isStartGatheredTile(prevTile)) {
 			queryResult.passOver = checkZoneOfControl(tile, userData) || checkZoneOfControl(prevTile, userData);
 		}
 

@@ -69,6 +69,8 @@ UnitsDefinitions[Player.Races.Developers] = {
 		price: 500,
 		type: UnitType.Heavy,
 
+		bypassZoneOfControl: true,
+
 		baseStatistics: {
 			AttackLight: 10,
 			AttackHeavy: 8,
@@ -399,6 +401,8 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 		name: '@!@',
 		price: 200,
 		type: UnitType.Light,
+
+		bypassZoneOfControl: true,
 
 		baseStatistics: {
 			AttackLight: 5,
