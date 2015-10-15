@@ -23,6 +23,7 @@ var FightRenderingEvents = {
 			HURT:			"ft.animations.hurt",				// Arguments: unit, {weaponType, final},
 			HURT_FINISH:	"ft.animations.hurt_finish",		// Arguments: unit
 			DIES:			"ft.animations.dies",				// Arguments: unit
+			DIES_HIDE_UNIT:	"ft.animations.dies_hide_unit",		// Arguments: animData
 		},
 
 		Units: {

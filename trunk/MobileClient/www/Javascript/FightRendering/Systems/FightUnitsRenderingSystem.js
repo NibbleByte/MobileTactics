@@ -82,11 +82,10 @@ var FightUnitsRenderingSystem = function (m_renderer) {
 
 	var onUnitDying = function (unit) {
 
-		// TODO: Maybe this should be done using particles or something :-?
-		var dyingSprite = m_renderer.createSprite(FightRenderer.LayerTypes.Units, SpriteAnimations.Particles.GroundExplosion.resourcePath);
+		var dyingSprite = m_renderer.createSprite(FightRenderer.LayerTypes.Units, SpriteAnimations.FightUnits.UnitDeathFight.resourcePath);
 		unit.CFightUnitRendering.dylingSprite = dyingSprite;
 
-		var animator = new Animator(SpriteAnimations.Particles.GroundExplosion, dyingSprite, m_renderer.scene);
+		var animator = new Animator(SpriteAnimations.FightUnits.UnitDeathFight, dyingSprite, m_renderer.scene);
 		unit.CAnimations.add(FightUnitsRenderingSystem.DYING_ANIM, animator);
 
 		animator.playSequence('Boom');
