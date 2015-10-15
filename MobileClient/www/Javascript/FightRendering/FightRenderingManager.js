@@ -54,16 +54,29 @@ var FightRenderingManager = new function () {
 		var leftUnit = lastCreated;
 		var rightUnit = (selected) ? selected.CTile.placedObjects[0] : null;
 
-		if (!leftUnit) {
+		// Could get invalidated if changing maps.
+		if (!leftUnit || Utils.isInvalidated(leftUnit)) {
 			leftUnit = gameState.currentPlaceables.find(function (placeable) {
 				return placeable.CUnit.name == 'TeslaTrooper';
 			});
+
+			if (!leftUnit) {
+				leftUnit = gameState.currentPlaceables.find(function (placeable) {
+					return placeable.CUnit.name == 'PeaceKeeper' || placeable.CUnit.name == 'FlakTrooper';
+				});
+			}
 		}
 
 		if (!rightUnit) {
 			rightUnit = gameState.relationPlaceables[PlayersData.Relation.Enemy].find(function (placeable) {
 				return placeable.CUnit.name == 'TeslaTrooper';
 			});
+
+			if (!rightUnit) {
+				rightUnit = gameState.relationPlaceables[PlayersData.Relation.Enemy].find(function (placeable) {
+					return placeable.CUnit.name == 'PeaceKeeper' || placeable.CUnit.name == 'FlakTrooper';
+				});
+			}
 		}
 
 		if (UnitsUtils.canAttackType(leftUnit, rightUnit))
