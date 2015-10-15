@@ -22,8 +22,6 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 	var m_$BtnBrowse = $('#BtnBrowse');
 	var m_$BtnAddress = $('#BtnAddress');
 
-	var m_$BtnDance42 = $('#BtnDance42');
-
 	var m_$TbBrowseAddress = $('#TbBrowseAddress');
 
 	var subscriber = new DOMSubscriber();
@@ -434,10 +432,10 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 			}, 200);
 		}
 
-		var onLoadDance42 = function () {
+		m_clientState.loadMap = function (mapName) {
 			m_loadingScreen.show();
 
-			MapStorage.loadMap('Dance42', function (data) {
+			MapStorage.loadMap(mapName, function (data) {
 				onBtnLoad(event, data);
 			}, function () {
 				m_loadingScreen.hide();
@@ -619,7 +617,6 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		// Toolbar listeners
 		subscriber.subscribe(m_$BtnSave, 'click', onBtnSave);
 		subscriber.subscribe(m_$BtnLoad, 'click', onBtnLoad);
-		subscriber.subscribe(m_$BtnDance42, 'click', onLoadDance42);
 		subscriber.subscribe(m_$BtnRemoveTile, 'click', onBtnRemoveTile);
 		subscriber.subscribe(m_$BtnRestart, 'click', onBtnRestart);
 		subscriber.subscribe(m_$BtnUndo, 'click', onBtnUndo);
