@@ -23,7 +23,7 @@ var FightUnitsAnimationsController = function () {
 
 		self._eworldSB.subscribe(FightRenderingEvents.Animations.HURT, onHurt);
 		self._eworldSB.subscribe(FightRenderingEvents.Animations.HURT_FINISH, onHurtFinish);
-		self._eworldSB.subscribe(FightRenderingEvents.Animations.DIES, onUnitDying);
+		self._eworldSB.subscribe(FightRenderingEvents.Animations.DIES_HIDE_UNIT, onUnitDying);
 	}
 	
 	//
@@ -97,9 +97,9 @@ var FightUnitsAnimationsController = function () {
 		animator.play();
 	}
 
-	var onUnitDying = function (unit) {
+	var onUnitDying = function (animData) {
 
-		var animator = unit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_ANIM];
+		var animator = animData.entity.CAnimations.animators[FightUnitsRenderingSystem.MAIN_ANIM];
 
 		animator.pause();
 		animator.sprite.hide();

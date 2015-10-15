@@ -94,6 +94,7 @@
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\FightUnits\NibblerFight.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\FightUnits\PeaceKeeperFight.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\FightUnits\TeslaTrooperFight.js" />
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\FightUnits\UnitDeathFight.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Particles\GroundExplosion.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\SpriteAnimations.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\TerrainSkins.js" />

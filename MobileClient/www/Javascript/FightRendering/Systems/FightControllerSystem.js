@@ -166,13 +166,12 @@ var FightControllerSystem = function (m_renderer) {
 	var onFire = function (animData, params) {
 		var hurtUnit = (animData.entity == m_leftUnit) ? m_rightUnit : m_leftUnit;
 
+		self._eworld.trigger(FightRenderingEvents.Animations.HURT, hurtUnit, params);
+
 		if (params.final && hurtUnit.CFightUnit.battleStats.dies) {
 			hurtUnit.CFightUnit.state = FightUnitState.Dead;
 			self._eworld.trigger(FightRenderingEvents.Animations.DIES, hurtUnit);
-			return;
 		}
-
-		self._eworld.trigger(FightRenderingEvents.Animations.HURT, hurtUnit, params);
 	}
 
 	var onUninitializeFight = function () {
