@@ -40,7 +40,7 @@ var FightTilesRenderingSystem = function (m_renderer) {
 		
 		var sprite = createTileSprite(fightUnit.CFightUnit.unit);
 
-		sprite.position(-1000, FightRenderingManager.FightFrame.bottom - FightControllerSystem.BOTTOM_OFFSET);
+		sprite.position(-1000, -1000);
 		if (fightUnit.CFightUnit.direction == FightRenderer.DirectionType.Left) sprite.setXScale(-1);
 		sprite.update();
 

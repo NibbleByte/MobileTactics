@@ -26,6 +26,11 @@ var FightRenderingEvents = {
 			DIES_HIDE_UNIT:	"ft.animations.dies_hide_unit",		// Arguments: animData
 		},
 
+		Layout: {
+			REFRESH_UNIT_LAYOUT:"ft.layout.refresh_unit_layout",	// Arguments: unit
+			LAYOUT_CHANGED:		"ft.layout.layout_changed",			// Arguments: fightUnit, layoutData
+		},
+
 		Units: {
 			UNIT_MOVED: "ft.units.moved",						// Arguments: fightUnit
 			UNIT_KILLED: "ft.units.unit_killed",				// Arguments: fightUnit
@@ -35,12 +40,16 @@ var FightRenderingEvents = {
 var FightRenderingBlackBoard = {
 	Battle: {
 		// Don't you dare cache these objects in your system!
-		OUTCOME:		"battlerendering.battle.outcome",
-		LEFT_UNIT:		"battlerendering.battle.left_unit",
-		RIGHT_UNIT:		"battlerendering.battle.right_unit",
-		LEFT_STATS:		"battlerendering.battle.left_stats",
-		RIGHT_STATS:	"battlerendering.battle.right_stats",
-		LEFT_FIGHTER:	"battlerendering.battle.left_fighter",
-		RIGHT_FIGHTER:	"battlerendering.battle.right_fighter",
+		OUTCOME:		"fightrendering.battle.outcome",
+		LEFT_UNIT:		"fightrendering.battle.left_unit",
+		RIGHT_UNIT:		"fightrendering.battle.right_unit",
+		LEFT_STATS:		"fightrendering.battle.left_stats",
+		RIGHT_STATS:	"fightrendering.battle.right_stats",
+		LEFT_FIGHTER:	"fightrendering.battle.left_fighter",
+		RIGHT_FIGHTER:	"fightrendering.battle.right_fighter",
 	},
+
+	Layout: {
+		LAYOUT_DATA: "fightrendering.layout.layout_data",
+	}
 };

@@ -7,8 +7,8 @@
 var FightRenderingManager = new function () {
 	var self = this;
 
-	this.FIGHT_FRAME_WIDTH_HALF = 150 * Assets.scale;
-	this.FIGHT_FRAME_HEIGHT = 300 * Assets.scale;
+	this.FIGHT_FRAME_WIDTH_HALF = 160;
+	this.FIGHT_FRAME_HEIGHT = 320;
 	this.FIGHT_FRAME_WIDTH = this.FIGHT_FRAME_WIDTH_HALF * 2;
 
 	// This will be updated with the current fight frame position in the screen.
@@ -212,6 +212,10 @@ var FightRenderingManager = new function () {
 		}, 100);
 	}
 
+	var toggleFrame = function () {
+		m_$FightFrame.toggle();
+	}
+
 	//
 	// Resizing
 	//
@@ -258,8 +262,9 @@ var FightRenderingManager = new function () {
 	subscriber.subscribe(window, 'orientationchange', onScreenResize);
 
 	// DEBUG
-	subscriber.subscribe($('#FightScreenRestart')[0], 'click', restartCurrentFight);
-	subscriber.subscribe($('#FightScreenQuit')[0], 'click', uninitializeFight);
+	subscriber.subscribe($('#FightScreenRestart'), 'click', restartCurrentFight);
+	subscriber.subscribe($('#FightScreenQuit'), 'click', uninitializeFight);
+	subscriber.subscribe($('#FightScreenFrame'), 'click', toggleFrame);
 
 
 	var initialize = function () {
@@ -269,10 +274,19 @@ var FightRenderingManager = new function () {
 		m_fightWorld.addSystem(m_fightWorld.store(UtilsSystem, new UtilsSystem()));
 
 		m_renderer = m_fightWorld.store(FightRenderer, FightRenderer.Build(m_$FightScreen[0], m_fightWorld));
+
+		self.FIGHT_FRAME_WIDTH_HALF = m_renderer.zoomIn(self.FIGHT_FRAME_WIDTH_HALF);
+		self.FIGHT_FRAME_HEIGHT = m_renderer.zoomIn(self.FIGHT_FRAME_HEIGHT);
+		self.FIGHT_FRAME_WIDTH = self.FIGHT_FRAME_WIDTH_HALF * 2;
+
+		self.FightFrame.width = self.FIGHT_FRAME_WIDTH;
+		self.FightFrame.height = self.FIGHT_FRAME_HEIGHT;
+
 		onScreenResize(null);
 
 		m_fightWorld.addSystem(new AnimationSystem(m_renderer));
 		m_fightWorld.addSystem(new LayersUpdateSystem(m_renderer, FightRenderer.LayerTypes));
+		m_fightWorld.addSystem(new FightLayoutSystem(m_renderer));
 		m_fightWorld.addSystem(new FightControllerSystem(m_renderer));
 		m_fightWorld.addSystem(new FightTilesRenderingSystem(m_renderer));
 		m_fightWorld.addSystem(new FightUnitsRenderingSystem(m_renderer));

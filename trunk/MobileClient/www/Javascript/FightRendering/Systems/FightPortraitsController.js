@@ -6,7 +6,7 @@
 
 var FightPortraitsController = function (m_renderer) {
 	var self = this;
-	
+
 	//
 	// Entity system initialize
 	//
@@ -14,7 +14,7 @@ var FightPortraitsController = function (m_renderer) {
 		
 		self._entityFilter.onEntityAddedHandler = registerUnit;
 
-		self._eworldSB.subscribe(FightRenderingEvents.Units.UNIT_MOVED, onUnitMoved);
+		self._eworldSB.subscribe(FightRenderingEvents.Layout.LAYOUT_CHANGED, onLayoutChanged);
 
 		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_FINISHED, onAnimationFinished);
 
@@ -61,26 +61,29 @@ var FightPortraitsController = function (m_renderer) {
 		}
 
 		m_renderer.loadSprite(sprite, resourcePath);
-
-		sprite.position(fightUnit.CSpatial.x, FightRenderingManager.FightFrame.top + FightPortraitsController.TOP_OFFSET);
+		sprite.position(-1000, -1000);
+			
 		sprite.update();
 
 		self._entityWorld.trigger(RenderEvents.Layers.REFRESH_LAYER, FightRenderer.LayerTypes.Portraits);
 	}
 
-	var renderPortrait = function (fightUnit) {
+	var renderPortrait = function (fightUnit, layoutData) {
 
 		var sprite = fightUnit.CFightUnitRendering.ownerPortrait;
-		sprite.setXScale(-fightUnit.CFightUnit.direction);
-		sprite.position(fightUnit.CSpatial.x, sprite.y);
+		sprite.setXScale(fightUnit.CFightUnit.direction);
+
+		var unitLayout = layoutData.directionalLayout[fightUnit.CFightUnit.direction];
+
+		sprite.position(unitLayout.portraitCenter.x, unitLayout.portraitCenter.y);
+
 		sprite.update();
 
 		self._entityWorld.trigger(RenderEvents.Layers.REFRESH_LAYER, FightRenderer.LayerTypes.Portraits);
 	}
 
-	var onUnitMoved = function (fightUnit) {
-		if (fightUnit.CFightUnit.state == FightUnitState.ShowingUp)
-			renderPortrait(fightUnit);
+	var onLayoutChanged = function (fightUnit, layerData) {
+		renderPortrait(fightUnit, layerData);
 	}
 
 	var onFire = function (animData, params) {
