@@ -147,6 +147,7 @@
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\FightRenderingManager.js" />
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\FightHealthBar.js" />
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightControllerSystem.js" />
+    <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightLayoutSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightPortraitsController.js" />
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightTilesRenderingSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightUnitHealthsController.js" />

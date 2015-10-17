@@ -3,9 +3,10 @@ SpriteAnimations.FightPortraits.Colonel = {
 
 	resourcePath: 'CharacColonel.png',
 
-	frameWidth: 88,
-	frameHeight: 88,
+	frameWidth: 70,
+	frameHeight: 70,
 	anchorX: Animator.AnchorX.Center,
+	anchorY: Animator.AnchorY.Center,
 
 	sequences: [
 		{
@@ -18,8 +19,7 @@ SpriteAnimations.FightPortraits.Colonel = {
 		
 		{
 			name: 'Idle0',
-			startX: 88,
-			startY: 0,
+			startIndex: 1,
 			speed: 8,
 			frames: 3,
 		},

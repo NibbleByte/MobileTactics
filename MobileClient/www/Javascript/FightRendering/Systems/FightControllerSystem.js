@@ -57,9 +57,10 @@ var FightControllerSystem = function (m_renderer) {
 		if (Utils.isInvalidated(unit))
 			return;
 
-		unit.CSpatial.x = tween.x;
+		unit.CSpatial.y = tween.y;
 
 		self._eworld.trigger(FightRenderingEvents.Units.UNIT_MOVED, unit);
+		self._eworld.trigger(FightRenderingEvents.Layout.REFRESH_UNIT_LAYOUT, unit);
 	}
 
 	var onInitializeFight = function () {
@@ -81,10 +82,10 @@ var FightControllerSystem = function (m_renderer) {
 		m_defenderUnit = (m_isLeftAttacker) ? m_rightUnit : m_leftUnit;
 
 		m_leftUnit.CSpatial.x = -1000;
-		m_leftUnit.CSpatial.y = FightRenderingManager.FightFrame.bottom - FightControllerSystem.BOTTOM_OFFSET;
+		m_leftUnit.CSpatial.y = -1000;
 
 		m_rightUnit.CSpatial.x = -1000;
-		m_rightUnit.CSpatial.y = FightRenderingManager.FightFrame.bottom - FightControllerSystem.BOTTOM_OFFSET;
+		m_rightUnit.CSpatial.y = -1000;
 
 		self._eworld.blackboard[FightRenderingBlackBoard.Battle.LEFT_FIGHTER] = m_leftUnit;
 		self._eworld.blackboard[FightRenderingBlackBoard.Battle.RIGHT_FIGHTER] = m_rightUnit;
@@ -96,17 +97,25 @@ var FightControllerSystem = function (m_renderer) {
 	}
 
 	var onShowUp = function () {
-		var leftTween = { x: -FightRenderingManager.FIGHT_FRAME_WIDTH_HALF };
-		var rightTween = { x: m_renderer.extentWidth + FightRenderingManager.FIGHT_FRAME_WIDTH_HALF };
 
-		var leftXEnd = FightRenderingManager.FightFrame.leftHalf;
-		var rightXEnd = FightRenderingManager.FightFrame.rightHalf;
+		self._eworld.trigger(FightRenderingEvents.Layout.REFRESH_UNIT_LAYOUT, m_leftUnit);
+		self._eworld.trigger(FightRenderingEvents.Layout.REFRESH_UNIT_LAYOUT, m_rightUnit);
+		var layoutData = self._eworld.blackboard[FightRenderingBlackBoard.Layout.LAYOUT_DATA];
+
+		m_leftUnit.CSpatial.x = layoutData.directionalLayout[FightRenderer.DirectionType.Right].unitFinalPosition.x;
+		m_rightUnit.CSpatial.x = layoutData.directionalLayout[FightRenderer.DirectionType.Left].unitFinalPosition.x;
+
+		var leftTween = { y: -layoutData.UNIT_BOX_HEIGHT };
+		var rightTween = { y: m_renderer.extentHeight + layoutData.UNIT_BOX_HEIGHT };
+
+		var leftYEnd = layoutData.directionalLayout[FightRenderer.DirectionType.Right].unitFinalPosition.y;
+		var rightYEnd = layoutData.directionalLayout[FightRenderer.DirectionType.Left].unitFinalPosition.y;
 
 		var leftParams = [ leftTween, m_leftUnit ];
 		var rightParams = [ rightTween, m_rightUnit ];
 
-		Tweener.addTween(leftTween, {x: leftXEnd, time: 1, delay: 0, transition: "easeOutBack", onUpdate: updateUnitPosition, onUpdateParams: leftParams, onComplete: onShowUpFinished, onCompleteParams: leftParams });
-		Tweener.addTween(rightTween, {x: rightXEnd, time: 1, delay: 0, transition: "easeOutBack", onUpdate: updateUnitPosition, onUpdateParams: rightParams });
+		Tweener.addTween(leftTween, {y: leftYEnd, time: 1, delay: 0, transition: "easeOutBack", onUpdate: updateUnitPosition, onUpdateParams: leftParams, onComplete: onShowUpFinished, onCompleteParams: leftParams });
+		Tweener.addTween(rightTween, {y: rightYEnd, time: 1, delay: 0, transition: "easeOutBack", onUpdate: updateUnitPosition, onUpdateParams: rightParams });
 	}
 
 	// NOTE: Called only for the left unit.

@@ -21,6 +21,9 @@ var FightUnitStatsController = function (m_renderer) {
 		m_$leftStat.appendTo(m_leftSprite.dom);
 		m_$rightStat.appendTo(m_rightSprite.dom);
 
+		$(m_leftSprite.dom).addClass('fight_unit_stats_container');
+		$(m_rightSprite.dom).addClass('fight_unit_stats_container');
+
 		m_leftSprite.position(-1000, -1000);
 		m_leftSprite.update();
 
@@ -30,7 +33,7 @@ var FightUnitStatsController = function (m_renderer) {
 		self._eworldSB.subscribe(FightRenderingEvents.Fight.INITIALIZE, onInitializeFight);
 		self._eworldSB.subscribe(FightRenderingEvents.Fight.UNINITIALIZE, onUninitializeFight);
 
-		self._eworldSB.subscribe(FightRenderingEvents.Units.UNIT_MOVED, onUnitMoved);
+		self._eworldSB.subscribe(FightRenderingEvents.Layout.LAYOUT_CHANGED, onLayoutChanged);
 	}
 	
 	//
@@ -48,10 +51,10 @@ var FightUnitStatsController = function (m_renderer) {
 		m_$leftStat.text('Strength: ' + leftStats.strength.toFixed(1));
 		m_$rightStat.text('Strength: ' + rightStats.strength.toFixed(1));
 
-		m_leftSprite.position(-1000, FightRenderingManager.FightFrame.top + FightUnitStatsController.TOP_OFFSET);
+		m_leftSprite.position(-1000, -1000);
 		m_leftSprite.update();
 
-		m_rightSprite.position(-1000, FightRenderingManager.FightFrame.top + FightUnitStatsController.TOP_OFFSET);
+		m_rightSprite.position(-1000, -1000);
 		m_rightSprite.update();
 	}
 
@@ -64,21 +67,18 @@ var FightUnitStatsController = function (m_renderer) {
 		m_rightSprite.update();
 	}
 
-	var onUnitMoved = function (fightUnit) {
-		if (fightUnit.CFightUnit.state != FightUnitState.ShowingUp)
-			return;
-
+	var onLayoutChanged = function (fightUnit, layoutData) {
 		var sprite = m_leftSprite;
 		if (fightUnit.CFightUnit.direction == FightRenderer.DirectionType.Left) {
 			sprite = m_rightSprite;
 		}
 
-		sprite.position(fightUnit.CSpatial.x, sprite.y);
+		var unitLayout = layoutData.directionalLayout[fightUnit.CFightUnit.direction];
+
+		sprite.position(unitLayout.statsPosition.x, unitLayout.statsPosition.y);
 		sprite.update();
 	}
 }
-
-FightUnitStatsController.TOP_OFFSET = 100;
 
 ECS.EntityManager.registerSystem('FightUnitStatsController', FightUnitStatsController);
 SystemsUtils.supplySubscriber(FightUnitStatsController);

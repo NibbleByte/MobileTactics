@@ -15,11 +15,8 @@ var FightUnitHealthsController = function (m_renderer) {
 		m_leftSprite = m_renderer.createSprite(FightRenderer.LayerTypes.Stats);
 		m_rightSprite = m_renderer.createSprite(FightRenderer.LayerTypes.Stats);
 
-		$(m_leftSprite.dom).addClass('fight_unit_stats_container');
-		$(m_rightSprite.dom).addClass('fight_unit_stats_container');
-
-		m_leftHealthBar = new FightHealthBar(m_leftSprite.dom, FightRenderer.DirectionType.Right);
-		m_rightHealthBar = new FightHealthBar(m_rightSprite.dom, FightRenderer.DirectionType.Left);
+		m_leftHealthBar = new FightHealthBar(m_leftSprite.dom, FightRenderer.DirectionType.Left);
+		m_rightHealthBar = new FightHealthBar(m_rightSprite.dom, FightRenderer.DirectionType.Right);
 
 		m_leftSprite.position(-1000, -1000);
 		m_leftSprite.update();
@@ -33,7 +30,7 @@ var FightUnitHealthsController = function (m_renderer) {
 
 		self._eworldSB.subscribe(FightRenderingEvents.Animations.HURT, onHurt);
 
-		self._eworldSB.subscribe(FightRenderingEvents.Units.UNIT_MOVED, onUnitMoved);
+		self._eworldSB.subscribe(FightRenderingEvents.Layout.LAYOUT_CHANGED, onLayoutChanged);
 	}
 	
 	//
@@ -46,10 +43,10 @@ var FightUnitHealthsController = function (m_renderer) {
 
 	var onInitializeFight = function () {
 		
-		m_leftSprite.position(-1000, FightRenderingManager.FightFrame.bottom - FightControllerSystem.BOTTOM_OFFSET + FightUnitHealthsController.BOTTOM_OFFSET);
+		m_leftSprite.position(-1000, -1000);
 		m_leftSprite.update();
 
-		m_rightSprite.position(-1000, FightRenderingManager.FightFrame.bottom - FightControllerSystem.BOTTOM_OFFSET + FightUnitHealthsController.BOTTOM_OFFSET);
+		m_rightSprite.position(-1000, -1000);
 		m_rightSprite.update();
 
 		var battleStats = self._entityWorld.blackboard[FightRenderingBlackBoard.Battle.LEFT_STATS];
@@ -63,10 +60,10 @@ var FightUnitHealthsController = function (m_renderer) {
 
 	var onUninitializeFight = function () {
 		// Note: hide texts on uninitialize, because on slow devices can be seen on show up for a moment.
-		m_leftSprite.position(-1000, m_leftSprite.y);
+		m_leftSprite.position(-1000, -1000);
 		m_leftSprite.update();
 
-		m_rightSprite.position(-1000, m_rightSprite.y);
+		m_rightSprite.position(-1000, -1000);
 		m_rightSprite.update();
 	}
 
@@ -103,21 +100,19 @@ var FightUnitHealthsController = function (m_renderer) {
 		Tweener.addTween(hurtTween, { health: battleStats.healthOutcome, time: 0.8, delay: 0, transition: "linear", onUpdate: updateHealth, onUpdateParams: hurtParams });
 	}
 
-	var onUnitMoved = function (fightUnit) {
-		if (fightUnit.CFightUnit.state != FightUnitState.ShowingUp)
-			return;
-
-		var sprite = m_leftSprite;
-		if (fightUnit.CFightUnit.direction == FightRenderer.DirectionType.Left) {
-			sprite = m_rightSprite;
+	var onLayoutChanged = function (fightUnit, layoutData) {
+		if (fightUnit.CFightUnit.direction == FightRenderer.DirectionType.Right) {
+			var sprite = m_leftSprite;
+		} else {
+			var sprite = m_rightSprite;
 		}
 
-		sprite.position(fightUnit.CSpatial.x, sprite.y);
+		var unitLayout = layoutData.directionalLayout[fightUnit.CFightUnit.direction];
+
+		sprite.position(unitLayout.healthPosition.x, unitLayout.healthPosition.y);
 		sprite.update();
 	}
 }
-
-FightUnitHealthsController.BOTTOM_OFFSET = 20;
 
 ECS.EntityManager.registerSystem('FightUnitHealthsController', FightUnitHealthsController);
 SystemsUtils.supplySubscriber(FightUnitHealthsController);

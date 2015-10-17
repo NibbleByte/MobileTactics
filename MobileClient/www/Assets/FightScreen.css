@@ -26,6 +26,8 @@
 {
 	position: absolute;
 	border: 2px solid red;
+	margin-top: -2px;
+	margin-left: -2px;
 }
 
 .fight_unit_stats
@@ -47,8 +49,8 @@
 
 .fight_health_bar_container 
 {
-	width: 100px;
-	height: 16px;
+	width: 140px;
+	height: 20px;
 }
 
 .fight_health_bar_value
@@ -70,7 +72,7 @@
 	display: inline-block;
 	vertical-align: middle;
 	
-	width: 60px;
+	width: 100px;
 	height: 100%;
 	background-color: #8C0404;
 	border: 1px solid #4E2828;
@@ -87,10 +89,10 @@
 
 .fight_health_bar_right_direction_offset
 {
-	margin-left: 39px;
+	margin-left: 0px;
 }
 
 .fight_health_bar_left_direction_offset
 {
-	margin-left: -32px;
+	margin-left: -140px;
 }
