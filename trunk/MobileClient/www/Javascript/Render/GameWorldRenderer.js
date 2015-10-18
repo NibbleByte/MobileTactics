@@ -41,6 +41,8 @@ var GameWorldRenderer = new function () {
 			$(window).off('resize', onScreenResize);
 			renderer.plotContainerScroller.off('scrollStart', onScrollStart);
 			renderer.plotContainerScroller.off('scrollEnd', onScrollEnd);
+			renderer.plotContainerScroller.off('zoomStart', onZoomStart);
+			renderer.plotContainerScroller.off('zoomEnd', onZoomEnd);
 			renderer.plotContainerScroller.destroy();
 			renderer.plotContainerScroller = null;
 
@@ -90,12 +92,13 @@ var GameWorldRenderer = new function () {
 		};
 
 		var onScrollEnd = function () {
+			var userZoom = renderer.plotContainerScroller.scale;
 
 			// Cull only sprites inside the screen.
-			var left = renderer.zoomIn(-renderer.plotContainerScroller.x);
-			var top = renderer.zoomIn(-renderer.plotContainerScroller.y);
-			var right = left + renderer.zoomIn(renderer.viewWidth);
-			var bottom = top + renderer.zoomIn(renderer.viewHeight);
+			var left = renderer.zoomIn(-renderer.plotContainerScroller.x) / userZoom;
+			var top = renderer.zoomIn(-renderer.plotContainerScroller.y) / userZoom;
+			var right = left + renderer.zoomIn(renderer.viewWidth) / userZoom;
+			var bottom = top + renderer.zoomIn(renderer.viewHeight) / userZoom;
 
 			for(var name in renderer.spriteTracker.layerSprites) {
 				var sprites = renderer.spriteTracker.layerSprites[name];
@@ -121,6 +124,16 @@ var GameWorldRenderer = new function () {
 			}
 		}
 
+		var onZoomStart = function () {
+			onScrollStart();
+		}
+
+		var onZoomEnd = function () {
+			onScrollEnd();
+
+			m_$zoomStats.text('Zoom: ' + renderer.plotContainerScroller.scale.toFixed(2));
+		}
+
 
 		var resizeRefreshTimeout = null;
 		var onScreenResize = function () {
@@ -140,6 +153,10 @@ var GameWorldRenderer = new function () {
 			freeScroll: true,
 			keyBindings: true,
 			mouseWheel: true,
+			wheelAction: 'zoom',
+			zoom: true,
+			zoomMin: 0.75,
+			zoomMax: 1.5,
 			tap: true,
 			scrollX: true,
 			scrollY: true,
@@ -153,8 +170,14 @@ var GameWorldRenderer = new function () {
 
 		renderer.plotContainerScroller.on('scrollStart', onScrollStart);
 		renderer.plotContainerScroller.on('scrollEnd', onScrollEnd);
+
+		renderer.plotContainerScroller.on('zoomStart', onZoomStart);
+		renderer.plotContainerScroller.on('zoomEnd', onZoomEnd);
+
 		$(window).on('orientationchange', onScreenResize);
 		$(window).on('resize', onScreenResize);
+		
+		var m_$zoomStats = $('#ZoomStats');
 
 		return renderer;
 	};
@@ -244,18 +267,19 @@ var GameWorldRenderer = new function () {
 		// Make screenshot of the world onto the provided canvas (layer by layer).
 		// Used for optimization, to avoid rendering the whole world when static.
 		makeShot: function (targetCanvas, layersFilter) {
+			var userZoom = this.plotContainerScroller.scale;
 
 			// Get the viewport
-			var viewX = this.zoomIn(-this.plotContainerScroller.x);
-			var viewY = this.zoomIn(-this.plotContainerScroller.y);
+			var viewX = this.zoomIn(-this.plotContainerScroller.x) / userZoom;
+			var viewY = this.zoomIn(-this.plotContainerScroller.y) / userZoom;
 
-			var canvasWidth = this.zoomIn(this.viewWidth);
-			var canvasHeight = this.zoomIn(this.viewHeight);
+			var canvasWidth = this.zoomIn(this.viewWidth) / userZoom;
+			var canvasHeight = this.zoomIn(this.viewHeight) / userZoom;
 			
 			$(targetCanvas).attr('width', canvasWidth);
 			$(targetCanvas).attr('height', canvasHeight);
 
-			DisplayManager.zoomInElement(targetCanvas);
+			RenderUtils.transformSet(targetCanvas, 'scale(' + (DisplayManager.zoom * userZoom) + ')');
 
 			$(targetCanvas).css('margin-left', Math.floor((this.viewWidth - canvasWidth) / 2));
 			$(targetCanvas).css('margin-top', Math.floor((this.viewHeight - canvasHeight) / 2));

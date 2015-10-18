@@ -18,6 +18,8 @@ var AnimationSystemScrollOptimizer = function (m_renderer, m_animationSystem) {
 		if (m_renderer.plotContainerScroller && m_renderer.plotContainerScroller) {
 			m_renderer.plotContainerScroller.on('scrollStart', onScrollStart);
 			m_renderer.plotContainerScroller.on('scrollEnd', onScrollEnd);
+			m_renderer.plotContainerScroller.on('zoomStart', onScrollStart);
+			m_renderer.plotContainerScroller.on('zoomEnd', onScrollEnd);
 		} else {
 			console.warn('Optimizations unsuccessful');
 		}
@@ -28,6 +30,8 @@ var AnimationSystemScrollOptimizer = function (m_renderer, m_animationSystem) {
 			m_renderer.plotContainerScroller.off('scrollStart', onScrollStart);
 			m_renderer.plotContainerScroller.off('scrollEnd', onScrollEnd);
 			m_renderer.plotContainerScroller.off('scrollCancel', onScrollEnd);
+			m_renderer.plotContainerScroller.off('zoomStart', onScrollStart);
+			m_renderer.plotContainerScroller.off('zoomEnd', onScrollEnd);
 		}
 	}
 	

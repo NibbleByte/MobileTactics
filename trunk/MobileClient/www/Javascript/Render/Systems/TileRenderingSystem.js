@@ -97,14 +97,19 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 
 	// It is just the same code for all events...
 	var extractClickedTileFromEvent = function (event, opt_target) {
+		var userZoom = m_renderer.plotContainerScroller.scale;
+		var padding = GTile.LAYERS_PADDING * DisplayManager.zoom * userZoom;
 
 		// Use pageX && pageY because they are normalized by jQuery. FFox doesn't provide offsetX && offsetY.
 		var offset = (opt_target) ? $(opt_target).offset() : $(event.currentTarget).offset();
-		var posX = event.pageX - offset.left - GTile.LAYERS_PADDING * DisplayManager.zoom;
-		var posY = event.pageY - offset.top - GTile.LAYERS_PADDING * DisplayManager.zoom;
+		var posX = event.pageX - offset.left - padding;
+		var posY = event.pageY - offset.top - padding;
 
 		posX /= DisplayManager.zoom;
 		posY /= DisplayManager.zoom;
+
+		posX /= userZoom;
+		posY /= userZoom;
 
 		m_renderer.getTileCoordsAtPoint(posX, posY, clickedEventDataCache);
 		clickedEventDataCache.tile = m_world.getTile(clickedEventDataCache.row, clickedEventDataCache.column);
