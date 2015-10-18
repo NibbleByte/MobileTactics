@@ -101,6 +101,24 @@ var RenderUtils = {
 		});
 
 	},
+
+	// HACK: Some old Android 2.x doesn't support dataURL.
+	// Test: http://davidwalsh.name/demo/convert-canvas-image.php
+	supportsDataUrl: (function () {
+		var canvas = document.createElement('canvas');
+				
+		if (!canvas.toDataURL)
+			return false;
+					
+		canvas.width = canvas.height = 50;
+		var uri = canvas.toDataURL('image/png');
+				
+		if (!uri || uri.indexOf("data:,") === 0)
+			return false;
+					
+		return true;
+	})(),
+
 };
 
 RenderUtils.supportsFilter = RenderUtils.supports('filter');

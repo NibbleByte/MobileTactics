@@ -8,7 +8,6 @@
 var SpriteColorizeManager = new function () {
 	var self = this;
 
-	var m_originalsDB = {};
 	var m_colorizedDB = {};
 	var m_saturatedDB = {};
 
@@ -21,24 +20,6 @@ var SpriteColorizeManager = new function () {
 		canvas.getContext("2d").drawImage(image, 0, 0);
 
 		return canvas;
-	}
-
-	var getOriginalCanvas = function (sprite) {
-
-		var hash = sprite.src;
-
-		var img = m_originalsDB[hash];
-
-		if (img == undefined) {
-			
-			console.assert(sprite.img instanceof HTMLImageElement);
-
-			img = sprite.img;
-
-			m_originalsDB[hash] = img;
-		}
-
-		return convertImageToCanvas(img);
 	}
 
 	var colorizeCanvas = function (canvas, primaryHue, secondaryHue) {
@@ -110,45 +91,33 @@ var SpriteColorizeManager = new function () {
 		// Get hash code.
 		var hash = sprite.src + ':' + primary + ':' + secondary;
 
-		var img = db[hash];
+		var canvas = db[hash];
 
-		if (img == undefined) {
-			var canvas = getOriginalCanvas(sprite);
+		if (canvas == undefined) {
+			canvas = convertImageToCanvas(sprite.img);
 
 			executor(canvas, primary, secondary);
 
-			// Using img has higher performance than canvas on some phones.
-			// If toDataURL is not supported, fallback to canvases.
-			if (canvas.toDataURL) {
-				img = document.createElement('img');
-
-				img.onload = function () {
-					// If setting src to dataURL took time, replace the canvas instance.
-					if (img == canvas && this.width != 0 && this.height != 0) {
-						db[hash] = this;
-						sprite.img = this;
-					}
-
-					this.onload = null;
-				}
-
-				img.src = canvas.toDataURL('image/png');
-
-				// HACK: Some old Android 2.x doesn't support setting dataURL as src to image. Fallback to canvas.
-				// Info: http://stackoverflow.com/questions/4776670/should-setting-an-image-src-to-data-url-be-available-immediately
-				// Test: http://davidwalsh.name/demo/convert-canvas-image.php
-				if (img.width == 0 && img.height == 0)
-					img = canvas;
-
-			} else {
-				img = canvas;
-			}
-
-			db[hash] = img;
+			db[hash] = canvas;
 		}
 
-		// Replace image with canvas. Don't update.
-		sprite.img = img;
+
+		if (RenderUtils.supportsDataUrl) {
+
+			// If normal div with background image...
+			if (sprite.dom && !sprite.canvasInstance) {
+			
+				// Avoid string garbage (could be big)
+				if (!canvas.__uri) {
+					canvas.__uri = 'url(' + canvas.toDataURL('image/png') + ')';
+				}
+
+				// This is much faster than having canvas equivalent elements.
+				sprite.dom.style.backgroundImage = canvas.__uri;
+			}
+		}
+
+		sprite.img = canvas;
 		sprite.changed = true;
 		
 	}
