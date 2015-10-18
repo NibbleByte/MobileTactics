@@ -52,7 +52,7 @@ WorldLayers.layersOptions = {
 	Units: {
 		useCanvas: false,
 		autoClear: false,
-		useCanvasInstance: true,
+		useCanvasInstance: !RenderUtils.supportsDataUrl,
 	},
 
 	UnitsFinished: {

@@ -102,8 +102,10 @@ var TileStructureRenderingSystem = function (m_renderer) {
 
 	var registerTileStructure = function (tile) {
 		
-		var sprite = tile.CTileRendering.sprite;
-		sprite.changeToCanvasInstance().update();
+		if (!RenderUtils.supportsDataUrl) {
+			var sprite = tile.CTileRendering.sprite;
+			sprite.changeToCanvasInstance().update();
+		}
 
 		refreshStructureTile(tile);
 	}
