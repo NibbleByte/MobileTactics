@@ -8,6 +8,7 @@
 var SpriteColorizeManager = new function () {
 	var self = this;
 
+	var m_originalsDB = {};
 	var m_colorizedDB = {};
 	var m_saturatedDB = {};
 
@@ -20,6 +21,25 @@ var SpriteColorizeManager = new function () {
 		canvas.getContext("2d").drawImage(image, 0, 0);
 
 		return canvas;
+	}
+
+	// Needed, because original sprite.img will be replaced with modified image.
+	var getOriginalCanvas = function (sprite) {
+
+		var hash = sprite.src;
+
+		var img = m_originalsDB[hash];
+
+		if (img == undefined) {
+			
+			console.assert(sprite.img instanceof HTMLImageElement);
+
+			img = sprite.img;
+
+			m_originalsDB[hash] = img;
+		}
+
+		return convertImageToCanvas(img);
 	}
 
 	var colorizeCanvas = function (canvas, primaryHue, secondaryHue) {
@@ -94,7 +114,7 @@ var SpriteColorizeManager = new function () {
 		var canvas = db[hash];
 
 		if (canvas == undefined) {
-			canvas = convertImageToCanvas(sprite.img);
+			canvas = getOriginalCanvas(sprite);
 
 			executor(canvas, primary, secondary);
 
@@ -117,6 +137,7 @@ var SpriteColorizeManager = new function () {
 			}
 		}
 
+		
 		sprite.img = canvas;
 		sprite.changed = true;
 		
