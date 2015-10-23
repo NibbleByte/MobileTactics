@@ -190,9 +190,9 @@ var GameWorld = function () {
 		return gatheredTiles;
 	}
 
-	// Checks if given tile is the start tile in the gatherTiles algorithm.
+	// Checks if given tile is the start tile in the gatherTiles/findPath algorithms.
 	// Should be used only within gatherTiles execution.
-	this.isStartGatheredTile = function (tile) {
+	this.isStartTile = function (tile) {
 		return tile.__$cameFrom === null;
 	}
 
@@ -213,6 +213,7 @@ var GameWorld = function () {
 		var isMultiTarget = Utils.isArray(endTiles);
 		var open = [startTile];
 		var visited = [startTile];
+		var queryResult = {};
 
 		var bestTile = null;
 		var bestTileDist = Infinity;
@@ -247,7 +248,7 @@ var GameWorld = function () {
 					continue;
 				}
 
-				var queryResult = gatherQuery(tile, userData);
+				gatherQuery(tile, userData, queryResult, openTile);
 				
 				if (queryResult.cost == undefined)
 					continue;

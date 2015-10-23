@@ -23,7 +23,7 @@ Actions.Classes.ActionStay = new function () {
 
 		placeable.CUnit.turnPoints--;
 
-		eworld.triggerAsync(GameplayEvents.Fog.FORCE_FOG_REFRESH);
+		eworld.triggerAsync(GameplayEvents.Visibility.FORCE_VISIBILITY_REFRESH);
 	}
 
 	this.undoAction = function (eworld, world, action) {

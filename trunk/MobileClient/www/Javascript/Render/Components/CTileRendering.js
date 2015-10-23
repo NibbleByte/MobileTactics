@@ -5,6 +5,7 @@ var CTileRendering = function CTileRendering() {
 	this.spriteHighlight = null;
 	this.spriteActionFog = null;
 	this.spriteVisibilityFog = null;
+	this.viewerVisible = true;
 	
 	this.highlightMode = CTileRendering.HighlightType.None;
 };

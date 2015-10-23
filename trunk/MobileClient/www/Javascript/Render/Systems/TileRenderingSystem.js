@@ -327,6 +327,9 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 }
 
 TileRenderingSystem.setTileVisibilityFog = function(tile, show) {
+	
+	tile.CTileRendering.viewerVisible = !show;
+
 	if (!RenderUtils.supportsFilter) {
 		
 		if (show)

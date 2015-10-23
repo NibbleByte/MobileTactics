@@ -20,11 +20,12 @@ var UnitRenderingSystem = function (renderer) {
 		self._eworldSB.subscribe(EngineEvents.Serialization.ENTITY_DESERIALIZED, onPlaceableMoving);
 		
 		self._eworldSB.subscribe(GameplayEvents.Units.UNIT_CHANGED, onUnitChanged);
+		self._eworldSB.subscribe(GameplayEvents.Units.UNIT_TURN_POINTS_CHANGED, renderUnit);
 
 		self._eworldSB.subscribe(GameplayEvents.Actions.ATTACK, onActionAttack);
 		self._eworldSB.subscribe(GameplayEvents.Actions.HEAL, onActionHeal);
 
-		self._eworldSB.subscribe(GameplayEvents.Fog.REFRESH_FOG, refreshFog);
+		self._eworldSB.subscribe(RenderEvents.Fog.REFRESH_FOG, refreshFog);
 		
 		self._eworldSB.subscribe(RenderEvents.IdleAnimations.START_IDLE_ANIMATION_UNIT, onIdleAnimation);
 		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_FINISHED, onAnimationFinished);
@@ -87,6 +88,8 @@ var UnitRenderingSystem = function (renderer) {
 		var column = placeable.CTilePlaceable.tile.CTile.column;
 		
 		var coords = m_renderer.getRenderedTileCenter(row, column);
+
+		applyVisibilityFog(placeable);
 		
 		var placeableRendering = placeable.CTilePlaceableRendering;
 		var unitRendering = placeable.CUnitRendering;
@@ -106,7 +109,7 @@ var UnitRenderingSystem = function (renderer) {
 		
 		// Position the health at the bottom right corner.
 		unitRendering.move(coords.x, coords.y, m_renderer);
-		unitRendering.showFinished(placeable.CUnit.finishedTurn);
+		unitRendering.showFinished(placeable.CUnit.finishedTurn && placeable.CTilePlaceable.tile.CTileRendering.viewerVisible);
 	}
 
 	var onIdleAnimation = function (unit) {
@@ -183,7 +186,7 @@ var UnitRenderingSystem = function (renderer) {
 	var FLOAT_TEXT_OFFSET = { x: 20, y: -12 };
 	var onActionAttack = function (outcome) {
 
-		if (outcome.attackerHealthOutcome > 0) {
+		if (outcome.attackerHealthOutcome > 0 && outcome.attackerTile.CTileRendering.viewerVisible) {
 			var intent = (outcome.damageToAttacker > 0) ? RenderIntents.Negative : RenderIntents.Positive;
 			var sign = (outcome.damageToAttacker > 0) ? '-' : '';
 			self._eworld.trigger(RenderEvents.OverlayEffects.FLOAT_TEXT_TILE, outcome.attackerTile, sign + outcome.damageToAttacker,
@@ -191,7 +194,7 @@ var UnitRenderingSystem = function (renderer) {
 			);
 		}
 
-		if (outcome.defenderHealthOutcome > 0) {
+		if (outcome.defenderHealthOutcome > 0 && outcome.defenderTile.CTileRendering.viewerVisible) {
 			var intent = (outcome.damageToDefender > 0) ? RenderIntents.Negative : RenderIntents.Positive;
 			var sign = (outcome.damageToDefender > 0) ? '-' : '';
 			self._eworld.trigger(RenderEvents.OverlayEffects.FLOAT_TEXT_TILE, outcome.defenderTile, sign + outcome.damageToDefender,
@@ -201,9 +204,11 @@ var UnitRenderingSystem = function (renderer) {
 	}
 
 	var onActionHeal = function (unit, amount) {
-		self._eworld.trigger(RenderEvents.OverlayEffects.FLOAT_TEXT_TILE,unit.CTilePlaceable.tile, '+' +  amount, 
-			{ offset: FLOAT_TEXT_OFFSET, intent: RenderIntents.Positive }
-		);
+		if (unit.CTilePlaceable.tile.CTileRendering.viewerVisible) {
+			self._eworld.trigger(RenderEvents.OverlayEffects.FLOAT_TEXT_TILE,unit.CTilePlaceable.tile, '+' +  amount, 
+				{ offset: FLOAT_TEXT_OFFSET, intent: RenderIntents.Positive }
+			);
+		}
 	}
 
 
@@ -211,7 +216,7 @@ var UnitRenderingSystem = function (renderer) {
 		var placeableRendering = placeable.CTilePlaceableRendering;
 		var unitRendering = placeable.CUnitRendering;
 
-		if (placeable.CTilePlaceable.tile.CTileVisibility.visible) {
+		if (placeable.CTilePlaceable.tile.CTileRendering.viewerVisible) {
 			placeableRendering.show();
 			unitRendering.show();
 		} else {

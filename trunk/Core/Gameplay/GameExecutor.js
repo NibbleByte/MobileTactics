@@ -4,8 +4,8 @@
 //===============================================
 "use strict";
 
-var GameExecutor = function (eworld, world) {
-	console.assert(world instanceof GameWorld, "GameWorld is required.");
+var GameExecutor = function (m_eworld, m_world) {
+	console.assert(m_world instanceof GameWorld, "GameWorld is required.");
 	
 	this.createObjectAt = function (tile, player) {
 		
@@ -52,7 +52,7 @@ var GameExecutor = function (eworld, world) {
 			return availableActions;
 		}
 		
-		var gameState = eworld.extract(GameState);
+		var gameState = m_eworld.extract(GameState);
 
 		var actions;
 		for(var i = 0; i < objects.length; ++i) {
@@ -108,15 +108,16 @@ var GameExecutor = function (eworld, world) {
 			if (placeable.CUnit.turnPoints == 0) {
 				placeable.CUnit.finishedTurn = true;
 			}
+
+			if (!placeable.destroyed && placeable.isAttached()) {
+				m_eworld.trigger(GameplayEvents.Units.UNIT_TURN_POINTS_CHANGED, placeable);
+			}
+
+			return null;
 		}
 
 		// Placeable might got destroyed during the action.
 		if (placeable.destroyed || !placeable.isAttached()) {
-			return null;
-		}
-
-		// Turn passed, no actions.
-		if (prevTurnPoints != placeable.CUnit.turnPoints) {
 			return null;
 		}
 
@@ -168,12 +169,16 @@ var GameExecutor = function (eworld, world) {
 			if (placeable.CUnit.turnPoints > 0) {
 				placeable.CUnit.finishedTurn = false;
 			}
+
+			if (placeable.isAttached()) {
+				m_eworld.trigger(GameplayEvents.Units.UNIT_TURN_POINTS_CHANGED, placeable);
+			}
 		}
 
 
 		// Refresh visibility.
 		if (placeable.isAttached()) {
-			eworld.triggerAsync(GameplayEvents.Fog.FORCE_FOG_REFRESH);
+			m_eworld.triggerAsync(GameplayEvents.Visibility.FORCE_VISIBILITY_REFRESH);
 		}
 
 		if (placeable.isAttached()) {
@@ -203,8 +208,6 @@ var GameExecutor = function (eworld, world) {
 	//
 	// Private
 	// 
-	var m_world = world;
-	var m_eworld = eworld;
 	var m_executedActions = [];
 }
 

@@ -23,7 +23,7 @@ var TileStructureRenderingSystem = function (m_renderer) {
 		self._eworldSB.subscribe(EngineEvents.World.TILE_CHANGED, onTileChanged);
 		
 		self._eworldSB.subscribe(GameplayEvents.Structures.OWNER_CHANGED, refreshStructureTile);
-		self._eworldSB.subscribe(GameplayEvents.Fog.REFRESH_FOG_AFTER, refreshKnowledge);
+		self._eworldSB.subscribe(GameplayEvents.Visibility.REFRESH_VISIBILITY_AFTER, refreshKnowledge);
 
 		self._eworldSB.subscribe(RenderEvents.IdleAnimations.START_IDLE_ANIMATION_STRUCTURE, onIdleAnimation);
 		self._eworldSB.subscribe(RenderEvents.Animations.ANIMATION_FINISHED, onAnimationFinished);
@@ -48,8 +48,8 @@ var TileStructureRenderingSystem = function (m_renderer) {
 		var owner = null;
 		if (tile.CTileOwner) {
 			var owner = tile.CTileOwner.owner;
-			if (m_gameState.currentPlayer)	// If no currentPlayer, show real owner (probably in world editor).
-				owner = tile.CTileOwner.knowledge[m_gameState.currentPlayer.playerId];
+			if (m_gameState.viewerPlayer)	// If no currentPlayer, show real owner (probably in world editor).
+				owner = tile.CTileOwner.knowledge[m_gameState.viewerPlayer.playerId];
 		}
 
 		return owner;

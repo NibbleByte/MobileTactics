@@ -11,6 +11,7 @@ var GameState = function () {
 
 GameState.prototype.init = function () {
 	this.currentPlayer = null;
+	this.viewerPlayer = null;	// Viewer might be different than current player. For example: player vs AI. Player shouldn't see AI moves.
 	this.turnsPassed = 0;
 	this.isCustomMap = true;
 	this.gameStarted = false;

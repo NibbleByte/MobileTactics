@@ -134,11 +134,20 @@ var AIController = function (m_executor) {
 					// Select the unit (visually). Only if this is unit.
 					if (m_currentAssignment.taskDoer.CTilePlaceable) {
 						m_selectedGOActions = m_executor.getAvailableActions(m_currentAssignment.taskDoer);
-						GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.highlightTileAction);
-						self._eworld.trigger(ClientEvents.Controller.TILE_SELECTED, m_currentAssignment.taskDoer.CTilePlaceable.tile);
+
+						if (m_currentAssignment.taskDoer.CTilePlaceable.tile.CTileRendering.viewerVisible) {
+							GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.highlightTileAction);
+							self._eworld.trigger(ClientEvents.Controller.TILE_SELECTED, m_currentAssignment.taskDoer.CTilePlaceable.tile);
+						} else {
+							self._eworld.trigger(ClientEvents.Controller.TILE_SELECTED, null);
+						}
 					} else {
 						// Assume taskDoer is tile
-						self._eworld.trigger(ClientEvents.Controller.TILE_SELECTED, m_currentAssignment.taskDoer);
+						if (m_currentAssignment.taskDoer.CTileRendering.viewerVisible) {
+							self._eworld.trigger(ClientEvents.Controller.TILE_SELECTED, m_currentAssignment.taskDoer);
+						} else {
+							self._eworld.trigger(ClientEvents.Controller.TILE_SELECTED, null);
+						}
 					}
 
 					self._eworld.trigger(AIEvents.Execution.CURRENT_ASSIGNMENT_CHANGED, m_currentAssignment);
@@ -176,16 +185,19 @@ var AIController = function (m_executor) {
 	var processSelected = function () {
 
 		if (m_selectedGOActions) {
-			GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.unHighlightTile);
-			self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.Highlights);
+			if (m_selectedGOActions.go.CTilePlaceable.tile.CTileRendering.viewerVisible) {
+				GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.unHighlightTile);
+				self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.Highlights);
+			}
 			m_selectedGOActions = null;
 		}
 
-		if (m_actionData.action) {
+		if (m_actionData.action && m_actionData.action.appliedTile && m_actionData.action.appliedTile.CTileRendering.viewerVisible) {
 			self._eworld.trigger(ClientEvents.Controller.TILE_SELECTED, m_actionData.action.appliedTile);
 			self._eworld.trigger(ClientEvents.Controller.ACTION_PREEXECUTE, m_actionData.action);
 		} else {
 			onActionExecute();
+			self._eworld.trigger(ClientEvents.Controller.TILE_SELECTED, null);
 		}
 	}
 
@@ -219,7 +231,10 @@ var AIController = function (m_executor) {
 			// Again: only for units.
 			if (m_currentAssignment.taskDoer.CTilePlaceable) {
 				m_selectedGOActions = m_executor.getAvailableActions(m_currentAssignment.taskDoer);
-				GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.highlightTileAction);
+
+				if (m_currentAssignment.taskDoer.CTilePlaceable.tile.CTileRendering.viewerVisible) {
+					GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.highlightTileAction);
+				}
 			}
 
 			scheduleNextStep(processSelected, self.SELECTION_TIMEOUT);

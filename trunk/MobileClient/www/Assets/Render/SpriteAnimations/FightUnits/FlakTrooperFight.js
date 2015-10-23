@@ -70,11 +70,12 @@ SpriteAnimations.FightUnits.ScrapTank = {
 
 	resourcePath: 'ScrapTank.png',
 
-	frameWidth: 111,
-	frameHeight: 89,
-	framesPerRow: 4,
+	frameWidth: 186,
+	frameHeight: 176,
+	framesPerRow: 5,
+	speed: 11,
 	anchorX: Animator.AnchorY.Center,
-	anchorY: Animator.AnchorY.Bottom,
+	anchorY: 150,
 	
 	sequences: [
 		{
@@ -87,23 +88,25 @@ SpriteAnimations.FightUnits.ScrapTank = {
 		{
 			name: 'Idle0',
 			startIndex: 0,
-			frames: 1,
+			frames: 4,
 		},
 		
 		{
 			name: 'Run',
-			frames: 1,
+			startIndex: 0,
+			frames: 4,
 		},
 
 		{
 			name: 'Attack',
-			startIndex: 0,
-			frames: 1,
+			startIndex: 4,
+			frames: 5,
+			speed: 7,
 
 			events: [
 				
 				{
-					frame: 0,
+					frame: 2,
 					event: FightRenderingEvents.Animations.FIRE,
 					params: {
 						weaponType: FightUnitWeaponType.Shotgun,
@@ -116,7 +119,7 @@ SpriteAnimations.FightUnits.ScrapTank = {
 		{
 			name: 'Taunt',
 			startIndex: 0,
-			frames: 1,
+			frames: 4,
 		},
 
 	]

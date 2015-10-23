@@ -149,7 +149,8 @@ var AITaskAttackingSystem = function (m_world, m_executor, m_battleSystem) {
 			var mdata = {
 				placeable: goActions.go,
 				player: goActions.go.CPlayerData.player,
-				playersData: m_playersData
+				playersData: m_playersData,
+				world: m_world,
 			};
 
 			var path = m_world.findPath(goTile, targetTile, Actions.Classes.ActionMove.movementCostQuery, mdata);
