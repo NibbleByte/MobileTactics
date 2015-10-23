@@ -8,6 +8,7 @@ var TileVisibilitySystem = function (m_world) {
 	var self = this;
 
 	var m_gameState = null;
+	var m_playersData = null;
 
 	//
 	// Entity system initialize
@@ -19,13 +20,12 @@ var TileVisibilitySystem = function (m_world) {
 		self._eworldSB.subscribe(GameplayEvents.GameState.NO_PLAYING_PLAYERS, refreshVisibility);
 		self._eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_MOVED, refreshVisibility);
 		self._eworldSB.subscribe(EngineEvents.Placeables.PLACEABLE_UNREGISTERED, refreshVisibility);
+		self._eworldSB.subscribe(EngineEvents.World.TILE_ADDED, onTileAdded);
 		self._eworldSB.subscribe(EngineEvents.World.TILE_REMOVED, refreshVisibility);
 		self._eworldSB.subscribe(GameplayEvents.Structures.OWNER_CHANGED, refreshVisibility);
 
-		self._eworldSB.subscribe(GameplayEvents.Fog.FORCE_FOG_REFRESH, refreshVisibility);
+		self._eworldSB.subscribe(GameplayEvents.Visibility.FORCE_VISIBILITY_REFRESH, refreshVisibility);
 
-		self._eworldSB.subscribe(EngineEvents.World.TILE_ADDED, onTileAdded);
-		self._eworldSB.subscribe(EngineEvents.World.TILE_REMOVED, refreshVisibility);
 		m_world.iterateAllTiles(function(tile){
 			onTileAdded(tile);
 		});
@@ -43,6 +43,7 @@ var TileVisibilitySystem = function (m_world) {
 
 	var onGameLoading = function () {
 		m_gameState = self._eworld.extract(GameState);
+		m_playersData = self._eworld.extract(PlayersData);
 	}
 
 	var onTileAdded = function(tile) {
@@ -56,38 +57,15 @@ var TileVisibilitySystem = function (m_world) {
 	}
 
 	var refreshVisibility = function () {
+
 		m_world.iterateAllTiles(hideTile);
 
-		// Placeables
-		for (var i = 0; i < m_gameState.relationPlaceables[PlayersData.Relation.Ally].length; ++i) {
-			var placeable = m_gameState.relationPlaceables[PlayersData.Relation.Ally][i];
-			
-			var tile = placeable.CTilePlaceable.tile;
+		if (m_gameState.currentPlayer == null)
+			return;
 
-			// If previewing some movement, use the preview tile instead of the current tile (avoid peek cheating).
-			if (placeable.CUnit.actionsData.getTurnData(placeable.CUnit.turnPoints).executedActions.last() == Actions.Classes.ActionMove ||
-				placeable.CUnit.actionsData.currentActionType == Actions.Classes.ActionMove	// Avoid problems during the ActionMove
-				) {
-				tile = placeable.CUnit.actionsData.getTurnData(placeable.CUnit.turnPoints).previewOriginalTile.last() || tile;
-			}
+		var visibleTiles = self.findPlayerVisibility(m_gameState.currentPlayer);
 
-			var visibleTiles = m_world.gatherTiles(tile, placeable.CStatistics.statistics['Visibility'], visibilityCostQuery);
-			visibleTiles.push(tile);
-
-			showTiles(visibleTiles);
-		}
-
-		// Structures
-		for (var i = 0; i < m_gameState.relationStructures[PlayersData.Relation.Ally].length; ++i) {
-			var tile = m_gameState.relationStructures[PlayersData.Relation.Ally][i];
-
-			var visibleTiles = m_world.gatherTiles(tile, 1, visibilityCostQuery);
-			visibleTiles.push(tile);
-
-			showTiles(visibleTiles);
-		}
-
-
+		showTiles(visibleTiles);
 		
 		// Populate visible placeables.
 		for(var relation = 0; relation < m_gameState.visiblePlaceables.length; ++relation) {
@@ -101,15 +79,65 @@ var TileVisibilitySystem = function (m_world) {
 		}
 
 
-		self._eworld.trigger(GameplayEvents.Fog.REFRESH_FOG);
-		self._eworld.trigger(GameplayEvents.Fog.REFRESH_FOG_AFTER);
+		self._eworld.trigger(GameplayEvents.Visibility.REFRESH_VISIBILITY);
+		self._eworld.trigger(GameplayEvents.Visibility.REFRESH_VISIBILITY_AFTER);
 	}
 
-	var visibilityCostQuery = function (tile, userData, queryResult) {
-		queryResult.cost = 1;
-		queryResult.passOver = true;
-		queryResult.discard = false;
+	this.findPlayerVisibility = function (player) {
+		var foundTiles = [];
+
+		// Placeables
+		var placeables = m_world.getPlaceables();
+		for (var i = 0; i < placeables.length; ++i) {
+			var placeable = placeables[i];
+
+			var relation = m_playersData.getRelation(placeable.CPlayerData.player, player);
+
+			if (relation != PlayersData.Relation.Ally)
+				continue;
+
+			var tile = placeable.CTilePlaceable.tile;
+
+			// If previewing some movement, use the preview tile instead of the current tile (avoid peek cheating).
+			if (placeable.CUnit.actionsData.getTurnData(placeable.CUnit.turnPoints).executedActions.last() == Actions.Classes.ActionMove ||
+				placeable.CUnit.actionsData.currentActionType == Actions.Classes.ActionMove	// Avoid problems during the ActionMove
+				) {
+				tile = placeable.CUnit.actionsData.getTurnData(placeable.CUnit.turnPoints).previewOriginalTile.last() || tile;
+			}
+
+			var visibleTiles = m_world.gatherTiles(tile, placeable.CStatistics.statistics['Visibility'], TileVisibilitySystem.visibilityCostQuery);
+			visibleTiles.push(tile);
+
+			foundTiles = foundTiles.concat(visibleTiles);
+		}
+
+
+		// Structures
+		for (var i = 0; i < m_gameState.ownerableStructures.length; ++i) {
+			var tile = m_gameState.ownerableStructures[i];
+
+			if (!tile.CTileOwner.owner)
+				continue;
+
+			var relation = m_playersData.getRelation(tile.CTileOwner.owner, player);
+
+			if (relation != PlayersData.Relation.Ally)
+				continue;
+
+			var visibleTiles = m_world.gatherTiles(tile, 1, TileVisibilitySystem.visibilityCostQuery);
+			visibleTiles.push(tile);
+
+			foundTiles = foundTiles.concat(visibleTiles);
+		}
+
+		return foundTiles;
 	}
+};
+
+TileVisibilitySystem.visibilityCostQuery = function (tile, userData, queryResult) {
+	queryResult.cost = 1;
+	queryResult.passOver = true;
+	queryResult.discard = false;
 };
 
 ECS.EntityManager.registerSystem('TileVisibilitySystem', TileVisibilitySystem);

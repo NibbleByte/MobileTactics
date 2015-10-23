@@ -62,6 +62,10 @@ var GameStateSystem = function () {
 			onAppendPlaceable(placeable);
 		}
 	}
+
+	var canView = function (player) {
+		return player.type == Player.Types.Human;
+	}
 	
 	var onGameLoading = function () {
 		m_playersData = self._eworld.extract(PlayersData);
@@ -97,10 +101,27 @@ var GameStateSystem = function () {
 			m_gameState.currentPlayer = m_playersData.getFirstPlayingPlayer();
 		
 		if (m_gameState.currentPlayer != null) {
+
 			populateGameStateUnits();
+
+			
+			var viewer = canView(m_gameState.currentPlayer) 
+				? m_gameState.currentPlayer
+				: m_playersData.players.find(function (player) {
+					return player.isPlaying && canView(player);
+				});
+
+
+			if (viewer) {
+				m_gameState.viewerPlayer = viewer;
+				self._eworld.trigger(GameplayEvents.GameState.VIEWER_CHANGED, m_gameState);
+			}
 			
 			self._eworld.triggerAsync(GameplayEvents.GameState.TURN_CHANGED, m_gameState, true);
 		} else {
+			m_gameState.viewerPlayer = null;
+			self._eworld.trigger(GameplayEvents.GameState.VIEWER_CHANGED, m_gameState);
+
 			self._eworld.triggerAsync(GameplayEvents.GameState.NO_PLAYING_PLAYERS);
 		}
 	}
@@ -119,6 +140,9 @@ var GameStateSystem = function () {
 		
 		// If had no current player and still have none, do nothing.
 		if (m_gameState.currentPlayer == null) {
+			m_gameState.viewerPlayer = null;
+			self._eworld.trigger(GameplayEvents.GameState.VIEWER_CHANGED, m_gameState);
+
 			self._eworld.triggerAsync(GameplayEvents.GameState.NO_PLAYING_PLAYERS);
 			return;
 		}
@@ -127,6 +151,10 @@ var GameStateSystem = function () {
 			++m_gameState.turnsPassed;
 		}
 		
+		if (canView(m_gameState.currentPlayer)) {
+			m_gameState.viewerPlayer = m_gameState.currentPlayer;
+			self._eworld.trigger(GameplayEvents.GameState.VIEWER_CHANGED, m_gameState);
+		}
 		
 		populateGameStateUnits();
 		

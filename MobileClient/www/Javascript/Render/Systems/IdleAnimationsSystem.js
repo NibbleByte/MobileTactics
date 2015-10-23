@@ -47,8 +47,7 @@ var IdleAnimationsSystem = function () {
 			if (unit.CAnimations.animators[UnitRenderingSystem.MAIN_ANIM].isPlaying())
 				continue;
 
-			// Editor does not have CTileVisibility.
-			if (!unit.CTilePlaceable.tile.CTileVisibility || unit.CTilePlaceable.tile.CTileVisibility.visible)
+			if (unit.CTilePlaceable.tile.CTileRendering.viewerVisible)
 				entities.push(unit);
 		}
 		
@@ -81,8 +80,7 @@ var IdleAnimationsSystem = function () {
 			if (tile.CAnimations.animators[TileRenderingSystem.TILES_ANIM].isPlaying())
 				return;
 
-			// Editor does not have CTileVisibility.
-			if (!tile.CTileVisibility || tile.CTileVisibility.visible)
+			if (tile.CTileRendering.viewerVisible)
 				tiles.push(tile);
 		});
 

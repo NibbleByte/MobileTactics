@@ -56,6 +56,7 @@ var UnitsSystem = function () {
 	var onDestroyUnit = function(unit) {
 		self._eworld.trigger(GameplayEvents.Units.UNIT_DESTROYING, unit);
 		self._eworld.removeManagedEntity(unit);
+		self._eworld.trigger(GameplayEvents.Units.UNIT_DESTROYED, unit);
 	}
 };
 

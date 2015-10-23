@@ -81,7 +81,7 @@ Actions.Classes.ActionMove = new function () {
 
 		var bypassZoC = userData.placeable.CUnit.getDefinition().bypassZoneOfControl;
 
-		if (!bypassZoC && queryResult.passOver && !userData.world.isStartGatheredTile(prevTile)) {
+		if (!bypassZoC && queryResult.passOver && !userData.world.isStartTile(prevTile)) {
 			queryResult.passOver = checkZoneOfControl(tile, userData) || checkZoneOfControl(prevTile, userData);
 		}
 

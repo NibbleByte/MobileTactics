@@ -332,7 +332,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		m_eworld.addSystem(new IdleAnimationsSystem(worldRenderer));
 		m_eworld.addSystem(new ActionsRenderingSystem(executor));
 		m_eworld.addSystem(new ActionFogRenderingSystem(world));
-		m_eworld.addSystem(new VisibilityFogRenderingSystem(world));
+		m_eworld.addSystem(new VisibilityFogRenderingSystem(world, m_eworld.getSystem(TileVisibilitySystem)));
 	
 		m_eworld.addSystem(new ActionsMenuController(m_$ActionMenu[0]));
 		m_eworld.addSystem(new FloatingTextsSystem(worldRenderer));

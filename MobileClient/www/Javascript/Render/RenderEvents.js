@@ -21,6 +21,10 @@ var RenderEvents = {
 			SORT_DEPTH_REFRESH: "render.layers.sort_depth_refresh",				// Arguments: layer (enum)/sprite
 		},
 
+		Fog: {
+			REFRESH_FOG: "render.fog.refresh_fog",								// Arguments: 
+		},
+
 		Animations: {
 			ANIMATION_BEFORE_FRAME: "render.animations.animation_before_frame",	// Arguments: 
 			ANIMATION_FINISHED: "render.animations.animation_finished",			// Arguments: {name, animator, entity}

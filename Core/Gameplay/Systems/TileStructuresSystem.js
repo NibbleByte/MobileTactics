@@ -15,7 +15,7 @@ var TileStructuresSystem = function () {
 		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADING, onGameLoading);
 
 		self._eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, onTurnChanged);
-		self._eworldSB.subscribe(GameplayEvents.Fog.REFRESH_FOG, onFogRefresh);
+		self._eworldSB.subscribe(GameplayEvents.Visibility.REFRESH_VISIBILITY, onVisibilityRefresh);
 
 		self._eworldSB.subscribe(EngineEvents.World.TILE_ADDED, onTileAdded);
 		self._eworldSB.subscribe(EngineEvents.World.TILE_REMOVING, onTileRemoving);
@@ -66,7 +66,7 @@ var TileStructuresSystem = function () {
 		}
 	}
 
-	var onFogRefresh = function () {
+	var onVisibilityRefresh = function () {
 
 		var player = m_gameState.currentPlayer;
 

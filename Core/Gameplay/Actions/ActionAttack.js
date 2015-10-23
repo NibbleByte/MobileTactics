@@ -58,7 +58,7 @@ Actions.Classes.ActionAttack = new function () {
 		var outcome = eworld.extract(BattleSystem).doAttack(action.placeable, action.appliedTile.CTile.placedObjects[0]);
 		action.undoData.outcome = outcome;
 
-		eworld.triggerAsync(GameplayEvents.Fog.FORCE_FOG_REFRESH);
+		eworld.triggerAsync(GameplayEvents.Visibility.FORCE_VISIBILITY_REFRESH);
 
 		eworld.trigger(GameplayEvents.Actions.ATTACK, outcome);
 	}

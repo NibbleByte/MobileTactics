@@ -73,12 +73,6 @@ var ActionFogRenderingSystem = function (m_world) {
 	}
 
 	var onCaptureStarted = function (tile) {
-		
-		if (Utils.assert(tile.CTile.placedObjects.length > 0))
-			return;
-
-		tile.CTile.placedObjects[0].CUnitRendering.showFinished(true);
-		
 		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.Highlights);
 		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.ActionFog);
 	}
@@ -105,12 +99,6 @@ var ActionFogRenderingSystem = function (m_world) {
 				tile.CTileRendering.hideActionFog();
 			}
 		});
-
-		// If placeable finished turn, do show fog.
-		for(var i = 0; i < gameState.currentPlaceables.length; ++i) {
-			var placeable = gameState.currentPlaceables[i];
-			placeable.CUnitRendering.showFinished(placeable.CUnit.finishedTurn);
-		}
 	}
 }
 
