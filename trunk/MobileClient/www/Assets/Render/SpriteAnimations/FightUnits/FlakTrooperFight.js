@@ -73,7 +73,7 @@ SpriteAnimations.FightUnits.ScrapTank = {
 	frameWidth: 186,
 	frameHeight: 176,
 	framesPerRow: 5,
-	speed: 11,
+	speed: 14,
 	anchorX: Animator.AnchorY.Center,
 	anchorY: 150,
 	
@@ -101,7 +101,7 @@ SpriteAnimations.FightUnits.ScrapTank = {
 			name: 'Attack',
 			startIndex: 4,
 			frames: 5,
-			speed: 7,
+			speed: 9,
 
 			events: [
 				
@@ -116,11 +116,12 @@ SpriteAnimations.FightUnits.ScrapTank = {
 			],
 		},
 
+		/*
 		{
 			name: 'Taunt',
 			startIndex: 0,
 			frames: 4,
 		},
-
+		*/
 	]
 };
