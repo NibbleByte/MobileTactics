@@ -311,6 +311,9 @@ var GameWorldRenderer = new function () {
 						if (sprite.skipDrawing)
 							continue;
 
+						if (!sprite.isShown())
+							continue;
+
 						// Optimization (avoid touching the dom?). Not tested!
 						//if ($(sprite.dom).is(":hidden"))
 						//	continue;
