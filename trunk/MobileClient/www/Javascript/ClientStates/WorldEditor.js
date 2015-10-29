@@ -59,6 +59,10 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 		m_$GameWorldMap.show();
 		m_$ToolbarContainer.show();
 
+
+		window.FrameStats = new FrameStats($('#FrameStats'), 1000);
+		window.FrameStats.pause();
+
 		//
 		// World
 		//

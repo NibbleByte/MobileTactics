@@ -246,13 +246,14 @@
 				<button id="BtnRestart">Res</button>
 				<button id="BtnDebug">Debug</button>
 				<button id="BtnAnimationTool" onclick="$('#AnimationInfoTool').toggle(); $('#ToolbarMore').hide();" >Animation Info</button>
-				<button id="BtnFight" onclick="FightRenderingManager.visualizeBattleTest(); $('#ToolbarMore').hide();" >Fight</button>
+				<button id="BtnFight" onclick="FightRenderingManager.visualizeBattleTest(); $('#ToolbarMore').hide();" style="display: none;">Fight</button>
 
 				<button id="BtnAddress">Address</button>
 				<button id="BtnBrowse" style="display: none;">Browse</button>
 				<input id="TbBrowseAddress" type="text" value="http://nibblebyte.no-ip.org/t" style="display: none;" />
 				<button id="BtnUndo">Undo</button>
 				<button onclick="currentState.loadMap('Dance42');">Dance42</button>
+				<button onclick="currentState.loadMap('HexIsle');">HexIsle</button>
 
 			</div>
 

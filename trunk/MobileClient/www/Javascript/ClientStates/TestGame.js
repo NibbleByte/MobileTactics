@@ -396,6 +396,11 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 				m_eworld.store(PlayersData, m_clientState.playersData);
 				m_eworld.store(GameState, m_clientState.gameState);
 
+				// Up to 2 human players only (for now).
+				for(var i = 2; i < m_clientState.playersData.players.length; ++i) {
+					m_clientState.playersData.players[i].type = Player.Types.AI;
+				}
+
 				m_eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING] = true;
 		
 				m_eworld.trigger(EngineEvents.General.GAME_LOADING);
