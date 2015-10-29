@@ -314,15 +314,44 @@ var GameWorldRenderer = new function () {
 						if (!sprite.isShown())
 							continue;
 
-						var anchorX = Math.round((sprite.anchorX || 0) * Math.abs(sprite.xscale));
-						var anchorY = Math.round((sprite.anchorY || 0) * Math.abs(sprite.yscale));
+
+						// NOTE: This algorithm is mimicking the sprite.js method of rendering. Sync with that.
+						var anchorX = (sprite.anchorX || 0) * Math.abs(sprite.xscale);
+						var anchorY = (sprite.anchorY || 0) * Math.abs(sprite.yscale);
+
+						anchorX = Math.round(anchorX);
+						anchorY = Math.round(anchorY);
 
 						var offsetX = (layer.useCanvasInstance) ? 0 : sprite.xoffset;
 						var offsetY = (layer.useCanvasInstance) ? 0 : sprite.yoffset;
 
 						var dom = (layer.useCanvasInstance) ? sprite.canvasInstance : sprite.img;
 
-						targetCtx.drawImage(dom, offsetX, offsetY, sprite.w, sprite.h, sprite.x - viewX - anchorX, sprite.y - viewY - anchorY, sprite.w, sprite.h);
+						targetCtx.save();
+
+						if (sprite.xTransformOrigin === null) {
+							// HACK: if these are rounded, units with scaleX=-1 jump 1 pixel aside and causes visual bug?! Wtf?!
+							//		 Sprite width must be odd number, like 55.
+							var transx = sprite.w / 2 // | 0;
+							var transy = sprite.h / 2 // | 0;
+						} else {
+							var transx = sprite.xTransformOrigin;
+							var transy = sprite.yTransformOrigin;
+						}
+
+						targetCtx.translate(sprite._x_rounded + transx - viewX - anchorX, sprite._y_rounded + transy - viewY - anchorY);
+
+						targetCtx.rotate(sprite.angle);
+						if (sprite.xscale !== 1 || sprite.yscale !== 1)
+							targetCtx.scale(sprite.xscale, sprite.yscale);
+
+						targetCtx.globalAlpha = sprite.opacity;
+
+						targetCtx.translate(-transx, -transy);
+
+						targetCtx.drawImage(dom, offsetX, offsetY, sprite.w, sprite.h, 0, 0, sprite.w, sprite.h);
+
+						targetCtx.restore();
 					}
 				}
 			}

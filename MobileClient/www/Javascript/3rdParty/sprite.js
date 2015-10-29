@@ -798,12 +798,15 @@ Sprite.prototype.update = function updateDomProperties () {
 	//
 	if (this.src != null && Utils.isString(this.anchorX)) console.warn('AnchorX of sprite ', this.src, 'at layer ', this.layer.name, ' is string: ', this.anchorX);
 	if (this.src != null && Utils.isString(this.anchorY)) console.warn('AnchorY of sprite ', this.src, 'at layer ', this.layer.name, ' is string: ', this.anchorY);
-	var anchorX = Math.round((this.anchorX || 0) * Math.abs(this.xscale));
-	var anchorY = Math.round((this.anchorY || 0) * Math.abs(this.yscale));
+	var anchorX = (this.anchorX || 0) * Math.abs(this.xscale);
+	var anchorY = (this.anchorY || 0) * Math.abs(this.yscale);
 
 	// If scale is smaller, image is flipped, so anchor should be relative to the width/height.
 	if (this.xscale < 0) anchorX = this.w - anchorX;
 	if (this.yscale < 0) anchorY = this.h - anchorY;
+
+	anchorX = Math.round(anchorX);
+	anchorY = Math.round(anchorY);
 
 	if (this._anchorX_before !== anchorX)
 		style.marginLeft = -anchorX + 'px';
@@ -910,12 +913,15 @@ Sprite.prototype.canvasUpdate = function canvasUpdate(layer) {
     // 
     // Anchor
     //
-    var anchorX = Math.round((this.anchorX || 0) * Math.abs(this.xscale));
-    var anchorY = Math.round((this.anchorY || 0) * Math.abs(this.yscale));
+    var anchorX = (this.anchorX || 0) * Math.abs(this.xscale);
+    var anchorY = (this.anchorY || 0) * Math.abs(this.yscale);
 
     // If scale is smaller, image is flipped, so anchor should be relative to the width/height.
     if (this.xscale < 0) anchorX = this.w - anchorX;
     if (this.yscale < 0) anchorY = this.h - anchorY;
+
+    anchorX = Math.round(anchorX);
+    anchorY = Math.round(anchorY);
 
     var fast_track = (
         this.angle == 0
