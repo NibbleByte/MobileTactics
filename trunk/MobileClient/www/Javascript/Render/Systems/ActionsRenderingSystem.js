@@ -29,7 +29,8 @@ var ActionsRenderingSystem = function (m_executor) {
 	var m_actionPreExecutors = {};	
 	
 	
-	m_actionPreExecutors[Actions.Classes.ActionAttack.actionName] = ActionsRenderingSystem.ActionExecutors.AttackExecutor;
+	//m_actionPreExecutors[Actions.Classes.ActionAttack.actionName] = ActionsRenderingSystem.ActionExecutors.AttackExecutor;
+	m_actionPreExecutors[Actions.Classes.ActionAttack.actionName] = ActionsRenderingSystem.ActionExecutors.AttackFightExecutor;
 }
 
 ECS.EntityManager.registerSystem('ActionsRenderingSystem', ActionsRenderingSystem);
@@ -48,7 +49,59 @@ ActionsRenderingSystem.ActionExecutors.DefaultExecutor = function (m_executor, m
 	};
 }
 
-// Attack rendering, executes attack animation first for both units.
+// Attack rendering, executes fight animation for involved units.
+ActionsRenderingSystem.ActionExecutors.AttackFightExecutor = function (m_executor, m_eworld, m_action) {
+	var self = this;
+	var m_eworldSB = m_eworld.createSubscriber();
+	var defaultExecutor = new ActionsRenderingSystem.ActionExecutors.DefaultExecutor(m_executor, m_eworld, m_action);
+
+	this.preExecute = function () {
+
+		var attacker = m_action.placeable;
+		var defender = m_action.appliedTile.CTile.placedObjects[0];
+
+		var attackerForward = getForwardDirection(attacker);
+		var defenderForward = getForwardDirection(defender);
+
+		// Flip sprites to face one another.
+		var attackerSprite = attacker.CTilePlaceableRendering.sprite;
+		var defenderSprite = defender.CTilePlaceableRendering.sprite;
+		if (attackerSprite.x < defenderSprite.x) {
+			attackerSprite.setXScale(-attackerForward);
+			defenderSprite.setXScale(defenderForward);
+		} else {
+			attackerSprite.setXScale(attackerForward);
+			defenderSprite.setXScale(-defenderForward);
+		}
+		attackerSprite.update();
+		defenderSprite.update();
+
+		m_eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.Units);
+
+		FightRenderingManager.visualizeBattle(m_eworld, attacker, defender);
+
+		m_eworldSB.subscribe(RenderEvents.FightAnimations.FIGHT_FINISHED, onFightFinished);
+	};
+
+	// HACK: Just till all sprites are fixed to face the same direction.
+	var getForwardDirection = function (placeable) {
+
+		if (placeable.CAnimations) {
+			var animator = placeable.CAnimations.animators[UnitRenderingSystem.MAIN_ANIM];
+
+			return animator.params.forwardDirection || 1;
+		}
+
+		return 1;
+	}
+
+	var onFightFinished = function () {
+		defaultExecutor.preExecute();
+		m_eworldSB.unsubscribeAll();
+	}
+}
+
+// Attack rendering, executes attack animation for both units.
 // When both animations are done, executes the action itself.
 ActionsRenderingSystem.ActionExecutors.AttackExecutor = function (m_executor, m_eworld, m_action) {
 	var self = this;

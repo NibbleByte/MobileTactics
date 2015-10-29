@@ -102,6 +102,7 @@ var FightRenderingManager = new function () {
 			defender: defender,
 			renderer: renderer,
 			initialized: false,	// Prevents from problems while restarting on screen resize.
+			restarting: false,
 		};
 
 		// World doesn't need to play animations in background.
@@ -169,7 +170,7 @@ var FightRenderingManager = new function () {
 
 		m_currentFight.initialized = true;
 
-		//setTimeout(uninitializeFight, 1000 * 5);
+		setTimeout(uninitializeFight, 1000 * 5);
 	}
 
 	var uninitializeFight = function () {
@@ -183,7 +184,9 @@ var FightRenderingManager = new function () {
 
 		m_currentFight.renderer.show();
 
-		m_currentFight.eworld.trigger(RenderEvents.FightAnimations.FIGHT_FINISHED);
+		if (!m_currentFight.restarting) {
+			m_currentFight.eworld.trigger(RenderEvents.FightAnimations.FIGHT_FINISHED);
+		}
 
 		m_currentFight = null;
 
@@ -204,7 +207,8 @@ var FightRenderingManager = new function () {
 
 		m_$FightScreenContainer.stop(true, true);
 
-		uninitializeFight();
+		m_currentFight.restarting = true;
+		uninitializeFight(true);
 
 		// Some time to redraw.
 		setTimeout(function () {
