@@ -314,10 +314,6 @@ var GameWorldRenderer = new function () {
 						if (!sprite.isShown())
 							continue;
 
-						// Optimization (avoid touching the dom?). Not tested!
-						//if ($(sprite.dom).is(":hidden"))
-						//	continue;
-
 						var anchorX = Math.round((sprite.anchorX || 0) * Math.abs(sprite.xscale));
 						var anchorY = Math.round((sprite.anchorY || 0) * Math.abs(sprite.yscale));
 
