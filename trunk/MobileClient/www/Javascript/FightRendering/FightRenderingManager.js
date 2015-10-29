@@ -160,6 +160,7 @@ var FightRenderingManager = new function () {
 		m_currentFight.eworld.trigger(RenderEvents.FightAnimations.FIGHT_STARTED);
 	};
 
+	var uninitializeTimeout;
 	var initializeFight = function () {
 		
 		// Restarting or restarted.
@@ -170,10 +171,12 @@ var FightRenderingManager = new function () {
 
 		m_currentFight.initialized = true;
 
-		setTimeout(uninitializeFight, 1000 * 5);
+		uninitializeTimeout = setTimeout(uninitializeFight, 1000 * 5);
 	}
 
 	var uninitializeFight = function () {
+		
+		clearTimeout(uninitializeTimeout);
 
 		if (m_currentFight.initialized)
 			m_fightWorld.trigger(FightRenderingEvents.Fight.UNINITIALIZE);
