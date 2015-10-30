@@ -26,6 +26,12 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 
 	var subscriber = new DOMSubscriber();
 
+	var m_fogOfWar = true; 
+	
+	if (ClientUtils.urlParams['NoFog']) {
+		m_fogOfWar = false;
+	}
+
 
 	// DEBUG: scrollable toolbar
 	var m_toolbarScroller;
@@ -396,6 +402,8 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 				m_eworld.store(PlayersData, m_clientState.playersData);
 				m_eworld.store(GameState, m_clientState.gameState);
 
+				m_clientState.gameState.fogOfWar = m_fogOfWar;
+
 				// Up to 2 human players only (for now).
 				for(var i = 2; i < m_clientState.playersData.players.length; ++i) {
 					m_clientState.playersData.players[i].type = Player.Types.AI;
@@ -473,6 +481,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 				m_clientState.gameState = new GameState();
 				m_eworld.store(GameState, m_clientState.gameState);
 
+				m_clientState.gameState.fogOfWar = m_fogOfWar;
 
 				m_eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING] = true;
 			

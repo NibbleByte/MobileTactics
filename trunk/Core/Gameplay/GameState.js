@@ -14,6 +14,7 @@ GameState.prototype.init = function () {
 	this.viewerPlayer = null;	// Viewer might be different than current player. For example: player vs AI. Player shouldn't see AI moves.
 	this.turnsPassed = 0;
 	this.isCustomMap = true;
+	this.fogOfWar = true;
 	this.gameStarted = false;
 	
 	this.currentPlaceables = [];
@@ -77,6 +78,7 @@ GameState.serialize = function (input, output, instanceRegister) {
 	output.currentPlayer = Serialization.serializeCustom(input.currentPlayer, instanceRegister);
 	output.turnsPassed = Serialization.serializeCustom(input.turnsPassed, instanceRegister);
 	output.isCustomMap = Serialization.serializeCustom(input.isCustomMap, instanceRegister);
+	output.fogOfWar = Serialization.serializeCustom(input.fogOfWar, instanceRegister);
 };
 
 GameState.deserialize = function (input, output, instanceRegister, outAllObjects) {
@@ -86,4 +88,5 @@ GameState.deserialize = function (input, output, instanceRegister, outAllObjects
 	output.currentPlayer = Serialization.deserializeCustom(input.currentPlayer, instanceRegister, outAllObjects);
 	output.turnsPassed = Serialization.deserializeCustom(input.turnsPassed, instanceRegister, outAllObjects);
 	output.isCustomMap = Serialization.deserializeCustom(input.isCustomMap, instanceRegister, outAllObjects);
+	output.fogOfWar = Serialization.deserializeCustom(input.fogOfWar, instanceRegister, outAllObjects);
 };

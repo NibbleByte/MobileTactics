@@ -5,3 +5,5 @@ Deployment instructions:
 
 Usage instructions:
 - WorldEditor can be accessed by adding "?WorldEditor" to the URL of the address of the game.
+- NoFog - no fog game setting.
+- NoFogRendering - disables fog rendering (enemy units are seen). AI still has fog.

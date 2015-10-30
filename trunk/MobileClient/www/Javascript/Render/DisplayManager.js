@@ -10,8 +10,6 @@ var DisplayManager = new function () {
 
 	var self = this;
 
-	var params = getUrlVars();
-
 	this.devicePixelRatio = window.devicePixelRatio || 1;
 
 	// Web-view is zoomed-in by default depending on the device PPI (represented by the devicePixelRatio)
@@ -64,8 +62,8 @@ var DisplayManager = new function () {
 	this.zoom = calculateZoom(this.devicePixelRatio, Assets.scale);
 
 
-	if (params['Zoom'] || params['zoom']) {
-		this.zoom = params['Zoom'] || params['zoom'] || this.zoom;
+	if (ClientUtils.urlParams['Zoom'] || ClientUtils.urlParams['zoom']) {
+		this.zoom = ClientUtils.urlParams['Zoom'] || ClientUtils.urlParams['zoom'] || this.zoom;
 		this.zoom = parseFloat(this.zoom);
 		this.devicePixelRatio = 1 / this.zoom;
 	}

@@ -190,7 +190,6 @@
     <None Include="..\..\MobileClient\www\Javascript\Render\TileGlobals.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\WorldLayers.js" />
     <None Include="..\..\MobileClient\www\Javascript\UnitFactoryClient.js" />
-    <None Include="..\..\MobileClient\www\Javascript\Utils\ClientDevUtils.js" />
     <None Include="..\..\MobileClient\www\Javascript\Utils\ClientUtils.js" />
     <None Include="..\..\MobileClient\www\Javascript\Utils\DOMSubscriber.js" />
     <None Include="..\..\MobileClient\www\Javascript\Utils\FrameStats.js" />

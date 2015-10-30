@@ -26,9 +26,8 @@ $(function () {
 		// Init utils
 		//
 		var m_console = initConsole();
-		var params = getUrlVars();
 
-		if (params['WorldEditor']) {
+		if (ClientUtils.urlParams['WorldEditor']) {
 			currentState = ClientStateManager.changeState(ClientStateManager.types.WorldEditor);
 		} else {
 			currentState = ClientStateManager.changeState(ClientStateManager.types.TestGame);

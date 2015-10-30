@@ -28,16 +28,26 @@ var VisibilityFogRenderingSystem = function (m_world, m_visibilitySystem) {
 
 	var m_gameState = null;
 	var m_playersData = null;
+	var m_fogOfWarAllowed = true;
 
 	var onGameLoading = function () {
 		m_gameState = self._eworld.extract(GameState);
 		m_playersData = self._eworld.extract(PlayersData);
+
+		m_fogOfWarAllowed = m_gameState.fogOfWar;
+
+		// DEBUG: For testing AI movements.
+		if (ClientUtils.urlParams['NoFogRendering'])
+			m_fogOfWarAllowed = false;
 	}
 
 	var onTileAdded = function (tile) {
 
 		if (self._eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING])
 			return;
+
+		if (!m_fogOfWarAllowed)
+			TileRenderingSystem.setTileVisibilityFog(tile, false);
 
 		if (m_gameState && m_gameState.viewerPlayer)
 			refreshFog();
@@ -65,6 +75,12 @@ var VisibilityFogRenderingSystem = function (m_world, m_visibilitySystem) {
 
 	var refreshFog = function () {
 
+		if (!m_fogOfWarAllowed) {
+			self._eworld.triggerAsync(RenderEvents.Fog.REFRESH_FOG);
+			return;
+		}
+
+
 		m_world.iterateAllTiles(showFog);
 
 		if (m_gameState.viewerPlayer) {
@@ -77,9 +93,6 @@ var VisibilityFogRenderingSystem = function (m_world, m_visibilitySystem) {
 		self._eworld.triggerAsync(RenderEvents.Fog.REFRESH_FOG);
 	}
 
-	var refreshFogAfter = function () {
-		self._eworld.trigger(RenderEvents.Layers.REFRESH_ALL);
-	}
 }
 
 ECS.EntityManager.registerSystem('VisibilityFogRenderingSystem', VisibilityFogRenderingSystem);

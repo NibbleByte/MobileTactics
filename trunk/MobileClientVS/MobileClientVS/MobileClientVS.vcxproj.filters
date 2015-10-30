@@ -347,9 +347,6 @@
     <None Include="..\..\MobileClient\www\Javascript\Render\DisplayManager.js">
       <Filter>Javascript\Render</Filter>
     </None>
-    <None Include="..\..\MobileClient\www\Javascript\Utils\ClientDevUtils.js">
-      <Filter>Javascript\Utils</Filter>
-    </None>
     <None Include="..\..\MobileClient\www\Javascript\cordova-Mockup.js">
       <Filter>Javascript</Filter>
     </None>

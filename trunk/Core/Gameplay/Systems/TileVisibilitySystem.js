@@ -9,6 +9,7 @@ var TileVisibilitySystem = function (m_world) {
 
 	var m_gameState = null;
 	var m_playersData = null;
+	var m_fogOfWarAllowed = true;
 
 	//
 	// Entity system initialize
@@ -44,10 +45,14 @@ var TileVisibilitySystem = function (m_world) {
 	var onGameLoading = function () {
 		m_gameState = self._eworld.extract(GameState);
 		m_playersData = self._eworld.extract(PlayersData);
+
+		m_fogOfWarAllowed = m_gameState.fogOfWar;
 	}
 
 	var onTileAdded = function(tile) {
 		tile.addComponent(CTileVisibility);
+
+		tile.CTileVisibility.visible = !m_fogOfWarAllowed;
 
 		if (self._eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING])
 			return;
@@ -57,6 +62,14 @@ var TileVisibilitySystem = function (m_world) {
 	}
 
 	var refreshVisibility = function () {
+
+		if (!m_fogOfWarAllowed) {
+			self._eworld.trigger(GameplayEvents.Visibility.REFRESH_VISIBILITY);
+			self._eworld.trigger(GameplayEvents.Visibility.REFRESH_VISIBILITY_AFTER);
+
+			return;
+		}
+
 
 		m_world.iterateAllTiles(hideTile);
 
