@@ -313,29 +313,24 @@ var Animator = function (animData, sprite, scene) {
 		var startIndex = sequence.startIndex || 0;
 		var endIndex = startIndex + sequence.frames;
 		for(var index = startIndex; index < endIndex ; ++index) {
-				
-			if (framesPerRow > 0) {
-				fx = startX + (index % framesPerRow) * frameWidth;
-				fy = startY + parseInt(index / framesPerRow) * frameHeight;
-			} else {
-				fx = startX + index * frameWidth;
-				fy = startY;
-			}
-
+			
 			if (sequence.frameSamples && index < sequence.frameSamples.length) {
 				var sampleIndex = sequence.frameSamples[index];
-				if (sampleIndex !== null && sampleIndex >= 0) {
-					
-					if (sampleIndex >= triplets.length) {
-						console.warn('Invalid sample index: ' + sampleIndex + ' at ' + index + ' frame of animator ' + self.resourcePath + ' in sequence ' + sequence.name);
-						continue;
-					}
-
-					fx = triplets[sampleIndex][0];
-					fy = triplets[sampleIndex][1];
+				if (sampleIndex === null || sampleIndex < 0) {
+					sampleIndex = index;
 				}
+			} else {
+				var sampleIndex = index;
 			}
+			
 
+			if (framesPerRow > 0) {
+				fx = startX + (sampleIndex % framesPerRow) * frameWidth;
+				fy = startY + parseInt(sampleIndex / framesPerRow) * frameHeight;
+			} else {
+				fx = startX + sampleIndex * frameWidth;
+				fy = startY;
+			}
 
 			var frameSpeed = (Utils.isFunction(speed)) ? speed(index - startIndex) : speed;
 
