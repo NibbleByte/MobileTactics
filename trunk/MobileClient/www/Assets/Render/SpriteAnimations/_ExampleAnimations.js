@@ -41,7 +41,7 @@ SpriteAnimations._ExampleAnimations = {
 			},
 
 			frameSpeeds: [60, 5, 0, 30],	// NOTE: if 0 or less number of elements than fames, speed/speed(i) is used.
-			frameSamples: [null, null, null, null, 1, 0, 1, 3],	// null - use original. Must refer previous frame index.
+			frameSamples: [null, 4, null, null, 5, 2, 1, 3], // null - use original. Calculates frame based on the index.
 		},
 		
 		{
