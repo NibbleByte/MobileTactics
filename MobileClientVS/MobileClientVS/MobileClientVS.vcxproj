@@ -95,6 +95,7 @@
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\FightUnits\PeaceKeeperFight.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\FightUnits\TeslaTrooperFight.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\FightUnits\UnitDeathFight.js" />
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Fight\VS.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Particles\GroundExplosion.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\SpriteAnimations.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\TerrainSkins.js" />
@@ -155,6 +156,7 @@
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightUnitsRenderingEffectsSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightUnitsRenderingSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightUnitStatsController.js" />
+    <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightVSRenderingSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\Main.js" />
     <None Include="..\..\MobileClient\www\Javascript\MapsStorage.js" />
     <None Include="..\..\MobileClient\www\Javascript\PlayerController.js" />

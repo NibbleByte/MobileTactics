@@ -548,6 +548,12 @@
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightLayoutSystem.js">
       <Filter>Javascript\FightRendering\Systems</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Fight\VS.js">
+      <Filter>Assets\Render\SpriteAnimations\Fight</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightVSRenderingSystem.js">
+      <Filter>Javascript\FightRendering\Systems</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
@@ -675,6 +681,9 @@
     </Filter>
     <Filter Include="Assets\Render\SpriteAnimations\FightPortraits">
       <UniqueIdentifier>{918ce182-b63f-4fa9-be0a-e4b2e5357236}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Render\SpriteAnimations\Fight">
+      <UniqueIdentifier>{e1873e80-29a9-4457-8fe4-34555071c0dc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

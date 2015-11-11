@@ -302,10 +302,11 @@ var FightRenderingManager = new function () {
 		m_fightWorld.addSystem(new FightPortraitsController(m_renderer));
 		m_fightWorld.addSystem(new FightUnitStatsController(m_renderer));
 		m_fightWorld.addSystem(new FightUnitHealthsController(m_renderer));
+		m_fightWorld.addSystem(new FightVSRenderingSystem(m_renderer));
 
 		m_fightWorld.getSystem(AnimationSystem).pauseAnimations();
 	}
 
-	initialize();
+	$(initialize);
 
 };

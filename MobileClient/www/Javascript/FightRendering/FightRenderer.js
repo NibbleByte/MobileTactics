@@ -26,6 +26,7 @@ FightRenderer.LayerTypes = {
 	Stats: 0,
 	Tiles: 0,
 	Units: 0,
+	VS: 0,
 	Particles: 0,
 };
 Enums.enumerate(FightRenderer.LayerTypes);
@@ -51,6 +52,11 @@ FightRenderer.layersOptions = {
 		useCanvas: false,
 		autoClear: false,
 		useCanvasInstance: !RenderUtils.supportsDataUrl,
+	},
+
+	VS: {
+		useCanvas: false,
+		autoClear: false,
 	},
 
 	Particles: {
