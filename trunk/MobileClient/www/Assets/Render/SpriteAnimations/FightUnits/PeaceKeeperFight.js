@@ -4,23 +4,23 @@ SpriteAnimations.FightUnits.PeaceKeeper = {
 
 	resourcePath: 'PeaceKeeper.png',
 
-	frameWidth: 111,
-	frameHeight: 72,
+	frameWidth: 177,
+	frameHeight: 186,
 	framesPerRow: 4,
-	anchorX: 32,
-	anchorY: Animator.AnchorY.Bottom,
+	anchorX: Animator.AnchorY.Center,
+	anchorY: 144,
 	
 	sequences: [
 		{
 			name: 'Idle',
-			startIndex: 1,
+			startIndex: 0,
 			frames: 1,
 		},
 		
 		
 		{
 			name: 'Idle0',
-			speed: 20,
+			speed: 15,
 			startIndex: 0,
 			frames: 4,
 		},
@@ -28,22 +28,21 @@ SpriteAnimations.FightUnits.PeaceKeeper = {
 		{
 			name: 'Run',
 			speed: 10,
-			startIndex: 5,
-			frames: 7,
+			startIndex: 4,
+			frames: 8,
 			wrapMode: Animator.WrapMode.Loop,
 		},
 
 		{
 			name: 'Attack',
 			speed: 11,
-			frameSpeeds: [0, 0, 0, 0, 4, 4, 4, 0],
-			startIndex: 11,
-			frames: 14,
+			startIndex: 0,
+			frames: 4,
 
 			events: [
 				
 				{
-					frame: 4,
+					frame: 2,
 					event: FightRenderingEvents.Animations.FIRE,
 					params: {
 						weaponType: FightUnitWeaponType.Shotgun,
@@ -53,12 +52,12 @@ SpriteAnimations.FightUnits.PeaceKeeper = {
 			],
 		},
 
-		{
-			name: 'Taunt',
-			speed: 20,
-			startIndex: 25,
-			frames: 7,
-		},
+		//{
+		//	name: 'Taunt',
+		//	speed: 20,
+		//	startIndex: 0,
+		//	frames: 4,
+		//},
 
 	]
 };
