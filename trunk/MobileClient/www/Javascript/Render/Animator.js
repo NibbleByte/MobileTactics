@@ -313,12 +313,16 @@ var Animator = function (animData, sprite, scene) {
 		var startIndex = sequence.startIndex || 0;
 		var endIndex = startIndex + sequence.frames;
 		for(var index = startIndex; index < endIndex ; ++index) {
-			
-			if (sequence.frameSamples && index < sequence.frameSamples.length) {
-				var sampleIndex = sequence.frameSamples[index];
+			var relativeIndex = index - startIndex;
+
+			if (sequence.frameSamples && relativeIndex < sequence.frameSamples.length) {
+				var sampleIndex = sequence.frameSamples[relativeIndex];
 				if (sampleIndex === null || sampleIndex < 0) {
 					sampleIndex = index;
+				} else {
+					sampleIndex += startIndex;
 				}
+
 			} else {
 				var sampleIndex = index;
 			}

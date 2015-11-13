@@ -6,7 +6,7 @@ SpriteAnimations.FightUnits.PeaceKeeper = {
 
 	frameWidth: 177,
 	frameHeight: 186,
-	framesPerRow: 4,
+	framesPerRow: 5,
 	anchorX: Animator.AnchorY.Center,
 	anchorY: 144,
 	
@@ -35,14 +35,23 @@ SpriteAnimations.FightUnits.PeaceKeeper = {
 
 		{
 			name: 'Attack',
-			speed: 11,
-			startIndex: 0,
-			frames: 4,
+			speed: 7,
+			startIndex: 12,
+			frames: 21,
+			frameSamples: [null, null, null, null, null, null, null, null, null, null, 3, 4, 5, 6, 7, 8, 9, 3, 10, 11, 0],
 
 			events: [
 				
 				{
-					frame: 2,
+					frame: 6,
+					event: FightRenderingEvents.Animations.FIRE,
+					params: {
+						weaponType: FightUnitWeaponType.Shotgun,
+					}
+				},
+
+				{
+					frame: 13,
 					event: FightRenderingEvents.Animations.FIRE,
 					params: {
 						weaponType: FightUnitWeaponType.Shotgun,
