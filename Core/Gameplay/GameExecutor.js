@@ -212,18 +212,33 @@ var GameExecutor = function (m_eworld, m_world) {
 }
 
 GameExecutor.iterateOverActionTiles = function (actions, handler) {
-	// All the actions
+	
 	for(var i = 0; i < actions.length; ++i) {
 		var action = actions[i];
 
-		if (action.availableTiles == null)
-			continue;
+		if (action.availableTiles) {
+			for(var j = 0; j < action.availableTiles.length; ++j) {
+				var tile = action.availableTiles[j];
+				if (handler(tile, action, GameAction.TileType.Available) === false)
+					return;
+			}
+		}
 		
-		// All the available tiles for this action
-		for(var j = 0; j < action.availableTiles.length; ++j) {
-			var tile = action.availableTiles[j];
-			if (handler(tile, action) === false)
-				return;
+		if (action.affectedTiles) {
+			for(var j = 0; j < action.affectedTiles.length; ++j) {
+				var tile = action.affectedTiles[j];
+				if (handler(tile, action, GameAction.TileType.Affected) === false)
+					return;
+			}
+		}
+		
+
+		if (action.potentialTiles) {
+			for(var j = 0; j < action.potentialTiles.length; ++j) {
+				var tile = action.potentialTiles[j];
+				if (handler(tile, action, GameAction.TileType.Potential) === false)
+					return;
+			}
 		}
 	}
 }
@@ -233,10 +248,18 @@ var GameAction = function (actionType, player, placeable) {
 	this.player = player; 					// Player that will execute the action.
 	this.placeable = placeable; 			// Placeable that will be executing the action.
 	this.availableTiles = null;				// Available tiles on which player can execute action. Null is for instant action.
+	this.potentialTiles = [];				// Tiles that could have been available, but are invalid for some reason (exists mainly because of the UI).
 	this.affectedTiles = [];				// Tiles affected if player executes this action. 
 	this.appliedTile = null;				// Tile that action is applied to (example: move to this tile).
 	this.undoData = {};						// Custom data that can be used for undo (if possible at all).
 }
+
+GameAction.TileType = {
+	Available: 0,
+	Potential: 0,
+	Affected: 0,
+}
+Enums.enumerate(GameAction.TileType);
 
 var GameObjectActions = function (go, actions) {
 	this.go = go;							// Game object that has these actions
