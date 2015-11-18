@@ -63,23 +63,20 @@ var TileVisibilitySystem = function (m_world) {
 
 	var refreshVisibility = function () {
 
-		if (!m_fogOfWarAllowed) {
-			self._eworld.trigger(GameplayEvents.Visibility.REFRESH_VISIBILITY);
-			self._eworld.trigger(GameplayEvents.Visibility.REFRESH_VISIBILITY_AFTER);
 
-			return;
+		if (m_fogOfWarAllowed) {
+
+			m_world.iterateAllTiles(hideTile);
+
+			if (m_gameState.currentPlayer == null)
+				return;
+
+			var visibleTiles = self.findPlayerVisibility(m_gameState.currentPlayer);
+
+			showTiles(visibleTiles);
 		}
-
-
-		m_world.iterateAllTiles(hideTile);
-
-		if (m_gameState.currentPlayer == null)
-			return;
-
-		var visibleTiles = self.findPlayerVisibility(m_gameState.currentPlayer);
-
-		showTiles(visibleTiles);
 		
+
 		// Populate visible placeables.
 		for(var relation = 0; relation < m_gameState.visiblePlaceables.length; ++relation) {
 			for(var i = 0; i < m_gameState.relationPlaceables[relation].length; ++i) {
