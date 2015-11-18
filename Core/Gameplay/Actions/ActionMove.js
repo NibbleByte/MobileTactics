@@ -71,6 +71,8 @@ Actions.Classes.ActionMove = new function () {
 				tiles.push(tile);
 			}
 		}
+
+		return tiles;
 	}
 	
 	this.executeAction = function (eworld, world, action) {

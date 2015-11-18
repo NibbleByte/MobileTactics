@@ -116,12 +116,5 @@ SpriteAnimations.FightUnits.ScrapTank = {
 			],
 		},
 
-		/*
-		{
-			name: 'Taunt',
-			startIndex: 0,
-			frames: 4,
-		},
-		*/
 	]
 };
