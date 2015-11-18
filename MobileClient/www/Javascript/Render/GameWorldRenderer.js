@@ -319,6 +319,10 @@ var GameWorldRenderer = new function () {
 						var anchorX = (sprite.anchorX || 0) * Math.abs(sprite.xscale);
 						var anchorY = (sprite.anchorY || 0) * Math.abs(sprite.yscale);
 
+						// If scale is smaller, image is flipped, so anchor should be relative to the width/height.
+						if (sprite.xscale < 0) anchorX = sprite.w - anchorX;
+						if (sprite.yscale < 0) anchorY = sprite.h - anchorY;
+
 						anchorX = Math.round(anchorX);
 						anchorY = Math.round(anchorY);
 
