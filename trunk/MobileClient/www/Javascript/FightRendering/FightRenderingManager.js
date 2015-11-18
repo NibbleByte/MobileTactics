@@ -32,6 +32,7 @@ var FightRenderingManager = new function () {
 	var m_$worldShot = $('#GameWorldMapShot');
 
 	var m_fightWorld = null;
+	var m_fightWorldSB = null;
 	var m_renderer = null;
 
 	var m_currentFight = null;
@@ -160,7 +161,6 @@ var FightRenderingManager = new function () {
 		m_currentFight.eworld.trigger(RenderEvents.FightAnimations.FIGHT_STARTED);
 	};
 
-	var uninitializeTimeout;
 	var initializeFight = function () {
 		
 		// Restarting or restarted.
@@ -170,14 +170,10 @@ var FightRenderingManager = new function () {
 		m_fightWorld.trigger(FightRenderingEvents.Fight.INITIALIZE);
 
 		m_currentFight.initialized = true;
-
-		uninitializeTimeout = setTimeout(uninitializeFight, 1000 * 5);
 	}
 
 	var uninitializeFight = function () {
 		
-		clearTimeout(uninitializeTimeout);
-
 		if (m_currentFight.initialized)
 			m_fightWorld.trigger(FightRenderingEvents.Fight.UNINITIALIZE);
 
@@ -211,7 +207,7 @@ var FightRenderingManager = new function () {
 		m_$FightScreenContainer.stop(true, true);
 
 		m_currentFight.restarting = true;
-		uninitializeFight(true);
+		uninitializeFight();
 
 		// Some time to redraw.
 		setTimeout(function () {
@@ -277,6 +273,9 @@ var FightRenderingManager = new function () {
 	var initialize = function () {
 
 		m_fightWorld = new ECS.EntityWorld();
+		m_fightWorldSB = m_fightWorld.createSubscriber();
+
+		m_fightWorldSB.subscribe(FightRenderingEvents.Fight.OUTRO_FINALIZE, uninitializeFight);
 
 		m_fightWorld.addSystem(m_fightWorld.store(UtilsSystem, new UtilsSystem()));
 

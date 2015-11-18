@@ -61,13 +61,6 @@ SpriteAnimations.FightUnits.PeaceKeeper = {
 			],
 		},
 
-		//{
-		//	name: 'Taunt',
-		//	speed: 20,
-		//	startIndex: 0,
-		//	frames: 4,
-		//},
-
 	]
 };
 
@@ -123,12 +116,6 @@ SpriteAnimations.FightUnits.HoverCannon = {
 					}
 				},
 			],
-		},
-
-		{
-			name: 'Taunt',
-			startIndex: 0,
-			frames: 1,
 		},
 
 	]
