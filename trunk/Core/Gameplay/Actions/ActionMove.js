@@ -35,13 +35,48 @@ Actions.Classes.ActionMove = new function () {
 		if (availableTiles.length == 0) {
 			return;
 		}
+
+
+		var potentialTiles = [];
+		for(var i = 0; i < availableTiles.length; ++i) {
+			if (availableTiles[i].CTile.placedObjects.length > 0) {
+				potentialTiles.push(availableTiles[i]);
+				availableTiles.removeAt(i);
+				--i;
+			}
+		}
 		
 		var action = new GameAction(Actions.Classes.ActionMove, player, placeable);
 		action.availableTiles = availableTiles;
+		action.potentialTiles = potentialTiles;
 		outActions.push(action);
 	};
+
+	this.findClosestValidTiles = function (tiles, targetTile) {
+
+		var lowestDist = Infinity;
+		var tiles = [];
+
+		for(var i = 0; i < tiles.length; ++i) {
+			var tile = tiles[i];
+
+			if (tile.CTile.placedObjects.length == 0) {
+				var dist = GameWorld.getDistance(targetTile, tile);
+
+				if (dist < lowestDist) {
+					lowestDist = dist;
+					tiles = [];
+				}
+				
+				tiles.push(tile);
+			}
+		}
+	}
 	
 	this.executeAction = function (eworld, world, action) {
+		if (Utils.assert(action.appliedTile.CTile.placedObjects.length == 0, 'Tile is already occupied by another unit.'))
+			return;
+
 		var placeable = action.placeable;
 		var startTile = placeable.CTilePlaceable.tile;
 
@@ -86,7 +121,7 @@ Actions.Classes.ActionMove = new function () {
 		}
 
 		// Same...
-		queryResult.discard = tile.CTile.placedObjects.length != 0 && visible;
+		queryResult.discard = false;
 	}
 
 

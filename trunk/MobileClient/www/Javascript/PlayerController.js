@@ -246,8 +246,8 @@ var PlayerController = function (m_executor) {
 	var getSelectedGOActionTile = function (selectedTile) {
 		var selectedAction = null;
 		
-		GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, function (tile, action) {
-			if (tile == selectedTile) {
+		GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, function (tile, action, tileType) {
+			if (tile == selectedTile && tileType == GameAction.TileType.Available) {
 				selectedAction = action;
 				
 				return false;

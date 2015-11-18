@@ -119,15 +119,22 @@ var AITaskCaptureSystem = function (m_world, m_executor) {
 
 			var moveTile = null;
 			for (var i = path.length; i >= 0; --i) {
-				if (moveAction.availableTiles.contains(path[i])) {
-					moveTile = path[i];
+				var pathTile = path[i];
+				if (moveAction.availableTiles.contains(pathTile)) {
+					moveTile = pathTile;
 					break;
 				}
 			}
 
 
-			if (Utils.assert(moveTile, 'No movement available?!'))
-				return null;
+			if (!moveTile) {
+				// Can happen if tiles are occupied by friendly units.
+				var validTiles = moveAction.actionType.findClosestValidTiles(moveAction.availableTiles, targetTile);
+				if (validTiles.length == 0)
+					return null;
+
+				moveTile = validTiles[0];
+			}
 
 			moveAction.appliedTile = moveTile;
 			return new AIActionData(moveAction);

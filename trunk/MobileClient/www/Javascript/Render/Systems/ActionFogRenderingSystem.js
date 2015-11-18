@@ -51,9 +51,9 @@ var ActionFogRenderingSystem = function (m_world) {
 		
 		m_world.iterateAllTiles(function (tile) {
 			
-			if ((moveAction != null && moveAction.availableTiles.indexOf(tile) != -1)
-				|| (attackAction != null && attackAction.availableTiles.indexOf(tile) != -1)
-				|| tile == placeableTile
+			if ((moveAction != null && (moveAction.availableTiles.indexOf(tile) != -1 || moveAction.potentialTiles.indexOf(tile) != -1)) ||
+				(attackAction != null && attackAction.availableTiles.indexOf(tile) != -1) ||
+				tile == placeableTile
 				) {
 				tile.CTileRendering.hideActionFog();
 			} else {
