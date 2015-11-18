@@ -136,7 +136,7 @@ var AIController = function (m_executor) {
 						m_selectedGOActions = m_executor.getAvailableActions(m_currentAssignment.taskDoer);
 
 						if (m_currentAssignment.taskDoer.CTilePlaceable.tile.CTileRendering.viewerVisible) {
-							GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.highlightTileAction);
+							self._eworld.trigger(ClientEvents.Controller.ACTIONS_OFFERED, m_selectedGOActions);
 							self._eworld.trigger(ClientEvents.Controller.TILE_SELECTED, m_currentAssignment.taskDoer.CTilePlaceable.tile);
 						} else {
 							self._eworld.trigger(ClientEvents.Controller.TILE_SELECTED, null);
@@ -186,7 +186,7 @@ var AIController = function (m_executor) {
 
 		if (m_selectedGOActions) {
 			if (m_selectedGOActions.go.CTilePlaceable.tile.CTileRendering.viewerVisible) {
-				GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.unHighlightTile);
+				self._eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
 				self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.Highlights);
 			}
 			m_selectedGOActions = null;
@@ -233,7 +233,7 @@ var AIController = function (m_executor) {
 				m_selectedGOActions = m_executor.getAvailableActions(m_currentAssignment.taskDoer);
 
 				if (m_currentAssignment.taskDoer.CTilePlaceable.tile.CTileRendering.viewerVisible) {
-					GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.highlightTileAction);
+					self._eworld.trigger(ClientEvents.Controller.ACTIONS_OFFERED, m_selectedGOActions);
 				}
 			}
 

@@ -113,6 +113,12 @@ var ActionsMenuController = function (actionMenuElement) {
 	}
 	
 	var onActionsOffered = function (goActions) {
+
+		var gameState = self._eworld.extract(GameState);
+
+		if (gameState.currentPlayer.type != Player.Types.Human)
+			return;
+
 		m_currentGOActions = goActions;
 		
 		if (shouldHideMenu(m_currentGOActions)) {
