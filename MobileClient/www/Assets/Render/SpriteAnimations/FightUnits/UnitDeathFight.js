@@ -3,12 +3,12 @@ SpriteAnimations.FightUnits.UnitDeathFight = {
 
 	resourcePath: 'Assets-Scaled/Render/Images/FightUnits/UnitDeath.png',
 	
-	frameWidth: 125,
-	frameHeight: 125,
+	frameWidth: 177,
+	frameHeight: 177,
 	anchorX: Animator.AnchorX.Center,
-	anchorY: 100,
+	anchorY: 130,
 	
-	framesPerRow: 4,
+	framesPerRow: 5,
 	speed: 5,
 	
 	sequences: [
