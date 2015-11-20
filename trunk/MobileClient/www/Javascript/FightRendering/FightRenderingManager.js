@@ -189,7 +189,7 @@ var FightRenderingManager = new function () {
 
 		m_currentFight = null;
 
-		m_$FightScreenContainer.hide();
+		m_$FightScreenContainer.fadeOut('fast');
 		m_$worldShot.hide();
 
 		// Clear shot.
