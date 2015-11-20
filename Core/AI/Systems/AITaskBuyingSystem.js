@@ -157,18 +157,50 @@ var AITaskBuyingSystem = function (m_world, m_executor) {
 
 
 		//
+		// Select factories
+		//
+		var factoryRatings = [];
+		var enemies = m_gameState.relationPlaceables[PlayersData.Relation.Enemy];
+		var allies = m_gameState.relationPlaceables[PlayersData.Relation.Ally];
+		for(var i = 0; i < factories.length; ++i) {
+			var factory = factories[i];
+
+			var enemyRating = 0;
+			enemies.forEach(function (placeable) {
+				enemyRating += 4 / m_world.getDistance(factory, placeable.CTilePlaceable.tile);
+			});
+
+
+			var alliesRating = 0;
+			allies.forEach(function (placeable) {
+				alliesRating += 1 / m_world.getDistance(factory, placeable.CTilePlaceable.tile);
+			});
+
+			var rating = enemyRating - alliesRating;
+
+			factoryRatings.push({ factory: factory, rating: rating });
+		}
+
+		factoryRatings.sort(ratingSorter);
+
+
+		//
 		// Make purchases
 		//
+		var factoryIndex = factoryRatings.length - 1;
 		for (var i = 0; i < purchaseList.length; ++i) {
 
 			var task = new AITask(purchaseList[i], self, 1);
 			tasks.push(task);
 
 			// TODO: Choose better factories.
-			var assignment = new AIAssignment(2, 1, task, MathUtils.randomElement(factories));
+			var assignment = new AIAssignment(2, 1, task, factoryRatings[factoryIndex].factory);
 			assignment.useAIData = false;
 
 			assignments.push(assignment);
+
+			factoryIndex--;
+			if (factoryIndex < 0) factoryIndex += factoryRatings.length;
 		}
 	}
 	
