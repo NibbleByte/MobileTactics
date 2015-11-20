@@ -28,31 +28,41 @@ var FightLayoutSystem = function (m_renderer) {
 		var unitLayout = m_layoutData.directionalLayout[fightUnit.CFightUnit.direction];
 		var pos = fightUnit.CSpatial;
 
+		var halfOuterSpaceHorizontal = (m_renderer.extentWidth - FightRenderingManager.FIGHT_FRAME_WIDTH) / 2;
+
 		if (fightUnit.CFightUnit.direction == FightRenderer.DirectionType.Right) {
 
-			unitLayout.unitFinalPosition.x = FightRenderingManager.FightFrame.left + m_layoutData.UNIT_BOX_WIDTH / 2;
-			unitLayout.unitFinalPosition.y = FightRenderingManager.FightFrame.top + m_layoutData.UNIT_BOX_HEIGHT - m_layoutData.GROUND_BOTTOM_CENTER;
+			unitLayout.unitShowUpPosition.x = FightRenderingManager.FightFrame.left + m_layoutData.UNIT_BOX_WIDTH / 2;
+			unitLayout.unitShowUpPosition.y = FightRenderingManager.FightFrame.top + m_layoutData.UNIT_BOX_HEIGHT - m_layoutData.GROUND_BOTTOM_CENTER;
 
-			unitLayout.portraitCenter.x = FightRenderingManager.FightFrame.right - m_layoutData.PORTRAIT_WIDTH / 2;
+			unitLayout.unitHideOutPosition.x = pos.x - FightRenderingManager.FIGHT_FRAME_WIDTH - halfOuterSpaceHorizontal;
+			unitLayout.unitHideOutPosition.y = unitLayout.unitShowUpPosition.y;
+
+			var right = pos.x - m_layoutData.UNIT_BOX_WIDTH / 2 + FightRenderingManager.FIGHT_FRAME_WIDTH;
+			unitLayout.portraitCenter.x = right - m_layoutData.PORTRAIT_WIDTH / 2;
 			unitLayout.portraitCenter.y = pos.y - m_layoutData.UNIT_BOX_HEIGHT + m_layoutData.GROUND_BOTTOM_CENTER;
 			unitLayout.portraitCenter.y += m_layoutData.PORTRAIT_HEIGHT / 2;
 
-			unitLayout.healthPosition.x = FightRenderingManager.FightFrame.right;
+			unitLayout.healthPosition.x = right;
 			unitLayout.healthPosition.y = unitLayout.portraitCenter.y + m_layoutData.PORTRAIT_HEIGHT / 2;
 
 			unitLayout.statsPosition.x = pos.x;
 			unitLayout.statsPosition.y = pos.y + m_layoutData.GROUND_BOTTOM_CENTER;
 
 		} else {
-			unitLayout.unitFinalPosition.x = FightRenderingManager.FightFrame.right - m_layoutData.UNIT_BOX_WIDTH / 2;
-			unitLayout.unitFinalPosition.y = FightRenderingManager.FightFrame.bottom - m_layoutData.GROUND_BOTTOM_CENTER;
+			unitLayout.unitShowUpPosition.x = FightRenderingManager.FightFrame.right - m_layoutData.UNIT_BOX_WIDTH / 2;
+			unitLayout.unitShowUpPosition.y = FightRenderingManager.FightFrame.bottom - m_layoutData.GROUND_BOTTOM_CENTER;
+
+			unitLayout.unitHideOutPosition.x = pos.x + FightRenderingManager.FIGHT_FRAME_WIDTH + halfOuterSpaceHorizontal;
+			unitLayout.unitHideOutPosition.y = unitLayout.unitShowUpPosition.y;
 			
-			unitLayout.portraitCenter.x = FightRenderingManager.FightFrame.left + m_layoutData.PORTRAIT_WIDTH / 2;
+			var left = pos.x + m_layoutData.UNIT_BOX_WIDTH / 2 - FightRenderingManager.FIGHT_FRAME_WIDTH;
+			unitLayout.portraitCenter.x = left + m_layoutData.PORTRAIT_WIDTH / 2;
 			unitLayout.portraitCenter.y = pos.y + m_layoutData.GROUND_BOTTOM_CENTER - m_layoutData.PORTRAIT_HEIGHT;
 			unitLayout.portraitCenter.y += m_layoutData.PORTRAIT_HEIGHT / 2;
 			unitLayout.portraitCenter.y -= m_layoutData.HEALTHBAR_HEIGHT;
 
-			unitLayout.healthPosition.x = FightRenderingManager.FightFrame.left;
+			unitLayout.healthPosition.x = left;
 			unitLayout.healthPosition.y = unitLayout.portraitCenter.y + m_layoutData.PORTRAIT_HEIGHT / 2;
 
 			unitLayout.statsPosition.x = pos.x;
@@ -79,7 +89,8 @@ var FightLayoutData = function (m_renderer) {
 	this.directionalLayout = {};
 
 	this.directionalLayout[FightRenderer.DirectionType.Left] = {
-		unitFinalPosition:		{ x: -1000, y: -1000 },
+		unitShowUpPosition:		{ x: -1000, y: -1000 },
+		unitHideOutPosition:	{ x: -1000, y: -1000 },
 		portraitCenter:			{ x: -1000, y: -1000 },
 		healthPosition:			{ x: -1000, y: -1000 },
 		statsPosition:			{ x: -1000, y: -1000 },

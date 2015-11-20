@@ -55,7 +55,8 @@ var FightControllerSystem = function (m_renderer) {
 		if (Utils.isInvalidated(unit))
 			return;
 
-		unit.CSpatial.y = tween.y;
+		if (tween.x !== undefined) unit.CSpatial.x = tween.x;
+		if (tween.y !== undefined) unit.CSpatial.y = tween.y;
 
 		self._eworld.trigger(FightRenderingEvents.Units.UNIT_MOVED, unit);
 		self._eworld.trigger(FightRenderingEvents.Layout.REFRESH_UNIT_LAYOUT, unit);
@@ -100,20 +101,20 @@ var FightControllerSystem = function (m_renderer) {
 		self._eworld.trigger(FightRenderingEvents.Layout.REFRESH_UNIT_LAYOUT, m_rightUnit);
 		var layoutData = self._eworld.blackboard[FightRenderingBlackBoard.Layout.LAYOUT_DATA];
 
-		m_leftUnit.CSpatial.x = layoutData.directionalLayout[FightRenderer.DirectionType.Right].unitFinalPosition.x;
-		m_rightUnit.CSpatial.x = layoutData.directionalLayout[FightRenderer.DirectionType.Left].unitFinalPosition.x;
+		m_leftUnit.CSpatial.x = layoutData.directionalLayout[FightRenderer.DirectionType.Right].unitShowUpPosition.x;
+		m_rightUnit.CSpatial.x = layoutData.directionalLayout[FightRenderer.DirectionType.Left].unitShowUpPosition.x;
 
 		var leftTween = { y: -layoutData.UNIT_BOX_HEIGHT };
 		var rightTween = { y: m_renderer.extentHeight + layoutData.UNIT_BOX_HEIGHT };
 
-		var leftYEnd = layoutData.directionalLayout[FightRenderer.DirectionType.Right].unitFinalPosition.y;
-		var rightYEnd = layoutData.directionalLayout[FightRenderer.DirectionType.Left].unitFinalPosition.y;
+		var leftYEnd = layoutData.directionalLayout[FightRenderer.DirectionType.Right].unitShowUpPosition.y;
+		var rightYEnd = layoutData.directionalLayout[FightRenderer.DirectionType.Left].unitShowUpPosition.y;
 
 		var leftParams = [ leftTween, m_leftUnit ];
 		var rightParams = [ rightTween, m_rightUnit ];
 
-		Tweener.addTween(leftTween, {y: leftYEnd, time: 1, delay: 0, transition: "easeOutBack", onUpdate: updateUnitPosition, onUpdateParams: leftParams, onComplete: onShowUpFinished, onCompleteParams: leftParams });
-		Tweener.addTween(rightTween, {y: rightYEnd, time: 1, delay: 0, transition: "easeOutBack", onUpdate: updateUnitPosition, onUpdateParams: rightParams });
+		Tweener.addTween(leftTween, {y: leftYEnd, time: 1, delay: 0, transition: 'easeOutBack', onUpdate: updateUnitPosition, onUpdateParams: leftParams, onComplete: onShowUpFinished, onCompleteParams: leftParams });
+		Tweener.addTween(rightTween, {y: rightYEnd, time: 1, delay: 0, transition: 'easeOutBack', onUpdate: updateUnitPosition, onUpdateParams: rightParams });
 	}
 
 	// NOTE: Called only for the left unit.
@@ -157,17 +158,41 @@ var FightControllerSystem = function (m_renderer) {
 		if (m_attackingUnitsOrder.length == 0) {
 			self._eworld.trigger(FightRenderingEvents.Fight.ATTACKS_FINALIZE);
 
-			var timeout = 1200;
+			var timeout = 750;
 			if (m_attackerUnit.CFightUnit.state == FightUnitState.Dead || m_defenderUnit.CFightUnit.state == FightUnitState.Dead)
-				timeout += 1000;
+				timeout += 1500;
 
-			m_timeouts.outro = setTimeout(outroFinalize, timeout);
+			m_timeouts.outro = setTimeout(onHideOut, timeout);
 		} else {
 			m_timeouts.attackPrepare = setTimeout(function () { onAttack( m_attackingUnitsOrder[0] ) }, 300);
 		}
 	}
 
-	var outroFinalize = function () {
+	var onHideOut = function () {
+
+		self._eworld.trigger(FightRenderingEvents.Layout.REFRESH_UNIT_LAYOUT, m_leftUnit);
+		self._eworld.trigger(FightRenderingEvents.Layout.REFRESH_UNIT_LAYOUT, m_rightUnit);
+		var layoutData = self._eworld.blackboard[FightRenderingBlackBoard.Layout.LAYOUT_DATA];
+
+		var leftTween = { x: m_leftUnit.CSpatial.x };
+		var rightTween = { x: m_rightUnit.CSpatial.x };
+
+		var leftXEnd = layoutData.directionalLayout[FightRenderer.DirectionType.Right].unitHideOutPosition.x;
+		var rightXEnd = layoutData.directionalLayout[FightRenderer.DirectionType.Left].unitHideOutPosition.x;
+
+		var leftParams = [ leftTween, m_leftUnit ];
+		var rightParams = [ rightTween, m_rightUnit ];
+
+		Tweener.addTween(leftTween, {x: leftXEnd, time: 0.5, delay: 0, transition: 'easeInExpo', onUpdate: updateUnitPosition, onUpdateParams: leftParams, onComplete: onHideOutFinished, onCompleteParams: leftParams });
+		Tweener.addTween(rightTween, {x: rightXEnd, time: 0.5, delay: 0, transition: 'easeInExpo', onUpdate: updateUnitPosition, onUpdateParams: rightParams });
+	}
+
+	// NOTE: Called only for the left unit.
+	var onHideOutFinished = function (tween, unit) {
+
+		if (Utils.isInvalidated(unit))
+			return;
+
 		self._eworld.trigger(FightRenderingEvents.Fight.OUTRO_FINALIZE);
 	}
 
