@@ -14,6 +14,7 @@ var AIController = function (m_executor) {
 		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADING, onGameLoading);
 		self._eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, onTurnChanged);
 
+		self._eworldSB.subscribe(AIEvents.Simulation.FORCE_START_SIMULATION, onTurnChanged);
 		self._eworldSB.subscribe(AIEvents.Simulation.SIMULATION_FINISHED, onSimulationFinished);
 
 		self._eworldSB.subscribe(ClientEvents.Controller.ACTION_EXECUTE, onActionExecute);

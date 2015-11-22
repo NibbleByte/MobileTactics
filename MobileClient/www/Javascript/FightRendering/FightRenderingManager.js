@@ -173,6 +173,10 @@ var FightRenderingManager = new function () {
 	}
 
 	var uninitializeFight = function () {
+
+		// Pressing skip while fading out.
+		if (!m_currentFight)
+			return;
 		
 		if (m_currentFight.initialized)
 			m_fightWorld.trigger(FightRenderingEvents.Fight.UNINITIALIZE);

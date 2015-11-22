@@ -18,6 +18,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 	var m_$BtnRestart = $('#BtnRestart');
 	var m_$BtnUndo= $('#BtnUndo');
 	var m_$BtnPlayer = $('#BtnPlayer');
+	var m_$BtnPlayerType = $('#BtnPlayerType');
 	var m_$BtnDebug = $('#BtnDebug');
 	var m_$BtnBrowse = $('#BtnBrowse');
 	var m_$BtnAddress = $('#BtnAddress');
@@ -523,10 +524,32 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		var onBtnPlayer = function () {
 			m_eworld.trigger(GameplayEvents.GameState.END_TURN);
 		}
+
+
+		var m_playerAIToggled = null;
+		var onBtnPlayerType = function () {
+
+			if (!m_playerAIToggled) {
+				m_playerAIToggled = m_clientState.gameState.currentPlayer;
+
+				m_playerAIToggled.type = Player.Types.AI;
+				m_eworld.trigger(AIEvents.Simulation.FORCE_START_SIMULATION);
+
+				m_$BtnPlayerType.text('Clr AI');
+
+			} else {
+				m_playerAIToggled.type = Player.Types.Human;
+				m_playerAIToggled = null;
+				
+				m_$BtnPlayerType.text('Set AI');
+			}
+		}
 	
 		var onTurnChanged = function () {
-			if (m_clientState.gameState.currentPlayer) {
-				m_$BtnPlayer.text(m_clientState.gameState.currentPlayer.name)
+			var player = m_clientState.gameState.currentPlayer;
+
+			if (player) {
+				m_$BtnPlayer.text(player.name);
 			} else {
 				m_$BtnPlayer.text('N/a');
 			}
@@ -635,6 +658,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		subscriber.subscribe(m_$BtnRestart, 'click', onBtnRestart);
 		subscriber.subscribe(m_$BtnUndo, 'click', onBtnUndo);
 		subscriber.subscribe(m_$BtnPlayer, 'click', onBtnPlayer);
+		subscriber.subscribe(m_$BtnPlayerType, 'click', onBtnPlayerType);
 		subscriber.subscribe(m_$BtnDebug, 'click', onBtnDebug);
 		subscriber.subscribe(m_$BtnBrowse, 'click', onBtnBrowse);
 		subscriber.subscribe(m_$BtnAddress, 'click', onBtnAddress);
