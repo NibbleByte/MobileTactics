@@ -8,6 +8,7 @@
 var AIEvents = {
 
 	Simulation: {
+		FORCE_START_SIMULATION:	"ai.simulation.force_start_simulation",	// event
 		START_SIMULATION:		"ai.simulation.start_simulation",		// event
 		GATHER_ASSIGNMENTS:		"ai.simulation.gather_assignments",		// event, [tasks], [assignments]
 		SIMULATION_FINISHED:	"ai.simulation.simulation_finished",	// event, [tasks], [assignments]
