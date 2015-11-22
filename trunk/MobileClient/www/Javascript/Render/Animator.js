@@ -94,15 +94,18 @@ var Animator = function (animData, sprite, scene) {
 				if (m_currentCycle.__wrapMode == Animator.WrapMode.Once) {
 					self.isPaused = true;
 					m_currentCycle.go(0);
+					sprite.update();
 				}
 
 				if (m_currentCycle.__wrapMode == Animator.WrapMode.OnceEnd) {
 					self.isPaused = true;
 					m_currentCycle.go(m_currentCycle.triplets.length - 1);
+					sprite.update();
 				}
 
 				if (m_currentCycle.__wrapMode == Animator.WrapMode.ClampForever) {
 					m_currentCycle.go(m_currentCycle.triplets.length - 1);
+					sprite.update();
 				}
 			}
 		}

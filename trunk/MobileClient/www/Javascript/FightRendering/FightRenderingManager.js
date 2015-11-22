@@ -172,6 +172,11 @@ var FightRenderingManager = new function () {
 		m_currentFight.initialized = true;
 	}
 
+	// Delay initialization, to give rendering chance to redraw final frame.
+	var uninitializeFightDelayed = function () {
+		setTimeout(uninitializeFight, 1);
+	}
+
 	var uninitializeFight = function () {
 
 		// Pressing skip while fading out.
@@ -211,7 +216,7 @@ var FightRenderingManager = new function () {
 		m_$FightScreenContainer.stop(true, true);
 
 		m_currentFight.restarting = true;
-		uninitializeFight();
+		uninitializeFightDelayed();
 
 		// Some time to redraw.
 		setTimeout(function () {
@@ -270,7 +275,7 @@ var FightRenderingManager = new function () {
 
 	// DEBUG
 	subscriber.subscribe($('#FightScreenRestart'), 'click', restartCurrentFight);
-	subscriber.subscribe($('#FightScreenQuit'), 'click', uninitializeFight);
+	subscriber.subscribe($('#FightScreenQuit'), 'click', uninitializeFightDelayed);
 	subscriber.subscribe($('#FightScreenFrame'), 'click', toggleFrame);
 
 
@@ -279,7 +284,7 @@ var FightRenderingManager = new function () {
 		m_fightWorld = new ECS.EntityWorld();
 		m_fightWorldSB = m_fightWorld.createSubscriber();
 
-		m_fightWorldSB.subscribe(FightRenderingEvents.Fight.OUTRO_FINALIZE, uninitializeFight);
+		m_fightWorldSB.subscribe(FightRenderingEvents.Fight.OUTRO_FINALIZE, uninitializeFightDelayed);
 
 		m_fightWorld.addSystem(m_fightWorld.store(UtilsSystem, new UtilsSystem()));
 
