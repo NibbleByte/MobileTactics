@@ -167,10 +167,34 @@ var FightRenderingManager = new function () {
 		if (m_currentFight == null || m_currentFight.initialized)
 			return;
 
+		var tasksMonitor = new TasksMonitor();
+		m_fightWorld.blackboard[FightRenderingBlackBoard.Loading.INITIALIZE_TASKS] = tasksMonitor;
+
 		m_fightWorld.trigger(FightRenderingEvents.Fight.INITIALIZE);
+
+		if (!tasksMonitor.hasTasks()) {
+			m_fightWorld.trigger(FightRenderingEvents.Fight.START_FIGHT);
+		} else {
+			tasksMonitor.subscribe(onInitializeTasksChanged);
+		}
 
 		m_currentFight.initialized = true;
 	}
+
+	var onInitializeTasksChanged = function (task, source) {
+		if (!source.hasTasks()) {
+			source.unsubscribe(onInitializeTasksChanged);
+			setTimeout(startFightDelayed, 1);
+		}
+	}
+
+	var startFightDelayed = function () {
+		if (!m_currentFight || !m_currentFight.initialized)
+			return;
+
+		m_fightWorld.trigger(FightRenderingEvents.Fight.START_FIGHT);
+	}
+
 
 	// Delay initialization, to give rendering chance to redraw final frame.
 	var uninitializeFightDelayed = function () {
@@ -207,7 +231,7 @@ var FightRenderingManager = new function () {
 	}
 
 	var restartCurrentFight = function () {
-		if (Utils.assert(m_currentFight))
+		if (!m_currentFight)
 			return;
 
 		// After uninitialize, will be set to null.

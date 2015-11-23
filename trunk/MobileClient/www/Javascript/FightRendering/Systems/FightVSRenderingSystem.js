@@ -22,11 +22,11 @@ var FightVSRenderingSystem = function (m_renderer) {
 
 		self._eworld.addUnmanagedEntity(m_vsEntity);
 
-		self._eworldSB.subscribe(FightRenderingEvents.Fight.INITIALIZE, onInitializeFight);
+		self._eworldSB.subscribe(FightRenderingEvents.Fight.START_FIGHT, onStartFight);
 		self._eworldSB.subscribe(FightRenderingEvents.Fight.UNINITIALIZE, onUninitializeFight);
 	}
 
-	var onInitializeFight = function () {
+	var onStartFight = function () {
 		var animator = m_vsEntity.CAnimations.animators[FightVSRenderingSystem.MAIN_ANIM];
 
 		animator.sprite.show();

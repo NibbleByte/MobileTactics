@@ -20,6 +20,9 @@ var FightUnitsRenderingSystem = function (m_renderer) {
 		self._eworldSB.subscribe(FightRenderingEvents.Units.UNIT_MOVED, onUnitMoved);
 
 		self._eworldSB.subscribe(FightRenderingEvents.Animations.DIES, onUnitDying);
+
+		// Pre-load common images.
+		m_renderer.scene.loadImages([SpriteAnimations.FightUnits.UnitDeathFight.resourcePath]);
 	}
 
 	// Clear any previous drawings
@@ -52,6 +55,7 @@ var FightUnitsRenderingSystem = function (m_renderer) {
 			return;
 		}
 
+		self._eworld.blackboard[FightRenderingBlackBoard.Loading.INITIALIZE_TASKS].addTask(unitRendering.sprite);
 		m_renderer.loadSprite(unitRendering.sprite, resourcePath, onResourcesLoaded, fightUnit);
 	}
 
@@ -61,6 +65,8 @@ var FightUnitsRenderingSystem = function (m_renderer) {
 		SpriteColorizeManager.colorizeSprite(sprite, fightUnit.CFightUnit.unit.CPlayerData.player.colorHue);
 
 		renderUnit(fightUnit);
+
+		self._eworld.blackboard[FightRenderingBlackBoard.Loading.INITIALIZE_TASKS].removeTask(sprite);
 	}
 
 	var renderUnit = function (fightUnit) {

@@ -9,6 +9,7 @@
 var FightRenderingEvents = {
 		Fight: {
 			INITIALIZE:			"ft.fight.initialize",				// Arguments: 
+			START_FIGHT:		"ft.fight.start_fight",				// Arguments: 
 			SHOW_UP_FINISH:		"ft.fight.show_up_finish",			// Arguments: 
 			ATTACK:				"ft.fight.attack",					// Arguments: unit
 			ATTACK_FINISH:		"ft.fight.attack_finish",			// Arguments: unit
@@ -47,6 +48,10 @@ var FightRenderingBlackBoard = {
 		RIGHT_STATS:	"fightrendering.battle.right_stats",
 		LEFT_FIGHTER:	"fightrendering.battle.left_fighter",
 		RIGHT_FIGHTER:	"fightrendering.battle.right_fighter",
+	},
+
+	Loading: {
+		INITIALIZE_TASKS:	"fightrendering.loading.initialize_tasks",
 	},
 
 	Layout: {
