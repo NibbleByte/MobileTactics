@@ -19,12 +19,14 @@ var FightTilesRenderingSystem = function (m_renderer) {
 		//self._eworldSB.subscribe(FightRenderingEvents.Units.UNIT_MOVED, onUnitMoved);
 	}
 
-	var onSpriteLoaded = function (sprite) {
+	var onSpriteLoaded = function (sprite, tile) {
 		sprite.anchorX = sprite.w / 2;
 		sprite.anchorY = sprite.h / 2;
 		sprite.update();
 
 		self._entityWorld.trigger(RenderEvents.Layers.REFRESH_LAYER, FightRenderer.LayerTypes.Tiles);
+
+		self._eworld.blackboard[FightRenderingBlackBoard.Loading.INITIALIZE_TASKS].removeTask(tile);
 	}
 
 	var createTileSprite = function (unit) {
@@ -32,8 +34,11 @@ var FightTilesRenderingSystem = function (m_renderer) {
 		var tile = unit.CTilePlaceable.tile;
 		var terrainName = Enums.getName(GameWorldTerrainType, tile.CTileTerrain.type);
 
+
+		self._eworld.blackboard[FightRenderingBlackBoard.Loading.INITIALIZE_TASKS].addTask(tile);
+
 		var spritePath = FightTilesRenderingSystem.SPRITES_PATH.replace(/{terrainType}/g, terrainName);
-		return m_renderer.createSprite(FightRenderer.LayerTypes.Tiles, spritePath, onSpriteLoaded);
+		return m_renderer.createSprite(FightRenderer.LayerTypes.Tiles, spritePath, onSpriteLoaded, tile);
 	}
 
 	var registerUnit = function (fightUnit) {

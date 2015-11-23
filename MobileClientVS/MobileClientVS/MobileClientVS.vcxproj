@@ -38,6 +38,7 @@
     <None Include="..\..\Core\Engine\Utils\Enums.js" />
     <None Include="..\..\Core\Engine\Utils\Serialization.js" />
     <None Include="..\..\Core\Engine\Utils\Subscriber.js" />
+    <None Include="..\..\Core\Engine\Utils\TasksMonitor.js" />
     <None Include="..\..\Core\Engine\Utils\Utils.js" />
     <None Include="..\..\Core\Gameplay\Actions\ActionAttack.js" />
     <None Include="..\..\Core\Gameplay\Actions\ActionBuy.js" />

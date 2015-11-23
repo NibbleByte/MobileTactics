@@ -60,12 +60,17 @@ var FightPortraitsController = function (m_renderer) {
 			return;
 		}
 
-		m_renderer.loadSprite(sprite, resourcePath);
+		self._eworld.blackboard[FightRenderingBlackBoard.Loading.INITIALIZE_TASKS].addTask(sprite);
+		m_renderer.loadSprite(sprite, resourcePath, onResourcesLoaded);
 		sprite.position(-1000, -1000);
 			
 		sprite.update();
 
 		self._entityWorld.trigger(RenderEvents.Layers.REFRESH_LAYER, FightRenderer.LayerTypes.Portraits);
+	}
+
+	var onResourcesLoaded = function (sprite) {
+		self._eworld.blackboard[FightRenderingBlackBoard.Loading.INITIALIZE_TASKS].removeTask(sprite);
 	}
 
 	var renderPortrait = function (fightUnit, layoutData) {

@@ -29,6 +29,7 @@ var FightControllerSystem = function (m_renderer) {
 	//
 	this.initialize = function () {
 		self._eworldSB.subscribe(FightRenderingEvents.Fight.INITIALIZE, onInitializeFight);
+		self._eworldSB.subscribe(FightRenderingEvents.Fight.START_FIGHT, onStartFight);
 		self._eworldSB.subscribe(FightRenderingEvents.Fight.UNINITIALIZE, onUninitializeFight);
 
 		self._eworldSB.subscribe(FightRenderingEvents.Fight.ATTACK_FINISH, onAttackFinish);
@@ -92,6 +93,9 @@ var FightControllerSystem = function (m_renderer) {
 		self._eworld.addUnmanagedEntity(m_leftUnit);
 		self._eworld.addUnmanagedEntity(m_rightUnit);
 
+	}
+
+	var onStartFight = function () {
 		m_timeouts.showUp = setTimeout(onShowUp, 500);
 	}
 

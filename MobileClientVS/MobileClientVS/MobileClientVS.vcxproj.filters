@@ -554,6 +554,9 @@
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightVSRenderingSystem.js">
       <Filter>Javascript\FightRendering\Systems</Filter>
     </None>
+    <None Include="..\..\Core\Engine\Utils\TasksMonitor.js">
+      <Filter>Javascript\Core\Engine\Utils</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
