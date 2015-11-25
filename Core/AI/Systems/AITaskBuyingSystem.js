@@ -104,13 +104,13 @@ var AITaskBuyingSystem = function (m_world, m_executor) {
 				if (attack === undefined)
 					continue;
 
-				rating += attack * count;
+				rating += (attack / enemyDefinition.baseStatistics['Defence']) * count;
 			}
 
 
 			// Boosts
 			rating += definition.baseStatistics['Movement'];
-			if (definition.actions.contains(Actions.Classes.ActionCapture)) rating += neutralStructuresCount * 2 + enemyStructuresCount;
+			if (definition.actions.contains(Actions.Classes.ActionCapture)) rating += neutralStructuresCount * 2;
 			if (unitsCount < definition.AIHints.preferedMinCount) rating += definition.AIHints.preferedMinCount - unitsCount / 2;
 
 
@@ -145,12 +145,15 @@ var AITaskBuyingSystem = function (m_world, m_executor) {
 			var consideredRating = consideredList[buyIndex];
 
 			// Don't buy cheap useless stuff. Save money for bigger and better.
-			if (bestRating.rating / consideredRating.rating > 2)
+			var bestRatingBudgetTurns = Math.max(Math.ceil((bestRating.price - budget) / m_gameState.currentPlayer.creditsPerMine), 0);
+			if (bestRating.rating / consideredRating.rating > 1 + bestRatingBudgetTurns / 4)
 				continue;
 
 			while(consideredRating.price <= budget) {
 				budget -= consideredRating.price;
 				purchaseList.push(consideredRating.definition);
+
+				bestRating = (buyIndex == 0) ? null : consideredList[buyIndex - 1];
 			}
 		}
 
@@ -209,7 +212,7 @@ var AITaskBuyingSystem = function (m_world, m_executor) {
 		var definition = assignment.task.objective;
 		
 		if (!Store.canPlayerShop(self._eworld, target)) {
-			return null;	
+			return null;
 		}
 
 		var priceList = Store.getPriceListFromTile(self._eworld, target);
