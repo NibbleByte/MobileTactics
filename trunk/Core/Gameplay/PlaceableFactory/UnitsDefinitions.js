@@ -195,7 +195,7 @@ UnitsDefinitions[Player.Races.Empire] = {
 		type: UnitType.Heavy,
 
 		baseStatistics: {
-			AttackLight: 8,
+			AttackLight: 6,
 			AttackHeavy: 5,
 			AttackAerial: 6,
 			AttackRange: 1,
@@ -360,8 +360,8 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 		type: UnitType.Light,
 
 		baseStatistics: {
-			AttackLight: 4,
-			AttackHeavy: 6,
+			AttackLight: 3,
+			AttackHeavy: 4,
 			AttackAerial: 6,
 			AttackRange: 2,
 			HealRate: 1,
