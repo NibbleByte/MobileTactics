@@ -38,8 +38,12 @@ var FloatingTextsSystem = function (m_renderer) {
 		var sprite = m_renderer.createSprite(WorldLayers.LayerTypes.OverlayEffects);
 		$(sprite.dom).addClass('floating_text_container');
 
+		// So culling works correctly.
+		sprite.size(36, 30);
+		sprite.anchorX = -(params.offset.x * Assets.scale);
+		sprite.anchorY = -(params.offset.y * Assets.scale);
+
 		var $text = $('<span class="floating_text statistics_text" />')
-		.css({top: params.offset.y * Assets.scale, left: params.offset.x * Assets.scale})
 		.addClass((params.intent) ? 'floating_text_intent_' + params.intent : null)
 		.appendTo(sprite.dom)
 		.html(text);
