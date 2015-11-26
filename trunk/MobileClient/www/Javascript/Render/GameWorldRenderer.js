@@ -94,17 +94,30 @@ var GameWorldRenderer = new function () {
 		var onScrollEnd = function () {
 			var userZoom = renderer.plotContainerScroller.scale;
 
-			// Cull only sprites inside the screen.
-			var left = renderer.zoomIn(-renderer.plotContainerScroller.x) / userZoom;
-			var top = renderer.zoomIn(-renderer.plotContainerScroller.y) / userZoom;
-			var right = left + renderer.zoomIn(renderer.viewWidth) / userZoom;
-			var bottom = top + renderer.zoomIn(renderer.viewHeight) / userZoom;
+			var leftZoom = renderer.zoomIn(-renderer.plotContainerScroller.x) / userZoom;
+			var topZoom = renderer.zoomIn(-renderer.plotContainerScroller.y) / userZoom;
+			var rightZoom = leftZoom + renderer.zoomIn(renderer.viewWidth) / userZoom;
+			var bottomZoom = topZoom + renderer.zoomIn(renderer.viewHeight) / userZoom;
 
+			var leftNonZoom = -renderer.plotContainerScroller.x / userZoom;
+			var topNonZoom = -renderer.plotContainerScroller.y / userZoom;
+			var rightNonZoom = leftNonZoom + renderer.viewWidth / userZoom;
+			var bottomNonZoom = topNonZoom + renderer.viewHeight / userZoom;
+			
+
+			// Cull only sprites inside the screen.
 			for(var name in renderer.spriteTracker.layerSprites) {
 				var sprites = renderer.spriteTracker.layerSprites[name];
 
 				for(var i = 0; i < sprites.length; ++i) {
 					var sprite = sprites[i];
+
+					var disableZoom = sprite.layer.options.disableZoom;
+
+					var left = (disableZoom) ? leftNonZoom : leftZoom;
+					var top = (disableZoom) ? topNonZoom : topZoom;
+					var right = (disableZoom) ? rightNonZoom : rightZoom;
+					var bottom = (disableZoom) ? bottomNonZoom : bottomZoom;
 
 					var anchorX = Math.round((sprite.anchorX || 0) * Math.abs(sprite.xscale));
 					var anchorY = Math.round((sprite.anchorY || 0) * Math.abs(sprite.yscale));

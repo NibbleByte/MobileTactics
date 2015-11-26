@@ -62,9 +62,9 @@ var UnitRenderingSystem = function (renderer) {
 		}
 
 		// So culling works correctly.
-		placeable.CUnitRendering.sprite.size(36, 30);
-		placeable.CUnitRendering.sprite.anchorX = -(18 * Assets.scale);
-		placeable.CUnitRendering.sprite.anchorY = -(-4 * Assets.scale);
+		placeable.CUnitRendering.sprite.size(50, 30);
+		placeable.CUnitRendering.sprite.anchorX = m_renderer.zoomBack(32) * Assets.scale;
+		placeable.CUnitRendering.sprite.anchorY = m_renderer.zoomBack(-4) * Assets.scale;
 
 		m_renderer.loadSprite(placeableRendering.sprite, resourcePath, onResourcesLoaded, placeable);
 	}
@@ -179,16 +179,12 @@ var UnitRenderingSystem = function (renderer) {
 	}
 	
 	var onUnitChanged = function(unit) {
-		if (unit.CUnit.health != unit.CStatistics.statistics['MaxHealth']) {
-			unit.CUnitRendering.$text.text(unit.CUnit.health);
-			RenderUtils.addTextOutline(unit.CUnitRendering.$text)
-		} else {
-			unit.CUnitRendering.$text.text('');
-		}
+		unit.CUnitRendering.$text.text(unit.CUnit.health);
+		RenderUtils.addTextOutline(unit.CUnitRendering.$text)
 	}
 
 
-	var FLOAT_TEXT_OFFSET = { x: 20, y: -12 };
+	var FLOAT_TEXT_OFFSET = { x: 35, y: -12 };
 	var onActionAttack = function (outcome) {
 
 		if (outcome.attackerHealthOutcome > 0 && outcome.attackerTile.CTileRendering.viewerVisible) {

@@ -38,10 +38,12 @@ var FloatingTextsSystem = function (m_renderer) {
 		var sprite = m_renderer.createSprite(WorldLayers.LayerTypes.OverlayEffects);
 		$(sprite.dom).addClass('floating_text_container');
 
+		self._eworld.trigger(RenderEvents.Layers.SORT_DEPTH, sprite);
+
 		// So culling works correctly.
-		sprite.size(36, 30);
-		sprite.anchorX = -(params.offset.x * Assets.scale);
-		sprite.anchorY = -(params.offset.y * Assets.scale);
+		sprite.size(50, 30);
+		sprite.anchorX = -(m_renderer.zoomBack(params.offset.x) * Assets.scale);
+		sprite.anchorY = -(m_renderer.zoomBack(params.offset.y) * Assets.scale);
 
 		var $text = $('<span class="floating_text statistics_text" />')
 		.addClass((params.intent) ? 'floating_text_intent_' + params.intent : null)
