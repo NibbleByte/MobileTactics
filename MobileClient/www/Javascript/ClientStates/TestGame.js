@@ -62,7 +62,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 			
 				tile = GameWorld.createTileUnmanaged(GameWorldTerrainType.Plains, i, j);
 				if (i % 3 <= 1 && j % 4 >= 2) {
-					tile.CTileTerrain.type = GameWorldTerrainType.Rough;
+					tile.CTileTerrain.type = GameWorldTerrainType.Plains;
 				}
 				if (i % 7 <= 2 && j % 5 <= 1) {
 					tile.CTileTerrain.type = GameWorldTerrainType.Mountain;

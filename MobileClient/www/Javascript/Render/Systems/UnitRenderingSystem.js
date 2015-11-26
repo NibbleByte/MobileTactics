@@ -61,6 +61,11 @@ var UnitRenderingSystem = function (renderer) {
 			placeableRendering.sprite.setOpacity(0.999);	// HACK: to skip FastTrack feature for static images!
 		}
 
+		// So culling works correctly.
+		placeable.CUnitRendering.sprite.size(36, 30);
+		placeable.CUnitRendering.sprite.anchorX = -(18 * Assets.scale);
+		placeable.CUnitRendering.sprite.anchorY = -(-4 * Assets.scale);
+
 		m_renderer.loadSprite(placeableRendering.sprite, resourcePath, onResourcesLoaded, placeable);
 	}
 	

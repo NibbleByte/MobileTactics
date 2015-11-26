@@ -16,6 +16,7 @@ var FightHealthBar = function (element, m_direction, m_showValue) {
 	var m_$foreground = $('<div>').addClass('fight_health_bar_foreground').appendTo(m_$background);
 
 	var m_$value = $('<div>').addClass('fight_health_bar_value').text(10).appendTo(m_$container);
+	RenderUtils.addTextOutline(m_$value);
 
 	if (m_direction == FightRenderer.DirectionType.Left) {
 		RenderUtils.transformSet(m_$background, 'scale(-1)');
