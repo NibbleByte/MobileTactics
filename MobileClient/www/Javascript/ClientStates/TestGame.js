@@ -337,7 +337,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		m_eworld.addSystem(new LayersUpdateSystem(worldRenderer, WorldLayers.LayerTypes));
 		m_eworld.addSystem(new CanvasInstancesUpdateSystem(worldRenderer, WorldLayers.LayerTypes));
 		m_eworld.addSystem(new IdleAnimationsSystem(worldRenderer));
-		m_eworld.addSystem(new ActionsRenderingSystem(executor));
+		m_eworld.addSystem(new ActionsRenderingSystem(executor, m_eworld.extract(BattleSystem)));
 		m_eworld.addSystem(new ActionFogRenderingSystem(world));
 		m_eworld.addSystem(new VisibilityFogRenderingSystem(world, m_eworld.getSystem(TileVisibilitySystem)));
 	
