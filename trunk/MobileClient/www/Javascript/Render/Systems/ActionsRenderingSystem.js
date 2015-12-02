@@ -28,6 +28,10 @@ var ActionsRenderingSystem = function (m_executor, m_battleSystem) {
 	var onActionsOffered = function(goActions) {
 		onActionsCleared();
 
+		var gameState = self._eworld.extract(GameState);
+		if (gameState.currentPlayer.type != Player.Types.Human)
+			return;
+
 		if (goActions.actions.length == 0)
 			return;
 		
