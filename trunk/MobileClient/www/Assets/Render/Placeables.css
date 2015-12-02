@@ -3,7 +3,13 @@
 	
 }
 
-.unit_health
+.unit_health_loss
+{
+	color: rgb(213, 19, 19);
+	float: right;
+}
+
+.unit_health, .unit_health_damage
 {
 	color: rgb(139, 247, 239);
 	

@@ -4,7 +4,7 @@
 //===============================================
 "use strict";
 
-var ActionsRenderingSystem = function (m_executor) {
+var ActionsRenderingSystem = function (m_executor, m_battleSystem) {
 	var self = this;
 			
 	//
@@ -12,6 +12,8 @@ var ActionsRenderingSystem = function (m_executor) {
 	//
 	this.initialize = function () {
 		self._eworldSB.subscribe(ClientEvents.Controller.ACTION_PREEXECUTE, onActionPreExecute);
+		self._eworldSB.subscribe(ClientEvents.Controller.ACTIONS_OFFERED, onActionsOffered);
+		self._eworldSB.subscribe(ClientEvents.Controller.ACTIONS_CLEARED, onActionsCleared);
 	}
 	
 	var onActionPreExecute = function(action) {
@@ -22,11 +24,73 @@ var ActionsRenderingSystem = function (m_executor) {
 		var preExecutor = new preExecutorClass(m_executor, self._eworld, action);
 		preExecutor.preExecute();
 	}
+
+	var onActionsOffered = function(goActions) {
+		onActionsCleared();
+
+		if (goActions.actions.length == 0)
+			return;
+		
+		m_selectedGOActions = goActions;
+
+		GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.highlightTileAction);
+
+		iterateAttackedUnit(m_selectedGOActions, renderBattleOutcomeOperation);
+	}
+
+	var onActionsCleared = function() {
+		
+		if (!m_selectedGOActions)
+			return;
+
+		GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.unHighlightTile);
+
+		iterateAttackedUnit(m_selectedGOActions, clearBattleOutcomeOperation);
+
+		m_selectedGOActions = null;
+	}
+
+	var iterateAttackedUnit = function (goActions, operation) {
+		var attackAction = goActions.getActionByType(Actions.Classes.ActionAttack);
+
+		if (!attackAction)
+			return;
+
+		for(var i = 0; i < attackAction.availableTiles.length; ++i) {
+			
+			var enemy = attackAction.availableTiles[i].CTile.placedObjects[0];
+			if (Utils.assert(enemy, 'Attack noone?'))
+				continue;
+
+
+			operation(goActions.go, enemy);
+		}
+	}
+
+	var renderBattleOutcomeOperation = function (unit, enemy) {
+		var outcome = m_battleSystem.predictOutcome(unit, enemy);
+
+		if (outcome.damageToDefender > 0) {
+			enemy.CUnitRendering.$damage.text('-' + outcome.damageToDefender);
+			RenderUtils.addTextOutline(enemy.CUnitRendering.$damage);
+		}
+
+		if (outcome.damageToAttacker > 0) {
+			enemy.CUnitRendering.$loss.text('-' + outcome.damageToAttacker);
+			RenderUtils.addTextOutline(enemy.CUnitRendering.$loss);
+		}
+	}
+
+	var clearBattleOutcomeOperation = function (unit, enemy) {
+		enemy.CUnitRendering.$damage.empty();
+		enemy.CUnitRendering.$loss.empty();
+	}
 	
 	//
 	// Private
 	//
-	var m_actionPreExecutors = {};	
+	var m_actionPreExecutors = {};
+	var m_selectedGOActions = null;
 	
 	
 	//m_actionPreExecutors[Actions.Classes.ActionAttack.actionName] = ActionsRenderingSystem.ActionExecutors.AttackExecutor;

@@ -3,7 +3,9 @@
 var CUnitRendering = function CUnitRendering() {
 	
 	this.sprite = null;
-	this.$text = $('<span class="unit_health statistics_text" />');
+	this.$health = $('<span class="unit_health statistics_text" />');
+	this.$damage = $('<span class="unit_health_damage statistics_text" />');
+	this.$loss = $('<span class="unit_health_loss statistics_text" />');
 
 	this.spriteFinished = null;
 };
@@ -12,7 +14,9 @@ ComponentsUtils.registerNonPersistent(CUnitRendering);
 
 
 CUnitRendering.prototype.destroy = function () {
-	this.$text.detach();
+	this.$health.detach();
+	this.$damage.detach();
+	this.$loss.detach();
 	this.sprite.remove();
 	this.spriteFinished.remove();
 }

@@ -62,8 +62,8 @@ var UnitRenderingSystem = function (renderer) {
 		}
 
 		// So culling works correctly.
-		placeable.CUnitRendering.sprite.size(50, 30);
-		placeable.CUnitRendering.sprite.anchorX = m_renderer.zoomBack(32) * Assets.scale;
+		placeable.CUnitRendering.sprite.size(70, 30);
+		placeable.CUnitRendering.sprite.anchorX = m_renderer.zoomBack(36) * Assets.scale;
 		placeable.CUnitRendering.sprite.anchorY = m_renderer.zoomBack(-4) * Assets.scale;
 
 		m_renderer.loadSprite(placeableRendering.sprite, resourcePath, onResourcesLoaded, placeable);
@@ -147,8 +147,10 @@ var UnitRenderingSystem = function (renderer) {
 		// Unit
 		unitRendering.sprite = m_renderer.createSprite(WorldLayers.LayerTypes.Statistics);
 		$(unitRendering.sprite.dom).addClass('statistics_text_container');
-		unitRendering.$text.appendTo(unitRendering.sprite.dom);
-		RenderUtils.addTextOutline(unitRendering.$text);
+		unitRendering.$health.appendTo(unitRendering.sprite.dom);
+		unitRendering.$damage.appendTo(unitRendering.sprite.dom);
+		unitRendering.$loss.appendTo(unitRendering.sprite.dom);
+		RenderUtils.addTextOutline(unitRendering.$health);
 		unitRendering.spriteFinished = m_renderer.createSprite(WorldLayers.LayerTypes.UnitsFinished, UnitRenderingSystem.FINISHED_FOG_SPRITE_PATH);
 		unitRendering.hideFinished();
 		
@@ -179,8 +181,8 @@ var UnitRenderingSystem = function (renderer) {
 	}
 	
 	var onUnitChanged = function(unit) {
-		unit.CUnitRendering.$text.text(unit.CUnit.health);
-		RenderUtils.addTextOutline(unit.CUnitRendering.$text)
+		unit.CUnitRendering.$health.text(unit.CUnit.health);
+		RenderUtils.addTextOutline(unit.CUnitRendering.$health)
 	}
 
 

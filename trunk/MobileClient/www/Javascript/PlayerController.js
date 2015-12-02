@@ -227,7 +227,7 @@ var PlayerController = function (m_executor) {
 		clearSelectedGOActions();
 		
 		if (goActions.actions.length > 0)
-			selectGOActions(goActions);
+			m_selectedGOActions = goActions;
 	}
 	
 	//
@@ -235,12 +235,6 @@ var PlayerController = function (m_executor) {
 	//
 	var isGOSelected = function () {
 		return !!m_selectedGOActions;
-	}
-	
-	var selectGOActions = function (goActions) {
-		m_selectedGOActions = goActions;
-		
-		GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.highlightTileAction);
 	}
 	
 	var getSelectedGOActionTile = function (selectedTile) {
@@ -260,11 +254,7 @@ var PlayerController = function (m_executor) {
 	var clearSelectedGOActions = function () {
 		m_inputActive = true;
 
-		if (isGOSelected()){
-			GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.unHighlightTile);
-			
-			m_selectedGOActions = null;
-		}
+		m_selectedGOActions = null;
 	}
 }
 

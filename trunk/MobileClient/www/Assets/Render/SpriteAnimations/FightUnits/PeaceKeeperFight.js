@@ -75,11 +75,11 @@ SpriteAnimations.FightUnits.HoverCannon = {
 
 	resourcePath: 'HoverCannon.png',
 
-	frameWidth: 111,
-	frameHeight: 78,
-	framesPerRow: 4,
-	anchorX: Animator.AnchorY.Center,
-	anchorY: Animator.AnchorY.Bottom,
+	frameWidth: 180,
+	frameHeight: 170,
+	framesPerRow: 5,
+	anchorX: 80,
+	anchorY: 146,
 	
 	sequences: [
 		{
@@ -91,24 +91,28 @@ SpriteAnimations.FightUnits.HoverCannon = {
 		
 		{
 			name: 'Idle0',
+			speed: 15,
 			startIndex: 0,
-			frames: 1,
+			frames: 6,
 		},
 		
 		{
 			name: 'Run',
-			frames: 1,
+			speed: 15,
+			startIndex: 0,
+			frames: 6,
 		},
 
 		{
 			name: 'Attack',
-			startIndex: 0,
-			frames: 1,
+			speed: 10,
+			startIndex: 6,
+			frames: 6,
 
 			events: [
 				
 				{
-					frame: 0,
+					frame: 3,
 					event: FightRenderingEvents.Animations.FIRE,
 					params: {
 						weaponType: FightUnitWeaponType.Shotgun,
