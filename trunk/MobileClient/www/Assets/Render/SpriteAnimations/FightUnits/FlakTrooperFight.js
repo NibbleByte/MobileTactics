@@ -4,11 +4,11 @@ SpriteAnimations.FightUnits.FlakTrooper = {
 
 	resourcePath: 'FlakTrooper.png',
 
-	frameWidth: 95,
-	frameHeight: 72,
-	framesPerRow: 5,
-	anchorX: 46,
-	anchorY: Animator.AnchorY.Bottom,
+	frameWidth: 180,
+	frameHeight: 170,
+	framesPerRow: 1,
+	anchorX: Animator.AnchorX.Center,
+	anchorY: 140,
 	
 	sequences: [
 		{
@@ -24,7 +24,7 @@ SpriteAnimations.FightUnits.FlakTrooper = {
 			speed: 20,
 			startX: 0,
 			startY: 0,
-			frames: 7,
+			frames: 1,
 		},
 		
 		{
@@ -32,7 +32,7 @@ SpriteAnimations.FightUnits.FlakTrooper = {
 			speed: 10,
 			startX: 0,
 			startY: 0,
-			frames: 7,
+			frames: 1,
 			wrapMode: Animator.WrapMode.Loop,
 		},
 
@@ -41,12 +41,12 @@ SpriteAnimations.FightUnits.FlakTrooper = {
 			speed: 10,
 			startX: 0,
 			startY: 0,
-			frames: 7,
+			frames: 1,
 
 			events: [
 				
 				{
-					frame: 5,
+					frame: 0,
 					event: FightRenderingEvents.Animations.FIRE,
 					params: {
 						weaponType: FightUnitWeaponType.RocketLauncher,
