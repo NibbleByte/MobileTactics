@@ -207,7 +207,7 @@ var PlayerController = function (m_executor) {
 
 		// Only ActionMove is allowed to undo.
 		// DEBUG: remove 'debug', used to undo for debugging.
-		if (debug && lastAction.actionType != Actions.Classes.ActionMove) {
+		if (!debug && lastAction.actionType != Actions.Classes.ActionMove) {
 			self._eworld.triggerAsync(ClientEvents.Controller.ACTIONS_CLEARED);
 			return;
 		}
