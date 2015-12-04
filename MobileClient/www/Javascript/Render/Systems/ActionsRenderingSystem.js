@@ -135,11 +135,11 @@ ActionsRenderingSystem.ActionExecutors.AttackFightExecutor = function (m_executo
 		var attackerSprite = attacker.CTilePlaceableRendering.sprite;
 		var defenderSprite = defender.CTilePlaceableRendering.sprite;
 		if (attackerSprite.x < defenderSprite.x) {
-			attackerSprite.setXScale(-attackerForward);
-			defenderSprite.setXScale(defenderForward);
-		} else {
 			attackerSprite.setXScale(attackerForward);
 			defenderSprite.setXScale(-defenderForward);
+		} else {
+			attackerSprite.setXScale(-attackerForward);
+			defenderSprite.setXScale(defenderForward);
 		}
 		attackerSprite.update();
 		defenderSprite.update();
@@ -242,7 +242,7 @@ ActionsRenderingSystem.ActionExecutors.AttackExecutor = function (m_executor, m_
 			return animator.params.forwardDirection || 1;
 		}
 
-		return 1;
+		return -1;
 	}
 	
 	var finishAttackAnimation = function (placeable) {

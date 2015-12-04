@@ -557,6 +557,9 @@
     <None Include="..\..\Core\Engine\Utils\TasksMonitor.js">
       <Filter>Javascript\Core\Engine\Utils</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\Ranger.js">
+      <Filter>Assets\Render\SpriteAnimations\Units</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
