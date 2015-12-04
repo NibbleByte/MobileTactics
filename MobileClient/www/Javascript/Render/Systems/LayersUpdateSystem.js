@@ -129,10 +129,10 @@ var LayersUpdateSystem = function (m_renderer, layerTypes) {
 		var leftDepth = left.depth || 0;
 		var rightDepth = right.depth || 0;
 
-		return leftDepth - rightDepth;
+		return rightDepth - leftDepth;
 	}
 
-	// depth is a custom field introduced to the sprite instances. Higher depth number is on top of others.
+	// depth is a custom field introduced to the sprite instances. Lower depth number is on top of others.
 	var onSortByDepth = function (layerOrSprite) {
 		if (Utils.assert(layerOrSprite instanceof sjs.Sprite || Enums.isValidValue(layerTypes, layerOrSprite)))
 			return;

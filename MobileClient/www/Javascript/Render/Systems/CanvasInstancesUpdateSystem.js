@@ -80,7 +80,7 @@ var CanvasInstancesUpdateSystem = function (m_renderer, layerTypes) {
 		if (Utils.assert(layerOrSprite instanceof sjs.Sprite || Enums.isValidValue(layerTypes, layerOrSprite)))
 			return;
 
-		var layer = (layerOrSprite instanceof sjs.Sprite) ? layerTypes[layerOrSprite.layer.name] : layerOrSprite;
+		var layer = (layerOrSprite instanceof sjs.Sprite) ? m_renderer.layers[layerTypes[layerOrSprite.layer.name]] : m_renderer.layers[layerOrSprite];
 
 		if (layer.useCanvas)
 			return;
