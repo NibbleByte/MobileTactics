@@ -103,6 +103,7 @@
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\FlakTrooper.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\Nibbler.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\PeaceKeeper.js" />
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\Ranger.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\TeslaTrooper.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\World\Base.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\World\Factory.js" />

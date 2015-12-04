@@ -10,6 +10,10 @@ SpriteAnimations.Units.TeslaTrooper = {
 	
 	framesPerRow: 15,
 	speed: 10,
+
+	params: {
+		forwardDirection: -1,
+	},
 	
 	sequences: [
 		{

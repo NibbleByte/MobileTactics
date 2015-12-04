@@ -8,10 +8,6 @@ SpriteAnimations.Units.FlakTrooper = {
 	framesPerRow: 5,
 	anchorX: Animator.AnchorX.Center,
 	anchorY: 46,
-
-	params: {
-		forwardDirection: -1,
-	},
 	
 	sequences: [
 		{

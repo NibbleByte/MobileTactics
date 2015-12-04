@@ -1,13 +1,17 @@
 
-SpriteAnimations.Units.PeaceKeeper = {
+SpriteAnimations.Units.Ranger = {
 
-	resourcePath: 'PeaceKeeper.png',
+	resourcePath: 'Ranger.png',
 	
-	frameWidth: 74,
+	frameWidth: 78,
 	frameHeight: 72,
 	framesPerRow: 4,
 	anchorX: Animator.AnchorX.Center,
 	anchorY: 40,
+
+	params: {
+		forwardDirection: -1,
+	},
 	
 	sequences: [
 		{
