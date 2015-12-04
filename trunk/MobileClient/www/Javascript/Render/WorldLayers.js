@@ -23,17 +23,17 @@ WorldLayers.LayerTypes = {
 // LayerTypes are no longer enum since some layers are merged (i.e. are the same).
 
 WorldLayers.SpritesDefaultDepth = {
-	Terrain: 200,
-	Selection: 180,
-	Units: 140,
-	UnitsFinished: 120,
+	Terrain: 20,
+	Selection: 40,
+	Units: 60,
+	UnitsFinished: 80,
 	Highlights: 100,
-	ActionFog: 80,
-	VisibilityFog: 60,
-	Statistics: 40,
-	OverlayEffects: 20,
+	ActionFog: 120,
+	VisibilityFog: 140,
+	Statistics: 160,
+	OverlayEffects: 180,
 
-	Debug: -100,
+	Debug: 9999,
 }
 
 WorldLayers.layersOptions = {
