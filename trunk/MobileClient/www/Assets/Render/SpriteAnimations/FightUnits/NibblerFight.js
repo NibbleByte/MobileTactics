@@ -4,11 +4,11 @@ SpriteAnimations.FightUnits.Nibbler = {
 
 	resourcePath: 'Nibbler.png',
 
-	frameWidth: 111,
-	frameHeight: 88,
+	frameWidth: 180,
+	frameHeight: 170,
 	framesPerRow: 5,
 	anchorX: Animator.AnchorX.Center,
-	anchorY: Animator.AnchorY.Bottom,
+	anchorY: 154,
 	
 	sequences: [
 		{
