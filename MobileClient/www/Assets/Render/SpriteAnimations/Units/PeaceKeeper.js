@@ -3,11 +3,11 @@ SpriteAnimations.Units.PeaceKeeper = {
 
 	resourcePath: 'PeaceKeeper.png',
 	
-	frameWidth: 111,
+	frameWidth: 74,
 	frameHeight: 72,
 	framesPerRow: 4,
-	anchorX: 28,
-	anchorY: 46,
+	anchorX: Animator.AnchorX.Center,
+	anchorY: 40,
 
 	params: {
 		forwardDirection: -1,
@@ -16,7 +16,7 @@ SpriteAnimations.Units.PeaceKeeper = {
 	sequences: [
 		{
 			name: 'Idle',
-			startIndex: 1,
+			startIndex: 0,
 			frames: 1,
 		},
 		
@@ -24,14 +24,14 @@ SpriteAnimations.Units.PeaceKeeper = {
 			name: 'Idle0',
 			speed: 20,
 			startIndex: 0,
-			frames: 4,
+			frames: 1,
 		},
 		
 		{
 			name: 'Attack',
 			speed: 10,
-			startIndex: 11,
-			frames: 14,
+			startIndex: 0,
+			frames: 1,
 		},
 		
 	]
