@@ -85,7 +85,7 @@ var CanvasInstancesUpdateSystem = function (m_renderer, layerTypes) {
 		if (layer.useCanvas)
 			return;
 
-		var sprites = m_renderer.spriteTracker.layerSprites[Enums.getName(layerTypes, layer)];
+		var sprites = m_renderer.spriteTracker.layerSprites[layer.name];
 
 		if (sprites) {
 			for(var i = 0; i < sprites.length; ++i) {
