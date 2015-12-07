@@ -1,0 +1,2534 @@
+{
+	"editorState": {
+		"__serializationTypeName": "EditorState",
+		"mapLockedSizes": true
+	},
+	"gameState": {
+		"__serializationTypeName": "GameState",
+		"currentPlayer": null,
+		"turnsPassed": 0,
+		"isCustomMap": true,
+		"fogOfWar": true
+	},
+	"playersData": {
+		"__serializationTypeName": "PlayersData",
+		"players": [
+			{
+				"__serializationTypeName": "Player",
+				"colorHue": 60,
+				"credits": 500,
+				"creditsPerMine": 100,
+				"isPlaying": true,
+				"name": "Pl1",
+				"playerId": 0,
+				"race": 1,
+				"teamId": -1,
+				"type": 0
+			},
+			{
+				"__serializationTypeName": "Player",
+				"colorHue": 120,
+				"credits": 500,
+				"creditsPerMine": 100,
+				"isPlaying": true,
+				"name": "Pl2",
+				"playerId": 1,
+				"race": 3,
+				"teamId": -1,
+				"type": 0
+			}
+		]
+	},
+	"world": [
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 0,
+				"placedObjects": [],
+				"row": 0
+			},
+			"CTileOwner": {
+				"__serializationTypeName": "CTileOwner",
+				"beingCapturedBy": null,
+				"captureTurns": 0,
+				"knowledge": {},
+				"owner": {
+					"__serializationRefId": 5
+				}
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 20
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 1,
+				"placedObjects": [],
+				"row": 0
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 2,
+				"placedObjects": [],
+				"row": 0
+			},
+			"CTileOwner": {
+				"__serializationTypeName": "CTileOwner",
+				"beingCapturedBy": null,
+				"captureTurns": 0,
+				"knowledge": {},
+				"owner": {
+					"__serializationRefId": 5
+				}
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 28
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 3,
+				"placedObjects": [],
+				"row": 0
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 4,
+				"placedObjects": [],
+				"row": 0
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 8
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 5,
+				"placedObjects": [],
+				"row": 0
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 8
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 6,
+				"placedObjects": [],
+				"row": 0
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 8
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 1,
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 5
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 40
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "HoverCannon",
+							"race": 1,
+							"turnPoints": 1
+						}
+					}
+				],
+				"row": 1
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 2,
+				"placedObjects": [],
+				"row": 1
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 3,
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionCapture",
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 5
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 55
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "PeaceKeeper",
+							"race": 1,
+							"turnPoints": 1
+						}
+					}
+				],
+				"row": 1
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 4,
+				"placedObjects": [],
+				"row": 1
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 4
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 5,
+				"placedObjects": [],
+				"row": 1
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 4
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 6,
+				"placedObjects": [],
+				"row": 1
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 4
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 7,
+				"placedObjects": [],
+				"row": 1
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 4
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 1,
+				"placedObjects": [],
+				"row": 2
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 2,
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 5
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 86
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "Ranger",
+							"race": 1,
+							"turnPoints": 2
+						}
+					}
+				],
+				"row": 2
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 3,
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 5
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 97
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "Comanche",
+							"race": 1,
+							"turnPoints": 1
+						}
+					}
+				],
+				"row": 2
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 4,
+				"placedObjects": [],
+				"row": 2
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 5,
+				"placedObjects": [],
+				"row": 2
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 6,
+				"placedObjects": [],
+				"row": 2
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 7,
+				"placedObjects": [],
+				"row": 2
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 2,
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 5
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 124
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "IonDrone",
+							"race": 1,
+							"turnPoints": 1
+						}
+					}
+				],
+				"row": 3
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 3,
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 5
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 135
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "HoverCannon",
+							"race": 1,
+							"turnPoints": 1
+						}
+					}
+				],
+				"row": 3
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 4,
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionCapture",
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 5
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 146
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "PeaceKeeper",
+							"race": 1,
+							"turnPoints": 1
+						}
+					}
+				],
+				"row": 3
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 5,
+				"placedObjects": [],
+				"row": 3
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 6,
+				"placedObjects": [],
+				"row": 3
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 7,
+				"placedObjects": [],
+				"row": 3
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 8,
+				"placedObjects": [],
+				"row": 3
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 2,
+				"placedObjects": [],
+				"row": 4
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 3,
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 5
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 177
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "Ranger",
+							"race": 1,
+							"turnPoints": 2
+						}
+					}
+				],
+				"row": 4
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 4,
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 5
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 188
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "Comanche",
+							"race": 1,
+							"turnPoints": 1
+						}
+					}
+				],
+				"row": 4
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 5,
+				"placedObjects": [],
+				"row": 4
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 6,
+				"placedObjects": [],
+				"row": 4
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 4
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 7,
+				"placedObjects": [],
+				"row": 4
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 4
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 8,
+				"placedObjects": [],
+				"row": 4
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 4
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 3,
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 5
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 215
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "HoverCannon",
+							"race": 1,
+							"turnPoints": 1
+						}
+					}
+				],
+				"row": 5
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 4,
+				"placedObjects": [],
+				"row": 5
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 5,
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionCapture",
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 5
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 230
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "PeaceKeeper",
+							"race": 1,
+							"turnPoints": 1
+						}
+					}
+				],
+				"row": 5
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 6,
+				"placedObjects": [],
+				"row": 5
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 7,
+				"placedObjects": [],
+				"row": 5
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 8,
+				"placedObjects": [],
+				"row": 5
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 9,
+				"placedObjects": [],
+				"row": 5
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 3,
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 5
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 257
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "IonDrone",
+							"race": 1,
+							"turnPoints": 1
+						}
+					}
+				],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 4,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 5,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileOwner": {
+				"__serializationTypeName": "CTileOwner",
+				"beingCapturedBy": null,
+				"captureTurns": 0,
+				"knowledge": {},
+				"owner": {
+					"__serializationRefId": 5
+				}
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 28
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 6,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 7,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 8
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 8,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 8
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 9,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 8
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 7,
+				"placedObjects": [],
+				"row": 0
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 8,
+				"placedObjects": [],
+				"row": 0
+			},
+			"CTileOwner": {
+				"__serializationTypeName": "CTileOwner",
+				"beingCapturedBy": null,
+				"captureTurns": 0,
+				"knowledge": {},
+				"owner": {
+					"__serializationRefId": 6
+				}
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 28
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 8,
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionCapture",
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 6
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 304
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "FlakTrooper",
+							"race": 3,
+							"turnPoints": 1
+						}
+					}
+				],
+				"row": 1
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 9,
+				"placedObjects": [],
+				"row": 1
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 8,
+				"placedObjects": [],
+				"row": 2
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 9,
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 6
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 323
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "ScrapTank",
+							"race": 3,
+							"turnPoints": 1
+						}
+					}
+				],
+				"row": 2
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 9,
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionCapture",
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 6
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 334
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "FlakTrooper",
+							"race": 3,
+							"turnPoints": 1
+						}
+					}
+				],
+				"row": 3
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 10,
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 6
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 345
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "Mech",
+							"race": 3,
+							"turnPoints": 1
+						}
+					}
+				],
+				"row": 3
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 9,
+				"placedObjects": [],
+				"row": 4
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 10,
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 6
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 360
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "ScrapTank",
+							"race": 3,
+							"turnPoints": 1
+						}
+					}
+				],
+				"row": 4
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 10,
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionCapture",
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 6
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 371
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "FlakTrooper",
+							"race": 3,
+							"turnPoints": 1
+						}
+					}
+				],
+				"row": 5
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 11,
+				"placedObjects": [],
+				"row": 5
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 10,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 11,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileOwner": {
+				"__serializationTypeName": "CTileOwner",
+				"beingCapturedBy": null,
+				"captureTurns": 0,
+				"knowledge": {},
+				"owner": {
+					"__serializationRefId": 6
+				}
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 28
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 4,
+				"placedObjects": [],
+				"row": 7
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 5,
+				"placedObjects": [],
+				"row": 7
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 6,
+				"placedObjects": [],
+				"row": 7
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 7,
+				"placedObjects": [],
+				"row": 7
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 8,
+				"placedObjects": [],
+				"row": 7
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 9,
+				"placedObjects": [],
+				"row": 7
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 10,
+				"placedObjects": [],
+				"row": 7
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 11,
+				"placedObjects": [],
+				"row": 7
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 12,
+				"placedObjects": [],
+				"row": 7
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 4,
+				"placedObjects": [],
+				"row": 8
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 5,
+				"placedObjects": [],
+				"row": 8
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 6,
+				"placedObjects": [],
+				"row": 8
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 7,
+				"placedObjects": [],
+				"row": 8
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 8,
+				"placedObjects": [],
+				"row": 8
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 12
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 9,
+				"placedObjects": [],
+				"row": 8
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 12
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 10,
+				"placedObjects": [],
+				"row": 8
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 12
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 11,
+				"placedObjects": [],
+				"row": 8
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 12,
+				"placedObjects": [],
+				"row": 8
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationRefId": 149
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 9,
+				"placedObjects": [],
+				"row": 0
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 10,
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 6
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 472
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "Biker",
+							"race": 3,
+							"turnPoints": 1
+						}
+					}
+				],
+				"row": 2
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 11,
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 6
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 483
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "Sting",
+							"race": 3,
+							"turnPoints": 1
+						}
+					}
+				],
+				"row": 3
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 11,
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 6
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 494
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "Biker",
+							"race": 3,
+							"turnPoints": 1
+						}
+					}
+				],
+				"row": 4
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 12,
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 6
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 505
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "Mech",
+							"race": 3,
+							"turnPoints": 1
+						}
+					}
+				],
+				"row": 5
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 12,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 13,
+				"placedObjects": [],
+				"row": 7
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 13,
+				"placedObjects": [],
+				"row": 8
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 5,
+				"placedObjects": [],
+				"row": 9
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 6,
+				"placedObjects": [],
+				"row": 9
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 7,
+				"placedObjects": [],
+				"row": 9
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 8,
+				"placedObjects": [],
+				"row": 9
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 9,
+				"placedObjects": [],
+				"row": 9
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 10,
+				"placedObjects": [],
+				"row": 9
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 11,
+				"placedObjects": [],
+				"row": 9
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 12,
+				"placedObjects": [],
+				"row": 9
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 13,
+				"placedObjects": [],
+				"row": 9
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 14,
+				"placedObjects": [],
+				"row": 9
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 10,
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 6
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 568
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "Mech",
+							"race": 3,
+							"turnPoints": 1
+						}
+					}
+				],
+				"row": 1
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationRefId": 89
+		},
+		{
+			"__serializationRefId": 180
+		},
+		{
+			"__serializationRefId": 138
+		},
+		{
+			"__serializationRefId": 127
+		},
+		{
+			"__serializationRefId": 100
+		},
+		{
+			"__serializationRefId": 191
+		},
+		{
+			"__serializationRefId": 43
+		},
+		{
+			"__serializationRefId": 218
+		},
+		{
+			"__serializationRefId": 58
+		},
+		{
+			"__serializationRefId": 233
+		},
+		{
+			"__serializationRefId": 260
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 10,
+				"placedObjects": [],
+				"row": 0
+			},
+			"CTileOwner": {
+				"__serializationTypeName": "CTileOwner",
+				"beingCapturedBy": null,
+				"captureTurns": 0,
+				"knowledge": {},
+				"owner": {
+					"__serializationRefId": 6
+				}
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 20
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 11,
+				"placedObjects": [],
+				"row": 2
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 12,
+				"placedObjects": [],
+				"row": 4
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 13,
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 6
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 593
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "Sting",
+							"race": 3,
+							"turnPoints": 1
+						}
+					}
+				],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 14,
+				"placedObjects": [],
+				"row": 8
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationRefId": 307
+		},
+		{
+			"__serializationRefId": 337
+		},
+		{
+			"__serializationRefId": 374
+		},
+		{
+			"__serializationRefId": 497
+		},
+		{
+			"__serializationRefId": 475
+		},
+		{
+			"__serializationRefId": 326
+		},
+		{
+			"__serializationRefId": 363
+		},
+		{
+			"__serializationRefId": 571
+		},
+		{
+			"__serializationRefId": 348
+		},
+		{
+			"__serializationRefId": 508
+		},
+		{
+			"__serializationRefId": 486
+		},
+		{
+			"__serializationRefId": 596
+		}
+	]
+}

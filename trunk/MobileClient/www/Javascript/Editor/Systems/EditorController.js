@@ -99,15 +99,20 @@ var EditorController = function (m_world, m_renderer) {
 
 		rebuildUnitsList();
 
-		// If map is custom, remove all redundant units.
-		var entities = self._eworld.getEntities();
+		if (m_currentBrush instanceof UnitsBrush)
+			onPlaceablesBrushListChange();
 
-		for (var i = 0; i < entities.length; ++i) {
-			var entity = entities[i];
+		// If map is not custom, remove all redundant units.
+		if (!m_gameState.isCustomMap) {
+			var entities = self._eworld.getEntities();
 
-			if (entity.CUnit && !GenericUnits.contains(entity.CUnit.getDefinition())) {
-				entity.destroy();
-				--i;
+			for (var i = 0; i < entities.length; ++i) {
+				var entity = entities[i];
+
+				if (entity.CUnit && !GenericUnits.contains(entity.CUnit.getDefinition())) {
+					entity.destroy();
+					--i;
+				}
 			}
 		}
 	}
@@ -125,6 +130,7 @@ var EditorController = function (m_world, m_renderer) {
 	}
 
 	var rebuildUnitsList = function () {
+		var previousSelectedValue = m_$PlaceablesBrushList.val();
 		m_$PlaceablesBrushList.empty();
 
 		// Generic games allow only basic unit to be placed.
@@ -153,8 +159,15 @@ var EditorController = function (m_world, m_renderer) {
 			}
 		}
 
-		// HACK: Mobile browsers fail and select the disabled element... go figure...
-		m_$PlaceablesBrushList.children(':enabled').first().prop('selected', true );
+
+
+		var selectedOption = m_$PlaceablesBrushList.children('option[value="' + previousSelectedValue + '"]:enabled');
+		if (selectedOption.length == 0) {
+			// HACK: Mobile browsers fail and select the disabled element... go figure...
+			selectedOption = m_$PlaceablesBrushList.children(':enabled').first();
+		}
+
+		selectedOption.prop('selected', true );
 	}
 
 	var rebuildPlayersList = function () {
