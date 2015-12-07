@@ -20,18 +20,16 @@ Actions.Classes.ActionAttack = new function () {
 
 		var attackRangeMin = placeable.CStatistics.statistics['AttackRangeMin'] || 0;
 		var attackRange = placeable.CStatistics.statistics['AttackRange'];
+
+		var playersData = eworld.extract(PlayersData);
 		
 		var placeables = world.getPlaceablesInArea(tile, attackRangeMin, attackRange, placeable);
-		var playersData = eworld.extract(PlayersData);
 		
 		var availableTiles = [];
 		for(var i = 0; i < placeables.length; ++i) {
 			var target = placeables[i];
 
-			if (playersData.getRelation(target.CPlayerData.player, player) == PlayersData.Relation.Enemy &&
-				target.CTilePlaceable.tile.CTileVisibility.visible &&
-				UnitsUtils.canAttackType(placeable, target)
-			)
+			if (this.canAttack(placeable, target, playersData))
 				availableTiles.push(placeables[i].CTilePlaceable.tile);
 		}
 		
@@ -46,6 +44,44 @@ Actions.Classes.ActionAttack = new function () {
 		
 		outActions.push(action);
 	};
+
+	this.getPotentialAttackTiles = function (eworld, world, placeable, tiles) {
+		var potentialTiles = [];
+
+		var attackRangeMin = placeable.CStatistics.statistics['AttackRangeMin'] || 0;
+		var attackRange = placeable.CStatistics.statistics['AttackRange'];
+
+		var playersData = eworld.extract(PlayersData);
+
+		var placeablesInRange = [];
+		for(var i = 0; i < tiles.length; ++i) {
+			var tile = tiles[i];
+
+			var placeables = world.getPlaceablesInArea(tile, attackRangeMin, attackRange, placeable);
+			
+			for(var j = 0; j < placeables.length; ++j) {
+				if (!placeablesInRange.contains(placeables[j])) {
+					placeablesInRange.push(placeables[j]);
+				}
+			}
+		}
+
+
+		for (var i = 0; i < placeablesInRange.length; ++i) {
+			var target = placeablesInRange[i];
+
+			if (this.canAttack(placeable, target, playersData))
+				potentialTiles.push(target.CTilePlaceable.tile);
+		}
+
+		return potentialTiles;
+	};
+
+	this.canAttack = function (attacker, defender, playersData) {
+		return playersData.getRelation(attacker.CPlayerData.player, defender.CPlayerData.player) == PlayersData.Relation.Enemy &&
+				defender.CTilePlaceable.tile.CTileVisibility.visible &&
+				UnitsUtils.canAttackType(attacker, defender);
+	}
 	
 	this.executeAction = function (eworld, world, action) {
 
