@@ -10,6 +10,7 @@ var MapStorage = new function () {
 	this.maps = [
 		'Dance42',
 		'HexIsle',
+		'UnitTesting',
 		'MissingMap',
 	];
 
