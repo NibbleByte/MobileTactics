@@ -40,6 +40,22 @@ var ActionsRenderingSystem = function (m_executor, m_battleSystem) {
 		GameExecutor.iterateOverActionTiles(m_selectedGOActions.actions, ActionsRender.highlightTileAction);
 
 		iterateAttackedUnit(m_selectedGOActions, renderBattleOutcomeOperation);
+
+		var moveAction =  goActions.getActionByType(Actions.Classes.ActionMove);
+		if (goActions.go.CPlayerData.player != gameState.currentPlayer && moveAction) {
+
+			m_potentialTiles = Actions.Classes.ActionAttack.getPotentialAttackTiles(
+				self._eworld, 
+				self._eworld.getSystem(GameWorld), 
+				goActions.go, 
+				moveAction.availableTiles
+			);
+
+			for(var i = 0; i < m_potentialTiles.length; ++i) {
+				ActionsRender.highlightTile(m_potentialTiles[i], Actions.Classes.ActionAttack);
+				renderBattleOutcomeOperation(goActions.go, m_potentialTiles[i].CTile.placedObjects[0]);
+			}
+		}
 	}
 
 	var onActionsCleared = function() {
@@ -51,6 +67,12 @@ var ActionsRenderingSystem = function (m_executor, m_battleSystem) {
 
 		iterateAttackedUnit(m_selectedGOActions, clearBattleOutcomeOperation);
 
+		for (var i = 0; i < m_potentialTiles.length; ++i) {
+			ActionsRender.unHighlightTile(m_potentialTiles[i]);
+			clearBattleOutcomeOperation(m_selectedGOActions.go, m_potentialTiles[i].CTile.placedObjects[0]);
+		}
+
+		m_potentialTiles = [];
 		m_selectedGOActions = null;
 	}
 
@@ -71,8 +93,8 @@ var ActionsRenderingSystem = function (m_executor, m_battleSystem) {
 		}
 	}
 
-	var renderBattleOutcomeOperation = function (unit, enemy) {
-		var outcome = m_battleSystem.predictOutcome(unit, enemy);
+	var renderBattleOutcomeOperation = function (unit, enemy, unitTile) {
+		var outcome = m_battleSystem.predictOutcome(unit, enemy, true, unitTile);
 
 		if (outcome.damageToDefender > 0) {
 			enemy.CUnitRendering.$damage.text('-' + outcome.damageToDefender);
@@ -95,6 +117,7 @@ var ActionsRenderingSystem = function (m_executor, m_battleSystem) {
 	//
 	var m_actionPreExecutors = {};
 	var m_selectedGOActions = null;
+	var m_potentialTiles = [];
 	
 	
 	//m_actionPreExecutors[Actions.Classes.ActionAttack.actionName] = ActionsRenderingSystem.ActionExecutors.AttackExecutor;
