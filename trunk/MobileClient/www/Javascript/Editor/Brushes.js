@@ -56,6 +56,10 @@ var UnitsBrush = function (m_eworld, m_world, unitDefinition, player) {
 				tile.CTile.placedObjects[0].destroy();
 			}
 
+			if (self.unitDefinition == null) {
+				return;
+			}
+
 			var terrainType = tile.CTileTerrain.type;
 
 			// Find the first available terrain type this unit can be placed, if current is not suitable.
