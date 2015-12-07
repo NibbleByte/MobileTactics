@@ -133,8 +133,14 @@ var EditorController = function (m_world, m_renderer) {
 		var previousSelectedValue = m_$PlaceablesBrushList.val();
 		m_$PlaceablesBrushList.empty();
 
+		$('<option />')
+		.text('Clear')
+		.attr('value', 'null')
+		.appendTo(m_$PlaceablesBrushList);
+
 		// Generic games allow only basic unit to be placed.
 		if (!m_gameState.isCustomMap) {
+
 			$('<option />')
 			.text('Race Basic Unit')
 			.attr('value', UnitsFactory.generateDefinitionPath(UnitsDefinitions[Player.Races.Empire].PeaceKeeper))
@@ -238,7 +244,7 @@ var EditorController = function (m_world, m_renderer) {
 
 
 		changeBrush(new UnitsBrush(self._eworld, m_world, 
-			UnitsFactory.resolveDefinitionPath(m_$PlaceablesBrushList.val()),
+			extractUnitDefinitionFromList(m_$PlaceablesBrushList),
 			m_playersData.players[parseInt(m_$PlayerBrushList.val())]
 		));
 
@@ -261,7 +267,7 @@ var EditorController = function (m_world, m_renderer) {
 		if (Utils.assert(m_currentBrush instanceof UnitsBrush))
 			return;
 
-		m_currentBrush.unitDefinition = UnitsFactory.resolveDefinitionPath(m_$PlaceablesBrushList.val());
+		m_currentBrush.unitDefinition = extractUnitDefinitionFromList(m_$PlaceablesBrushList);
 		m_currentBrush.player = m_playersData.players[parseInt(m_$PlayerBrushList.val())];
 
 		self._eworld.trigger(EditorEvents.Brushes.ACTIVE_BRUSH_MODIFIED, m_currentBrush);
@@ -272,6 +278,16 @@ var EditorController = function (m_world, m_renderer) {
 			onPlaceablesBrushListChange();
 		else
 			onTerrainBrushListChange();
+	}
+
+	var extractUnitDefinitionFromList = function (list) {
+		var path = list.val();
+
+		if (path == 'null') {
+			return null;
+		}
+
+		return UnitsFactory.resolveDefinitionPath(path);
 	}
 
 	var lastTouchRow = null;
