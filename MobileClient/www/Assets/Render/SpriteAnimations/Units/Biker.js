@@ -1,24 +1,17 @@
 
-SpriteAnimations.Units.Ranger = {
+SpriteAnimations.Units.Biker = {
 
-	resourcePath: 'Ranger.png',
+	resourcePath: 'Biker.png',
 	
 	frameWidth: 78,
 	frameHeight: 72,
 	framesPerRow: 4,
 	anchorX: Animator.AnchorX.Center,
 	anchorY: 40,
-	
+
 	sequences: [
 		{
 			name: 'Idle',
-			startIndex: 0,
-			frames: 1,
-		},
-		
-		{
-			name: 'Idle0',
-			speed: 20,
 			startIndex: 0,
 			frames: 1,
 		},
