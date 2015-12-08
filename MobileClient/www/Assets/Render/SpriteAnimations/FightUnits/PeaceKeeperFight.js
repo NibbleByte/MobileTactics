@@ -67,7 +67,7 @@ SpriteAnimations.FightUnits.PeaceKeeper = {
 // TODO: These units don't have sprites yet. Remove this when they do!
 //SpriteAnimations.FightUnits.Ranger = $.extend(true, {}, SpriteAnimations.FightUnits.PeaceKeeper);
 //SpriteAnimations.FightUnits.HoverCannon = $.extend(true, {}, SpriteAnimations.FightUnits.PeaceKeeper);
-SpriteAnimations.FightUnits.Comanche = $.extend(true, {}, SpriteAnimations.FightUnits.PeaceKeeper);
+//SpriteAnimations.FightUnits.Comanche = $.extend(true, {}, SpriteAnimations.FightUnits.PeaceKeeper);
 SpriteAnimations.FightUnits.IonDrone = $.extend(true, {}, SpriteAnimations.FightUnits.PeaceKeeper);
 
 
@@ -80,6 +80,60 @@ SpriteAnimations.FightUnits.Ranger = {
 	framesPerRow: 5,
 	anchorX: 80,
 	anchorY: 138,
+	
+	sequences: [
+		{
+			name: 'Idle',
+			startIndex: 0,
+			frames: 1,
+		},
+		
+		
+		{
+			name: 'Idle0',
+			speed: 15,
+			startIndex: 0,
+			frames: 1,
+		},
+		
+		{
+			name: 'Run',
+			speed: 15,
+			startIndex: 0,
+			frames: 1,
+		},
+
+		{
+			name: 'Attack',
+			speed: 10,
+			startIndex: 0,
+			frames: 1,
+
+			events: [
+				
+				{
+					frame: 0,
+					event: FightRenderingEvents.Animations.FIRE,
+					params: {
+						weaponType: FightUnitWeaponType.Shotgun,
+						final: true,
+					}
+				},
+			],
+		},
+
+	]
+};
+
+SpriteAnimations.FightUnits.Comanche = {
+
+	resourcePath: 'Comanche.png',
+
+	frameWidth: 180,
+	frameHeight: 170,
+	framesPerRow: 5,
+	anchorX: 90,
+	anchorY: 148,
 	
 	sequences: [
 		{
