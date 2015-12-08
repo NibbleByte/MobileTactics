@@ -60,11 +60,64 @@ SpriteAnimations.FightUnits.FlakTrooper = {
 };
 
 // TODO: These units don't have sprites yet. Remove this when they do!
-SpriteAnimations.FightUnits.Biker = $.extend(true, {}, SpriteAnimations.FightUnits.FlakTrooper);
+//SpriteAnimations.FightUnits.Biker = $.extend(true, {}, SpriteAnimations.FightUnits.FlakTrooper);
 //SpriteAnimations.FightUnits.ScrapTank = $.extend(true, {}, SpriteAnimations.FightUnits.FlakTrooper);
 SpriteAnimations.FightUnits.Mech = $.extend(true, {}, SpriteAnimations.FightUnits.FlakTrooper);
 SpriteAnimations.FightUnits.Sting = $.extend(true, {}, SpriteAnimations.FightUnits.FlakTrooper);
 
+
+SpriteAnimations.FightUnits.Biker = {
+
+	resourcePath: 'Biker.png',
+
+	frameWidth: 180,
+	frameHeight: 170,
+	framesPerRow: 5,
+	speed: 14,
+	anchorX: Animator.AnchorX.Center,
+	anchorY: 140,
+	
+	sequences: [
+		{
+			name: 'Idle',
+			startIndex: 0,
+			frames: 1,
+		},
+		
+		
+		{
+			name: 'Idle0',
+			startIndex: 0,
+			frames: 1,
+		},
+		
+		{
+			name: 'Run',
+			startIndex: 0,
+			frames: 1,
+		},
+
+		{
+			name: 'Attack',
+			startIndex: 0,
+			frames: 1,
+			speed: 9,
+
+			events: [
+				
+				{
+					frame: 0,
+					event: FightRenderingEvents.Animations.FIRE,
+					params: {
+						weaponType: FightUnitWeaponType.Shotgun,
+						final: true,
+					}
+				},
+			],
+		},
+
+	]
+};
 
 SpriteAnimations.FightUnits.ScrapTank = {
 
@@ -74,7 +127,7 @@ SpriteAnimations.FightUnits.ScrapTank = {
 	frameHeight: 176,
 	framesPerRow: 5,
 	speed: 14,
-	anchorX: Animator.AnchorY.Center,
+	anchorX: Animator.AnchorX.Center,
 	anchorY: 150,
 	
 	sequences: [
