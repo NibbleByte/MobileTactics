@@ -119,6 +119,59 @@ SpriteAnimations.FightUnits.Biker = {
 	]
 };
 
+SpriteAnimations.FightUnits.Mech = {
+
+	resourcePath: 'Mech.png',
+
+	frameWidth: 180,
+	frameHeight: 170,
+	framesPerRow: 5,
+	speed: 14,
+	anchorX: Animator.AnchorX.Center,
+	anchorY: 145,
+	
+	sequences: [
+		{
+			name: 'Idle',
+			startIndex: 0,
+			frames: 1,
+		},
+		
+		
+		{
+			name: 'Idle0',
+			startIndex: 0,
+			frames: 1,
+		},
+		
+		{
+			name: 'Run',
+			startIndex: 0,
+			frames: 1,
+		},
+
+		{
+			name: 'Attack',
+			startIndex: 0,
+			frames: 1,
+			speed: 9,
+
+			events: [
+				
+				{
+					frame: 0,
+					event: FightRenderingEvents.Animations.FIRE,
+					params: {
+						weaponType: FightUnitWeaponType.Shotgun,
+						final: true,
+					}
+				},
+			],
+		},
+
+	]
+};
+
 SpriteAnimations.FightUnits.ScrapTank = {
 
 	resourcePath: 'ScrapTank.png',
