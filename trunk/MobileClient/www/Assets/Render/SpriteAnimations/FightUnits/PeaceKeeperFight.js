@@ -7,7 +7,7 @@ SpriteAnimations.FightUnits.PeaceKeeper = {
 	frameWidth: 177,
 	frameHeight: 186,
 	framesPerRow: 5,
-	anchorX: Animator.AnchorY.Center,
+	anchorX: Animator.AnchorX.Center,
 	anchorY: 144,
 	
 	sequences: [
@@ -68,7 +68,7 @@ SpriteAnimations.FightUnits.PeaceKeeper = {
 //SpriteAnimations.FightUnits.Ranger = $.extend(true, {}, SpriteAnimations.FightUnits.PeaceKeeper);
 //SpriteAnimations.FightUnits.HoverCannon = $.extend(true, {}, SpriteAnimations.FightUnits.PeaceKeeper);
 //SpriteAnimations.FightUnits.Comanche = $.extend(true, {}, SpriteAnimations.FightUnits.PeaceKeeper);
-SpriteAnimations.FightUnits.IonDrone = $.extend(true, {}, SpriteAnimations.FightUnits.PeaceKeeper);
+//SpriteAnimations.FightUnits.IonDrone = $.extend(true, {}, SpriteAnimations.FightUnits.PeaceKeeper);
 
 
 SpriteAnimations.FightUnits.Ranger = {
@@ -222,6 +222,61 @@ SpriteAnimations.FightUnits.HoverCannon = {
 				
 				{
 					frame: 3,
+					event: FightRenderingEvents.Animations.FIRE,
+					params: {
+						weaponType: FightUnitWeaponType.Shotgun,
+						final: true,
+					}
+				},
+			],
+		},
+
+	]
+};
+
+
+SpriteAnimations.FightUnits.IonDrone = {
+
+	resourcePath: 'IonDrone.png',
+
+	frameWidth: 180,
+	frameHeight: 170,
+	framesPerRow: 5,
+	anchorX: Animator.AnchorX.Center,
+	anchorY: 146,
+	
+	sequences: [
+		{
+			name: 'Idle',
+			startIndex: 0,
+			frames: 1,
+		},
+		
+		
+		{
+			name: 'Idle0',
+			speed: 15,
+			startIndex: 0,
+			frames: 1,
+		},
+		
+		{
+			name: 'Run',
+			speed: 15,
+			startIndex: 0,
+			frames: 1,
+		},
+
+		{
+			name: 'Attack',
+			speed: 10,
+			startIndex: 0,
+			frames: 1,
+
+			events: [
+				
+				{
+					frame: 0,
 					event: FightRenderingEvents.Animations.FIRE,
 					params: {
 						weaponType: FightUnitWeaponType.Shotgun,

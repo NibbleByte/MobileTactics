@@ -102,7 +102,9 @@
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\TerrainSkins.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\Comanche.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\Biker.js" />
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\DarkAdroit.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\FlakTrooper.js" />
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\IonDrone.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\Nibbler.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\PeaceKeeper.js" />
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\Ranger.js" />

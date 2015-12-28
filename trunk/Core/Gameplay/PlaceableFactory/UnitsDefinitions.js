@@ -597,6 +597,47 @@ UnitsDefinitions[Player.Races.Roaches] = {
 		},
 	},
 
+
+	DarkAdroit: {
+		race: 0,
+		name: '@!@',
+		price: 600,
+		type: UnitType.Heavy,
+
+		baseStatistics: {
+			AttackLight: 6,
+			AttackHeavy: 9,
+			AttackAerial: 8,
+			AttackRange: 5,
+			HealRate: 1,
+			Defence: 3,
+			Movement: 5,
+			Visibility: 6,
+		},
+		
+		actions: [
+				  Actions.Classes.ActionMove,
+				  Actions.Classes.ActionStay,
+				  Actions.Classes.ActionAttack,
+				  Actions.Classes.ActionHeal,
+				 ],
+		
+		terrainStats: new function () {
+			this[GameWorldTerrainType.Plains] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: -2, Defence: -1};
+			this[GameWorldTerrainType.Rough] =		{ Cost: 3, Attack: -2, Defence: -3};
+
+			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.Minerals] =	{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: 0};
+		},
+
+		AIHints: {
+			guardsNeeded: 3,
+		}
+	},
 };
 
 GenericUnits.push(UnitsDefinitions[Player.Races.Empire].PeaceKeeper);
