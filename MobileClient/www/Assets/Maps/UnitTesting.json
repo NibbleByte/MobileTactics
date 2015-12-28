@@ -464,7 +464,44 @@
 			"CTile": {
 				"__serializationTypeName": "CTile",
 				"column": 5,
-				"placedObjects": [],
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 5
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 112
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "DarkAdroit",
+							"race": 2,
+							"turnPoints": 1
+						}
+					}
+				],
 				"row": 2
 			},
 			"CTileTerrain": {
@@ -492,7 +529,44 @@
 			"CTile": {
 				"__serializationTypeName": "CTile",
 				"column": 7,
-				"placedObjects": [],
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 6
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 127
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "DarkAdroit",
+							"race": 2,
+							"turnPoints": 1
+						}
+					}
+				],
 				"row": 2
 			},
 			"CTileTerrain": {
@@ -531,7 +605,7 @@
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 124
+								"__serializationRefId": 138
 							}
 						},
 						"CUnit": {
@@ -582,7 +656,7 @@
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 135
+								"__serializationRefId": 149
 							}
 						},
 						"CUnit": {
@@ -634,7 +708,7 @@
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 146
+								"__serializationRefId": 160
 							}
 						},
 						"CUnit": {
@@ -755,7 +829,7 @@
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 177
+								"__serializationRefId": 191
 							}
 						},
 						"CUnit": {
@@ -806,7 +880,7 @@
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 188
+								"__serializationRefId": 202
 							}
 						},
 						"CUnit": {
@@ -913,7 +987,7 @@
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 215
+								"__serializationRefId": 229
 							}
 						},
 						"CUnit": {
@@ -979,7 +1053,7 @@
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 230
+								"__serializationRefId": 244
 							}
 						},
 						"CUnit": {
@@ -1005,7 +1079,44 @@
 			"CTile": {
 				"__serializationTypeName": "CTile",
 				"column": 6,
-				"placedObjects": [],
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 5
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 255
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "DarkAdroit",
+							"race": 2,
+							"turnPoints": 1
+						}
+					}
+				],
 				"row": 5
 			},
 			"CTileTerrain": {
@@ -1047,7 +1158,44 @@
 			"CTile": {
 				"__serializationTypeName": "CTile",
 				"column": 9,
-				"placedObjects": [],
+				"placedObjects": [
+					{
+						"__serializationTypeName": "ECS.Entity",
+						"CActions": {
+							"__serializationTypeName": "CActions",
+							"actions": [
+								"ActionMove",
+								"ActionStay",
+								"ActionAttack",
+								"ActionHeal"
+							]
+						},
+						"CEffects": {
+							"__serializationTypeName": "CEffects",
+							"effects": []
+						},
+						"CPlayerData": {
+							"__serializationTypeName": "CPlayerData",
+							"player": {
+								"__serializationRefId": 6
+							}
+						},
+						"CTilePlaceable": {
+							"__serializationTypeName": "CTilePlaceable",
+							"tile": {
+								"__serializationRefId": 274
+							}
+						},
+						"CUnit": {
+							"__serializationTypeName": "CUnit",
+							"finishedTurn": false,
+							"health": 10,
+							"name": "DarkAdroit",
+							"race": 2,
+							"turnPoints": 1
+						}
+					}
+				],
 				"row": 5
 			},
 			"CTileTerrain": {
@@ -1086,7 +1234,7 @@
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 257
+								"__serializationRefId": 285
 							}
 						},
 						"CUnit": {
@@ -1268,7 +1416,7 @@
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 304
+								"__serializationRefId": 332
 							}
 						},
 						"CUnit": {
@@ -1347,7 +1495,7 @@
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 323
+								"__serializationRefId": 351
 							}
 						},
 						"CUnit": {
@@ -1399,7 +1547,7 @@
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 334
+								"__serializationRefId": 362
 							}
 						},
 						"CUnit": {
@@ -1450,7 +1598,7 @@
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 345
+								"__serializationRefId": 373
 							}
 						},
 						"CUnit": {
@@ -1515,7 +1663,7 @@
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 360
+								"__serializationRefId": 388
 							}
 						},
 						"CUnit": {
@@ -1567,7 +1715,7 @@
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 371
+								"__serializationRefId": 399
 							}
 						},
 						"CUnit": {
@@ -1892,7 +2040,7 @@
 			}
 		},
 		{
-			"__serializationRefId": 149
+			"__serializationRefId": 163
 		},
 		{
 			"__serializationTypeName": "ECS.Entity",
@@ -1938,7 +2086,7 @@
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 472
+								"__serializationRefId": 500
 							}
 						},
 						"CUnit": {
@@ -1989,7 +2137,7 @@
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 483
+								"__serializationRefId": 511
 							}
 						},
 						"CUnit": {
@@ -2040,7 +2188,7 @@
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 494
+								"__serializationRefId": 522
 							}
 						},
 						"CUnit": {
@@ -2091,7 +2239,7 @@
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 505
+								"__serializationRefId": 533
 							}
 						},
 						"CUnit": {
@@ -2324,7 +2472,7 @@
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 568
+								"__serializationRefId": 596
 							}
 						},
 						"CUnit": {
@@ -2349,34 +2497,34 @@
 			"__serializationRefId": 89
 		},
 		{
-			"__serializationRefId": 180
+			"__serializationRefId": 194
 		},
 		{
-			"__serializationRefId": 138
+			"__serializationRefId": 152
 		},
 		{
-			"__serializationRefId": 127
+			"__serializationRefId": 141
 		},
 		{
 			"__serializationRefId": 100
 		},
 		{
-			"__serializationRefId": 191
+			"__serializationRefId": 205
 		},
 		{
 			"__serializationRefId": 43
 		},
 		{
-			"__serializationRefId": 218
+			"__serializationRefId": 232
 		},
 		{
 			"__serializationRefId": 58
 		},
 		{
-			"__serializationRefId": 233
+			"__serializationRefId": 247
 		},
 		{
-			"__serializationRefId": 260
+			"__serializationRefId": 288
 		},
 		{
 			"__serializationTypeName": "ECS.Entity",
@@ -2459,7 +2607,7 @@
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 593
+								"__serializationRefId": 621
 							}
 						},
 						"CUnit": {
@@ -2495,40 +2643,52 @@
 			}
 		},
 		{
-			"__serializationRefId": 307
+			"__serializationRefId": 335
 		},
 		{
-			"__serializationRefId": 337
+			"__serializationRefId": 365
 		},
 		{
-			"__serializationRefId": 374
+			"__serializationRefId": 402
 		},
 		{
-			"__serializationRefId": 497
+			"__serializationRefId": 525
 		},
 		{
-			"__serializationRefId": 475
+			"__serializationRefId": 503
 		},
 		{
-			"__serializationRefId": 326
+			"__serializationRefId": 354
 		},
 		{
-			"__serializationRefId": 363
+			"__serializationRefId": 391
 		},
 		{
-			"__serializationRefId": 571
+			"__serializationRefId": 599
 		},
 		{
-			"__serializationRefId": 348
+			"__serializationRefId": 376
 		},
 		{
-			"__serializationRefId": 508
+			"__serializationRefId": 536
 		},
 		{
-			"__serializationRefId": 486
+			"__serializationRefId": 514
 		},
 		{
-			"__serializationRefId": 596
+			"__serializationRefId": 624
+		},
+		{
+			"__serializationRefId": 115
+		},
+		{
+			"__serializationRefId": 258
+		},
+		{
+			"__serializationRefId": 130
+		},
+		{
+			"__serializationRefId": 277
 		}
 	]
 }
