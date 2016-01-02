@@ -63,7 +63,7 @@
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
+				"skin": 1,
 				"type": 8
 			}
 		},
@@ -147,7 +147,7 @@
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
+				"skin": 1,
 				"type": 8
 			}
 		},
@@ -241,7 +241,7 @@
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
+				"skin": 1,
 				"type": 1
 			}
 		},
@@ -255,7 +255,7 @@
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
+				"skin": 1,
 				"type": 1
 			}
 		},
@@ -343,7 +343,7 @@
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
+				"skin": 1,
 				"type": 1
 			}
 		},
@@ -357,7 +357,7 @@
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
+				"skin": 2,
 				"type": 1
 			}
 		},
@@ -399,7 +399,7 @@
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
+				"skin": 1,
 				"type": 8
 			}
 		},
@@ -436,7 +436,7 @@
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
+				"skin": 1,
 				"type": 1
 			}
 		},
@@ -765,7 +765,7 @@
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
+				"skin": 1,
 				"type": 8
 			}
 		},
@@ -779,7 +779,7 @@
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
+				"skin": 1,
 				"type": 8
 			}
 		},
@@ -793,7 +793,7 @@
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
+				"skin": 2,
 				"type": 1
 			}
 		},
@@ -867,7 +867,7 @@
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
+				"skin": 1,
 				"type": 8
 			}
 		},
@@ -939,7 +939,7 @@
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
+				"skin": 1,
 				"type": 8
 			}
 		},
@@ -1027,7 +1027,7 @@
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
+				"skin": 1,
 				"type": 8
 			}
 		},
@@ -1041,7 +1041,7 @@
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
+				"skin": 1,
 				"type": 8
 			}
 		},
@@ -1121,7 +1121,7 @@
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
+				"skin": 1,
 				"type": 1
 			}
 		},
@@ -1135,7 +1135,7 @@
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
+				"skin": 2,
 				"type": 1
 			}
 		},
@@ -1149,7 +1149,7 @@
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
+				"skin": 1,
 				"type": 1
 			}
 		},
@@ -1163,7 +1163,7 @@
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
+				"skin": 2,
 				"type": 1
 			}
 		},
