@@ -4,7 +4,7 @@ var GameWorldTerrainSkin = [];
 
 GameWorldTerrainSkin[GameWorldTerrainType.None] = [ 'None' ];
 GameWorldTerrainSkin[GameWorldTerrainType.Plains] = [ 'Plains', 'Plains02', 'Plains03' ];
-GameWorldTerrainSkin[GameWorldTerrainType.Forest] = [ 'Forest01', 'Forest02' ];
+GameWorldTerrainSkin[GameWorldTerrainType.Forest] = [ 'Forest01', 'Forest02', 'Forest03', 'Forest04' ];
 GameWorldTerrainSkin[GameWorldTerrainType.Mountain] = [ 'Mountain', 'Mountain02' ];
 GameWorldTerrainSkin[GameWorldTerrainType.Rough] = [ 'Rough' ];
 GameWorldTerrainSkin[GameWorldTerrainType.Water] = [ 'Water' ];
