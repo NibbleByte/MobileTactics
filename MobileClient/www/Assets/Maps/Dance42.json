@@ -105,7 +105,7 @@
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 1,
+				"skin": 3,
 				"type": 4
 			}
 		},
@@ -227,7 +227,7 @@
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 1,
+				"skin": 2,
 				"type": 4
 			}
 		},
@@ -629,7 +629,7 @@
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 1,
+				"skin": 2,
 				"type": 4
 			}
 		},
@@ -699,7 +699,7 @@
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 1,
+				"skin": 3,
 				"type": 4
 			}
 		},
