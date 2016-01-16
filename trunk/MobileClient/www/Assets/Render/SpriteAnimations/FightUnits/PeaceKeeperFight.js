@@ -241,7 +241,7 @@ SpriteAnimations.FightUnits.IonDrone = {
 
 	frameWidth: 180,
 	frameHeight: 170,
-	framesPerRow: 5,
+	framesPerRow: 4,
 	anchorX: Animator.AnchorX.Center,
 	anchorY: 146,
 	
@@ -255,9 +255,9 @@ SpriteAnimations.FightUnits.IonDrone = {
 		
 		{
 			name: 'Idle0',
-			speed: 15,
+			speed: 12,
 			startIndex: 0,
-			frames: 1,
+			frames: 8,
 		},
 		
 		{
