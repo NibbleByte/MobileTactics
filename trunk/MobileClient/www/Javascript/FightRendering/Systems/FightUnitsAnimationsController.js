@@ -32,7 +32,11 @@ var FightUnitsAnimationsController = function () {
 
 		var animator = fightUnit.CAnimations.animators[FightUnitsRenderingSystem.MAIN_ANIM];
 
-		animator.playSequence('Run');
+		if (animator.hasSequence('Run')) {
+			animator.playSequence('Run');
+		} else {
+			IdleAnimationsSystem.playRandomIdleAnimation(animator);
+		}
 	}
 
 

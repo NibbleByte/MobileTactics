@@ -90,12 +90,6 @@ SpriteAnimations.FightUnits.Biker = {
 			startIndex: 0,
 			frames: 1,
 		},
-		
-		{
-			name: 'Run',
-			startIndex: 0,
-			frames: 1,
-		},
 
 		{
 			name: 'Attack',
@@ -140,12 +134,6 @@ SpriteAnimations.FightUnits.ScrapTank = {
 		
 		{
 			name: 'Idle0',
-			startIndex: 0,
-			frames: 4,
-		},
-		
-		{
-			name: 'Run',
 			startIndex: 0,
 			frames: 4,
 		},
@@ -196,12 +184,6 @@ SpriteAnimations.FightUnits.Mech = {
 			startIndex: 0,
 			frames: 1,
 		},
-		
-		{
-			name: 'Run',
-			startIndex: 0,
-			frames: 1,
-		},
 
 		{
 			name: 'Attack',
@@ -246,12 +228,6 @@ SpriteAnimations.FightUnits.Sting = {
 		
 		{
 			name: 'Idle0',
-			startIndex: 0,
-			frames: 1,
-		},
-		
-		{
-			name: 'Run',
 			startIndex: 0,
 			frames: 1,
 		},
