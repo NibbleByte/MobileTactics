@@ -13,6 +13,7 @@ var FightUnitState = {
 	None: 0,
 	Idle: 0,
 	ShowingUp: 0,
+	AttackReady: 0,
 	Attacking: 0,
 	Hurt: 0,
 	Dead: 0,
