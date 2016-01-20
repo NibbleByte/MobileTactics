@@ -95,13 +95,6 @@ SpriteAnimations.FightUnits.Ranger = {
 			startIndex: 0,
 			frames: 1,
 		},
-		
-		{
-			name: 'Run',
-			speed: 15,
-			startIndex: 0,
-			frames: 1,
-		},
 
 		{
 			name: 'Attack',
@@ -145,13 +138,6 @@ SpriteAnimations.FightUnits.Comanche = {
 		
 		{
 			name: 'Idle0',
-			speed: 15,
-			startIndex: 0,
-			frames: 1,
-		},
-		
-		{
-			name: 'Run',
 			speed: 15,
 			startIndex: 0,
 			frames: 1,
@@ -204,13 +190,6 @@ SpriteAnimations.FightUnits.HoverCannon = {
 			startIndex: 0,
 			frames: 6,
 		},
-		
-		{
-			name: 'Run',
-			speed: 15,
-			startIndex: 0,
-			frames: 6,
-		},
 
 		{
 			name: 'Attack',
@@ -241,7 +220,7 @@ SpriteAnimations.FightUnits.IonDrone = {
 
 	frameWidth: 180,
 	frameHeight: 170,
-	framesPerRow: 4,
+	framesPerRow: 5,
 	anchorX: Animator.AnchorX.Center,
 	anchorY: 146,
 	
@@ -255,28 +234,21 @@ SpriteAnimations.FightUnits.IonDrone = {
 		
 		{
 			name: 'Idle0',
-			speed: 12,
+			speed: 6,
 			startIndex: 0,
 			frames: 8,
-		},
-		
-		{
-			name: 'Run',
-			speed: 15,
-			startIndex: 0,
-			frames: 1,
 		},
 
 		{
 			name: 'Attack',
-			speed: 10,
-			startIndex: 0,
-			frames: 1,
+			speed: 3,
+			startIndex: 8,
+			frames: 8,
 
 			events: [
 				
 				{
-					frame: 0,
+					frame: 7,
 					event: FightRenderingEvents.Animations.FIRE,
 					params: {
 						weaponType: FightUnitWeaponType.Shotgun,
