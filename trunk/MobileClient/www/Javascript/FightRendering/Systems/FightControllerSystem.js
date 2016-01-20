@@ -148,9 +148,8 @@ var FightControllerSystem = function (m_renderer) {
 
 	var onAttack = function (unit) {
 		
-		unit.CFightUnit.state = FightUnitState.Attacking;
+		unit.CFightUnit.state = FightUnitState.AttackReady;
 
-		self._eworld.trigger(FightRenderingEvents.Fight.ATTACK, unit);
 	}
 
 	var onAttackFinish = function (unit) {

@@ -50,8 +50,18 @@ var FightUnitsAnimationsController = function () {
 			IdleAnimationsSystem.playRandomIdleAnimation(params.animator);
 
 			var entity = params.entity;
-			if (entity.CFightUnit && entity.CFightUnit.state == FightUnitState.Attacking) {
-				self._eworld.trigger(FightRenderingEvents.Fight.ATTACK_FINISH, entity);	
+			if (entity.CFightUnit) {
+
+				if (entity.CFightUnit.state == FightUnitState.Attacking) {
+					self._eworld.trigger(FightRenderingEvents.Fight.ATTACK_FINISH, entity);
+
+				} else if (entity.CFightUnit.state == FightUnitState.AttackReady) {
+
+					// Resume from last idle frame.
+					entity.CFightUnit.state = FightUnitState.Attacking;
+
+					self._eworld.trigger(FightRenderingEvents.Fight.ATTACK, entity);
+				}
 			}
 		}
 	}
