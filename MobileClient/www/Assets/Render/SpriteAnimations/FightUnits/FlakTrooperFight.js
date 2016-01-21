@@ -214,7 +214,7 @@ SpriteAnimations.FightUnits.Sting = {
 	frameWidth: 180,
 	frameHeight: 170,
 	framesPerRow: 5,
-	speed: 14,
+	speed: 12,
 	anchorX: Animator.AnchorX.Center,
 	anchorY: 150,
 	
@@ -229,7 +229,7 @@ SpriteAnimations.FightUnits.Sting = {
 		{
 			name: 'Idle0',
 			startIndex: 0,
-			frames: 1,
+			frames: 4,
 		},
 
 		{
