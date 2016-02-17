@@ -6,7 +6,7 @@ SpriteAnimations.FightUnits.FlakTrooper = {
 
 	frameWidth: 180,
 	frameHeight: 170,
-	framesPerRow: 1,
+	framesPerRow: 6,
 	anchorX: Animator.AnchorX.Center,
 	anchorY: 140,
 	
@@ -30,18 +30,16 @@ SpriteAnimations.FightUnits.FlakTrooper = {
 		{
 			name: 'Run',
 			speed: 10,
-			startX: 0,
-			startY: 0,
-			frames: 1,
+			startIndex: 0,
+			frames: 8,
 			wrapMode: Animator.WrapMode.Loop,
 		},
 
 		{
 			name: 'Attack',
-			speed: 10,
-			startX: 0,
-			startY: 0,
-			frames: 1,
+			speed: 8,
+			startIndex: 0,
+			frames: 8,
 
 			events: [
 				
@@ -213,7 +211,7 @@ SpriteAnimations.FightUnits.Sting = {
 
 	frameWidth: 180,
 	frameHeight: 170,
-	framesPerRow: 5,
+	framesPerRow: 6,
 	speed: 12,
 	anchorX: Animator.AnchorX.Center,
 	anchorY: 150,
@@ -229,19 +227,30 @@ SpriteAnimations.FightUnits.Sting = {
 		{
 			name: 'Idle0',
 			startIndex: 0,
+			speed: 12,
 			frames: 4,
 		},
 
 		{
 			name: 'Attack',
-			startIndex: 0,
-			frames: 1,
-			speed: 9,
+			startIndex: 4,
+			frames: 12,
+			speed: 7,
+			frameSamples: [null, null, null, null, null, 0, 1, 2, 3, 4, 5, 6],
 
 			events: [
 				
 				{
-					frame: 0,
+					frame: 4,
+					event: FightRenderingEvents.Animations.FIRE,
+					params: {
+						weaponType: FightUnitWeaponType.Shotgun,
+						final: false,
+					}
+				},
+
+				{
+					frame: 7,
 					event: FightRenderingEvents.Animations.FIRE,
 					params: {
 						weaponType: FightUnitWeaponType.Shotgun,
