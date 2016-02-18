@@ -53,7 +53,7 @@ var ActionsRenderingSystem = function (m_executor, m_battleSystem) {
 
 			for(var i = 0; i < m_potentialTiles.length; ++i) {
 				ActionsRender.highlightTile(m_potentialTiles[i], Actions.Classes.ActionAttack);
-				renderBattleOutcomeOperation(goActions.go, m_potentialTiles[i].CTile.placedObjects[0]);
+				renderBattleOutcomeOperation(goActions.go, m_potentialTiles[i].CTile.placedObjects[0], true);
 			}
 		}
 	}
@@ -93,8 +93,8 @@ var ActionsRenderingSystem = function (m_executor, m_battleSystem) {
 		}
 	}
 
-	var renderBattleOutcomeOperation = function (unit, enemy, unitTile) {
-		var outcome = m_battleSystem.predictOutcome(unit, enemy, true, unitTile);
+	var renderBattleOutcomeOperation = function (unit, enemy, ignoreRanges) {
+		var outcome = m_battleSystem.predictOutcome(unit, enemy, ignoreRanges);
 
 		if (outcome.damageToDefender > 0) {
 			enemy.CUnitRendering.$damage.text('-' + outcome.damageToDefender);
