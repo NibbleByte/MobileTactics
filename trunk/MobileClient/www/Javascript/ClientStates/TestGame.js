@@ -389,56 +389,18 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 
 			setTimeout(function () {
 			
-				m_clientState.world.clearTiles();
-		
-				Utils.invalidate(m_clientState.playersData);
-				Utils.invalidate(m_clientState.gameState);
-		
-				var allObjects = [];
-			
-				var fullGameState = Serialization.deserialize(data, allObjects);
-		
-				m_clientState.gameState = fullGameState.gameState;
-				m_clientState.playersData = fullGameState.playersData;
-				m_eworld.store(PlayersData, m_clientState.playersData);
-				m_eworld.store(GameState, m_clientState.gameState);
+				var gameLoader = new GameLoader(m_clientState, m_eworld);
 
-				m_clientState.gameState.fogOfWar = m_fogOfWar;
+				gameLoader.load(data, function () {
 
-				// Up to 2 human players only (for now).
-				for(var i = 2; i < m_clientState.playersData.players.length; ++i) {
-					m_clientState.playersData.players[i].type = Player.Types.AI;
-				}
+					m_clientState.gameState.fogOfWar = m_fogOfWar;
 
-				m_eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING] = true;
-		
-				m_eworld.trigger(EngineEvents.General.GAME_LOADING);
-		
-				for(var i = 0; i < allObjects.length; ++i) {
-					if (allObjects[i].onDeserialize)
-						allObjects[i].onDeserialize(m_eworld);
-				}
-		
-				var entities = fullGameState.world;
-				for(var i = 0; i < entities.length; ++i) {
-			
-					UnitsFactory.postDeserialize(entities[i]);
-					m_eworld.addUnmanagedEntity(entities[i]);
-				}
-		
-				for(var i = 0; i < entities.length; ++i) {
-					m_eworld.trigger(EngineEvents.Serialization.ENTITY_DESERIALIZED, entities[i]);
-				}
-		
-				var failReasons = [];
-				m_eworld.trigger(EngineEvents.General.GAME_VALIDATE, failReasons);
-				if (failReasons.length > 0) {
-					m_eworld.trigger(EngineEvents.General.GAME_VALIDATION_FAILED, failReasons);
-				}
+					// Up to 2 human players only (for now).
+					for(var i = 2; i < m_clientState.playersData.players.length; ++i) {
+						m_clientState.playersData.players[i].type = Player.Types.AI;
+					}
 
-				m_eworld.triggerAsync(EngineEvents.General.GAME_LOADED);
-
-				m_eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING] = false;
+				});
 
 				// Avoid refreshing while loading.
 				m_eworld.extract(GameWorldRenderer).refresh();
@@ -469,42 +431,23 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 
 			setTimeout(function () {
 
-				// Uninitialize anything old
-				m_clientState.world.clearTiles();
+				var gameLoader = new GameLoader(m_clientState, m_eworld);
 
-				if (m_clientState.playersData)	Utils.invalidate(m_clientState.playersData);
-				if (m_clientState.gameState)	Utils.invalidate(m_clientState.gameState);
+				gameLoader.create(function () {
 
+					m_clientState.gameState.fogOfWar = m_fogOfWar;
 
-				// Initialize new data
-				m_clientState.playersData = new PlayersData(m_eworld);
-				m_eworld.store(PlayersData, m_clientState.playersData);
-				m_clientState.gameState = new GameState();
-				m_eworld.store(GameState, m_clientState.gameState);
+					m_clientState.playersData.addPlayer('Pl1', Player.Types.Human, Player.Races.Empire, PlayerColors[0]);
+					m_clientState.playersData.addPlayer('Pl2', Player.Types.Human, Player.Races.JunkPeople, PlayerColors[1]);
+					m_clientState.playersData.addPlayer('Pl3', Player.Types.Human, Player.Races.Developers, PlayerColors[2]);
+					m_clientState.playersData.addPlayer('Pl4', Player.Types.Human, Player.Races.Developers, PlayerColors[3]);
 
-				m_clientState.gameState.fogOfWar = m_fogOfWar;
+				},
 
-				m_eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING] = true;
-			
-				m_eworld.trigger(EngineEvents.General.GAME_LOADING);
-
-				m_clientState.playersData.addPlayer('Pl1', Player.Types.Human, Player.Races.Empire, PlayerColors[0]);
-				m_clientState.playersData.addPlayer('Pl2', Player.Types.Human, Player.Races.JunkPeople, PlayerColors[1]);
-				m_clientState.playersData.addPlayer('Pl3', Player.Types.Human, Player.Races.Developers, PlayerColors[2]);
-				m_clientState.playersData.addPlayer('Pl4', Player.Types.Human, Player.Races.Developers, PlayerColors[3]);
-	
-				var ROWS = 10, COLUMNS = 10;
-				fillTerrainPattern(m_eworld, m_clientState.world, m_clientState.playersData, ROWS, COLUMNS);
-
-				var failReasons = [];
-				m_eworld.trigger(EngineEvents.General.GAME_VALIDATE, failReasons);
-				if (failReasons.length > 0) {
-					m_eworld.trigger(EngineEvents.General.GAME_VALIDATION_FAILED, failReasons);
-				}
-
-				m_eworld.triggerAsync(EngineEvents.General.GAME_LOADED);
-
-				m_eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING] = false;
+				function () {
+					var ROWS = 10, COLUMNS = 10;
+					fillTerrainPattern(m_eworld, m_clientState.world, m_clientState.playersData, ROWS, COLUMNS);
+				});
 
 				// Avoid refreshing while loading.
 				m_eworld.extract(GameWorldRenderer).refresh();
