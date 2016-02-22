@@ -575,6 +575,9 @@
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\DarkAdroit.js">
       <Filter>Assets\Render\SpriteAnimations\Units</Filter>
     </None>
+    <None Include="..\..\Core\Gameplay\GameLoader.js">
+      <Filter>Javascript\Core\Gameplay</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
