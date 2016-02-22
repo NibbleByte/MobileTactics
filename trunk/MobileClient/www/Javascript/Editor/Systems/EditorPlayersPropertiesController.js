@@ -17,6 +17,8 @@ var EditorPlayersPropertiesController = function () {
 
 	var m_shownPlayerIndex = 0;
 	var m_$raceSelect = null;
+	var m_$typeSelect = null;
+	var m_$teamInput = null;
 	var m_$startCreditsSelect = null;
 	var m_$creditsPerMineSelect = null;
 
@@ -83,8 +85,13 @@ var EditorPlayersPropertiesController = function () {
 
 	var applyProps = function (player) {
 		player.race = parseInt(m_$raceSelect.val());
+		player.type = parseInt(m_$typeSelect.val());
+		player.teamId = parseInt(m_$teamInput.val());
 		player.credits = parseInt(m_$startCreditsSelect.val());
 		player.creditsPerMine = parseInt(m_$creditsPerMineSelect.val());
+
+		if (isNaN(player.teamId) || player.teamId < -1)
+			player.teamId = -1;
 	}
 
 	var showPlayerProperties = function (player) {
@@ -103,12 +110,33 @@ var EditorPlayersPropertiesController = function () {
 		//
 		// Race
 		//
-		m_$raceSelect = EditorPlayersPropertiesController.populateRaceOptions($('<select>'));
+		m_$raceSelect = EditorPlayersPropertiesController.populateOptions($('<select>'), Player.Races);
 		m_$raceSelect.val(player.race);
 
 		$tr = $('<tr>').appendTo(m_$PlayersPropsTable);
 		$('<td>').appendTo($tr).text('Race:');
 		$('<td>').appendTo($tr).append(m_$raceSelect);
+
+		//
+		// Type
+		//
+		m_$typeSelect = EditorPlayersPropertiesController.populateOptions($('<select>'), Player.Types);
+		m_$typeSelect.val(player.type);
+
+		$tr = $('<tr>').appendTo(m_$PlayersPropsTable);
+		$('<td>').appendTo($tr).text('Type:');
+		$('<td>').appendTo($tr).append(m_$typeSelect);
+
+		//
+		// Team
+		//
+		m_$teamInput = $('<input>')
+		.attr('type', 'number')
+		.val(player.teamId);
+
+		$tr = $('<tr>').appendTo(m_$PlayersPropsTable);
+		$('<td>').appendTo($tr).text('Team:');
+		$('<td>').appendTo($tr).append(m_$teamInput);
 
 		//
 		// Starting Credits
@@ -162,11 +190,11 @@ EditorPlayersPropertiesController.populateCreditsPerMineOptions = function (sele
 	.append('<option value="500">500</option>');
 }
 
-EditorPlayersPropertiesController.populateRaceOptions = function (select) {
-	
-	for(var name in Player.Races) {
+EditorPlayersPropertiesController.populateOptions = function (select, enumClass) {
+
+	for (var name in enumClass) {
 		$('<option></option>')
-		.attr('value', Player.Races[name])
+		.attr('value', enumClass[name])
 		.text(name)
 		.appendTo(select);
 	}
