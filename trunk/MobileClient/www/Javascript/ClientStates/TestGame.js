@@ -25,7 +25,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 
 	var m_$TbBrowseAddress = $('#TbBrowseAddress');
 
-	var subscriber = new DOMSubscriber();
+	var m_subscriber = new DOMSubscriber();
 
 	var m_fogOfWar = true; 
 	
@@ -240,7 +240,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		m_$ActionMenu.hide();
 		m_$ToolbarContainer.hide();
 
-		subscriber.unsubscribeAll();
+		m_subscriber.unsubscribeAll();
 
 		if (m_clientState) {
 			m_clientState.gameState = null;
@@ -263,19 +263,6 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 
 		m_$GameWorldMap.show();
 		m_$ToolbarContainer.show();
-
-		// Some statistics
-		window.FrameStats = new FrameStats($('#FrameStats'), 1000);
-		window.FrameStats.pause();
-		var onScreenResize = function (event) {
-			var screenStats = '';
-			//screenStats += 'Screen Width: ' + screen.width + '<br />';
-			screenStats += 'Resution: ' +  window.innerWidth + 'x' + window.innerHeight + '<br />';
-			screenStats += 'DPR: ' + DisplayManager.devicePixelRatio + ' (x' + DisplayManager.zoom.toPrecision(2) + ')' + '<br />';
-			$('#ScreenStats').html(screenStats);
-		}
-
-
 
 		//
 		// World
@@ -572,6 +559,15 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 				console.error('> ' + failedReasons[i]);
 			}
 		}
+
+
+		var onBackButton = function () {
+			if (Application.tryCancelDialogs())
+				return;
+
+			currentState = ClientStateManager.changeState(ClientStateManager.types.MainMenu);
+		}
+
 	
 		m_clientState.eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, onTurnChanged);
 		m_clientState.eworldSB.subscribe(GameplayEvents.GameState.NO_PLAYING_PLAYERS, onTurnChanged);
@@ -595,21 +591,18 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 	
 	
 		// Toolbar listeners
-		subscriber.subscribe(m_$BtnSave, 'click', onBtnSave);
-		subscriber.subscribe(m_$BtnLoad, 'click', onBtnLoad);
-		subscriber.subscribe(m_$BtnRemoveTile, 'click', onBtnRemoveTile);
-		subscriber.subscribe(m_$BtnRestart, 'click', onBtnRestart);
-		subscriber.subscribe(m_$BtnUndo, 'click', onBtnUndo);
-		subscriber.subscribe(m_$BtnPlayer, 'click', onBtnPlayer);
-		subscriber.subscribe(m_$BtnPlayerType, 'click', onBtnPlayerType);
-		subscriber.subscribe(m_$BtnDebug, 'click', onBtnDebug);
-		subscriber.subscribe(m_$BtnBrowse, 'click', onBtnBrowse);
-		subscriber.subscribe(m_$BtnAddress, 'click', onBtnAddress);
+		m_subscriber.subscribe(m_$BtnSave, 'click', onBtnSave);
+		m_subscriber.subscribe(m_$BtnLoad, 'click', onBtnLoad);
+		m_subscriber.subscribe(m_$BtnRemoveTile, 'click', onBtnRemoveTile);
+		m_subscriber.subscribe(m_$BtnRestart, 'click', onBtnRestart);
+		m_subscriber.subscribe(m_$BtnUndo, 'click', onBtnUndo);
+		m_subscriber.subscribe(m_$BtnPlayer, 'click', onBtnPlayer);
+		m_subscriber.subscribe(m_$BtnPlayerType, 'click', onBtnPlayerType);
+		m_subscriber.subscribe(m_$BtnDebug, 'click', onBtnDebug);
+		m_subscriber.subscribe(m_$BtnBrowse, 'click', onBtnBrowse);
+		m_subscriber.subscribe(m_$BtnAddress, 'click', onBtnAddress);
 
-		subscriber.subscribe(window, 'load', onScreenResize);
-		subscriber.subscribe(window, 'resize', onScreenResize);
-		subscriber.subscribe(window, 'orientationchange', onScreenResize);
-		onScreenResize();
+		m_subscriber.subscribe(document, 'backbutton', onBackButton);
 
 		return m_clientState;
 	}

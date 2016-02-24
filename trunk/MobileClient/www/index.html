@@ -20,6 +20,7 @@
 			<link rel="stylesheet" href="Assets/DevTools.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/DevConsole.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/Dialogs.css" type="text/css" media="screen">
+			<link rel="stylesheet" href="Assets/MainMenu.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/Game.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/FightScreen.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/Editor.css" type="text/css" media="screen">
@@ -28,14 +29,14 @@
 	</head>
 	
 	<body>
-		<div id="RuntimeStats" onclick="$('#RuntimeStats').hide(); $('#RuntimeStatsButton').show(); window.FrameStats.pause();" style="display: none;">
+		<div id="RuntimeStats" onclick="$('#RuntimeStats').hide(); $('#RuntimeStatsButton').show(); window.frameStats.pause();" style="display: none;">
 			<div id="FrameStats"></div>
 			<div id="ScreenStats"></div>
 			<div id="AssetsStats"></div>
 			<div id="ZoomStats"></div>
 			<div id="DebugStats"></div>
 		</div>
-		<div id="RuntimeStatsButton" onclick="$('#RuntimeStats').show(); $('#RuntimeStatsButton').hide(); window.FrameStats.resume();">
+		<div id="RuntimeStatsButton" onclick="$('#RuntimeStats').show(); $('#RuntimeStatsButton').hide(); window.frameStats.resume();">
 			FPS
 		</div>
 
@@ -60,7 +61,7 @@
 			<div id="Console">
 				<div id="ConsoleButtons">
 					<button id="BtnConsoleClear" onclick="$('#Console').children().not('#ConsoleButtons').remove();">Clear</button>
-					<button id="BtnConsoleClose" onclick="$('#Console').hide();">&nbsp; &nbsp; X &nbsp; &nbsp;</button>
+					<button id="BtnConsoleClose" class="btn_cancel" onclick="$('#Console').hide();">&nbsp; &nbsp; X &nbsp; &nbsp;</button>
 				</div>
 			</div>
 
@@ -79,7 +80,7 @@
 					</table>
 					
 					<div class="dialog_buttons">
-						<button id="BtnStoreClose">Close</button>
+						<button id="BtnStoreClose" class="btn_done">Close</button>
 					</div>
 				</div>
 			</div>
@@ -98,7 +99,7 @@
 					<span id="FightScreenRestart" style="margin: 4px; color: white; background: rgba(82, 82, 82, 0.88); border-radius: 8px; padding: 8px;">
 						Restart
 					</span>
-					<span id="FightScreenQuit" style="margin: 4px; color: white; background: rgba(82, 82, 82, 0.88); border-radius: 8px; padding: 8px;">
+					<span id="FightScreenQuit" class="btn_done" style="margin: 4px; color: white; background: rgba(82, 82, 82, 0.88); border-radius: 8px; padding: 8px;">
 						Skip
 					</span>
 				</div>
@@ -312,6 +313,28 @@
 			</div>
 			
 			<div id="ActionMenu" style="display: none;">
+			</div>
+
+			<div id="MainMenu">
+				<div id="MainMenuContainer" class="dialog dialog_container_floating">
+					<h1>Mobile Tactics</h1>
+
+					<div class="dialog_body">
+						<button disabled>Online</button>
+						<button disabled>Offline</button>
+
+						<div class="dialog_separator"></div>
+
+						<button disabled>Campaign</button>
+						<button id="MenuSkirmish">Skirmish</button>
+
+						<div class="dialog_separator"></div>
+
+						<button id="MenuEditor">Editor</button>
+						<button disabled>Settings</button>
+						<button disabled>About</button>
+					</div>
+				</div>
 			</div>
 		</div>		
 
@@ -553,6 +576,7 @@
 		<!-- ==========	Mobile Client - Run ====================== -->
 			<script type="text/javascript" src="Javascript/ClientStates/ClientStateManager.js"></script>
 			<script type="text/javascript" src="Javascript/ClientStates/TestGame.js"></script>
+			<script type="text/javascript" src="Javascript/ClientStates/MainMenu.js"></script>
 			
 			
 			<script type="text/javascript" src="Javascript/DevConsole.js"></script>
