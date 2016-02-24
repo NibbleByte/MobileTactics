@@ -59,10 +59,6 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 		m_$GameWorldMap.show();
 		m_$ToolbarContainer.show();
 
-
-		window.FrameStats = new FrameStats($('#FrameStats'), 1000);
-		window.FrameStats.pause();
-
 		//
 		// World
 		//
@@ -261,6 +257,14 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 			}
 		}
 
+
+		var onBackButton = function () {
+			if (Application.tryCancelDialogs())
+				return;
+
+			currentState = ClientStateManager.changeState(ClientStateManager.types.MainMenu);
+		}
+
 		m_clientState.eworldSB.subscribe(EngineEvents.General.GAME_VALIDATION_FAILED, onValidationFailed);
 		m_clientState.eworldSB.subscribe(EngineEvents.General.GAME_LOADED, onGameLoaded);
 
@@ -271,6 +275,8 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 
 		m_subscriber.subscribe($('#BtnSaveEditor'), 'click', onBtnSave);
 		m_subscriber.subscribe(m_$BtnLoad, 'change', onBtnLoad);
+
+		m_subscriber.subscribe(document, 'backbutton', onBackButton);
 
 		return m_clientState;
 	}

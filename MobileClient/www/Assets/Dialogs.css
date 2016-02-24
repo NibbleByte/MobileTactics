@@ -43,3 +43,9 @@
 	margin: auto;
 	text-align: center;
 }
+
+.dialog_separator
+{
+	margin: auto;
+	height: 1.2em
+}

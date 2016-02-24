@@ -578,6 +578,12 @@
     <None Include="..\..\Core\Gameplay\GameLoader.js">
       <Filter>Javascript\Core\Gameplay</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Javascript\ClientStates\MainMenu.js">
+      <Filter>Javascript\ClientStates</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Assets\MainMenu.css">
+      <Filter>Assets</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
