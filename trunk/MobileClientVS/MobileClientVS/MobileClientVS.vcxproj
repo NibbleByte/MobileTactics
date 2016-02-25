@@ -132,7 +132,6 @@
     <None Include="..\..\MobileClient\www\Javascript\AIController.js" />
     <None Include="..\..\MobileClient\www\Javascript\AIControllerUI.js" />
     <None Include="..\..\MobileClient\www\Javascript\AssetsStaticScaler.js" />
-    <None Include="..\..\MobileClient\www\Javascript\BrowserBackwardCompatibility.js" />
     <None Include="..\..\MobileClient\www\Javascript\ClientEvents.js" />
     <None Include="..\..\MobileClient\www\Javascript\ClientStates\ClientStateManager.js" />
     <None Include="..\..\MobileClient\www\Javascript\ClientStates\MainMenu.js" />
@@ -167,8 +166,9 @@
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightUnitsRenderingSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightUnitStatsController.js" />
     <None Include="..\..\MobileClient\www\Javascript\FightRendering\Systems\FightVSRenderingSystem.js" />
+    <None Include="..\..\MobileClient\www\Javascript\Infrastructure\MapsStorage.js" />
+    <None Include="..\..\MobileClient\www\Javascript\Infrastructure\SavesStorage.js" />
     <None Include="..\..\MobileClient\www\Javascript\Main.js" />
-    <None Include="..\..\MobileClient\www\Javascript\MapsStorage.js" />
     <None Include="..\..\MobileClient\www\Javascript\PlayerController.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\ActionsRender.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Animator.js" />
@@ -202,6 +202,7 @@
     <None Include="..\..\MobileClient\www\Javascript\Render\TileGlobals.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\WorldLayers.js" />
     <None Include="..\..\MobileClient\www\Javascript\UnitFactoryClient.js" />
+    <None Include="..\..\MobileClient\www\Javascript\Utils\BrowserBackwardCompatibility.js" />
     <None Include="..\..\MobileClient\www\Javascript\Utils\ClientUtils.js" />
     <None Include="..\..\MobileClient\www\Javascript\Utils\DOMSubscriber.js" />
     <None Include="..\..\MobileClient\www\Javascript\Utils\FrameStats.js" />

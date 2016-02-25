@@ -1,0 +1,38 @@
+//===============================================
+// SavesStorage.js
+// Read/write game saves.
+//===============================================
+"use strict";
+
+var SavesStorage = new function () {
+	var self = this;
+
+	var m_storage = null;
+
+	this.loadGame = function (saveName) {
+		return m_storage.get(saveName);
+	};
+
+	this.loadGameMetaData = function () {
+		var rawData = JSON.parse(m_storage.get(saveName));
+		delete rawData['world'];	// Not needed data.
+
+		return Serialization.deserialize(rawData);
+	}
+
+	this.saveGame = function (saveName, data) {
+		return m_storage.set(saveName, data);
+	};
+
+	this.isValidSave = function (saveName) {
+		return m_storage.get(saveName) !== null;
+	}
+
+
+
+
+	var init = function () {
+		m_storage = new Persist.Store('MT');
+	}
+	$(init);
+};
