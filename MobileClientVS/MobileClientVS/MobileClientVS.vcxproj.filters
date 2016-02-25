@@ -278,9 +278,6 @@
     <None Include="..\..\MobileClient\www\Javascript\ClientStates\ClientStateManager.js">
       <Filter>Javascript\ClientStates</Filter>
     </None>
-    <None Include="..\..\MobileClient\www\Javascript\BrowserBackwardCompatibility.js">
-      <Filter>Javascript</Filter>
-    </None>
     <None Include="..\..\MobileClient\www\Javascript\Editor\Brushes.js">
       <Filter>Javascript\Editor</Filter>
     </None>
@@ -524,9 +521,6 @@
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\TerrainSkins.js">
       <Filter>Assets\Render\SpriteAnimations</Filter>
     </None>
-    <None Include="..\..\MobileClient\www\Javascript\MapsStorage.js">
-      <Filter>Javascript</Filter>
-    </None>
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\World\Forest.js">
       <Filter>Assets\Render\SpriteAnimations\World</Filter>
     </None>
@@ -583,6 +577,15 @@
     </None>
     <None Include="..\..\MobileClient\www\Assets\MainMenu.css">
       <Filter>Assets</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Javascript\Infrastructure\MapsStorage.js">
+      <Filter>Javascript\Infrastructure</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Javascript\Utils\BrowserBackwardCompatibility.js">
+      <Filter>Javascript\Utils</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Javascript\Infrastructure\SavesStorage.js">
+      <Filter>Javascript\Infrastructure</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -714,6 +717,9 @@
     </Filter>
     <Filter Include="Assets\Render\SpriteAnimations\Fight">
       <UniqueIdentifier>{e1873e80-29a9-4457-8fe4-34555071c0dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Javascript\Infrastructure">
+      <UniqueIdentifier>{196be921-0233-4aa7-b348-9d499ee6b478}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
