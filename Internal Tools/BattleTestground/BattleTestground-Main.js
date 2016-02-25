@@ -10,22 +10,22 @@ $(function () {
 	}
 
 	var fetchValue = function ($el, applyHandler) {
-		store.get($el.attr('id'), function (ok, val) {
-			if (ok && applyHandler) {
-				applyHandler(val);
-			}
-		});
+		var val = store.get($el.attr('id'));
+
+		if (val !== undefined) {
+			applyHandler(val);
+		}
 	};
 
 	var restoreValue = function ($el, suppressChange, applyHandler) {
-		store.get($el.attr('id'), function (ok, val) {
-			if (ok) {
-				$el.val(val);
-				if (!suppressChange) $el.change();
-				if (applyHandler)
-					applyHandler(null, val);
-			}
-		});
+		var val = store.get($el.attr('id'));
+		
+		if (val !== undefined) {
+			$el.val(val);
+			if (!suppressChange) $el.change();
+			if (applyHandler)
+				applyHandler(null, val);
+		}
 	}
 
 
