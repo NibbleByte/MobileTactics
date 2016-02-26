@@ -63,7 +63,7 @@ $(function () {
 		} else if (ClientUtils.urlParams['Test']) {
 			currentState = ClientStateManager.changeState(ClientStateManager.types.TestGame);
 		} else {
-			currentState = ClientStateManager.changeState(ClientStateManager.types.MainMenu);
+			currentState = ClientStateManager.changeState(ClientStateManager.types.MenuScreen);
 		}
 
 

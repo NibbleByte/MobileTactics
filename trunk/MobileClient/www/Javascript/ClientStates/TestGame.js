@@ -565,7 +565,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 			if (Application.tryCancelDialogs())
 				return;
 
-			currentState = ClientStateManager.changeState(ClientStateManager.types.MainMenu);
+			currentState = ClientStateManager.changeState(ClientStateManager.types.MenuScreen);
 		}
 
 	

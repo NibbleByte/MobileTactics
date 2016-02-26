@@ -20,7 +20,7 @@
 			<link rel="stylesheet" href="Assets/DevTools.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/DevConsole.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/Dialogs.css" type="text/css" media="screen">
-			<link rel="stylesheet" href="Assets/MainMenu.css" type="text/css" media="screen">
+			<link rel="stylesheet" href="Assets/MenuScreen.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/Game.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/FightScreen.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="Assets/Editor.css" type="text/css" media="screen">
@@ -315,22 +315,22 @@
 			<div id="ActionMenu" style="display: none;">
 			</div>
 
-			<div id="MainMenu">
-				<div id="MainMenuContainer" class="dialog dialog_container_floating">
+			<div id="MenuScreen">
+				<div id="MenuScreenContainer" class="dialog dialog_container_floating">
 					<h1>Mobile Tactics</h1>
 
-					<div class="dialog_body">
+					<div id="MainMenu" class="dialog_body">
 						<button disabled>Online</button>
 						<button disabled>Offline</button>
 
 						<div class="dialog_separator"></div>
 
 						<button disabled>Campaign</button>
-						<button id="MenuSkirmish">Skirmish</button>
+						<button id="MainMenuSkirmish">Skirmish</button>
 
 						<div class="dialog_separator"></div>
 
-						<button id="MenuEditor">Editor</button>
+						<button id="MainMenuEditor">Editor</button>
 						<button disabled>Settings</button>
 						<button disabled>About</button>
 					</div>
@@ -578,7 +578,7 @@
 		<!-- ==========	Mobile Client - Run ====================== -->
 			<script type="text/javascript" src="Javascript/ClientStates/ClientStateManager.js"></script>
 			<script type="text/javascript" src="Javascript/ClientStates/TestGame.js"></script>
-			<script type="text/javascript" src="Javascript/ClientStates/MainMenu.js"></script>
+			<script type="text/javascript" src="Javascript/ClientStates/MenuScreen.js"></script>
 			
 			
 			<script type="text/javascript" src="Javascript/DevConsole.js"></script>

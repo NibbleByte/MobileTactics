@@ -1,23 +1,23 @@
 //===============================================
-// MainMenu
+// MenuScreen
 // Main menu state.
 //===============================================
 "use strict";
 
-ClientStateManager.registerState(ClientStateManager.types.MainMenu, new function () {
+ClientStateManager.registerState(ClientStateManager.types.MenuScreen, new function () {
 	var self = this;
 
-	var m_$MainMenu = $('#MainMenu').hide();
+	var m_$MenuScreen = $('#MenuScreen').hide();
 
-	var m_$BtnSkirmish = $('#MenuSkirmish');
-	var m_$BtnEditor = $('#MenuEditor');
+	var m_$BtnSkirmish = $('#MainMenuSkirmish');
+	var m_$BtnEditor = $('#MainMenuEditor');
 
 	var m_subscriber = new DOMSubscriber();
 
 	var m_clientState = null;
 
 	this.cleanUp = function () {
-		m_$MainMenu.hide();
+		m_$MenuScreen.hide();
 
 		m_subscriber.unsubscribeAll();
 
@@ -33,7 +33,7 @@ ClientStateManager.registerState(ClientStateManager.types.MainMenu, new function
 
 		m_loadingScreen.hide();
 
-		m_$MainMenu.show();
+		m_$MenuScreen.show();
 
 
 
