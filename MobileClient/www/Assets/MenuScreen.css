@@ -1,10 +1,10 @@
-#MainMenu
+#MenuScreen
 {
 	background: url('UI/MainMenu-Background.jpg') right bottom;
 	background-size: cover;
 }
 
-#MainMenuContainer button
+#MenuScreenContainer button
 {
 	display: block;
 	margin: 1em auto;

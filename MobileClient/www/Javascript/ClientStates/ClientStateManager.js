@@ -13,7 +13,7 @@ var ClientStateManager = new function () {
 	
 	this.types = {
 		TestGame: 0,
-		MainMenu: 0,
+		MenuScreen: 0,
 		LocalGame: 0,
 		NetworkGame: 0,
 		WorldEditor: 0,

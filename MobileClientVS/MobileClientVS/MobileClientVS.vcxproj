@@ -87,7 +87,7 @@
     <None Include="..\..\MobileClient\www\Assets\FightScreen.css" />
     <None Include="..\..\MobileClient\www\Assets\Game.css" />
     <None Include="..\..\MobileClient\www\Assets\Main.css" />
-    <None Include="..\..\MobileClient\www\Assets\MainMenu.css" />
+    <None Include="..\..\MobileClient\www\Assets\MenuScreen.css" />
     <None Include="..\..\MobileClient\www\Assets\Render\OverlayEffects.css" />
     <None Include="..\..\MobileClient\www\Assets\Render\Placeables.css" />
     <None Include="..\..\MobileClient\www\Assets\Render\SceneRenderer.css" />
@@ -134,7 +134,7 @@
     <None Include="..\..\MobileClient\www\Javascript\AssetsStaticScaler.js" />
     <None Include="..\..\MobileClient\www\Javascript\ClientEvents.js" />
     <None Include="..\..\MobileClient\www\Javascript\ClientStates\ClientStateManager.js" />
-    <None Include="..\..\MobileClient\www\Javascript\ClientStates\MainMenu.js" />
+    <None Include="..\..\MobileClient\www\Javascript\ClientStates\MenuScreen.js" />
     <None Include="..\..\MobileClient\www\Javascript\ClientStates\TestGame.js" />
     <None Include="..\..\MobileClient\www\Javascript\ClientStates\WorldEditor.js" />
     <None Include="..\..\MobileClient\www\Javascript\CommonController.js" />

@@ -572,12 +572,6 @@
     <None Include="..\..\Core\Gameplay\GameLoader.js">
       <Filter>Javascript\Core\Gameplay</Filter>
     </None>
-    <None Include="..\..\MobileClient\www\Javascript\ClientStates\MainMenu.js">
-      <Filter>Javascript\ClientStates</Filter>
-    </None>
-    <None Include="..\..\MobileClient\www\Assets\MainMenu.css">
-      <Filter>Assets</Filter>
-    </None>
     <None Include="..\..\MobileClient\www\Javascript\Infrastructure\MapsStorage.js">
       <Filter>Javascript\Infrastructure</Filter>
     </None>
@@ -586,6 +580,12 @@
     </None>
     <None Include="..\..\MobileClient\www\Javascript\Infrastructure\SavesStorage.js">
       <Filter>Javascript\Infrastructure</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Assets\MenuScreen.css">
+      <Filter>Assets</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Javascript\ClientStates\MenuScreen.js">
+      <Filter>Javascript\ClientStates</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
