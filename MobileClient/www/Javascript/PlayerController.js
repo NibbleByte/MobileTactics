@@ -115,7 +115,7 @@ var PlayerController = function (m_executor) {
 					self._eworld.trigger(ClientEvents.Controller.ACTIONS_CLEARED);
 				
 					if (Store.canPlayerShop(self._eworld, m_selectedTile)) {
-						StoreRender.apply(self._eworld, m_selectedTile);
+						StoreScreen.apply(self._eworld, m_selectedTile);
 					}
 				}
 			}

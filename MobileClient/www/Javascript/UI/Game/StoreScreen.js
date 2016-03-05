@@ -1,10 +1,10 @@
 //===============================================
-// StoreRender
+// StoreScreen
 // Takes care of the store rendering.
 //===============================================
 "use strict";
 
-var StoreRender = new function () {
+var StoreScreen = new function () {
 	var self = this;
 	
 	var m_$container = $('#Store');
