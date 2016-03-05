@@ -356,6 +356,8 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		//
 		var onBtnSave = function () {
 			var entities = m_eworld.getEntities();
+
+			m_clientState.gameMetaData.lastPlayed = Date.now();
 		
 			var fullGameState = {
 					gameState: m_clientState.gameState,

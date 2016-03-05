@@ -107,8 +107,9 @@ var MenuScreenState = new function () {
 		navigateTo(self.States.MainMenu);
 
 
-
+		//
 		// Populate game slot entries
+		//
 		$('[GameSlotName]').each(function () {
 			
 			var slotName = $(this).attr('GameSlotName');
@@ -127,11 +128,16 @@ var MenuScreenState = new function () {
 					}
 				}
 
+				var date = new Date(metaData.gameMetaData.lastPlayed);
+				date = date.toLocaleDateString() + '<br />' + date.getHours() + ':' + date.getMinutes();
+
 				var $name = $('<h3>').text(metaData.gameMetaData.name + ': T' + metaData.gameState.turnsPassed);
+				var $date = $('<div>').html(date).addClass('game_slot_entry_date_played');
 				var $playersDesc = $('<div>').text(playersDesc.join(' VS ')).addClass('game_slot_entry_desc');
 
 				$(this)
 				.append($name)
+				.append($date)
 				.append($playersDesc);
 
 			} else {

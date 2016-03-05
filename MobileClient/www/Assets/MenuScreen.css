@@ -13,7 +13,7 @@
 .game_slot_entry
 {
 	margin: 8px auto;
-	width: 250px;
+	width: 280px;
 	padding: 4px;
 	
 	border: 2px cadetblue solid;
@@ -21,13 +21,22 @@
 	background-color: rgba(24, 35, 35, 0.47);
 	
 	overflow: hidden;
+	position: relative;
 }
 
 .game_slot_entry h3
 {
-	margin: 0px;
+	margin: 0px auto 4px auto;
 	font-size: 1em;
 	white-space: nowrap;
+}
+
+.game_slot_entry_date_played
+{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	font-size: 0.72em;
 }
 
 .game_slot_entry_desc
