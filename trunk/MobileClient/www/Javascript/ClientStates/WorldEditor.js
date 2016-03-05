@@ -176,7 +176,7 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 				m_clientState.playersData.setIsPlaying(player, usedPlayers[player.playerId]);
 			}
 
-
+			m_clientState.gameMetaData.lastModified = Date.now();
 		
 			var fullGameState = {
 					gameState: m_clientState.gameState,

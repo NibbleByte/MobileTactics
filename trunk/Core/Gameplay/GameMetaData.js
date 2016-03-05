@@ -12,6 +12,9 @@ var GameMetaData = function () {
 GameMetaData.prototype.init = function () {
 	this.name = 'Unknown';
 	this.description = '';
+
+	this.lastModified = 0;
+	this.lastPlayed = 0;
 }
 
 Serialization.registerClass(GameMetaData, 'GameMetaData');
