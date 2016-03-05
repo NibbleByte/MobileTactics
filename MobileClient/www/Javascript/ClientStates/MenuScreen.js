@@ -50,7 +50,7 @@ var MenuScreenState = new function () {
 	}
 
 	var navigateToButtonHandler = function (event) {
-		var targetMenu = $(event.target).attr('NavigateToMenu');
+		var targetMenu = $(event.currentTarget).attr('NavigateToMenu');
 
 		navigateTo(self.States[targetMenu]);
 	}
@@ -60,7 +60,7 @@ var MenuScreenState = new function () {
 	// Skirmish
 	//
 	var selectGameSlotButtonHandler = function (event) {
-		self.selectedSaveName = $(event.target).attr('GameSlotName');
+		self.selectedSaveName = $(event.currentTarget).attr('GameSlotName');
 
 		var saveData = SavesStorage.loadGame(self.selectedSaveName);
 
@@ -107,6 +107,38 @@ var MenuScreenState = new function () {
 		navigateTo(self.States.MainMenu);
 
 
+
+		// Populate game slot entries
+		$('[GameSlotName]').each(function () {
+			
+			var slotName = $(this).attr('GameSlotName');
+
+			$(this).empty();
+
+			if (SavesStorage.isValidSave(slotName)) {
+				var metaData = SavesStorage.loadGameMetaData(slotName);
+
+				var playersDesc = [];
+				for(var i = 0; i < metaData.playersData.players.length; ++i) {
+					var player = metaData.playersData.players[i];
+
+					if (player.isPlaying) {
+						playersDesc.push(Enums.getName(Player.Races, player.race));
+					}
+				}
+
+				var $name = $('<h3>').text(metaData.gameMetaData.name + ': T' + metaData.gameState.turnsPassed);
+				var $playersDesc = $('<div>').text(playersDesc.join(' VS ')).addClass('game_slot_entry_desc');
+
+				$(this)
+				.append($name)
+				.append($playersDesc);
+
+			} else {
+				$(this).append('<h3>Empty</h3>');
+			}
+
+		});
 
 
 

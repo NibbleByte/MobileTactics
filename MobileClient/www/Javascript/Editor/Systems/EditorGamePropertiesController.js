@@ -24,6 +24,7 @@ var EditorGamePropertiesController = function (m_renderer) {
 	var m_subscriber = new DOMSubscriber();
 
 	var m_gameState = null;
+	var m_gameMetaData = null;
 	var m_playersData = null;
 
 	//
@@ -54,11 +55,15 @@ var EditorGamePropertiesController = function (m_renderer) {
 
 	var onGameLoading = function () {
 		m_gameState = self._eworld.extract(GameState);
+		m_gameMetaData = self._eworld.extract(GameMetaData);
 		m_playersData = self._eworld.extract(PlayersData);
 	}
 
 	var onGameProps = function (event) {
 		m_$GameProps.show();
+
+		m_$GamePropsName.val(m_gameMetaData.name);
+		m_$GamePropsDescription.val(m_gameMetaData.description);
 
 		m_$GamePropsWidth.val(m_renderer.getRenderedColumns());
 		m_$GamePropsHeight.val(m_renderer.getRenderedRows());
@@ -76,6 +81,9 @@ var EditorGamePropertiesController = function (m_renderer) {
 
 	var onBtnApply = function (event) {
 		m_$GameProps.hide();
+
+		m_gameMetaData.name = m_$GamePropsName.val();
+		m_gameMetaData.description = m_$GamePropsDescription.val();
 
 		m_gameState.isCustomMap = m_$GamePropsCustomMap.prop('checked');
 

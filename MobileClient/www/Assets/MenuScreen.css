@@ -9,3 +9,29 @@
 	display: block;
 	margin: 1em auto;
 }
+
+.game_slot_entry
+{
+	margin: 8px auto;
+	width: 250px;
+	padding: 4px;
+	
+	border: 2px cadetblue solid;
+	border-radius: 8px;
+	background-color: rgba(24, 35, 35, 0.47);
+	
+	overflow: hidden;
+}
+
+.game_slot_entry h3
+{
+	margin: 0px;
+	font-size: 1em;
+	white-space: nowrap;
+}
+
+.game_slot_entry_desc
+{
+	font-size: 0.85em;
+	white-space: nowrap;
+}

@@ -3,6 +3,11 @@
 		"__serializationTypeName": "EditorState",
 		"mapLockedSizes": true
 	},
+	"gameMetaData": {
+		"__serializationTypeName": "GameMetaData",
+		"description": "Hex-like isle.",
+		"name": "HexIsle"
+	},
 	"gameState": {
 		"__serializationTypeName": "GameState",
 		"currentPlayer": null,
@@ -343,7 +348,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 6
+					"__serializationRefId": 7
 				}
 			},
 			"CTileTerrain": {
@@ -422,7 +427,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 5
+					"__serializationRefId": 6
 				}
 			},
 			"CTileTerrain": {
@@ -697,7 +702,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 6
+					"__serializationRefId": 7
 				}
 			},
 			"CTileTerrain": {
@@ -860,150 +865,6 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 6
-				}
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 24
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 12,
-				"placedObjects": [],
-				"row": 2
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 13,
-				"placedObjects": [],
-				"row": 2
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 16
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 14,
-				"placedObjects": [],
-				"row": 2
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 16
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 15,
-				"placedObjects": [],
-				"row": 2
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 16
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 9,
-				"placedObjects": [],
-				"row": 3
-			},
-			"CTileOwner": {
-				"__serializationTypeName": "CTileOwner",
-				"beingCapturedBy": null,
-				"captureTurns": 0,
-				"knowledge": {},
-				"owner": {
-					"__serializationRefId": 6
-				}
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 28
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 10,
-				"placedObjects": [],
-				"row": 3
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 11,
-				"placedObjects": [],
-				"row": 3
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 12,
-				"placedObjects": [],
-				"row": 3
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 4
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 13,
-				"placedObjects": [],
-				"row": 3
-			},
-			"CTileOwner": {
-				"__serializationTypeName": "CTileOwner",
-				"beingCapturedBy": null,
-				"captureTurns": 0,
-				"knowledge": {},
-				"owner": {
 					"__serializationRefId": 7
 				}
 			},
@@ -1017,782 +878,65 @@
 			"__serializationTypeName": "ECS.Entity",
 			"CTile": {
 				"__serializationTypeName": "CTile",
+				"column": 12,
+				"placedObjects": [],
+				"row": 2
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 13,
+				"placedObjects": [],
+				"row": 2
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
 				"column": 14,
+				"placedObjects": [],
+				"row": 2
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 15,
+				"placedObjects": [],
+				"row": 2
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 9,
 				"placedObjects": [],
 				"row": 3
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 16
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 15,
-				"placedObjects": [],
-				"row": 3
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 16
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 16,
-				"placedObjects": [],
-				"row": 3
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 16
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 9,
-				"placedObjects": [],
-				"row": 4
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 10,
-				"placedObjects": [],
-				"row": 4
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 11,
-				"placedObjects": [],
-				"row": 4
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 12,
-				"placedObjects": [],
-				"row": 4
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 4
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 13,
-				"placedObjects": [],
-				"row": 4
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 14,
-				"placedObjects": [],
-				"row": 4
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 15,
-				"placedObjects": [],
-				"row": 4
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 16
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 16,
-				"placedObjects": [],
-				"row": 4
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 16
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 3,
-				"placedObjects": [],
-				"row": 5
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 16
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 4,
-				"placedObjects": [],
-				"row": 5
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 16
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 5,
-				"placedObjects": [],
-				"row": 5
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 6,
-				"placedObjects": [],
-				"row": 5
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 7,
-				"placedObjects": [],
-				"row": 5
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 8,
-				"placedObjects": [],
-				"row": 5
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 4
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 9,
-				"placedObjects": [],
-				"row": 5
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 10,
-				"placedObjects": [],
-				"row": 5
-			},
-			"CTileOwner": {
-				"__serializationTypeName": "CTileOwner",
-				"beingCapturedBy": null,
-				"captureTurns": 0,
-				"knowledge": {},
-				"owner": {
-					"__serializationRefId": 6
-				}
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 24
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 11,
-				"placedObjects": [],
-				"row": 5
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 12,
-				"placedObjects": [],
-				"row": 5
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 4
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 13,
-				"placedObjects": [],
-				"row": 5
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 14,
-				"placedObjects": [],
-				"row": 5
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 15,
-				"placedObjects": [],
-				"row": 5
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 16,
-				"placedObjects": [],
-				"row": 5
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 16
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 17,
-				"placedObjects": [],
-				"row": 5
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 16
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 3,
-				"placedObjects": [],
-				"row": 6
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 16
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 4,
-				"placedObjects": [],
-				"row": 6
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 16
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 5,
-				"placedObjects": [],
-				"row": 6
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 6,
-				"placedObjects": [],
-				"row": 6
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 7,
-				"placedObjects": [],
-				"row": 6
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 8,
-				"placedObjects": [],
-				"row": 6
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 9,
-				"placedObjects": [],
-				"row": 6
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 4
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 10,
-				"placedObjects": [],
-				"row": 6
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 8
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 11,
-				"placedObjects": [],
-				"row": 6
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 8
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 12,
-				"placedObjects": [],
-				"row": 6
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 4
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 13,
-				"placedObjects": [],
-				"row": 6
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 14,
-				"placedObjects": [],
-				"row": 6
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 15,
-				"placedObjects": [],
-				"row": 6
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 16,
-				"placedObjects": [],
-				"row": 6
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 17,
-				"placedObjects": [],
-				"row": 6
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 16
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 4,
-				"placedObjects": [],
-				"row": 7
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 16
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 5,
-				"placedObjects": [],
-				"row": 7
-			},
-			"CTileOwner": {
-				"__serializationTypeName": "CTileOwner",
-				"beingCapturedBy": null,
-				"captureTurns": 0,
-				"knowledge": {},
-				"owner": {
-					"__serializationRefId": 5
-				}
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 20
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 6,
-				"placedObjects": [],
-				"row": 7
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 7,
-				"placedObjects": [],
-				"row": 7
-			},
-			"CTileOwner": {
-				"__serializationTypeName": "CTileOwner",
-				"beingCapturedBy": null,
-				"captureTurns": 0,
-				"knowledge": {},
-				"owner": {
-					"__serializationRefId": 5
-				}
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 28
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 8,
-				"placedObjects": [],
-				"row": 7
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 9,
-				"placedObjects": [],
-				"row": 7
-			},
-			"CTileOwner": {
-				"__serializationTypeName": "CTileOwner",
-				"beingCapturedBy": null,
-				"captureTurns": 0,
-				"knowledge": {},
-				"owner": {
-					"__serializationRefId": 5
-				}
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 24
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 10,
-				"placedObjects": [],
-				"row": 7
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 8
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 11,
-				"placedObjects": [],
-				"row": 7
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 12
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 12,
-				"placedObjects": [],
-				"row": 7
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 8
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 13,
-				"placedObjects": [],
-				"row": 7
-			},
-			"CTileOwner": {
-				"__serializationTypeName": "CTileOwner",
-				"beingCapturedBy": null,
-				"captureTurns": 0,
-				"knowledge": {},
-				"owner": {
-					"__serializationRefId": 7
-				}
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 24
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 14,
-				"placedObjects": [],
-				"row": 7
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 15,
-				"placedObjects": [],
-				"row": 7
 			},
 			"CTileOwner": {
 				"__serializationTypeName": "CTileOwner",
@@ -1813,149 +957,14 @@
 			"__serializationTypeName": "ECS.Entity",
 			"CTile": {
 				"__serializationTypeName": "CTile",
-				"column": 16,
-				"placedObjects": [],
-				"row": 7
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 17,
-				"placedObjects": [],
-				"row": 7
-			},
-			"CTileOwner": {
-				"__serializationTypeName": "CTileOwner",
-				"beingCapturedBy": null,
-				"captureTurns": 0,
-				"knowledge": {},
-				"owner": {
-					"__serializationRefId": 7
-				}
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 20
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 18,
-				"placedObjects": [],
-				"row": 7
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 16
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 4,
-				"placedObjects": [],
-				"row": 8
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 16
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 5,
-				"placedObjects": [],
-				"row": 8
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 16
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 6,
-				"placedObjects": [],
-				"row": 8
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 7,
-				"placedObjects": [],
-				"row": 8
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 8,
-				"placedObjects": [],
-				"row": 8
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 9,
-				"placedObjects": [],
-				"row": 8
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
 				"column": 10,
 				"placedObjects": [],
-				"row": 8
+				"row": 3
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
 				"skin": 0,
-				"type": 4
+				"type": 1
 			}
 		},
 		{
@@ -1964,12 +973,12 @@
 				"__serializationTypeName": "CTile",
 				"column": 11,
 				"placedObjects": [],
-				"row": 8
+				"row": 3
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
 				"skin": 0,
-				"type": 8
+				"type": 1
 			}
 		},
 		{
@@ -1978,12 +987,12 @@
 				"__serializationTypeName": "CTile",
 				"column": 12,
 				"placedObjects": [],
-				"row": 8
+				"row": 3
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
 				"skin": 0,
-				"type": 8
+				"type": 4
 			}
 		},
 		{
@@ -1992,189 +1001,7 @@
 				"__serializationTypeName": "CTile",
 				"column": 13,
 				"placedObjects": [],
-				"row": 8
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 4
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 14,
-				"placedObjects": [],
-				"row": 8
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 15,
-				"placedObjects": [],
-				"row": 8
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 16,
-				"placedObjects": [],
-				"row": 8
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 17,
-				"placedObjects": [],
-				"row": 8
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 18,
-				"placedObjects": [],
-				"row": 8
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 16
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 5,
-				"placedObjects": [],
-				"row": 9
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 16
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 6,
-				"placedObjects": [],
-				"row": 9
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 16
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 7,
-				"placedObjects": [],
-				"row": 9
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 8,
-				"placedObjects": [],
-				"row": 9
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 9,
-				"placedObjects": [],
-				"row": 9
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 10,
-				"placedObjects": [],
-				"row": 9
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 4
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 11,
-				"placedObjects": [],
-				"row": 9
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 12,
-				"placedObjects": [],
-				"row": 9
+				"row": 3
 			},
 			"CTileOwner": {
 				"__serializationTypeName": "CTileOwner",
@@ -2183,6 +1010,1184 @@
 				"knowledge": {},
 				"owner": {
 					"__serializationRefId": 8
+				}
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 24
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 14,
+				"placedObjects": [],
+				"row": 3
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 15,
+				"placedObjects": [],
+				"row": 3
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 16,
+				"placedObjects": [],
+				"row": 3
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 9,
+				"placedObjects": [],
+				"row": 4
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 10,
+				"placedObjects": [],
+				"row": 4
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 11,
+				"placedObjects": [],
+				"row": 4
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 12,
+				"placedObjects": [],
+				"row": 4
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 4
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 13,
+				"placedObjects": [],
+				"row": 4
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 14,
+				"placedObjects": [],
+				"row": 4
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 15,
+				"placedObjects": [],
+				"row": 4
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 16,
+				"placedObjects": [],
+				"row": 4
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 3,
+				"placedObjects": [],
+				"row": 5
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 4,
+				"placedObjects": [],
+				"row": 5
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 5,
+				"placedObjects": [],
+				"row": 5
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 6,
+				"placedObjects": [],
+				"row": 5
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 7,
+				"placedObjects": [],
+				"row": 5
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 8,
+				"placedObjects": [],
+				"row": 5
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 4
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 9,
+				"placedObjects": [],
+				"row": 5
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 10,
+				"placedObjects": [],
+				"row": 5
+			},
+			"CTileOwner": {
+				"__serializationTypeName": "CTileOwner",
+				"beingCapturedBy": null,
+				"captureTurns": 0,
+				"knowledge": {},
+				"owner": {
+					"__serializationRefId": 7
+				}
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 24
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 11,
+				"placedObjects": [],
+				"row": 5
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 12,
+				"placedObjects": [],
+				"row": 5
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 4
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 13,
+				"placedObjects": [],
+				"row": 5
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 14,
+				"placedObjects": [],
+				"row": 5
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 15,
+				"placedObjects": [],
+				"row": 5
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 16,
+				"placedObjects": [],
+				"row": 5
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 17,
+				"placedObjects": [],
+				"row": 5
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 3,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 4,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 5,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 6,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 7,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 8,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 9,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 4
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 10,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 8
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 11,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 8
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 12,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 4
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 13,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 14,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 15,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 16,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 17,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 4,
+				"placedObjects": [],
+				"row": 7
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 5,
+				"placedObjects": [],
+				"row": 7
+			},
+			"CTileOwner": {
+				"__serializationTypeName": "CTileOwner",
+				"beingCapturedBy": null,
+				"captureTurns": 0,
+				"knowledge": {},
+				"owner": {
+					"__serializationRefId": 6
+				}
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 20
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 6,
+				"placedObjects": [],
+				"row": 7
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 7,
+				"placedObjects": [],
+				"row": 7
+			},
+			"CTileOwner": {
+				"__serializationTypeName": "CTileOwner",
+				"beingCapturedBy": null,
+				"captureTurns": 0,
+				"knowledge": {},
+				"owner": {
+					"__serializationRefId": 6
+				}
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 28
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 8,
+				"placedObjects": [],
+				"row": 7
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 9,
+				"placedObjects": [],
+				"row": 7
+			},
+			"CTileOwner": {
+				"__serializationTypeName": "CTileOwner",
+				"beingCapturedBy": null,
+				"captureTurns": 0,
+				"knowledge": {},
+				"owner": {
+					"__serializationRefId": 6
+				}
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 24
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 10,
+				"placedObjects": [],
+				"row": 7
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 8
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 11,
+				"placedObjects": [],
+				"row": 7
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 12
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 12,
+				"placedObjects": [],
+				"row": 7
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 8
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 13,
+				"placedObjects": [],
+				"row": 7
+			},
+			"CTileOwner": {
+				"__serializationTypeName": "CTileOwner",
+				"beingCapturedBy": null,
+				"captureTurns": 0,
+				"knowledge": {},
+				"owner": {
+					"__serializationRefId": 8
+				}
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 24
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 14,
+				"placedObjects": [],
+				"row": 7
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 15,
+				"placedObjects": [],
+				"row": 7
+			},
+			"CTileOwner": {
+				"__serializationTypeName": "CTileOwner",
+				"beingCapturedBy": null,
+				"captureTurns": 0,
+				"knowledge": {},
+				"owner": {
+					"__serializationRefId": 8
+				}
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 28
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 16,
+				"placedObjects": [],
+				"row": 7
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 17,
+				"placedObjects": [],
+				"row": 7
+			},
+			"CTileOwner": {
+				"__serializationTypeName": "CTileOwner",
+				"beingCapturedBy": null,
+				"captureTurns": 0,
+				"knowledge": {},
+				"owner": {
+					"__serializationRefId": 8
+				}
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 20
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 18,
+				"placedObjects": [],
+				"row": 7
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 4,
+				"placedObjects": [],
+				"row": 8
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 5,
+				"placedObjects": [],
+				"row": 8
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 6,
+				"placedObjects": [],
+				"row": 8
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 7,
+				"placedObjects": [],
+				"row": 8
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 8,
+				"placedObjects": [],
+				"row": 8
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 9,
+				"placedObjects": [],
+				"row": 8
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 10,
+				"placedObjects": [],
+				"row": 8
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 4
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 11,
+				"placedObjects": [],
+				"row": 8
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 8
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 12,
+				"placedObjects": [],
+				"row": 8
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 8
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 13,
+				"placedObjects": [],
+				"row": 8
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 4
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 14,
+				"placedObjects": [],
+				"row": 8
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 15,
+				"placedObjects": [],
+				"row": 8
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 16,
+				"placedObjects": [],
+				"row": 8
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 17,
+				"placedObjects": [],
+				"row": 8
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 18,
+				"placedObjects": [],
+				"row": 8
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 5,
+				"placedObjects": [],
+				"row": 9
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 6,
+				"placedObjects": [],
+				"row": 9
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 16
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 7,
+				"placedObjects": [],
+				"row": 9
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 8,
+				"placedObjects": [],
+				"row": 9
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 9,
+				"placedObjects": [],
+				"row": 9
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 10,
+				"placedObjects": [],
+				"row": 9
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 4
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 11,
+				"placedObjects": [],
+				"row": 9
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 12,
+				"placedObjects": [],
+				"row": 9
+			},
+			"CTileOwner": {
+				"__serializationTypeName": "CTileOwner",
+				"beingCapturedBy": null,
+				"captureTurns": 0,
+				"knowledge": {},
+				"owner": {
+					"__serializationRefId": 9
 				}
 			},
 			"CTileTerrain": {
@@ -2555,7 +2560,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 5
+					"__serializationRefId": 6
 				}
 			},
 			"CTileTerrain": {
@@ -2620,7 +2625,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 8
+					"__serializationRefId": 9
 				}
 			},
 			"CTileTerrain": {
@@ -2685,7 +2690,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 7
+					"__serializationRefId": 8
 				}
 			},
 			"CTileTerrain": {
@@ -2820,7 +2825,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 8
+					"__serializationRefId": 9
 				}
 			},
 			"CTileTerrain": {
@@ -2899,7 +2904,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 8
+					"__serializationRefId": 9
 				}
 			},
 			"CTileTerrain": {
@@ -3076,7 +3081,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 8
+					"__serializationRefId": 9
 				}
 			},
 			"CTileTerrain": {

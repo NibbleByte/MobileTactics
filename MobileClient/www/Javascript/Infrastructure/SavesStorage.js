@@ -13,11 +13,14 @@ var SavesStorage = new function () {
 		return m_storage.get(saveName);
 	};
 
-	this.loadGameMetaData = function () {
+	this.loadGameMetaData = function (saveName) {
 		var rawData = JSON.parse(m_storage.get(saveName));
 		delete rawData['world'];	// Not needed data.
 
-		return Serialization.deserialize(rawData);
+		var data = Serialization.deserialize(rawData);
+		data['gameMetaData'] = data['gameMetaData'] || new GameMetaData();
+
+		return data;
 	}
 
 	this.saveGame = function (saveName, data) {
@@ -29,6 +32,9 @@ var SavesStorage = new function () {
 	}
 
 
+	this.deleteGame = function (saveName) {
+		m_storage.remove(saveName);
+	}
 
 
 	var init = function () {

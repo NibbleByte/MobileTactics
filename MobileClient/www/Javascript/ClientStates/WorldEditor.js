@@ -39,6 +39,7 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 
 		if (m_clientState) {
 			m_clientState.gameState = null;
+			m_clientState.gameMetaData = null;
 			m_clientState.playersData = null;
 
 			m_clientState.eworldSB.unsubscribeAll();
@@ -54,6 +55,7 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 		m_clientState = {
 			playersData: null,
 			gameState: null,
+			gameMetaData: null,
 		};
 
 		m_$GameWorldMap.show();
@@ -178,6 +180,7 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 		
 			var fullGameState = {
 					gameState: m_clientState.gameState,
+					gameMetaData: m_clientState.gameMetaData,
 					playersData: m_clientState.playersData,
 					editorState: m_clientState.editorState,
 					world: entities,

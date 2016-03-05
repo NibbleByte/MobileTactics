@@ -3,6 +3,11 @@
 		"__serializationTypeName": "EditorState",
 		"mapLockedSizes": true
 	},
+	"gameMetaData": {
+		"__serializationTypeName": "GameMetaData",
+		"description": "Map with all the available units.",
+		"name": "Unit Testing"
+	},
 	"gameState": {
 		"__serializationTypeName": "GameState",
 		"currentPlayer": null,
@@ -54,7 +59,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 5
+					"__serializationRefId": 6
 				}
 			},
 			"CTileTerrain": {
@@ -91,7 +96,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 5
+					"__serializationRefId": 6
 				}
 			},
 			"CTileTerrain": {
@@ -180,13 +185,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 5
+								"__serializationRefId": 6
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 40
+								"__serializationRefId": 41
 							}
 						},
 						"CUnit": {
@@ -246,13 +251,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 5
+								"__serializationRefId": 6
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 55
+								"__serializationRefId": 56
 							}
 						},
 						"CUnit": {
@@ -367,13 +372,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 5
+								"__serializationRefId": 6
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 86
+								"__serializationRefId": 87
 							}
 						},
 						"CUnit": {
@@ -418,13 +423,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 5
+								"__serializationRefId": 6
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 97
+								"__serializationRefId": 98
 							}
 						},
 						"CUnit": {
@@ -483,13 +488,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 5
+								"__serializationRefId": 6
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 112
+								"__serializationRefId": 113
 							}
 						},
 						"CUnit": {
@@ -548,13 +553,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 6
+								"__serializationRefId": 7
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 127
+								"__serializationRefId": 128
 							}
 						},
 						"CUnit": {
@@ -599,13 +604,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 5
+								"__serializationRefId": 6
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 138
+								"__serializationRefId": 139
 							}
 						},
 						"CUnit": {
@@ -650,13 +655,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 5
+								"__serializationRefId": 6
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 149
+								"__serializationRefId": 150
 							}
 						},
 						"CUnit": {
@@ -702,13 +707,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 5
+								"__serializationRefId": 6
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 160
+								"__serializationRefId": 161
 							}
 						},
 						"CUnit": {
@@ -823,13 +828,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 5
+								"__serializationRefId": 6
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 191
+								"__serializationRefId": 192
 							}
 						},
 						"CUnit": {
@@ -874,13 +879,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 5
+								"__serializationRefId": 6
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 202
+								"__serializationRefId": 203
 							}
 						},
 						"CUnit": {
@@ -981,13 +986,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 5
+								"__serializationRefId": 6
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 229
+								"__serializationRefId": 230
 							}
 						},
 						"CUnit": {
@@ -1047,13 +1052,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 5
+								"__serializationRefId": 6
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 244
+								"__serializationRefId": 245
 							}
 						},
 						"CUnit": {
@@ -1098,13 +1103,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 5
+								"__serializationRefId": 6
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 255
+								"__serializationRefId": 256
 							}
 						},
 						"CUnit": {
@@ -1177,13 +1182,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 6
+								"__serializationRefId": 7
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 274
+								"__serializationRefId": 275
 							}
 						},
 						"CUnit": {
@@ -1228,13 +1233,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 5
+								"__serializationRefId": 6
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 285
+								"__serializationRefId": 286
 							}
 						},
 						"CUnit": {
@@ -1276,99 +1281,6 @@
 				"column": 5,
 				"placedObjects": [],
 				"row": 6
-			},
-			"CTileOwner": {
-				"__serializationTypeName": "CTileOwner",
-				"beingCapturedBy": null,
-				"captureTurns": 0,
-				"knowledge": {},
-				"owner": {
-					"__serializationRefId": 5
-				}
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 28
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 6,
-				"placedObjects": [],
-				"row": 6
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 7,
-				"placedObjects": [],
-				"row": 6
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 8
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 8,
-				"placedObjects": [],
-				"row": 6
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 8
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 9,
-				"placedObjects": [],
-				"row": 6
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 8
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 7,
-				"placedObjects": [],
-				"row": 0
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 8,
-				"placedObjects": [],
-				"row": 0
 			},
 			"CTileOwner": {
 				"__serializationTypeName": "CTileOwner",
@@ -1389,6 +1301,99 @@
 			"__serializationTypeName": "ECS.Entity",
 			"CTile": {
 				"__serializationTypeName": "CTile",
+				"column": 6,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 7,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 8
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 8,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 8
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 9,
+				"placedObjects": [],
+				"row": 6
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 8
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 7,
+				"placedObjects": [],
+				"row": 0
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 1
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 8,
+				"placedObjects": [],
+				"row": 0
+			},
+			"CTileOwner": {
+				"__serializationTypeName": "CTileOwner",
+				"beingCapturedBy": null,
+				"captureTurns": 0,
+				"knowledge": {},
+				"owner": {
+					"__serializationRefId": 7
+				}
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 28
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
 				"column": 8,
 				"placedObjects": [
 					{
@@ -1410,13 +1415,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 6
+								"__serializationRefId": 7
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 332
+								"__serializationRefId": 333
 							}
 						},
 						"CUnit": {
@@ -1489,13 +1494,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 6
+								"__serializationRefId": 7
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 351
+								"__serializationRefId": 352
 							}
 						},
 						"CUnit": {
@@ -1541,13 +1546,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 6
+								"__serializationRefId": 7
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 362
+								"__serializationRefId": 363
 							}
 						},
 						"CUnit": {
@@ -1592,13 +1597,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 6
+								"__serializationRefId": 7
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 373
+								"__serializationRefId": 374
 							}
 						},
 						"CUnit": {
@@ -1657,13 +1662,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 6
+								"__serializationRefId": 7
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 388
+								"__serializationRefId": 389
 							}
 						},
 						"CUnit": {
@@ -1709,13 +1714,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 6
+								"__serializationRefId": 7
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 399
+								"__serializationRefId": 400
 							}
 						},
 						"CUnit": {
@@ -1778,7 +1783,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 6
+					"__serializationRefId": 7
 				}
 			},
 			"CTileTerrain": {
@@ -2040,7 +2045,7 @@
 			}
 		},
 		{
-			"__serializationRefId": 163
+			"__serializationRefId": 164
 		},
 		{
 			"__serializationTypeName": "ECS.Entity",
@@ -2080,13 +2085,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 6
+								"__serializationRefId": 7
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 500
+								"__serializationRefId": 501
 							}
 						},
 						"CUnit": {
@@ -2131,13 +2136,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 6
+								"__serializationRefId": 7
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 511
+								"__serializationRefId": 512
 							}
 						},
 						"CUnit": {
@@ -2182,13 +2187,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 6
+								"__serializationRefId": 7
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 522
+								"__serializationRefId": 523
 							}
 						},
 						"CUnit": {
@@ -2233,13 +2238,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 6
+								"__serializationRefId": 7
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 533
+								"__serializationRefId": 534
 							}
 						},
 						"CUnit": {
@@ -2466,13 +2471,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 6
+								"__serializationRefId": 7
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 596
+								"__serializationRefId": 597
 							}
 						},
 						"CUnit": {
@@ -2494,37 +2499,37 @@
 			}
 		},
 		{
-			"__serializationRefId": 89
+			"__serializationRefId": 90
 		},
 		{
-			"__serializationRefId": 194
+			"__serializationRefId": 195
 		},
 		{
-			"__serializationRefId": 152
+			"__serializationRefId": 153
 		},
 		{
-			"__serializationRefId": 141
+			"__serializationRefId": 142
 		},
 		{
-			"__serializationRefId": 100
+			"__serializationRefId": 101
 		},
 		{
-			"__serializationRefId": 205
+			"__serializationRefId": 206
 		},
 		{
-			"__serializationRefId": 43
+			"__serializationRefId": 44
 		},
 		{
-			"__serializationRefId": 232
+			"__serializationRefId": 233
 		},
 		{
-			"__serializationRefId": 58
+			"__serializationRefId": 59
 		},
 		{
-			"__serializationRefId": 247
+			"__serializationRefId": 248
 		},
 		{
-			"__serializationRefId": 288
+			"__serializationRefId": 289
 		},
 		{
 			"__serializationTypeName": "ECS.Entity",
@@ -2540,7 +2545,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 6
+					"__serializationRefId": 7
 				}
 			},
 			"CTileTerrain": {
@@ -2601,13 +2606,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 6
+								"__serializationRefId": 7
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 621
+								"__serializationRefId": 622
 							}
 						},
 						"CUnit": {
@@ -2643,52 +2648,52 @@
 			}
 		},
 		{
-			"__serializationRefId": 335
+			"__serializationRefId": 336
 		},
 		{
-			"__serializationRefId": 365
+			"__serializationRefId": 366
 		},
 		{
-			"__serializationRefId": 402
+			"__serializationRefId": 403
 		},
 		{
-			"__serializationRefId": 525
+			"__serializationRefId": 526
 		},
 		{
-			"__serializationRefId": 503
+			"__serializationRefId": 504
 		},
 		{
-			"__serializationRefId": 354
+			"__serializationRefId": 355
 		},
 		{
-			"__serializationRefId": 391
+			"__serializationRefId": 392
 		},
 		{
-			"__serializationRefId": 599
+			"__serializationRefId": 600
 		},
 		{
-			"__serializationRefId": 376
+			"__serializationRefId": 377
 		},
 		{
-			"__serializationRefId": 536
+			"__serializationRefId": 537
 		},
 		{
-			"__serializationRefId": 514
+			"__serializationRefId": 515
 		},
 		{
-			"__serializationRefId": 624
+			"__serializationRefId": 625
 		},
 		{
-			"__serializationRefId": 115
+			"__serializationRefId": 116
 		},
 		{
-			"__serializationRefId": 258
+			"__serializationRefId": 259
 		},
 		{
-			"__serializationRefId": 130
+			"__serializationRefId": 131
 		},
 		{
-			"__serializationRefId": 277
+			"__serializationRefId": 278
 		}
 	]
 }
