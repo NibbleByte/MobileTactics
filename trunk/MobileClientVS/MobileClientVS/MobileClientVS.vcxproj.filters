@@ -590,6 +590,9 @@
     <None Include="..\..\MobileClient\www\Javascript\UI\Game\ActionsMenuController.js">
       <Filter>Javascript\UI\Game</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Javascript\UI\MenuScreen\SkirmishScreen.js">
+      <Filter>Javascript\UI\MenuScreen</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

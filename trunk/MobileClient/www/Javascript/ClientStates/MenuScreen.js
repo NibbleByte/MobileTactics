@@ -14,11 +14,13 @@ var MenuScreenState = new function () {
 	}
 	Enums.enumerate(this.States);
 
-	var m_currentState = self.States.MainMenu;
-	var m_stateDOMs = {};
-	var m_stateInitializers = {};
-	var m_stateUninitializers = {};
+	this.currentState = self.States.MainMenu;
 
+	this.stateInitializers = {};
+	this.stateUninitializers = {};
+
+
+	var m_stateDOMs = {};
 	var m_$MenuScreen = $('#MenuScreen').hide();
 
 	var m_$BtnEditor = $('#MainMenuEditor');
@@ -37,34 +39,22 @@ var MenuScreenState = new function () {
 		}
 	}
 
-	var navigateTo = function (state) {
+	this.navigateTo = function (state) {
 		hideAllMenus();
 
-		if (m_stateUninitializers[m_currentState]) m_stateUninitializers[m_currentState](state);
+		if (self.stateUninitializers[self.currentState]) self.stateUninitializers[self.currentState](state);
 
-		if (m_stateInitializers[state]) m_stateUninitializers[state](m_currentState);
+		if (self.stateInitializers[state]) self.stateInitializers[state](self.currentState);
 
 		m_stateDOMs[state].show();
 
-		m_currentState = state;
+		self.currentState = state;
 	}
 
 	var navigateToButtonHandler = function (event) {
 		var targetMenu = $(event.currentTarget).attr('NavigateToMenu');
 
-		navigateTo(self.States[targetMenu]);
-	}
-
-
-	//
-	// Skirmish
-	//
-	var selectGameSlotButtonHandler = function (event) {
-		self.selectedSaveName = $(event.currentTarget).attr('GameSlotName');
-
-		var saveData = SavesStorage.loadGame(self.selectedSaveName);
-
-		ClientStateManager.changeState(ClientStateManager.types.TestGame, saveData);
+		self.navigateTo(self.States[targetMenu]);
 	}
 
 	//
@@ -77,7 +67,6 @@ var MenuScreenState = new function () {
 		}
 
 		$('[NavigateToMenu]').click(navigateToButtonHandler);
-		$('[GameSlotName]').click(selectGameSlotButtonHandler);
 	}
 	init();
 
@@ -90,6 +79,8 @@ var MenuScreenState = new function () {
 		m_$MenuScreen.hide();
 
 		m_subscriber.unsubscribeAll();
+
+		$(self).trigger('cleanUp');
 
 		if (m_clientState) {
 			m_clientState = null;
@@ -104,49 +95,9 @@ var MenuScreenState = new function () {
 		m_loadingScreen.hide();
 
 		m_$MenuScreen.show();
-		navigateTo(self.States.MainMenu);
+		self.navigateTo(self.States.MainMenu);
 
-
-		//
-		// Populate game slot entries
-		//
-		$('[GameSlotName]').each(function () {
-			
-			var slotName = $(this).attr('GameSlotName');
-
-			$(this).empty();
-
-			if (SavesStorage.isValidSave(slotName)) {
-				var metaData = SavesStorage.loadGameMetaData(slotName);
-
-				var playersDesc = [];
-				for(var i = 0; i < metaData.playersData.players.length; ++i) {
-					var player = metaData.playersData.players[i];
-
-					if (player.isPlaying) {
-						playersDesc.push(Enums.getName(Player.Races, player.race));
-					}
-				}
-
-				var date = new Date(metaData.gameMetaData.lastPlayed);
-				date = date.toLocaleDateString() + '<br />' + date.getHours() + ':' + date.getMinutes();
-
-				var $name = $('<h3>').text(metaData.gameMetaData.name + ': T' + metaData.gameState.turnsPassed);
-				var $date = $('<div>').html(date).addClass('game_slot_entry_date_played');
-				var $playersDesc = $('<div>').text(playersDesc.join(' VS ')).addClass('game_slot_entry_desc');
-
-				$(this)
-				.append($name)
-				.append($date)
-				.append($playersDesc);
-
-			} else {
-				$(this).append('<h3>Empty</h3>');
-			}
-
-		});
-
-
+		$(self).trigger('setup');
 
 		var onBtnEditor = function () {
 			ClientStateManager.changeState(ClientStateManager.types.WorldEditor);
