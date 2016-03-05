@@ -245,6 +245,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		if (m_clientState) {
 			m_clientState.gameState = null;
 			m_clientState.playersData = null;
+			m_clientState.gameMetaData = null;
 
 			m_clientState.eworldSB.unsubscribeAll();
 			m_clientState.executor = null;
@@ -358,6 +359,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		
 			var fullGameState = {
 					gameState: m_clientState.gameState,
+					gameMetaData: m_clientState.gameMetaData,
 					playersData: m_clientState.playersData,
 					world: entities,
 			};

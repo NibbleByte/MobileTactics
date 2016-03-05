@@ -587,6 +587,9 @@
     <None Include="..\..\MobileClient\www\Javascript\ClientStates\MenuScreen.js">
       <Filter>Javascript\ClientStates</Filter>
     </None>
+    <None Include="..\..\Core\Gameplay\GameMetaData.js">
+      <Filter>Javascript\Core\Gameplay</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

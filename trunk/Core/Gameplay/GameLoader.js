@@ -12,13 +12,16 @@ var GameLoader = function (m_targetState, m_eworld) {
 
 		if (m_targetState.playersData) Utils.invalidate(m_targetState.playersData);
 		if (m_targetState.gameState) Utils.invalidate(m_targetState.gameState);
+		if (m_targetState.gameMetaData) Utils.invalidate(m_targetState.gameMetaData);
 
 
 		// Initialize new data
 		m_targetState.playersData = new PlayersData(m_eworld);
 		m_targetState.gameState = new GameState();
+		m_targetState.gameMetaData = new GameMetaData();
 		m_eworld.store(PlayersData, m_targetState.playersData);
 		m_eworld.store(GameState, m_targetState.gameState);
+		m_eworld.store(GameMetaData, m_targetState.gameMetaData);
 
 		if (preloadHandler) preloadHandler(m_eworld, m_targetState);
 
@@ -44,16 +47,19 @@ var GameLoader = function (m_targetState, m_eworld) {
 		m_targetState.world.clearTiles();
 
 		if (m_targetState.playersData) Utils.invalidate(m_targetState.playersData);
-		if (m_targetState.playersData) Utils.invalidate(m_targetState.gameState);
+		if (m_targetState.gameState) Utils.invalidate(m_targetState.gameState);
+		if (m_targetState.gameMetaData) Utils.invalidate(m_targetState.gameMetaData);
 
 		var allObjects = [];
 
 		var fullGameState = Serialization.deserialize(data, allObjects);
 
 		m_targetState.gameState = fullGameState.gameState;
+		m_targetState.gameMetaData = fullGameState.gameMetaData || new GameMetaData();
 		m_targetState.playersData = fullGameState.playersData;
 		m_eworld.store(PlayersData, m_targetState.playersData);
 		m_eworld.store(GameState, m_targetState.gameState);
+		m_eworld.store(GameMetaData, m_targetState.gameMetaData);
 
 
 		if (preloadHandler) preloadHandler(fullGameState, m_eworld, m_targetState);

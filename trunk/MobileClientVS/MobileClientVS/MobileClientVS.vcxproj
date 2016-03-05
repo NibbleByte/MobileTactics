@@ -57,6 +57,7 @@
     <None Include="..\..\Core\Gameplay\Components\CUnit.js" />
     <None Include="..\..\Core\Gameplay\GameExecutor.js" />
     <None Include="..\..\Core\Gameplay\GameLoader.js" />
+    <None Include="..\..\Core\Gameplay\GameMetaData.js" />
     <None Include="..\..\Core\Gameplay\GameplayEvents.js" />
     <None Include="..\..\Core\Gameplay\GameState.js" />
     <None Include="..\..\Core\Gameplay\PlaceableFactory\UnitFactory.js" />

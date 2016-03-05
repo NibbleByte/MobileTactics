@@ -3,6 +3,11 @@
 		"__serializationTypeName": "EditorState",
 		"mapLockedSizes": true
 	},
+	"gameMetaData": {
+		"__serializationTypeName": "GameMetaData",
+		"description": "Well ballanced duel map",
+		"name": "Dance42"
+	},
 	"gameState": {
 		"__serializationTypeName": "GameState",
 		"currentPlayer": null,
@@ -190,13 +195,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 5
+								"__serializationRefId": 6
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 44
+								"__serializationRefId": 45
 							}
 						},
 						"CUnit": {
@@ -301,7 +306,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 5
+					"__serializationRefId": 6
 				}
 			},
 			"CTileTerrain": {
@@ -324,7 +329,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 5
+					"__serializationRefId": 6
 				}
 			},
 			"CTileTerrain": {
@@ -417,7 +422,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 5
+					"__serializationRefId": 6
 				}
 			},
 			"CTileTerrain": {
@@ -531,7 +536,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 5
+					"__serializationRefId": 6
 				}
 			},
 			"CTileTerrain": {
@@ -554,7 +559,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 5
+					"__serializationRefId": 6
 				}
 			},
 			"CTileTerrain": {
@@ -728,13 +733,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 6
+								"__serializationRefId": 7
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 191
+								"__serializationRefId": 192
 							}
 						},
 						"CUnit": {
@@ -825,7 +830,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 6
+					"__serializationRefId": 7
 				}
 			},
 			"CTileTerrain": {
@@ -848,7 +853,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 6
+					"__serializationRefId": 7
 				}
 			},
 			"CTileTerrain": {
@@ -920,7 +925,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 6
+					"__serializationRefId": 7
 				}
 			},
 			"CTileTerrain": {
@@ -985,7 +990,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 6
+					"__serializationRefId": 7
 				}
 			},
 			"CTileTerrain": {
@@ -1008,7 +1013,7 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 6
+					"__serializationRefId": 7
 				}
 			},
 			"CTileTerrain": {
@@ -1084,13 +1089,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 5
+								"__serializationRefId": 6
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 286
+								"__serializationRefId": 287
 							}
 						},
 						"CUnit": {
@@ -1206,13 +1211,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 6
+								"__serializationRefId": 7
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 317
+								"__serializationRefId": 318
 							}
 						},
 						"CUnit": {
@@ -1752,16 +1757,16 @@
 			}
 		},
 		{
-			"__serializationRefId": 47
+			"__serializationRefId": 48
 		},
 		{
-			"__serializationRefId": 289
+			"__serializationRefId": 290
 		},
 		{
-			"__serializationRefId": 194
+			"__serializationRefId": 195
 		},
 		{
-			"__serializationRefId": 320
+			"__serializationRefId": 321
 		}
 	]
 }
