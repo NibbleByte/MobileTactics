@@ -4,6 +4,9 @@
 //===============================================
 "use strict";
 
+// DEBUG: Global access
+var currentState;
+
 var ClientStateManager = new function () {
 
 	var m_factories = [];
@@ -18,6 +21,7 @@ var ClientStateManager = new function () {
 		NetworkGame: 0,
 		WorldEditor: 0,
 	};
+	Enums.enumerate(this.types);
 
 	this.registerState = function (type, stateFactory) {
 
@@ -27,17 +31,17 @@ var ClientStateManager = new function () {
 		m_factories[type] = stateFactory;
 	};
 
-	this.changeState = function (type) {
+	this.changeState = function (type, param) {
 
 		if (m_currentState) {
 			m_factories[m_currentState.type].cleanUp();
 		}
 			
-		m_currentState = m_factories[type].setup(m_loadingScreen);
+		m_currentState = m_factories[type].setup(m_loadingScreen, param);
 		m_currentState.type = type;
+
+		currentState = m_currentState;
 
 		return m_currentState;
 	};
 };
-
-Enums.enumerate(ClientStateManager.types);

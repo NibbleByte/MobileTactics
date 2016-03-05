@@ -326,13 +326,26 @@
 						<div class="dialog_separator"></div>
 
 						<button disabled>Campaign</button>
-						<button id="MainMenuSkirmish">Skirmish</button>
+						<button NavigateToMenu="SkirmishMenu">Skirmish</button>
 
 						<div class="dialog_separator"></div>
 
 						<button id="MainMenuEditor">Editor</button>
 						<button disabled>Settings</button>
 						<button disabled>About</button>
+					</div>
+
+					<div id="SkirmishMenu" class="dialog_body">
+						<h2>Choose game slot:</h2>
+						<button GameSlotName='SkirmishSave01'>Game 1</button>
+						<button GameSlotName='SkirmishSave02'>Game 2</button>
+						<button GameSlotName='SkirmishSave03'>Game 3</button>
+						<button GameSlotName='SkirmishSave04'>Game 4</button>
+						<button GameSlotName='SkirmishSave05'>Game 5</button>
+
+						<div class="dialog_separator"></div>
+
+						<button class="btn_cancel" NavigateToMenu="MainMenu">Back</button>
 					</div>
 				</div>
 			</div>
