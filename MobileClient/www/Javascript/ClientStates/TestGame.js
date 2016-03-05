@@ -254,7 +254,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		}
 	};
 
-	this.setup = function (m_loadingScreen) {
+	this.setup = function (m_loadingScreen, m_initData) {
 
 		m_clientState = {
 			playersData: null,
@@ -362,6 +362,10 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 					world: entities,
 			};
 			m_clientState.savedGame = Serialization.serialize(fullGameState, true, true);
+
+			if (MenuScreenState.selectedSaveName) {
+				SavesStorage.saveGame(MenuScreenState.selectedSaveName, m_clientState.savedGame);
+			}
 		}
 		
 		var onBtnLoad = function (event, data) {
@@ -565,7 +569,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 			if (Application.tryCancelDialogs())
 				return;
 
-			currentState = ClientStateManager.changeState(ClientStateManager.types.MenuScreen);
+			ClientStateManager.changeState(ClientStateManager.types.MenuScreen);
 		}
 
 	
@@ -587,7 +591,11 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		//
 		// Initialize
 		//
-		onBtnRestart();
+		if (m_initData) {
+			onBtnLoad(null, m_initData);
+		} else {
+			onBtnRestart();
+		}
 	
 	
 		// Toolbar listeners

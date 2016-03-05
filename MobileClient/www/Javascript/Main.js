@@ -2,9 +2,6 @@
 
 "use strict";
 
-// DEBUG: Global access
-var currentState;
-
 /**
  * Handle the back button event.
  */
@@ -59,11 +56,11 @@ $(function () {
 
 
 		if (ClientUtils.urlParams['WorldEditor']) {
-			currentState = ClientStateManager.changeState(ClientStateManager.types.WorldEditor);
+			ClientStateManager.changeState(ClientStateManager.types.WorldEditor);
 		} else if (ClientUtils.urlParams['Test']) {
-			currentState = ClientStateManager.changeState(ClientStateManager.types.TestGame);
+			ClientStateManager.changeState(ClientStateManager.types.TestGame);
 		} else {
-			currentState = ClientStateManager.changeState(ClientStateManager.types.MenuScreen);
+			ClientStateManager.changeState(ClientStateManager.types.MenuScreen);
 		}
 
 

@@ -262,7 +262,7 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 			if (Application.tryCancelDialogs())
 				return;
 
-			currentState = ClientStateManager.changeState(ClientStateManager.types.MenuScreen);
+			ClientStateManager.changeState(ClientStateManager.types.MenuScreen);
 		}
 
 		m_clientState.eworldSB.subscribe(EngineEvents.General.GAME_VALIDATION_FAILED, onValidationFailed);
