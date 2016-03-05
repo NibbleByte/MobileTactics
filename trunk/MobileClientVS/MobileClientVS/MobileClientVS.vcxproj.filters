@@ -14,9 +14,6 @@
     <None Include="..\..\MobileClient\www\Assets\Render\TileRenderingSystem.css">
       <Filter>Assets\Render</Filter>
     </None>
-    <None Include="..\..\MobileClient\www\Javascript\ActionsMenuController.js">
-      <Filter>Javascript</Filter>
-    </None>
     <None Include="..\..\MobileClient\www\Javascript\ClientEvents.js">
       <Filter>Javascript</Filter>
     </None>
@@ -250,9 +247,6 @@
     </None>
     <None Include="..\..\Core\Gameplay\Store.js">
       <Filter>Javascript\Core\Gameplay</Filter>
-    </None>
-    <None Include="..\..\MobileClient\www\Javascript\Render\StoreRender.js">
-      <Filter>Javascript\Render</Filter>
     </None>
     <None Include="..\..\Core\Engine\Systems\SynchronizationSystem.js">
       <Filter>Javascript\Core\Engine\Systems</Filter>
@@ -590,6 +584,12 @@
     <None Include="..\..\Core\Gameplay\GameMetaData.js">
       <Filter>Javascript\Core\Gameplay</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Javascript\UI\Game\StoreScreen.js">
+      <Filter>Javascript\UI\Game</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Javascript\UI\Game\ActionsMenuController.js">
+      <Filter>Javascript\UI\Game</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
@@ -723,6 +723,15 @@
     </Filter>
     <Filter Include="Javascript\Infrastructure">
       <UniqueIdentifier>{196be921-0233-4aa7-b348-9d499ee6b478}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Javascript\UI">
+      <UniqueIdentifier>{b4b44756-71a0-452c-90f5-bf9887da3e5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Javascript\UI\Game">
+      <UniqueIdentifier>{e19c6c22-59c0-434b-8f71-f6e9c4185cd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Javascript\UI\MenuScreen">
+      <UniqueIdentifier>{22f4a6b1-4cbf-434b-8c74-5225da22e07c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
