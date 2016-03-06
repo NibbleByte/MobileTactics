@@ -62,7 +62,9 @@ var RenderUtils = {
 
 
 	transformSet: function (element, value) {
-		$(element).css({
+		var $element = $(element);
+
+		$element.css({
 			'-webkit-transform': value,
 			'-moz-transform': value,
 			'-ms-transform': value,
@@ -72,17 +74,19 @@ var RenderUtils = {
 	},
 
 	trasnformAppend: function (element, value) {
-		$(element).css({
-			'-webkit-transform'	: $(element).css('-webkit-transform') + value,
-			'-moz-transform'	: $(element).css('-moz-transform') + value,
-			'-ms-transform'		: $(element).css('-ms-transform') + value,
-			'-o-transform'		: $(element).css('-o-transform') + value,
-			'transform'			: $(element).css('transform') + value
+		var $element = $(element);
+		$element.css({
+			'-webkit-transform'	: $element.css('-webkit-transform') + value,
+			'-moz-transform'	: $element.css('-moz-transform') + value,
+			'-ms-transform'		: $element.css('-ms-transform') + value,
+			'-o-transform'		: $element.css('-o-transform') + value,
+			'transform'			: $element.css('transform') + value
 		});
 	},
 
 	filterSet: function (element, value) {
-		$(element).css({
+		var $element = $(element);
+		$element.css({
 			'-webkit-filter': value,
 			'-moz-filter': value,
 			'-ms-filter': value,
@@ -92,12 +96,13 @@ var RenderUtils = {
 	},
 
 	filterAppend: function (element, value) {
-		$(element).css({
-			'-webkit-filter'	: $(element).css('-webkit-filter') + value,
-			'-moz-filter'	: $(element).css('-moz-filter') + value,
-			'-ms-filter'		: $(element).css('-ms-filter') + value,
-			'-o-filter'		: $(element).css('-o-filter') + value,
-			'filter'			: $(element).css('filter') + value
+		var $element = $(element);
+		$element.css({
+			'-webkit-filter'	: $element.css('-webkit-filter') + value,
+			'-moz-filter'		: $element.css('-moz-filter') + value,
+			'-ms-filter'		: $element.css('-ms-filter') + value,
+			'-o-filter'			: $element.css('-o-filter') + value,
+			'filter'			: $element.css('filter') + value
 		});
 
 	},

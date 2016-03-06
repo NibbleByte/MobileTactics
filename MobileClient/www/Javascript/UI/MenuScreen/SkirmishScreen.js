@@ -67,8 +67,8 @@ var SkirmishScreen = new function () {
 
 
 	var init = function () {
-		$(MenuScreenState).on('cleanUp', cleanUp);
-		$(MenuScreenState).on('setup', setup);
+		$(MenuScreenState).on('CLEANUP', cleanUp);
+		$(MenuScreenState).on('SETUP', setup);
 
 		$('[GameSlotName]').click(selectGameSlotButtonHandler);
 	}
