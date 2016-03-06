@@ -80,7 +80,8 @@ var MenuScreenState = new function () {
 
 		m_subscriber.unsubscribeAll();
 
-		$(self).trigger('cleanUp');
+		// Note: event name must not match this method name or will be called by jQuery
+		$(self).trigger('CLEANUP');	
 
 		if (m_clientState) {
 			m_clientState = null;
@@ -97,7 +98,8 @@ var MenuScreenState = new function () {
 		m_$MenuScreen.show();
 		self.navigateTo(self.States.MainMenu);
 
-		$(self).trigger('setup');
+		// Note: event name must not match this method name or will be called by jQuery
+		$(self).trigger('SETUP');
 
 		var onBtnEditor = function () {
 			ClientStateManager.changeState(ClientStateManager.types.WorldEditor);
