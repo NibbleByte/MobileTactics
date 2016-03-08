@@ -4,7 +4,7 @@
 //===============================================
 "use strict";
 
-var MapStorage = new function () {
+var MapsStorage = new function () {
 	var self = this;
 
 	this.maps = [

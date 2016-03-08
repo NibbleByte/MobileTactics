@@ -191,8 +191,11 @@ button:hover, .input_file_wrapper:hover {
 }
 
 button:active, .input_file_wrapper:active {
-	position:relative;
-	top:1px;
+	-webkit-transform: translateY(1px);
+	-moz-transform: translateY(1px);
+	-ms-transform: translateY(1px);
+	-o-transform: translateY(1px);
+	transform: translateY(1px);
 }
 
 button[disabled], .input_file_wrapper[disabled] 

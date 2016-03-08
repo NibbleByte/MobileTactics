@@ -11,6 +11,7 @@ var MenuScreenState = new function () {
 	this.States = {
 		MainMenu: 0,
 		SkirmishMenu: 0,
+		SkirmishMapSelect: 0,
 	}
 	Enums.enumerate(this.States);
 
@@ -81,7 +82,7 @@ var MenuScreenState = new function () {
 		m_subscriber.unsubscribeAll();
 
 		// Note: event name must not match this method name or will be called by jQuery
-		$(self).trigger('CLEANUP');	
+		$(self).trigger('CLEANUP');
 
 		if (m_clientState) {
 			m_clientState = null;

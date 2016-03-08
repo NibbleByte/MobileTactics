@@ -406,7 +406,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		m_clientState.loadMap = function (mapName) {
 			m_loadingScreen.show();
 
-			MapStorage.loadMap(mapName, function (data) {
+			MapsStorage.loadMap(mapName, function (data) {
 				onBtnLoad(event, data);
 			}, function () {
 				m_loadingScreen.hide();
