@@ -96,6 +96,16 @@ var initConsole = function () {
 				devConsole.log('Assertion failed: ' + message, Severities.error, urlInfo.url, urlInfo.lineNumber);
 			}
 
+			if (arguments.length == 1) {
+				originalConsole.assert(expression);
+				return;
+			}
+
+			if (arguments.length == 2) {
+				originalConsole.assert(expression, arguments[1]);
+				return;
+			}
+
 			return originalConsole.assert.apply(originalConsole, arguments);
 		},
 	}

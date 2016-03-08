@@ -4,10 +4,31 @@
 	background-size: cover;
 }
 
-#MenuScreenContainer button
+#MenuScreen h1
+{
+	margin: 0.4em auto;
+}
+
+#MenuScreen h2
+{
+	margin: 0.3em auto;
+}
+
+#MenuScreen h3
+{
+	margin: 0.2em auto;
+}
+
+#MainMenu button
 {
 	display: block;
 	margin: 1em auto;
+}
+
+.alone
+{
+	display: block;
+	margin: 0.5em auto;
 }
 
 .game_slot_entry
@@ -43,4 +64,52 @@
 {
 	font-size: 0.85em;
 	white-space: nowrap;
+}
+
+#SkirmishMapSelectName
+{
+	margin-top: 0px;
+}
+
+#SkirmishMapSelectCustomMap
+{
+	font-size: 0.7em;
+	font-weight: bold;
+}
+
+#SkirmishMapSelectPreview
+{
+	position: relative;
+	border: 2px cadetblue solid;
+	border-radius: 8px;
+	background-color: rgba(24, 35, 35, 0.47);
+	width: 300px;
+	height: 250px;
+	margin: auto;
+}
+
+#SkirmishMapSelectInfo
+{
+	width: 300px;
+}
+#SkirmishMapSelectPrev
+{
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+}
+
+#SkirmishMapSelectPlay
+{
+	position: absolute;
+	bottom: 0px;
+	width: 74px;
+	margin-left: -37px;
+}
+
+#SkirmishMapSelectNext
+{
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
 }
