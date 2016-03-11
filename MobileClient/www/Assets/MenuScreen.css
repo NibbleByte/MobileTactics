@@ -125,3 +125,31 @@
 	left: 0px;
 	right: 0px;
 }
+
+#GameWorldMapPreviewLoading
+{
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	
+	z-index: 100;
+	background: rgba(16, 14, 14, 0.85);
+}
+
+#GameWorldMapPreviewLoadingContent
+{
+	margin-top: 35%;
+	color: white;
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#MapSelectorPreviewLoadingTime
+{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
