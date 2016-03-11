@@ -22,6 +22,8 @@ var SkirmishScreen = new function () {
 
 
 	var cleanUp = function () {
+		m_previewMaker.cleanUp();
+		m_currentlySelectedMapIndex = -1;
 	};
 
 	var setup = function () {
@@ -66,6 +68,8 @@ var SkirmishScreen = new function () {
 
 		});
 
+
+		m_previewMaker.setup();
 	}
 
 

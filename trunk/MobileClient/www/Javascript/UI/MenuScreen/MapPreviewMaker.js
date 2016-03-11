@@ -27,14 +27,34 @@ var MapPreviewMaker = function (m_element) {
 		});
 
 		// Avoid refreshing while loading.
-		m_eworld.extract(GameWorldRenderer).refresh();
+		var renderer = m_eworld.extract(GameWorldRenderer)
+		renderer.refresh();
+
+		var zoomOutScale = Math.min(renderer.viewWidth / renderer.extentWidth, renderer.viewHeight / renderer.extentHeight);
+		if (zoomOutScale == 0) zoomOutScale = 0.5;	// HACK: Because first time elements haven't been shown and don't have sizes.
+
+		renderer.plotContainerScroller.zoom(zoomOutScale, undefined, undefined, 0);
 	}
 
-	var init = function () {
+	this.cleanUp = function () {
+
+		if (m_previewState) {
+			m_previewState.gameState = null;
+			m_previewState.playersData = null;
+			m_previewState.gameMetaData = null;
+			
+			m_previewState.eworld.destroy();
+			m_previewState.worldRenderer.destroy();
+			m_previewState = null;
+		}
+	}
+
+	this.setup = function () {
 
 		m_previewState = {
 			playersData: null,
 			gameState: null,
+			gameMetaData: null,
 		};
 
 
@@ -43,7 +63,6 @@ var MapPreviewMaker = function (m_element) {
 		// World
 		//
 		m_eworld = new ECS.EntityWorld();
-		m_previewState.eworldSB = m_eworld.createSubscriber();
 
 		m_previewState.eworld = m_eworld;
 	
@@ -69,7 +88,9 @@ var MapPreviewMaker = function (m_element) {
 		// Rendering Systems
 		//
 
-		var worldRenderer = GameWorldRenderer.Build(m_$GameWorldMap[0], m_eworld);
+		var worldRenderer = GameWorldRenderer.Build(m_$GameWorldMap[0], m_eworld, {
+			zoomMin: 0.3,
+		});
 		m_eworld.store(GameWorldRenderer, worldRenderer);
 	
 		m_eworld.addSystem(new TileRenderingSystem(worldRenderer, false, false, false));
@@ -83,5 +104,4 @@ var MapPreviewMaker = function (m_element) {
 
 		m_previewState.worldRenderer = worldRenderer;
 	}
-	$(init);
 };
