@@ -260,6 +260,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		m_clientState = {
 			playersData: null,
 			gameState: null,
+			gameMetaData: null,
 		};
 
 		m_$GameWorldMap.show();

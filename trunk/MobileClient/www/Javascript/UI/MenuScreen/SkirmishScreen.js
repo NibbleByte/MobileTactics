@@ -79,6 +79,10 @@ var SkirmishScreen = new function () {
 	var m_$MapSelectCustomMap = $('#SkirmishMapSelectCustomMap');
 	var m_$MapSelectInfo = $('#SkirmishMapSelectInfo');
 
+	var m_$GameWorldMapPreview = $('#GameWorldMapPreview');
+
+	var m_previewMaker = new MapPreviewMaker(m_$GameWorldMapPreview);
+
 
 	var stateMapSelectInit = function (prevState) {
 		if (m_currentlySelectedMapIndex == -1)
@@ -89,14 +93,16 @@ var SkirmishScreen = new function () {
 		
 		m_currentlySelectedMapRowData = rawData;
 
-		var data = Serialization.deserialize(m_currentlySelectedMapRowData);
+		m_previewMaker.loadPreview(m_currentlySelectedMapRowData);
 
-		m_$MapSelectName.text(data.gameMetaData.name);
-		m_$MapSelectCustomMap.toggle(data.gameState.isCustomMap);
+		var previewState = m_previewMaker.getPreviewState();
+
+		m_$MapSelectName.text(previewState.gameMetaData.name);
+		m_$MapSelectCustomMap.toggle(previewState.gameState.isCustomMap);
 		
-		var playersCount = data.playersData.players.length;
-		var credits = data.playersData.players[0].credits;
-		var creditsPerMine = data.playersData.players[0].creditsPerMine;
+		var playersCount = previewState.playersData.players.length;
+		var credits = previewState.playersData.players[0].credits;
+		var creditsPerMine = previewState.playersData.players[0].creditsPerMine;
 
 		m_$MapSelectInfo
 		.empty()

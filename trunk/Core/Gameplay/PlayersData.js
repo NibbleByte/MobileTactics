@@ -104,7 +104,8 @@ PlayersData.prototype.setIsPlaying = function (player, isPlaying) {
 
 	player.isPlaying = !!isPlaying;
 	
-	this._eworld.trigger(GameplayEvents.Players.IS_PLAYING_CHANGED, player);
+	if (this._eworld)
+		this._eworld.trigger(GameplayEvents.Players.IS_PLAYING_CHANGED, player);
 }
 	
 	

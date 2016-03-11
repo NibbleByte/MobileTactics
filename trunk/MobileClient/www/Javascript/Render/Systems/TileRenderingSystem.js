@@ -286,6 +286,10 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 	}
 	
 	var onTileRemoving = function(tile) {
+
+		// Unloading previous world my be slown down buy these refreshes.
+		if (self._eworld.blackboard[EngineBlackBoard.World.IS_CLEARING_WORLD])
+			return;
 		
 		// Resize if needed...
 		m_renderer.extentWidth = 0;

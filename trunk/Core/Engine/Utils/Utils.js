@@ -101,6 +101,9 @@ var Utils = {
 	// Calling this function to object, invalidates it,
 	// so it cannot be used anymore (to avoid old refs). 
 	invalidate: function (obj) {
+		if (!ClientUtils.isMockUp)
+			return;
+
 		for(var key in obj) {
 			var value = obj[key];
 			

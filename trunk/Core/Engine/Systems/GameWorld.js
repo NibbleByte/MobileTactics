@@ -35,6 +35,9 @@ var GameWorld = function () {
 	}
 		
 	this.clearTiles = function() {
+
+		self._eworld.blackboard[EngineBlackBoard.World.IS_CLEARING_WORLD] = true;
+
 		for(var i = 0; i < m_rows; ++i) {
 			for(var j = 0; j < m_columns; ++j) {
 				var tile = self.getTile(i, j);
@@ -44,6 +47,8 @@ var GameWorld = function () {
 				}
 			}
 		}
+
+		self._eworld.blackboard[EngineBlackBoard.World.IS_CLEARING_WORLD] = false;
 		
 		m_rows = 0;
 		m_columns = 0;

@@ -12,7 +12,11 @@ var UtilsSystem = function () {
 	// Entity system initialize
 	//
 	this.initialize = function () {
-		self._eworldSB.subscribe(ECS.EntityWorld.Events.ENTITY_DESTROYED, onEntityDestroyed);
+
+		if (!ClientUtils.isMockUp)
+			return;
+
+		self._eworldSB.subscribe(ECS.EntityWorld.Events.ENTITY_DESTROY_FINALIZED, onEntityDestroyed);
 
 		self._eworldSB.subscribe(EngineEvents.Utils.INVALIDATE, onInvalidate);
 	}
