@@ -21,6 +21,7 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 		self._eworldSB.subscribe(EngineEvents.World.TILE_ADDED, onTileAdded);
 		self._eworldSB.subscribe(EngineEvents.World.TILE_CHANGED, onTileChanged);
 		self._eworldSB.subscribe(EngineEvents.World.TILE_REMOVING, onTileRemoving);
+		self._eworldSB.subscribe(EngineEvents.World.WORLD_CLEARED, onWorldCleared);
 		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADED, onGameLoaded);
 
 		if (renderHighlight)
@@ -318,6 +319,13 @@ var TileRenderingSystem = function (m_renderer, renderHighlight, renderActionFog
 		if (tile.CAnimations) {
 			tile.CAnimations.remove(TileRenderingSystem.TILES_ANIM);
 		}
+	}
+
+	var onWorldCleared = function () {
+		m_renderer.extentWidth = 0;
+		m_renderer.extentHeight = 0;
+
+		m_renderer.refresh();
 	}
 	
 	var onGameLoaded = function () {
