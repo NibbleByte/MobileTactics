@@ -84,8 +84,10 @@ var SkirmishScreen = new function () {
 	var m_$MapSelectInfo = $('#SkirmishMapSelectInfo');
 
 	var m_$GameWorldMapPreview = $('#GameWorldMapPreview');
+	var m_$GameWorldMapPreviewLoading = $('#GameWorldMapPreviewLoading').hide();
 
-	var m_previewMaker = new MapPreviewMaker(m_$GameWorldMapPreview);
+	var m_previewMaker = new MapPreviewMaker(m_$GameWorldMapPreview, m_$GameWorldMapPreviewLoading);
+	var m_isMapLoading = false;
 
 
 	var stateMapSelectInit = function (prevState) {
@@ -96,6 +98,19 @@ var SkirmishScreen = new function () {
 	var showMap = function (rawData) {
 		
 		m_currentlySelectedMapRowData = rawData;
+
+		m_isMapLoading = true;
+
+		m_$GameWorldMapPreviewLoading.show();
+
+		setTimeout(onLoadingShown, 150);
+	}
+
+	var onLoadingShown = function () {
+		
+		m_isMapLoading = false;
+
+		m_$GameWorldMapPreviewLoading.hide();
 
 		m_previewMaker.loadPreview(m_currentlySelectedMapRowData);
 
@@ -117,6 +132,9 @@ var SkirmishScreen = new function () {
 	}
 
 	var onNextMap = function () {
+		if (m_isMapLoading)
+			return;
+
 		m_currentlySelectedMapIndex = (m_currentlySelectedMapIndex + 1) % MapsStorage.maps.length;
 
 		var mapName = MapsStorage.maps[m_currentlySelectedMapIndex];
@@ -125,6 +143,9 @@ var SkirmishScreen = new function () {
 	}
 
 	var onPrevMap = function () {
+		if (m_isMapLoading)
+			return;
+
 		m_currentlySelectedMapIndex--;
 
 		if (m_currentlySelectedMapIndex < 0) m_currentlySelectedMapIndex += MapsStorage.maps.length;
@@ -135,6 +156,9 @@ var SkirmishScreen = new function () {
 	}
 
 	var onPlayMap = function () {
+		if (m_isMapLoading)
+			return;
+
 		ClientStateManager.changeState(ClientStateManager.types.TestGame, m_currentlySelectedMapRowData);
 	}
 

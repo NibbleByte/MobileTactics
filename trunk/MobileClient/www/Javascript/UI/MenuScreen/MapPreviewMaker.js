@@ -11,11 +11,15 @@ var MapPreviewMaker = function (m_element) {
 	var m_previewState = null;
 	var m_eworld = null;
 
+	var m_$previewLoadTime = $('#MapSelectorPreviewLoadingTime');
+
 	this.getPreviewState = function () {
 		return m_previewState;
 	}
 
 	this.loadPreview = function (rawData) {
+		
+		var start = new Date().getTime();
 
 		var gameLoader = new GameLoader(m_previewState, m_eworld);
 
@@ -26,6 +30,8 @@ var MapPreviewMaker = function (m_element) {
 			}
 		});
 
+		var loaded = new Date().getTime();
+
 		// Avoid refreshing while loading.
 		var renderer = m_eworld.extract(GameWorldRenderer)
 		renderer.refresh();
@@ -34,6 +40,10 @@ var MapPreviewMaker = function (m_element) {
 		if (zoomOutScale == 0) zoomOutScale = 0.5;	// HACK: Because first time elements haven't been shown and don't have sizes.
 
 		renderer.plotContainerScroller.zoom(zoomOutScale, undefined, undefined, 0);
+
+
+		var end = new Date().getTime();
+		m_$previewLoadTime.text('t: ' + (loaded - start) + ', ' + (end - loaded));
 	}
 
 	this.cleanUp = function () {
