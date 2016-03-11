@@ -73,7 +73,7 @@ var MapPreviewMaker = function (m_element) {
 		m_eworld.store(GameWorldRenderer, worldRenderer);
 	
 		m_eworld.addSystem(new TileRenderingSystem(worldRenderer, false, false, false));
-		m_eworld.addSystem(new UnitRenderingSystem(worldRenderer));
+		m_eworld.addSystem(new UnitRenderingSystem(worldRenderer, true));
 		m_eworld.addSystem(new TileStructureRenderingSystem(worldRenderer));
 		m_eworld.addSystem(new AnimationSystem(worldRenderer));
 		m_eworld.addSystem(new AnimationSystemScrollOptimizer(worldRenderer, m_eworld.getSystem(AnimationSystem)));

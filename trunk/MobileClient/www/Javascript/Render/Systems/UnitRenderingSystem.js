@@ -4,7 +4,7 @@
 //===============================================
 "use strict";
 
-var UnitRenderingSystem = function (renderer) {
+var UnitRenderingSystem = function (renderer, m_skipStatistics) {
 	var self = this;
 	
 	console.assert(renderer instanceof SceneRenderer, "SceneRenderer is required.");
@@ -62,9 +62,11 @@ var UnitRenderingSystem = function (renderer) {
 		}
 
 		// So culling works correctly.
-		placeable.CUnitRendering.sprite.size(70, 30);
-		placeable.CUnitRendering.sprite.anchorX = m_renderer.zoomBack(36) * Assets.scale;
-		placeable.CUnitRendering.sprite.anchorY = m_renderer.zoomBack(-4) * Assets.scale;
+		if (placeable.CUnitRendering) {
+			placeable.CUnitRendering.sprite.size(70, 30);
+			placeable.CUnitRendering.sprite.anchorX = m_renderer.zoomBack(36) * Assets.scale;
+			placeable.CUnitRendering.sprite.anchorY = m_renderer.zoomBack(-4) * Assets.scale;
+		}
 
 		m_renderer.loadSprite(placeableRendering.sprite, resourcePath, onResourcesLoaded, placeable);
 	}
@@ -72,6 +74,9 @@ var UnitRenderingSystem = function (renderer) {
 
 	// Apply loaded resources.
 	var onResourcesLoaded = function (sprite, placeable) {
+
+		if (placeable.destroyed)
+			return;
 
 		SpriteColorizeManager.colorizeSprite(sprite, placeable.CPlayerData.player.colorHue);
 
@@ -97,7 +102,6 @@ var UnitRenderingSystem = function (renderer) {
 		applyVisibilityFog(placeable);
 		
 		var placeableRendering = placeable.CTilePlaceableRendering;
-		var unitRendering = placeable.CUnitRendering;
 		
 		if (placeableRendering.sprite.w) {
 			placeableRendering.move(coords.x, coords.y);
@@ -113,8 +117,11 @@ var UnitRenderingSystem = function (renderer) {
 		}
 		
 		// Position the health at the bottom right corner.
-		unitRendering.move(coords.x, coords.y, m_renderer);
-		unitRendering.showFinished(placeable.CUnit.finishedTurn && placeable.CTilePlaceable.tile.CTileRendering.viewerVisible);
+		var unitRendering = placeable.CUnitRendering;
+		if (unitRendering) {
+			unitRendering.move(coords.x, coords.y, m_renderer);
+			unitRendering.showFinished(placeable.CUnit.finishedTurn && placeable.CTilePlaceable.tile.CTileRendering.viewerVisible);
+		}
 	}
 
 	var onIdleAnimation = function (unit) {
@@ -137,7 +144,7 @@ var UnitRenderingSystem = function (renderer) {
 			return;
 		
 		var placeableRendering = placeable.addComponent(CTilePlaceableRendering);
-		var unitRendering = placeable.addComponent(CUnitRendering);
+		var unitRendering = (!m_skipStatistics) ? placeable.addComponent(CUnitRendering) : null;
 		
 		placeableRendering.skin = placeable.CUnit.name;
 		
@@ -145,14 +152,16 @@ var UnitRenderingSystem = function (renderer) {
 		placeableRendering.sprite = m_renderer.createSprite(WorldLayers.LayerTypes.Units);
 		
 		// Unit
-		unitRendering.sprite = m_renderer.createSprite(WorldLayers.LayerTypes.Statistics);
-		$(unitRendering.sprite.dom).addClass('statistics_text_container');
-		unitRendering.$health.appendTo(unitRendering.sprite.dom);
-		unitRendering.$damage.appendTo(unitRendering.sprite.dom);
-		unitRendering.$loss.appendTo(unitRendering.sprite.dom);
-		RenderUtils.addTextOutline(unitRendering.$health);
-		unitRendering.spriteFinished = m_renderer.createSprite(WorldLayers.LayerTypes.UnitsFinished, UnitRenderingSystem.FINISHED_FOG_SPRITE_PATH);
-		unitRendering.hideFinished();
+		if (unitRendering) {
+			unitRendering.sprite = m_renderer.createSprite(WorldLayers.LayerTypes.Statistics);
+			$(unitRendering.sprite.dom).addClass('statistics_text_container');
+			unitRendering.$health.appendTo(unitRendering.sprite.dom);
+			unitRendering.$damage.appendTo(unitRendering.sprite.dom);
+			unitRendering.$loss.appendTo(unitRendering.sprite.dom);
+			RenderUtils.addTextOutline(unitRendering.$health);
+			unitRendering.spriteFinished = m_renderer.createSprite(WorldLayers.LayerTypes.UnitsFinished, UnitRenderingSystem.FINISHED_FOG_SPRITE_PATH);
+			unitRendering.hideFinished();
+		}
 		
 		renderUnitInit(placeable);
 
@@ -176,13 +185,15 @@ var UnitRenderingSystem = function (renderer) {
 			placeable.CAnimations.remove(UnitRenderingSystem.MAIN_ANIM);
 		}
 
-		placeable.removeComponent(CUnitRendering);
+		placeable.removeComponentSafe(CUnitRendering);
 		placeable.removeComponent(CTilePlaceableRendering);
 	}
 	
 	var onUnitChanged = function(unit) {
-		unit.CUnitRendering.$health.text(unit.CUnit.health);
-		RenderUtils.addTextOutline(unit.CUnitRendering.$health)
+		if (unit.CUnitRendering) {
+			unit.CUnitRendering.$health.text(unit.CUnit.health);
+			RenderUtils.addTextOutline(unit.CUnitRendering.$health);
+		}
 	}
 
 
@@ -221,10 +232,10 @@ var UnitRenderingSystem = function (renderer) {
 
 		if (placeable.CTilePlaceable.tile.CTileRendering.viewerVisible) {
 			placeableRendering.show();
-			unitRendering.show();
+			if (unitRendering) unitRendering.show();
 		} else {
 			placeableRendering.hide();
-			unitRendering.hide();
+			if (unitRendering) unitRendering.hide();
 		}
 	}
 
@@ -233,7 +244,7 @@ var UnitRenderingSystem = function (renderer) {
 	}
 }
 
-UnitRenderingSystem.REQUIRED_COMPONENTS = [CUnitRendering, CTilePlaceableRendering];
+UnitRenderingSystem.REQUIRED_COMPONENTS = [CUnit, CTilePlaceableRendering];
 UnitRenderingSystem.MAIN_ANIM = AnimationSystem.getAnimationToken('Unit');
 UnitRenderingSystem.SPRITES_PATH = 'Assets-Scaled/Render/Images/Units/{race}/{fileName}';
 UnitRenderingSystem.FINISHED_FOG_SPRITE_PATH = 'Assets-Scaled/Render/Images/FinishedHexFog.png';
