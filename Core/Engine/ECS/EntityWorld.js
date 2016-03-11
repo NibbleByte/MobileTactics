@@ -207,12 +207,13 @@ ECS.EntityWorld = function () {
 
 // Supported EntityWorld events that systems can subscribe to.
 ECS.EntityWorld.Events = {
-		SYSTEM_ADDED:		"entityworld.system_added",		// event, system
-		SYSTEM_REMOVED:		"entityworld.system_removed",	// event, system
-		ENTITY_ADDED:		"entityworld.entity_added",		// event, entity
-		ENTITY_REFRESH:		"entityworld.entity_refresh",	// event, entity
-		ENTITY_REMOVED:		"entityworld.entity_removed",	// event, entity
-		ENTITY_DESTROYED:	"entityworld.entity_destroyed",	// event, entity
+		SYSTEM_ADDED:				"entityworld.system_added",					// event, system
+		SYSTEM_REMOVED:				"entityworld.system_removed",				// event, system
+		ENTITY_ADDED:				"entityworld.entity_added",					// event, entity
+		ENTITY_REFRESH:				"entityworld.entity_refresh",				// event, entity
+		ENTITY_REMOVED:				"entityworld.entity_removed",				// event, entity
+		ENTITY_DESTROYED:			"entityworld.entity_destroyed",				// event, entity
+		ENTITY_DESTROY_FINALIZED:	"entityworld.entity_destroy_finalized",		// event, entity
 
 
 		_Internal: {

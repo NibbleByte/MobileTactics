@@ -134,8 +134,10 @@ ECS.Entity.prototype.isAttached = function () {
 // Sets the flag "destroyed".
 ECS.Entity.prototype.destroy = function () {
 
-	if (this._entityWorld) {
-		var graveyard = this._entityWorld.graveyard;
+	var entityWorld = this._entityWorld;
+	
+	if (entityWorld) {
+		var graveyard = entityWorld.graveyard;
 		var dummy = {};
 
 		// Cache all components to graveyard
@@ -152,7 +154,6 @@ ECS.Entity.prototype.destroy = function () {
 		graveyard.removedComponentsFrom.push(this);
 		graveyard.destroyedEntity.push(this);
 
-		var entityWorld = this._entityWorld;
 		entityWorld.removeManagedEntity(this);
 		entityWorld.trigger(ECS.EntityWorld.Events.ENTITY_DESTROYED, this);
 
@@ -175,6 +176,10 @@ ECS.Entity.prototype.destroy = function () {
 	}
 
 	this.destroyed = true;
+
+	if (entityWorld) {
+		entityWorld.trigger(ECS.EntityWorld.Events.ENTITY_DESTROY_FINALIZED, this);
+	}
 }
 
 // Checks if the entity has the specified components.

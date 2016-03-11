@@ -593,6 +593,9 @@
     <None Include="..\..\MobileClient\www\Javascript\UI\MenuScreen\SkirmishScreen.js">
       <Filter>Javascript\UI\MenuScreen</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Javascript\UI\MenuScreen\MapPreviewMaker.js">
+      <Filter>Javascript\UI\MenuScreen</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

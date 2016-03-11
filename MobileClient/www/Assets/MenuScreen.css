@@ -68,13 +68,16 @@
 
 #SkirmishMapSelectName
 {
-	margin-top: 0px;
+	margin-top: 0px !important;
+	position: relative;
 }
 
 #SkirmishMapSelectCustomMap
 {
+	position: relative;
 	font-size: 0.7em;
 	font-weight: bold;
+	display: none;
 }
 
 #SkirmishMapSelectPreview
@@ -111,5 +114,14 @@
 {
 	position: absolute;
 	bottom: 0px;
+	right: 0px;
+}
+
+#GameWorldMapPreview
+{
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
 	right: 0px;
 }

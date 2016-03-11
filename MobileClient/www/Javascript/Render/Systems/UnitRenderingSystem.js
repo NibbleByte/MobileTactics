@@ -239,4 +239,4 @@ UnitRenderingSystem.SPRITES_PATH = 'Assets-Scaled/Render/Images/Units/{race}/{fi
 UnitRenderingSystem.FINISHED_FOG_SPRITE_PATH = 'Assets-Scaled/Render/Images/FinishedHexFog.png';
 
 ECS.EntityManager.registerSystem('UnitRenderingSystem', UnitRenderingSystem);
-SystemsUtils.supplyComponentFilter(UnitRenderingSystem, UnitRenderingSystem.REQUIRED_COMPONENTS);
+SystemsUtils.supplySubscriber(UnitRenderingSystem);

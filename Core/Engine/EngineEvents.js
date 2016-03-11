@@ -42,6 +42,10 @@ var EngineEvents = {
 
 var EngineBlackBoard = {
 
+	World: {
+		IS_CLEARING_WORLD: "engine.world.is_clearing_world",
+	},
+
 	Serialization: {
 		IS_LOADING:		"engine.serialization.is_loading",
 	},

@@ -26,12 +26,12 @@ var GameStateSystem = function () {
 	}
 	
 	var onRemovePlaceable = function (placeable) {
-		if (placeable.CPlayerData) {
+		if (placeable.CPlayerData && m_gameState.currentPlayer) {
 			
 			if (placeable.CPlayerData.player == m_gameState.currentPlayer) {
 				m_gameState.currentPlaceables.remove(placeable);
 			}
-			
+
 			var relation = m_playersData.getRelation(placeable.CPlayerData.player, m_gameState.currentPlayer);
 			m_gameState.relationPlaceables[relation].remove(placeable);
 		}
