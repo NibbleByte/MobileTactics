@@ -49,6 +49,8 @@ var GameWorld = function () {
 		}
 
 		self._eworld.blackboard[EngineBlackBoard.World.IS_CLEARING_WORLD] = false;
+
+		self._eworld.trigger(EngineEvents.World.WORLD_CLEARED);
 		
 		m_rows = 0;
 		m_columns = 0;

@@ -21,6 +21,7 @@ var EngineEvents = {
 			TILE_CHANGED: 	"engine.world.tile_changed",	// changedTile
 			TILE_REMOVING: 	"engine.world.tile_removing",	// removedTile
 			TILE_REMOVED: 	"engine.world.tile_removed",	// 
+			WORLD_CLEARED: 	"engine.world.world_cleared",	// 
 		},
 
 		Placeables: {
