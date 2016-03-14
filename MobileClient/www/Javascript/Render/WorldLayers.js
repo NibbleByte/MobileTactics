@@ -42,6 +42,8 @@ WorldLayers.layersOptions = {
 	Terrain: {
 		useCanvas: false,
 		autoClear: false,
+		recycleDOM: true,
+		onDestroy: SpriteColorizeManager.recycleDOM,
 	},
 
 	Selection: {
@@ -53,6 +55,8 @@ WorldLayers.layersOptions = {
 		useCanvas: false,
 		autoClear: false,
 		useCanvasInstance: !RenderUtils.supportsDataUrl,
+		recycleDOM: true,
+		onDestroy: SpriteColorizeManager.recycleDOM,
 	},
 
 	UnitsFinished: {

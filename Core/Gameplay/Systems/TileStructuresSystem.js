@@ -153,15 +153,7 @@ TileStructuresSystem.REQUIRED_COMPONENTS = [CTileTerrain, CTileOwner];
 TileStructuresSystem.isStructureTile = function (entity) {
 	var terrain = entity.CTileTerrain;
 
-	return terrain && (
-		terrain.type == GameWorldTerrainType.Base ||
-		terrain.type == GameWorldTerrainType.HQ ||
-		terrain.type == GameWorldTerrainType.Minerals ||
-		terrain.type == GameWorldTerrainType.Factory ||
-		terrain.type == GameWorldTerrainType.Harbour ||
-		terrain.type == GameWorldTerrainType.Medical ||
-		terrain.type == GameWorldTerrainType.WatchTower
-	);
+	return terrain && terrain.type >= GameWorldTerrainType.Base;
 }
 
 TileStructuresSystem.isOwnerableStructure = function (entity) {

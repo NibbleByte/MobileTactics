@@ -747,6 +747,11 @@ Sprite.prototype.orientVelocity = function (x, y) {
 };
 
 Sprite.prototype.remove = function remove() {
+	
+	if (this.layer.options.onDestroy) {
+		this.layer.options.onDestroy(this);
+	}
+
     if (this.cycle)
         this.cycle.removeSprite(this);
     if (this.layer && !this.layer.useCanvas) {
