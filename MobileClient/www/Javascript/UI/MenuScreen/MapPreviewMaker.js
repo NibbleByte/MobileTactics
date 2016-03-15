@@ -23,12 +23,7 @@ var MapPreviewMaker = function (m_element) {
 
 		var gameLoader = new GameLoader(m_previewState, m_eworld);
 
-		gameLoader.load(rawData, function (fullGameState) {
-
-			for(var i = 0; i < fullGameState.playersData.players.length; ++i) {
-				fullGameState.playersData.setIsPlaying(fullGameState.playersData.players[i], false);
-			}
-		});
+		gameLoader.load(rawData);
 
 		var loaded = new Date().getTime();
 
