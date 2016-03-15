@@ -179,7 +179,7 @@ var SpriteColorizeManager = new function () {
 					sprite.layer.dom.removeChild(sprite.dom);
 
 					// Make sure the sprite fully refreshes the DOM element.
-					dom.style.display = 'block';
+					dom.style.display = sprite.dom.style.display;
 					dom.className = sprite.dom.className;
 					sprite.zindex = sprite.dom.style.zIndex;	// NOTE: not using sprite.zindex in the rest of the code.
 

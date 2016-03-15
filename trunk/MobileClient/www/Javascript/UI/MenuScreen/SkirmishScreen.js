@@ -197,12 +197,15 @@ var SkirmishScreen = new function () {
 			// Race
 			//
 			var $select = $('<select>', { disabled: m_isCustomMap });
+			$('<option />', {value: -1, text: 'None' }).appendTo($select);
+
 			for(var raceName in Player.Races) {
 
 				if (raceName == 'Developers') continue;
 				var race = Player.Races[raceName];
+				var selected = (m_isCustomMap && race == player.race) || (!m_isCustomMap && race == Player.Races.Empire);
 
-				$('<option />', {value: race, text: raceName, selected: m_isCustomMap && race == player.race })
+				$('<option />', {value: race, text: raceName, selected: selected })
 				.appendTo($select);
 			}
 
@@ -256,6 +259,7 @@ var SkirmishScreen = new function () {
 		if (m_isCustomMap) {
 			var playersReplacements = m_configurePlayersData.players;
 		} else {
+			
 			var playersReplacements = [];
 			for(var i = 0; i < m_configurePlayersControls.length; ++i) {
 				var controls = m_configurePlayersControls[i];
@@ -264,6 +268,11 @@ var SkirmishScreen = new function () {
 				player.race = parseInt(controls.$raceSelect.val());
 				player.teamId = parseInt(controls.$teamSelect.val());
 				player.type = (controls.$aiCheckbox.prop('checked')) ? Player.Types.AI : Player.Types.Human;
+
+				if (player.race == -1) {
+					player.race = Player.Races.Empire;
+					player.isPlaying = false;
+				}
 
 				playersReplacements.push(player);
 			}

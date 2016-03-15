@@ -404,10 +404,15 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 							player.colorHue = replacement.colorHue;
 							player.teamId = replacement.teamId;
 							player.type = replacement.type;
+							player.isPlaying = replacement.isPlaying;
 						}
 					}
 
 				});
+
+				if (!m_clientState.gameState.gameStarted) {
+					m_eworld.trigger(GameplayEvents.GameState.START_GAME);
+				}
 
 				// Avoid refreshing while loading.
 				m_eworld.extract(GameWorldRenderer).refresh();
