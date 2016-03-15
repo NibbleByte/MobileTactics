@@ -32,6 +32,7 @@ var GameplayEvents = {
 		},
 		
 		GameState: {
+			START_GAME: 		"gameplay.game_state.start_game",		// 
 			END_TURN: 			"gameplay.game_state.end_turn",			// 
 			TURN_CHANGING: 		"gameplay.game_state.turn_changing",	// gameState, hasJustLoaded
 			VIEWER_CHANGED: 	"gameplay.game_state.viewer_changed",	// gameState
