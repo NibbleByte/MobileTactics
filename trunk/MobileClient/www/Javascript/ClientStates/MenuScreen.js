@@ -12,6 +12,7 @@ var MenuScreenState = new function () {
 		MainMenu: 0,
 		SkirmishMenu: 0,
 		SkirmishMapSelect: 0,
+		SkirmishGameConfigure: 0,
 	}
 	Enums.enumerate(this.States);
 

@@ -153,3 +153,27 @@
 	top: 0px;
 	right: 0px;
 }
+
+#SkirmishGameConfigurePlayers
+{
+	width: 400px;
+	margin: auto;
+	border-collapse: collapse;
+}
+
+#SkirmishGameConfigurePlayers th
+{
+	border: 2px cadetblue solid;
+	background-color: rgba(10, 74, 74, 0.87);
+}
+
+#SkirmishGameConfigurePlayers td
+{
+	border: 2px cadetblue solid;
+	background-color: rgba(24, 35, 35, 0.47);
+}
+
+#SkirmishGameConfigurePlay, #SkirmishGameConfigureCustomMap
+{
+	margin-top: 8px;
+}

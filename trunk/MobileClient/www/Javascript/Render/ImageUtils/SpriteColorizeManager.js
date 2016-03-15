@@ -23,7 +23,6 @@ var SpriteColorizeManager = new function () {
 
 	m_DOMsCacheDB[DBType.Colorized] = {};
 	m_DOMsCacheDB[DBType.Saturated] = {};
-	window.db = m_DOMsCacheDB;
 
 	var convertImageToCanvas = function (image) {
 		console.assert(image);

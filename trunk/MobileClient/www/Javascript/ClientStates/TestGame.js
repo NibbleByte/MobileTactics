@@ -255,7 +255,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		}
 	};
 
-	this.setup = function (m_loadingScreen, m_initData) {
+	this.setup = function (m_loadingScreen, m_initData, m_initPlayersReplacements) {
 
 		m_clientState = {
 			playersData: null,
@@ -373,7 +373,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 			}
 		}
 		
-		var onBtnLoad = function (event, data) {
+		var onBtnLoad = function (event, data, playersReplacements) {
 			
 			if (!data)
 				data = m_clientState.savedGame;
@@ -391,9 +391,20 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 
 					m_clientState.gameState.fogOfWar = m_fogOfWar;
 
-					// Up to 2 human players only (for now).
-					for(var i = 2; i < m_clientState.playersData.players.length; ++i) {
-						m_clientState.playersData.players[i].type = Player.Types.AI;
+
+					if (!m_clientState.gameState.isCustomMap && playersReplacements) {
+
+						for(var i = 0; i < playersReplacements.length; ++i) {
+							var replacement = playersReplacements[i];
+
+							var player = m_clientState.playersData.getPlayer(replacement.playerId);
+
+							player.name = replacement.name;
+							player.race = replacement.race;
+							player.colorHue = replacement.colorHue;
+							player.teamId = replacement.teamId;
+							player.type = replacement.type;
+						}
 					}
 
 				});
@@ -433,10 +444,10 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 
 					m_clientState.gameState.fogOfWar = m_fogOfWar;
 
-					m_clientState.playersData.addPlayer('Pl1', Player.Types.Human, Player.Races.Empire, PlayerColors[0]);
-					m_clientState.playersData.addPlayer('Pl2', Player.Types.Human, Player.Races.JunkPeople, PlayerColors[1]);
-					m_clientState.playersData.addPlayer('Pl3', Player.Types.Human, Player.Races.Developers, PlayerColors[2]);
-					m_clientState.playersData.addPlayer('Pl4', Player.Types.Human, Player.Races.Developers, PlayerColors[3]);
+					m_clientState.playersData.addPlayer('Pl1', Player.Types.Human, Player.Races.Empire);
+					m_clientState.playersData.addPlayer('Pl2', Player.Types.Human, Player.Races.JunkPeople);
+					m_clientState.playersData.addPlayer('Pl3', Player.Types.Human, Player.Races.Developers);
+					m_clientState.playersData.addPlayer('Pl4', Player.Types.Human, Player.Races.Developers);
 
 				},
 
@@ -597,7 +608,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		// Initialize
 		//
 		if (m_initData) {
-			onBtnLoad(null, m_initData);
+			onBtnLoad(null, m_initData, m_initPlayersReplacements);
 		} else {
 			onBtnRestart();
 		}

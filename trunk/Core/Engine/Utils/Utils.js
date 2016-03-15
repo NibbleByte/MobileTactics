@@ -101,7 +101,7 @@ var Utils = {
 	// Calling this function to object, invalidates it,
 	// so it cannot be used anymore (to avoid old refs). 
 	invalidate: function (obj) {
-		if (!ClientUtils.isMockUp)
+		if (!window.ClientUtils || !ClientUtils.isMockUp)
 			return;
 
 		for(var key in obj) {

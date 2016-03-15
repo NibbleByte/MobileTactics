@@ -116,6 +116,9 @@ var SkirmishScreen = new function () {
 
 		var previewState = m_previewMaker.getPreviewState();
 
+		m_configurePlayersData = previewState.playersData;
+		m_isCustomMap = previewState.gameState.isCustomMap;
+
 		m_$MapSelectName.text(previewState.gameMetaData.name);
 		m_$MapSelectCustomMap.toggle(previewState.gameState.isCustomMap);
 		
@@ -155,11 +158,118 @@ var SkirmishScreen = new function () {
 		MapsStorage.loadMap(mapName, showMap, onPrevMap);
 	}
 
-	var onPlayMap = function () {
+	var onSelectMap = function () {
 		if (m_isMapLoading)
 			return;
 
-		ClientStateManager.changeState(ClientStateManager.types.TestGame, m_currentlySelectedMapRowData);
+		MenuScreenState.navigateTo(MenuScreenState.States.SkirmishGameConfigure);
+	}
+
+
+
+	//
+	// Map Configure
+	//
+	var m_$gameConfigureTableBody = $('#SkirmishGameConfigurePlayers > tbody');
+	var m_$SkirmishGameConfigureCustomMap = $('#SkirmishGameConfigureCustomMap');
+	var m_isCustomMap = false;
+	var m_configurePlayersData = null;
+	var m_configurePlayersControls = null;
+
+	var stateGameConfigureInit = function (prevState) {
+
+		m_$gameConfigureTableBody.empty();
+		m_configurePlayersControls = [];
+
+		for(var i = 0; i < m_configurePlayersData.players.length; ++i) {
+			var player = m_configurePlayersData.players[i];
+
+			var controls = { playerId: player.playerId };
+
+			var $tr = $('<tr />').appendTo(m_$gameConfigureTableBody);
+
+			$('<td />')
+			.text('Player ' + (i + 1))
+			.appendTo($tr);
+
+
+			//
+			// Race
+			//
+			var $select = $('<select>', { disabled: m_isCustomMap });
+			for(var raceName in Player.Races) {
+
+				if (raceName == 'Developers') continue;
+				var race = Player.Races[raceName];
+
+				$('<option />', {value: race, text: raceName, selected: m_isCustomMap && race == player.race })
+				.appendTo($select);
+			}
+
+			$('<td />')
+			.append($select)
+			.appendTo($tr);
+
+			controls.$raceSelect = $select;
+
+
+			//
+			// Team
+			//
+			var $select = $('<select>', { disabled: m_isCustomMap });
+			$('<option />', { value: -1, text: '-', selected: m_isCustomMap && player.teamId == -1}).appendTo($select);
+			$('<option />', { value: 0, text: 'A', selected: m_isCustomMap && player.teamId == 0}).appendTo($select);
+			$('<option />', { value: 1, text: 'B', selected: m_isCustomMap && player.teamId == 1}).appendTo($select);
+			$('<option />', { value: 2, text: 'C', selected: m_isCustomMap && player.teamId == 2}).appendTo($select);
+			$('<option />', { value: 3, text: 'D', selected: m_isCustomMap && player.teamId == 3}).appendTo($select);
+
+			$('<td />')
+			.append($select)
+			.appendTo($tr);
+
+			controls.$teamSelect = $select;
+
+
+			//
+			// AI
+			//
+			var $checkbox = $('<input>', {
+				type: 'checkbox', 
+				disabled: m_isCustomMap, 
+				checked: m_isCustomMap && player.type == Player.Types.AI,
+			});
+
+			$('<td />')
+			.append($checkbox)
+			.appendTo($tr);
+
+			controls.$aiCheckbox = $checkbox;
+
+
+			m_configurePlayersControls.push(controls);
+			m_$SkirmishGameConfigureCustomMap.toggle(m_isCustomMap);
+		}
+	}
+
+	var onConfigurePlay = function () {
+		
+		if (m_isCustomMap) {
+			var playersReplacements = m_configurePlayersData.players;
+		} else {
+			var playersReplacements = [];
+			for(var i = 0; i < m_configurePlayersControls.length; ++i) {
+				var controls = m_configurePlayersControls[i];
+				var player = m_configurePlayersData.getPlayer(controls.playerId);
+
+				player.race = parseInt(controls.$raceSelect.val());
+				player.teamId = parseInt(controls.$teamSelect.val());
+				player.type = (controls.$aiCheckbox.prop('checked')) ? Player.Types.AI : Player.Types.Human;
+
+				playersReplacements.push(player);
+			}
+		}
+
+		ClientStateManager.changeState(ClientStateManager.types.TestGame, m_currentlySelectedMapRowData, playersReplacements);
 	}
 
 	//
@@ -170,12 +280,15 @@ var SkirmishScreen = new function () {
 		$(MenuScreenState).on('SETUP', setup);
 
 		MenuScreenState.stateInitializers[MenuScreenState.States.SkirmishMapSelect] = stateMapSelectInit;
+		MenuScreenState.stateInitializers[MenuScreenState.States.SkirmishGameConfigure] = stateGameConfigureInit;
 
 		$('[GameSlotName]').click(selectGameSlotButtonHandler);
 
 		$('#SkirmishMapSelectNext').click(onNextMap);
 		$('#SkirmishMapSelectPrev').click(onPrevMap);
-		$('#SkirmishMapSelectPlay').click(onPlayMap);
+		$('#SkirmishMapSelectPlay').click(onSelectMap);
+
+		$('#SkirmishGameConfigurePlay').click(onConfigurePlay);
 	}
 	$(init);
 };

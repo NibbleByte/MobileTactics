@@ -31,13 +31,13 @@ var ClientStateManager = new function () {
 		m_factories[type] = stateFactory;
 	};
 
-	this.changeState = function (type, param) {
+	this.changeState = function (type, param1, param2, param3, param4) {
 
 		if (m_currentState) {
 			m_factories[m_currentState.type].cleanUp();
 		}
 			
-		m_currentState = m_factories[type].setup(m_loadingScreen, param);
+		m_currentState = m_factories[type].setup(m_loadingScreen, param1, param2, param3, param4);
 		m_currentState.type = type;
 
 		currentState = m_currentState;

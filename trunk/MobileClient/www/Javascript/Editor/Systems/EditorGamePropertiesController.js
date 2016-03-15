@@ -60,6 +60,9 @@ var EditorGamePropertiesController = function (m_renderer) {
 	}
 
 	var onGameProps = function (event) {
+
+		var editorState = self._eworld.extract(EditorState);
+
 		m_$GameProps.show();
 
 		m_$GamePropsName.val(m_gameMetaData.name);
@@ -71,15 +74,18 @@ var EditorGamePropertiesController = function (m_renderer) {
 		m_$GamePropsStartingCredits.val(m_playersData.players[0].credits);
 		m_$GamePropsCreditsPerMine.val(m_playersData.players[0].creditsPerMine);
 
-		m_$GamePropsPlayers.val(m_playersData.players.length);
+		m_$GamePropsPlayers.val(editorState.playersCount);
 
-		m_$GamePropsLockSizes.prop('checked', self._eworld.extract(EditorState).mapLockedSizes);
+		m_$GamePropsLockSizes.prop('checked', editorState.mapLockedSizes);
 		m_$GamePropsCustomMap.prop('checked', m_gameState.isCustomMap);
 
 		showCustomMapMenus(m_$GamePropsCustomMap.prop('checked'));
 	}
 
 	var onBtnApply = function (event) {
+
+		var editorState = self._eworld.extract(EditorState);
+
 		m_$GameProps.hide();
 
 		m_gameMetaData.name = m_$GamePropsName.val();
@@ -103,13 +109,11 @@ var EditorGamePropertiesController = function (m_renderer) {
 		}
 
 		while(m_playersData.players.length < playersCount) {
-			var name = 'Pl' + (m_playersData.players.length + 1);
-			var color = PlayerColors[m_playersData.players.length];
-			
-			m_playersData.addPlayer(name, Player.Types.Human, Player.Races.Empire, color);
+			m_playersData.addPlayer();
 		}
 
-		self._eworld.extract(EditorState).mapLockedSizes = m_$GamePropsLockSizes.prop('checked');
+		editorState.mapLockedSizes = m_$GamePropsLockSizes.prop('checked');
+		editorState.playersCount = playersCount;
 
 		self._eworld.trigger(EditorEvents.Properties.GAME_PROPERTIES_CHANGED, parseInt(m_$GamePropsHeight.val()), parseInt(m_$GamePropsWidth.val()));
 	}

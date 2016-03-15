@@ -13,7 +13,7 @@ var UtilsSystem = function () {
 	//
 	this.initialize = function () {
 
-		if (!ClientUtils.isMockUp)
+		if (!window.ClientUtils || !ClientUtils.isMockUp)
 			return;
 
 		self._eworldSB.subscribe(ECS.EntityWorld.Events.ENTITY_DESTROY_FINALIZED, onEntityDestroyed);
