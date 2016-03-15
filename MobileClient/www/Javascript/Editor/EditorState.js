@@ -11,6 +11,7 @@ var EditorState = function () {
 
 EditorState.prototype.init = function () {
 	this.mapLockedSizes = false;
+	this.playersCount = 2;
 }
 
 Serialization.registerClass(EditorState, 'EditorState');

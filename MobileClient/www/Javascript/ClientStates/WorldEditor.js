@@ -129,10 +129,9 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 				},
 
 				function () {
-					m_clientState.playersData.addPlayer('Pl1', Player.Types.Human, Player.Races.Empire, PlayerColors[0]);
-					m_clientState.playersData.addPlayer('Pl2', Player.Types.Human, Player.Races.Empire, PlayerColors[1]);
-					m_clientState.playersData.addPlayer('Pl3', Player.Types.Human, Player.Races.Empire, PlayerColors[2]);
-					m_clientState.playersData.addPlayer('Pl4', Player.Types.Human, Player.Races.Empire, PlayerColors[3]);
+					for(var i = 0; i < m_clientState.editorState.playersCount; ++i) {
+						m_clientState.playersData.addPlayer();
+					}
 
 					m_clientState.editorController.setWorldSize(true, DEFAULT_ROWS, DEFAULT_COLUMNS);
 				});
@@ -170,11 +169,17 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 			}
 
 			// Unused players...
+			var usedPlayersToSerialize = [];
+			var allPlayers = m_clientState.playersData.players;
 			for(var i = 0; i < m_clientState.playersData.players.length; ++i) {
 				var player = m_clientState.playersData.players[i];
 
-				m_clientState.playersData.setIsPlaying(player, usedPlayers[player.playerId]);
+				if (usedPlayers[player.playerId])
+					usedPlayersToSerialize.push(player);
 			}
+
+			// Swap with array of only used players.
+			m_clientState.playersData.players = usedPlayersToSerialize;
 
 			m_clientState.gameMetaData.lastModified = Date.now();
 		
@@ -186,6 +191,9 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 					world: entities,
 			};
 			m_clientState.savedGame = Serialization.serialize(fullGameState, true, true);
+
+			// Revert back players
+			m_clientState.playersData.players = allPlayers;
 			
 			var blob = new Blob([m_clientState.savedGame], {type: "text/plain;charset=utf-8"});
 			saveAs(blob, m_lastFilename);
@@ -224,7 +232,13 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 						if (!m_clientState.editorState.mapLockedSizes) {
 							rows += 2;
 							columns += 2;
-						}	
+						}
+
+						m_clientState.editorState.playersCount = m_clientState.editorState.playersCount || m_clientState.playersData.players.length;
+
+						while(m_clientState.playersData.players.length < m_clientState.editorState.playersCount) {
+							m_clientState.playersData.addPlayer();
+						}
 						
 						m_clientState.editorController.setWorldSize(false, rows, columns);
 

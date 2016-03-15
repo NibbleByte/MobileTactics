@@ -9,16 +9,27 @@ var PlayersData = function (eworld) {
 	this.players = [];	// Read-only field!
 };
 
-PlayersData.prototype.addPlayer = function (name, type, race, colorHue, teamId) {
+PlayersData.prototype.addPlayer = function (name, type, race, teamId) {
 
 	// Find next possible id.
 	var nextId = 0;
+	var colorsAvailable = PlayerColors.clone();
 	for(var i = 0; i < this.players.length; ++i) {
 		if (nextId <= this.players[i].playerId)
 			nextId = this.players[i].playerId + 1;
+
+		colorsAvailable.remove(this.players[i].colorHue);
 	}
+
+	if (Utils.assert(colorsAvailable.length != 0, 'No available colors for new player.'))
+		colorsAvailable.push(0);
 	
-	var player = new Player(nextId, name, type, race, colorHue, teamId || -1);
+	name = name || ('Pl' + (nextId + 1));
+	type = type || Player.Types.Human;
+	race = race || Player.Races.Empire;
+	teamId = teamId || -1;
+
+	var player = new Player(nextId, name, type, race, colorsAvailable[0], teamId);
 	this.players.push(player);
 	
 	this._eworld.trigger(GameplayEvents.Players.PLAYER_ADDED, player);
@@ -164,3 +175,14 @@ Player.Races = {
 
 Enums.enumerate(Player.Types);
 Enums.enumerate(Player.Races);
+
+
+var PlayerColors = [
+	60,
+	120,
+	175,
+	220,
+	30,
+	200,
+	300,
+];

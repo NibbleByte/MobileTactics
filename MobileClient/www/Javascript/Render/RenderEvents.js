@@ -60,14 +60,4 @@ var RenderIntents = {
 	Positive: 'positive',
 	Neutral: 'neutral',
 	Negative: 'negative',
-}
-
-var PlayerColors = [
-	60,
-	120,
-	175,
-	220,
-	30,
-	200,
-	300,
-];
+};

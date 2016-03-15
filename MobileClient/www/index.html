@@ -319,6 +319,8 @@
 				<div id="MenuScreenContainer" class="dialog dialog_container_floating">
 					<h1>Mobile Tactics</h1>
 
+
+
 					<div id="MainMenu" class="dialog_body">
 						<button disabled>Online</button>
 						<button disabled>Offline</button>
@@ -335,6 +337,8 @@
 						<button disabled>About</button>
 					</div>
 
+
+
 					<div id="SkirmishMenu" class="dialog_body">
 						<h2>Choose game slot:</h2>
 
@@ -346,6 +350,8 @@
 
 						<button class="btn_cancel" NavigateToMenu="MainMenu">Back</button>
 					</div>
+
+
 
 					<div id="SkirmishMapSelect" class="dialog_body">
 						<h2>Select map:</h2>
@@ -375,6 +381,35 @@
 						</div>
 
 						<button class="btn_cancel alone" NavigateToMenu="SkirmishMenu">Back</button>
+					</div>
+
+
+
+					<div id="SkirmishGameConfigure" class="dialog_body">
+						<h2>Map Configure:</h2>
+
+						<table id="SkirmishGameConfigurePlayers">
+							<thead>
+								<tr>
+									<th>Player</th>
+									<th>Race</th>
+									<th>Team</th>
+									<th>AI</th>
+								</tr>
+							</thead>
+
+
+							<tbody>
+							</tbody>
+						</table>
+
+						<div id="SkirmishGameConfigureCustomMap">
+							Can't modify settings, map is custom.
+						</div>
+
+						<button id="SkirmishGameConfigurePlay">Play</button>
+
+						<button class="btn_cancel alone" NavigateToMenu="SkirmishMapSelect">Back</button>
 					</div>
 				</div>
 			</div>
