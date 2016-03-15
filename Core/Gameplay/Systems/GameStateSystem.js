@@ -20,6 +20,7 @@ var GameStateSystem = function () {
 		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADING, onGameLoading);
 		self._eworldSB.subscribe(EngineEvents.General.GAME_VALIDATE, onGameValidation);
 		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADED, onGameLoaded);
+		self._eworldSB.subscribe(GameplayEvents.GameState.START_GAME, onStartGame);
 		self._eworldSB.subscribe(GameplayEvents.GameState.END_TURN, onEndTurn);
 		self._eworldSB.subscribe(GameplayEvents.Players.PLAYER_REMOVED, onPlayerRemoved);
 		self._eworldSB.subscribe(GameplayEvents.Players.IS_PLAYING_CHANGED, onIsPlayingChanged);
@@ -91,9 +92,48 @@ var GameStateSystem = function () {
 		}
 	}
 
-	var onGameLoaded = function () {
+	var onStartGame = function () {
+
+		// Remove any non-playing players units.
+		var placeables = self._entityFilter.entities.clone();
+		
+		for (var i = 0; i < placeables.length; ++i) {
+			var placeable = placeables[i];
+			var player = placeable.CPlayerData.player;
+			var tile = placeable.CTilePlaceable.tile;
+
+			if (!placeable.CPlayerData.player.isPlaying) {
+				placeable.destroy();
+
+			} else if (!m_gameState.isCustomMap && placeable.CUnit.race != player.race) {
+				placeable.destroy();
+
+				placeable = UnitsFactory.createUnit(GenericUnits.getDefinitionByRace(player.race), player);
+				self._eworld.addUnmanagedEntity(placeable);
+				self._eworld.extract(GameWorld).place(placeable, tile);
+			}
+		}
+
+		var structures = m_gameState.ownerableStructures;
+		for(var i = 0; i < structures.length; ++i) {
+			var tile = structures[i];
+
+			if (tile.CTileOwner.owner && !tile.CTileOwner.owner.isPlaying) {
+				tile.CTileOwner.owner = null;
+				self._eworld.trigger(GameplayEvents.Structures.OWNER_CHANGED, tile);
+			}
+		}
+
 
 		m_gameState.gameStarted = true;
+
+		onGameLoaded();
+	}
+
+	var onGameLoaded = function () {
+
+		if (!m_gameState.gameStarted)
+			return;
 		
 		self._eworld.trigger(GameplayEvents.GameState.TURN_CHANGING, m_gameState, true);
 

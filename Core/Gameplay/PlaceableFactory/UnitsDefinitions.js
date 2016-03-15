@@ -21,6 +21,14 @@ UnitTypeStatNames[UnitType.Naval] = 'AttackNaval';
 var UnitsDefinitions = [];
 var GenericUnits = [];	// Contains the definitions of all generic units (i.e. basic race unit that can be used in generic maps).
 
+GenericUnits.getDefinitionByRace = function (race) {
+
+	for(var i = 0; i < GenericUnits.length; ++i) {
+		if (GenericUnits[i].race == race)
+			return GenericUnits[i];
+	}
+}
+
 UnitsDefinitions[Player.Races.Developers] = {
 
 	WarMiner: {
