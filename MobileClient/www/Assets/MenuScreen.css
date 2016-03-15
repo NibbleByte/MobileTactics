@@ -66,6 +66,20 @@
 	white-space: nowrap;
 }
 
+.game_slot_entry_delete_button
+{
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 26px;
+	height: 20px;
+	
+	background: rgba(93, 22, 22, 0.61);
+	border: 2px outset rgba(113, 41, 41, 0.86);
+	border-radius: 4px;
+	line-height: 22px;
+}
+
 #SkirmishMapSelectName
 {
 	margin-top: 0px !important;

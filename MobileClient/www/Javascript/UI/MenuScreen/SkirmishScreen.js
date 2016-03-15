@@ -10,6 +10,12 @@ var SkirmishScreen = new function () {
 	var selectGameSlotButtonHandler = function (event) {
 		MenuScreenState.selectedSaveName = $(event.currentTarget).attr('GameSlotName');
 
+		if ($(event.target).hasClass('game_slot_entry_delete_button')) {
+			SavesStorage.deleteGame(MenuScreenState.selectedSaveName);
+			reloadGameSlotsInfo();
+			return;
+		}
+
 		var saveData = SavesStorage.loadGame(MenuScreenState.selectedSaveName);
 
 		if (!saveData) {
@@ -26,12 +32,8 @@ var SkirmishScreen = new function () {
 		m_currentlySelectedMapIndex = -1;
 	};
 
-	var setup = function () {
+	var reloadGameSlotsInfo = function () {
 
-
-		//
-		// Populate game slot entries
-		//
 		$('[GameSlotName]').each(function () {
 
 			var slotName = $(this).attr('GameSlotName');
@@ -62,13 +64,16 @@ var SkirmishScreen = new function () {
 				.append($date)
 				.append($playersDesc);
 
+				$(this).append('<div class="game_slot_entry_delete_button">X</div>');
+
 			} else {
 				$(this).append('<h3>Empty</h3>');
 			}
-
 		});
+	}
 
-
+	var setup = function () {
+		reloadGameSlotsInfo();
 		m_previewMaker.setup();
 	}
 
