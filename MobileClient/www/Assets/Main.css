@@ -64,7 +64,7 @@ html, body
 	right: 0px;
 }
 
-#GameWorldMap, #GameWorldMapEditor
+.game_view
 {
 	position: absolute;
 	top: 0px;
