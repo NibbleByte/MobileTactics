@@ -6,6 +6,11 @@
 
 var StoreScreen = new function () {
 	var self = this;
+
+	this.Events = {
+		STORE_SHOWN:	"store_screen.store_shown",
+		STORE_HIDE:		"store_screen.store_hide",
+	}
 	
 	var m_$container = $('#Store');
 	var m_$table = $('#StoreList > tbody');
@@ -19,6 +24,8 @@ var StoreScreen = new function () {
 
 		if (m_items && m_items.length > 0) {
 			m_$container.show();
+
+			$(self).trigger(self.Events.STORE_SHOWN)
 
 			m_$table.empty();
 
@@ -52,6 +59,7 @@ var StoreScreen = new function () {
 
 	this.hide = function () {
 		m_$container.hide();
+		$(self).trigger(self.Events.STORE_HIDE)
 	}
 
 	var buyItem = function (event) {

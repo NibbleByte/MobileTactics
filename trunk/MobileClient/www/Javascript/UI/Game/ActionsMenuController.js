@@ -41,6 +41,7 @@ var ActionsMenuController = function (actionMenuElement) {
 	
 	this.uninitialize = function () {
 		m_$actionMenu.empty();
+		m_$actionMenu.off('click', onMenuClicked);
 	};
 	
 	var appendEntry = function (actionName, prettyName) {
