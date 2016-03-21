@@ -6,15 +6,14 @@ SpriteAnimations.FightUnits.FlakTrooper = {
 
 	frameWidth: 180,
 	frameHeight: 170,
-	framesPerRow: 6,
+	framesPerRow: 4,
 	anchorX: Animator.AnchorX.Center,
 	anchorY: 140,
 	
 	sequences: [
 		{
 			name: 'Idle',
-			startX: 0,
-			startY: 0,
+			startIndex: 0,
 			frames: 1,
 		},
 		
@@ -22,8 +21,7 @@ SpriteAnimations.FightUnits.FlakTrooper = {
 		{
 			name: 'Idle0',
 			speed: 20,
-			startX: 0,
-			startY: 0,
+			startIndex: 0,
 			frames: 1,
 		},
 		
@@ -37,17 +35,26 @@ SpriteAnimations.FightUnits.FlakTrooper = {
 
 		{
 			name: 'Attack',
-			speed: 8,
-			startIndex: 0,
-			frames: 8,
+			speed: 9,
+			startIndex: 8,
+			frames: 15,
 
 			events: [
 				
 				{
-					frame: 0,
+					frame: 6,
 					event: FightRenderingEvents.Animations.FIRE,
 					params: {
 						weaponType: FightUnitWeaponType.RocketLauncher,
+						final: false,
+					}
+				},
+
+				{
+					frame: 12,
+					event: FightRenderingEvents.Animations.FIRE,
+					params: {
+						weaponType: FightUnitWeaponType.Pistols,
 						final: true,
 					}
 				},
