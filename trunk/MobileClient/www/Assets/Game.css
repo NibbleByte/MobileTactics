@@ -22,10 +22,22 @@
 	text-align:left;
 }
 
-#LbCredits
+#GameToolbar
 {
 	display: none;
 	
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	left: 0px;
+	
+	z-index: 100;
+	
+	text-align: center;
+}
+
+#LbCredits
+{
 	border: 4px ridge #FFDB1A;
 	border-radius: 6px;
 	background-color: #083B40;
@@ -35,9 +47,9 @@
 	min-width: 40px;
 	text-align: right;
 	
-	position: absolute;
-	bottom: 50px;
-	right: 4px;
+	display: inline-block;
+	margin: 4px 0px;
+	text-align: center;
 }
 
 .game_scene_plot

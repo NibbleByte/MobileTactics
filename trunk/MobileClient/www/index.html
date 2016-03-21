@@ -85,6 +85,7 @@
 				</div>
 			</div>
 
+
 			<div id="FightScreenContainer">
 				<div id="FightFrame">
 				</div>
@@ -105,11 +106,24 @@
 				</div>
 			</div>
 
-			<div id="GameWorldMap">
-			</div>
-			<canvas id="GameWorldMapShot" style="display: none;">
-			</canvas>
-			<div id="GameWorldMapEditor">
+			<div class="game_view">
+
+				<div id="GameWorldMap">
+				</div>
+				<canvas id="GameWorldMapShot" style="display: none;">
+				</canvas>
+				<div id="GameWorldMapEditor">
+				</div>
+
+
+				<div id="GameToolbar">
+					<button id="BtnGameUnitInfo">I</button>
+					<button id="BtnGameMapInfo">M</button>
+					<span id="LbCredits">0</span>
+					<button id="BtnGameNextTurn">N</button>
+					<button id="BtnGameQuit">X</button>
+				</div>
+
 			</div>
 
 
@@ -269,8 +283,6 @@
 					<button id="BtnRemoveTile">Rem</button>
 				</div>
 			</div>
-
-			<span id="LbCredits">0</span>
 
 			<div id="AIToolbarContainer" class="toolbar_bottom_container" style="display: none;">
 				<div id="AIToolbar" class="toolbar_bottom">
@@ -580,6 +592,7 @@
 			<script type="text/javascript" src="Javascript/Render/Systems/VisibilityFogRenderingSystem.js"></script>
 			<script type="text/javascript" src="Javascript/Render/Systems/TileRenderingSystem.js"></script>
 			<script type="text/javascript" src="Javascript/Render/Systems/ControllerRenderingSystem.js"></script>
+			<script type="text/javascript" src="Javascript/Render/Systems/GameToolbarSystem.js"></script>
 			<script type="text/javascript" src="Javascript/Render/Systems/TileStructureRenderingSystem.js"></script>
 			<script type="text/javascript" src="Javascript/Render/Systems/UnitRenderingSystem.js"></script>
 			<script type="text/javascript" src="Javascript/Render/Systems/IdleAnimationsSystem.js"></script>
