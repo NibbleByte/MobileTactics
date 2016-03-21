@@ -17,6 +17,8 @@ var GameToolbarSystem = function () {
 	var m_$unitsInfoStatisticsTable = $('#GameUnitsInfoStatistics > tbody');
 	var m_lastTileSelected = null;
 
+	var m_subscriber = new DOMSubscriber();
+
 	//
 	// Entity system initialize
 	//
@@ -37,6 +39,8 @@ var GameToolbarSystem = function () {
 
 	this.uninitialize = function () {
 		m_$gameToolbar.hide();
+
+		m_subscriber.unsubscribeAll();
 	}
 
 	var onCreditsChanged = function (value, delta) {
@@ -175,13 +179,16 @@ var GameToolbarSystem = function () {
 
 
 
+	m_subscriber.subscribe($('#BtnGameUnitInfo'), 'click', onUnitsInfo);
+	m_subscriber.subscribe($('#BtnGameNextTurn'), 'click', onNextTurn);
+	m_subscriber.subscribe($('#BtnGameQuit'), 'click', onQuit);
 
-	$('#BtnGameUnitInfo').click(onUnitsInfo);
-	$('#BtnGameNextTurn').click(onNextTurn);
-	$('#BtnGameQuit').click(onQuit);
+	m_subscriber.subscribe($('#BtnGameUnitsInfoClose'), 'click', onUnitsInfoClose);
+	m_subscriber.subscribe(m_$unitsInfoSelect, 'change', onUnitsInfoListChanged);
 
-	$('#BtnGameUnitsInfoClose').click(onUnitsInfoClose);
-	m_$unitsInfoSelect.change(onUnitsInfoListChanged);
+	m_subscriber.subscribe(StoreScreen, StoreScreen.Events.STORE_SHOWN, hideToolbar);
+	m_subscriber.subscribe(StoreScreen, StoreScreen.Events.STORE_HIDE, showToolbar);
+
 }
 
 ECS.EntityManager.registerSystem('GameToolbarSystem', GameToolbarSystem);
