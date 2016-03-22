@@ -35,10 +35,9 @@ var GameToolbarSystem = function () {
 		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADING, onGameLoading);
 
 		self._eworldSB.subscribe(GameplayEvents.Resources.CURRENT_CREDITS_CHANGED, onCreditsChanged);
-		self._eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, onTurnChanged);
 
-		self._eworldSB.subscribe(RenderEvents.FightAnimations.FIGHT_STARTED, hideToolbar);
-		self._eworldSB.subscribe(RenderEvents.FightAnimations.FIGHT_FINISHED, showToolbar);
+		self._eworldSB.subscribe(RenderEvents.FightAnimations.FIGHT_STARTED, self.hideToolbar);
+		self._eworldSB.subscribe(RenderEvents.FightAnimations.FIGHT_FINISHED, self.showToolbar);
 
 		self._eworldSB.subscribe(ClientEvents.Controller.TILE_SELECTED, onTileSelected);
 
@@ -63,20 +62,11 @@ var GameToolbarSystem = function () {
 		m_$creditsLabel.text(value);
 	}
 
-
-	var onTurnChanged = function (gameState) {
-		if (gameState.currentPlayer && gameState.currentPlayer.type == Player.Types.Human) {
-			showToolbar();
-		} else {
-			hideToolbar();
-		}
-	}
-
-	var hideToolbar = function () {
+	this.hideToolbar = function () {
 		m_$gameToolbar.hide();
 	}
 
-	var showToolbar = function () {
+	this.showToolbar = function () {
 		m_$gameToolbar.show();
 	}
 
@@ -150,7 +140,7 @@ var GameToolbarSystem = function () {
 	}
 
 	var onUnitsInfo = function () {
-		hideToolbar();
+		self.hideToolbar();
 
 		if (m_lastTileSelected && m_lastTileSelected.CTile.placedObjects.length > 0) {
 			var placeable = m_lastTileSelected.CTile.placedObjects[0];
@@ -166,7 +156,7 @@ var GameToolbarSystem = function () {
 	var onUnitsInfoClose = function () {
 
 		m_$unitsInfoScreen.hide();
-		showToolbar();
+		self.showToolbar();
 	}
 
 	var onTileSelected = function (tile) {
@@ -178,7 +168,7 @@ var GameToolbarSystem = function () {
 	// Game State Info
 	//
 	var onGameStateInfo = function () {
-		hideToolbar();
+		self.hideToolbar();
 
 		//
 		// Stats
@@ -228,7 +218,7 @@ var GameToolbarSystem = function () {
 
 	var onGameStateInfoClose = function () {
 		m_$gameStateInfoScreen.hide();
-		showToolbar();
+		self.showToolbar();
 	}
 
 
@@ -255,8 +245,8 @@ var GameToolbarSystem = function () {
 
 	m_subscriber.subscribe($('#BtnGameStateInfoClose'), 'click', onGameStateInfoClose);
 
-	m_subscriber.subscribe(StoreScreen, StoreScreen.Events.STORE_SHOWN, hideToolbar);
-	m_subscriber.subscribe(StoreScreen, StoreScreen.Events.STORE_HIDE, showToolbar);
+	m_subscriber.subscribe(StoreScreen, StoreScreen.Events.STORE_SHOWN, self.hideToolbar);
+	m_subscriber.subscribe(StoreScreen, StoreScreen.Events.STORE_HIDE, self.showToolbar);
 
 }
 

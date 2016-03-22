@@ -320,8 +320,8 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		m_eworld.addSystem(new TileRenderingSystem(worldRenderer, true, true, true));
 		m_eworld.addSystem(new UnitRenderingSystem(worldRenderer));
 		m_eworld.addSystem(new TileStructureRenderingSystem(worldRenderer));
-		m_eworld.addSystem(new ControllerRenderingSystem(worldRenderer));
 		m_eworld.addSystem(new GameToolbarSystem());
+		m_eworld.addSystem(new ControllerRenderingSystem(worldRenderer, m_eworld.getSystem(GameToolbarSystem)));
 		m_eworld.addSystem(new AnimationSystem(worldRenderer));
 		m_eworld.addSystem(new AnimationSystemScrollOptimizer(worldRenderer, m_eworld.getSystem(AnimationSystem)));
 		m_eworld.addSystem(new LayersUpdateSystem(worldRenderer, WorldLayers.LayerTypes));
