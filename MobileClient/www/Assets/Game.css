@@ -121,3 +121,15 @@
 	border: 2px cadetblue solid;
 	background-color: rgba(24, 35, 35, 0.47);
 }
+
+
+#TurnChanged
+{
+	background-color: rgba(24,28,37,0.95);
+
+}
+
+#TurnChangedPlayerLable
+{
+	margin-top: 20%;
+}

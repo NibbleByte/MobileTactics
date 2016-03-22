@@ -154,13 +154,13 @@ var GameStateSystem = function () {
 
 			if (viewer) {
 				m_gameState.viewerPlayer = viewer;
-				self._eworld.trigger(GameplayEvents.GameState.VIEWER_CHANGED, m_gameState);
+				self._eworld.trigger(GameplayEvents.GameState.VIEWER_CHANGED, m_gameState, true);
 			}
 			
 			self._eworld.triggerAsync(GameplayEvents.GameState.TURN_CHANGED, m_gameState, true);
 		} else {
 			m_gameState.viewerPlayer = null;
-			self._eworld.trigger(GameplayEvents.GameState.VIEWER_CHANGED, m_gameState);
+			self._eworld.trigger(GameplayEvents.GameState.VIEWER_CHANGED, m_gameState, true);
 
 			self._eworld.triggerAsync(GameplayEvents.GameState.NO_PLAYING_PLAYERS);
 		}
@@ -181,7 +181,7 @@ var GameStateSystem = function () {
 		// If had no current player and still have none, do nothing.
 		if (m_gameState.currentPlayer == null) {
 			m_gameState.viewerPlayer = null;
-			self._eworld.trigger(GameplayEvents.GameState.VIEWER_CHANGED, m_gameState);
+			self._eworld.trigger(GameplayEvents.GameState.VIEWER_CHANGED, m_gameState, false);
 
 			self._eworld.triggerAsync(GameplayEvents.GameState.NO_PLAYING_PLAYERS);
 			return;
@@ -193,7 +193,7 @@ var GameStateSystem = function () {
 		
 		if (canView(m_gameState.currentPlayer)) {
 			m_gameState.viewerPlayer = m_gameState.currentPlayer;
-			self._eworld.trigger(GameplayEvents.GameState.VIEWER_CHANGED, m_gameState);
+			self._eworld.trigger(GameplayEvents.GameState.VIEWER_CHANGED, m_gameState, false);
 		}
 		
 		populateGameStateUnits();

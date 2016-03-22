@@ -35,7 +35,7 @@ var GameplayEvents = {
 			START_GAME: 		"gameplay.game_state.start_game",		// 
 			END_TURN: 			"gameplay.game_state.end_turn",			// 
 			TURN_CHANGING: 		"gameplay.game_state.turn_changing",	// gameState, hasJustLoaded
-			VIEWER_CHANGED: 	"gameplay.game_state.viewer_changed",	// gameState
+			VIEWER_CHANGED: 	"gameplay.game_state.viewer_changed",	// gameState, hasJustLoaded
 			TURN_CHANGED: 		"gameplay.game_state.turn_changed",		// gameState, hasJustLoaded
 			NO_PLAYING_PLAYERS: "gameplay.game_state.no_playingplayers",// player
 		},
