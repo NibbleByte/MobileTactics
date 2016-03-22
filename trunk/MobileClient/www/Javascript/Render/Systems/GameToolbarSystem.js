@@ -17,12 +17,22 @@ var GameToolbarSystem = function () {
 	var m_$unitsInfoStatisticsTable = $('#GameUnitsInfoStatistics > tbody');
 	var m_lastTileSelected = null;
 
+	var m_$gameStateInfoScreen = $('#GameStateInfo').hide();
+	var m_$gameStateInfoStatisticsTable = $('#GameStateInfoTable > tbody');
+	var m_$gameStateInfoPlayersTable = $('#GameStateInfoPlayersTable > tbody');
+
 	var m_subscriber = new DOMSubscriber();
+
+	var m_gameState = null;
+	var m_playersData = null;
+	var m_gameMetaData = null;
 
 	//
 	// Entity system initialize
 	//
 	this.initialize = function () {
+
+		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADING, onGameLoading);
 
 		self._eworldSB.subscribe(GameplayEvents.Resources.CURRENT_CREDITS_CHANGED, onCreditsChanged);
 		self._eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, onTurnChanged);
@@ -41,6 +51,12 @@ var GameToolbarSystem = function () {
 		m_$gameToolbar.hide();
 
 		m_subscriber.unsubscribeAll();
+	}
+
+	var onGameLoading = function () {
+		m_gameState = self._eworld.extract(GameState);
+		m_playersData = self._eworld.extract(PlayersData);
+		m_gameMetaData = self._eworld.extract(GameMetaData);
 	}
 
 	var onCreditsChanged = function (value, delta) {
@@ -65,6 +81,13 @@ var GameToolbarSystem = function () {
 	}
 
 
+	var appendRow = function (name, value, table, rowClass) {
+		$('<tr>')
+		.append('<td>' + name + ':</td>')
+		.append('<td>' + value + '</td>')
+		.addClass(rowClass)
+		.appendTo(table);
+	}
 
 
 	//
@@ -118,26 +141,11 @@ var GameToolbarSystem = function () {
 
 
 
-
-		$('<tr>')
-		.append('<td>Price:</td>')
-		.append('<td>' + definition.price + '</td>')
-		.addClass('stat_unit_price')
-		.appendTo(m_$unitsInfoStatisticsTable);
-
-		$('<tr>')
-		.append('<td>Type:</td>')
-		.append('<td>' + pretifyStatType(definition.type) + '</td>')
-		.addClass('stat_unit_type')
-		.appendTo(m_$unitsInfoStatisticsTable);
-
+		appendRow('Price', definition.price, m_$unitsInfoStatisticsTable, 'stat_unit_price');
+		appendRow('Type', pretifyStatType(definition.type), m_$unitsInfoStatisticsTable, 'stat_unit_type');
 
 		for(var statName in stats) {
-			$('<tr>')
-			.append('<td>'+ statName + ':</td>')
-			.append('<td>' + stats[statName] + '</td>')
-			.addClass('stat_unit_' + statName)
-			.appendTo(m_$unitsInfoStatisticsTable);
+			appendRow(statName, stats[statName], m_$unitsInfoStatisticsTable, 'stat_unit_' + statName);
 		}
 	}
 
@@ -167,6 +175,64 @@ var GameToolbarSystem = function () {
 
 
 	//
+	// Game State Info
+	//
+	var onGameStateInfo = function () {
+		hideToolbar();
+
+		//
+		// Stats
+		//
+		var player = m_gameState.currentPlayer;
+		if (!player)
+			player = m_playersData.players[0];
+
+		var minesCount = m_gameState.currentStructuresTypes[GameWorldTerrainType.Minerals].length;
+
+		m_$gameStateInfoStatisticsTable.empty();
+
+		appendRow('Map', m_gameMetaData.name, m_$gameStateInfoStatisticsTable);
+		appendRow('Custom', m_gameState.isCustomMap, m_$gameStateInfoStatisticsTable);
+		appendRow('Turns', m_gameState.turnsPassed, m_$gameStateInfoStatisticsTable);
+		appendRow('Mines', minesCount, m_$gameStateInfoStatisticsTable);
+		appendRow('Credits/Mine', player.creditsPerMine, m_$gameStateInfoStatisticsTable);
+		appendRow('Credits/Turn', minesCount * player.creditsPerMine, m_$gameStateInfoStatisticsTable);
+
+
+		//
+		// Players
+		//
+		m_$gameStateInfoPlayersTable.empty();
+
+		for(var i = 0; i < m_playersData.players.length; ++i) {
+			var player = m_playersData.players[i];
+
+			var team = (player.teamId == -1) ? '-' : String.fromCharCode(65 + player.teamId);
+			var type = $('<td>').append($('<input>', {
+				type: 'checkbox', 
+				disabled: true, 
+				checked: player.type == Player.Types.AI,
+			}));
+
+
+			$('<tr>')
+			.append('<td>Player ' + (i + 1) + '</td>')
+			.append('<td>' + Enums.getName(Player.Races, player.race) + '</td>')
+			.append('<td>' + team + '</td>')
+			.append(type)
+			.appendTo(m_$gameStateInfoPlayersTable);
+		}
+
+		m_$gameStateInfoScreen.show();
+	}
+
+	var onGameStateInfoClose = function () {
+		m_$gameStateInfoScreen.hide();
+		showToolbar();
+	}
+
+
+	//
 	// Others
 	//
 	var onNextTurn = function () {
@@ -180,11 +246,14 @@ var GameToolbarSystem = function () {
 
 
 	m_subscriber.subscribe($('#BtnGameUnitInfo'), 'click', onUnitsInfo);
+	m_subscriber.subscribe($('#BtnGameStateInfo'), 'click', onGameStateInfo);
 	m_subscriber.subscribe($('#BtnGameNextTurn'), 'click', onNextTurn);
 	m_subscriber.subscribe($('#BtnGameQuit'), 'click', onQuit);
 
 	m_subscriber.subscribe($('#BtnGameUnitsInfoClose'), 'click', onUnitsInfoClose);
 	m_subscriber.subscribe(m_$unitsInfoSelect, 'change', onUnitsInfoListChanged);
+
+	m_subscriber.subscribe($('#BtnGameStateInfoClose'), 'click', onGameStateInfoClose);
 
 	m_subscriber.subscribe(StoreScreen, StoreScreen.Events.STORE_SHOWN, hideToolbar);
 	m_subscriber.subscribe(StoreScreen, StoreScreen.Events.STORE_HIDE, showToolbar);

@@ -101,3 +101,23 @@
 {
 	color: #F1C232;
 }
+
+
+#GameStateInfoPlayersTable
+{
+	width: 300px;
+	margin: auto;
+	border-collapse: collapse;
+}
+
+#GameStateInfoPlayersTable th
+{
+	border: 2px cadetblue solid;
+	background-color: rgba(10, 74, 74, 0.87);
+}
+
+#GameStateInfoPlayersTable td
+{
+	border: 2px cadetblue solid;
+	background-color: rgba(24, 35, 35, 0.47);
+}
