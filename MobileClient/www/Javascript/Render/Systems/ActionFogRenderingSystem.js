@@ -77,7 +77,10 @@ var ActionFogRenderingSystem = function (m_world) {
 		self._eworld.trigger(RenderEvents.Layers.REFRESH_LAYER, WorldLayers.LayerTypes.ActionFog);
 	}
 
-	var onTurnChanging = function () {
+	var onTurnChanging = function (gameState, hasJustLoaded) {
+
+		if (hasJustLoaded)
+			return;
 
 		var placeables = self._eworld.getSystem(GameWorld).getPlaceables();
 
