@@ -20,7 +20,7 @@ var MapsStorage = new function () {
 		if (Utils.assert(self.maps.contains(mapName), 'Unknown map name: ' + mapName))
 			return;
 
-		$.get(MAPS_PATH.replace('{fileName}', mapName))
+		$.get(MAPS_PATH.replace('{fileName}', mapName), null, null, 'text')
 		.done(function (data) {
 			onSuccess(data);
 		})
