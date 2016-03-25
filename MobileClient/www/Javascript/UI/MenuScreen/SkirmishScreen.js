@@ -44,11 +44,18 @@ var SkirmishScreen = new function () {
 				var metaData = SavesStorage.loadGameMetaData(slotName);
 
 				var playersDesc = [];
-				for (var i = 0; i < metaData.playersData.players.length; ++i) {
-					var player = metaData.playersData.players[i];
 
-					if (player.isPlaying) {
-						playersDesc.push(Enums.getName(Player.Races, player.race));
+				if (!metaData.gameState.hasGameFinished()) {
+					for (var i = 0; i < metaData.playersData.players.length; ++i) {
+						var player = metaData.playersData.players[i];
+
+						if (player.isPlaying) {
+							playersDesc.push(Enums.getName(Player.Races, player.race));
+						}
+					}
+				} else {
+					for(var i = 0; i < metaData.gameState.winners.length; ++i) {
+						playersDesc.push(metaData.gameState.winners[i].name);
 					}
 				}
 
@@ -57,7 +64,14 @@ var SkirmishScreen = new function () {
 
 				var $name = $('<h3>').text(metaData.gameMetaData.name + ': T' + metaData.gameState.turnsPassed);
 				var $date = $('<div>').html(date).addClass('game_slot_entry_date_played');
-				var $playersDesc = $('<div>').text(playersDesc.join(' VS ')).addClass('game_slot_entry_desc');
+
+				if (!metaData.gameState.hasGameFinished()) {
+					var $playersDesc = $('<div>').text(playersDesc.join(' VS '));
+				} else {
+					var $playersDesc = $('<div>').text('Winners: ' + playersDesc.join(', '));
+					$playersDesc.prepend($('<span>').html('&#10004;').addClass('success'));
+				}
+				$playersDesc.addClass('game_slot_entry_desc');
 
 				$(this)
 				.append($name)

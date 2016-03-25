@@ -81,6 +81,15 @@ html, body
 	height: 100%;
 }
 
+.fail
+{
+	color: red;
+}
+
+.success
+{
+	color: limegreen;
+}
 
 .toolbar_bottom_container
 {
