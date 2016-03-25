@@ -599,6 +599,9 @@
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\GameToolbarSystem.js">
       <Filter>Javascript\Render\Systems</Filter>
     </None>
+    <None Include="..\..\Core\Gameplay\Systems\VictoryStateMonitor.js">
+      <Filter>Javascript\Core\Gameplay\Systems</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

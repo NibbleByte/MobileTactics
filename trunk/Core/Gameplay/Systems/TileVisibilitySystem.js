@@ -36,6 +36,10 @@ var TileVisibilitySystem = function (m_world) {
 		tile.CTileVisibility.visible = false;
 	}
 
+	var showTile = function (tile) {
+		tile.CTileVisibility.visible = true;
+	}
+
 	var showTiles = function (tiles) {
 		for(var j = 0; j < tiles.length; ++j) {
 			tiles[j].CTileVisibility.visible = true;
@@ -52,7 +56,7 @@ var TileVisibilitySystem = function (m_world) {
 	var onTileAdded = function(tile) {
 		tile.addComponent(CTileVisibility);
 
-		tile.CTileVisibility.visible = !m_fogOfWarAllowed;
+		tile.CTileVisibility.visible = !m_fogOfWarAllowed || m_gameState.hasGameFinished();
 
 		if (self._eworld.blackboard[EngineBlackBoard.Serialization.IS_LOADING])
 			return;
@@ -64,7 +68,7 @@ var TileVisibilitySystem = function (m_world) {
 	var refreshVisibility = function () {
 
 
-		if (m_fogOfWarAllowed) {
+		if (m_fogOfWarAllowed && !m_gameState.hasGameFinished()) {
 
 			m_world.iterateAllTiles(hideTile);
 
@@ -74,6 +78,10 @@ var TileVisibilitySystem = function (m_world) {
 			var visibleTiles = self.findPlayerVisibility(m_gameState.currentPlayer);
 
 			showTiles(visibleTiles);
+		}
+
+		if (m_fogOfWarAllowed && m_gameState.hasGameFinished()) {
+			m_world.iterateAllTiles(showTile);
 		}
 		
 

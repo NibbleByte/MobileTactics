@@ -293,6 +293,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		m_eworld.addSystem(new UnitsSystem());
 		m_eworld.addSystem(effects);
 		m_eworld.addSystem(new GameStateSystem());
+		m_eworld.addSystem(new VictoryStateMonitor());
 		m_eworld.addSystem(new ResourcesSystem());
 		m_eworld.addSystem(new TileStructuresSystem());	// Before TileVisibilitySystem, because structures also define visibility
 		m_eworld.addSystem(new TileCapturingSystem());	// After TileStructuresSystem

@@ -76,6 +76,9 @@ var PlayerController = function (m_executor) {
 		
 		selectTileHighlight(tile);
 
+		if (m_gameState.hasGameFinished())
+			return;
+
 		var selectedAction = null;
 		
 		if (m_selectedTile) {

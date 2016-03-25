@@ -71,14 +71,15 @@ var TileCapturingSystem = function () {
 
 				// Do capture
 				if (tile.CTileOwner.captureTurns == 0) {
+					var prevOwner = tile.CTileOwner.owner;
 
 					// Remove from previous relation.
 					var relation = PlayersData.Relation.Neutral;
-					if (tile.CTileOwner.owner) {
-						relation = m_playersData.getRelation(tile.CTileOwner.owner, player);
+					if (prevOwner) {
+						relation = m_playersData.getRelation(prevOwner, player);
 
 						// The x owner knows who took it from him!
-						tile.CTileOwner.knowledge[tile.CTileOwner.owner.playerId] = player;
+						tile.CTileOwner.knowledge[prevOwner.playerId] = player;
 					}
 					m_gameState.relationStructures[relation].remove(tile);
 
@@ -96,8 +97,8 @@ var TileCapturingSystem = function () {
 					m_gameState.relationStructures[PlayersData.Relation.Ally].push(tile);
 
 					// Notify
-					self._eworld.trigger(GameplayEvents.Structures.OWNER_CHANGED, tile);
-					self._eworld.trigger(GameplayEvents.Structures.CAPTURE_FINISHED, tile);
+					self._eworld.trigger(GameplayEvents.Structures.OWNER_CHANGED, tile, prevOwner);
+					self._eworld.trigger(GameplayEvents.Structures.CAPTURE_FINISHED, tile, prevOwner);
 				}
 			}
 		}

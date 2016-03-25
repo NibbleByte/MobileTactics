@@ -20,8 +20,8 @@ var GameplayEvents = {
 			CAPTURE_STARTED: 		"gameplay.structures.capture_started",		// tile
 			CAPTURE_STOPPED: 		"gameplay.structures.capture_stopped",		// tile
 			CAPTURE_INTERUPTED: 	"gameplay.structures.capture_interupted",	// tile
-			CAPTURE_FINISHED:		"gameplay.structures.capture_finished",		// tile
-			OWNER_CHANGED:			"gameplay.structures.owner_changed",		// tile
+			CAPTURE_FINISHED:		"gameplay.structures.capture_finished",		// tile, previousOwner
+			OWNER_CHANGED:			"gameplay.structures.owner_changed",		// tile, previousOwner
 		},
 		
 		Players: {
@@ -38,6 +38,9 @@ var GameplayEvents = {
 			VIEWER_CHANGED: 	"gameplay.game_state.viewer_changed",	// gameState, hasJustLoaded
 			TURN_CHANGED: 		"gameplay.game_state.turn_changed",		// gameState, hasJustLoaded
 			NO_PLAYING_PLAYERS: "gameplay.game_state.no_playingplayers",// player
+
+			PLAYER_DEFEATED:	"gameplay.game_state.player_defeated",	// player
+			PLAYERS_VICTORIOUS:	"gameplay.game_state.player_victorious",// winners
 		},
 
 		Actions: {
