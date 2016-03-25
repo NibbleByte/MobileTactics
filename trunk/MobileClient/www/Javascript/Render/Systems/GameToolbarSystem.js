@@ -10,6 +10,7 @@ var GameToolbarSystem = function () {
 	var m_selectedSprite = null;
 	var m_$gameToolbar = $('#GameToolbar');
 	var m_$creditsLabel = $('#LbCredits');
+	var m_$gameNextTurn = $('#BtnGameNextTurn')
 
 
 	var m_$unitsInfoScreen = $('#GameUnitsInfo').hide();
@@ -33,15 +34,17 @@ var GameToolbarSystem = function () {
 	this.initialize = function () {
 
 		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADING, onGameLoading);
+		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADED, onGameLoaded);
 
 		self._eworldSB.subscribe(GameplayEvents.Resources.CURRENT_CREDITS_CHANGED, onCreditsChanged);
+		self._eworldSB.subscribe(GameplayEvents.GameState.PLAYERS_VICTORIOUS, onPlayersVictorious);
 
 		self._eworldSB.subscribe(RenderEvents.FightAnimations.FIGHT_STARTED, self.hideToolbar);
 		self._eworldSB.subscribe(RenderEvents.FightAnimations.FIGHT_FINISHED, self.showToolbar);
 
 		self._eworldSB.subscribe(ClientEvents.Controller.TILE_SELECTED, onTileSelected);
 
-		m_$gameToolbar.show();
+		self.hideToolbar();
 
 		initUnitsInfoList();
 	}
@@ -56,10 +59,22 @@ var GameToolbarSystem = function () {
 		m_gameState = self._eworld.extract(GameState);
 		m_playersData = self._eworld.extract(PlayersData);
 		m_gameMetaData = self._eworld.extract(GameMetaData);
+
+		m_$creditsLabel.text('-');
+		m_$gameNextTurn.prop('disabled', m_gameState.winners.length != 0);
+	}
+
+	var onGameLoaded = function () {
+		self.showToolbar();
 	}
 
 	var onCreditsChanged = function (value, delta) {
 		m_$creditsLabel.text(value);
+	}
+
+	var onPlayersVictorious = function (winners) {
+		m_$gameNextTurn.prop('disabled', true);
+		m_$creditsLabel.text('-');
 	}
 
 	this.hideToolbar = function () {
@@ -238,7 +253,7 @@ var GameToolbarSystem = function () {
 
 	m_subscriber.subscribe($('#BtnGameUnitInfo'), 'click', onUnitsInfo);
 	m_subscriber.subscribe($('#BtnGameStateInfo'), 'click', onGameStateInfo);
-	m_subscriber.subscribe($('#BtnGameNextTurn'), 'click', onNextTurn);
+	m_subscriber.subscribe(m_$gameNextTurn, 'click', onNextTurn);
 	m_subscriber.subscribe($('#BtnGameQuit'), 'click', onQuit);
 
 	m_subscriber.subscribe($('#BtnGameUnitsInfoClose'), 'click', onUnitsInfoClose);
