@@ -206,7 +206,7 @@ var GameToolbarSystem = function () {
 
 
 			$('<tr>')
-			.append('<td>Player ' + (i + 1) + '</td>')
+			.append('<td>' + player.name + '</td>')
 			.append('<td>' + Enums.getName(Player.Races, player.race) + '</td>')
 			.append('<td>' + team + '</td>')
 			.append(type)

@@ -191,10 +191,15 @@ var SkirmishScreen = new function () {
 
 			var controls = { playerId: player.playerId };
 
+			//
+			// Name
+			//
+			player.name = 'Player ' + (i + 1);
+
 			var $tr = $('<tr />').appendTo(m_$gameConfigureTableBody);
 
 			$('<td />')
-			.text('Player ' + (i + 1))
+			.text(player.name)
 			.appendTo($tr);
 
 
