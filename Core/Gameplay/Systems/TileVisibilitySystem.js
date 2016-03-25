@@ -68,7 +68,7 @@ var TileVisibilitySystem = function (m_world) {
 	var refreshVisibility = function () {
 
 
-		if (m_fogOfWarAllowed && !m_gameState.hasGameFinished()) {
+		if (m_fogOfWarAllowed) {
 
 			m_world.iterateAllTiles(hideTile);
 
@@ -79,11 +79,6 @@ var TileVisibilitySystem = function (m_world) {
 
 			showTiles(visibleTiles);
 		}
-
-		if (m_fogOfWarAllowed && m_gameState.hasGameFinished()) {
-			m_world.iterateAllTiles(showTile);
-		}
-		
 
 		// Populate visible placeables.
 		for(var relation = 0; relation < m_gameState.visiblePlaceables.length; ++relation) {
