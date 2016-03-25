@@ -90,6 +90,9 @@ var VictoryStateMonitor = function () {
 		for(var i = 0; i < hasNoUnits.length; ++i) {
 			var player = hasNoUnits[i];
 
+			if (!player.isPlaying)
+				continue;
+
 			if (hasNoProduction.contains(player)) {
 				self._eworld.trigger(GameplayEvents.GameState.PLAYER_DEFEATED, player);
 				checkWinCondition();
@@ -103,6 +106,9 @@ var VictoryStateMonitor = function () {
 	}
 
 	var onCaptureFinished = function (tile, previousOwner) {
+
+		if (!previousOwner)
+			return;
 		
 		if (tile.CTileTerrain.type == GameWorldTerrainType.HQ) {
 			// TODO: If 3 or more players, taking HQ that wasn't originally yours would lead to defeat?
