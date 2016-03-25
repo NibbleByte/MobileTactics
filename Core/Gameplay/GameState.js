@@ -16,6 +16,7 @@ GameState.prototype.init = function () {
 	this.isCustomMap = true;
 	this.fogOfWar = true;
 	this.gameStarted = false;
+	this.winners = [];
 	
 	this.currentPlaceables = [];
 	this.relationPlaceables = [];
@@ -73,12 +74,17 @@ GameState.prototype.clearStructures = function () {
 	}
 }
 
+GameState.prototype.hasGameFinished = function () {
+	return this.winners.length > 0;
+}
+
 GameState.serialize = function (input, output, instanceRegister) {
 
 	output.currentPlayer = Serialization.serializeCustom(input.currentPlayer, instanceRegister);
 	output.turnsPassed = Serialization.serializeCustom(input.turnsPassed, instanceRegister);
 	output.isCustomMap = Serialization.serializeCustom(input.isCustomMap, instanceRegister);
 	output.gameStarted = Serialization.serializeCustom(input.gameStarted, instanceRegister);
+	output.winners = Serialization.serializeCustom(input.winners, instanceRegister);
 	output.fogOfWar = Serialization.serializeCustom(input.fogOfWar, instanceRegister);
 };
 
@@ -90,5 +96,6 @@ GameState.deserialize = function (input, output, instanceRegister, outAllObjects
 	output.turnsPassed = Serialization.deserializeCustom(input.turnsPassed, instanceRegister, outAllObjects);
 	output.isCustomMap = Serialization.deserializeCustom(input.isCustomMap, instanceRegister, outAllObjects);
 	output.gameStarted = Serialization.deserializeCustom(input.gameStarted, instanceRegister, outAllObjects);
+	output.winners = Serialization.deserializeCustom(input.winners, instanceRegister, outAllObjects) || [];
 	output.fogOfWar = Serialization.deserializeCustom(input.fogOfWar, instanceRegister, outAllObjects);
 };

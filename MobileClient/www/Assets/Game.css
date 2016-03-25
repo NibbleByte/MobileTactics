@@ -102,6 +102,10 @@
 	color: #F1C232;
 }
 
+.player_not_playing
+{
+	color: gray;
+}
 
 #GameStateInfoPlayersTable
 {

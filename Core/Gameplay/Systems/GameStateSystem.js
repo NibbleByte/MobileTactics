@@ -22,6 +22,8 @@ var GameStateSystem = function () {
 		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADED, onGameLoaded);
 		self._eworldSB.subscribe(GameplayEvents.GameState.START_GAME, onStartGame);
 		self._eworldSB.subscribe(GameplayEvents.GameState.END_TURN, onEndTurn);
+		self._eworldSB.subscribe(GameplayEvents.GameState.PLAYER_DEFEATED, onPlayerDefeated);
+		self._eworldSB.subscribe(GameplayEvents.GameState.PLAYERS_VICTORIOUS, onPlayersVictorious);
 		self._eworldSB.subscribe(GameplayEvents.Players.PLAYER_REMOVED, onPlayerRemoved);
 		self._eworldSB.subscribe(GameplayEvents.Players.IS_PLAYING_CHANGED, onIsPlayingChanged);
 	}
@@ -199,6 +201,18 @@ var GameStateSystem = function () {
 		populateGameStateUnits();
 		
 		self._eworld.triggerAsync(GameplayEvents.GameState.TURN_CHANGED, m_gameState, false);
+	}
+
+	var onPlayerDefeated = function (player) {
+		m_playersData.setIsPlaying(player, false);
+	}
+
+	var onPlayersVictorious = function (winners) {
+		m_gameState.winners = winners;
+
+		for(var i = 0; i < winners.length; ++i) {
+			m_playersData.setIsPlaying(winners[i], false);
+		}
 	}
 	
 	var onPlayerRemoved = function (player) {

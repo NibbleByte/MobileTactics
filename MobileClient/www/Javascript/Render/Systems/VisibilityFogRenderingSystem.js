@@ -57,7 +57,11 @@ var VisibilityFogRenderingSystem = function (m_world, m_visibilitySystem) {
 		TileRenderingSystem.setTileVisibilityFog(tile, true);
 	}
 
-	var hideFog = function (tiles) {
+	var hideFog = function (tile) {
+		TileRenderingSystem.setTileVisibilityFog(tile, false);
+	}
+
+	var hideFogs = function (tiles) {
 		for (var j = 0; j < tiles.length; ++j) {
 			TileRenderingSystem.setTileVisibilityFog(tiles[j], false);
 		}
@@ -81,13 +85,20 @@ var VisibilityFogRenderingSystem = function (m_world, m_visibilitySystem) {
 		}
 
 
-		m_world.iterateAllTiles(showFog);
+		if (!m_gameState.hasGameFinished()) {
 
-		if (m_gameState.viewerPlayer) {
+			m_world.iterateAllTiles(showFog);
+
+			if (m_gameState.viewerPlayer) {
 			
-			var visibleTiles = m_visibilitySystem.findPlayerVisibility(m_gameState.viewerPlayer);
+				var visibleTiles = m_visibilitySystem.findPlayerVisibility(m_gameState.viewerPlayer);
 			
-			hideFog(visibleTiles);
+				hideFogs(visibleTiles);
+			}
+
+		} else {
+			m_world.iterateAllTiles(hideFog);
+			
 		}
 
 		self._eworld.triggerAsync(RenderEvents.Fog.REFRESH_FOG);

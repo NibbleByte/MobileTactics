@@ -210,6 +210,7 @@ var GameToolbarSystem = function () {
 			.append('<td>' + Enums.getName(Player.Races, player.race) + '</td>')
 			.append('<td>' + team + '</td>')
 			.append(type)
+			.addClass((player.isPlaying) ? 'player_playing' : 'player_not_playing' )
 			.appendTo(m_$gameStateInfoPlayersTable);
 		}
 
