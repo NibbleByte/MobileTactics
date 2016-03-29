@@ -20,15 +20,15 @@ SpriteAnimations.FightUnits.FlakTrooper = {
 		
 		{
 			name: 'Idle0',
-			speed: 20,
+			speed: 10,
 			startIndex: 0,
-			frames: 1,
+			frames: 4,
 		},
 		
 		{
 			name: 'Run',
 			speed: 10,
-			startIndex: 0,
+			startIndex: 4,
 			frames: 8,
 			wrapMode: Animator.WrapMode.Loop,
 		},
@@ -36,7 +36,7 @@ SpriteAnimations.FightUnits.FlakTrooper = {
 		{
 			name: 'Attack',
 			speed: 9,
-			startIndex: 8,
+			startIndex: 12,
 			frames: 15,
 
 			events: [
@@ -77,8 +77,8 @@ SpriteAnimations.FightUnits.Biker = {
 
 	frameWidth: 180,
 	frameHeight: 170,
-	framesPerRow: 5,
-	speed: 14,
+	framesPerRow: 4,
+	speed: 7,
 	anchorX: Animator.AnchorX.Center,
 	anchorY: 140,
 	
@@ -93,19 +93,18 @@ SpriteAnimations.FightUnits.Biker = {
 		{
 			name: 'Idle0',
 			startIndex: 0,
-			frames: 1,
+			frames: 4,
 		},
 
 		{
 			name: 'Attack',
-			startIndex: 0,
-			frames: 1,
-			speed: 9,
+			startIndex: 4,
+			frames: 4,
 
 			events: [
 				
 				{
-					frame: 0,
+					frame: 2,
 					event: FightRenderingEvents.Animations.FIRE,
 					params: {
 						weaponType: FightUnitWeaponType.Shotgun,
