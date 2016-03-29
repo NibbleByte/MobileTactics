@@ -15,7 +15,7 @@ SpriteAnimations.Fight.VS = {
 			name: 'Idle0',
 			startIndex: 0,
 			speed: 8,
-			frames: 14,
+			frames: 16,
 			wrapMode: Animator.WrapMode.OnceEnd,
 		},
 
