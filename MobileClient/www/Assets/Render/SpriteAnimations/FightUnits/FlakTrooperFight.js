@@ -99,12 +99,22 @@ SpriteAnimations.FightUnits.Biker = {
 		{
 			name: 'Attack',
 			startIndex: 4,
-			frames: 4,
+			frames: 8,
+			frameSamples: [null, null, null, null, 0, 1, 2, 3],
 
 			events: [
 				
 				{
 					frame: 2,
+					event: FightRenderingEvents.Animations.FIRE,
+					params: {
+						weaponType: FightUnitWeaponType.Shotgun,
+						final: false,
+					}
+				},
+
+				{
+					frame: 6,
 					event: FightRenderingEvents.Animations.FIRE,
 					params: {
 						weaponType: FightUnitWeaponType.Shotgun,
