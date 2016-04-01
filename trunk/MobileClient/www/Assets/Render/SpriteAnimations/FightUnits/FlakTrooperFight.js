@@ -27,7 +27,7 @@ SpriteAnimations.FightUnits.FlakTrooper = {
 		
 		{
 			name: 'Run',
-			speed: 10,
+			speed: 8,
 			startIndex: 4,
 			frames: 8,
 			wrapMode: Animator.WrapMode.Loop,
@@ -38,6 +38,7 @@ SpriteAnimations.FightUnits.FlakTrooper = {
 			speed: 9,
 			startIndex: 12,
 			frames: 15,
+			frameSpeeds: [0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 14, 12 ],
 
 			events: [
 				
