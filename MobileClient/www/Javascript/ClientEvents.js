@@ -22,5 +22,9 @@ var ClientEvents = {
 			ACTIONS_OFFERED: "client.controller.actions_offered",		// Arguments: event, [goActions]
 
 			TILE_SELECTED: "client.controller.tile_selected",			// Arguments: event, tile
-		}
+		},
+
+		HUD: {
+			LOCK_GAMETOOLBAR: "client.hud.lock_gametoolbar",			// Arguments: lock
+		},
 }

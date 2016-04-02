@@ -568,12 +568,8 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 			m_$BtnAddress.remove();
 		}
 
-		var onHudLockRefresh = function () {
-			if (m_clientState.playerController.isHudLocked() || (m_clientState.gameState.currentPlayer && m_clientState.gameState.currentPlayer.type == Player.Types.AI)) {
-				m_$ToolbarContainer.hide();
-			} else {
-				m_$ToolbarContainer.show();
-			}
+		var onHudLockRefresh = function (lock) {
+			m_$ToolbarContainer.toggle(!lock);
 		}
 	
 		var onGameLoaded = function () {
@@ -604,14 +600,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		m_clientState.eworldSB.subscribe(EngineEvents.General.GAME_VALIDATION_FAILED, onValidationFailed);
 		m_clientState.eworldSB.subscribe(EngineEvents.General.GAME_LOADED, onGameLoaded);
 	
-		// Hud locking... just hit them all...
-		m_clientState.eworldSB.subscribe(ClientEvents.Controller.ACTIONS_CLEARED, onHudLockRefresh);
-		m_clientState.eworldSB.subscribe(ClientEvents.Controller.ACTION_CANCEL, onHudLockRefresh);
-		m_clientState.eworldSB.subscribe(ClientEvents.Controller.ACTION_PREEXECUTE, onHudLockRefresh);
-		m_clientState.eworldSB.subscribe(ClientEvents.Controller.ACTION_EXECUTE, onHudLockRefresh);
-		m_clientState.eworldSB.subscribe(ClientEvents.Controller.ACTIONS_OFFERED, onHudLockRefresh);
-		m_clientState.eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, onHudLockRefresh);
-
+		m_clientState.eworldSB.subscribe(ClientEvents.HUD.LOCK_GAMETOOLBAR, onHudLockRefresh);
 
 		//
 		// Initialize

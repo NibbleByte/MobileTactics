@@ -44,6 +44,8 @@ var GameToolbarSystem = function () {
 
 		self._eworldSB.subscribe(ClientEvents.Controller.TILE_SELECTED, onTileSelected);
 
+		self._eworldSB.subscribe(ClientEvents.HUD.LOCK_GAMETOOLBAR, onHudLockRefresh);
+
 		self.hideToolbar();
 
 		initUnitsInfoList();
@@ -94,6 +96,15 @@ var GameToolbarSystem = function () {
 		.appendTo(table);
 	}
 
+
+	var onHudLockRefresh = function (lock) {
+
+		if (lock) {
+			self.hideToolbar();
+		} else {
+			self.showToolbar();
+		}
+	}
 
 	//
 	// Units Info
