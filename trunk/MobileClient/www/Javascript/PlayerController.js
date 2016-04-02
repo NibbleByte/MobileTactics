@@ -33,6 +33,16 @@ var PlayerController = function (m_executor) {
 		self._eworldSB.subscribe(ClientEvents.Controller.ACTIONS_CLEARED, onActionsCleared);
 		self._eworldSB.subscribe(ClientEvents.Controller.ACTION_CANCEL, onActionsCancelled);
 		self._eworldSB.subscribe(ClientEvents.Controller.ACTIONS_OFFERED, onActionsOffered);
+
+
+
+		// Hud locking... just hit them all...
+		self._eworldSB.subscribe(ClientEvents.Controller.ACTIONS_CLEARED, onHudLockRefresh);
+		self._eworldSB.subscribe(ClientEvents.Controller.ACTION_CANCEL, onHudLockRefresh);
+		self._eworldSB.subscribe(ClientEvents.Controller.ACTION_PREEXECUTE, onHudLockRefresh);
+		self._eworldSB.subscribe(ClientEvents.Controller.ACTION_EXECUTE, onHudLockRefresh);
+		self._eworldSB.subscribe(ClientEvents.Controller.ACTIONS_OFFERED, onHudLockRefresh);
+		self._eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, onHudLockRefresh);
 	};
 	
 	this.uninitialize = function () {
@@ -258,6 +268,14 @@ var PlayerController = function (m_executor) {
 		m_inputActive = true;
 
 		m_selectedGOActions = null;
+	}
+
+
+	var onHudLockRefresh = function () {
+		var isAI = m_gameState.currentPlayer && m_gameState.currentPlayer.type == Player.Types.AI;
+		var lock = self.isHudLocked() || isAI;
+
+		self._eworld.trigger(ClientEvents.HUD.LOCK_GAMETOOLBAR, lock);
 	}
 }
 
