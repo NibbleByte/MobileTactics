@@ -602,6 +602,9 @@
     <None Include="..\..\Core\Gameplay\Systems\VictoryStateMonitor.js">
       <Filter>Javascript\Core\Gameplay\Systems</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Javascript\UI\PopUpManager.js">
+      <Filter>Javascript\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

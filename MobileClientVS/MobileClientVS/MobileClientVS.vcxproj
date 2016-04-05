@@ -206,6 +206,7 @@
     <None Include="..\..\MobileClient\www\Javascript\UI\Game\StoreScreen.js" />
     <None Include="..\..\MobileClient\www\Javascript\UI\MenuScreen\MapPreviewMaker.js" />
     <None Include="..\..\MobileClient\www\Javascript\UI\MenuScreen\SkirmishScreen.js" />
+    <None Include="..\..\MobileClient\www\Javascript\UI\PopUpManager.js" />
     <None Include="..\..\MobileClient\www\Javascript\UnitFactoryClient.js" />
     <None Include="..\..\MobileClient\www\Javascript\Utils\BrowserBackwardCompatibility.js" />
     <None Include="..\..\MobileClient\www\Javascript\Utils\ClientUtils.js" />
