@@ -75,8 +75,18 @@ var GameToolbarSystem = function () {
 	}
 
 	var onPlayersVictorious = function (winners) {
-		m_$gameNextTurn.prop('disabled', true);
-		m_$creditsLabel.text('-');
+		onGameLoading();
+
+		var winnersNames = [];
+		for(var i = 0; i < winners.length; ++i) {
+			winnersNames.push(winners[i].name);
+		}
+
+		PopUpManager.show({
+			title: 'Victory',
+			message: 'Congratulations! <br />' + winnersNames.join(', ') + ' <br /> You are victoious!',
+			buttons: ['Yeah!'],
+		});
 	}
 
 	this.hideToolbar = function () {
@@ -260,6 +270,7 @@ var GameToolbarSystem = function () {
 		ClientStateManager.changeState(ClientStateManager.types.MenuScreen);
 	}
 
+	
 
 
 	m_subscriber.subscribe($('#BtnGameUnitInfo'), 'click', onUnitsInfo);

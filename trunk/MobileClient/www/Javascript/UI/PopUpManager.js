@@ -25,7 +25,7 @@ var PopUpManager = new function (m_element) {
 	var display = function (popUpData) {
 
 		m_$lbTitle.text(popUpData.title);
-		m_$lbMessage.text(popUpData.message);
+		m_$lbMessage.html(popUpData.message);
 
 		m_$buttonsContainer.empty();
 
@@ -78,4 +78,57 @@ var PopUpManager = new function (m_element) {
 		m_$container.show();
 	}
 
+
+	//
+	// Short-cuts
+	//
+	this.message = function (message, handler, userData) {
+		self.show({
+		  title: 'Message',
+		  message: message,
+		  buttons: ['Ok'],
+		  buttonsHandlers: [ handler ],
+		  userData: userData,
+		});
+	}
+	
+	this.messageYesNo = function (message, handler, userData) {
+		self.show({
+		  title: 'Question',
+		  message: message,
+		  buttons: ['Yes', 'No'],
+		  buttonsHandlers: [ handler ],
+		  userData: userData,
+		});
+	}
+	
+	this.warning = function (message, handler, userData) {
+		self.show({
+		  title: 'Warning',
+		  message: message,
+		  buttons: ['Ok'],
+		  buttonsHandlers: [ handler ],
+		  userData: userData,
+		});
+	}
+
+	this.warningYesNo = function (message, handler, userData) {
+		self.show({
+		  title: 'Warning',
+		  message: message,
+		  buttons: ['Yes', 'No'],
+		  buttonsHandlers: [ handler ],
+		  userData: userData,
+		});
+	}
+
+	this.confirmYesNo = function (message, handler, userData) {
+		self.show({
+		  title: 'Confirm',
+		  message: message,
+		  buttons: ['Yes', 'No'],
+		  buttonsHandlers: [ handler ],
+		  userData: userData,
+		});
+	}
 };

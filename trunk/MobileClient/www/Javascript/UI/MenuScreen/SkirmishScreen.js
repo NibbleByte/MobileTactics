@@ -11,8 +11,12 @@ var SkirmishScreen = new function () {
 		MenuScreenState.selectedSaveName = $(event.currentTarget).attr('GameSlotName');
 
 		if ($(event.target).hasClass('game_slot_entry_delete_button')) {
-			SavesStorage.deleteGame(MenuScreenState.selectedSaveName);
-			reloadGameSlotsInfo();
+
+			PopUpManager.confirmYesNo('Are you sure you want to delete this saved game?', function () {
+				SavesStorage.deleteGame(MenuScreenState.selectedSaveName);
+				reloadGameSlotsInfo();
+			});
+
 			return;
 		}
 
