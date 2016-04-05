@@ -153,6 +153,62 @@ html, body
 	font-weight: bold;
 }
 
+#PopUpDialog
+{
+	z-index: 100000;
+}
+
+#PopUpDialogWindow
+{
+	color: white;
+	width: 300px;
+	margin: 25% auto 0px auto;
+}
+
+#PopUpDialogTitle, #PopUpDialogBody
+{
+	background-color: rgba(53, 62, 83, 0.8);
+	border-radius: 8px;
+	border: 4px cadetblue ridge;
+	text-align: center;
+}
+
+#PopUpDialogTitle
+{
+	font-size: x-large;
+	font-weight: bold;
+	border-radius: 8px 8px 0px 0px;
+	border-bottom: 0px;
+}
+
+#PopUpDialogBody
+{
+	min-height: 80px;
+	position: relative;
+	padding-bottom: 40px;
+	border-radius: 0px 0px 8px 8px;
+}
+
+#PopUpDialogMessage
+{
+	margin-top: 20px;
+}
+
+#PopUpDialogButtons
+{
+	position: absolute;
+	bottom: 8px;
+	left: 0px;
+	right: 0px;
+}
+
+#PopUpDialogButtons button
+{
+	margin-left: 3px;
+	margin-right: 3px;
+}
+
+
 /* Controls */
 button, .input_file_wrapper {
 	
