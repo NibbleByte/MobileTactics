@@ -119,7 +119,11 @@ var Utils = {
 
 	isInvalidated: function (obj) {
 		return !!obj.__INVALID__;
-	}
+	},
+
+	isValidEntity: function (obj) {
+		return !obj.__INVALID__ && !obj.destroyed;
+	},
 };
 
 var MathUtils = {

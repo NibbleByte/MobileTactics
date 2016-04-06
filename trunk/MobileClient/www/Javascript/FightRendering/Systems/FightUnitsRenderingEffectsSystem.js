@@ -26,7 +26,7 @@ var FightUnitsRenderingEffectsSystem = function (m_renderer) {
 		
 		// On changing screen size causes restart of the fight and units get destroyed.
 		// Tweener might still be executing, so just do nothing.
-		if (Utils.isInvalidated(unit)) {
+		if (!Utils.isValidEntity(unit)) {
 			Tweener.cancel(tween.tween);
 			return;
 		}
@@ -38,7 +38,7 @@ var FightUnitsRenderingEffectsSystem = function (m_renderer) {
 
 	var onCompleteShake = function (tween, unit) {
 
-		if (Utils.isInvalidated(unit))
+		if (!Utils.isValidEntity(unit))
 			return;
 
 		SpriteColorizeManager.clearSpriteBrightness(unit.CFightUnitRendering.sprite);
