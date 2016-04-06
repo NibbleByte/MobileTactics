@@ -4,7 +4,7 @@
 //===============================================
 "use strict";
 
-var UnitsSystem = function () {
+var UnitsSystem = function (m_world) {
 	var self = this;
 	
 	//
@@ -21,9 +21,11 @@ var UnitsSystem = function () {
 
 		if (hasJustLoaded)
 			return;
+
+		var placeables = m_world.getPlaceables();
 		
-		for(var i = 0; i < gameState.currentPlaceables.length; ++i) {
-			var placeable = gameState.currentPlaceables[i];
+		for(var i = 0; i < placeables.length; ++i) {
+			var placeable = placeables[i];
 
 			placeable.CUnit.turnPoints = placeable.CStatistics.statistics['TurnPoints'] || 1;
 			placeable.CUnit.finishedTurn = false;

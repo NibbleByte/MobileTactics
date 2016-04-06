@@ -78,7 +78,7 @@ ClientStateManager.registerState(ClientStateManager.types.WorldEditor, new funct
 		var world = new GameWorld();
 		eworld.addSystem(world);
 		eworld.store(GameWorld, world);
-		eworld.addSystem(new UnitsSystem());
+		eworld.addSystem(new UnitsSystem(world));
 		m_clientState.world = world;
 
 		//

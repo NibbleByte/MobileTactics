@@ -939,7 +939,7 @@ $(function () {
 	m_eworld.addSystem(m_battle);
 	var m_effects = new EffectsSystem();
 	m_eworld.addSystem(m_effects);
-	//m_eworld.addSystem(new UnitsSystem()); // Fighting can destroy unit, breaking rendering.
+	//m_eworld.addSystem(new UnitsSystem(m_world)); // Fighting can destroy unit, breaking rendering.
 	m_eworld.addSystem(new GameStateSystem());
 
 
