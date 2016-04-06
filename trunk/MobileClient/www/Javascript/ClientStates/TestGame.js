@@ -290,7 +290,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		//
 		var effects = new EffectsSystem();
 		m_eworld.addSystem(m_eworld.store(BattleSystem, new BattleSystem(world)));
-		m_eworld.addSystem(new UnitsSystem());
+		m_eworld.addSystem(new UnitsSystem(world));
 		m_eworld.addSystem(effects);
 		m_eworld.addSystem(new GameStateSystem());
 		m_eworld.addSystem(new VictoryStateMonitor());

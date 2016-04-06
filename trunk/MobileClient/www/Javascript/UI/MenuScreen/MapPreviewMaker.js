@@ -84,7 +84,7 @@ var MapPreviewMaker = function (m_element) {
 		//
 		// Gameplay Systems
 		//
-		m_eworld.addSystem(new UnitsSystem());
+		m_eworld.addSystem(new UnitsSystem(world));
 		m_eworld.addSystem(new GameStateSystem());
 		m_eworld.addSystem(new TileStructuresSystem());
 
