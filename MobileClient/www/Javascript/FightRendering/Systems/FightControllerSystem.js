@@ -53,8 +53,12 @@ var FightControllerSystem = function (m_renderer) {
 		
 		// On changing screen size causes restart of the fight and units get destroyed.
 		// Tweener might still be executing, so just do nothing.
-		if (Utils.isInvalidated(unit))
+		if (!Utils.isValidEntity(unit))
 			return;
+
+		if (!unit.CSpatial) {
+			console.log(Utils.stringifyShallow(unit, true));
+		}
 
 		if (tween.x !== undefined) unit.CSpatial.x = tween.x;
 		if (tween.y !== undefined) unit.CSpatial.y = tween.y;
@@ -126,7 +130,7 @@ var FightControllerSystem = function (m_renderer) {
 
 		// On changing screen size causes restart of the fight and units get destroyed.
 		// Tweener might still be executing, so just do nothing.
-		if (Utils.isInvalidated(unit))
+		if (!Utils.isValidEntity(unit))
 			return;
 
 		m_leftUnit.CFightUnit.state = FightUnitState.Idle;
@@ -193,7 +197,7 @@ var FightControllerSystem = function (m_renderer) {
 	// NOTE: Called only for the left unit.
 	var onHideOutFinished = function (tween, unit) {
 
-		if (Utils.isInvalidated(unit))
+		if (!Utils.isValidEntity(unit))
 			return;
 
 		self._eworld.trigger(FightRenderingEvents.Fight.OUTRO_FINALIZE);

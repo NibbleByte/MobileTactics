@@ -56,7 +56,7 @@ var FightRenderingManager = new function () {
 		var rightUnit = (selected) ? selected.CTile.placedObjects[0] : null;
 
 		// Could get invalidated if changing maps.
-		if (!leftUnit || Utils.isInvalidated(leftUnit)) {
+		if (!leftUnit || !Utils.isValidEntity(leftUnit)) {
 			leftUnit = gameState.currentPlaceables.find(function (placeable) {
 				return placeable.CUnit.name == 'TeslaTrooper';
 			});
