@@ -59,6 +59,18 @@ $(function () {
 			ClientStateManager.changeState(ClientStateManager.types.WorldEditor);
 		} else if (ClientUtils.urlParams['Test']) {
 			ClientStateManager.changeState(ClientStateManager.types.TestGame);
+		} else if (ClientUtils.urlParams['Save']) {
+			MenuScreenState.selectedSaveName = ClientUtils.urlParams['Save'];
+			var saveData = SavesStorage.loadGame(MenuScreenState.selectedSaveName);
+
+			if (!saveData) {
+				ClientStateManager.changeState(ClientStateManager.types.MenuScreen);
+				console.warn('Save ' + MenuScreenState.selectedSaveName + ' not found.');
+
+			} else {
+				ClientStateManager.changeState(ClientStateManager.types.TestGame, saveData);
+			}
+
 		} else {
 			ClientStateManager.changeState(ClientStateManager.types.MenuScreen);
 		}

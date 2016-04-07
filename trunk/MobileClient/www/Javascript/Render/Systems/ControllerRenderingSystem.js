@@ -70,7 +70,11 @@ var ControllerRenderingSystem = function (m_renderer, m_gameToolbar) {
 		m_gameToolbar.showToolbar();
 	}
 
-	m_subscriber.subscribe($('#BtnTurnChangedReady'), 'click', onTurnChangedReady);
+	if (!ClientUtils.isMockUp) {
+		m_subscriber.subscribe($('#BtnTurnChangedReady'), 'click', onTurnChangedReady);
+	} else {
+		m_subscriber.subscribe($('#TurnChanged'), 'click', onTurnChangedReady);
+	}
 }
 
 ControllerRenderingSystem.TILE_SELECTED_SPRITE_PATH = 'Assets-Scaled/Render/Images/hex_selected.png';
