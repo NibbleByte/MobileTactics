@@ -520,11 +520,9 @@ $(function () {
 	var onSwapParticipants = function (event) {
 		var attackerVal = $attackerList.val();
 		var defenderVal = $defenderList.val();
-		$('#AttackerList option[selected]').removeAttr('selected');
-		$('#DefenderList option[selected]').removeAttr('selected');
 
-		$('#AttackerList option[value="'+ defenderVal + '"]').attr('selected', 'selected');
-		$('#DefenderList option[value="' + attackerVal + '"]').attr('selected', 'selected');
+		$('#AttackerList option[value="'+ defenderVal + '"]').prop('selected', true);
+		$('#DefenderList option[value="' + attackerVal + '"]').prop('selected', true);
 
 		var tile = attackerTile;
 		attackerTile = defenderTile;
@@ -610,11 +608,8 @@ $(function () {
 			$attackerHealth.val(restoreData.attackerHealth);
 			$defenderHealth.val(restoreData.defenderHealth);
 
-			$('#AttackerList option[selected]').removeAttr('selected');
-			$('#DefenderList option[selected]').removeAttr('selected');
-
-			$('#AttackerList option[value="' + restoreData.attackerPath + '"]').attr('selected', 'selected');
-			$('#DefenderList option[value="' + restoreData.defenderPath + '"]').attr('selected', 'selected');
+			$('#AttackerList option[value="' + restoreData.attackerPath + '"]').prop('selected', true);
+			$('#DefenderList option[value="' + restoreData.defenderPath + '"]').prop('selected', true);
 
 			$attackerModAttack.val(restoreData.attackerModAttack);
 			$defenderModAttack.val(restoreData.defenderModAttack);
