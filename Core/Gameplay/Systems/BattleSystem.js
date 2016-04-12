@@ -55,7 +55,9 @@ var BattleSystem = function (m_world) {
 		// Battle!
 		var strengthRatio = Math.max(aStrength, dStrength) / Math.min(aStrength, dStrength);
 
-		strengthRatio /= 1.1;
+		if (strengthRatio > 1.1) {
+			strengthRatio /= 1.1;
+		}
 
 		var dInflictedDamage = (aStrength >= dStrength) ? aFirePower * strengthRatio : aFirePower / strengthRatio;
 		//var aInflictedDamage = (aStrength >= dStrength) ? dFirePower / strengthRatio : dFirePower * strengthRatio;

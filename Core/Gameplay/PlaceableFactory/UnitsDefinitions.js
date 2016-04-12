@@ -181,14 +181,14 @@ UnitsDefinitions[Player.Races.Empire] = {
 		terrainStats: new function () {
 			this[GameWorldTerrainType.Plains] =		{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: 1, Defence: 2};
-			this[GameWorldTerrainType.Mountain] =	{ Cost: 3, Attack: 2, Defence: 3};
-			this[GameWorldTerrainType.Rough] =		{ Cost: 3, Attack: -2, Defence: -2};
+			this[GameWorldTerrainType.Mountain] =	{ Cost: 3, Attack: 2, Defence: 5};
+			this[GameWorldTerrainType.Rough] =		{ Cost: 3, Attack: -1, Defence: -1};
 
-			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 1, Defence: 2};
+			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 1, Defence: 1};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 1, Defence: 2};
 			this[GameWorldTerrainType.Minerals] =	{ Cost: 1, Attack: 1, Defence: 1};
 			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 1, Defence: 1};
-			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 1, Defence: 0};
+			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: 0};
 		},
 
 		AIHints: {
