@@ -795,15 +795,17 @@ $(function () {
 		
 		for (var i = 0; i < UnitsDefinitions.length; ++i) {
 			
-			$('<option />').attr('disabled','disabled').text('> ' + Enums.getName(Player.Races, i) + ' <').appendTo($attackerList);
-			$('<option />').attr('disabled','disabled').text('> ' + Enums.getName(Player.Races, i) + ' <').appendTo($defenderList);
+			var raceName = Enums.getName(Player.Races, i);
+
+			$('<option />').prop('disabled', true).text('> ' + raceName + ' <').addClass('race_' + raceName).appendTo($attackerList);
+			$('<option />').prop('disabled', true).text('> ' + raceName + ' <').addClass('race_' + raceName).appendTo($defenderList);
 
 			for (var key in UnitsDefinitions[i]) {
 				var definition = UnitsDefinitions[i][key];
 				var definitionPath = UnitsFactory.generateDefinitionPath(i, definition);
 				
-				$('<option />').attr("value", definitionPath).text(definition.name).appendTo($attackerList);
-				$('<option />').attr("value", definitionPath).text(definition.name).appendTo($defenderList);
+				$('<option />').attr("value", definitionPath).text(definition.name).addClass('race_' + raceName).appendTo($attackerList);
+				$('<option />').attr("value", definitionPath).text(definition.name).addClass('race_' + raceName).appendTo($defenderList);
 			}
 		}
 	}
