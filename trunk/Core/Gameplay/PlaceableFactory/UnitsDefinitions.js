@@ -161,8 +161,8 @@ UnitsDefinitions[Player.Races.Empire] = {
 
 		baseStatistics: {
 			AttackLight: 5,
-			AttackHeavy: 4,
-			AttackAerial: 3,
+			AttackHeavy: 3,
+			AttackAerial: 4,
 			AttackRange: 1,
 			HealRate: 1,
 			Defence: 4,
@@ -203,7 +203,7 @@ UnitsDefinitions[Player.Races.Empire] = {
 		type: UnitType.Heavy,
 
 		baseStatistics: {
-			AttackLight: 6,
+			AttackLight: 7,
 			AttackHeavy: 5,
 			AttackAerial: 6,
 			AttackRange: 1,
@@ -223,7 +223,7 @@ UnitsDefinitions[Player.Races.Empire] = {
 				 ],
 		
 		terrainStats: new function () {
-			this[GameWorldTerrainType.Plains] =		{ Cost: 1, Attack: 1, Defence: 0};
+			this[GameWorldTerrainType.Plains] =		{ Cost: 1, Attack: 0, Defence: 0};
 			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: -1, Defence: -1};
 			this[GameWorldTerrainType.Rough] =		{ Cost: 3, Attack: -2, Defence: -2};
 
@@ -280,12 +280,12 @@ UnitsDefinitions[Player.Races.Empire] = {
 		type: UnitType.Aerial,
 
 		baseStatistics: {
-			AttackLight: 6,
+			AttackLight: 5,
 			AttackHeavy: 9,
 			AttackAerial: 8,
 			AttackRange: 1,
 			HealRate: 1,
-			Defence: 6,
+			Defence: 4,
 			Movement: 5,
 			Visibility: 6,
 		},
@@ -327,7 +327,7 @@ UnitsDefinitions[Player.Races.Empire] = {
 			AttackRange: 6,
 			AttackRangeMin: 2,
 			HealRate: 1,
-			Defence: 2,
+			Defence: 3,
 			Movement: 4,
 			Visibility: 6,
 		},
@@ -340,9 +340,9 @@ UnitsDefinitions[Player.Races.Empire] = {
 				 ],
 		
 		terrainStats: new function () {
-			this[GameWorldTerrainType.Plains] =		{ Cost: 1, Attack: 0, Defence: -1};
-			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: -2, Defence: -1};
-			this[GameWorldTerrainType.Rough] =		{ Cost: 3, Attack: -2, Defence: -3};
+			this[GameWorldTerrainType.Plains] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: -1, Defence: 0};
+			this[GameWorldTerrainType.Rough] =		{ Cost: 3, Attack: -2, Defence: -2};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: -1};

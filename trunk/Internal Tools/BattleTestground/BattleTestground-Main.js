@@ -191,13 +191,12 @@ $(function () {
 		// Strengths predicted
 		//
 		$attackerStrengthPredicted.val(outcome.attackerStrength);
-		$lbAttackerStrengthPredicted.text(outcome.attackerStrength.toPrecision(2));
+		$lbAttackerStrengthPredicted.text(outcome.attackerStrength);
 
 		$defenderStrengthPredicted.val(outcome.defenderStrength);
-		$lbDefenderStrengthPredicted.text(outcome.defenderStrength.toPrecision(2));
-		$lbDefenderStrengthSecondaryPredicted.text(outcome.defenderStrengthSecondary.toPrecision(2));
+		$lbDefenderStrengthPredicted.text(outcome.defenderStrength);
 
-		$lbStrengthPredictedRatio.text(outcome.strengthRatio.toPrecision(2));
+		$lbStrengthPredictedRatio.text(outcome.strengthRatio.toFixed(2));
 	}
 
 	var renderUnitStatistics = function () {
@@ -695,7 +694,7 @@ $(function () {
 			return;
 		}
 
-		var outcome = m_battle.doAttack(attacker, defender);
+		var outcome = m_battle.doAttackDEV(attacker, defender);
 
 		renderBattleOutcome(outcome);
 
@@ -717,7 +716,7 @@ $(function () {
 			return;
 		}
 
-		var outcome = m_battle.doAttack(defender, attacker);
+		var outcome = m_battle.doAttackDEV(defender, attacker);
 
 		renderBattleOutcome(outcome);
 
@@ -900,7 +899,6 @@ $(function () {
 	var $defenderStrengthPredicted = $('#DefenderStrengthPredicted');
 	var $lbAttackerStrengthPredicted = $('#AttackerStrengthPredictedLabel');
 	var $lbDefenderStrengthPredicted = $('#DefenderStrengthPredictedLabel');
-	var $lbDefenderStrengthSecondaryPredicted = $('#DefenderStrengthSecondaryPredictedLabel');
 	var $lbStrengthPredictedRatio = $('#StrengthPredictedRatio');
 
 	var $unitStatisticsTableBody = $('#UnitStatistics > tbody');

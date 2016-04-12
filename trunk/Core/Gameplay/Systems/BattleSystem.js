@@ -23,10 +23,9 @@ var BattleSystem = function (m_world) {
 		var aRangeMin = attacker.CStatistics.statistics['AttackRangeMin'] || 0;
 		var aRange = attacker.CStatistics.statistics['AttackRange'];
 		var aHealthMod = attacker.CUnit.health / attacker.CStatistics.statistics['MaxHealth'];
-		var aFirePower = attacker.CStatistics.statistics['FirePower'];
-		var aAttack = UnitsUtils.getAttack(attacker, defender);
-		aAttack = (aAttack + aTerrainMod) * attacker.CStatistics.statistics['AttackMultiplier'];
-		var aStrength = aAttack* aHealthMod;
+		var aFirePower = attacker.CStatistics.statistics['FirePower'] * aHealthMod;
+		var aStrength = UnitsUtils.getAttack(attacker, defender);
+		aStrength = (aStrength + aTerrainMod) * attacker.CStatistics.statistics['AttackMultiplier'];
 
 
 		// Defender parameters
@@ -35,8 +34,8 @@ var BattleSystem = function (m_world) {
 		var dRangeMin = defender.CStatistics.statistics['AttackRangeMin'];
 		var dRange = defender.CStatistics.statistics['AttackRange'];
 		var dHealthMod = defender.CUnit.health / defender.CStatistics.statistics['MaxHealth'];
-		var dFirePower = defender.CStatistics.statistics['FirePower'];
-		var dStrength = (defender.CStatistics.statistics['Defence'] + dTerrainMod) * dHealthMod;
+		var dFirePower = defender.CStatistics.statistics['FirePower'] * dHealthMod;
+		var dStrength = (defender.CStatistics.statistics['Defence'] + dTerrainMod);
 
 
 
@@ -56,6 +55,8 @@ var BattleSystem = function (m_world) {
 		// Battle!
 		var strengthRatio = Math.max(aStrength, dStrength) / Math.min(aStrength, dStrength);
 
+		strengthRatio /= 1.1;
+
 		var dInflictedDamage = (aStrength >= dStrength) ? aFirePower * strengthRatio : aFirePower / strengthRatio;
 		//var aInflictedDamage = (aStrength >= dStrength) ? dFirePower / strengthRatio : dFirePower * strengthRatio;
 
@@ -65,25 +66,21 @@ var BattleSystem = function (m_world) {
 
 		//
 		// Fight Back - Secondary
-		// Defender fights back with strength equal to the new health.
-		// Recalculate strengths and inflicted damage.
+		// Defender fights back if still alive
 		//
 		if (!defenderDies && canDefenderFightBack) {
 
-			var dHealthMod = (defender.CUnit.health - dInflictedDamage) / defender.CStatistics.statistics['MaxHealth'];
-			var dStrengthSecondary = (defender.CStatistics.statistics['Defence'] + dTerrainMod) * dHealthMod;
+			// Defender fights as no damage has been taken. But if died, will not hit back.
+			//var dHealthMod = (defender.CUnit.health - dInflictedDamage) / defender.CStatistics.statistics['MaxHealth'];
+			//var dFirePower = defender.CStatistics.statistics['FirePower'] * dHealthMod;
 
-			var strengthRatioSecondary = Math.max(aStrength, dStrengthSecondary) / Math.min(aStrength, dStrengthSecondary);
-
-			var aInflictedDamage = (aStrength >= dStrengthSecondary) ? dFirePower / strengthRatioSecondary : dFirePower * strengthRatioSecondary;
-
+			var aInflictedDamage = (aStrength >= dStrength) ? dFirePower / strengthRatio : dFirePower * strengthRatio;
 			aInflictedDamage = Math.round(aInflictedDamage);
 
 			var attackerDies = attacker.CUnit.health <= aInflictedDamage;
 
 		} else {
 			var dStrengthSecondary = 0;
-			var strengthRatioSecondary = 0;
 			var aInflictedDamage = 0;
 			var attackerDies = false;
 		}
@@ -101,10 +98,8 @@ var BattleSystem = function (m_world) {
 
 			attackerStrength: aStrength,
 			defenderStrength: dStrength,
-			defenderStrengthSecondary: dStrengthSecondary,
 
 			strengthRatio: strengthRatio,
-			strengthRatioSecondary: strengthRatioSecondary,
 
 			damageToAttacker: aInflictedDamage,
 			damageToDefender: dInflictedDamage,
@@ -151,6 +146,15 @@ var BattleSystem = function (m_world) {
 	this.doAttack = function (attacker, defender) {
 
 		var battleOutcome = self.predictOutcome(attacker, defender);
+
+		self.applyOutcome(battleOutcome);
+
+		return battleOutcome;
+	}
+
+	this.doAttackDEV = function (attacker, defender) {
+
+		var battleOutcome = self.predictOutcome(attacker, defender, true);
 
 		self.applyOutcome(battleOutcome);
 
