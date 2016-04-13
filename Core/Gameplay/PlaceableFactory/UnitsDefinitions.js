@@ -204,8 +204,8 @@ UnitsDefinitions[Player.Races.Empire] = {
 
 		baseStatistics: {
 			AttackLight: 7,
-			AttackHeavy: 5,
-			AttackAerial: 6,
+			AttackHeavy: 4,
+			AttackAerial: 3,
 			AttackRange: 1,
 			HealRate: 1,
 			Defence: 4,
@@ -244,7 +244,7 @@ UnitsDefinitions[Player.Races.Empire] = {
 		baseStatistics: {
 			AttackLight: 7,
 			AttackHeavy: 6,
-			AttackAerial: 8,
+			AttackAerial: 3,
 			AttackRange: 2,
 			HealRate: 1,
 			Defence: 6,
@@ -282,7 +282,7 @@ UnitsDefinitions[Player.Races.Empire] = {
 		baseStatistics: {
 			AttackLight: 5,
 			AttackHeavy: 9,
-			AttackAerial: 8,
+			AttackAerial: 5,
 			AttackRange: 1,
 			HealRate: 1,
 			Defence: 4,
