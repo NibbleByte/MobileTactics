@@ -145,7 +145,7 @@ var AITaskBuyingSystem = function (m_world, m_executor) {
 			var consideredRating = consideredList[buyIndex];
 
 			// Don't buy cheap useless stuff. Save money for bigger and better.
-			var bestRatingBudgetTurns = Math.max(Math.ceil((bestRating.price - budget) / m_gameState.currentPlayer.creditsPerMine), 0);
+			var bestRatingBudgetTurns = Math.max(Math.ceil((bestRating.price - budget) / m_gameState.currentPlayer.creditsPerIncome), 0);
 			if (bestRating.rating / consideredRating.rating > 1 + bestRatingBudgetTurns / 4)
 				continue;
 

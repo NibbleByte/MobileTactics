@@ -147,13 +147,13 @@ var SkirmishScreen = new function () {
 		
 		var playersCount = previewState.playersData.players.length;
 		var credits = previewState.playersData.players[0].credits;
-		var creditsPerMine = previewState.playersData.players[0].creditsPerMine;
+		var creditsPerIncome = previewState.playersData.players[0].creditsPerIncome;
 
 		m_$MapSelectInfo
 		.empty()
 		.append($('<div>').text('Players: ' + playersCount))
 		.append($('<div>').text('Initial Credits:' + credits))
-		.append($('<div>').text('Credits/Base:' + creditsPerMine))
+		.append($('<div>').text('Credits/Base:' + creditsPerIncome))
 		;
 	}
 

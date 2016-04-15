@@ -20,7 +20,7 @@ var EditorPlayersPropertiesController = function () {
 	var m_$typeSelect = null;
 	var m_$teamInput = null;
 	var m_$startCreditsSelect = null;
-	var m_$creditsPerMineSelect = null;
+	var m_$creditsPerIncomeSelect = null;
 
 	//
 	// Entity system initialize
@@ -88,7 +88,7 @@ var EditorPlayersPropertiesController = function () {
 		player.type = parseInt(m_$typeSelect.val());
 		player.teamId = parseInt(m_$teamInput.val());
 		player.credits = parseInt(m_$startCreditsSelect.val());
-		player.creditsPerMine = parseInt(m_$creditsPerMineSelect.val());
+		player.creditsPerIncome = parseInt(m_$creditsPerIncomeSelect.val());
 
 		if (isNaN(player.teamId) || player.teamId < -1)
 			player.teamId = -1;
@@ -149,14 +149,14 @@ var EditorPlayersPropertiesController = function () {
 		$('<td>').appendTo($tr).append(m_$startCreditsSelect);
 
 		//
-		// Credits per mine
+		// Credits per base/mine
 		//
-		m_$creditsPerMineSelect = EditorPlayersPropertiesController.populateCreditsPerMineOptions($('<select>'));
-		m_$creditsPerMineSelect.val(player.creditsPerMine);
+		m_$creditsPerIncomeSelect = EditorPlayersPropertiesController.populateCreditsPerIncomeOptions($('<select>'));
+		m_$creditsPerIncomeSelect.val(player.creditsPerIncome);
 
 		$tr = $('<tr>').appendTo(m_$PlayersPropsTable);
-		$('<td>').appendTo($tr).text('Credits per mine:');
-		$('<td>').appendTo($tr).append(m_$creditsPerMineSelect);
+		$('<td>').appendTo($tr).text('Credits per base:');
+		$('<td>').appendTo($tr).append(m_$creditsPerIncomeSelect);
 	}
 }
 
@@ -177,7 +177,7 @@ EditorPlayersPropertiesController.populateStartCreditsOptions = function (select
 	.append('<option value="2000">2000</option>');
 }
 
-EditorPlayersPropertiesController.populateCreditsPerMineOptions = function (select) {
+EditorPlayersPropertiesController.populateCreditsPerIncomeOptions = function (select) {
 	
 	return $(select)
 	.append('<option value="50">50</option>')

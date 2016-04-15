@@ -155,7 +155,7 @@ var Player = function (id, name, type, race, colorHue, teamId) {
 	this.type = type;
 	this.isPlaying = true;
 	
-	this.creditsPerMine = 100;
+	this.creditsPerIncome = 100;
 	this.credits = 500;
 };
 

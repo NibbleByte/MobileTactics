@@ -14,7 +14,7 @@ var EditorGamePropertiesController = function (m_renderer) {
 	var m_$GamePropsHeight = $('#GamePropsHeightEditor');
 	var m_$GamePropsLockSizes = $('#GamePropsLockSizesEditor');
 	var m_$GamePropsStartingCredits = $('#GamePropsStartingCreditsEditor');
-	var m_$GamePropsCreditsPerMine = $('#GamePropsCreditsPerMineEditor');
+	var m_$GamePropsCreditsPerIncome = $('#GamePropsCreditsPerIncomeEditor');
 	var m_$GamePropsPlayers = $('#GamePropsPlayersEditor');
 
 	var m_$GamePropsCustomMap = $('#GamePropsCustomMapEditor');
@@ -46,7 +46,7 @@ var EditorGamePropertiesController = function (m_renderer) {
 		m_subscriber.subscribe($('#BtnPlayersPropsClose'), 'click', onPlayersPropsHide);
 
 		EditorPlayersPropertiesController.populateStartCreditsOptions(m_$GamePropsStartingCredits.empty());
-		EditorPlayersPropertiesController.populateCreditsPerMineOptions(m_$GamePropsCreditsPerMine.empty());
+		EditorPlayersPropertiesController.populateCreditsPerIncomeOptions(m_$GamePropsCreditsPerIncome.empty());
 	};
 	
 	this.uninitialize = function () {
@@ -72,7 +72,7 @@ var EditorGamePropertiesController = function (m_renderer) {
 		m_$GamePropsHeight.val(m_renderer.getRenderedRows());
 
 		m_$GamePropsStartingCredits.val(m_playersData.players[0].credits);
-		m_$GamePropsCreditsPerMine.val(m_playersData.players[0].creditsPerMine);
+		m_$GamePropsCreditsPerIncome.val(m_playersData.players[0].creditsPerIncome);
 
 		m_$GamePropsPlayers.val(editorState.playersCount);
 
@@ -98,7 +98,7 @@ var EditorGamePropertiesController = function (m_renderer) {
 			for(var i = 0; i < m_playersData.players.length; ++i) {
 				var player = m_playersData.players[i];
 
-				player.creditsPerMine = parseInt(m_$GamePropsCreditsPerMine.val());
+				player.creditsPerIncome = parseInt(m_$GamePropsCreditsPerIncome.val());
 				player.credits = parseInt(m_$GamePropsStartingCredits.val());
 			}
 		}
