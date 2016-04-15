@@ -213,19 +213,19 @@ var GameToolbarSystem = function () {
 		if (!player)
 			player = m_playersData.players[0];
 
-		var minesCount = 0;
+		var incomeCount = 0;
 
-		minesCount += m_gameState.currentStructuresTypes[GameWorldTerrainType.Base].length;
-		minesCount += m_gameState.currentStructuresTypes[GameWorldTerrainType.Minerals].length;
+		incomeCount += m_gameState.currentStructuresTypes[GameWorldTerrainType.Base].length;
+		incomeCount += m_gameState.currentStructuresTypes[GameWorldTerrainType.Minerals].length;
 
 		m_$gameStateInfoStatisticsTable.empty();
 
 		appendRow('Map', m_gameMetaData.name, m_$gameStateInfoStatisticsTable);
 		appendRow('Custom', m_gameState.isCustomMap, m_$gameStateInfoStatisticsTable);
 		appendRow('Turns', m_gameState.turnsPassed, m_$gameStateInfoStatisticsTable);
-		appendRow('Mines', minesCount, m_$gameStateInfoStatisticsTable);
-		appendRow('Credits/Mine', player.creditsPerMine, m_$gameStateInfoStatisticsTable);
-		appendRow('Credits/Turn', minesCount * player.creditsPerMine, m_$gameStateInfoStatisticsTable);
+		appendRow('Bases', incomeCount, m_$gameStateInfoStatisticsTable);
+		appendRow('Credits/Base', player.creditsPerIncome, m_$gameStateInfoStatisticsTable);
+		appendRow('Credits/Turn', incomeCount * player.creditsPerIncome, m_$gameStateInfoStatisticsTable);
 
 
 		//
