@@ -497,18 +497,6 @@
     <None Include="..\..\Core\Gameplay\Systems\ResourcesSystem.js">
       <Filter>Javascript\Core\Gameplay\Systems</Filter>
     </None>
-    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\FightUnits\PeaceKeeperFight.js">
-      <Filter>Assets\Render\SpriteAnimations\FightUnits</Filter>
-    </None>
-    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\FightUnits\FlakTrooperFight.js">
-      <Filter>Assets\Render\SpriteAnimations\FightUnits</Filter>
-    </None>
-    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\PeaceKeeper.js">
-      <Filter>Assets\Render\SpriteAnimations\Units</Filter>
-    </None>
-    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\FlakTrooper.js">
-      <Filter>Assets\Render\SpriteAnimations\Units</Filter>
-    </None>
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\World\Minerals.js">
       <Filter>Assets\Render\SpriteAnimations\World</Filter>
     </None>
@@ -520,12 +508,6 @@
     </None>
     <None Include="..\..\MobileClient\www\Javascript\Editor\Systems\EditorPlayersPropertiesController.js">
       <Filter>Javascript\Editor\Systems</Filter>
-    </None>
-    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\Nibbler.js">
-      <Filter>Assets\Render\SpriteAnimations\Units</Filter>
-    </None>
-    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\FightUnits\NibblerFight.js">
-      <Filter>Assets\Render\SpriteAnimations\FightUnits</Filter>
     </None>
     <None Include="..\..\MobileClient\www\Javascript\Editor\EditorState.js">
       <Filter>Javascript\Editor</Filter>
@@ -544,24 +526,6 @@
     </None>
     <None Include="..\..\Core\Engine\Utils\TasksMonitor.js">
       <Filter>Javascript\Core\Engine\Utils</Filter>
-    </None>
-    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\Ranger.js">
-      <Filter>Assets\Render\SpriteAnimations\Units</Filter>
-    </None>
-    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\Comanche.js">
-      <Filter>Assets\Render\SpriteAnimations\Units</Filter>
-    </None>
-    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\Biker.js">
-      <Filter>Assets\Render\SpriteAnimations\Units</Filter>
-    </None>
-    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\Sting.js">
-      <Filter>Assets\Render\SpriteAnimations\Units</Filter>
-    </None>
-    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\IonDrone.js">
-      <Filter>Assets\Render\SpriteAnimations\Units</Filter>
-    </None>
-    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\DarkAdroit.js">
-      <Filter>Assets\Render\SpriteAnimations\Units</Filter>
     </None>
     <None Include="..\..\Core\Gameplay\GameLoader.js">
       <Filter>Javascript\Core\Gameplay</Filter>
@@ -604,6 +568,18 @@
     </None>
     <None Include="..\..\MobileClient\www\Javascript\UI\PopUpManager.js">
       <Filter>Javascript\UI</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\Empire.js">
+      <Filter>Assets\Render\SpriteAnimations\Units</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\Units\JunkPeople.js">
+      <Filter>Assets\Render\SpriteAnimations\Units</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\FightUnits\EmpireFight.js">
+      <Filter>Assets\Render\SpriteAnimations\FightUnits</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\FightUnits\JunkPeopleFight.js">
+      <Filter>Assets\Render\SpriteAnimations\FightUnits</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

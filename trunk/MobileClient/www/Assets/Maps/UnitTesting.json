@@ -41,7 +41,7 @@
 				"isPlaying": true,
 				"name": "Pl2",
 				"playerId": 1,
-				"race": 3,
+				"race": 2,
 				"teamId": -1,
 				"type": 0
 			}
@@ -388,7 +388,7 @@
 							"__serializationTypeName": "CUnit",
 							"finishedTurn": false,
 							"health": 10,
-							"name": "Ranger",
+							"name": "Speeder",
 							"race": 1,
 							"turnPoints": 2
 						}
@@ -770,7 +770,7 @@
 							"__serializationTypeName": "CUnit",
 							"finishedTurn": false,
 							"health": 10,
-							"name": "Ranger",
+							"name": "Speeder",
 							"race": 1,
 							"turnPoints": 2
 						}
@@ -1284,7 +1284,7 @@
 							"finishedTurn": false,
 							"health": 10,
 							"name": "FlakTrooper",
-							"race": 3,
+							"race": 2,
 							"turnPoints": 1
 						}
 					}
@@ -1363,7 +1363,7 @@
 							"finishedTurn": false,
 							"health": 10,
 							"name": "ScrapTank",
-							"race": 3,
+							"race": 2,
 							"turnPoints": 1
 						}
 					}
@@ -1415,7 +1415,7 @@
 							"finishedTurn": false,
 							"health": 10,
 							"name": "FlakTrooper",
-							"race": 3,
+							"race": 2,
 							"turnPoints": 1
 						}
 					}
@@ -1465,8 +1465,8 @@
 							"__serializationTypeName": "CUnit",
 							"finishedTurn": false,
 							"health": 10,
-							"name": "Mech",
-							"race": 3,
+							"name": "Bomberman",
+							"race": 2,
 							"turnPoints": 1
 						}
 					}
@@ -1531,7 +1531,7 @@
 							"finishedTurn": false,
 							"health": 10,
 							"name": "ScrapTank",
-							"race": 3,
+							"race": 2,
 							"turnPoints": 1
 						}
 					}
@@ -1583,7 +1583,7 @@
 							"finishedTurn": false,
 							"health": 10,
 							"name": "FlakTrooper",
-							"race": 3,
+							"race": 2,
 							"turnPoints": 1
 						}
 					}
@@ -1839,7 +1839,7 @@
 							"finishedTurn": false,
 							"health": 10,
 							"name": "Biker",
-							"race": 3,
+							"race": 2,
 							"turnPoints": 1
 						}
 					}
@@ -1891,7 +1891,7 @@
 							"finishedTurn": false,
 							"health": 10,
 							"name": "FlakTrooper",
-							"race": 3,
+							"race": 2,
 							"turnPoints": 1
 						}
 					}
@@ -2035,7 +2035,7 @@
 							"__serializationTypeName": "CUnit",
 							"finishedTurn": false,
 							"health": 10,
-							"name": "Ranger",
+							"name": "Speeder",
 							"race": 1,
 							"turnPoints": 2
 						}
@@ -2104,7 +2104,7 @@
 							"finishedTurn": false,
 							"health": 10,
 							"name": "Biker",
-							"race": 3,
+							"race": 2,
 							"turnPoints": 1
 						}
 					}
@@ -2155,7 +2155,7 @@
 							"finishedTurn": false,
 							"health": 10,
 							"name": "Sting",
-							"race": 3,
+							"race": 2,
 							"turnPoints": 1
 						}
 					}
@@ -2206,7 +2206,7 @@
 							"finishedTurn": false,
 							"health": 10,
 							"name": "Biker",
-							"race": 3,
+							"race": 2,
 							"turnPoints": 1
 						}
 					}
@@ -2256,8 +2256,8 @@
 							"__serializationTypeName": "CUnit",
 							"finishedTurn": false,
 							"health": 10,
-							"name": "Mech",
-							"race": 3,
+							"name": "Bomberman",
+							"race": 2,
 							"turnPoints": 1
 						}
 					}
@@ -2364,7 +2364,7 @@
 							"finishedTurn": false,
 							"health": 10,
 							"name": "Sting",
-							"race": 3,
+							"race": 2,
 							"turnPoints": 1
 						}
 					}
@@ -2414,8 +2414,8 @@
 							"__serializationTypeName": "CUnit",
 							"finishedTurn": false,
 							"health": 10,
-							"name": "Mech",
-							"race": 3,
+							"name": "Bomberman",
+							"race": 2,
 							"turnPoints": 1
 						}
 					}
@@ -2466,7 +2466,7 @@
 							"finishedTurn": false,
 							"health": 10,
 							"name": "ScrapTank",
-							"race": 3,
+							"race": 2,
 							"turnPoints": 1
 						}
 					}
@@ -2711,8 +2711,8 @@
 							"__serializationTypeName": "CUnit",
 							"finishedTurn": false,
 							"health": 10,
-							"name": "Mech",
-							"race": 3,
+							"name": "Bomberman",
+							"race": 2,
 							"turnPoints": 1
 						}
 					}
@@ -2847,7 +2847,7 @@
 							"finishedTurn": false,
 							"health": 10,
 							"name": "Sting",
-							"race": 3,
+							"race": 2,
 							"turnPoints": 1
 						}
 					}
