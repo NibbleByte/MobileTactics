@@ -245,7 +245,6 @@ UnitsDefinitions[Player.Races.Empire] = {
 		baseStatistics: {
 			AttackLight: 7,
 			AttackHeavy: 6,
-			AttackAerial: 3,
 			AttackRange: 2,
 			HealRate: 1,
 			Defence: 6,
@@ -282,7 +281,7 @@ UnitsDefinitions[Player.Races.Empire] = {
 
 		baseStatistics: {
 			AttackLight: 5,
-			AttackHeavy: 9,
+			AttackHeavy: 7,
 			AttackAerial: 5,
 			AttackRange: 1,
 			HealRate: 1,
@@ -370,7 +369,7 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 
 		baseStatistics: {
 			AttackLight: 3,
-			AttackHeavy: 4,
+			AttackHeavy: 3,
 			AttackAerial: 4,
 			AttackRange: 2,
 			HealRate: 1,
@@ -453,10 +452,11 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 
 		baseStatistics: {
 			AttackLight: 8,
-			AttackHeavy: 10,
+			AttackHeavy: 8,
+			AttackAerial: 3,
 			AttackRange: 1,
-			HealRate: 1,
-			Defence: 8,
+			HealRate: 2,
+			Defence: 7,
 			Movement: 5,
 			Visibility: 6,
 		},
@@ -484,17 +484,17 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 	Mech: {
 		race: 0,
 		name: '@!@',
-		price: 400,
-		type: UnitType.Heavy,
+		price: 300,
+		type: UnitType.Aerial,
 
 		baseStatistics: {
-			AttackLight: 7,
-			AttackHeavy: 8,
-			AttackAerial: 8,
-			AttackRange: 1,
+			AttackLight: 3,
+			AttackHeavy: 5,
+			AttackAerial: 5,
+			AttackRange: 2,
 			HealRate: 1,
-			Defence: 8,
-			Movement: 4,
+			Defence: 3,
+			Movement: 5,
 			Visibility: 6,
 		},
 		
@@ -507,15 +507,16 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 		
 		terrainStats: new function () {
 			this[GameWorldTerrainType.Plains] =		{ Cost: 1, Attack: 0, Defence: 0};
-			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: 1, Defence: 1};
-			this[GameWorldTerrainType.Mountain] =	{ Cost: 2, Attack: 1, Defence: 1};
-			this[GameWorldTerrainType.Rough] =		{ Cost: 3, Attack: -2, Defence: -2};
+			this[GameWorldTerrainType.Forest] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Mountain] =	{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Rough] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Water] =		{ Cost: 1, Attack: 0, Defence: 0};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Minerals] =	{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.Factory] =	{ Cost: 1, Attack: 0, Defence: -1};
-			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: -1};
+			this[GameWorldTerrainType.Medical] =	{ Cost: 1, Attack: 0, Defence: 0};
 		},
 	},
 
@@ -525,10 +526,12 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 		price: 600,
 		type: UnitType.Heavy,
 
+		disableMoveAttack: true,
+
 		baseStatistics: {
 			AttackLight: 6,
 			AttackHeavy: 9,
-			AttackAerial: 8,
+			AttackAerial: 7,
 			AttackRange: 5,
 			HealRate: 1,
 			Defence: 3,
@@ -544,9 +547,9 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 				 ],
 		
 		terrainStats: new function () {
-			this[GameWorldTerrainType.Plains] =		{ Cost: 1, Attack: 0, Defence: -1};
-			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: -2, Defence: -1};
-			this[GameWorldTerrainType.Rough] =		{ Cost: 3, Attack: -2, Defence: -3};
+			this[GameWorldTerrainType.Plains] =		{ Cost: 1, Attack: 0, Defence: 0};
+			this[GameWorldTerrainType.Forest] =		{ Cost: 2, Attack: -1, Defence: 0};
+			this[GameWorldTerrainType.Rough] =		{ Cost: 3, Attack: -2, Defence: -2};
 
 			this[GameWorldTerrainType.Base] =		{ Cost: 1, Attack: 0, Defence: -1};
 			this[GameWorldTerrainType.HQ] =			{ Cost: 1, Attack: 0, Defence: -1};
