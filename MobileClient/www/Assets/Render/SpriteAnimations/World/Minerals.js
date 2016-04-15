@@ -49,18 +49,5 @@ SpriteAnimations.World.Minerals = {
 			frames: 4,
 			wrapMode: Animator.WrapMode.OnceReverse,
 		},
-
-		{
-			name: 'Idle-Roaches',
-			startIndex: 12,
-			frames: 1,
-		},
-
-		{
-			name: 'Idle-Roaches-0',
-			startIndex: 12,
-			frames: 4,
-			wrapMode: Animator.WrapMode.OnceReverse,
-		},
 	]
 };
