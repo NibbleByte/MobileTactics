@@ -65,15 +65,15 @@ SpriteAnimations.FightUnits.PeaceKeeper = {
 };
 
 // TODO: These units don't have sprites yet. Remove this when they do!
-//SpriteAnimations.FightUnits.Ranger = $.extend(true, {}, SpriteAnimations.FightUnits.PeaceKeeper);
+//SpriteAnimations.FightUnits.Speeder = $.extend(true, {}, SpriteAnimations.FightUnits.PeaceKeeper);
 //SpriteAnimations.FightUnits.HoverCannon = $.extend(true, {}, SpriteAnimations.FightUnits.PeaceKeeper);
 //SpriteAnimations.FightUnits.Comanche = $.extend(true, {}, SpriteAnimations.FightUnits.PeaceKeeper);
 //SpriteAnimations.FightUnits.IonDrone = $.extend(true, {}, SpriteAnimations.FightUnits.PeaceKeeper);
 
 
-SpriteAnimations.FightUnits.Ranger = {
+SpriteAnimations.FightUnits.Speeder = {
 
-	resourcePath: 'Ranger.png',
+	resourcePath: 'Speeder.png',
 
 	frameWidth: 180,
 	frameHeight: 170,

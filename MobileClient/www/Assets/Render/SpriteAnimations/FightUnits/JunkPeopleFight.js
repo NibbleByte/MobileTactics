@@ -68,7 +68,7 @@ SpriteAnimations.FightUnits.FlakTrooper = {
 // TODO: These units don't have sprites yet. Remove this when they do!
 //SpriteAnimations.FightUnits.Biker = $.extend(true, {}, SpriteAnimations.FightUnits.FlakTrooper);
 //SpriteAnimations.FightUnits.ScrapTank = $.extend(true, {}, SpriteAnimations.FightUnits.FlakTrooper);
-//SpriteAnimations.FightUnits.Mech = $.extend(true, {}, SpriteAnimations.FightUnits.FlakTrooper);
+//SpriteAnimations.FightUnits.Bomberman = $.extend(true, {}, SpriteAnimations.FightUnits.FlakTrooper);
 //SpriteAnimations.FightUnits.Sting = $.extend(true, {}, SpriteAnimations.FightUnits.FlakTrooper);
 
 
@@ -175,9 +175,9 @@ SpriteAnimations.FightUnits.ScrapTank = {
 	]
 };
 
-SpriteAnimations.FightUnits.Mech = {
+SpriteAnimations.FightUnits.Bomberman = {
 
-	resourcePath: 'Mech.png',
+	resourcePath: 'Bomberman.png',
 
 	frameWidth: 180,
 	frameHeight: 170,

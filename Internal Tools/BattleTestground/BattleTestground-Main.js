@@ -107,7 +107,6 @@ $(function () {
 		attackerPlayer = m_playersData.addPlayer('Pl1', Player.Types.Human, UnitsFactory.resolveDefinitionPathRace($attackerList.val()));
 		defenderPlayer = m_playersData.addPlayer('Pl2', Player.Types.Human, UnitsFactory.resolveDefinitionPathRace($defenderList.val()));
 		genericPlayers[Player.Races.Empire] = m_playersData.addPlayer('GenericEmpire', Player.Types.Human, Player.Races.Empire);
-		genericPlayers[Player.Races.Roaches] = m_playersData.addPlayer('GenericRoaches', Player.Types.Human, Player.Races.Roaches);
 		genericPlayers[Player.Races.JunkPeople] = m_playersData.addPlayer('GenericJunkPeople', Player.Types.Human, Player.Races.JunkPeople);
 
 		m_gameState = m_eworld.store(GameState, new GameState());
