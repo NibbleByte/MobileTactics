@@ -77,7 +77,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 				var playersData = eworld.extract(PlayersData);
 				if (i == Math.floor(rows / 4) || i == Math.floor(rows / 3) || i == Math.floor(rows / 2)) {
 					if (j == i || j == rows - i) {
-						tile.CTileTerrain.type = GameWorldTerrainType.Minerals;
+						tile.CTileTerrain.type = GameWorldTerrainType.Base;
 						tile.addComponent(CTileOwner);
 
 						if (count % 3 == 0) {
@@ -104,21 +104,9 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 					tile.CTileOwner.owner = playersData.players[0];
 				}
 				
-				if (i == 4 && j == 3) {
-					tile.addComponentSafe(CTileOwner);
-					tile.CTileTerrain.type = GameWorldTerrainType.Factory;
-					tile.CTileOwner.owner = playersData.players[0];
-				}
-
-				if (i == 1 && j == 2) {
-					tile.addComponentSafe(CTileOwner);
-					tile.CTileTerrain.type = GameWorldTerrainType.Factory;
-					tile.CTileOwner.owner = playersData.players[0];
-				}
-
 				if (i == 2 && j == 4) {
 					tile.addComponentSafe(CTileOwner);
-					tile.CTileTerrain.type = GameWorldTerrainType.Minerals;
+					tile.CTileTerrain.type = GameWorldTerrainType.Base;
 					tile.CTileOwner.owner = playersData.players[0];
 				}
 
@@ -127,30 +115,18 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 					tile.addComponentSafe(CTileOwner);
 					tile.CTileTerrain.type = GameWorldTerrainType.HQ;
 					tile.CTileOwner.owner = playersData.players[1];
-				}
-				
-				if (i == 5 && j == 10) {
-					tile.addComponentSafe(CTileOwner);
-					tile.CTileTerrain.type = GameWorldTerrainType.Factory;
-					tile.CTileOwner.owner = playersData.players[1];
-				}
-
-				if (i == 1 && j == 8) {
-					tile.addComponentSafe(CTileOwner);
-					tile.CTileTerrain.type = GameWorldTerrainType.Factory;
-					tile.CTileOwner.owner = playersData.players[1];
-				}
+				}				
 
 				if (i == 3 && j == 9) {
 					tile.addComponentSafe(CTileOwner);
-					tile.CTileTerrain.type = GameWorldTerrainType.Minerals;
+					tile.CTileTerrain.type = GameWorldTerrainType.Base;
 					tile.CTileOwner.owner = playersData.players[1];
 				}
 
 				// No one
 				if (i == 6 && j == 7) {
 					tile.addComponentSafe(CTileOwner);
-					tile.CTileTerrain.type = GameWorldTerrainType.Minerals;
+					tile.CTileTerrain.type = GameWorldTerrainType.Base;
 				}
 
 

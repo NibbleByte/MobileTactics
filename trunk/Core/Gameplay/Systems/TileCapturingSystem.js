@@ -33,6 +33,10 @@ var TileCapturingSystem = function () {
 	var onGameLoading = function () {
 		m_gameState = self._eworld.extract(GameState);
 		m_playersData = self._eworld.extract(PlayersData);
+
+		TileCapturingSystem.iterateOwnerableTileTypes(function (type) {
+			m_gameState.currentStructuresTypes[type] = m_gameState.currentStructuresTypes[type] || [];
+		});
 	}
 
 	var onGameLoaded = function () {
@@ -155,6 +159,15 @@ TileCapturingSystem.isOwnerableTile = function (terrainType) {
 		|| terrainType == GameWorldTerrainType.Minerals
 		|| terrainType == GameWorldTerrainType.Harbour
 		|| terrainType == GameWorldTerrainType.WatchTower;
+}
+
+TileCapturingSystem.iterateOwnerableTileTypes = function (handler) {
+	handler(GameWorldTerrainType.Base);
+	handler(GameWorldTerrainType.HQ);
+	handler(GameWorldTerrainType.Factory);
+	handler(GameWorldTerrainType.Minerals);
+	handler(GameWorldTerrainType.Harbour);
+	handler(GameWorldTerrainType.WatchTower);
 }
 
 ECS.EntityManager.registerSystem('TileCapturingSystem', TileCapturingSystem);

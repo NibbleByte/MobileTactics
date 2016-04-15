@@ -55,7 +55,7 @@ var AITaskBuyingSystem = function (m_world, m_executor) {
 
 		// TODO: AITaskBuyingSystem should be named Planning or Economic system or similar.
 		
-		var factories = m_gameState.currentStructuresTypes[GameWorldTerrainType.Factory];
+		var factories = m_gameState.currentStructuresTypes[GameWorldTerrainType.Factory].concat(m_gameState.currentStructuresTypes[GameWorldTerrainType.Base]);
 		if (factories.length == 0)
 			return;
 

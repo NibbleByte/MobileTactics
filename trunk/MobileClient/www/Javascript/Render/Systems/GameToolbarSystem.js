@@ -214,8 +214,9 @@ var GameToolbarSystem = function () {
 			player = m_playersData.players[0];
 
 		var minesCount = 0;
-		if (m_gameState.currentStructuresTypes[GameWorldTerrainType.Minerals])
-			m_gameState.currentStructuresTypes[GameWorldTerrainType.Minerals].length;
+
+		minesCount += m_gameState.currentStructuresTypes[GameWorldTerrainType.Base].length;
+		minesCount += m_gameState.currentStructuresTypes[GameWorldTerrainType.Minerals].length;
 
 		m_$gameStateInfoStatisticsTable.empty();
 
