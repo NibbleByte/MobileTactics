@@ -5,10 +5,12 @@ SpriteAnimations.World.Base = {
 	
 	frameWidth: 64,
 	frameHeight: 64,
-	
-	framesPerRow: 0,
 
-	speed: 10,
+	speed: 16,
+	
+	params: {
+		playIdleConstant: true,
+	},
 	
 	sequences: [
 		{
@@ -16,11 +18,13 @@ SpriteAnimations.World.Base = {
 			startIndex: 0,
 			frames: 1,
 		},
-		
+
+
 		{
 			name: 'Idle0',
-			startIndex: 0,
-			frames: 13,
+			startIndex: 1,
+			frames: 5,
+			wrapMode: Animator.WrapMode.Loop,
 		},
 	]
 };

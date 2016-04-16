@@ -235,7 +235,7 @@ var AITaskBuyingSystem = function (m_world, m_executor) {
 
 		actionData.action = Store.buyItem(actionData.shopItem);
 
-		self._eworld.blackboard[AIBlackBoard.Simulation.RESUME_NEEDED] = true;
+		//self._eworld.blackboard[AIBlackBoard.Simulation.RESUME_NEEDED] = true;
 	}
 }
 

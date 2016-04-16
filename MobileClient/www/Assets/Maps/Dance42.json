@@ -1,18 +1,21 @@
 {
 	"editorState": {
 		"__serializationTypeName": "EditorState",
-		"mapLockedSizes": true
+		"mapLockedSizes": true,
+		"playersCount": 2
 	},
 	"gameMetaData": {
 		"__serializationTypeName": "GameMetaData",
 		"description": "Well ballanced duel map",
+		"lastModified": 1460815052706,
 		"name": "Dance42"
 	},
 	"gameState": {
 		"__serializationTypeName": "GameState",
 		"currentPlayer": null,
 		"turnsPassed": 0,
-		"isCustomMap": false
+		"isCustomMap": false,
+		"winners": []
 	},
 	"playersData": {
 		"__serializationTypeName": "PlayersData",
@@ -164,10 +167,19 @@
 				"placedObjects": [],
 				"row": 1
 			},
+			"CTileOwner": {
+				"__serializationTypeName": "CTileOwner",
+				"beingCapturedBy": null,
+				"captureTurns": 0,
+				"knowledge": {},
+				"owner": {
+					"__serializationRefId": 7
+				}
+			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
 				"skin": 0,
-				"type": 8
+				"type": 18
 			}
 		},
 		{
@@ -195,13 +207,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 6
+								"__serializationRefId": 7
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 45
+								"__serializationRefId": 48
 							}
 						},
 						"CUnit": {
@@ -300,19 +312,10 @@
 				"placedObjects": [],
 				"row": 2
 			},
-			"CTileOwner": {
-				"__serializationTypeName": "CTileOwner",
-				"beingCapturedBy": null,
-				"captureTurns": 0,
-				"knowledge": {},
-				"owner": {
-					"__serializationRefId": 6
-				}
-			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
 				"skin": 0,
-				"type": 24
+				"type": 1
 			}
 		},
 		{
@@ -323,19 +326,10 @@
 				"placedObjects": [],
 				"row": 2
 			},
-			"CTileOwner": {
-				"__serializationTypeName": "CTileOwner",
-				"beingCapturedBy": null,
-				"captureTurns": 0,
-				"knowledge": {},
-				"owner": {
-					"__serializationRefId": 6
-				}
-			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 28
+				"skin": 1,
+				"type": 1
 			}
 		},
 		{
@@ -416,19 +410,10 @@
 				"placedObjects": [],
 				"row": 3
 			},
-			"CTileOwner": {
-				"__serializationTypeName": "CTileOwner",
-				"beingCapturedBy": null,
-				"captureTurns": 0,
-				"knowledge": {},
-				"owner": {
-					"__serializationRefId": 6
-				}
-			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 20
+				"skin": 1,
+				"type": 1
 			}
 		},
 		{
@@ -536,13 +521,13 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 6
+					"__serializationRefId": 7
 				}
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
 				"skin": 0,
-				"type": 24
+				"type": 18
 			}
 		},
 		{
@@ -553,19 +538,10 @@
 				"placedObjects": [],
 				"row": 4
 			},
-			"CTileOwner": {
-				"__serializationTypeName": "CTileOwner",
-				"beingCapturedBy": null,
-				"captureTurns": 0,
-				"knowledge": {},
-				"owner": {
-					"__serializationRefId": 6
-				}
-			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 28
+				"skin": 1,
+				"type": 1
 			}
 		},
 		{
@@ -733,13 +709,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 7
+								"__serializationRefId": 8
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 192
+								"__serializationRefId": 187
 							}
 						},
 						"CUnit": {
@@ -768,10 +744,19 @@
 				"placedObjects": [],
 				"row": 1
 			},
+			"CTileOwner": {
+				"__serializationTypeName": "CTileOwner",
+				"beingCapturedBy": null,
+				"captureTurns": 0,
+				"knowledge": {},
+				"owner": {
+					"__serializationRefId": 8
+				}
+			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 1,
-				"type": 8
+				"skin": 0,
+				"type": 18
 			}
 		},
 		{
@@ -824,19 +809,10 @@
 				"placedObjects": [],
 				"row": 2
 			},
-			"CTileOwner": {
-				"__serializationTypeName": "CTileOwner",
-				"beingCapturedBy": null,
-				"captureTurns": 0,
-				"knowledge": {},
-				"owner": {
-					"__serializationRefId": 7
-				}
-			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 28
+				"skin": 1,
+				"type": 1
 			}
 		},
 		{
@@ -847,19 +823,10 @@
 				"placedObjects": [],
 				"row": 2
 			},
-			"CTileOwner": {
-				"__serializationTypeName": "CTileOwner",
-				"beingCapturedBy": null,
-				"captureTurns": 0,
-				"knowledge": {},
-				"owner": {
-					"__serializationRefId": 7
-				}
-			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
 				"skin": 0,
-				"type": 24
+				"type": 1
 			}
 		},
 		{
@@ -919,19 +886,10 @@
 				"placedObjects": [],
 				"row": 3
 			},
-			"CTileOwner": {
-				"__serializationTypeName": "CTileOwner",
-				"beingCapturedBy": null,
-				"captureTurns": 0,
-				"knowledge": {},
-				"owner": {
-					"__serializationRefId": 7
-				}
-			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
 				"skin": 0,
-				"type": 20
+				"type": 1
 			}
 		},
 		{
@@ -984,19 +942,10 @@
 				"placedObjects": [],
 				"row": 4
 			},
-			"CTileOwner": {
-				"__serializationTypeName": "CTileOwner",
-				"beingCapturedBy": null,
-				"captureTurns": 0,
-				"knowledge": {},
-				"owner": {
-					"__serializationRefId": 7
-				}
-			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 28
+				"skin": 1,
+				"type": 1
 			}
 		},
 		{
@@ -1013,13 +962,13 @@
 				"captureTurns": 0,
 				"knowledge": {},
 				"owner": {
-					"__serializationRefId": 7
+					"__serializationRefId": 8
 				}
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
 				"skin": 0,
-				"type": 24
+				"type": 18
 			}
 		},
 		{
@@ -1089,13 +1038,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 6
+								"__serializationRefId": 7
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 287
+								"__serializationRefId": 276
 							}
 						},
 						"CUnit": {
@@ -1211,13 +1160,13 @@
 						"CPlayerData": {
 							"__serializationTypeName": "CPlayerData",
 							"player": {
-								"__serializationRefId": 7
+								"__serializationRefId": 8
 							}
 						},
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 318
+								"__serializationRefId": 307
 							}
 						},
 						"CUnit": {
@@ -1757,16 +1706,16 @@
 			}
 		},
 		{
-			"__serializationRefId": 48
+			"__serializationRefId": 51
 		},
 		{
-			"__serializationRefId": 290
+			"__serializationRefId": 279
 		},
 		{
-			"__serializationRefId": 195
+			"__serializationRefId": 190
 		},
 		{
-			"__serializationRefId": 321
+			"__serializationRefId": 310
 		}
 	]
 }
