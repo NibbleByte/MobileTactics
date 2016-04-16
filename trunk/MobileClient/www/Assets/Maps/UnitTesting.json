@@ -7,7 +7,7 @@
 	"gameMetaData": {
 		"__serializationTypeName": "GameMetaData",
 		"description": "Map with all the available units.",
-		"lastModified": 1460485104452,
+		"lastModified": 1460816210776,
 		"name": "Unit Testing"
 	},
 	"gameState": {
@@ -68,7 +68,7 @@
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
 				"skin": 0,
-				"type": 20
+				"type": 18
 			}
 		},
 		{
@@ -105,7 +105,7 @@
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
 				"skin": 0,
-				"type": 28
+				"type": 18
 			}
 		},
 		{
@@ -1149,7 +1149,7 @@
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
 				"skin": 0,
-				"type": 28
+				"type": 18
 			}
 		},
 		{
@@ -1242,7 +1242,7 @@
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
 				"skin": 0,
-				"type": 28
+				"type": 18
 			}
 		},
 		{
@@ -1644,7 +1644,7 @@
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
 				"skin": 0,
-				"type": 28
+				"type": 18
 			}
 		},
 		{
@@ -2778,7 +2778,7 @@
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
 				"skin": 0,
-				"type": 20
+				"type": 18
 			}
 		},
 		{

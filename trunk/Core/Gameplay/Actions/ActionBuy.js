@@ -15,6 +15,9 @@ Actions.Classes.ActionBuy = new function () {
 		var storeItem = action.undoData;
 		eworld.trigger(GameplayEvents.Resources.ADD_CREDITS, storeItem.player, -storeItem.price);
 
+		placeable.CUnit.turnPoints = 0;
+		placeable.CUnit.finishedTurn = true;
+
 		eworld.addUnmanagedEntity(placeable);
 		world.place(placeable, action.appliedTile);
 	}
