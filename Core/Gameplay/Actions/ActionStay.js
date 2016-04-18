@@ -9,8 +9,13 @@ Actions.Classes.ActionStay = new function () {
 	this.quickAction = true;
 
 	this.getAvailableActions = function (eworld, world, player, placeable, outActions) {
+		
+		var executedActions = placeable.CUnit.actionsData.getTurnData(placeable.CUnit.turnPoints).executedActions;
+		var hasJustMoved = executedActions.last() == Actions.Classes.ActionMove;
+		var hasJustAttacked = executedActions.last() == Actions.Classes.ActionAttack;
+		
 		// Can stay only if just moved.
-		if (placeable.CUnit.actionsData.getTurnData(placeable.CUnit.turnPoints).executedActions.last() == Actions.Classes.ActionMove) {
+		if (hasJustMoved || (hasJustAttacked && placeable.CStatistics.statistics['MovementAttack'])) {
 			var action = new GameAction(Actions.Classes.ActionStay, player, placeable);
 			action.availableTiles = [ placeable.CTilePlaceable.tile ];
 			outActions.push(action);
