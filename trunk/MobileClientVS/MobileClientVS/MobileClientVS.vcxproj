@@ -13,6 +13,7 @@
   <ItemGroup>
     <None Include="..\..\Core\AI\AIEvents.js" />
     <None Include="..\..\Core\AI\AITask.js" />
+    <None Include="..\..\Core\AI\AIUtils.js" />
     <None Include="..\..\Core\AI\Components\CAIData.js" />
     <None Include="..\..\Core\AI\Systems\AISimulationSystem.js" />
     <None Include="..\..\Core\AI\Systems\AITaskAttackingSystem.js" />

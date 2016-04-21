@@ -581,6 +581,9 @@
     <None Include="..\..\MobileClient\www\Assets\Render\SpriteAnimations\FightUnits\JunkPeopleFight.js">
       <Filter>Assets\Render\SpriteAnimations\FightUnits</Filter>
     </None>
+    <None Include="..\..\Core\AI\AIUtils.js">
+      <Filter>Javascript\Core\AI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

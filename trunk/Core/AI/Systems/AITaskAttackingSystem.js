@@ -120,12 +120,29 @@ var AITaskAttackingSystem = function (m_world, m_executor, m_battleSystem) {
 			
 			// Has attacked already, run away.
 			if (hasAttacked) {
+				// Including the tile standing on.
+				var safestTiles = AIUtils.findSafestTiles(assignment.taskDoer, moveAction.availableTiles.concat(goTile));
+
 				if (target.isAttached()) {
-					moveAction.appliedTile = MathUtils.randomElement(m_world.getFurthestTiles(targetTile, moveAction.availableTiles));
+					var moveTile = MathUtils.randomElement(m_world.getFurthestTiles(targetTile, safestTiles));
+
 				} else {
-					moveAction.appliedTile = MathUtils.randomElement(moveAction.availableTiles);
+					var moveTile = MathUtils.randomElement(safestTiles);
 				}
-				return new AIActionData(moveAction);
+
+
+				if (moveTile == goTile) {
+					if (Utils.assert(stayAction, 'No stay in MovementAttack?'))
+						return null;
+
+					stayAction.appliedTile = goTile;
+					return new AIActionData(stayAction);
+
+				} else {
+
+					moveAction.appliedTile = moveTile;
+					return new AIActionData(moveAction);
+				}
 			}
 
 
@@ -151,6 +168,8 @@ var AITaskAttackingSystem = function (m_world, m_executor, m_battleSystem) {
 
 
 
+			attackTiles = AIUtils.findSafestTiles(assignment.taskDoer, attackTiles, 'Attack');
+
 			if (attackTiles.length > 0) {
 				var tile = MathUtils.randomElement(m_world.getFurthestTiles(targetTile, attackTiles));
 
@@ -165,39 +184,17 @@ var AITaskAttackingSystem = function (m_world, m_executor, m_battleSystem) {
 				return new AIActionData(moveAction);
 			}
 
-			
 
-			// Move along path to the objective.
-			var mdata = {
-				placeable: goActions.go,
-				player: goActions.go.CPlayerData.player,
-				playersData: m_playersData,
-				world: m_world,
-			};
 
-			var path = m_world.findPath(goTile, targetTile, Actions.Classes.ActionMove.movementCostQuery, mdata);
 
-			var moveTile = null;
-			for (var i = path.length; i >= 0; --i) {
-				var pathTile = path[i];
-				if (moveAction.availableTiles.contains(pathTile)) {
-					moveTile = pathTile;
-					break;
-				}
+			var moveTile = AIUtils.pickTileTowards(targetTile, goActions, m_world, m_playersData);
+
+			if (moveTile) {
+				moveAction.appliedTile = moveTile;
+				return new AIActionData(moveAction);
+			} else {
+				return null;
 			}
-
-
-			if (!moveTile) {
-				// Can happen if tiles are occupied by friendly units.
-				var validTiles = moveAction.actionType.findClosestValidTiles(moveAction.availableTiles, targetTile);
-				if (validTiles.length == 0)
-					return null;
-
-				moveTile = validTiles[0];
-			}
-
-			moveAction.appliedTile = moveTile;
-			return new AIActionData(moveAction);
 		}
 
 
