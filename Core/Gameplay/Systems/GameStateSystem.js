@@ -87,7 +87,7 @@ var GameStateSystem = function () {
 			for (var i = 0; i < entities.length; ++i) {
 				var entity = entities[i];
 
-				if (entity.CUnit && !GenericUnits.contains(entity.CUnit.getDefinition())) {
+				if (entity.CUnit && !UnitsDefinitions.GenericUnits.contains(entity.CUnit.getDefinition())) {
 					failReasons.push('Generic maps is not allowed to have any units except generic ones. Found unit: ' + entity.CUnit.name);
 				}
 			}
@@ -110,7 +110,7 @@ var GameStateSystem = function () {
 			} else if (!m_gameState.isCustomMap && placeable.CUnit.race != player.race) {
 				placeable.destroy();
 
-				placeable = UnitsFactory.createUnit(GenericUnits.getDefinitionByRace(player.race), player);
+				placeable = UnitsFactory.createUnit(UnitsDefinitions.GenericUnits.getDefinitionByRace(player.race), player);
 				self._eworld.addUnmanagedEntity(placeable);
 				self._eworld.extract(GameWorld).place(placeable, tile);
 			}

@@ -12,20 +12,31 @@ var UnitType = {
 };
 Enums.enumerate(UnitType);
 
-var UnitTypeStatNames = [];
-UnitTypeStatNames[UnitType.Light] = 'AttackLight';
-UnitTypeStatNames[UnitType.Heavy] = 'AttackHeavy';
-UnitTypeStatNames[UnitType.Aerial] = 'AttackAerial';
-UnitTypeStatNames[UnitType.Naval] = 'AttackNaval';
+var UnitCategory = {
+	Infantry: 0,
+	Fast: 0,
+	Heavy: 0,
+	Aerial: 0,
+	Artillery: 0,
+};
+Enums.enumerate(UnitCategory);
+
 
 var UnitsDefinitions = [];
-var GenericUnits = [];	// Contains the definitions of all generic units (i.e. basic race unit that can be used in generic maps).
 
-GenericUnits.getDefinitionByRace = function (race) {
+UnitsDefinitions.AttackStatNamesByType = [];
+UnitsDefinitions.AttackStatNamesByType[UnitType.Light] = 'AttackLight';
+UnitsDefinitions.AttackStatNamesByType[UnitType.Heavy] = 'AttackHeavy';
+UnitsDefinitions.AttackStatNamesByType[UnitType.Aerial] = 'AttackAerial';
+UnitsDefinitions.AttackStatNamesByType[UnitType.Naval] = 'AttackNaval';
 
-	for(var i = 0; i < GenericUnits.length; ++i) {
-		if (GenericUnits[i].race == race)
-			return GenericUnits[i];
+UnitsDefinitions.GenericUnits = [];	// Contains the definitions of all generic units (i.e. basic race unit that can be used in generic maps).
+
+UnitsDefinitions.GenericUnits.getDefinitionByRace = function (race) {
+
+	for(var i = 0; i < UnitsDefinitions.GenericUnits.length; ++i) {
+		if (UnitsDefinitions.GenericUnits[i].race == race)
+			return UnitsDefinitions.GenericUnits[i];
 	}
 }
 
@@ -36,6 +47,10 @@ UnitsDefinitions[Player.Races.Developers] = {
 		name: '@!@',
 		price: 200,
 		type: UnitType.Heavy,
+		category: UnitCategory.Heavy,
+
+		strongVS: [],
+		weakVS: [],
 
 		baseStatistics: {
 			AttackLight: 6,
@@ -76,6 +91,10 @@ UnitsDefinitions[Player.Races.Developers] = {
 		name: '@!@',
 		price: 500,
 		type: UnitType.Heavy,
+		category: UnitCategory.Heavy,
+
+		strongVS: [],
+		weakVS: [],
 
 		bypassZoneOfControl: true,
 
@@ -114,6 +133,10 @@ UnitsDefinitions[Player.Races.Developers] = {
 		name: '@!@',
 		price: 250,
 		type: UnitType.Light,
+		category: UnitCategory.Infantry,
+
+		strongVS: [],
+		weakVS: [],
 
 		baseStatistics: {
 			AttackLight: 6,
@@ -158,6 +181,10 @@ UnitsDefinitions[Player.Races.Empire] = {
 		name: '@!@',
 		price: 100,
 		type: UnitType.Light,
+		category: UnitCategory.Infantry,
+
+		strongVS: [UnitCategory.Aerial, UnitCategory.Artillery],
+		weakVS:	[],
 
 		baseStatistics: {
 			AttackLight: 5,
@@ -201,6 +228,10 @@ UnitsDefinitions[Player.Races.Empire] = {
 		name: '@!@',
 		price: 250,
 		type: UnitType.Heavy,
+		category: UnitCategory.Fast,
+
+		strongVS: [UnitCategory.Infantry, UnitCategory.Artillery],
+		weakVS: [],
 
 		bypassZoneOfControl: true,
 
@@ -241,6 +272,10 @@ UnitsDefinitions[Player.Races.Empire] = {
 		name: '@!@',
 		price: 450,
 		type: UnitType.Heavy,
+		category: UnitCategory.Heavy,
+
+		strongVS: [UnitCategory.Infantry, UnitCategory.Fast],
+		weakVS: [],
 
 		baseStatistics: {
 			AttackLight: 7,
@@ -278,6 +313,10 @@ UnitsDefinitions[Player.Races.Empire] = {
 		name: '@!@',
 		price: 400,
 		type: UnitType.Aerial,
+		category: UnitCategory.Aerial,
+
+		strongVS: [UnitCategory.Fast, UnitCategory.Heavy],
+		weakVS: [],
 
 		baseStatistics: {
 			AttackLight: 5,
@@ -317,6 +356,10 @@ UnitsDefinitions[Player.Races.Empire] = {
 		name: '@!@',
 		price: 600,
 		type: UnitType.Heavy,
+		category: UnitCategory.Artillery,
+
+		strongVS: [UnitCategory.Aerial, UnitCategory.Heavy],
+		weakVS: [],
 
 		disableMoveAttack: true,
 
@@ -366,6 +409,10 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 		name: '@!@',
 		price: 100,
 		type: UnitType.Light,
+		category: UnitCategory.Infantry,
+
+		strongVS: [UnitCategory.Aerial, UnitCategory.Artillery],
+		weakVS: [],
 
 		baseStatistics: {
 			AttackLight: 3,
@@ -409,6 +456,10 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 		name: '@!@',
 		price: 200,
 		type: UnitType.Light,
+		category: UnitCategory.Fast,
+
+		strongVS: [UnitCategory.Infantry, UnitCategory.Artillery],
+		weakVS: [],
 
 		baseStatistics: {
 			AttackLight: 6,
@@ -449,6 +500,10 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 		name: '@!@',
 		price: 400,
 		type: UnitType.Heavy,
+		category: UnitCategory.Heavy,
+
+		strongVS: [UnitCategory.Infantry, UnitCategory.Fast],
+		weakVS: [],
 
 		baseStatistics: {
 			AttackLight: 8,
@@ -486,6 +541,10 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 		name: '@!@',
 		price: 300,
 		type: UnitType.Aerial,
+		category: UnitCategory.Aerial,
+
+		strongVS: [UnitCategory.Fast, UnitCategory.Heavy],
+		weakVS: [],
 
 		baseStatistics: {
 			AttackLight: 3,
@@ -525,6 +584,10 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 		name: '@!@',
 		price: 600,
 		type: UnitType.Heavy,
+		category: UnitCategory.Artillery,
+
+		strongVS: [UnitCategory.Aerial, UnitCategory.Heavy],
+		weakVS: [],
 
 		disableMoveAttack: true,
 
@@ -564,12 +627,14 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 	},
 };
 
-GenericUnits.push(UnitsDefinitions[Player.Races.Empire].PeaceKeeper);
-GenericUnits.push(UnitsDefinitions[Player.Races.JunkPeople].FlakTrooper);
+UnitsDefinitions.GenericUnits.push(UnitsDefinitions[Player.Races.Empire].PeaceKeeper);
+UnitsDefinitions.GenericUnits.push(UnitsDefinitions[Player.Races.JunkPeople].FlakTrooper);
 
 
 (function () {
 	
+	var definitions = [];
+
 	// Add default values to the statistics
 	for(var i = 0; i < UnitsDefinitions.length; ++i) {
 		for(var key in UnitsDefinitions[i]) {
@@ -580,7 +645,27 @@ GenericUnits.push(UnitsDefinitions[Player.Races.JunkPeople].FlakTrooper);
 			definition.baseStatistics['FirePower'] = definition.baseStatistics['FirePower'] || 4;
 			definition.baseStatistics['AttackMultiplier'] = definition.baseStatistics['AttackMultiplier'] || 1;
 			definition.AIHints = definition.AIHints || {};
+
+			definitions.push(definition);
 		}
+	}
+
+
+	// Figure out strong/weak
+	for(var i = 0; i < definitions.length; ++i) {
+
+		var target = definitions[i];
+
+		for(var race = 0; race < UnitsDefinitions.length; ++race) {
+			for(var key in UnitsDefinitions[race]) {
+				var definition = UnitsDefinitions[race][key];
+
+				if (definition.strongVS.contains(target.category) && !target.weakVS.contains(definition.category)) {
+					target.weakVS.push(definition.category);
+				}
+			}
+		}
+
 	}
 
 }) ();

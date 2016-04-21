@@ -59,7 +59,7 @@ var AITaskExploreSystem = function (m_world, m_executor) {
 			tasks.push(task);
 
 			// Low priority, exploring is like fallback when there is nothing else to do.
-			var priority = AIAssignment.BASE_TOP_PRIORITY * 0.1;
+			var priority = AIAssignment.BASE_TOP_PRIORITY * 0.05;
 			var assignment = new AIAssignment(priority, 1, task, unit);
 			assignments.push(assignment);
 		}

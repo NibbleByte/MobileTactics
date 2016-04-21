@@ -40,7 +40,7 @@ var AITaskCaptureSystem = function (m_world, m_executor) {
 			var task = tasks.find(function (t) { return t.objective == structure && t.creator == self; });
 
 			if (!task) {
-				task = new AITask(structure, self, 15);
+				task = new AITask(structure, self, 10);	// If unit is not at full health, team up.
 				tasks.push(task);
 			}
 
@@ -58,7 +58,7 @@ var AITaskCaptureSystem = function (m_world, m_executor) {
 
 				// If near target but occupied.
 				var occupiedPenalty = 1;
-				if (dist > 0 && dist <= 2 && structure.CTile.placedObjects.length > 0)
+				if (dist > 0 && dist <= 3 && structure.CTile.placedObjects.length > 0)
 					occupiedPenalty = 2;
 
 				var priority = AIAssignment.BASE_TOP_PRIORITY;
