@@ -6,6 +6,15 @@
 
 var UnitsUtils = {
 
+	getAttackStatName: function (unitTypeOrDefinition) {
+
+		if (unitTypeOrDefinition.type != undefined && unitTypeOrDefinition.name) {
+			unitTypeOrDefinition = unitTypeOrDefinition.type;
+		}
+
+		return UnitsDefinitions.AttackStatNamesByType[unitTypeOrDefinition];
+	},
+
 	// Returns BASE attack statistic depending on enemy unit type.
 	getAttackBase: function (unit, typeOrUnit) {
 
@@ -14,7 +23,15 @@ var UnitsUtils = {
 			typeOrUnit = typeOrUnit.CUnit.getType();
 		}
 
-		return unit.CStatistics.baseStatistics[UnitTypeStatNames[typeOrUnit]];
+		return unit.CStatistics.baseStatistics[UnitsDefinitions.AttackStatNamesByType[typeOrUnit]];
+	},
+
+	isStrongVS: function (attacker, defender) {
+		return attacker.CUnit.getDefinition().strongVS.contains(defender.CUnit.getDefinition().category);
+	},
+
+	isWeakVS: function (attacker, defender) {
+		return attacker.CUnit.getDefinition().weakVS.contains(defender.CUnit.getDefinition().category);
 	},
 
 
@@ -26,7 +43,7 @@ var UnitsUtils = {
 			typeOrUnit = typeOrUnit.CUnit.getType();
 		}
 
-		return unit.CStatistics.statistics[UnitTypeStatNames[typeOrUnit]];
+		return unit.CStatistics.statistics[UnitsDefinitions.AttackStatNamesByType[typeOrUnit]];
 	},
 
 

@@ -317,8 +317,8 @@ $(function () {
 		// Modify statistics
 		// NOTE: Rendering base statistics, so modifier can be applied to real statistics.
 		//		 If effects are added, will have to be drawn separately ' + 3'.
-		attacker.CStatistics.statistics[UnitTypeStatNames[defenderDefinition.type]] = UnitsUtils.getAttackBase(attacker, defenderDefinition.type) + attackerModAttack;
-		defender.CStatistics.statistics[UnitTypeStatNames[attackerDefinition.type]] = UnitsUtils.getAttackBase(defender, attackerDefinition.type) + defenderModAttack;
+		attacker.CStatistics.statistics[UnitsUtils.getAttackStatName(defenderDefinition.type)] = UnitsUtils.getAttackBase(attacker, defenderDefinition.type) + attackerModAttack;
+		defender.CStatistics.statistics[UnitsUtils.getAttackStatName(attackerDefinition.type)] = UnitsUtils.getAttackBase(defender, attackerDefinition.type) + defenderModAttack;
 		attacker.CStatistics.statistics['Defence'] = attacker.CStatistics.baseStatistics['Defence'] + attackerModDefence;
 		defender.CStatistics.statistics['Defence'] = defender.CStatistics.baseStatistics['Defence'] + defenderModDefence;
 

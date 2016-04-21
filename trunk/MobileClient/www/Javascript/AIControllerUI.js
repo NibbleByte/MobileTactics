@@ -27,6 +27,7 @@ var AIControllerUI = function (m_executor, m_aiController) {
 
 		self._eworldSB.subscribe(AIEvents.Simulation.SIMULATION_FINISHED, onSimulationFinished);
 		self._eworldSB.subscribe(AIEvents.Execution.CURRENT_ASSIGNMENT_CHANGED, onAssignmentChanged);
+		self._eworldSB.subscribe(AIEvents.Execution.CURRENT_ASSIGNMENT_CHANGED, onAssignmentChangedToolbar);
 
 		m_$ToolbarContainer.hide();
 
@@ -53,7 +54,40 @@ var AIControllerUI = function (m_executor, m_aiController) {
 		m_$ToolbarContainer.show();
 	}
 
+	var FLOAT_TEXT_OFFSET = { x: 0, y: -12 };
 	var onAssignmentChanged = function (assignment) {
+		var priority = Math.round(assignment.priority);
+
+		var creatorName = assignment.task.creator.getSystemName().replace('AITask', '').replace('System', '');
+
+		var tileSource = assignment.taskDoer;
+		if (assignment.taskDoer.CUnit)
+			tileSource = assignment.taskDoer.CTilePlaceable.tile;
+
+		var tileTarget = null;
+		if (assignment.task.objective.CUnit)
+			tileTarget = assignment.task.objective.CTilePlaceable.tile;
+		if (assignment.task.objective.CTileTerrain)
+			tileTarget = assignment.task.objective;
+
+
+		var score = assignment.score + '/' + assignment.task.scoreLimit;
+		if (assignment.score == assignment.task.scoreAssigned)
+			score += '!'; // Indicate that I'm doing this task alone!
+
+
+		self._eworld.trigger(RenderEvents.OverlayEffects.FLOAT_TEXT_TILE, tileSource, creatorName + '\n' + priority,
+			{ offset: FLOAT_TEXT_OFFSET, intent: RenderIntents.Neutral }
+		);
+
+		if (tileTarget) {
+			self._eworld.trigger(RenderEvents.OverlayEffects.FLOAT_TEXT_TILE, tileTarget, 'Here\n' + score,
+				{ offset: FLOAT_TEXT_OFFSET, intent: RenderIntents.Negative }
+			);
+		}
+	}
+
+	var onAssignmentChangedToolbar = function (assignment) {
 		var priority = Math.round(assignment.priority);
 
 		var creatorName = assignment.task.creator.getSystemName().replace('AITask', '').replace('System', '');

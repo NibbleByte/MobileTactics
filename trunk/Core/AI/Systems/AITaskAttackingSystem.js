@@ -34,12 +34,13 @@ var AITaskAttackingSystem = function (m_world, m_executor, m_battleSystem) {
 
 		for(var i = 0; i < enemies.length; ++i) {
 			var enemy = enemies[i];
+			var enemyTile = enemy.CTilePlaceable.tile;
 
 			// Reuse old tasks to avoid too many units attacking the same objective between simulation iteration (resume).
 			var task = tasks.find(function (t) { return t.objective == enemy && t.creator == self; });
 
 			if (!task) {
-				task = new AITask(enemy, self, 10);
+				task = new AITask(enemy, self, 20);
 				tasks.push(task);
 			}
 
@@ -49,21 +50,42 @@ var AITaskAttackingSystem = function (m_world, m_executor, m_battleSystem) {
 				if (!UnitsUtils.canAttackType(unit, enemy) || unit.CUnit.finishedTurn)
 					continue;
 
+				// DEV: Old way of calculating.
 				// Take distance and strengths into account.
+				//var dist = m_world.getDistance(enemy.CTilePlaceable.tile, unit.CTilePlaceable.tile);
+				//var outcome = m_battleSystem.predictOutcome(unit, enemy, true);
+				//var strengthFavor = outcome.attackerStrength / outcome.defenderStrength;
+				//
+				//var priority = AIAssignment.BASE_TOP_PRIORITY;
+				//
+				//// Graph formula: sin(x / 6 + PI / 2)
+				//// Gives from 1 to 0 for distance 1 to 10. Don't fall below 0.1.
+				//priority *= Math.max(Math.sin(dist / 6 + Math.PI / 2), 0.1);
+				//priority *= (strengthFavor >= 1) ? strengthFavor : (strengthFavor / 2); // Lower priority if weaker.
+				//priority = Math.min(priority, AIAssignment.BASE_TOP_PRIORITY);
+
+
 				var dist = m_world.getDistance(enemy.CTilePlaceable.tile, unit.CTilePlaceable.tile);
-				var outcome = m_battleSystem.predictOutcome(unit, enemy, true);
-				var strengthFavor = outcome.attackerStrength / outcome.defenderStrength;
-				
+
 				var priority = AIAssignment.BASE_TOP_PRIORITY;
 
 				// Graph formula: sin(x / 6 + PI / 2)
 				// Gives from 1 to 0 for distance 1 to 10. Don't fall below 0.1.
 				priority *= Math.max(Math.sin(dist / 6 + Math.PI / 2), 0.1);
-				priority *= (strengthFavor >= 1) ? strengthFavor : (strengthFavor / 2); // Lower priority if weaker.
-				priority = Math.min(priority, AIAssignment.BASE_TOP_PRIORITY);
+				priority /= 1.5;
+				priority *= unit.CUnit.health / enemy.CUnit.health;  // strongVS should be true for 10/10 health battle.
+				if (UnitsUtils.isStrongVS(unit, enemy))
+					priority *= 2;
+				if (CTileOwner.isCapturing(enemy))
+					priority *= 1.2;
+				if (enemyTile.CTileOwner && enemyTile.CTileOwner.owner) {
+					if (m_playersData.getRelation(enemyTile.CTileOwner.owner, unit.CPlayerData.player) == PlayersData.Relation.Ally)
+						priority *= 1.2;
+				}
+				//priority = Math.min(priority, AIAssignment.BASE_TOP_PRIORITY);
 				
-				// TODO: Score based on strength
-				var assignment = new AIAssignment(priority, 5, task, unit);
+				var score = unit.CUnit.health * ((UnitsUtils.isStrongVS(unit, enemy)) ? 1 : 0.5);
+				var assignment = new AIAssignment(priority, score, task, unit);
 				assignments.push(assignment);
 			}
 		}

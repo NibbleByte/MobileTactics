@@ -109,7 +109,7 @@ var EditorController = function (m_world, m_renderer) {
 			for (var i = 0; i < entities.length; ++i) {
 				var entity = entities[i];
 
-				if (entity.CUnit && !GenericUnits.contains(entity.CUnit.getDefinition())) {
+				if (entity.CUnit && !UnitsDefinitions.GenericUnits.contains(entity.CUnit.getDefinition())) {
 					entity.destroy();
 					--i;
 				}

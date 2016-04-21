@@ -70,6 +70,11 @@ var AITaskBuyingSystem = function (m_world, m_executor) {
 		var neutralStructuresCount = m_gameState.relationStructures[PlayersData.Relation.Neutral].length;
 		var enemyStructuresCount = m_gameState.relationStructures[PlayersData.Relation.Enemy].length;
 
+		var incomeCount = 0;
+
+		incomeCount += m_gameState.currentStructuresTypes[GameWorldTerrainType.Base].length;
+		incomeCount += m_gameState.currentStructuresTypes[GameWorldTerrainType.Minerals].length;
+
 
 		// TODO: use the gameState to check if there are excluded units for this map/game.
 		var buildableDefinitions = UnitsDefinitions[m_gameState.currentPlayer.race];
@@ -100,23 +105,38 @@ var AITaskBuyingSystem = function (m_world, m_executor) {
 				var enemyDefinition = enemyCounts[enemyPath].definition;
 				var count = enemyCounts[enemyPath].count;
 
-				var attack = definition.baseStatistics[UnitTypeStatNames[enemyDefinition.type]];
-				if (attack === undefined)
+				// DEV: Old way of calculating.
+				//var attack = definition.baseStatistics[UnitsUtils.getAttackStatName(enemyDefinition.type)];
+				//if (attack === undefined)
+				//	continue;
+				//
+				//rating += (attack / enemyDefinition.baseStatistics['Defence']) * count;
+
+				// Can't attack this type.
+				if (!definition.baseStatistics[UnitsUtils.getAttackStatName(enemyDefinition.type)])
 					continue;
 
-				rating += (attack / enemyDefinition.baseStatistics['Defence']) * count;
+				if (!definition.strongVS.contains(enemyDefinition.category))
+					continue;
+
+				rating += count;
 			}
 
 
 			// Boosts
-			rating += definition.baseStatistics['Movement'];
-			if (definition.actions.contains(Actions.Classes.ActionCapture)) rating += neutralStructuresCount * 2;
-			if (unitsCount < definition.AIHints.preferedMinCount) rating += definition.AIHints.preferedMinCount - unitsCount / 2;
+			//rating += definition.baseStatistics['Movement'];
+
+			if (definition.actions.contains(Actions.Classes.ActionCapture))
+				rating += neutralStructuresCount * 2 + enemyStructuresCount * 0.5;
+
+			if (unitsCount < definition.AIHints.preferedMinCount)
+				rating += definition.AIHints.preferedMinCount - unitsCount;
+
 
 
 
 			// Penalties
-			if (definition.disableMoveAttack) rating -= 5;
+			//if (definition.disableMoveAttack) rating -= 5;
 			if (totalAlliesCount < definition.AIHints.guardsNeeded) rating /= 2;
 
 
@@ -133,6 +153,7 @@ var AITaskBuyingSystem = function (m_world, m_executor) {
 			var unitRating = consideredList[i];
 			console.log(i, unitRating.definition.name, unitRating.rating.toFixed(2), unitRating.price);
 		}
+		console.log('Budget: ', m_gameState.currentPlayer.credits);
 
 
 		//
@@ -145,8 +166,8 @@ var AITaskBuyingSystem = function (m_world, m_executor) {
 			var consideredRating = consideredList[buyIndex];
 
 			// Don't buy cheap useless stuff. Save money for bigger and better.
-			var bestRatingBudgetTurns = Math.max(Math.ceil((bestRating.price - budget) / m_gameState.currentPlayer.creditsPerIncome), 0);
-			if (bestRating.rating / consideredRating.rating > 1 + bestRatingBudgetTurns / 4)
+			var bestRatingBudgetTurns = Math.max(Math.ceil((bestRating.price - budget) / (incomeCount * m_gameState.currentPlayer.creditsPerIncome)), 0);
+			if (bestRating.rating / consideredRating.rating > 1 + bestRatingBudgetTurns / 3)
 				continue;
 
 			while(consideredRating.price <= budget) {
