@@ -84,38 +84,14 @@ var AITaskExploreSystem = function (m_world, m_executor) {
 
 		if (moveAction) {
 
-			// Move along path to the objective.
-			var mdata = {
-				placeable: goActions.go,
-				player: goActions.go.CPlayerData.player,
-				playersData: m_playersData,
-				world: m_world,
-			};
+			var moveTile = AIUtils.pickTileTowards(targetTile, goActions, m_world, m_playersData);
 
-			var path = m_world.findPath(goTile, targetTile, Actions.Classes.ActionMove.movementCostQuery, mdata);
-
-			var moveTile = null;
-			for (var i = path.length; i >= 0; --i) {
-				var pathTile = path[i];
-				if (moveAction.availableTiles.contains(pathTile)) {
-					moveTile = pathTile;
-					break;
-				}
+			if (moveTile) {
+				moveAction.appliedTile = moveTile;
+				return new AIActionData(moveAction);
+			} else {
+				return null;
 			}
-
-
-			if (!moveTile) {
-				// Can happen if tiles are occupied by friendly units.
-				var validTiles = moveAction.actionType.findClosestValidTiles(moveAction.availableTiles, targetTile);
-				if (validTiles.length == 0)
-					return null;
-
-				moveTile = validTiles[0];
-			}
-
-			moveAction.appliedTile = moveTile;
-			return new AIActionData(moveAction);
-
 		}
 
 		if (stayAction) {

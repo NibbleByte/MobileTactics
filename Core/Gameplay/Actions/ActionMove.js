@@ -4,6 +4,7 @@ var Actions = Actions || {};
 Actions.Classes = Actions.Classes || {};
 
 Actions.Classes.ActionMove = new function () {
+	var self = this;
 	
 	this.actionName = 'ActionMove';
 	this.quickAction = false;
@@ -119,15 +120,15 @@ Actions.Classes.ActionMove = new function () {
 		var bypassZoC = userData.placeable.CUnit.getDefinition().bypassZoneOfControl;
 
 		if (!bypassZoC && queryResult.passOver && !userData.world.isStartTile(prevTile)) {
-			queryResult.passOver = checkZoneOfControl(tile, userData) || checkZoneOfControl(prevTile, userData);
+			queryResult.passOver = self.checkZoneOfControl(tile, userData) || self.checkZoneOfControl(prevTile, userData);
 		}
 
 		// Same...
 		queryResult.discard = false;
-	}
+	};
 
 
-	var checkZoneOfControl = function (tile, userData) {
+	this.checkZoneOfControl = function (tile, userData) {
 		var adjacentTiles = userData.world.getAdjacentTiles(tile);
 		for(var i = 0; i < adjacentTiles.length; ++i) {
 			var adjacentTile = adjacentTiles[i];
