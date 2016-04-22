@@ -29,10 +29,13 @@ var AITaskCaptureSystem = function (m_world, m_executor) {
 	}
 	
 	var onGatherAssignments = function (tasks, assignments) {
+		var allyStructures = m_gameState.knownStructures[PlayersData.Relation.Ally];
 		var enemyStructures = m_gameState.knownStructures[PlayersData.Relation.Enemy];
 		var neutralStructures = m_gameState.knownStructures[PlayersData.Relation.Neutral];
 		var targetStructures = neutralStructures.concat(enemyStructures);
 		var units = m_gameState.currentPlaceables;
+
+		var enemyAdvantageBoost = (allyStructures < enemyStructures) ? 1.4 : 1;
 
 		for(var i = 0; i < targetStructures.length; ++i) {
 			var structure = targetStructures[i];
@@ -67,6 +70,7 @@ var AITaskCaptureSystem = function (m_world, m_executor) {
 				// Gives from 1 to 0 for distance 1 to 16. Don't fall below 0.2.
 				priority *= Math.max(Math.sin(dist / 10 + Math.PI / 2), 0.2);
 				priority /= occupiedPenalty;
+				priority *= enemyAdvantageBoost;
 				var assignment = new AIAssignment(priority, unit.CUnit.health, task, unit);
 				assignments.push(assignment);
 			}

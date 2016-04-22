@@ -67,6 +67,7 @@ var AITaskBuyingSystem = function (m_world, m_executor) {
 		var alliesCounts = countUnitsByType(m_gameState.relationPlaceables[PlayersData.Relation.Ally]);
 		var totalAlliesCount = m_gameState.relationPlaceables[PlayersData.Relation.Ally].length;
 
+		var allyStructuresCount = m_gameState.relationStructures[PlayersData.Relation.Ally].length;
 		var neutralStructuresCount = m_gameState.relationStructures[PlayersData.Relation.Neutral].length;
 		var enemyStructuresCount = m_gameState.relationStructures[PlayersData.Relation.Enemy].length;
 
@@ -116,18 +117,23 @@ var AITaskBuyingSystem = function (m_world, m_executor) {
 				if (!definition.baseStatistics[UnitsUtils.getAttackStatName(enemyDefinition.type)])
 					continue;
 
-				if (!definition.strongVS.contains(enemyDefinition.category))
-					continue;
+				if (definition.strongVS.contains(enemyDefinition.category))
+					rating += count;
 
-				rating += count;
+				if (definition.weakVS.contains(enemyDefinition.category))
+					rating -= count / 2;
+
 			}
 
 
 			// Boosts
 			//rating += definition.baseStatistics['Movement'];
 
-			if (definition.actions.contains(Actions.Classes.ActionCapture))
-				rating += neutralStructuresCount * 2 + enemyStructuresCount * 0.5;
+			if (definition.actions.contains(Actions.Classes.ActionCapture)) {
+				rating += (neutralStructuresCount > 0) ? (neutralStructuresCount - unitsCount + 1) * 2 : 0;
+				rating += enemyStructuresCount * 0.5;
+				rating += allyStructuresCount - enemyStructuresCount;
+			}
 
 			if (unitsCount < definition.AIHints.preferedMinCount)
 				rating += definition.AIHints.preferedMinCount - unitsCount;
