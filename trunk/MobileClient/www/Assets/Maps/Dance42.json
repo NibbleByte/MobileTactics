@@ -7,7 +7,7 @@
 	"gameMetaData": {
 		"__serializationTypeName": "GameMetaData",
 		"description": "Well ballanced duel map",
-		"lastModified": 1460815052706,
+		"lastModified": 1461613810817,
 		"name": "Dance42"
 	},
 	"gameState": {
@@ -23,8 +23,8 @@
 			{
 				"__serializationTypeName": "Player",
 				"colorHue": 60,
-				"credits": 200,
-				"creditsPerIncome": 100,
+				"credits": 300,
+				"creditsPerIncome": 150,
 				"isPlaying": true,
 				"name": "Pl1",
 				"playerId": 0,
@@ -35,8 +35,8 @@
 			{
 				"__serializationTypeName": "Player",
 				"colorHue": 120,
-				"credits": 200,
-				"creditsPerIncome": 100,
+				"credits": 300,
+				"creditsPerIncome": 150,
 				"isPlaying": true,
 				"name": "Pl2",
 				"playerId": 1,
@@ -244,8 +244,8 @@
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 2,
-				"type": 4
+				"skin": 0,
+				"type": 1
 			}
 		},
 		{
@@ -438,17 +438,10 @@
 				"placedObjects": [],
 				"row": 3
 			},
-			"CTileOwner": {
-				"__serializationTypeName": "CTileOwner",
-				"beingCapturedBy": null,
-				"captureTurns": 0,
-				"knowledge": {},
-				"owner": null
-			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 24
+				"skin": 2,
+				"type": 1
 			}
 		},
 		{
@@ -515,6 +508,20 @@
 				"placedObjects": [],
 				"row": 4
 			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 0,
+				"type": 8
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 4,
+				"placedObjects": [],
+				"row": 4
+			},
 			"CTileOwner": {
 				"__serializationTypeName": "CTileOwner",
 				"beingCapturedBy": null,
@@ -528,20 +535,6 @@
 				"__serializationTypeName": "CTileTerrain",
 				"skin": 0,
 				"type": 18
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 4,
-				"placedObjects": [],
-				"row": 4
-			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 1,
-				"type": 1
 			}
 		},
 		{
@@ -680,8 +673,8 @@
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 3,
-				"type": 4
+				"skin": 0,
+				"type": 1
 			}
 		},
 		{
@@ -715,7 +708,7 @@
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 187
+								"__serializationRefId": 185
 							}
 						},
 						"CUnit": {
@@ -851,17 +844,10 @@
 				"placedObjects": [],
 				"row": 3
 			},
-			"CTileOwner": {
-				"__serializationTypeName": "CTileOwner",
-				"beingCapturedBy": null,
-				"captureTurns": 0,
-				"knowledge": {},
-				"owner": null
-			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 24
+				"skin": 1,
+				"type": 1
 			}
 		},
 		{
@@ -942,20 +928,6 @@
 				"placedObjects": [],
 				"row": 4
 			},
-			"CTileTerrain": {
-				"__serializationTypeName": "CTileTerrain",
-				"skin": 1,
-				"type": 1
-			}
-		},
-		{
-			"__serializationTypeName": "ECS.Entity",
-			"CTile": {
-				"__serializationTypeName": "CTile",
-				"column": 12,
-				"placedObjects": [],
-				"row": 4
-			},
 			"CTileOwner": {
 				"__serializationTypeName": "CTileOwner",
 				"beingCapturedBy": null,
@@ -969,6 +941,20 @@
 				"__serializationTypeName": "CTileTerrain",
 				"skin": 0,
 				"type": 18
+			}
+		},
+		{
+			"__serializationTypeName": "ECS.Entity",
+			"CTile": {
+				"__serializationTypeName": "CTile",
+				"column": 12,
+				"placedObjects": [],
+				"row": 4
+			},
+			"CTileTerrain": {
+				"__serializationTypeName": "CTileTerrain",
+				"skin": 1,
+				"type": 8
 			}
 		},
 		{
@@ -1009,8 +995,8 @@
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 8
+				"skin": 2,
+				"type": 1
 			}
 		},
 		{
@@ -1044,7 +1030,7 @@
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 276
+								"__serializationRefId": 272
 							}
 						},
 						"CUnit": {
@@ -1166,7 +1152,7 @@
 						"CTilePlaceable": {
 							"__serializationTypeName": "CTilePlaceable",
 							"tile": {
-								"__serializationRefId": 307
+								"__serializationRefId": 303
 							}
 						},
 						"CUnit": {
@@ -1197,8 +1183,8 @@
 			},
 			"CTileTerrain": {
 				"__serializationTypeName": "CTileTerrain",
-				"skin": 0,
-				"type": 8
+				"skin": 1,
+				"type": 1
 			}
 		},
 		{
@@ -1709,13 +1695,13 @@
 			"__serializationRefId": 51
 		},
 		{
-			"__serializationRefId": 279
+			"__serializationRefId": 275
 		},
 		{
-			"__serializationRefId": 190
+			"__serializationRefId": 188
 		},
 		{
-			"__serializationRefId": 310
+			"__serializationRefId": 306
 		}
 	]
 }
