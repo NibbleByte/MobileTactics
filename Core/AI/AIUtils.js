@@ -81,6 +81,9 @@ var AIUtils = {
 			
 		if (strongAgainstEnemy)	queryResult.cost += 0.5;
 
+		// Avoid moving units in queues.
+		if (relation == PlayersData.Relation.Ally)	queryResult.cost += 0.5;
+
 		// Can't pass over enemies... unless it can't see them (for enemy preview ONLY).
 		queryResult.passOver = relation != PlayersData.Relation.Enemy || strongAgainstEnemy || !visible;
 
