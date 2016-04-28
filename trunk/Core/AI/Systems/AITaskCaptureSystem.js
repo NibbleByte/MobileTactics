@@ -40,6 +40,13 @@ var AITaskCaptureSystem = function (m_world, m_executor) {
 		for(var i = 0; i < targetStructures.length; ++i) {
 			var structure = targetStructures[i];
 
+			var relation = PlayersData.Relation.Neutral;
+			if (structure.CTileOwner.owner) {
+				relation = m_playersData.getRelation(m_gameState.currentPlayer, structure.CTileOwner.owner);
+			}
+			var neutralBoost = (relation == PlayersData.Relation.Neutral) ? 1.2 : 1;
+
+
 			var task = tasks.find(function (t) { return t.objective == structure && t.creator == self; });
 
 			if (!task) {
@@ -71,6 +78,7 @@ var AITaskCaptureSystem = function (m_world, m_executor) {
 				priority *= Math.max(Math.sin(dist / 10 + Math.PI / 2), 0.2);
 				priority /= occupiedPenalty;
 				priority *= enemyAdvantageBoost;
+				priority *= neutralBoost;
 				var assignment = new AIAssignment(priority, unit.CUnit.health, task, unit);
 				assignments.push(assignment);
 			}

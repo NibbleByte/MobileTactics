@@ -45,6 +45,21 @@ var AITaskHealSystem = function (m_world, m_executor) {
 			var priority = AIAssignment.BASE_TOP_PRIORITY;
 			priority *= (maxHealth - unit.CUnit.health) / maxHealth;
 
+
+			// Healing over an ally base might prevent us from buying new units.
+			var terrainType = unit.CTilePlaceable.tile.CTileTerrain.type;
+			if (terrainType == GameWorldTerrainType.Base || terrainType == GameWorldTerrainType.Factory) {
+				var relation = PlayersData.Relation.Neutral;
+				if (unit.CTilePlaceable.tile.CTileOwner.owner) {
+					relation = m_playersData.getRelation(unit.CPlayerData.player, unit.CTilePlaceable.tile.CTileOwner.owner);
+				}
+
+				if (relation == PlayersData.Relation.Ally)
+					priority /= 2;
+			}
+
+
+
 			var task = new AITask(unit, self, 1);
 			tasks.push(task);
 
