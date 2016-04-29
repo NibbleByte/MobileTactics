@@ -28,12 +28,15 @@ var ActionsRenderingSystem = function (m_executor, m_battleSystem) {
 	var onActionsOffered = function(goActions) {
 		onActionsCleared();
 
-		var gameState = self._eworld.extract(GameState);
-		if (gameState.currentPlayer.type != Player.Types.Human)
-			return;
-
 		if (goActions.actions.length == 0)
 			return;
+
+		var gameState = self._eworld.extract(GameState);
+		if (gameState.currentPlayer.type != Player.Types.Human) {
+			m_selectedGOActions = goActions;
+			GameExecutor.iterateOverActionTiles(goActions.actions, highlightAttackTilesOnly);
+			return;
+		}
 		
 		m_selectedGOActions = goActions;
 
@@ -110,6 +113,12 @@ var ActionsRenderingSystem = function (m_executor, m_battleSystem) {
 	var clearBattleOutcomeOperation = function (unit, enemy) {
 		enemy.CUnitRendering.$damage.empty();
 		enemy.CUnitRendering.$loss.empty();
+	}
+
+	var highlightAttackTilesOnly = function (tile, action) {
+		if (action.actionType == Actions.Classes.ActionAttack) {
+			ActionsRender.highlightTileAction(tile, action);
+		}
 	}
 	
 	//
