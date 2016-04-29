@@ -5,6 +5,8 @@
 "use strict";
 
 var AIUtils = {
+	
+	Debug: true,
 
 	pickTileTowards: function (targetTile, goActions, world, playersData) {
 
@@ -24,6 +26,15 @@ var AIUtils = {
 		};
 
 		var path = world.findPath(goTile, targetTile, AIUtils.safeMovementCostQuery, mdata);
+
+
+		if (AIUtils.Debug) {
+			var eworld = world.getEntityWorld();
+			eworld.trigger(RenderEvents.Debug.CLEAR_TILES);
+			for (var i = 0; i < path.length; ++i)
+				eworld.trigger(RenderEvents.Debug.TILE_DRAW_TEXT, path[i], i, 'Assets-Scaled/Render/Images/hex_bluesh.png');
+		}
+
 
 		var moveTile = null;
 		for (var i = path.length; i >= 0; --i) {

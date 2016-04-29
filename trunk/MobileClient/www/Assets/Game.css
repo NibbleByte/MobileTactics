@@ -22,7 +22,33 @@
 	text-align:left;
 }
 
-#GameToolbar
+#PlayerNameContainer
+{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	left: 0px;
+	
+	/*z-index: 100;*/
+	
+	text-align: center;
+	
+	pointer-events: none;
+}
+
+#PlayerName
+{
+	display: inline-block;
+	
+	color: white;
+	margin: 4px auto;
+	padding: 4px;
+	border: 2px cadetblue solid;
+	border-radius: 8px;
+	background-color: rgba(24, 35, 35, 0.47);
+}
+
+.in_game_toolbar
 {
 	display: none;
 	
@@ -31,7 +57,9 @@
 	right: 0px;
 	left: 0px;
 	
-	z-index: 100;
+	padding-bottom: 4px;
+	
+	/*z-index: 100;*/
 	
 	text-align: center;
 	
@@ -39,12 +67,12 @@
 
 }
 
-#GameToolbar *
+.in_game_toolbar *
 {
 	pointer-events: auto;
 }
 
-#LbCredits
+#LbCredits, #LbAICredits
 {
 	border: 4px ridge #FFDB1A;
 	border-radius: 6px;
@@ -56,7 +84,6 @@
 	text-align: right;
 	
 	display: inline-block;
-	margin: 4px 0px;
 	text-align: center;
 }
 

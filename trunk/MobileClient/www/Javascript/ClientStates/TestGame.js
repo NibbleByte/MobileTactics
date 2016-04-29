@@ -9,7 +9,6 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 
 	var m_$GameWorldMap = $('#GameWorldMap').hide();
 	var m_$ActionMenu = $('#ActionMenu').hide();
-	var m_$ToolbarContainer = $('#ToolbarContainer').hide();
 	var m_$ToolbarMore = $('#ToolbarMore').hide();
 
 	var m_$BtnSave = $('#BtnSave');
@@ -17,11 +16,11 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 	var m_$BtnRemoveTile = $('#BtnRemoveTile');
 	var m_$BtnRestart = $('#BtnRestart');
 	var m_$BtnUndo= $('#BtnUndo');
-	var m_$BtnPlayer = $('#BtnPlayer');
 	var m_$BtnPlayerType = $('#BtnPlayerType');
 	var m_$BtnDebug = $('#BtnDebug');
 	var m_$BtnBrowse = $('#BtnBrowse');
 	var m_$BtnAddress = $('#BtnAddress');
+	var m_$LbPlayerName = $('#PlayerName').hide();
 
 	var m_$TbBrowseAddress = $('#TbBrowseAddress');
 
@@ -33,20 +32,6 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		m_fogOfWar = false;
 	}
 
-
-	// DEBUG: scrollable toolbar
-	var m_toolbarScroller;
-	setTimeout(function () {
-		m_toolbarScroller = new IScroll(m_$ToolbarContainer[0], {
-			keyBindings: false,
-			mouseWheel: false,
-			scrollX: true,
-			scrollY: false,
-			scrollbars: true,
-			fadeScrollbars: true,
-			bounce: false,
-		});
-	}, 250);
 
 
 	var m_clientState = null;
@@ -172,13 +157,6 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 			world.place(unit, tile);
 		}
 
-		tile = world.getTile(6, 4);
-		if (tile) {
-			var unit = UnitsFactory.createUnit(UnitsDefinitions[2].Nibbler, playersData.players[0]);
-			eworld.addUnmanagedEntity(unit);
-			world.place(unit, tile);
-		}
-
 
 		// Player 1
 		tile = world.getTile(2, 6);
@@ -214,7 +192,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 
 		m_$GameWorldMap.hide();
 		m_$ActionMenu.hide();
-		m_$ToolbarContainer.hide();
+		m_$LbPlayerName.hide();
 
 		m_subscriber.unsubscribeAll();
 
@@ -240,7 +218,6 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		};
 
 		m_$GameWorldMap.show();
-		m_$ToolbarContainer.show();
 
 		//
 		// World
@@ -397,18 +374,6 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 
 			}, 200);
 		}
-
-		m_clientState.loadMap = function (mapName) {
-			m_loadingScreen.show();
-
-			MapsStorage.loadMap(mapName, function (data) {
-				onBtnLoad(event, data);
-			}, function () {
-				m_loadingScreen.hide();
-			});
-
-			m_$ToolbarMore.hide();
-		}
 	
 		var onBtnRemoveTile = function () {
 			// TODO: This uses debug feature that will be removed!
@@ -455,10 +420,6 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		var onBtnUndo = function () {
 			playerController.undoLastAction();
 		}
-	
-		var onBtnPlayer = function () {
-			m_eworld.trigger(GameplayEvents.GameState.END_TURN);
-		}
 
 
 		var m_playerAIToggled = null;
@@ -484,10 +445,12 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 			var player = m_clientState.gameState.currentPlayer;
 
 			if (player) {
-				m_$BtnPlayer.text(player.name);
+				m_$LbPlayerName.text(player.name);
 			} else {
-				m_$BtnPlayer.text('N/a');
+				m_$LbPlayerName.text('N/a');
 			}
+
+			m_$LbPlayerName.show();
 		}
 	
 		var m_debugShown = false;
@@ -545,7 +508,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		}
 
 		var onHudLockRefresh = function (lock) {
-			m_$ToolbarContainer.toggle(!lock);
+			m_$ToolbarMore.hide();
 		}
 	
 		var onGameLoaded = function () {
@@ -567,6 +530,12 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 				return;
 
 			ClientStateManager.changeState(ClientStateManager.types.MenuScreen);
+		}
+
+		var onMenuButton = function () {
+			if (!playerController.isHudLocked() && m_clientState.gameState.currentPlayer.type == Player.Types.Human) {
+				m_$ToolbarMore.toggle();
+			}
 		}
 
 	
@@ -594,13 +563,14 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		m_subscriber.subscribe(m_$BtnRemoveTile, 'click', onBtnRemoveTile);
 		m_subscriber.subscribe(m_$BtnRestart, 'click', onBtnRestart);
 		m_subscriber.subscribe(m_$BtnUndo, 'click', onBtnUndo);
-		m_subscriber.subscribe(m_$BtnPlayer, 'click', onBtnPlayer);
 		m_subscriber.subscribe(m_$BtnPlayerType, 'click', onBtnPlayerType);
 		m_subscriber.subscribe(m_$BtnDebug, 'click', onBtnDebug);
 		m_subscriber.subscribe(m_$BtnBrowse, 'click', onBtnBrowse);
 		m_subscriber.subscribe(m_$BtnAddress, 'click', onBtnAddress);
 
 		m_subscriber.subscribe(document, 'backbutton', onBackButton);
+		m_subscriber.subscribe(document, 'menubutton', onMenuButton);
+		m_subscriber.subscribe('#LbCredits', 'click', onMenuButton);
 
 		return m_clientState;
 	}
