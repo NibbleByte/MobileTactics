@@ -88,6 +88,11 @@ $(function () {
 				e.preventDefault();
 				$(document).trigger('backbutton');
 			}
+
+			if (e.which == 16) {	// Shift
+				e.preventDefault();
+				$(document).trigger('menubutton');
+			}
 		});
 
 		

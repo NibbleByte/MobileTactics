@@ -122,7 +122,6 @@ html, body
 	left: 0px;
 	bottom: 45px;
 	
-	height: 300px;
 	width: 200px;
 	overflow: hidden;
 	
@@ -131,11 +130,21 @@ html, body
 	border-radius: 6px;
 }
 
-.toolbar_more button, .toolbar_more input, .toolbar_more .input_file_wrapper 
+.toolbar_more > button, .toolbar_more > input, .toolbar_more > .input_file_wrapper 
 {
 	display: block;
 	margin: 6px auto;
 	width: 90%;
+}
+
+.toolbar_more_sub
+{
+	margin-left: 8px;
+}
+
+.toolbar_more_sub > button, .toolbar_more_sub > input, .toolbar_more_sub > .input_file_wrapper 
+{
+	margin: 2px 0px;
 }
 
 

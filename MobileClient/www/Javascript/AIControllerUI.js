@@ -7,7 +7,7 @@
 var AIControllerUI = function (m_executor, m_aiController) {
 	var self = this;
 
-	var m_$ToolbarContainer = $('#AIToolbarContainer').hide();
+	var m_$ToolbarContainer = $('#AIToolbar').hide();
 
 	var m_$BtnPause = $('#BtnAIPause');
 	var m_$BtnNext = $('#BtnAINext');
@@ -15,6 +15,7 @@ var AIControllerUI = function (m_executor, m_aiController) {
 	var m_$BtnSlower = $('#BtnAISlower');
 	var m_$BtnFaster = $('#BtnAIFaster');
 	var m_$LbAssignmentDesc = $('#LbAIAssignmentDesc');
+	var m_$creditsLabel = $('#LbAICredits');
 
 	var m_subscriber = null;
 	
@@ -23,11 +24,19 @@ var AIControllerUI = function (m_executor, m_aiController) {
 	//
 	this.initialize = function () {
 
-		self._eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, onTurnChanged);
+		self._eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, hideToolbar);
 
-		self._eworldSB.subscribe(AIEvents.Simulation.SIMULATION_FINISHED, onSimulationFinished);
-		self._eworldSB.subscribe(AIEvents.Execution.CURRENT_ASSIGNMENT_CHANGED, onAssignmentChanged);
-		self._eworldSB.subscribe(AIEvents.Execution.CURRENT_ASSIGNMENT_CHANGED, onAssignmentChangedToolbar);
+		self._eworldSB.subscribe(AIEvents.Simulation.SIMULATION_FINISHED, showToolbar);
+
+		self._eworldSB.subscribe(RenderEvents.FightAnimations.FIGHT_STARTED, hideToolbar);
+		self._eworldSB.subscribe(RenderEvents.FightAnimations.FIGHT_FINISHED, showToolbar);
+
+		self._eworldSB.subscribe(GameplayEvents.Resources.CURRENT_CREDITS_CHANGED, onCreditsChanged);
+
+		if (AIUtils.Debug) {
+			self._eworldSB.subscribe(AIEvents.Execution.CURRENT_ASSIGNMENT_CHANGED, onAssignmentChanged);
+			//self._eworldSB.subscribe(AIEvents.Execution.CURRENT_ASSIGNMENT_CHANGED, onAssignmentChangedToolbar);
+		}
 
 		m_$ToolbarContainer.hide();
 
@@ -38,20 +47,29 @@ var AIControllerUI = function (m_executor, m_aiController) {
 		m_subscriber.subscribe(m_$BtnResume, 'click', onBtnResume);
 		m_subscriber.subscribe(m_$BtnSlower, 'click', onBtnSlower);
 		m_subscriber.subscribe(m_$BtnFaster, 'click', onBtnFaster);
+
+		m_$creditsLabel.text('-');
 	};
 
 	this.uninitialize = function () {
+		hideToolbar();
+
 		m_subscriber.unsubscribeAll();
 		m_subscriber = null;
 	}
 
 
-	var onTurnChanged = function () {
+	var showToolbar = function () {
+		if (AIUtils.Debug && self._eworld.extract(GameState).currentPlayer.type == Player.Types.AI)
+			m_$ToolbarContainer.show();
+	}
+
+	var hideToolbar = function () {
 		m_$ToolbarContainer.hide();
 	}
 
-	var onSimulationFinished = function (assignments) {
-		m_$ToolbarContainer.show();
+	var onCreditsChanged = function (value, delta) {
+		m_$creditsLabel.text(value);
 	}
 
 	var FLOAT_TEXT_OFFSET = { x: 0, y: -12 };
