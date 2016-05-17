@@ -16,14 +16,14 @@ SpriteAnimations.Units.FlakTrooper = {
 			frames: 1,
 		},
 		
-		/*
 		{
 			name: 'Idle0',
-			speed: 10,
+			speed: 15,
 			startIndex: 0,
-			frames: 7,
+			frames: 4,
+			frameSamples: [null, null, null, 1],
 		},
-		*/
+		
 		{
 			name: 'Attack',
 			speed: 10,

@@ -19,9 +19,10 @@ SpriteAnimations.Units.PeaceKeeper = {
 
 		{
 			name: 'Idle0',
-			speed: 20,
+			speed: 15,
 			startIndex: 0,
-			frames: 1,
+			frames: 4,
+			frameSamples: [null, null, null, 1],
 		},
 
 		{
