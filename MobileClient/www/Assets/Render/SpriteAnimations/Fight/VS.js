@@ -4,7 +4,7 @@ SpriteAnimations.Fight.VS = {
 	resourcePath: 'VS.png',
 
 	frameWidth: 320,
-	frameHeight: 320,
+	frameHeight: 186,
 	framesPerRow: 3,
 	anchorX: Animator.AnchorX.Center,
 	anchorY: Animator.AnchorY.Center,
