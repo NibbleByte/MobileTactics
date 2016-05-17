@@ -54,19 +54,48 @@ SpriteAnimations.Units.Speeder = {
 		},
 		
 		{
-			name: 'Idle0',
-			speed: 20,
-			startIndex: 0,
-			frames: 1,
-		},
-		
-		{
 			name: 'Attack',
 			speed: 10,
 			startIndex: 0,
 			frames: 1,
 		},
 		
+	]
+};
+
+
+SpriteAnimations.Units.HoverCannon = {
+
+	resourcePath: 'HoverCannon.png',
+
+	frameWidth: 70,
+	frameHeight: 49,
+	framesPerRow: 4,
+	anchorX: Animator.AnchorX.Center,
+	anchorY: 25,
+
+	sequences: [
+		{
+			name: 'Idle',
+			startIndex: 0,
+			frames: 1,
+		},
+
+		{
+			name: 'Idle0',
+			speed: 15,
+			startIndex: 0,
+			frames: 4,
+			frameSamples: [null, null, null, 1],
+		},
+
+		{
+			name: 'Attack',
+			speed: 10,
+			startIndex: 0,
+			frames: 1,
+		},
+
 	]
 };
 
@@ -118,9 +147,10 @@ SpriteAnimations.Units.IonDrone = {
 
 		{
 			name: 'Idle0',
-			speed: 20,
+			speed: 15,
 			startIndex: 0,
-			frames: 1,
+			frames: 4,
+			frameSamples: [null, null, null, 1],
 		},
 
 		{

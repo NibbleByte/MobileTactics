@@ -55,6 +55,49 @@ SpriteAnimations.Units.Biker = {
 		},
 
 		{
+			name: 'Idle0',
+			speed: 15,
+			startIndex: 0,
+			frames: 4,
+			frameSamples: [null, null, null, 1],
+		},
+
+		{
+			name: 'Attack',
+			speed: 10,
+			startIndex: 0,
+			frames: 1,
+		},
+
+	]
+};
+
+
+SpriteAnimations.Units.ScrapTank = {
+
+	resourcePath: 'ScrapTank.png',
+
+	frameWidth: 70,
+	frameHeight: 57,
+	framesPerRow: 4,
+	anchorX: 30,
+	anchorY: 35,
+
+	sequences: [
+		{
+			name: 'Idle',
+			startIndex: 0,
+			frames: 1,
+		},
+
+		{
+			name: 'Idle0',
+			speed: 15,
+			startIndex: 0,
+			frames: 4,
+		},
+
+		{
 			name: 'Attack',
 			speed: 10,
 			startIndex: 0,
@@ -72,7 +115,7 @@ SpriteAnimations.Units.Sting = {
 	frameWidth: 78,
 	frameHeight: 72,
 	framesPerRow: 4,
-	anchorX: Animator.AnchorX.Center,
+	anchorX: 42,
 	anchorY: 40,
 
 	sequences: [
@@ -80,6 +123,15 @@ SpriteAnimations.Units.Sting = {
 			name: 'Idle',
 			startIndex: 0,
 			frames: 1,
+		},
+
+		{
+			name: 'Idle0',
+			speed: 15,
+			startIndex: 0,
+			frames: 4,
+			frameSpeeds: [0, 0, 55],
+			frameSamples: [null, null, null, 1],
 		},
 
 		{
