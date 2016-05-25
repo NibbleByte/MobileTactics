@@ -65,12 +65,6 @@ SpriteAnimations.FightUnits.FlakTrooper = {
 	]
 };
 
-// TODO: These units don't have sprites yet. Remove this when they do!
-//SpriteAnimations.FightUnits.Biker = $.extend(true, {}, SpriteAnimations.FightUnits.FlakTrooper);
-//SpriteAnimations.FightUnits.ScrapTank = $.extend(true, {}, SpriteAnimations.FightUnits.FlakTrooper);
-//SpriteAnimations.FightUnits.Bomberman = $.extend(true, {}, SpriteAnimations.FightUnits.FlakTrooper);
-//SpriteAnimations.FightUnits.Sting = $.extend(true, {}, SpriteAnimations.FightUnits.FlakTrooper);
-
 
 SpriteAnimations.FightUnits.Biker = {
 
@@ -179,12 +173,12 @@ SpriteAnimations.FightUnits.Bomberman = {
 
 	resourcePath: 'Bomberman.png',
 
-	frameWidth: 180,
-	frameHeight: 170,
-	framesPerRow: 5,
-	speed: 14,
+	frameWidth: 186,
+	frameHeight: 176,
+	framesPerRow: 4,
+	speed: 8,
 	anchorX: Animator.AnchorX.Center,
-	anchorY: 145,
+	anchorY: 160,
 	
 	sequences: [
 		{
@@ -197,7 +191,7 @@ SpriteAnimations.FightUnits.Bomberman = {
 		{
 			name: 'Idle0',
 			startIndex: 0,
-			frames: 1,
+			frames: 4,
 		},
 
 		{
