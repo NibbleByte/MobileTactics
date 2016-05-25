@@ -121,6 +121,8 @@ var GameToolbarSystem = function () {
 	//
 	var initUnitsInfoList = function () {
 		m_$unitsInfoSelect.empty();
+		
+		var selectedOption = null;
 
 		for (var i = 0; i < UnitsDefinitions.length; ++i) {
 			
@@ -132,10 +134,13 @@ var GameToolbarSystem = function () {
 				var definition = UnitsDefinitions[i][key];
 				var definitionPath = UnitsFactory.generateDefinitionPath(i, definition);
 
-				$('<option />').attr('value', definitionPath).text(definition.name).appendTo(m_$unitsInfoSelect);
+				var option = $('<option />').attr('value', definitionPath).text(definition.name).appendTo(m_$unitsInfoSelect);
+				if (!selectedOption) selectedOption = option;
 			}
 		}
-
+		
+		selectedOption.prop('selected', true);
+		
 		onUnitsInfoListChanged();
 	}
 
