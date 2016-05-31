@@ -64,21 +64,14 @@ SpriteAnimations.FightUnits.PeaceKeeper = {
 	]
 };
 
-// TODO: These units don't have sprites yet. Remove this when they do!
-//SpriteAnimations.FightUnits.Speeder = $.extend(true, {}, SpriteAnimations.FightUnits.PeaceKeeper);
-//SpriteAnimations.FightUnits.HoverCannon = $.extend(true, {}, SpriteAnimations.FightUnits.PeaceKeeper);
-//SpriteAnimations.FightUnits.Comanche = $.extend(true, {}, SpriteAnimations.FightUnits.PeaceKeeper);
-//SpriteAnimations.FightUnits.IonDrone = $.extend(true, {}, SpriteAnimations.FightUnits.PeaceKeeper);
-
-
 SpriteAnimations.FightUnits.Speeder = {
 
 	resourcePath: 'Speeder.png',
 
-	frameWidth: 180,
-	frameHeight: 170,
-	framesPerRow: 5,
-	anchorX: 80,
+	frameWidth: 211,
+	frameHeight: 153,
+	framesPerRow: 4,
+	anchorX: 100,
 	anchorY: 138,
 	
 	sequences: [
@@ -91,21 +84,31 @@ SpriteAnimations.FightUnits.Speeder = {
 		
 		{
 			name: 'Idle0',
-			speed: 15,
+			speed: 6,
 			startIndex: 0,
-			frames: 1,
+			frames: 6,
 		},
 
 		{
 			name: 'Attack',
-			speed: 10,
-			startIndex: 0,
-			frames: 1,
+			speed: 6,
+			startIndex: 6,
+			frames: 12,
+			frameSamples: [null, null, null, null, null, null, 0, 1, 2, 3, 4, 5],
 
 			events: [
 				
 				{
-					frame: 0,
+					frame: 2,
+					event: FightRenderingEvents.Animations.FIRE,
+					params: {
+						weaponType: FightUnitWeaponType.Shotgun,
+						final: false,
+					}
+				},
+
+				{
+					frame: 8,
 					event: FightRenderingEvents.Animations.FIRE,
 					params: {
 						weaponType: FightUnitWeaponType.Shotgun,
