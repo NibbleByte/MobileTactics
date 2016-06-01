@@ -128,8 +128,8 @@ SpriteAnimations.FightUnits.Comanche = {
 	frameWidth: 180,
 	frameHeight: 170,
 	framesPerRow: 5,
-	anchorX: 90,
-	anchorY: 148,
+	anchorX: 98,
+	anchorY: 154,
 	
 	sequences: [
 		{
