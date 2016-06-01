@@ -42,9 +42,10 @@ SpriteAnimations.Units.Speeder = {
 	
 	frameWidth: 78,
 	frameHeight: 72,
-	framesPerRow: 4,
-	anchorX: Animator.AnchorX.Center,
-	anchorY: 40,
+	framesPerRow: 8,
+	anchorX: 37,
+	anchorY: 42,
+	speed: 8,
 	
 	sequences: [
 		{
@@ -54,10 +55,9 @@ SpriteAnimations.Units.Speeder = {
 		},
 		
 		{
-			name: 'Attack',
-			speed: 10,
+			name: 'Idle0',
 			startIndex: 0,
-			frames: 1,
+			frames: 8,
 		},
 		
 	]
