@@ -104,17 +104,25 @@ SpriteAnimations.Units.Comanche = {
 
 	resourcePath: 'Comanche.png',
 
-	frameWidth: 80,
-	frameHeight: 80,
+	frameWidth: 69,
+	frameHeight: 68,
 	framesPerRow: 4,
 	anchorX: Animator.AnchorX.Center,
-	anchorY: 40,
+	anchorY: 38,
 
 	sequences: [
 		{
 			name: 'Idle',
 			startIndex: 0,
 			frames: 1,
+		},
+
+		{
+			name: 'Idle0',
+			speed: 15,
+			startIndex: 0,
+			frames: 4,
+			frameSamples: [null, null, null, 1],
 		},
 
 		{
