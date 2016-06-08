@@ -141,24 +141,24 @@ SpriteAnimations.FightUnits.Comanche = {
 		
 		{
 			name: 'Idle0',
-			speed: 15,
+			speed: 9,
 			startIndex: 0,
-			frames: 1,
+			frames: 5,
 		},
 
 		{
 			name: 'Attack',
-			speed: 10,
-			startIndex: 0,
-			frames: 1,
+			speed: 6,
+			startIndex: 5,
+			frames: 6,
 
 			events: [
 				
 				{
-					frame: 0,
+					frame: 3,
 					event: FightRenderingEvents.Animations.FIRE,
 					params: {
-						weaponType: FightUnitWeaponType.Shotgun,
+						weaponType: FightUnitWeaponType.MachineGun,
 						final: true,
 					}
 				},
