@@ -185,7 +185,6 @@
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\ControllerRenderingSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\DebugTilesRenderingSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\FloatingTextsSystem.js" />
-    <None Include="..\..\MobileClient\www\Javascript\Render\Systems\GameToolbarSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\LayersUpdateSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\AnimationSystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\Render\Systems\IdleAnimationsSystem.js" />
@@ -197,6 +196,11 @@
     <None Include="..\..\MobileClient\www\Javascript\Render\WorldLayers.js" />
     <None Include="..\..\MobileClient\www\Javascript\UI\Game\ActionsMenuController.js" />
     <None Include="..\..\MobileClient\www\Javascript\UI\Game\StoreScreen.js" />
+    <None Include="..\..\MobileClient\www\Javascript\UI\Game\Systems\GameUISystem.js" />
+    <None Include="..\..\MobileClient\www\Javascript\UI\Game\Systems\UIGameHUD.js" />
+    <None Include="..\..\MobileClient\www\Javascript\UI\Game\Systems\UIGameStateInfo.js" />
+    <None Include="..\..\MobileClient\www\Javascript\UI\Game\Systems\UITurnChanged.js" />
+    <None Include="..\..\MobileClient\www\Javascript\UI\Game\Systems\UIUnitsInfo.js" />
     <None Include="..\..\MobileClient\www\Javascript\UI\MenuScreen\MapPreviewMaker.js" />
     <None Include="..\..\MobileClient\www\Javascript\UI\MenuScreen\SkirmishScreen.js" />
     <None Include="..\..\MobileClient\www\Javascript\UI\PopUpManager.js" />

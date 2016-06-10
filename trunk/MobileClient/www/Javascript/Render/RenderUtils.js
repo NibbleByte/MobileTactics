@@ -124,6 +124,14 @@ var RenderUtils = {
 		return true;
 	})(),
 
+
+	appendRow: function (name, value, table, rowClass) {
+		$('<tr>')
+		.append('<td>' + name + ':</td>')
+		.append('<td>' + value + '</td>')
+		.addClass(rowClass)
+		.appendTo(table);
+	},
 };
 
 RenderUtils.supportsFilter = RenderUtils.supports('filter');

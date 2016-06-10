@@ -560,9 +560,6 @@
     <None Include="..\..\MobileClient\www\Javascript\UI\MenuScreen\MapPreviewMaker.js">
       <Filter>Javascript\UI\MenuScreen</Filter>
     </None>
-    <None Include="..\..\MobileClient\www\Javascript\Render\Systems\GameToolbarSystem.js">
-      <Filter>Javascript\Render\Systems</Filter>
-    </None>
     <None Include="..\..\Core\Gameplay\Systems\VictoryStateMonitor.js">
       <Filter>Javascript\Core\Gameplay\Systems</Filter>
     </None>
@@ -583,6 +580,21 @@
     </None>
     <None Include="..\..\Core\AI\AIUtils.js">
       <Filter>Javascript\Core\AI</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Javascript\UI\Game\Systems\GameUISystem.js">
+      <Filter>Javascript\UI\Game\Systems</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Javascript\UI\Game\Systems\UIGameStateInfo.js">
+      <Filter>Javascript\UI\Game\Systems</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Javascript\UI\Game\Systems\UIGameHUD.js">
+      <Filter>Javascript\UI\Game\Systems</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Javascript\UI\Game\Systems\UIUnitsInfo.js">
+      <Filter>Javascript\UI\Game\Systems</Filter>
+    </None>
+    <None Include="..\..\MobileClient\www\Javascript\UI\Game\Systems\UITurnChanged.js">
+      <Filter>Javascript\UI\Game\Systems</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -726,6 +738,9 @@
     </Filter>
     <Filter Include="Javascript\UI\MenuScreen">
       <UniqueIdentifier>{22f4a6b1-4cbf-434b-8c74-5225da22e07c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Javascript\UI\Game\Systems">
+      <UniqueIdentifier>{d16f22a4-5e30-47ec-8034-359678a47714}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
