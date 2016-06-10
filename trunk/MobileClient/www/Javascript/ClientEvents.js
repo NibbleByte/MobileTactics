@@ -30,6 +30,7 @@ var ClientEvents = {
 			STATE_CHANGED: "client.ui.state_changed",		// Arguments: currentState, prevState
 
 			PUSH_STATE: "client.ui.push_state",				// Arguments: state
+			PUSH_STATE_CHECK: "client.ui.push_state_check",	// Arguments: state
 			POP_STATE: "client.ui.pop_state",				// Arguments: 
 			SET_STATE: "client.ui.set_state",				// Arguments: state
 		},

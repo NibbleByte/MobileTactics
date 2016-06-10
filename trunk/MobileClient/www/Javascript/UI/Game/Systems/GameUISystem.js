@@ -11,6 +11,7 @@ var GameUISystem = function () {
 
 	this.initialize = function () {
 		self._eworldSB.subscribe(ClientEvents.UI.PUSH_STATE, onPushState);
+		self._eworldSB.subscribe(ClientEvents.UI.PUSH_STATE_CHECK, onPushStateCheck);
 		self._eworldSB.subscribe(ClientEvents.UI.POP_STATE, onPopState);
 		self._eworldSB.subscribe(ClientEvents.UI.SET_STATE, onSetState);
 	}
@@ -37,6 +38,12 @@ var GameUISystem = function () {
 		self._eworld.trigger(ClientEvents.UI.STATE_CHANGED, state, prevState);
 	}
 
+	var onPushStateCheck = function (state) {
+		if (m_states.last() != state) {
+			onPushState(state);
+		}
+	}
+
 	var onSetState = function (state) {
 		var prevState = m_states.last();
 		m_states = [ GameUISystem.States.None, state ];
@@ -53,6 +60,7 @@ GameUISystem.States = {
 	None: 0,
 	Hidden: 0,
 	HUD: 0,
+	AI: 0,
 	TurnChanged: 0,
 	Menu: 0,
 	UnitInfo: 0,
