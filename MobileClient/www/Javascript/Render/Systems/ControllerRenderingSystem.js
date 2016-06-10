@@ -4,15 +4,12 @@
 //===============================================
 "use strict";
 
-var ControllerRenderingSystem = function (m_renderer, m_gameToolbar) {
+var ControllerRenderingSystem = function (m_renderer) {
 	var self = this;
 	
 	console.assert(m_renderer instanceof SceneRenderer, "SceneRenderer is required.");
 	
 	var m_selectedSprite = null;
-
-	var m_$TurnChangedScreen = $('#TurnChanged');
-	var m_$TurnChangedPlayerName = $('#TurnChangedPlayerName');
 
 	var m_subscriber = new DOMSubscriber();
 
@@ -20,15 +17,24 @@ var ControllerRenderingSystem = function (m_renderer, m_gameToolbar) {
 	// Entity system initialize
 	//
 	this.initialize = function () {
+		
+		self._eworldSB.subscribe(EngineEvents.General.GAME_LOADED, showHUD);
+
 		self._eworldSB.subscribe(ClientEvents.Controller.TILE_SELECTED, onTileSelected);
 
 		self._eworldSB.subscribe(GameplayEvents.GameState.VIEWER_CHANGED, onViewerChanged);
-		self._eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, onTurnChanged);
+
+		self._eworldSB.subscribe(RenderEvents.FightAnimations.FIGHT_STARTED, hideHUD);
+		self._eworldSB.subscribe(RenderEvents.FightAnimations.FIGHT_FINISHED, showHUD);
+
+		self._eworldSB.subscribe(ClientEvents.UI.LOCK_GAME_HUD, onHudLockRefresh);
 
 		m_selectedSprite = m_renderer.createSprite(WorldLayers.LayerTypes.Selection, ControllerRenderingSystem.TILE_SELECTED_SPRITE_PATH)
 		.size(GTile.TILE_WIDTH, GTile.TILE_HEIGHT);
 
 		onTileSelected(null);
+
+		hideHUD();
 	}
 
 	this.uninitialize = function () {
@@ -54,27 +60,33 @@ var ControllerRenderingSystem = function (m_renderer, m_gameToolbar) {
 	var onViewerChanged = function (gameState, hasJustLoaded) {
 		
 		if (gameState.viewerPlayer) {
-			m_$TurnChangedScreen.show();
-			m_gameToolbar.hideToolbar();
-
-			m_$TurnChangedPlayerName.text(gameState.viewerPlayer.name);
+			self._eworld.trigger(ClientEvents.UI.PUSH_STATE, GameUISystem.States.TurnChanged);
 		}
 	}
 
-	var onTurnChanged = function (gameState) {
-		m_gameToolbar.hideToolbar();
+	var onHudLockRefresh = function (lock) {
+
+		if (self._eworld.blackboard[ClientBlackBoard.UI.CURRENT_STATE] == GameUISystem.States.TurnChanged)
+			return;
+
+		if (lock) {
+			hideHUD();
+		} else {
+			showHUD();
+		}
 	}
 
-	var onTurnChangedReady = function () {
-		m_$TurnChangedScreen.hide();
-		m_gameToolbar.showToolbar();
+
+	var hideHUD = function () {
+		self._eworld.trigger(ClientEvents.UI.SET_STATE, GameUISystem.States.Hidden);
 	}
 
-	if (!ClientUtils.isMockUp) {
-		m_subscriber.subscribe($('#BtnTurnChangedReady'), 'click', onTurnChangedReady);
-	} else {
-		m_subscriber.subscribe($('#TurnChanged'), 'click', onTurnChangedReady);
+	var showHUD = function () {
+		self._eworld.trigger(ClientEvents.UI.SET_STATE, GameUISystem.States.HUD);
 	}
+
+	m_subscriber.subscribe(StoreScreen, StoreScreen.Events.STORE_SHOWN, hideHUD);
+	m_subscriber.subscribe(StoreScreen, StoreScreen.Events.STORE_HIDE, showHUD);
 }
 
 ControllerRenderingSystem.TILE_SELECTED_SPRITE_PATH = 'Assets-Scaled/Render/Images/hex_selected.png';

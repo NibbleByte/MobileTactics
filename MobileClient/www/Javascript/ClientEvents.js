@@ -24,7 +24,20 @@ var ClientEvents = {
 			TILE_SELECTED: "client.controller.tile_selected",			// Arguments: event, tile
 		},
 
-		HUD: {
-			LOCK_GAMETOOLBAR: "client.hud.lock_gametoolbar",			// Arguments: lock
+		UI: {
+			LOCK_GAME_HUD: "client.ui.lock_game_hud",		// Arguments: lock
+
+			STATE_CHANGED: "client.ui.state_changed",		// Arguments: currentState, prevState
+
+			PUSH_STATE: "client.ui.push_state",				// Arguments: state
+			POP_STATE: "client.ui.pop_state",				// Arguments: 
+			SET_STATE: "client.ui.set_state",				// Arguments: state
 		},
 }
+
+var ClientBlackBoard = {
+
+	UI: {
+		CURRENT_STATE:		"client.ui.current_state",
+	},
+};

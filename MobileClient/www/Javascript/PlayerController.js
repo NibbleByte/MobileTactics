@@ -275,7 +275,7 @@ var PlayerController = function (m_executor) {
 		var isAI = m_gameState.currentPlayer && m_gameState.currentPlayer.type == Player.Types.AI;
 		var lock = self.isHudLocked() || isAI;
 
-		self._eworld.trigger(ClientEvents.HUD.LOCK_GAMETOOLBAR, lock);
+		self._eworld.trigger(ClientEvents.UI.LOCK_GAME_HUD, lock);
 	}
 }
 
