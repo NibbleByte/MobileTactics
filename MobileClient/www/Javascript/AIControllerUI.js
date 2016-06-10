@@ -24,14 +24,9 @@ var AIControllerUI = function (m_executor, m_aiController) {
 	//
 	this.initialize = function () {
 
-		self._eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, hideToolbar);
-
-		self._eworldSB.subscribe(AIEvents.Simulation.SIMULATION_FINISHED, showToolbar);
-
-		self._eworldSB.subscribe(RenderEvents.FightAnimations.FIGHT_STARTED, hideToolbar);
-		self._eworldSB.subscribe(RenderEvents.FightAnimations.FIGHT_FINISHED, showToolbar);
-
 		self._eworldSB.subscribe(GameplayEvents.Resources.CURRENT_CREDITS_CHANGED, onCreditsChanged);
+
+		self._eworldSB.subscribe(ClientEvents.UI.STATE_CHANGED, onStateChanged);
 
 		if (AIUtils.Debug) {
 			self._eworldSB.subscribe(AIEvents.Execution.CURRENT_ASSIGNMENT_CHANGED, onAssignmentChanged);
@@ -52,21 +47,31 @@ var AIControllerUI = function (m_executor, m_aiController) {
 	};
 
 	this.uninitialize = function () {
-		hideToolbar();
+		hide();
 
 		m_subscriber.unsubscribeAll();
 		m_subscriber = null;
 	}
 
 
-	var showToolbar = function () {
-		if (AIUtils.Debug && self._eworld.extract(GameState).currentPlayer.type == Player.Types.AI)
+	var show = function () {
+		if (AIUtils.Debug)
 			m_$ToolbarContainer.show();
 	}
 
-	var hideToolbar = function () {
+	var hide = function () {
 		m_$ToolbarContainer.hide();
 	}
+
+	var onStateChanged = function (state) {
+
+		if (state != GameUISystem.States.AI) {
+			hide();
+		} else {
+			show();
+		}
+	}
+
 
 	var onCreditsChanged = function (value, delta) {
 		m_$creditsLabel.text(value);

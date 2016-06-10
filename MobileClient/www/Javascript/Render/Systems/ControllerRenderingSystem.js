@@ -24,8 +24,10 @@ var ControllerRenderingSystem = function (m_renderer) {
 
 		self._eworldSB.subscribe(GameplayEvents.GameState.VIEWER_CHANGED, onViewerChanged);
 
-		self._eworldSB.subscribe(RenderEvents.FightAnimations.FIGHT_STARTED, hideHUD);
-		self._eworldSB.subscribe(RenderEvents.FightAnimations.FIGHT_FINISHED, showHUD);
+		self._eworldSB.subscribe(AIEvents.Simulation.SIMULATION_FINISHED, showAI);
+
+		self._eworldSB.subscribe(RenderEvents.FightAnimations.FIGHT_STARTED, pushHidden);
+		self._eworldSB.subscribe(RenderEvents.FightAnimations.FIGHT_FINISHED, popHidden);
 
 		self._eworldSB.subscribe(ClientEvents.UI.LOCK_GAME_HUD, onHudLockRefresh);
 
@@ -34,7 +36,7 @@ var ControllerRenderingSystem = function (m_renderer) {
 
 		onTileSelected(null);
 
-		hideHUD();
+		pushHidden();
 	}
 
 	this.uninitialize = function () {
@@ -60,33 +62,42 @@ var ControllerRenderingSystem = function (m_renderer) {
 	var onViewerChanged = function (gameState, hasJustLoaded) {
 		
 		if (gameState.viewerPlayer) {
-			self._eworld.trigger(ClientEvents.UI.PUSH_STATE, GameUISystem.States.TurnChanged);
+			self._eworld.trigger(ClientEvents.UI.SET_STATE, GameUISystem.States.TurnChanged);
 		}
 	}
 
 	var onHudLockRefresh = function (lock) {
 
-		if (self._eworld.blackboard[ClientBlackBoard.UI.CURRENT_STATE] == GameUISystem.States.TurnChanged)
-			return;
-
 		if (lock) {
-			hideHUD();
+			pushHidden();
 		} else {
-			showHUD();
+			popHidden();
 		}
 	}
 
 
-	var hideHUD = function () {
-		self._eworld.trigger(ClientEvents.UI.SET_STATE, GameUISystem.States.Hidden);
+	var pushHidden = function () {
+		self._eworld.trigger(ClientEvents.UI.PUSH_STATE_CHECK, GameUISystem.States.Hidden);
 	}
+	var popHidden = function () {
+
+		if (self._eworld.blackboard[ClientBlackBoard.UI.CURRENT_STATE] != GameUISystem.States.Hidden)
+			return;
+
+		self._eworld.trigger(ClientEvents.UI.POP_STATE);
+	}
+
 
 	var showHUD = function () {
 		self._eworld.trigger(ClientEvents.UI.SET_STATE, GameUISystem.States.HUD);
 	}
 
-	m_subscriber.subscribe(StoreScreen, StoreScreen.Events.STORE_SHOWN, hideHUD);
-	m_subscriber.subscribe(StoreScreen, StoreScreen.Events.STORE_HIDE, showHUD);
+	var showAI = function () {
+		self._eworld.trigger(ClientEvents.UI.SET_STATE, GameUISystem.States.AI);
+	}
+
+	m_subscriber.subscribe(StoreScreen, StoreScreen.Events.STORE_SHOWN, pushHidden);
+	m_subscriber.subscribe(StoreScreen, StoreScreen.Events.STORE_HIDE, popHidden);
 }
 
 ControllerRenderingSystem.TILE_SELECTED_SPRITE_PATH = 'Assets-Scaled/Render/Images/hex_selected.png';
