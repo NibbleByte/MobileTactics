@@ -358,3 +358,8 @@ button[disabled], .input_file_wrapper[disabled]
 	
 	text-transform: uppercase;
 }
+
+.btn_docked_top_small:active
+{
+	background-image: url('UI/Elements/Button-docked-top-small-pressed.png');
+}
