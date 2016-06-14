@@ -8,6 +8,8 @@ var AIControllerUI = function (m_executor, m_aiController) {
 	var self = this;
 
 	var m_$ToolbarContainer = $('#AIToolbar').hide();
+	var m_$ToolbarDebug = $('#AIToolbarDebug').hide();
+	var m_$LbAIName = $('#LbAIName');
 
 	var m_$BtnPause = $('#BtnAIPause');
 	var m_$BtnNext = $('#BtnAINext');
@@ -26,6 +28,9 @@ var AIControllerUI = function (m_executor, m_aiController) {
 
 		self._eworldSB.subscribe(GameplayEvents.Resources.CURRENT_CREDITS_CHANGED, onCreditsChanged);
 
+		self._eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, onTurnChanged);
+		self._eworldSB.subscribe(GameplayEvents.GameState.NO_PLAYING_PLAYERS, onTurnChanged);
+
 		self._eworldSB.subscribe(ClientEvents.UI.STATE_CHANGED, onStateChanged);
 
 		if (AIUtils.Debug) {
@@ -34,6 +39,11 @@ var AIControllerUI = function (m_executor, m_aiController) {
 		}
 
 		m_$ToolbarContainer.hide();
+
+		if (AIUtils.Debug)
+			m_$ToolbarDebug.show()
+		else
+			m_$ToolbarDebug.hide();
 
 		m_subscriber = new DOMSubscriber();
 
@@ -55,8 +65,7 @@ var AIControllerUI = function (m_executor, m_aiController) {
 
 
 	var show = function () {
-		if (AIUtils.Debug)
-			m_$ToolbarContainer.show();
+		m_$ToolbarContainer.show();
 	}
 
 	var hide = function () {
@@ -75,6 +84,16 @@ var AIControllerUI = function (m_executor, m_aiController) {
 
 	var onCreditsChanged = function (value, delta) {
 		m_$creditsLabel.text(value);
+	}
+
+	var onTurnChanged = function () {
+		var player = self._eworld.extract(GameState).currentPlayer;
+
+		if (player) {
+			m_$LbAIName.text(player.name);
+		} else {
+			m_$LbAIName.text('N/a');
+		}
 	}
 
 	var FLOAT_TEXT_OFFSET = { x: 0, y: -12 };

@@ -58,7 +58,7 @@
 	pointer-events: auto;
 }
 
-#PlayerCreditsContainer, #LbAICredits
+#PlayerCreditsContainer, #BtnAIFastForward
 {
 	position: absolute;
 	left: 0px;
@@ -79,7 +79,7 @@
 	left: 5px;
 }
 
-#LbPlayerName
+#LbPlayerName, #LbAIName
 {
 	position: absolute;
 	bottom: 0px;
@@ -116,6 +116,58 @@
 	position: relative;
 	top: 10px;
 	left: 6px;
+}
+
+
+#BtnAIFastForward > span
+{
+	position: relative;
+	top: 10px;
+	left: 5px;
+}
+
+#BtnAIWaiting
+{
+	position: absolute;
+	right: 0px;
+	bottom: 0px;
+	
+	background-image: url('UI/Elements/End_turn_HUD.png');
+	width: 107px;
+	height: 74px;
+	
+	color: white;
+	text-align: center;
+}
+
+#BtnAIWaiting span
+{
+	position: relative;
+	top: 10px;
+	left: 6px;
+}
+
+#AIToolbarDebug
+{
+	position: absolute;
+	bottom: 20px;
+	left: 0px;
+	right: 0px;
+}
+
+#LbAICredits
+{
+	border: 4px ridge #FFDB1A;
+	border-radius: 6px;
+	background-color: #083B40;
+	color: #E2D747;
+	padding: 4px;
+	
+	min-width: 40px;
+	text-align: right;
+	
+	display: inline-block;
+	text-align: center;
 }
 
 .game_scene_plot
