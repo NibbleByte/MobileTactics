@@ -67,6 +67,7 @@
 	
 	color: white;
 	text-align: left;
+	text-transform: uppercase;
 	
 	background-image: url('UI/Elements/Credits_HUD.png');
 	width: 107px;
@@ -110,6 +111,7 @@
 	
 	color: white;
 	text-align: center;
+	text-transform: uppercase;
 }
 
 #BtnGameNextTurn span
@@ -139,6 +141,7 @@
 	
 	color: white;
 	text-align: center;
+	text-transform: uppercase;
 }
 
 #BtnAIWaiting span
