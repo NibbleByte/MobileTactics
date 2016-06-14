@@ -159,15 +159,21 @@
 			</div>
 
 			<div id="GameMenu" class="dialog_blocker">
-				<div id="GameMenuContainer" class="dialog">
-					<div class="dialog_title">Menu</div>
-					
-					<div class="dialog_buttons">
-						<button id="BtnGameMenuReturn" class="btn_cancel">Return</button>
+				<div id="GameMenuContainer">
+					<div id="GameMenuGroup1">
+						<div id="BtnGameMenuReturn" class="btn_generic_wide btn_cancel">Return To Game</div>
+						<div class="btn_generic_wide" disabled="disabled">Settings</div>
+						<div id="BtnGameMenuQuit" class="btn_generic_wide">Quit</div>
+					</div>
 
-						<button id="BtnGameMenuUnitInfo">Unit Info</button>
-						<button id="BtnGameMenuGameStateInfo">Game Info</button>
-						<button id="BtnGameMenuQuit">Quit</button>
+					<div id="GameMenuGroup2">
+						<div id="BtnGameMenuUnitInfo" class="btn_generic_wide">Unit Info</div>
+						<div id="BtnGameMenuGameStateInfo" class="btn_generic_wide">Game Info</div>
+						<div class="btn_generic_wide" disabled="disabled">Restart Game</div>
+					</div>
+
+					<div id="GameMenuGroup3">
+						<div id="BtnGameMenuFake" class="btn_docked_top_small">Menu</div>
 					</div>
 				</div>
 			</div>
@@ -221,7 +227,7 @@
 
 
 				<div id="BtnGameMenuContainer">
-					<button id="BtnGameMenu">Menu</button>
+					<div id="BtnGameMenu" class="btn_docked_top_small">Menu</div>
 				</div>
 
 

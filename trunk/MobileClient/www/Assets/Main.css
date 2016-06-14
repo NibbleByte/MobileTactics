@@ -318,3 +318,39 @@ button[disabled], .input_file_wrapper[disabled]
 	position: relative;
 	top: -6px;
 }
+
+
+/* Custom elements */
+.btn_generic_wide
+{
+	background-image: url('UI/Elements/Button-wide.png');
+	width: 215px;
+	height: 26px;
+
+	margin: auto;
+	
+	color: white;
+	line-height: 26px;
+}
+
+.btn_generic_wide:active
+{
+	background-image: url('UI/Elements/Button-wide-pressed.png');
+}
+
+.btn_generic_wide[disabled]
+{
+	background-image: url('UI/Elements/Button-wide-disabled.png');
+}
+
+.btn_docked_top_small
+{
+	background-image: url('UI/Elements/Button-docked-top-small.png');
+	width: 120px;
+	height: 26px;
+
+	margin: auto;
+	
+	color: white;
+	line-height: 26px;
+}

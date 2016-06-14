@@ -41,6 +41,7 @@
 	pointer-events: auto;
 }
 
+
 .in_game_toolbar
 {
 	display: none;
@@ -273,12 +274,44 @@
 
 #GameMenuContainer
 {
-	text-align: center;
-	width: 200px;
-	margin: 30px auto;
-	padding: 4px;
+	background-image: url('UI/Elements/Game-Menu-Frame.png');
+	width: 235px;
+	height: 281px;
 	
-	border: 2px cadetblue solid;
-	border-radius: 8px;
-	background-color: rgba(24, 35, 35, 0.9);
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	
+	margin: auto;
+	
+	text-align: center;
+	color: white;
+}
+
+#GameMenuGroup1, #GameMenuGroup2
+{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	margin: auto;
+}
+
+#GameMenuGroup1 .btn_generic_wide, #GameMenuGroup2 .btn_generic_wide
+{
+	margin: 8px auto;
+}
+
+#GameMenuGroup2
+{
+	top: 137px;
+}
+
+#GameMenuGroup3
+{
+	position: absolute;
+	top: 249px;
+	left: 52px;
+	right: 52px;
 }
