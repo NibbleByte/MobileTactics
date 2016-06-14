@@ -20,7 +20,6 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 	var m_$BtnDebug = $('#BtnDebug');
 	var m_$BtnBrowse = $('#BtnBrowse');
 	var m_$BtnAddress = $('#BtnAddress');
-	var m_$LbPlayerName = $('#PlayerName').hide();
 
 	var m_$TbBrowseAddress = $('#TbBrowseAddress');
 
@@ -192,7 +191,6 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 
 		m_$GameWorldMap.hide();
 		m_$ActionMenu.hide();
-		m_$LbPlayerName.hide();
 
 		m_subscriber.unsubscribeAll();
 
@@ -278,6 +276,7 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 		m_eworld.addSystem(new UIUnitsInfo());
 		m_eworld.addSystem(new UIGameStateInfo());
 		m_eworld.addSystem(new UIGameHUD());
+		m_eworld.addSystem(new UIGameMenu());
 		m_eworld.addSystem(new UITurnChanged());
 		m_eworld.addSystem(new ControllerRenderingSystem(worldRenderer));
 		m_eworld.addSystem(new AnimationSystem(worldRenderer));
@@ -445,18 +444,6 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 			}
 		}
 	
-		var onTurnChanged = function () {
-			var player = m_clientState.gameState.currentPlayer;
-
-			if (player) {
-				m_$LbPlayerName.text(player.name);
-			} else {
-				m_$LbPlayerName.text('N/a');
-			}
-
-			m_$LbPlayerName.show();
-		}
-	
 		var m_debugShown = false;
 		var onBtnDebug = function () {
 			
@@ -541,10 +528,6 @@ ClientStateManager.registerState(ClientStateManager.types.TestGame, new function
 				m_$ToolbarMore.toggle();
 			}
 		}
-
-	
-		m_clientState.eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, onTurnChanged);
-		m_clientState.eworldSB.subscribe(GameplayEvents.GameState.NO_PLAYING_PLAYERS, onTurnChanged);
 
 		m_clientState.eworldSB.subscribe(EngineEvents.General.GAME_VALIDATION_FAILED, onValidationFailed);
 		m_clientState.eworldSB.subscribe(EngineEvents.General.GAME_LOADED, onGameLoaded);

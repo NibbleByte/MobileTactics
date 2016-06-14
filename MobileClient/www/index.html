@@ -158,6 +158,20 @@
 				</div>
 			</div>
 
+			<div id="GameMenu" class="dialog_blocker">
+				<div id="GameMenuContainer" class="dialog">
+					<div class="dialog_title">Menu</div>
+					
+					<div class="dialog_buttons">
+						<button id="BtnGameMenuReturn" class="btn_cancel">Return</button>
+
+						<button id="BtnGameMenuUnitInfo">Unit Info</button>
+						<button id="BtnGameMenuGameStateInfo">Game Info</button>
+						<button id="BtnGameMenuQuit">Quit</button>
+					</div>
+				</div>
+			</div>
+
 
 			<div id="TurnChanged" class="dialog_blocker">
 				<div id="TurnChangedContainer" class="dialog dialog_container_floating">
@@ -206,18 +220,21 @@
 				</div>
 
 
-				<div id="PlayerNameContainer">
-					<span id="PlayerName">
-					</span>
+				<div id="BtnGameMenuContainer">
+					<button id="BtnGameMenu">Menu</button>
 				</div>
 
 
 				<div id="GameToolbar" class="in_game_toolbar">
-					<button id="BtnGameUnitInfo">I</button>
-					<button id="BtnGameStateInfo">M</button>
-					<span id="LbCredits">0</span>
-					<button id="BtnGameNextTurn">N</button>
-					<button id="BtnGameQuit">X</button>
+					<div id="LbPlayerName"></div>
+					<div id="PlayerCreditsContainer">
+						<div>
+							<span>Credits: </span><br />
+							<span id="LbCredits"></span> <br />
+							<span id="LbIncome"></span> <br />
+						</div>
+					</div>
+					<div id="BtnGameNextTurn"><span>Next Turn</span></div>
 				</div>
 
 
@@ -698,6 +715,7 @@
 			<script type="text/javascript" src="Javascript/UI/Game/ActionsMenuController.js"></script>
 			<script type="text/javascript" src="Javascript/UI/Game/Systems/GameUISystem.js"></script>
 			<script type="text/javascript" src="Javascript/UI/Game/Systems/UIGameHUD.js"></script>
+			<script type="text/javascript" src="Javascript/UI/Game/Systems/UIGameMenu.js"></script>
 			<script type="text/javascript" src="Javascript/UI/Game/Systems/UIUnitsInfo.js"></script>
 			<script type="text/javascript" src="Javascript/UI/Game/Systems/UIGameStateInfo.js"></script>
 			<script type="text/javascript" src="Javascript/UI/Game/Systems/UITurnChanged.js"></script>

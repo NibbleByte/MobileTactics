@@ -596,6 +596,9 @@
     <None Include="..\..\MobileClient\www\Javascript\UI\Game\Systems\UITurnChanged.js">
       <Filter>Javascript\UI\Game\Systems</Filter>
     </None>
+    <None Include="..\..\MobileClient\www\Javascript\UI\Game\Systems\UIGameMenu.js">
+      <Filter>Javascript\UI\Game\Systems</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

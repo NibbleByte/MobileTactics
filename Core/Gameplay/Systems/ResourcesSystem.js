@@ -33,13 +33,17 @@ var ResourcesSystem = function () {
 		// hasJustLoaded - Turn has not actually passed, so no credits earning.
 		// turnsPassed - First turn doesn't earn anything.
 		var incomeCount = 0;
-		if (m_gameState.turnsPassed != 0 && !hasJustLoaded) {
+		incomeCount += m_gameState.currentStructuresTypes[GameWorldTerrainType.Base].length;
+		incomeCount += m_gameState.currentStructuresTypes[GameWorldTerrainType.Minerals].length;
 
-			incomeCount += m_gameState.currentStructuresTypes[GameWorldTerrainType.Base].length;
-			incomeCount += m_gameState.currentStructuresTypes[GameWorldTerrainType.Minerals].length;
+		m_gameState.currentIncome = player.creditsPerIncome * incomeCount;
+
+		if (m_gameState.turnsPassed != 0 && !hasJustLoaded) {
+			var delta = m_gameState.currentIncome;
+		} else {
+			var delta = 0;
 		}
 
-		var delta = player.creditsPerIncome * incomeCount;
 		player.credits += delta;
 
 		self._eworld.trigger(GameplayEvents.Resources.CURRENT_CREDITS_CHANGED, player.credits, delta);

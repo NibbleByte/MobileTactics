@@ -42,6 +42,8 @@ GameState.prototype.init = function () {
 	this.knownStructures[PlayersData.Relation.Enemy] = [];
 	this.knownStructures[PlayersData.Relation.Neutral] = [];
 	this.knownStructures[PlayersData.Relation.Ally] = [];
+
+	this.currentIncome = 0;
 }
 
 Serialization.registerClass(GameState, 'GameState');
