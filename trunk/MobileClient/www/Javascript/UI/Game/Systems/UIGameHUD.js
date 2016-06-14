@@ -7,9 +7,11 @@
 var UIGameHUD = function () {
 	var self = this;
 
-	var m_$gameToolbar = $('#GameToolbar');
+	var m_$gameHUD = $('#GameToolbar, #BtnGameMenuContainer');
 	var m_$creditsLabel = $('#LbCredits');
+	var m_$incomeLabel = $('#LbIncome');
 	var m_$gameNextTurn = $('#BtnGameNextTurn');
+	var m_$LbPlayerName = $('#LbPlayerName');
 
 	var m_subscriber = new DOMSubscriber();
 
@@ -27,11 +29,14 @@ var UIGameHUD = function () {
 		self._eworldSB.subscribe(GameplayEvents.Resources.CURRENT_CREDITS_CHANGED, onCreditsChanged);
 		self._eworldSB.subscribe(GameplayEvents.GameState.PLAYERS_VICTORIOUS, onPlayersVictorious);
 
+		self._eworldSB.subscribe(GameplayEvents.GameState.TURN_CHANGED, onTurnChanged);
+		self._eworldSB.subscribe(GameplayEvents.GameState.NO_PLAYING_PLAYERS, onTurnChanged);
+
 		self._eworldSB.subscribe(ClientEvents.UI.STATE_CHANGED, onStateChanged);
 	}
 
 	this.uninitialize = function () {
-		m_$gameToolbar.hide();
+		m_$gameHUD.hide();
 
 		m_subscriber.unsubscribeAll();
 	}
@@ -43,12 +48,14 @@ var UIGameHUD = function () {
 		m_gameMetaData = self._eworld.extract(GameMetaData);
 
 		m_$creditsLabel.text('-');
+		m_$incomeLabel.text('-');
 		m_$gameNextTurn.prop('disabled', m_gameState.winners.length != 0);
 	}
 
 
 	var onCreditsChanged = function (value, delta) {
 		m_$creditsLabel.text(value);
+		m_$incomeLabel.text('+' + m_gameState.currentIncome);
 	}
 
 	var onPlayersVictorious = function (winners) {
@@ -66,13 +73,25 @@ var UIGameHUD = function () {
 		});
 	}
 
+	var onTurnChanged = function () {
+		var player = m_gameState.currentPlayer;
+
+		if (player) {
+			m_$LbPlayerName.text(player.name);
+		} else {
+			m_$LbPlayerName.text('N/a');
+		}
+	}
+
+
+
 
 	var show = function () {
-		m_$gameToolbar.show();
+		m_$gameHUD.show();
 	}
 
 	var hide = function () {
-		m_$gameToolbar.hide();
+		m_$gameHUD.hide();
 	}
 
 	var onStateChanged = function (state) {
@@ -85,27 +104,17 @@ var UIGameHUD = function () {
 	}
 
 
-	var onUnitsInfo = function () {
-		self._eworld.trigger(ClientEvents.UI.PUSH_STATE, GameUISystem.States.UnitInfo);
-	}
-
-	var onGameStateInfo = function () {
-		self._eworld.trigger(ClientEvents.UI.PUSH_STATE, GameUISystem.States.GameStateInfo);
-	}
-
 	var onNextTurn = function () {
 		self._eworld.trigger(GameplayEvents.GameState.END_TURN);
 	}
 
-	var onQuit = function () {
-		ClientStateManager.changeState(ClientStateManager.types.MenuScreen);
+	var onMenu = function () {
+		self._eworld.trigger(ClientEvents.UI.PUSH_STATE, GameUISystem.States.Menu);
 	}
 
 
-	m_subscriber.subscribe($('#BtnGameUnitInfo'), 'click', onUnitsInfo);
-	m_subscriber.subscribe($('#BtnGameStateInfo'), 'click', onGameStateInfo);
 	m_subscriber.subscribe(m_$gameNextTurn, 'click', onNextTurn);
-	m_subscriber.subscribe($('#BtnGameQuit'), 'click', onQuit);
+	m_subscriber.subscribe($('#BtnGameMenu'), 'click', onMenu);
 }
 
 ECS.EntityManager.registerSystem('UIGameHUD', UIGameHUD);

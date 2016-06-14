@@ -22,7 +22,7 @@
 	text-align:left;
 }
 
-#PlayerNameContainer
+#BtnGameMenuContainer
 {
 	position: absolute;
 	top: 0px;
@@ -36,28 +36,14 @@
 	pointer-events: none;
 }
 
-#PlayerName
+#BtnGameMenuContainer *
 {
-	display: inline-block;
-	
-	color: white;
-	margin: 4px auto;
-	padding: 4px;
-	border: 2px cadetblue solid;
-	border-radius: 8px;
-	background-color: rgba(24, 35, 35, 0.47);
+	pointer-events: auto;
 }
 
 .in_game_toolbar
 {
 	display: none;
-	
-	position: absolute;
-	bottom: 0px;
-	right: 0px;
-	left: 0px;
-	
-	padding-bottom: 4px;
 	
 	/*z-index: 100;*/
 	
@@ -72,19 +58,64 @@
 	pointer-events: auto;
 }
 
-#LbCredits, #LbAICredits
+#PlayerCreditsContainer, #LbAICredits
 {
-	border: 4px ridge #FFDB1A;
-	border-radius: 6px;
-	background-color: #083B40;
-	color: #E2D747;
-	padding: 4px;
+	position: absolute;
+	left: 0px;
+	bottom: 0px;
 	
-	min-width: 40px;
-	text-align: right;
+	color: white;
+	text-align: left;
 	
-	display: inline-block;
+	background-image: url('UI/Elements/Credits_HUD.png');
+	width: 107px;
+	height: 74px;
+}
+
+#PlayerCreditsContainer > div
+{
+	position: relative;
+	top: 10px;
+	left: 5px;
+}
+
+#LbPlayerName
+{
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	
+	width: 172px;
+	height: 32px;
+	margin: auto;
+	
+	color: white;
 	text-align: center;
+	line-height: 40px;
+	
+	background-image: url('UI/Elements/Player_name_HUD.png');
+}
+
+#BtnGameNextTurn
+{
+	position: absolute;
+	right: 0px;
+	bottom: 0px;
+	
+	background-image: url('UI/Elements/End_turn_HUD.png');
+	width: 107px;
+	height: 74px;
+	
+	color: white;
+	text-align: center;
+}
+
+#BtnGameNextTurn span
+{
+	position: relative;
+	top: 10px;
+	left: 6px;
 }
 
 .game_scene_plot
@@ -171,4 +202,31 @@
 #TurnChangedPlayerLable
 {
 	margin-top: 125px;
+}
+
+
+
+#GameMenu.dialog_blocker
+{
+	background-color: initial;
+}
+
+#GameMenu .dialog_buttons button
+{
+	display: block;
+	margin: 12px auto;
+	width: 120px;
+	height: 35px;
+}
+
+#GameMenuContainer
+{
+	text-align: center;
+	width: 200px;
+	margin: 30px auto;
+	padding: 4px;
+	
+	border: 2px cadetblue solid;
+	border-radius: 8px;
+	background-color: rgba(24, 35, 35, 0.9);
 }

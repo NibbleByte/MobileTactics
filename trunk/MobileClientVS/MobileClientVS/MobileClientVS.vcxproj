@@ -198,6 +198,7 @@
     <None Include="..\..\MobileClient\www\Javascript\UI\Game\StoreScreen.js" />
     <None Include="..\..\MobileClient\www\Javascript\UI\Game\Systems\GameUISystem.js" />
     <None Include="..\..\MobileClient\www\Javascript\UI\Game\Systems\UIGameHUD.js" />
+    <None Include="..\..\MobileClient\www\Javascript\UI\Game\Systems\UIGameMenu.js" />
     <None Include="..\..\MobileClient\www\Javascript\UI\Game\Systems\UIGameStateInfo.js" />
     <None Include="..\..\MobileClient\www\Javascript\UI\Game\Systems\UITurnChanged.js" />
     <None Include="..\..\MobileClient\www\Javascript\UI\Game\Systems\UIUnitsInfo.js" />
