@@ -58,7 +58,7 @@ var UIGameMenu = function () {
 		ClientStateManager.changeState(ClientStateManager.types.MenuScreen);
 	}
 
-	m_subscriber.subscribe($('#BtnGameMenuReturn'), 'click', onReturn);
+	m_subscriber.subscribe($('#BtnGameMenuReturn, #BtnGameMenuReturnSecondary'), 'click', onReturn);
 	m_subscriber.subscribe($('#BtnGameMenuUnitInfo'), 'click', onUnitsInfo);
 	m_subscriber.subscribe($('#BtnGameMenuGameStateInfo'), 'click', onGameStateInfo);
 	m_subscriber.subscribe($('#BtnGameMenuQuit'), 'click', onQuit);
