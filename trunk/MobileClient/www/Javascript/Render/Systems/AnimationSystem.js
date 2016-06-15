@@ -25,7 +25,7 @@ var AnimationSystem = function (m_renderer, m_manual) {
 			m_ticker.pause();
 		}
 
-		if (AnimationSystem.currentTweenOwner == this)
+		if (AnimationSystem.currentTweenOwner == self)
 			AnimationSystem.currentTweenOwner = null;
 	}
 
@@ -43,7 +43,7 @@ var AnimationSystem = function (m_renderer, m_manual) {
 
 			m_dataObjects = [];
 
-			if (AnimationSystem.currentTweenOwner == this)
+			if (AnimationSystem.currentTweenOwner == self)
 				AnimationSystem.currentTweenOwner = null;
 		}
 	}
@@ -164,9 +164,9 @@ var AnimationSystem = function (m_renderer, m_manual) {
 		}
 
 		if (AnimationSystem.currentTweenOwner == null) {
-			AnimationSystem.currentTweenOwner = this;
+			AnimationSystem.currentTweenOwner = self;
 		}
-		if (AnimationSystem.currentTweenOwner == this && Tweener.looping) {
+		if (AnimationSystem.currentTweenOwner == self && Tweener.looping) {
 			Tweener.step();
 		}
 	}

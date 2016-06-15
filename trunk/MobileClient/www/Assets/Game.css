@@ -22,26 +22,6 @@
 	text-align:left;
 }
 
-#BtnGameMenuContainer
-{
-	position: absolute;
-	top: 0px;
-	right: 0px;
-	left: 0px;
-	
-	/*z-index: 100;*/
-	
-	text-align: center;
-	
-	pointer-events: none;
-}
-
-#BtnGameMenuContainer *
-{
-	pointer-events: auto;
-}
-
-
 .in_game_toolbar
 {
 	display: none;
@@ -261,18 +241,27 @@
 }
 
 
-
-#GameMenu.dialog_blocker
+#GameMenu
 {
-	background-color: initial;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	z-index: 100;
+	
+	pointer-events: none;
+	display: none;
 }
 
-#GameMenu .dialog_buttons button
+#GameMenu > *
 {
-	display: block;
-	margin: 12px auto;
-	width: 120px;
-	height: 35px;
+	pointer-events: auto;
+}
+
+#GameMenu .dialog_blocker
+{
+	background-color: initial;
 }
 
 #GameMenuContainer
@@ -290,6 +279,8 @@
 	
 	text-align: center;
 	color: white;
+	
+	z-index: 200;
 }
 
 #GameMenuGroup1, #GameMenuGroup2
