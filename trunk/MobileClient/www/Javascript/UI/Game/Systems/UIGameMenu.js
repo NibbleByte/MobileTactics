@@ -39,6 +39,11 @@ var UIGameMenu = function () {
 	}
 
 	var showIn = function () {
+		if (AnimationSystem.currentTweenOwner == null) {
+			show();
+			return;
+		}
+
 		m_$MenuScreen.show();
 		m_$MenuBlocker.show();
 
@@ -49,6 +54,11 @@ var UIGameMenu = function () {
 	}
 
 	var hideOut = function () {
+		if (AnimationSystem.currentTweenOwner == null) {
+			hideInit();
+			return;
+		}
+
 		m_$MenuScreen.show();
 		m_$MenuBlocker.hide();
 
