@@ -462,6 +462,7 @@ UnitsDefinitions[Player.Races.JunkPeople] = {
 		weakVS: [],
 
 		baseStatistics: {
+			FirePower: 3,
 			AttackLight: 6,
 			AttackHeavy: 4,
 			AttackAerial: 3,

@@ -11,7 +11,11 @@ var UIGameHUD = function () {
 	var m_$creditsLabel = $('#LbCredits');
 	var m_$incomeLabel = $('#LbIncome');
 	var m_$gameNextTurn = $('#BtnGameNextTurn');
+	var m_$creditsContainer = $('#PlayerCreditsContainer');
 	var m_$LbPlayerName = $('#LbPlayerName');
+
+	var SIDE_BUTTONS_WIDTH = m_$gameNextTurn.width();
+	var BOTTOM_NAME_HEIGHT = m_$LbPlayerName.height();
 
 	var m_subscriber = new DOMSubscriber();
 
@@ -84,22 +88,81 @@ var UIGameHUD = function () {
 	}
 
 
+	var updateButtonsPosition = function (tween) {
+		if (self._eworld.blackboard[ClientBlackBoard.UI.CURRENT_STATE] != tween.workingState) {
+			Tweener.cancel(tween.tweenHandle);
+			return;
+		}
 
+		m_$LbPlayerName.css('bottom', Math.round(-tween.bottomNameY));
+		m_$gameNextTurn.css('right', Math.round(-tween.sideButtonsX));
+		m_$creditsContainer.css('left', Math.round(-tween.sideButtonsX));
+	}
+
+	var updateButtonsComplete = function () {
+		m_$gameHUD.hide();
+	}
+
+	var showIn = function () {
+		if (AnimationSystem.currentTweenOwner == null) {
+			show();
+			return;
+		}
+
+		m_$gameHUD.show();
+
+		var tween = {
+			bottomNameY: BOTTOM_NAME_HEIGHT,
+			sideButtonsX: SIDE_BUTTONS_WIDTH,
+			workingState: self._eworld.blackboard[ClientBlackBoard.UI.CURRENT_STATE]
+		};
+
+		tween.tweenHandle = 
+			Tweener.addTween(tween, {bottomNameY: 0, sideButtonsX: 0, time: 0.75, delay: 0, transition: 'easeOutQuint', onUpdate: updateButtonsPosition, onUpdateParams: [ tween ]});
+	}
 
 	var show = function () {
 		m_$gameHUD.show();
+
+		m_$LbPlayerName.css('bottom', 0);
+		m_$gameNextTurn.css('right', 0);
+		m_$creditsContainer.css('left', 0);
 	}
 
 	var hide = function () {
 		m_$gameHUD.hide();
 	}
 
-	var onStateChanged = function (state) {
+	var hideOut = function () {
+		if (AnimationSystem.currentTweenOwner == null) {
+			hide();
+			return;
+		}
+
+		var tween = {
+			bottomNameY: 0,
+			sideButtonsX: 0,
+			workingState: self._eworld.blackboard[ClientBlackBoard.UI.CURRENT_STATE]
+		};
+
+		tween.tweenHandle = 
+			Tweener.addTween(tween, {bottomNameY: BOTTOM_NAME_HEIGHT, sideButtonsX: SIDE_BUTTONS_WIDTH, time: 0.75, delay: 0, transition: 'easeOutQuint', onUpdate: updateButtonsPosition, onUpdateParams: [ tween ], onComplete: updateButtonsComplete});
+	}
+
+	var onStateChanged = function (state, prevState) {
 
 		if (state != GameUISystem.States.HUD) {
-			hide();
+			if (state == GameUISystem.States.Menu) {
+				hideOut();
+			} else {
+				hide();
+			}
 		} else {
-			show();
+			if (prevState == GameUISystem.States.Menu) {
+				showIn();
+			} else {
+				show();
+			}
 		}
 	}
 
