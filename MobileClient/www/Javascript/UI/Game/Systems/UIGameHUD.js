@@ -7,7 +7,7 @@
 var UIGameHUD = function () {
 	var self = this;
 
-	var m_$gameHUD = $('#GameToolbar, #BtnGameMenuContainer');
+	var m_$gameHUD = $('#GameToolbar');
 	var m_$creditsLabel = $('#LbCredits');
 	var m_$incomeLabel = $('#LbIncome');
 	var m_$gameNextTurn = $('#BtnGameNextTurn');
@@ -108,13 +108,8 @@ var UIGameHUD = function () {
 		self._eworld.trigger(GameplayEvents.GameState.END_TURN);
 	}
 
-	var onMenu = function () {
-		self._eworld.trigger(ClientEvents.UI.PUSH_STATE, GameUISystem.States.Menu);
-	}
-
 
 	m_subscriber.subscribe(m_$gameNextTurn, 'click', onNextTurn);
-	m_subscriber.subscribe($('#BtnGameMenu'), 'click', onMenu);
 }
 
 ECS.EntityManager.registerSystem('UIGameHUD', UIGameHUD);
