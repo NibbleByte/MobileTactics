@@ -25,6 +25,7 @@ SpriteAnimations.FightUnits.PeaceKeeper = {
 			frames: 4,
 		},
 		
+		/*
 		{
 			name: 'Run',
 			speed: 10,
@@ -32,18 +33,19 @@ SpriteAnimations.FightUnits.PeaceKeeper = {
 			frames: 8,
 			wrapMode: Animator.WrapMode.Loop,
 		},
+		*/
 
 		{
 			name: 'Attack',
 			speed: 7,
-			startIndex: 12,
-			frames: 21,
-			frameSamples: [null, null, null, null, null, null, null, null, null, null, 3, 4, 5, 6, 7, 8, 9, 3, 10, 11, 0],
+			startIndex: 4,
+			frames: 17,
+			//frameSamples: [null, null, null, null, null, null, null, null, null, null, 3, 4, 5, 6, 7, 8, 9, 3, 10, 11, 0],
 
 			events: [
 				
 				{
-					frame: 6,
+					frame: 4,
 					event: FightRenderingEvents.Animations.FIRE,
 					params: {
 						weaponType: FightUnitWeaponType.Shotgun,
@@ -51,7 +53,7 @@ SpriteAnimations.FightUnits.PeaceKeeper = {
 				},
 
 				{
-					frame: 13,
+					frame: 10,
 					event: FightRenderingEvents.Animations.FIRE,
 					params: {
 						weaponType: FightUnitWeaponType.Shotgun,
