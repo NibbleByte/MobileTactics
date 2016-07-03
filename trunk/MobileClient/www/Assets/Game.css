@@ -98,7 +98,7 @@
 {
 	position: relative;
 	top: 10px;
-	left: 6px;
+	left: 2px;
 }
 
 
@@ -115,20 +115,13 @@
 	right: 0px;
 	bottom: 0px;
 	
-	background-image: url('UI/Elements/End_turn_HUD.png');
+	background-image: url('UI/Elements/End_turn_HUD-hourglass.png');
 	width: 107px;
 	height: 74px;
 	
 	color: white;
 	text-align: center;
 	text-transform: uppercase;
-}
-
-#BtnAIWaiting span
-{
-	position: relative;
-	top: 10px;
-	left: 6px;
 }
 
 #AIToolbarDebug
